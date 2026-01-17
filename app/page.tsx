@@ -1,5 +1,6 @@
 import { GlassmorphismNav } from "../components/glassmorphism-nav"
 import { HeroSection } from "../components/hero-section"
+import { ValueProposition } from "../components/value-proposition"
 import { LiveDashboard } from "../components/live-dashboard"
 import { ConstellationVisual } from "../components/constellation-visual"
 
@@ -21,6 +22,7 @@ export default function HomePage() {
         <div className="relative z-10">
           <GlassmorphismNav />
           <HeroSection />
+          <ValueProposition />
           <LiveDashboard />
           <TransformationDemos />
           <FeaturesSection />
