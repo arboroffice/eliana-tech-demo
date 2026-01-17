@@ -15,7 +15,24 @@ const FEATURED_INDUSTRIES = [
   { name: "Ecommerce", href: "/ecommerce" },
   { name: "Restaurants", href: "/restaurants" },
   { name: "Finance", href: "/finance" },
-  { name: "Salons & Spas", href: "/barbers-salons" }
+  { name: "Salons & Spas", href: "/barbers-salons" },
+  { name: "Construction & Trades", href: "/construction-trades" },
+  { name: "Creative & Marketing", href: "/creative-marketing" },
+  { name: "Education & Training", href: "/education-training" },
+  { name: "Energy & Solar", href: "/energy-solar" },
+  { name: "Food & Hospitality", href: "/food-hospitality" },
+  { name: "Health & Wellness", href: "/health-wellness" },
+  { name: "Home Services", href: "/home-services" },
+  { name: "Industrial & B2B Services", href: "/industrial-b2b-services" },
+  { name: "Legal & Insurance", href: "/legal-insurance" },
+  { name: "Manufacturing & Production", href: "/manufacturing-production" },
+  { name: "Oil & Gas", href: "/oil-gas" },
+  { name: "Private Equity", href: "/private-equity" },
+  { name: "Professional Services", href: "/professional-services" },
+  { name: "Real Estate Development", href: "/real-estate-development" },
+  { name: "Tech & Software", href: "/tech-software" },
+  { name: "Transportation & Logistics", href: "/transportation-logistics" },
+  { name: "Wholesale & Distribution", href: "/wholesale-distribution" }
 ]
 
 export function GlassmorphismNav() {
@@ -71,7 +88,7 @@ export function GlassmorphismNav() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute top-full left-1/2 -translate-x-1/2 w-[600px] bg-black/90 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl grid grid-cols-2 gap-4"
+                    className="absolute top-full left-1/2 -translate-x-1/2 w-[800px] bg-black/90 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl grid grid-cols-3 gap-4"
                   >
                     {FEATURED_INDUSTRIES.map((item) => (
                       <Link
