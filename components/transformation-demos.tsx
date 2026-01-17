@@ -213,7 +213,7 @@ export function TransformationDemos() {
                             <h3 className="text-2xl font-bold mb-2">{item.title}</h3>
                             <p className="text-slate-400 mb-8">{item.description}</p>
 
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div className="bg-red-950/20 rounded-xl p-4 border border-red-900/30">
                                     <div className="text-xs font-bold text-red-400 mb-4 uppercase tracking-wider">{item.before.label}</div>
                                     {item.before.visual}

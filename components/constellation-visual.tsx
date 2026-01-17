@@ -35,7 +35,7 @@ export function ConstellationVisual() {
                     </p>
                 </div>
 
-                <div className="relative w-full max-w-3xl mx-auto aspect-square md:aspect-[16/9] lg:h-[600px]">
+                <div className="relative w-full max-w-3xl mx-auto aspect-[4/3] md:aspect-[16/9] lg:h-[600px]">
                     {/* The "Orbit" Container */}
                     <div className="absolute inset-0 flex items-center justify-center">
 

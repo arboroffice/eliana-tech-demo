@@ -86,7 +86,7 @@ export function LiveDashboard() {
 
                     {/* The Dashboard Interface */}
                     <div className="w-full lg:w-2/3">
-                        <div className="bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl relative overflow-hidden">
+                        <div className="bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-2xl p-4 md:p-6 shadow-2xl relative overflow-hidden">
                             {/* Fake Window Controls */}
                             <div className="flex items-center gap-2 mb-6 border-b border-white/5 pb-4">
                                 <div className="w-3 h-3 rounded-full bg-red-500/20 border border-red-500/50" />
