@@ -2,7 +2,6 @@ import { GlassmorphismNav } from "../components/glassmorphism-nav"
 import { HeroSection } from "../components/hero-section"
 import { ValueProposition } from "../components/value-proposition"
 import { LiveDashboard } from "../components/live-dashboard"
-import { ConstellationVisual } from "../components/constellation-visual"
 
 import Aurora from "../components/Aurora"
 import { FeaturesSection } from "../components/features-section"
@@ -27,7 +26,6 @@ export default function HomePage() {
           <TransformationDemos />
           <FeaturesSection />
           <AITeamSection />
-          <ConstellationVisual />
           <TestimonialsSection />
 
           <CTASection />
