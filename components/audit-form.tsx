@@ -11,6 +11,7 @@ import { Slider } from "@/components/ui/slider"
 import { Textarea } from "@/components/ui/textarea"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Card } from "@/components/ui/card"
+import { AuditResults } from "@/components/audit-results"
 
 const STEPS = [
     "Basics",
@@ -92,6 +93,7 @@ export function AuditForm() {
     const [currentStep, setCurrentStep] = useState(0)
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [isSuccess, setIsSuccess] = useState(false)
+    const [showResults, setShowResults] = useState(false)
 
     const [formData, setFormData] = useState<FormData>({
         // Step 1: Basics
@@ -214,14 +216,18 @@ export function AuditForm() {
     const handleSubmit = async () => {
         setIsSubmitting(true)
         try {
-            const response = await fetch("https://hook.us2.make.com/80bkfpmxwbfs28uzg9wknmbk9pnkq57j", {
+            // Submit to your API route for processing
+            const response = await fetch("/api/audit/submit", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData),
             })
 
-            if (response.ok) {
+            const data = await response.json()
+
+            if (response.ok && data.success) {
                 setIsSuccess(true)
+                setShowResults(true)
                 window.scrollTo({ top: 0, behavior: 'smooth' })
             } else {
                 alert("Something went wrong. Please try again.")
@@ -234,24 +240,8 @@ export function AuditForm() {
         }
     }
 
-    if (isSuccess) {
-        return (
-            <div className="max-w-2xl mx-auto p-8 text-center">
-                <div className="mb-6 flex justify-center">
-                    <div className="h-20 w-20 bg-green-500 rounded-full flex items-center justify-center">
-                        <Check className="h-10 w-10 text-white" />
-                    </div>
-                </div>
-                <h2 className="text-3xl font-bold text-white mb-4">Audit Submitted Successfully!</h2>
-                <p className="text-slate-300 text-lg mb-8">
-                    Thank you for completing the audit. We are analyzing your data and will send your custom report to
-                    <span className="text-white font-medium"> {formData.email}</span> shortly.
-                </p>
-                <Button onClick={() => window.location.href = "/"} className="bg-white text-black hover:bg-slate-200">
-                    Return Home
-                </Button>
-            </div>
-        )
+    if (isSuccess && showResults) {
+        return <AuditResults formData={formData} auditScore={75} />
     }
 
     return (
@@ -338,15 +328,15 @@ export function AuditForm() {
                         {currentStep === 1 && (
                             <div className="space-y-6">
                                 <div className="space-y-2">
-                                    <Label>Current Monthly Revenue</Label>
+                                    <Label>Current Monthly Revenue Stage</Label>
                                     <Select value={formData.currentRevenue} onValueChange={(val: string) => updateField("currentRevenue", val)}>
-                                        <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select Range" /></SelectTrigger>
+                                        <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select Stage" /></SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="<10k">Less than $10k</SelectItem>
-                                            <SelectItem value="10k-50k">$10k - $50k</SelectItem>
-                                            <SelectItem value="50k-100k">$50k - $100k</SelectItem>
-                                            <SelectItem value="100k-500k">$100k - $500k</SelectItem>
-                                            <SelectItem value="500k+">$500k+</SelectItem>
+                                            <SelectItem value="early">Early Stage (Foundation)</SelectItem>
+                                            <SelectItem value="growth">Growth Stage (Scaling)</SelectItem>
+                                            <SelectItem value="established">Established Business</SelectItem>
+                                            <SelectItem value="leader">Market Leader</SelectItem>
+                                            <SelectItem value="enterprise">Enterprise / Scaling Fast</SelectItem>
                                         </SelectContent>
                                     </Select>
                                 </div>
@@ -462,15 +452,15 @@ export function AuditForm() {
                                 </div>
                                 <div className="grid md:grid-cols-2 gap-4">
                                     <div className="space-y-2">
-                                        <Label>Average Deal Size</Label>
+                                        <Label>Average Transaction / Deal Size</Label>
                                         <Select value={formData.dealSize} onValueChange={(val: string) => updateField("dealSize", val)}>
-                                            <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                            <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select Size..." /></SelectTrigger>
                                             <SelectContent>
-                                                <SelectItem value="<1k">Less than $1k</SelectItem>
-                                                <SelectItem value="1k-5k">$1k - $5k</SelectItem>
-                                                <SelectItem value="5k-10k">$5k - $10k</SelectItem>
-                                                <SelectItem value="10k-50k">$10k - $50k</SelectItem>
-                                                <SelectItem value="50k+">$50k+</SelectItem>
+                                                <SelectItem value="micro">Micro Transactions</SelectItem>
+                                                <SelectItem value="small">Small (Standard Consumer)</SelectItem>
+                                                <SelectItem value="medium">Medium (Premium Service)</SelectItem>
+                                                <SelectItem value="high">High-Value (B2B/Contract)</SelectItem>
+                                                <SelectItem value="enterprise">Enterprise / Large Scale</SelectItem>
                                             </SelectContent>
                                         </Select>
                                     </div>
@@ -494,14 +484,14 @@ export function AuditForm() {
                         {currentStep === 4 && (
                             <div className="space-y-6">
                                 <div className="space-y-2">
-                                    <Label>12-Month Revenue Goal</Label>
+                                    <Label>12-Month Expansion Goal</Label>
                                     <Select value={formData.revenueGoal} onValueChange={(val: string) => updateField("revenueGoal", val)}>
-                                        <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                        <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select Goal..." /></SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="100k">$100k</SelectItem>
-                                            <SelectItem value="500k">$500k</SelectItem>
-                                            <SelectItem value="1M">$1 Million</SelectItem>
-                                            <SelectItem value="3M+">$3 Million+</SelectItem>
+                                            <SelectItem value="double">Double Current Output</SelectItem>
+                                            <SelectItem value="scale">Significant Market Expansion</SelectItem>
+                                            <SelectItem value="dominate">Become Market Leader</SelectItem>
+                                            <SelectItem value="legacy">Build Legacy / Exit-Ready State</SelectItem>
                                         </SelectContent>
                                     </Select>
                                 </div>
@@ -532,8 +522,7 @@ export function AuditForm() {
                                             <h4 className="text-blue-400 font-medium text-sm uppercase">Service Business Metrics</h4>
                                             <div className="grid md:grid-cols-2 gap-4">
                                                 <div className="space-y-2"><Label>Leads per Month</Label><Input value={formData.hvacLeadsPerMonth} onChange={e => updateField("hvacLeadsPerMonth", e.target.value)} className="bg-slate-900" /></div>
-                                                <div className="space-y-2"><Label>Close Rate %</Label><Input value={formData.hvacCloseRate} onChange={e => updateField("hvacCloseRate", e.target.value)} className="bg-slate-900" /></div>
-                                                <div className="space-y-2"><Label>Avg Repair Ticket $</Label><Input value={formData.hvacAvgTicket} onChange={e => updateField("hvacAvgTicket", e.target.value)} className="bg-slate-900" /></div>
+                                                <div className="space-y-2"><Label>Average Ticket Value</Label><Input value={formData.hvacAvgTicket} onChange={e => updateField("hvacAvgTicket", e.target.value)} className="bg-slate-900" /></div>
                                                 <div className="space-y-2"><Label>Membership/Maint. %</Label><Input value={formData.hvacMaintenance} onChange={e => updateField("hvacMaintenance", e.target.value)} className="bg-slate-900" /></div>
                                             </div>
                                         </div>
@@ -544,7 +533,7 @@ export function AuditForm() {
                                         <h4 className="text-purple-400 font-medium text-sm uppercase">Growth Metrics</h4>
                                         <div className="grid md:grid-cols-2 gap-4">
                                             <div className="space-y-2"><Label>Customer Retention Rate %</Label><Input value={formData.retentionRate} onChange={e => updateField("retentionRate", e.target.value)} className="bg-slate-900" /></div>
-                                            <div className="space-y-2"><Label>Average Lifetime Value $</Label><Input value={formData.customerValue} onChange={e => updateField("customerValue", e.target.value)} className="bg-slate-900" /></div>
+                                            <div className="space-y-2"><Label>Average Customer Lifetime Value</Label><Input value={formData.customerValue} onChange={e => updateField("customerValue", e.target.value)} className="bg-slate-900" /></div>
                                         </div>
                                     </div>
                                 )}
@@ -567,7 +556,7 @@ export function AuditForm() {
                                     </Select>
                                 </div>
                                 <div className="space-y-2">
-                                    <Label>% Time on High-Value Work ($500/hr+)</Label>
+                                    <Label>% Time on Strategic / High-Value Work</Label>
                                     <Select value={formData.highValueWork} onValueChange={(val: string) => updateField("highValueWork", val)}>
                                         <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
                                         <SelectContent>
@@ -794,15 +783,15 @@ export function AuditForm() {
                                     </Select>
                                 </div>
                                 <div className="space-y-2">
-                                    <Label>Budget for Growth Investments</Label>
+                                    <Label>Investment Tolerance for Growth</Label>
                                     <Select value={formData.growthBudget} onValueChange={(val: string) => updateField("growthBudget", val)}>
-                                        <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                        <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select Tolerance..." /></SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="<1k">Less than $1k</SelectItem>
-                                            <SelectItem value="1k-2.5k">$1k - $2.5k</SelectItem>
-                                            <SelectItem value="2.5k-5k">$2.5k - $5k</SelectItem>
-                                            <SelectItem value="5k-10k">$5k - $10k</SelectItem>
-                                            <SelectItem value="10k+">$10k+</SelectItem>
+                                            <SelectItem value="starter">Starting Foundation</SelectItem>
+                                            <SelectItem value="moderate">Steady Growth</SelectItem>
+                                            <SelectItem value="aggressive">Aggressive Scaling</SelectItem>
+                                            <SelectItem value="leader">Market Dominance</SelectItem>
+                                            <SelectItem value="enterprise">Full System Overhaul</SelectItem>
                                         </SelectContent>
                                     </Select>
                                 </div>

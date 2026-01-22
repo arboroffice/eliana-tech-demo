@@ -1,15 +1,15 @@
 import { GlassmorphismNav } from "../components/glassmorphism-nav"
 import { HeroSection } from "../components/hero-section"
 import { ValueProposition } from "../components/value-proposition"
-import { LiveDashboard } from "../components/live-dashboard"
+import { CoFounderModelSection } from "../components/co-founder-model-section"
+import { IndustriesSection } from "../components/industries-section"
+
+
 
 import Aurora from "../components/Aurora"
-import { FeaturesSection } from "../components/features-section"
-import { AITeamSection } from "../components/ai-team-section"
 import { TestimonialsSection } from "../components/testimonials-section"
 import { CTASection } from "../components/cta-section"
 import { Footer } from "../components/footer"
-import { TransformationDemos } from "../components/transformation-demos"
 
 export default function HomePage() {
   return (
@@ -22,11 +22,11 @@ export default function HomePage() {
           <GlassmorphismNav />
           <HeroSection />
           <ValueProposition />
-          <LiveDashboard />
-          <TransformationDemos />
-          <FeaturesSection />
-          <AITeamSection />
+          <CoFounderModelSection />
+
           <TestimonialsSection />
+          <IndustriesSection />
+
 
           <CTASection />
           <Footer />

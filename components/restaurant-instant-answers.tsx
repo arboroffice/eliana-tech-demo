@@ -22,7 +22,7 @@ export function RestaurantInstantAnswers() {
         {
             icon: Calendar,
             title: "Events & Private Dining",
-            description: "Captures leads for private events, sending brochures and pricing automatically to potential clients."
+            description: "Captures leads for private events, sending menus and availability automatically to potential clients."
         }
     ]
 

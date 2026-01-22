@@ -9,7 +9,7 @@ import { TrendingUp, Users, DollarSign, Clock } from "lucide-react"
 interface CalculatorInputs {
   monthlyVisitors: number
   currentConversionRate: number
-  averageOrderValue: number
+  averageLeadValue: number
   businessType: string
 }
 
@@ -17,7 +17,7 @@ export function ROICalculatorSection() {
   const [inputs, setInputs] = useState<CalculatorInputs>({
     monthlyVisitors: 10000,
     currentConversionRate: 2,
-    averageOrderValue: 150,
+    averageLeadValue: 150,
     businessType: "ecommerce",
   })
 
@@ -60,7 +60,7 @@ export function ROICalculatorSection() {
 
   useEffect(() => {
     const defaults = getBusinessDefaults()
-    setInputs((prev) => ({ ...prev, averageOrderValue: defaults.avgOrder }))
+    setInputs((prev) => ({ ...prev, averageLeadValue: defaults.avgOrder }))
   }, [inputs.businessType])
 
   const businessConfig = getBusinessDefaults()
@@ -72,17 +72,17 @@ export function ROICalculatorSection() {
 
   // Current metrics
   const currentLeads = Math.round((inputs.monthlyVisitors * inputs.currentConversionRate) / 100)
-  const currentRevenue = currentLeads * inputs.averageOrderValue
+  const currentGrowthScore = currentLeads * inputs.averageLeadValue
 
   // Improved metrics with AI chatbot
   const newConversionRate = inputs.currentConversionRate * (1 + improvements.conversion / 100)
   const newLeads = Math.round((inputs.monthlyVisitors * newConversionRate) / 100)
-  const newRevenue = newLeads * inputs.averageOrderValue
+  const newGrowthScore = newLeads * inputs.averageLeadValue
 
   // Gains
   const additionalLeads = newLeads - currentLeads
-  const additionalRevenue = newRevenue - currentRevenue
-  const revenueIncrease = ((newRevenue - currentRevenue) / currentRevenue) * 100
+  const growthScoreIncrease = newGrowthScore - currentGrowthScore
+  const percentageIncrease = ((newGrowthScore - currentGrowthScore) / currentGrowthScore) * 100
 
   return (
     <section id="roi-calculator" className="py-16 md:py-20 px-4 relative">
@@ -93,18 +93,18 @@ export function ROICalculatorSection() {
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm mb-6">
             <TrendingUp className="w-4 h-4 text-primary" />
-            <span className="text-sm font-medium text-white/80">ROI Calculator</span>
+            <span className="text-sm font-medium text-white/80">Scale Calculator</span>
           </div>
 
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 md:mb-6 text-balance">
             See your potential{" "}
             <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-              revenue growth
+              growth score
             </span>
           </h2>
 
           <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto text-balance">
-            Calculate how much additional revenue your business could generate with AI-powered customer engagement
+            Calculate how much additional growth your business could achieve with AI-powered customer engagement
           </p>
         </div>
 
@@ -182,20 +182,20 @@ export function ROICalculatorSection() {
                 {/* Average Order Value */}
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-3">
-                    Average Order Value:{" "}
-                    <span className="text-white font-semibold">€{inputs.averageOrderValue.toLocaleString()}</span>
+                    Average Lead Value:{" "}
+                    <span className="text-white font-semibold">{inputs.averageLeadValue.toLocaleString()} Points</span>
                   </label>
                   <Slider
-                    value={[inputs.averageOrderValue]}
-                    onValueChange={([value]) => setInputs((prev) => ({ ...prev, averageOrderValue: value }))}
+                    value={[inputs.averageLeadValue]}
+                    onValueChange={([value]) => setInputs((prev) => ({ ...prev, averageLeadValue: value }))}
                     max={businessConfig.maxOrder}
                     min={25}
                     step={inputs.businessType === "automotive" || inputs.businessType === "realestate" ? 1000 : 25}
                     className="w-full"
                   />
                   <div className="flex justify-between text-xs text-gray-400 mt-1">
-                    <span>€25</span>
-                    <span>€{businessConfig.maxOrder.toLocaleString()}</span>
+                    <span>25</span>
+                    <span>{businessConfig.maxOrder.toLocaleString()}</span>
                   </div>
                 </div>
 
@@ -291,19 +291,19 @@ export function ROICalculatorSection() {
                   <div className="flex items-center justify-between p-3 md:p-4 rounded-lg bg-white/5 border border-white/10">
                     <div className="flex items-center gap-3">
                       <DollarSign className="w-4 h-4 md:w-5 md:h-5 text-gray-300" />
-                      <span className="text-sm md:text-base text-white">Additional Revenue</span>
+                      <span className="text-sm md:text-base text-white">Growth Score</span>
                     </div>
                     <span className="text-lg md:text-xl font-bold text-white">
-                      €{additionalRevenue.toLocaleString()}
+                      {growthScoreIncrease.toLocaleString()} Points
                     </span>
                   </div>
 
                   <div className="flex items-center justify-between p-3 md:p-4 rounded-lg bg-white/5 border border-white/10">
                     <div className="flex items-center gap-3">
                       <TrendingUp className="w-4 h-4 md:w-5 md:h-5 text-gray-300" />
-                      <span className="text-sm md:text-base text-white">Revenue Increase</span>
+                      <span className="text-sm md:text-base text-white">Scale Increase</span>
                     </div>
-                    <span className="text-lg md:text-xl font-bold text-white">+{revenueIncrease.toFixed(1)}%</span>
+                    <span className="text-lg md:text-xl font-bold text-white">+{percentageIncrease.toFixed(1)}%</span>
                   </div>
 
                   <div className="flex items-center justify-between p-3 md:p-4 rounded-lg bg-white/5 border border-white/10">
@@ -318,9 +318,9 @@ export function ROICalculatorSection() {
                 {/* Annual Projection */}
                 <div className="mt-6 md:mt-8 p-4 md:p-6 rounded-lg bg-white/5 border border-white/10">
                   <div className="text-center">
-                    <div className="text-xs md:text-sm text-gray-300 mb-2">Projected Annual Revenue Increase</div>
+                    <div className="text-xs md:text-sm text-gray-300 mb-2">Projected Annual Scale Impact</div>
                     <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-2">
-                      €{(additionalRevenue * 12).toLocaleString()}
+                      {(growthScoreIncrease * 12).toLocaleString()} Points
                     </div>
                     <div className="text-xs md:text-sm text-gray-400">
                       Based on your current metrics and industry benchmarks

@@ -29,7 +29,7 @@ export function FinanceSplitScreen() {
 
                     <div className={`transition-all duration-1000 ease-out delay-200 ${sectionInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
                         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-amber-100 to-yellow-100 border border-amber-200 mb-4">
-                            <span className="text-amber-600 font-semibold text-sm uppercase tracking-wide">Clutch by Elianatech</span>
+                            <span className="text-amber-600 font-semibold text-sm uppercase tracking-wide">CoFounder by Elianatech</span>
                         </div>
 
                         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 lg:mb-12 text-balance">
@@ -67,7 +67,7 @@ export function FinanceSplitScreen() {
                                 <p className="text-white text-sm">Excellent. To match you with the best advisor, can I ask your approximate annual household income?</p>
                             </div>
                             <div className="bg-gray-800 p-3 rounded-lg rounded-tl-none mr-8">
-                                <p className="text-white text-sm">It's about €85,000 combined.</p>
+                                <p className="text-white text-sm">It's a healthy combined amount.</p>
                             </div>
                             <div className="bg-amber-700 p-3 rounded-lg rounded-tr-none ml-8">
                                 <p className="text-white text-sm">Thank you. Based on that, I can schedule a consultation with our First Time Buyer specialist. Does Tuesday at 10am work?</p>

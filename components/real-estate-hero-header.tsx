@@ -17,6 +17,10 @@ export function RealEstateHeroHeader() {
                 <span className="text-sm font-medium text-emerald-100">AI For Real Estate</span>
             </div>
 
+            <p className="text-base sm:text-lg text-white/90 mb-4 font-medium animate-fade-in-up">
+                Rent or own our technology for your company
+            </p>
+
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight animate-fade-in-up animation-delay-100 text-balance">
                 Sell Homes <span className="text-emerald-500">Faster</span>, Sleep <span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">More</span>
             </h1>

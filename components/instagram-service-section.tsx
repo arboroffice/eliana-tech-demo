@@ -13,7 +13,7 @@ export function InstagramServiceSection() {
     {
       title: "Parts Inquiries",
       description:
-        "Answers questions about parts availability, pricing, and delivery times based on your inventory in real-time, whether customers reach out via phone, website, or social media",
+        "Answers questions about parts availability, inventory, and delivery times based on your inventory in real-time, whether customers reach out via phone, website, or social media",
     },
     {
       title: "Order Management",

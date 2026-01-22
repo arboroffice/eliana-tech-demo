@@ -6,39 +6,11 @@ import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X, ChevronDown, ChevronRight, ArrowRight } from "lucide-react"
 
-const FEATURED_INDUSTRIES = [
-  { name: "Automotive", href: "/car-dealerships" },
-  { name: "Real Estate", href: "/real-estate" },
-  { name: "Healthcare", href: "/healthcare" },
-  { name: "Dentists", href: "/dentists" },
-  { name: "Retail", href: "/retail" },
-  { name: "Ecommerce", href: "/ecommerce" },
-  { name: "Restaurants", href: "/restaurants" },
-  { name: "Finance", href: "/finance" },
-  { name: "Salons & Spas", href: "/barbers-salons" },
-  { name: "Construction & Trades", href: "/construction-trades" },
-  { name: "Creative & Marketing", href: "/creative-marketing" },
-  { name: "Education & Training", href: "/education-training" },
-  { name: "Energy & Solar", href: "/energy-solar" },
-  { name: "Food & Hospitality", href: "/food-hospitality" },
-  { name: "Health & Wellness", href: "/health-wellness" },
-  { name: "Home Services", href: "/home-services" },
-  { name: "Industrial & B2B Services", href: "/industrial-b2b-services" },
-  { name: "Legal & Insurance", href: "/legal-insurance" },
-  { name: "Manufacturing & Production", href: "/manufacturing-production" },
-  { name: "Oil & Gas", href: "/oil-gas" },
-  { name: "Private Equity", href: "/private-equity" },
-  { name: "Professional Services", href: "/professional-services" },
-  { name: "Real Estate Development", href: "/real-estate-development" },
-  { name: "Tech & Software", href: "/tech-software" },
-  { name: "Transportation & Logistics", href: "/transportation-logistics" },
-  { name: "Wholesale & Distribution", href: "/wholesale-distribution" }
-]
 
 export function GlassmorphismNav() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [isIndustryOpen, setIsIndustryOpen] = useState(false)
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -58,7 +30,7 @@ export function GlassmorphismNav() {
           <Link href="/" className="flex items-center gap-2 group">
             <div className="relative w-10 h-10 overflow-hidden rounded-xl">
               <Image
-                src="/placeholder-logo.png"
+                src="/icon.png"
                 alt="Elianatech Logo"
                 fill
                 className="object-cover"
@@ -71,39 +43,10 @@ export function GlassmorphismNav() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            {/* Industries Dropdown */}
-            <div
-              className="relative group"
-              onMouseEnter={() => setIsIndustryOpen(true)}
-              onMouseLeave={() => setIsIndustryOpen(false)}
-            >
-              <button className="flex items-center gap-1 text-sm font-medium text-slate-300 hover:text-white transition-colors py-2">
-                Industries <ChevronDown className="w-4 h-4 transition-transform group-hover:rotate-180" />
-              </button>
+            <Link href="/#industries" className="text-sm font-medium text-slate-300 hover:text-white transition-colors py-2">
+              Industries
+            </Link>
 
-              <AnimatePresence>
-                {isIndustryOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 10 }}
-                    transition={{ duration: 0.2 }}
-                    className="absolute top-full left-1/2 -translate-x-1/2 w-[800px] bg-black/90 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl grid grid-cols-3 gap-4"
-                  >
-                    {FEATURED_INDUSTRIES.map((item) => (
-                      <Link
-                        key={item.name}
-                        href={item.href}
-                        className="flex items-center justify-between p-3 rounded-lg hover:bg-white/10 transition-colors group/item"
-                      >
-                        <span className="text-sm text-slate-300 group-hover/item:text-white font-medium">{item.name}</span>
-                        <ChevronRight className="w-4 h-4 text-slate-500 group-hover/item:text-white opacity-0 group-hover/item:opacity-100 transition-all" />
-                      </Link>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
 
             <Link href="/audit" className="text-sm font-medium text-white hover:text-blue-400 transition-colors flex items-center">
               <span className="relative flex h-3 w-3 inline-block mr-2">
@@ -142,18 +85,15 @@ export function GlassmorphismNav() {
           >
             <div className="px-4 py-6 space-y-4">
               <div className="space-y-2">
-                <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Industries</div>
-                {FEATURED_INDUSTRIES.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className="block py-2 text-slate-300 hover:text-white text-sm"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {item.name}
-                  </Link>
-                ))}
+                <Link
+                  href="/#industries"
+                  className="block py-2 text-slate-300 hover:text-white text-sm"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Industries
+                </Link>
               </div>
+
 
               <div className="h-px bg-white/10 my-4" />
 

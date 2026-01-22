@@ -12,21 +12,6 @@ const ArrowRight = () => (
   </svg>
 )
 
-const Play = () => (
-  <svg
-    className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform"
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h1m4 0h1m-6-8h8a2 2 0 012 2v8a2 2 0 01-2 2H8a2 2 0 01-2-2V8a2 2 0 012-2z"
-    />
-  </svg>
-)
 
 export function HeroSection() {
   return (
@@ -37,6 +22,9 @@ export function HeroSection() {
           <span className="w-2 h-2 bg-white/60 rounded-full mr-2 animate-pulse"></span>
           Revolutionizing Business for the New World
         </div>
+
+        {/* Tagline */}
+
 
         {/* Main Heading */}
         <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-balance mb-6 animate-fade-in-heading">
@@ -60,8 +48,8 @@ export function HeroSection() {
         </h1>
 
         {/* Subheading */}
-        <p className="text-base sm:text-xl md:text-2xl text-white text-balance max-w-sm sm:max-w-3xl mx-auto mb-8 sm:mb-12 leading-relaxed px-4 sm:px-0 animate-fade-in-subheading font-light">
-          Achieve complete business autonomy. From sales and lead generation to customer support and retention, we automate your entire workflow so you can focus on strategy.
+        <p className="text-base sm:text-xl md:text-2xl text-white text-balance max-w-sm sm:max-w-3xl mx-auto mb-4 leading-relaxed px-4 sm:px-0 animate-fade-in-subheading font-light">
+          We install growth engines that handle your backend infrastructure including your sales, leads, customer support, and daily operations automatically. These smart systems work 24/7, learning and improving as they go.
         </p>
 
         {/* CTA Buttons */}
@@ -77,17 +65,6 @@ export function HeroSection() {
             </a>
           </Button>
 
-          <Button
-            variant="outline"
-            size="lg"
-            className="rounded-full px-8 py-4 text-lg font-medium border-border hover:bg-accent transition-all duration-200 hover:scale-105 group bg-transparent cursor-pointer"
-            asChild
-          >
-            <a href="/vsl">
-              <Play />
-              Watch Demo
-            </a>
-          </Button>
         </div>
       </div>
     </section>

@@ -57,9 +57,8 @@ export function AiTeamDealershipSection() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 py-8 sm:py-12 lg:py-16 relative z-10">
           <div
-            className={`text-center mb-12 sm:mb-16 transition-all duration-1000 ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            }`}
+            className={`text-center mb-12 sm:mb-16 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
           >
             <div className="inline-flex items-center px-5 py-2.5 rounded-full bg-gradient-to-r from-slate-100 to-slate-50 border border-slate-200/80 shadow-sm text-slate-700 text-sm font-semibold mb-6">
               <span className="w-2.5 h-2.5 bg-green-500 rounded-full mr-2.5 animate-pulse shadow-lg shadow-green-500/50"></span>
@@ -78,9 +77,8 @@ export function AiTeamDealershipSection() {
           </div>
 
           <div
-            className={`grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 transition-all duration-1000 delay-200 ${
-              isVisible ? "opacity-100" : "opacity-0"
-            }`}
+            className={`grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 transition-all duration-1000 delay-200 ${isVisible ? "opacity-100" : "opacity-0"
+              }`}
           >
             {/* Chat Support - Large widget spanning 2 columns */}
             <div className="lg:col-span-2 bg-gradient-to-br from-slate-50 to-blue-50/30 rounded-2xl p-6 border border-slate-200/60 shadow-lg hover:shadow-xl transition-all duration-300 group">
@@ -328,7 +326,7 @@ export function AiTeamDealershipSection() {
                       </div>
                       <p className="text-sm font-bold text-slate-900 mb-1">Brake Pads</p>
                       <p className="text-xs text-slate-500 mb-2">BMW X5 • Stock: 8</p>
-                      <p className="text-lg font-bold text-slate-900">€89</p>
+                      <p className="text-lg font-bold text-slate-900">In Stock</p>
                     </div>
 
                     <div className="bg-white rounded-xl p-4 border border-slate-200/60 shadow-sm">
@@ -349,7 +347,7 @@ export function AiTeamDealershipSection() {
                       </div>
                       <p className="text-sm font-bold text-slate-900 mb-1">Oil Filter</p>
                       <p className="text-xs text-slate-500 mb-2">Universal • Stock: 24</p>
-                      <p className="text-lg font-bold text-slate-900">€24</p>
+                      <p className="text-lg font-bold text-slate-900">In Stock</p>
                     </div>
 
                     <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-4 border-2 border-green-200 shadow-md animate-scale-in">

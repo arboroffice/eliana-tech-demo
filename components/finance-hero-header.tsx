@@ -17,6 +17,10 @@ export function FinanceHeroHeader() {
                 <span className="text-sm font-medium text-amber-100">AI For Financial Services</span>
             </div>
 
+            <p className="text-base sm:text-lg text-white/90 mb-4 font-medium animate-fade-in-up">
+                Rent or own our technology for your company
+            </p>
+
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight animate-fade-in-up animation-delay-100 text-balance">
                 Trust is Built <span className="text-amber-500">Instantly</span>
             </h1>

@@ -29,7 +29,7 @@ export function EcommerceSplitScreen() {
 
                     <div className={`transition-all duration-1000 ease-out delay-200 ${sectionInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
                         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-indigo-100 to-violet-100 border border-indigo-200 mb-4">
-                            <span className="text-indigo-600 font-semibold text-sm uppercase tracking-wide">Clutch by Elianatech</span>
+                            <span className="text-indigo-600 font-semibold text-sm uppercase tracking-wide">CoFounder by Elianatech</span>
                         </div>
 
                         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 lg:mb-12 text-balance">
@@ -64,7 +64,7 @@ export function EcommerceSplitScreen() {
                                 <p className="text-white text-sm">Do you have anything suitable for dry skin?</p>
                             </div>
                             <div className="bg-indigo-700 p-3 rounded-lg rounded-tr-none ml-8">
-                                <p className="text-white text-sm">Absolutely! Our Ultra-Hydrating Night Cream is perfect for dry skin types. It's €45. Would you like to read the reviews?</p>
+                                <p className="text-white text-sm">Absolutely! Our Ultra-Hydrating Night Cream is perfect for dry skin types. It's one of our best-sellers. Would you like to read the reviews?</p>
                             </div>
                             <div className="bg-gray-800 p-3 rounded-lg rounded-tl-none mr-8">
                                 <p className="text-white text-sm">No thanks, I'll take it. When will it arrive?</p>

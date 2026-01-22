@@ -17,6 +17,10 @@ export function EcommerceHeroHeader() {
                 <span className="text-sm font-medium text-indigo-100">AI For Ecommerce</span>
             </div>
 
+            <p className="text-base sm:text-lg text-white/90 mb-4 font-medium animate-fade-in-up">
+                Rent or own our technology for your company
+            </p>
+
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight animate-fade-in-up animation-delay-100 text-balance">
                 Recover Carts <span className="text-indigo-500">Automatically</span>
             </h1>

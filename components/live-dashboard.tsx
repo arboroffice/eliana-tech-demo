@@ -12,7 +12,7 @@ const EVENTS = [
     { icon: Zap, text: "Resolved Ticket #882 in 4s", type: "support" },
     { icon: User, text: "Screening candidate: Senior Dev", type: "hr" },
     { icon: DollarSign, text: "Invoice #4022 sent (Automated)", type: "finance" },
-    { icon: Globe, text: "Analyzing competitor pricing strategy", type: "strategy" },
+    { icon: Globe, text: "Analyzing market trends and shifts", type: "strategy" },
 ]
 
 export function LiveDashboard() {

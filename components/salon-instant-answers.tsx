@@ -11,8 +11,8 @@ export function SalonInstantAnswers() {
         },
         {
             icon: DollarSign,
-            title: "Quote Automation",
-            description: "Instantly answer 'How much for balayage?' with starting prices and a prompt to book a consultation."
+            title: "Offer Automation",
+            description: "Instantly answer 'How much for balayage?' with service details and a prompt to book a consultation."
         },
         {
             icon: Calendar,

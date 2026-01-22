@@ -11,7 +11,7 @@ export function RealEstateWhatsAppDemo() {
 
     const conversation = [
         { text: "Hi, is the property on 123 Maple Drive still available?", isUser: true, delay: 500 },
-        { text: "Yes! It's still on the market. Listed at €450k, 3 bed, 2 bath. Would you like to see photos or book a viewing?", isUser: false, delay: 2000 },
+        { text: "Yes! It's still on the market. 3 bed, 2 bath. Would you like to see photos or book a viewing?", isUser: false, delay: 2000 },
         { text: "A viewing would be great. Can we do Saturday morning?", isUser: true, delay: 3500 },
         { text: "We have an open house from 10am-12pm Saturday, or private viewings available at 9am. Which works best?", isUser: false, delay: 5000 },
         { text: "9am private viewing please.", isUser: true, delay: 6500 },

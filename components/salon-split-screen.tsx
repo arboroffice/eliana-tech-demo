@@ -36,7 +36,7 @@ export function SalonSplitScreen() {
 
                     <div className={`transition-all duration-1000 ease-out delay-200 ${sectionInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
                         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-purple-100 to-pink-100 border border-purple-200 mb-4">
-                            <span className="text-purple-600 font-semibold text-sm uppercase tracking-wide">Clutch by Elianatech</span>
+                            <span className="text-purple-600 font-semibold text-sm uppercase tracking-wide">CoFounder by Elianatech</span>
                         </div>
 
                         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 lg:mb-12 text-balance">
@@ -78,7 +78,7 @@ export function SalonSplitScreen() {
                                 <p className="text-white text-sm">2pm please!</p>
                             </div>
                             <div className="bg-purple-700 p-3 rounded-lg rounded-tr-none ml-8">
-                                <p className="text-white text-sm">Perfect! I've held that slot. Please click here to pay the €20 deposit to confirm. 💳</p>
+                                <p className="text-white text-sm">Perfect! I've held that slot. Please click here to complete the booking to confirm. 💳</p>
                             </div>
                         </div>
                     </div>

@@ -150,7 +150,7 @@ export function SplitScreenBeforeAfter() {
                 <div>
                   <h3 className="font-bold text-slate-900 text-xl mb-3">Website Chat Widget</h3>
                   <p className="text-slate-600 text-sm leading-relaxed">
-                    Engage visitors the moment they land on your site. Provide instant answers about inventory, pricing,
+                    Engage visitors the moment they land on your site. Provide instant answers about inventory, specifications,
                     and availability in real-time.
                   </p>
                 </div>
@@ -374,7 +374,7 @@ export function SplitScreenBeforeAfter() {
                         <div className="mb-2 lg:mb-3">
                           <div className="bg-[#1f2c34] rounded-lg rounded-tl-none p-2 inline-block max-w-[85%]">
                             <p className="text-white text-[9px] sm:text-[10px] lg:text-sm leading-snug">
-                              2pm works perfect. What's the price?
+                              2pm works perfect. Can you confirm the availability?
                             </p>
                             <p className="text-slate-400 text-[8px] lg:text-xs mt-0.5">19:02</p>
                           </div>
@@ -383,7 +383,7 @@ export function SplitScreenBeforeAfter() {
                         <div className="mb-2 lg:mb-3 flex justify-end">
                           <div className="bg-[#005c4b] rounded-lg rounded-tr-none p-2 inline-block max-w-[85%]">
                             <p className="text-white text-[9px] sm:text-[10px] lg:text-sm leading-snug">
-                              Perfect! I've booked you for 2pm tomorrow. The BMW X5 is €45,900. 2023 model, 15,000km.
+                              Perfect! I've booked you for 2pm tomorrow. The BMW X5 is currently available. 2023 model, 15,000km.
                               Financing options?
                             </p>
                             <p className="text-slate-300 text-[8px] lg:text-xs mt-0.5 text-right">19:02</p>
@@ -619,13 +619,13 @@ export function SplitScreenBeforeAfter() {
                             <div className="bg-slate-900/50 rounded-lg p-2 border-l-2 border-blue-500">
                               <div className="text-blue-400 font-semibold mb-0.5">Sarah</div>
                               <div className="text-slate-300 leading-relaxed">
-                                "Thursday at 3pm works perfectly. What's the price on that model?"
+                                "Thursday at 3pm works perfectly. Can you confirm the availability on that model?"
                               </div>
                             </div>
                             <div className="bg-slate-900/50 rounded-lg p-2 border-l-2 border-orange-500">
                               <div className="text-orange-400 font-semibold mb-0.5">Elianatech</div>
                               <div className="text-slate-300 leading-relaxed">
-                                "The Audi A4 is priced at €32,500. It's a 2023 model with 12,000km. Would you like to
+                                "The Audi A4 is currently available. It's a 2023 model with 12,000km. Would you like to
                                 discuss financing options?"
                               </div>
                             </div>
@@ -656,7 +656,7 @@ export function SplitScreenBeforeAfter() {
                               <div className="text-slate-300">Ready to buy</div>
                             </div>
                             <div className="bg-slate-900/40 rounded-lg p-1.5 border border-orange-500/20">
-                              <div className="text-orange-300 font-semibold">€30-35k</div>
+                              <div className="text-orange-300 font-semibold">Priority</div>
                               <div className="text-slate-300">Budget range</div>
                             </div>
                             <div className="bg-slate-900/40 rounded-lg p-1.5 border border-orange-500/20 col-span-2">
@@ -710,7 +710,7 @@ export function SplitScreenBeforeAfter() {
                       </svg>
                       <p className="text-slate-700 leading-relaxed">
                         Answer every call instantly with natural-sounding conversations that understand your inventory,
-                        pricing, and availability. Never lose a customer to voicemail again.
+                        availability, and specifications. Never lose a customer to voicemail again.
                       </p>
                     </div>
 
@@ -724,7 +724,7 @@ export function SplitScreenBeforeAfter() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                       <p className="text-slate-700 leading-relaxed">
-                        Book test drives, answer vehicle questions, provide pricing, and handle trade-in inquiries
+                        Book test drives, answer vehicle questions, provide specifications, and handle trade-in inquiries
                         through natural phone conversations that feel completely human.
                       </p>
                     </div>
@@ -818,7 +818,7 @@ export function SplitScreenBeforeAfter() {
                         <h3 className="font-bold text-slate-900 text-lg">Parts Inquiries</h3>
                       </div>
                       <p className="text-slate-600 text-sm leading-relaxed ml-12">
-                        Answers questions about parts availability, pricing, and delivery times based on your inventory
+                        Answers questions about parts availability, inventory, and delivery times based on your inventory
                         in real-time, whether customers reach out via phone, website, or social media
                       </p>
                     </div>
@@ -923,7 +923,7 @@ export function SplitScreenBeforeAfter() {
                               <div className="bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl rounded-tr-none px-4 py-3 shadow-sm max-w-[85%]">
                                 <p className="text-white text-sm">
                                   Yes! We have brake pads in stock. I can book you in for Thursday at 2 PM and include
-                                  the brake pad replacement. Total: €180
+                                  the brake pad replacement. Shall I book you in?
                                 </p>
                               </div>
                               <span className="text-xs text-slate-400 mt-1">10:16 AM</span>
@@ -1074,7 +1074,7 @@ export function SplitScreenBeforeAfter() {
 
                   <p className="text-slate-600 text-lg mb-8 leading-relaxed">
                     Stop wasting time on repetitive questions. Clutch By Cliste instantly answers common inquiries about
-                    NCT, mileage, trade-ins, and pricing while qualifying serious buyers - across your website widget,
+                    NCT, mileage, trade-ins, and inventory while qualifying serious buyers - across your website widget,
                     phone calls, and social media channels, all tailored to your dealership's specific needs.
                   </p>
 
@@ -1093,7 +1093,7 @@ export function SplitScreenBeforeAfter() {
                         <h3 className="font-bold text-slate-900 text-lg">Instant Answers</h3>
                       </div>
                       <p className="text-slate-600 text-sm leading-relaxed ml-12">
-                        Clutch By Cliste responds to 50+ common questions about NCT, mileage, trade-ins, and pricing
+                        Clutch By Cliste responds to 50+ common questions about NCT, mileage, trade-ins, and inventory
                         instantly across your website, phone, and social channels
                       </p>
                     </div>

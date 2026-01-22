@@ -17,6 +17,10 @@ export function RestaurantHeroHeader() {
                 <span className="text-sm font-medium text-orange-100">AI For Restaurants</span>
             </div>
 
+            <p className="text-base sm:text-lg text-white/90 mb-4 font-medium animate-fade-in-up">
+                Rent or own our technology for your company
+            </p>
+
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight animate-fade-in-up animation-delay-100 text-balance">
                 More <span className="text-orange-500">Covers</span>, Less <span className="bg-gradient-to-r from-orange-400 to-amber-400 bg-clip-text text-transparent">Chaos</span>
             </h1>

@@ -21,7 +21,6 @@ const footerLinks: FooterSection[] = [
     label: "Product",
     links: [
       { title: "Features", href: "/features" },
-      { title: "AI Team", href: "/ai-team" },
       { title: "Integration", href: "/integration" },
     ],
   },
@@ -38,8 +37,9 @@ const footerLinks: FooterSection[] = [
     label: "Resources",
     links: [
       { title: "Case Studies", href: "/case-studies" },
-      { title: "Blog", href: "https://elianatech.beehiiv.com/" },
+      { title: "Blog", href: "/blog" },
       { title: "Documentation", href: "/docs" },
+      { title: "FAQ", href: "/faq" },
       { title: "Support", href: "/support" },
     ],
   },

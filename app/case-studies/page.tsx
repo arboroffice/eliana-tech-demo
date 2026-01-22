@@ -1,15 +1,15 @@
-"use client"
-
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { GlassmorphismNav } from "../../components/glassmorphism-nav"
 import Aurora from "../../components/Aurora"
 import { Footer } from "../../components/footer"
-import { CASE_STUDIES } from "../../lib/case-studies-data"
+import { getAllCaseStudies } from "../../lib/case-studies"
 
 import { TransformationDemos } from "../../components/transformation-demos"
 
-export default function CaseStudiesPage() {
+export default async function CaseStudiesPage() {
+    const caseStudies = getAllCaseStudies()
+
     return (
         <div className="min-h-screen bg-black overflow-hidden font-sans">
             <GlassmorphismNav />
@@ -23,7 +23,7 @@ export default function CaseStudiesPage() {
                 </p>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-                    {CASE_STUDIES.map((study) => (
+                    {caseStudies.map((study) => (
                         <Link
                             key={study.slug}
                             href={`/case-studies/${study.slug}`}

@@ -19,9 +19,9 @@ export type StageData = {
 export const GROWTH_STAGES: StageData[] = [
     {
         title: "Stage 1-2: Startup Foundation",
-        revenue: "$0 - $500K",
+        revenue: "Early Revenue",
         team: "1-5 People",
-        investment: "$2,500 - $15,000",
+        investment: "Foundational Partner",
         description: "You're wearing all the hats. These automations help you stop doing everything manually so you can focus on growth.",
         automations: [
             {
@@ -35,7 +35,7 @@ export const GROWTH_STAGES: StageData[] = [
                     "Appointment scheduling automation (Calendly integration)",
                     "Lead scoring basics (hot, warm, cold)",
                     "10 pre-written email templates for common situations",
-                    "Price list and pricing strategy optimization",
+                    "Inventory and stock level optimization",
                     "Invoice automation and payment reminders",
                 ],
             },
@@ -139,9 +139,9 @@ export const GROWTH_STAGES: StageData[] = [
     },
     {
         title: "Stage 3-4: Growth & Real Company",
-        revenue: "$500K - $5M",
+        revenue: "Scaling Operations",
         team: "5-50 People",
-        investment: "$25,000 - $100,000",
+        investment: "Growth Partner",
         description: "You have a team now. These automations help your business run without you being involved in every decision.",
         automations: [
             {
@@ -276,9 +276,9 @@ export const GROWTH_STAGES: StageData[] = [
     },
     {
         title: "Stage 5-6: Scaling Enterprise",
-        revenue: "$5M - $100M+",
+        revenue: "Established Enterprise",
         team: "50-500 People",
-        investment: "$150,000 - $500,000+",
+        investment: "Scale Partner",
         description: "You're building for scale or exit. These automations create enterprise-grade operations and competitive advantage.",
         automations: [
             {
@@ -290,7 +290,7 @@ export const GROWTH_STAGES: StageData[] = [
                     "Territory optimization with data-driven assignment",
                     "Channel and partner strategy automation",
                     "Enterprise sales capability",
-                    "CPQ (Configure, Price, Quote) automation",
+                    "CPQ (Configure, Quotation) automation",
                     "Contract lifecycle management",
                     "Sales intelligence and intent data integration",
                     "Conversation intelligence",
@@ -337,7 +337,7 @@ export const GROWTH_STAGES: StageData[] = [
                     "Investor relations automation",
                     "IPO preparation and compliance",
                     "Treasury management",
-                    "Transfer pricing and international tax",
+                    "Cross-border tax and international strategy",
                     "Financial modeling and scenario planning",
                     "Board reporting automation",
                     "Audit preparation and management"

@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   description:
     "Transform your business with intelligent AI automation solutions. Empower your organization to operate at the speed of thought.",
   icons: {
-    icon: "/logo.png",
+    icon: "/icon.png",
   },
   generator: "v0.app",
 }

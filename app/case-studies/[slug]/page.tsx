@@ -1,16 +1,19 @@
-"use client"
-
-import { useParams, notFound } from "next/navigation"
 import Link from "next/link"
-import { ArrowLeft, CheckCircle2 } from "lucide-react"
+import { ArrowLeft } from "lucide-react"
+import ReactMarkdown from "react-markdown"
 import { GlassmorphismNav } from "../../../components/glassmorphism-nav"
 import { Footer } from "../../../components/footer"
-import { CASE_STUDIES } from "../../../lib/case-studies-data"
+import { getAllCaseStudies, getCaseStudyData } from "../../../lib/case-studies"
 
-export default function CaseStudyDetail() {
-    const params = useParams()
-    const slug = params?.slug as string
-    const study = CASE_STUDIES.find(s => s.slug === slug)
+export async function generateStaticParams() {
+    const posts = getAllCaseStudies()
+    return posts.map((post) => ({
+        slug: post.slug,
+    }))
+}
+
+export default async function CaseStudyDetail({ params }: { params: { slug: string } }) {
+    const study = getCaseStudyData(params.slug)
 
     if (!study) {
         return <div className="min-h-screen bg-black text-white flex items-center justify-center">Case Study Not Found</div>
@@ -74,8 +77,8 @@ export default function CaseStudyDetail() {
                             <span className="w-8 h-8 rounded-full bg-red-500/10 text-red-400 flex items-center justify-center text-sm mr-4 border border-red-500/20">1</span>
                             The Challenge
                         </h2>
-                        <div className="text-lg text-slate-300 leading-relaxed pl-12 border-l border-white/10">
-                            {study.challenge}
+                        <div className="text-lg text-slate-300 leading-relaxed pl-12 border-l border-white/10 prose prose-invert max-w-none">
+                            <ReactMarkdown>{study.challenge}</ReactMarkdown>
                         </div>
                     </div>
 
@@ -85,8 +88,8 @@ export default function CaseStudyDetail() {
                             <span className="w-8 h-8 rounded-full bg-blue-500/10 text-blue-400 flex items-center justify-center text-sm mr-4 border border-blue-500/20">2</span>
                             The Solution
                         </h2>
-                        <div className="text-lg text-slate-300 leading-relaxed pl-12 border-l border-white/10">
-                            {study.solution}
+                        <div className="text-lg text-slate-300 leading-relaxed pl-12 border-l border-white/10 prose prose-invert max-w-none">
+                            <ReactMarkdown>{study.solution}</ReactMarkdown>
                         </div>
                     </div>
 

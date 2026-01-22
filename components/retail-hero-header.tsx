@@ -17,6 +17,10 @@ export function RetailHeroHeader() {
                 <span className="text-sm font-medium text-pink-100">AI For Retailers</span>
             </div>
 
+            <p className="text-base sm:text-lg text-white/90 mb-4 font-medium animate-fade-in-up">
+                Rent or own our technology for your company
+            </p>
+
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight animate-fade-in-up animation-delay-100 text-balance">
                 Your Best <span className="text-pink-500">Sales Associate</span>, <span className="bg-gradient-to-r from-pink-400 to-rose-400 bg-clip-text text-transparent">24/7</span>
             </h1>

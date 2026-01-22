@@ -29,7 +29,7 @@ export function RestaurantSplitScreen() {
 
                     <div className={`transition-all duration-1000 ease-out delay-200 ${sectionInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
                         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-orange-100 to-amber-100 border border-orange-200 mb-4">
-                            <span className="text-orange-600 font-semibold text-sm uppercase tracking-wide">Clutch by Elianatech</span>
+                            <span className="text-orange-600 font-semibold text-sm uppercase tracking-wide">CoFounder by Elianatech</span>
                         </div>
 
                         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 lg:mb-12 text-balance">

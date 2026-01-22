@@ -21,8 +21,8 @@ export function DentistInstantAnswers() {
         },
         {
             icon: FileText,
-            title: "Pricing & Insurance",
-            description: "Instantly answer common questions about insurance acceptance, financing options, and treatment costs."
+            title: "Booking & Insurance",
+            description: "Instantly answer common questions about insurance acceptance, financing options, and treatment details."
         }
     ]
 

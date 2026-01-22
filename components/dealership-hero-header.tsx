@@ -50,6 +50,10 @@ export function DealershipHeroHeader() {
 
   return (
     <div className="space-y-8">
+      <p className="text-lg sm:text-xl text-white/90 font-medium text-center animate-fade-in-badge">
+        Rent or own our technology for your company
+      </p>
+
       <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight text-balance animate-fade-in-heading">
         Never Miss Another Lead
       </h1>
@@ -57,20 +61,20 @@ export function DealershipHeroHeader() {
       <div className="animate-fade-in-subheading">
         {/* Mobile version - stacked */}
         <div className="flex flex-col items-center gap-2 sm:hidden">
-          <span className="text-lg text-slate-300">Dealerships lose</span>
+          <span className="text-lg text-slate-300">Dealerships miss</span>
           <span className="text-3xl font-bold bg-gradient-to-r from-red-400 to-orange-400 bg-clip-text text-transparent animate-pulse-glow">
-            €{counter}K+
+            {counter}+
           </span>
-          <span className="text-lg text-slate-300">annually</span>
+          <span className="text-lg text-slate-300">leads monthly</span>
         </div>
 
         {/* Desktop version - single line */}
         <div className="hidden sm:flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
-          <span className="text-xl md:text-2xl text-slate-300">Dealerships lose</span>
+          <span className="text-xl md:text-2xl text-slate-300">Dealerships miss</span>
           <span className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-red-400 to-orange-400 bg-clip-text text-transparent animate-pulse-glow">
-            €{counter}K+
+            {counter}+
           </span>
-          <span className="text-xl md:text-2xl text-slate-300">annually</span>
+          <span className="text-xl md:text-2xl text-slate-300">leads monthly</span>
         </div>
       </div>
 

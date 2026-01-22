@@ -35,8 +35,8 @@ const AnimatedChatDemo = ({ isActive }: { isActive: boolean }) => {
       ],
       [
         { text: "Good evening! How may I assist you?", isBot: true },
-        { text: "I need help with pricing", isBot: false },
-        { text: "I'd be happy to provide pricing information right away!", isBot: true },
+        { text: "Do you have any openings?", isBot: false },
+        { text: "I'd be happy to check for availability right away!", isBot: true },
       ],
     ]
 

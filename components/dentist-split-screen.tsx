@@ -107,7 +107,7 @@ export function DentistSplitScreen() {
                                 }`}
                         >
                             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-100 to-cyan-100 border border-blue-200 mb-4">
-                                <span className="text-blue-600 font-semibold text-sm uppercase tracking-wide">Clutch by Elianatech</span>
+                                <span className="text-blue-600 font-semibold text-sm uppercase tracking-wide">CoFounder by Elianatech</span>
                             </div>
 
                             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 lg:mb-12 text-balance">
@@ -142,7 +142,7 @@ export function DentistSplitScreen() {
                                 <div>
                                     <h3 className="font-bold text-slate-900 text-xl mb-3">Insurance Queries</h3>
                                     <p className="text-slate-600 text-sm leading-relaxed">
-                                        Answer common insurance and pricing questions automatically, filtering out price shoppers from serious patients.
+                                        Answer common insurance and intake questions automatically, filtering for serious patients.
                                     </p>
                                 </div>
                             </div>

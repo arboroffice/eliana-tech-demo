@@ -55,6 +55,36 @@ export function ValueProposition() {
                         </p>
                     </motion.div>
 
+                    {/* Evolution Statement */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.1 }}
+                        className="bg-gradient-to-br from-slate-900 to-slate-700 rounded-2xl p-8 sm:p-12 mb-12 sm:mb-16 text-center relative overflow-hidden"
+                    >
+                        <div className="absolute inset-0 opacity-10">
+                            <div
+                                className="absolute inset-0"
+                                style={{
+                                    backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
+                                    backgroundSize: "32px 32px",
+                                }}
+                            ></div>
+                        </div>
+                        <div className="relative z-10">
+                            <p className="text-slate-400 text-sm sm:text-base uppercase tracking-wider mb-4 font-semibold">
+                                Our Evolution
+                            </p>
+                            <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-6 text-balance">
+                                We've Evolved Beyond AI Implementation
+                            </h3>
+                            <p className="text-lg sm:text-xl text-slate-200 max-w-3xl mx-auto leading-relaxed">
+                                We don't just apply AI as a feature. We <strong className="font-bold text-white">equip companies to become AI-native at their core</strong>—transforming how you operate, compete, and scale from the inside out.
+                            </p>
+                        </div>
+                    </motion.div>
+
                     {/* Three Pillars */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 sm:mb-16">
                         <motion.div

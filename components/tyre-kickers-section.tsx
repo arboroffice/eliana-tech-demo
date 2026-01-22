@@ -8,7 +8,7 @@ export function TyreKickersSection() {
     {
       title: "Instant Answers",
       description:
-        "Clutch By Elianatech responds to 50+ common questions about NCT, mileage, trade-ins, and pricing instantly across your website, phone, and social channels",
+        "Clutch By Elianatech responds to 50+ common questions about NCT, mileage, trade-ins, and inventory instantly across your website, phone, and social channels",
     },
     {
       title: "Qualify Leads",
