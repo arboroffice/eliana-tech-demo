@@ -18,7 +18,7 @@ export default function AboutPage() {
                         We are building the future of autonomous business operations.
                     </p>
                     <p>
-                        Eliana Tech is at the forefront of the AI revolution, dedicated to transforming how businesses operate. We believe that the future workforce is hybrid—where humans and AI work together seamlessly to achieve unprecedented scale and efficiency.
+                        Eliana Tech is at the forefront of the AI revolution, dedicated to transforming how businesses operate. We believe that the future workforce is hybrid-where humans and AI work together seamlessly to achieve unprecedented scale and efficiency.
                     </p>
                     <p>
                         Our mission is to democratize access to advanced AI technology. We build intelligent agents that handle the repetitive, complex, and time-consuming tasks of modern business, freeing up human creativity and strategic thinking.

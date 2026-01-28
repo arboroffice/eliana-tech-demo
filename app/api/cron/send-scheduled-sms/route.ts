@@ -4,10 +4,13 @@ import { collection, query, where, getDocs, updateDoc, doc } from 'firebase/fire
 import twilio from 'twilio'
 import { getSMSTemplate } from '@/lib/sms-service'
 
-const twilioClient = twilio(
-    process.env.TWILIO_ACCOUNT_SID,
-    process.env.TWILIO_AUTH_TOKEN
-)
+let twilioClient: any = null;
+if (process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN) {
+    twilioClient = twilio(
+        process.env.TWILIO_ACCOUNT_SID,
+        process.env.TWILIO_AUTH_TOKEN
+    )
+}
 
 const TWILIO_PHONE = process.env.TWILIO_PHONE_NUMBER
 
@@ -17,6 +20,11 @@ const TWILIO_PHONE = process.env.TWILIO_PHONE_NUMBER
  */
 export async function GET(request: Request) {
     try {
+        if (!twilioClient) {
+            console.error("Twilio credentials missing");
+            return NextResponse.json({ error: 'Configuration Error' }, { status: 500 })
+        }
+
         // Verify cron secret
         const authHeader = request.headers.get('authorization')
         if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {

@@ -1,70 +1,43 @@
+"use client"
+
 import { Button } from "../components/ui/button"
-import RotatingText from "./RotatingText"
-
-const ArrowRight = () => (
-  <svg
-    className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform"
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-  >
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-  </svg>
-)
-
 
 export function HeroSection() {
   return (
     <section className="min-h-[100dvh] flex items-center justify-center px-4 py-20 relative">
-      <div className="max-w-4xl mx-auto text-center relative z-10 animate-fade-in-hero">
-        {/* Badge */}
-        <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm font-medium mb-8 mt-12 animate-fade-in-badge">
-          <span className="w-2 h-2 bg-white/60 rounded-full mr-2 animate-pulse"></span>
-          Revolutionizing Business for the New World
-        </div>
-
-        {/* Tagline */}
-
-
-        {/* Main Heading */}
-        <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-balance mb-6 animate-fade-in-heading">
-          <span className="text-foreground">Elevate your</span>
+      <div className="max-w-4xl mx-auto text-center relative z-10">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.1]">
+          We Install Growth Engines
           <br />
-          <span className="inline-flex items-center justify-center flex-wrap gap-2 mt-4 sm:mt-6 md:mt-8">
-            <span className="text-foreground">Business</span>
-            <RotatingText
-              texts={["Autonomy", "Growth", "Efficiency", "Scale", "Future"]}
-              mainClassName="px-2 sm:px-2 md:px-3 bg-white text-black overflow-hidden py-1 sm:py-1 md:py-2 justify-center rounded-lg shadow-lg"
-              staggerFrom={"last"}
-              initial={{ y: "100%" }}
-              animate={{ y: 0 }}
-              exit={{ y: "-120%" }}
-              staggerDuration={0.025}
-              splitLevelClassName="overflow-hidden pb-1 sm:pb-1 md:pb-1"
-              transition={{ type: "spring", damping: 30, stiffness: 400 }}
-              rotationInterval={2000}
-            />
+          <span className="bg-gradient-to-r from-slate-300 to-slate-500 bg-clip-text text-transparent">
+            That Work 24/7
           </span>
         </h1>
 
-        {/* Subheading */}
-        <p className="text-base sm:text-xl md:text-2xl text-white text-balance max-w-sm sm:max-w-3xl mx-auto mb-4 leading-relaxed px-4 sm:px-0 animate-fade-in-subheading font-light">
-          We install growth engines that handle your backend infrastructure including your sales, leads, customer support, and daily operations automatically. These smart systems work 24/7, learning and improving as they go.
+        <p className="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto mb-10 leading-relaxed font-light">
+          We partner with business owners doing $1M–$50M+ to install AI systems that handle sales, support, and operations — so you can lead from flow, not force.
         </p>
 
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8 sm:mb-16 animate-fade-in-buttons">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Button
             size="lg"
-            className="bg-white text-black rounded-full px-8 py-4 text-lg font-medium transition-all duration-300 hover:bg-gray-50 hover:scale-105 hover:shadow-lg group cursor-pointer relative overflow-hidden"
+            className="bg-white text-slate-900 hover:bg-slate-100 rounded-full px-8 py-6 text-lg font-medium transition-all"
             asChild
           >
             <a href="/audit">
-              Start Automating
-              <ArrowRight />
+              Apply for an Audit
             </a>
           </Button>
-
+          <Button
+            size="lg"
+            variant="outline"
+            className="bg-transparent text-white border-white/30 rounded-full px-8 py-6 text-lg font-medium hover:bg-white/10"
+            asChild
+          >
+            <a href="#how-it-works">
+              See How It Works
+            </a>
+          </Button>
         </div>
       </div>
     </section>

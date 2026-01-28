@@ -68,7 +68,7 @@ export const faqData = [
       { q: "Do you build dashboards?", a: "Yes. Real-time dashboards that show your numbers at a glance. No more digging through spreadsheets." },
       { q: "What is 'Systematized Follow-up'?", a: "Most businesses lose leads because they forget to follow up. We build systems that never forget. The right message, at the right time, every time." },
       { q: "Can you move my data from my old system?", a: "Yes. We handle data migration carefully. Nothing gets lost." },
-      { q: "What is 'Yield Optimization'?", a: "Systems that optimize your revenue based on demand, season, and customer behavior—maximizing profit without manual intervention." },
+      { q: "What is 'Yield Optimization'?", a: "Systems that optimize your revenue based on demand, season, and customer behavior - maximizing profit without manual intervention." },
       { q: "Will you train my team?", a: "Yes. We make videos, guides, and do live training so everyone knows how to use the new systems." },
       { q: "What if something breaks?", a: "We build things solid, but stuff happens. We include support so you're never stuck." },
       { q: "Can these systems grow with my business?", a: "Absolutely. We build for where you're going, not just where you are." },
@@ -190,7 +190,7 @@ export const faqData = [
     category: "AI Agents",
     questions: [
       { q: "What kind of AI agents do you build?", a: "We build agents for lead qualification, customer support, appointment booking, sales assistance, and data analysis." },
-      { q: "Are these just chatbots?", a: "No. Our agents are 'agentic'—they can perform actions, browse the web, interact with your CRM, and make decisions based on your business rules." },
+      { q: "Are these just chatbots?", a: "No. Our agents are 'agentic' - they can perform actions, browse the web, interact with your CRM, and make decisions based on your business rules." },
       { q: "Do the agents sound like robots?", a: "We use advanced prompt engineering and the latest models to ensure agents sound professional, on-brand, and human-like." },
       { q: "Can your agents handle phone calls?", a: "Yes, we can deploy custom voice-AI agents that can handle both inbound and outbound calls with near-zero latency." },
       { q: "What platforms do your agents work on?", a: "Custom AI agents can be deployed on your website, WhatsApp, SMS, Instagram DM, and even via email." },
@@ -231,7 +231,7 @@ export const faqData = [
   {
     category: "Technical & Security",
     questions: [
-      { q: "Which AI models do you use?", a: "We are model-agnostic. We use whatever is best for the task—typically Gemini 1.5 Pro, GPT-4o, or Claude 3.5 Sonnet." },
+      { q: "Which AI models do you use?", a: "We are model-agnostic. We use whatever is best for the task - typically Gemini 1.5 Pro, GPT-4o, or Claude 3.5 Sonnet." },
       { q: "What is your tech stack?", a: "We primarily work with Next.js, Node.js, Python, PostgreSQL, and leading AI orchestration frameworks." },
       { q: "Do you use low-code/no-code tools?", a: "We use them where they add speed and flexibility (like n8n), but we write custom code for core logic and complex integrations." },
       { q: "How do you handle API costs?", a: "We optimize all AI calls for efficiency and help you set up cost alerts/limits to prevent unexpected usage bills." },

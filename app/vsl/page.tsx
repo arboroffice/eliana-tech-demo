@@ -49,7 +49,7 @@ export default function VSLPage() {
                             See How AI Can <span className="text-blue-500">Transform</span> Your Business
                         </h1>
                         <p className="text-xl text-slate-300 max-w-2xl mx-auto">
-                            Watch our 5-minute demo to see how Eliana automates lead qualification, booking, and support—24/7.
+                            Watch our 5-minute demo to see how Eliana automates lead qualification, booking, and support-24/7.
                         </p>
                     </div>
 

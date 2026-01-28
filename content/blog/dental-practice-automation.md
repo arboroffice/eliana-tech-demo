@@ -9,7 +9,7 @@ category: "Healthcare"
 
 ## The Hygiene Recall Struggle
 
-Every dentist knows the gold is in the patient database. But manual recall—calling people 6 months after their cleaning—is tedious. Receptionists avoid it, or leave voicemail messages that are never returned.
+Every dentist knows the gold is in the patient database. But manual recall - calling people 6 months after their cleaning - is tedious. Receptionists avoid it, or leave voicemail messages that are never returned.
 
 ## Reactivation Campaigns with AI
 

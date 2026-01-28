@@ -44,14 +44,14 @@ export function ValueProposition() {
                         className="text-center mb-12 sm:mb-16"
                     >
                         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 text-balance mb-4 sm:mb-6">
-                            We're Not Just Your AI Team—
+                            We're Not Just Your AI Team -
                             <br />
                             <span className="bg-gradient-to-r from-slate-600 to-slate-400 bg-clip-text text-transparent">
                                 We're Your Growth Co-Founders
                             </span>
                         </h2>
                         <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-3xl mx-auto font-light leading-relaxed">
-                            We come in as your <strong className="font-semibold text-slate-700">AI implementation arm</strong>, your <strong className="font-semibold text-slate-700">strategic growth partner</strong>—the co-founder who sees the revenue leaks and bottlenecks that you're too close to spot.
+                            We come in as your <strong className="font-semibold text-slate-700">AI implementation arm</strong>, your <strong className="font-semibold text-slate-700">strategic growth partner</strong> - the co-founder who sees the revenue leaks and bottlenecks that you're too close to spot.
                         </p>
                     </motion.div>
 
@@ -80,7 +80,7 @@ export function ValueProposition() {
                                 We've Evolved Beyond AI Implementation
                             </h3>
                             <p className="text-lg sm:text-xl text-slate-200 max-w-3xl mx-auto leading-relaxed">
-                                We don't just apply AI as a feature. We <strong className="font-bold text-white">equip companies to become AI-native at their core</strong>—transforming how you operate, compete, and scale from the inside out.
+                                We don't just apply AI as a feature. We <strong className="font-bold text-white">equip companies to become AI-native at their core</strong> - transforming how you operate, compete, and scale from the inside out.
                             </p>
                         </div>
                     </motion.div>
@@ -115,7 +115,7 @@ export function ValueProposition() {
                             </div>
                             <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-4">AI as Leverage</h3>
                             <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-                                We use AI as a <strong className="font-semibold text-slate-700">force multiplier</strong>—automating the repetitive so your team can focus on what actually moves the needle.
+                                We use AI as a <strong className="font-semibold text-slate-700">force multiplier</strong> - automating the repetitive so your team can focus on what actually moves the needle.
                             </p>
                         </motion.div>
 

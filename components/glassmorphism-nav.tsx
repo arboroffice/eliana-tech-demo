@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
-import { Menu, X, ChevronDown, ChevronRight, ArrowRight } from "lucide-react"
+import { Menu, X } from "lucide-react"
 
 
 export function GlassmorphismNav() {
@@ -43,24 +43,11 @@ export function GlassmorphismNav() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            <Link href="/#industries" className="text-sm font-medium text-slate-300 hover:text-white transition-colors py-2">
-              Industries
-            </Link>
-
-
-            <Link href="/audit" className="text-sm font-medium text-white hover:text-blue-400 transition-colors flex items-center">
-              <span className="relative flex h-3 w-3 inline-block mr-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
-              </span>
-              Free Audit
-            </Link>
-
             <Link
-              href="/#contact"
+              href="/audit"
               className="px-6 py-2.5 rounded-full bg-white text-black text-sm font-semibold hover:bg-slate-200 transition-all duration-300 hover:scale-105"
             >
-              Contact Us
+              Free Audit
             </Link>
           </div>
 
@@ -83,33 +70,13 @@ export function GlassmorphismNav() {
             exit={{ opacity: 0, height: 0 }}
             className="md:hidden bg-black/95 backdrop-blur-xl border-b border-white/10 overflow-hidden"
           >
-            <div className="px-4 py-6 space-y-4">
-              <div className="space-y-2">
-                <Link
-                  href="/#industries"
-                  className="block py-2 text-slate-300 hover:text-white text-sm"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Industries
-                </Link>
-              </div>
-
-
-              <div className="h-px bg-white/10 my-4" />
-
+            <div className="px-4 py-8 space-y-6">
               <Link
                 href="/audit"
-                className="block text-lg font-medium text-blue-400"
+                className="block w-full text-center px-6 py-4 rounded-full bg-white text-black text-lg font-bold hover:bg-slate-200 transition-all"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                Get Free Audit
-              </Link>
-              <Link
-                href="/#contact"
-                className="block text-lg font-medium text-white"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Contact Us
+                Free Audit
               </Link>
             </div>
           </motion.div>

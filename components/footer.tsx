@@ -2,7 +2,6 @@
 import type React from "react"
 import type { ComponentProps, ReactNode } from "react"
 import { motion, useReducedMotion } from "framer-motion"
-import { FacebookIcon, InstagramIcon, LinkedinIcon } from "lucide-react"
 import Image from "next/image"
 
 interface FooterLink {
@@ -41,14 +40,6 @@ const footerLinks: FooterSection[] = [
       { title: "Documentation", href: "/docs" },
       { title: "FAQ", href: "/faq" },
       { title: "Support", href: "/support" },
-    ],
-  },
-  {
-    label: "Social Links",
-    links: [
-      { title: "LinkedIn", href: "https://www.linkedin.com/company/elianatech/?viewAsMember=true", icon: LinkedinIcon },
-      { title: "Instagram", href: "https://www.instagram.com/elianatech/", icon: InstagramIcon },
-      { title: "Facebook", href: "https://www.facebook.com/elianatech/", icon: FacebookIcon },
     ],
   },
 ]

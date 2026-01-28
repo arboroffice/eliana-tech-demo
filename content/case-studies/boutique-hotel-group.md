@@ -20,7 +20,7 @@ results:
 
 ## Challenge
 
-The Grandeur wanted to differentiate itself from big chains by offering unmatched personal service. However, manually tracking the preferences of thousands of guests—allergies, pillow types, drink choices—in a way that staff could actually use was impossible.
+The Grandeur wanted to differentiate itself from big chains by offering unmatched personal service. However, manually tracking the preferences of thousands of guests - allergies, pillow types, drink choices - in a way that staff could actually use was impossible.
 
 ## Solution
 

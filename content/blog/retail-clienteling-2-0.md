@@ -9,7 +9,7 @@ category: "Retail"
 
 ## The Death of the Cookie
 
-As third-party cookies die, generic ad retargeting is losing effectiveness. Brands need a new way to engage customers—personally and directly.
+As third-party cookies die, generic ad retargeting is losing effectiveness. Brands need a new way to engage customers - personally and directly.
 
 ## What is AI Clienteling?
 

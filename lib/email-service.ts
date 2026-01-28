@@ -7,7 +7,7 @@ import { Resend } from 'resend'
 import { db } from './firebase'
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+const resend = new Resend(process.env.RESEND_API_KEY || 're_123456789')
 const CALENDAR_LINK = 'https://cal.com/mia-louviere-a4n2hk/30min'
 
 interface EmailParams {

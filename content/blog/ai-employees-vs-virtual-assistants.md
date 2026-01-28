@@ -24,7 +24,7 @@ Enter the AI Employee.
 
 ## The Efficiency Gap
 
-A human VA can handle one task at a time. If they are on the phone, they aren't answering emails. An AI Employee is infinitely scalable. It can hold 50 simultaneous phone conversations while replying to 100 emails and updating your CRM—all in the same second.
+A human VA can handle one task at a time. If they are on the phone, they aren't answering emails. An AI Employee is infinitely scalable. It can hold 50 simultaneous phone conversations while replying to 100 emails and updating your CRM - all in the same second.
 
 ## Valid Use Cases for Humans
 
@@ -33,4 +33,4 @@ We aren't saying humans are obsolete. Humans are needed for:
 *   Complex emotional negotiation.
 *   Physical world tasks.
 
-For everything else—scheduling, data entry, initial outreach, FAQ support—AI is simply the superior economic choice.
+For everything else - scheduling, data entry, initial outreach, FAQ support - AI is simply the superior economic choice.

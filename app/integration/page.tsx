@@ -15,7 +15,7 @@ export default function IntegrationPage() {
                 <div className="text-center max-w-3xl mx-auto mb-20">
                     <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">Seamless Integrations</h1>
                     <p className="text-xl text-slate-300">
-                        We don't replace your stack—we supercharge it. Eliana connects natively with the tools you already use, creating a unified flow of data across your entire business.
+                        We don't replace your stack-we supercharge it. Eliana connects natively with the tools you already use, creating a unified flow of data across your entire business.
                     </p>
                 </div>
 

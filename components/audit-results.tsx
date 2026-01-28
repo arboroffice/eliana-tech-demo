@@ -21,7 +21,14 @@ import {
     Copy,
     Check,
     Gift,
-    Zap
+    Zap,
+    Brain,
+    Server,
+    Network,
+    Database,
+    Workflow,
+    Cpu,
+    ShieldCheck
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -105,57 +112,57 @@ export function AuditResults({ formData, auditScore }: AuditResultsProps) {
 
     const potentialIncrease = calculatePotentialIncrease()
 
-    // Generate personalized opportunities
+    // Generate personalized opportunities (Now Strategic Vectors)
     const generateOpportunities = () => {
         const opportunities = []
 
         if (formData.missedCalls !== '0-5') {
             opportunities.push({
-                title: "Capture Every Lead",
-                impact: "High",
-                description: `You're missing ${formData.missedCalls} calls per week. An AI receptionist could capture these leads 24/7.`,
-                icon: AlertCircle,
-                color: "text-red-500"
+                title: "Autonomous Lead Capture Agent",
+                impact: "Critical",
+                description: `Deploy a voice-enabled AI agent to handle ${formData.missedCalls} weekly missed calls with 24/7 availability and instant CRM sync.`,
+                icon: Server,
+                color: "text-red-400"
             })
         }
 
         if (formData.systematicFollowUp !== 'Yes') {
             opportunities.push({
-                title: "Automated Follow-Up System",
+                title: "Nurture Sequence Orchestration",
                 impact: "High",
-                description: "Systematic follow-ups can increase conversions by 50%. Automate this entirely with AI.",
-                icon: Target,
-                color: "text-orange-500"
+                description: "Implement a multi-modal (SMS/Email) AI nurturer that intelligently adapts follow-ups based on lead sentiment and engagement.",
+                icon: Network,
+                color: "text-orange-400"
             })
         }
 
         if (formData.askReviewsSystem === 'none' || formData.askReviewsSystem === 'manual') {
             opportunities.push({
-                title: "Review Generation Engine",
+                title: "Reputation Management Engine",
                 impact: "Medium",
-                description: "Automated review requests can double your review rate, boosting local SEO and trust.",
-                icon: TrendingUp,
-                color: "text-blue-500"
+                description: "Automate post-interaction sentiment analysis to trigger review requests only for high-satisfaction interactions.",
+                icon: Brain,
+                color: "text-blue-400"
             })
         }
 
         if (parseInt(formData.painLevel[0]) >= 7) {
             opportunities.push({
-                title: "Urgent Process Automation",
+                title: "Operational Bottleneck Elimination",
                 impact: "Critical",
-                description: `Your pain level is ${formData.painLevel[0]}/10. Immediate automation can relieve this pressure within 30 days.`,
-                icon: AlertCircle,
-                color: "text-red-600"
+                description: `Pain level ${formData.painLevel[0]}/10 detected. Deploy task-specific agents to decouple revenue generation from manual effort.`,
+                icon: Zap,
+                color: "text-red-500"
             })
         }
 
         if (formData.percentAutomated === 'none' || formData.percentAutomated === '<30%') {
             opportunities.push({
-                title: "Low-Hanging Automation Wins",
+                title: "Workflow Automation Infrastructure",
                 impact: "High",
-                description: "70%+ of repetitive tasks can be automated, freeing 15-20 hours per week.",
-                icon: Lightbulb,
-                color: "text-yellow-500"
+                description: "Establish a central automation bus (e.g., Make/Zapier enterprise) to orchestrate data flow between disconnected systems.",
+                icon: Workflow,
+                color: "text-yellow-400"
             })
         }
 
@@ -164,126 +171,120 @@ export function AuditResults({ formData, auditScore }: AuditResultsProps) {
 
     const opportunities = generateOpportunities()
 
-    // Generate DIY steps
-    const generateDIYSteps = () => {
+    // Generate Architecture Blueprint (Replacing DIY Steps)
+    const generateArchitectureBlueprint = () => {
         const steps = [
             {
-                step: 1,
-                title: "Document Your Current Processes",
-                description: "Map out your top 5 most time-consuming tasks. Write down every step.",
-                timeframe: "Week 1"
+                step: "01",
+                title: "Data Ingestion Layer",
+                description: "Centralize unstructured data (calls, emails, docs) into a vector database for AI retrieval.",
+                icon: Database
             },
             {
-                step: 2,
-                title: "Identify Quick Wins",
-                description: "Look for repetitive tasks: email responses, appointment booking, follow-ups.",
-                timeframe: "Week 1-2"
+                step: "02",
+                title: "Contextual Reasoning Engine",
+                description: "Deploy an LLM (GPT-4o/Claude 3.5) with custom system prompts to analyze intent and sentiment.",
+                icon: Brain
             },
             {
-                step: 3,
-                title: "Research Automation Tools",
-                description: "Explore tools like Zapier, Make.com for workflows. Try AI tools like ChatGPT for responses.",
-                timeframe: "Week 2-3"
+                step: "03",
+                title: "Action Orchestration Bus",
+                description: "Connect the AI reasoning layer to your APIs (CRM, Calendar, Billing) to execute tasks autonomously.",
+                icon: Server
             },
             {
-                step: 4,
-                title: "Start with One Workflow",
-                description: "Automate your simplest process first. Master it before moving to complex ones.",
-                timeframe: "Week 3-4"
+                step: "04",
+                title: "Multi-Modal Output Interface",
+                description: "Deliver responses via the user's preferred channel: Voice, SMS, Email, or WhatsApp.",
+                icon: Network
             },
             {
-                step: 5,
-                title: "Test and Refine",
-                description: "Run your automation alongside manual process for 2 weeks. Fix errors.",
-                timeframe: "Week 4-6"
-            },
-            {
-                step: 6,
-                title: "Scale Gradually",
-                description: "Add one new automation per month. Track time saved and ROI.",
-                timeframe: "Month 2-6"
+                step: "05",
+                title: "Feedback & Optimization Loop",
+                description: "Implement RAG (Retrieval Augmented Generation) to let the system learn from past interactions.",
+                icon: TrendingUp
             }
         ]
 
         return steps
     }
 
-    const diySteps = generateDIYSteps()
+    const architectureSteps = generateArchitectureBlueprint()
 
     // Generate solution recommendations
     const generateSolutions = () => {
         const solutions = []
 
-        // Starter Package
+        // Starter Package -> AI Core Infrastructure
         if (formData.currentRevenue === 'early' || formData.growthBudget === 'starter') {
             solutions.push({
-                tier: "Foundation",
+                tier: "AI Core Infrastructure",
                 price: "$2,500 - $5,000",
                 timeline: "2-4 weeks",
                 includes: [
-                    "AI Call Handling Setup",
-                    "Automated Follow-Up System",
-                    "Review Collection Automation",
-                    "Basic CRM Integration"
+                    "Voice Agent Deployment",
+                    "Autonomous Nurture Sequences",
+                    "Sentiment-Based Review Engine",
+                    "CRM Vector Sync"
                 ],
-                bestFor: "Early-stage businesses ready to systemize",
-                cta: "Perfect for your current stage"
+                bestFor: "Businesses establishing their AI foundation",
+                cta: "Deploy Core Infrastructure"
             })
         }
 
-        // Growth Package
+        // Growth Package -> Autonomous Growth Engine
         if (formData.currentRevenue === 'growth' || formData.growthBudget === 'moderate' || formData.growthBudget === 'aggressive') {
             solutions.push({
-                tier: "Scale",
+                tier: "Autonomous Growth Engine",
                 price: "$10,000 - $25,000",
                 timeline: "4-8 weeks",
                 includes: [
-                    "Everything in Foundation",
-                    "Custom AI Agent Development",
-                    "Multi-Channel Automation (SMS, Email, WhatsApp)",
-                    "Advanced Analytics Dashboard",
-                    "Team Training & Documentation",
-                    "90-Day Optimization Support"
+                    "Everything in Core Infrastructure",
+                    "Custom Agent Swarm Development",
+                    "Omnichannel Orchestration",
+                    "Predictive Analytics Dashboard",
+                    "Staff AI Augmentation Training",
+                    "90-Day Neural Optimization"
                 ],
-                bestFor: "Growing companies hitting capacity limits",
-                cta: "Recommended for your goals"
+                bestFor: "Scaling companies needing high-throughput automation",
+                cta: "Initialize Growth Engine"
             })
         }
 
-        // Enterprise Package
+        // Enterprise Package -> Enterprise Neural Network
         if (formData.currentRevenue === 'established' || formData.currentRevenue === 'leader' || formData.growthBudget === 'leader' || formData.growthBudget === 'enterprise') {
             solutions.push({
-                tier: "AI-Native Transformation",
+                tier: "Enterprise Neural Network",
                 price: "$50,000+",
                 timeline: "3-6 months",
                 includes: [
-                    "Everything in Scale",
-                    "Full Business Process Re-Engineering",
-                    "Custom AI Model Development",
-                    "Multi-Location Orchestration",
-                    "API Integrations (Unlimited)",
-                    "Dedicated Success Manager",
+                    "Everything in Growth Engine",
+                    "Full-Stack Business Re-Engineering",
+                    "Proprietary Model Fine-Tuning",
+                    "Multi-Location Sync",
+                    "Unlimited API Integrations",
+                    "Dedicated Solutions Architect",
                     "12-Month Strategic Partnership"
                 ],
-                bestFor: "Market leaders ready to dominate their space",
-                cta: "Built for your ambition"
+                bestFor: "Market leaders dominating via technological moat",
+                cta: "Build Enterprise System"
             })
         }
 
         // Co-Founder Model
         solutions.push({
-            tier: "Co-Founder Partnership",
+            tier: "Strategic AI Partnership",
             price: "Revenue Share Model",
             timeline: "6-12 months",
             includes: [
-                "Zero Upfront Investment",
-                "We build, you grow, we share in the wins",
-                "Full AI-Native Business Transformation",
-                "Ongoing Strategy & Optimization",
-                "Aligned Incentives - We Win When You Win"
+                "Zero Upfront Development Cost",
+                "Full Technical Risk Absorption",
+                "End-to-End Digital Transformation",
+                "Continuous Model Optimization",
+                "Aligned Incentives Architecture"
             ],
-            bestFor: "High-potential businesses with proven traction",
-            cta: "Let's explore this together"
+            bestFor: "High-potential ventures with proven market fit",
+            cta: "Apply for Partnership"
         })
 
         return solutions
@@ -292,23 +293,25 @@ export function AuditResults({ formData, auditScore }: AuditResultsProps) {
     const solutions = generateSolutions()
 
     return (
-        <div className="max-w-6xl mx-auto space-y-12 pb-12">
+        <div className="max-w-7xl mx-auto space-y-16 pb-20">
             {/* Hero Section */}
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="text-center space-y-6"
+                className="text-center space-y-8"
             >
-                <div className="inline-block">
-                    <div className="bg-gradient-to-r from-green-500 to-emerald-600 rounded-full p-4 mb-4">
-                        <CheckCircle2 className="w-12 h-12 text-white" />
+                <div className="inline-block relative">
+                    <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full blur opacity-25 animate-pulse"></div>
+                    <div className="relative bg-black/50 backdrop-blur-xl border border-white/10 rounded-full px-6 py-2">
+                        <span className="text-blue-400 font-mono text-sm tracking-wider">SYSTEM AUDIT COMPLETE</span>
                     </div>
                 </div>
-                <h1 className="text-4xl md:text-5xl font-bold text-white">
-                    Your AI Readiness Report
+                
+                <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight">
+                    Your AI Readiness <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Report</span>
                 </h1>
-                <p className="text-xl text-slate-300 max-w-2xl mx-auto">
-                    {formData.companyName}, here's your custom roadmap to becoming AI-native
+                <p className="text-xl text-slate-400 max-w-2xl mx-auto font-light leading-relaxed">
+                    {formData.companyName}, we've analyzed your operational data. Here is your blueprint for achieving autonomous scale.
                 </p>
             </motion.div>
 
@@ -318,77 +321,77 @@ export function AuditResults({ formData, auditScore }: AuditResultsProps) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
             >
-                <Card className="bg-gradient-to-br from-slate-900 to-slate-800 border-slate-700 p-8">
-                    <div className="text-center space-y-6">
-                        <h2 className="text-2xl font-bold text-white">Overall AI Readiness Score</h2>
+                <Card className="bg-black/40 backdrop-blur-xl border-white/10 p-10 relative overflow-hidden group">
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div className="text-center space-y-8 relative z-10">
+                        <h2 className="text-2xl font-medium text-slate-200">System Maturity Index</h2>
                         <div className="relative inline-block">
-                            <div className="text-7xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                            <div className="text-8xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 bg-clip-text text-transparent animate-gradient-x">
                                 {Math.round((revenueScore + automationScore + salesScore + retentionScore + timeScore) / 5)}
                             </div>
-                            <div className="text-slate-400 text-sm mt-2">out of 100</div>
+                            <div className="text-slate-500 text-sm mt-4 font-mono tracking-widest uppercase">/ 100 Possible Score</div>
                         </div>
-                        <div className="max-w-2xl mx-auto">
+                        <div className="max-w-md mx-auto">
                             <Progress
                                 value={(revenueScore + automationScore + salesScore + retentionScore + timeScore) / 5}
-                                className="h-3"
+                                className="h-2 bg-slate-800"
                             />
                         </div>
                     </div>
                 </Card>
             </motion.div>
 
-            {/* Instant Mini-Wins */}
+            {/* Mini-Wins -> AI Quick Deployments */}
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15 }}
-                className="space-y-6"
+                className="space-y-8"
             >
                 <div className="flex items-center justify-between">
-                    <h2 className="text-3xl font-bold text-white flex items-center gap-3">
-                        <Gift className="w-8 h-8 text-green-400" />
-                        Instant Mini-Wins
+                    <h2 className="text-3xl font-bold text-white flex items-center gap-4">
+                        <div className="p-3 bg-green-500/10 rounded-xl border border-green-500/20">
+                            <Cpu className="w-6 h-6 text-green-400" />
+                        </div>
+                        Rapid Deployment Assets
                     </h2>
-                    <span className="text-sm text-slate-400 bg-slate-800 px-4 py-2 rounded-full">
-                        Free • Copy & Use Now
+                    <span className="text-xs font-mono text-green-400 bg-green-500/10 px-4 py-2 rounded-full border border-green-500/20">
+                        READY FOR DEPLOYMENT
                     </span>
                 </div>
-                <p className="text-slate-300 text-lg">
-                    Start getting value immediately! Copy these ready-to-use resources:
-                </p>
-
+                
                 <div className="grid md:grid-cols-2 gap-6">
                     {miniWins.map((win, idx) => (
-                        <Card key={idx} className="bg-slate-900/50 border-slate-800 p-6 hover:border-green-500/50 transition-all group">
-                            <div className="space-y-4">
-                                <div className="flex items-start justify-between">
-                                    <div className="flex-1">
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <span className="text-2xl">{win.icon}</span>
-                                            <h3 className="text-white font-bold text-lg">{win.title}</h3>
-                                        </div>
-                                        <p className="text-slate-400 text-sm mb-4">{win.description}</p>
+                        <Card key={idx} className="bg-black/40 backdrop-blur-md border-white/10 p-8 hover:border-green-500/30 transition-all group relative overflow-hidden">
+                            <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                                <span className="text-6xl">{win.icon}</span>
+                            </div>
+                            <div className="space-y-6 relative z-10">
+                                <div>
+                                    <div className="flex items-center gap-3 mb-3">
+                                        <h3 className="text-white font-bold text-lg">{win.title}</h3>
                                     </div>
+                                    <p className="text-slate-400 text-sm leading-relaxed">{win.description}</p>
                                 </div>
 
-                                <div className="bg-slate-950 rounded-lg p-4 border border-slate-700 font-mono text-sm text-slate-300 max-h-64 overflow-y-auto">
+                                <div className="bg-black/50 rounded-xl p-5 border border-white/5 font-mono text-xs text-slate-300 max-h-48 overflow-y-auto custom-scrollbar">
                                     <pre className="whitespace-pre-wrap">{win.content}</pre>
                                 </div>
 
                                 <Button
                                     onClick={() => handleCopy(formatMiniWinForCopy(win), idx)}
-                                    className="w-full bg-green-600 hover:bg-green-700 text-white"
-                                    variant={copiedIndex === idx ? "outline" : "default"}
+                                    className="w-full bg-white/5 hover:bg-green-500/20 text-white border border-white/10 hover:border-green-500/50"
+                                    variant="outline"
                                 >
                                     {copiedIndex === idx ? (
                                         <>
                                             <Check className="w-4 h-4 mr-2" />
-                                            Copied!
+                                            Asset Copied
                                         </>
                                     ) : (
                                         <>
                                             <Copy className="w-4 h-4 mr-2" />
-                                            Copy to Clipboard
+                                            Copy Asset to Clipboard
                                         </>
                                     )}
                                 </Button>
@@ -396,21 +399,6 @@ export function AuditResults({ formData, auditScore }: AuditResultsProps) {
                         </Card>
                     ))}
                 </div>
-
-                <Card className="bg-gradient-to-br from-green-900/20 to-emerald-900/20 border-green-500/30 p-6">
-                    <div className="flex items-start gap-4">
-                        <Zap className="w-6 h-6 text-green-400 flex-shrink-0 mt-1" />
-                        <div>
-                            <h3 className="text-white font-bold mb-2">Implementation Tip</h3>
-                            <p className="text-slate-300 mb-3">
-                                These are just the quick wins! Imagine what you could do with a complete automation system.
-                            </p>
-                            <p className="text-slate-400 text-sm">
-                                Want us to implement all of this for you? Book a strategy call below and we'll show you our done-for-you approach.
-                            </p>
-                        </div>
-                    </div>
-                </Card>
             </motion.div>
 
             {/* Current State Analysis */}
@@ -418,27 +406,31 @@ export function AuditResults({ formData, auditScore }: AuditResultsProps) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="space-y-6"
+                className="space-y-8"
             >
-                <h2 className="text-3xl font-bold text-white flex items-center gap-3">
-                    <BarChart3 className="w-8 h-8 text-blue-400" />
-                    Where You Are Today
+                <h2 className="text-3xl font-bold text-white flex items-center gap-4">
+                    <div className="p-3 bg-blue-500/10 rounded-xl border border-blue-500/20">
+                        <BarChart3 className="w-6 h-6 text-blue-400" />
+                    </div>
+                    Operational Analysis
                 </h2>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {[
                         { name: 'Revenue Growth', score: revenueScore, icon: TrendingUp },
-                        { name: 'Automation Level', score: automationScore, icon: Rocket },
+                        { name: 'Automation Density', score: automationScore, icon: Rocket },
                         { name: 'Sales Efficiency', score: salesScore, icon: Target },
-                        { name: 'Customer Retention', score: retentionScore, icon: Users },
-                        { name: 'Time Freedom', score: timeScore, icon: Clock },
+                        { name: 'Retention Rate', score: retentionScore, icon: Users },
+                        { name: 'Founder Autonomy', score: timeScore, icon: Clock },
                     ].map((area, idx) => (
-                        <Card key={idx} className="bg-slate-900/50 border-slate-800 p-6 hover:border-blue-500/50 transition-all">
-                            <div className="flex items-center justify-between mb-4">
-                                <area.icon className={`w-6 h-6 ${area.score >= 70 ? 'text-green-500' : area.score >= 40 ? 'text-yellow-500' : 'text-red-500'}`} />
+                        <Card key={idx} className="bg-black/40 backdrop-blur-md border-white/10 p-6 hover:border-blue-500/30 transition-all group">
+                            <div className="flex items-center justify-between mb-6">
+                                <div className={`p-2 rounded-lg bg-white/5 ${area.score >= 70 ? 'text-green-400' : area.score >= 40 ? 'text-yellow-400' : 'text-red-400'}`}>
+                                    <area.icon className="w-5 h-5" />
+                                </div>
                                 <span className="text-2xl font-bold text-white">{area.score}</span>
                             </div>
-                            <h3 className="text-white font-semibold mb-2">{area.name}</h3>
-                            <Progress value={area.score} className="h-2" />
+                            <h3 className="text-slate-200 font-medium mb-3">{area.name}</h3>
+                            <Progress value={area.score} className="h-1.5 bg-slate-800" />
                         </Card>
                     ))}
                 </div>
@@ -449,37 +441,40 @@ export function AuditResults({ formData, auditScore }: AuditResultsProps) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="space-y-6"
+                className="space-y-8"
             >
-                <h2 className="text-3xl font-bold text-white flex items-center gap-3">
-                    <Lightbulb className="w-8 h-8 text-yellow-400" />
-                    Your Biggest Opportunities
+                <h2 className="text-3xl font-bold text-white flex items-center gap-4">
+                    <div className="p-3 bg-purple-500/10 rounded-xl border border-purple-500/20">
+                        <Lightbulb className="w-6 h-6 text-purple-400" />
+                    </div>
+                    Strategic Implementation Vectors
                 </h2>
-                <Card className="bg-gradient-to-br from-purple-900/20 to-blue-900/20 border-purple-500/30 p-8">
-                    <div className="text-center space-y-4 mb-8">
-                        <p className="text-slate-300 text-lg">Based on your audit, you're leaving this much on the table:</p>
-                        <div className="text-6xl font-bold bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent">
+                
+                <Card className="bg-gradient-to-br from-purple-900/40 to-blue-900/40 border-white/10 p-10 backdrop-blur-xl">
+                    <div className="text-center space-y-4">
+                        <p className="text-slate-300 text-lg font-light">Projected Annual Value of Implementation</p>
+                        <div className="text-7xl md:text-8xl font-bold bg-gradient-to-r from-green-300 via-emerald-400 to-green-300 bg-clip-text text-transparent animate-shimmer">
                             {potentialIncrease}
                         </div>
-                        <p className="text-slate-400">in annual revenue potential</p>
+                        <p className="text-slate-500 font-mono text-sm tracking-wider">RECOVERABLE ANNUAL REVENUE</p>
                     </div>
                 </Card>
 
                 <div className="grid md:grid-cols-2 gap-6">
                     {opportunities.map((opp, idx) => (
-                        <Card key={idx} className="bg-slate-900/50 border-slate-800 p-6 hover:border-purple-500/50 transition-all">
-                            <div className="flex items-start gap-4">
-                                <div className={`p-3 bg-slate-800 rounded-lg ${opp.color}`}>
+                        <Card key={idx} className="bg-black/40 border-white/10 p-8 hover:border-purple-500/30 transition-all group">
+                            <div className="flex items-start gap-6">
+                                <div className={`p-4 bg-white/5 rounded-xl border border-white/5 ${opp.color}`}>
                                     <opp.icon className="w-6 h-6" />
                                 </div>
-                                <div className="flex-1">
-                                    <div className="flex items-center justify-between mb-2">
-                                        <h3 className="text-white font-bold">{opp.title}</h3>
-                                        <span className={`text-xs px-2 py-1 rounded ${opp.impact === 'Critical' ? 'bg-red-500/20 text-red-400' : opp.impact === 'High' ? 'bg-orange-500/20 text-orange-400' : 'bg-blue-500/20 text-blue-400'}`}>
-                                            {opp.impact} Impact
+                                <div className="flex-1 space-y-2">
+                                    <div className="flex items-center justify-between">
+                                        <h3 className="text-white font-bold text-lg">{opp.title}</h3>
+                                        <span className={`text-[10px] font-mono uppercase tracking-wider px-2 py-1 rounded border ${opp.impact === 'Critical' ? 'bg-red-500/10 text-red-400 border-red-500/20' : opp.impact === 'High' ? 'bg-orange-500/10 text-orange-400 border-orange-500/20' : 'bg-blue-500/10 text-blue-400 border-blue-500/20'}`}>
+                                            {opp.impact} Priority
                                         </span>
                                     </div>
-                                    <p className="text-slate-400 text-sm">{opp.description}</p>
+                                    <p className="text-slate-400 text-sm leading-relaxed">{opp.description}</p>
                                 </div>
                             </div>
                         </Card>
@@ -487,51 +482,56 @@ export function AuditResults({ formData, auditScore }: AuditResultsProps) {
                 </div>
             </motion.div>
 
-            {/* DIY Steps */}
+            {/* System Architecture Blueprint (Replaced DIY Steps) */}
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="space-y-6"
+                className="space-y-8"
             >
-                <h2 className="text-3xl font-bold text-white flex items-center gap-3">
-                    <Wrench className="w-8 h-8 text-orange-400" />
-                    DIY Implementation Roadmap
+                <h2 className="text-3xl font-bold text-white flex items-center gap-4">
+                    <div className="p-3 bg-orange-500/10 rounded-xl border border-orange-500/20">
+                        <Server className="w-6 h-6 text-orange-400" />
+                    </div>
+                    System Architecture Blueprint
                 </h2>
-                <p className="text-slate-400 text-lg">Want to tackle this yourself? Here's your step-by-step guide:</p>
+                <p className="text-slate-400 text-lg">The technical roadmap to building your autonomous enterprise.</p>
 
                 <div className="space-y-4">
-                    {diySteps.map((step, idx) => (
-                        <Card key={idx} className="bg-slate-900/50 border-slate-800 p-6 hover:border-orange-500/50 transition-all">
-                            <div className="flex items-start gap-4">
-                                <div className="flex-shrink-0 w-12 h-12 bg-orange-500/20 text-orange-400 rounded-full flex items-center justify-center font-bold text-xl">
-                                    {step.step}
+                    {architectureSteps.map((step, idx) => (
+                        <Card key={idx} className="bg-black/40 backdrop-blur-md border-white/10 p-6 hover:border-orange-500/30 transition-all group">
+                            <div className="flex items-center gap-6">
+                                <div className="hidden md:flex flex-col items-center gap-2">
+                                    <div className="w-px h-8 bg-white/10 group-first:hidden"></div>
+                                    <div className="w-12 h-12 rounded-full border border-white/10 bg-black/50 flex items-center justify-center text-slate-500 font-mono text-sm group-hover:border-orange-500/50 group-hover:text-orange-400 transition-colors">
+                                        {step.step}
+                                    </div>
+                                    <div className="w-px h-8 bg-white/10 group-last:hidden"></div>
                                 </div>
                                 <div className="flex-1">
-                                    <div className="flex items-start justify-between mb-2">
+                                    <div className="flex items-center gap-4 mb-2">
+                                        <div className="p-2 bg-white/5 rounded-lg text-orange-400 md:hidden">
+                                            {step.step}
+                                        </div>
                                         <h3 className="text-white font-bold text-lg">{step.title}</h3>
-                                        <span className="text-sm text-slate-500 bg-slate-800 px-3 py-1 rounded-full">
-                                            {step.timeframe}
-                                        </span>
+                                        <step.icon className="w-4 h-4 text-slate-600" />
                                     </div>
-                                    <p className="text-slate-400">{step.description}</p>
+                                    <p className="text-slate-400 text-sm">{step.description}</p>
                                 </div>
                             </div>
                         </Card>
                     ))}
                 </div>
 
-                <Card className="bg-yellow-900/20 border-yellow-500/30 p-6">
+                <Card className="bg-yellow-900/10 border-yellow-500/20 p-6 backdrop-blur-sm">
                     <div className="flex items-start gap-4">
-                        <AlertCircle className="w-6 h-6 text-yellow-400 flex-shrink-0 mt-1" />
+                        <ShieldCheck className="w-6 h-6 text-yellow-400 flex-shrink-0 mt-1" />
                         <div>
-                            <h3 className="text-white font-bold mb-2">Reality Check</h3>
-                            <p className="text-slate-300 mb-3">
-                                DIY automation typically takes 6-12 months and requires significant trial and error.
-                                Most business owners underestimate the complexity and end up with disconnected tools that create more problems.
-                            </p>
-                            <p className="text-slate-400 text-sm">
-                                Our clients typically recoup their investment in 60-90 days because we've already made (and fixed) every mistake.
+                            <h3 className="text-white font-bold mb-2">Technical Feasibility Assessment</h3>
+                            <p className="text-slate-300 text-sm leading-relaxed mb-4">
+                                While this architecture is buildable with off-the-shelf components (LangChain, Pinecone, OpenAI API), 
+                                implementing a production-grade system typically requires 400-600 engineering hours to ensure 
+                                reliability, latency handling, and proper guardrails against hallucinations.
                             </p>
                         </div>
                     </div>
@@ -543,47 +543,45 @@ export function AuditResults({ formData, auditScore }: AuditResultsProps) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
-                className="space-y-6"
+                className="space-y-8"
             >
-                <h2 className="text-3xl font-bold text-white flex items-center gap-3">
-                    <Rocket className="w-8 h-8 text-purple-400" />
-                    Fast-Track Solutions Built for You
+                <h2 className="text-3xl font-bold text-white flex items-center gap-4">
+                    <div className="p-3 bg-purple-500/10 rounded-xl border border-purple-500/20">
+                        <Rocket className="w-6 h-6 text-purple-400" />
+                    </div>
+                    Deployment Options
                 </h2>
-                <p className="text-slate-400 text-lg">Based on your goals and stage, here's how we can help:</p>
-
+                
                 <div className="grid md:grid-cols-2 gap-6">
                     {solutions.map((solution, idx) => (
-                        <Card key={idx} className={`bg-slate-900/50 border-slate-800 p-8 hover:border-purple-500/50 transition-all ${solution.cta.includes('Recommended') ? 'ring-2 ring-purple-500/50' : ''}`}>
-                            {solution.cta.includes('Recommended') && (
-                                <div className="bg-purple-500 text-white text-sm font-bold px-4 py-1 rounded-full inline-block mb-4">
-                                    RECOMMENDED FOR YOU
+                        <Card key={idx} className={`bg-black/40 backdrop-blur-xl border-white/10 p-8 hover:border-purple-500/30 transition-all ${solution.cta.includes('Initialize') ? 'border-purple-500/50 ring-1 ring-purple-500/20' : ''}`}>
+                            {solution.cta.includes('Initialize') && (
+                                <div className="bg-purple-500 text-white text-[10px] font-bold px-3 py-1 rounded-full inline-block mb-6 tracking-widest uppercase">
+                                    Recommended Configuration
                                 </div>
                             )}
                             <h3 className="text-2xl font-bold text-white mb-2">{solution.tier}</h3>
-                            <div className="flex items-baseline gap-2 mb-4">
-                                <span className="text-3xl font-bold bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent">
+                            <div className="flex items-baseline gap-2 mb-6">
+                                <span className="text-3xl font-light text-slate-200">
                                     {solution.price}
                                 </span>
                             </div>
-                            <p className="text-slate-400 text-sm mb-6">Timeline: {solution.timeline}</p>
+                            <p className="text-slate-500 text-sm font-mono mb-8 flex items-center gap-2">
+                                <Clock className="w-4 h-4" />
+                                EST. DEPLOYMENT: {solution.timeline}
+                            </p>
 
-                            <div className="space-y-3 mb-6">
+                            <div className="space-y-4 mb-8">
                                 {solution.includes.map((item, i) => (
-                                    <div key={i} className="flex items-start gap-2">
-                                        <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                                    <div key={i} className="flex items-start gap-3">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-green-400 mt-2 flex-shrink-0" />
                                         <span className="text-slate-300 text-sm">{item}</span>
                                     </div>
                                 ))}
                             </div>
 
-                            <div className="border-t border-slate-800 pt-4 mb-6">
-                                <p className="text-slate-400 text-sm">
-                                    <strong className="text-white">Best for:</strong> {solution.bestFor}
-                                </p>
-                            </div>
-
-                            <Button className="w-full bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white">
-                                {solution.cta}
+                            <Button className="w-full bg-white text-black hover:bg-slate-200 font-medium py-6">
+                                {solution.cta} <ArrowRight className="w-4 h-4 ml-2" />
                             </Button>
                         </Card>
                     ))}
@@ -596,63 +594,24 @@ export function AuditResults({ formData, auditScore }: AuditResultsProps) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
             >
-                <Card className="bg-gradient-to-br from-purple-900 to-blue-900 border-purple-500/30 p-12 text-center">
-                    <h2 className="text-4xl font-bold text-white mb-4">
-                        Ready to Transform {formData.companyName}?
-                    </h2>
-                    <p className="text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
-                        Book a free 30-minute strategy call. We'll show you exactly how to capture that {potentialIncrease} in lost revenue.
-                    </p>
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <Button size="lg" className="bg-white text-purple-900 hover:bg-slate-200 text-lg px-8 py-6">
-                            <Calendar className="w-5 h-5 mr-2" />
-                            Book Your Strategy Call
-                        </Button>
-                        <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 text-lg px-8 py-6">
-                            <Download className="w-5 h-5 mr-2" />
-                            Download Full Report
-                        </Button>
-                    </div>
-                    <p className="text-slate-400 text-sm mt-6">
-                        No pressure. No pitch. Just a real conversation about your business.
-                    </p>
-                </Card>
-            </motion.div>
-
-            {/* Personalized Note */}
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7 }}
-            >
-                <Card className="bg-slate-900/50 border-slate-800 p-8">
-                    <div className="flex items-start gap-4">
-                        <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-2xl flex-shrink-0">
-                            E
-                        </div>
-                        <div className="flex-1">
-                            <h3 className="text-white font-bold text-lg mb-2">A Personal Note from Our Team</h3>
-                            <p className="text-slate-300 mb-4">
-                                Hey {formData.fullName.split(' ')[0]},
-                            </p>
-                            <p className="text-slate-300 mb-4">
-                                I noticed you mentioned "{formData.keepsUpAtNight}" keeps you up at night. I've been there.
-                                {formData.painLevel[0] >= 7 && " And with a pain level of " + formData.painLevel[0] + "/10, I know this isn't just annoying—it's urgent."}
-                            </p>
-                            <p className="text-slate-300 mb-4">
-                                The good news? {opportunities.length > 0 && `We've identified ${opportunities.length} high-impact opportunities that could `}
-                                transform your business in the next 90 days.
-                            </p>
-                            <p className="text-slate-300">
-                                Whether you go DIY or work with us, the key is to start. This report is yours to keep.
-                                {formData.newsletterOptIn && " I'll also send you bite-sized implementation tips every week—no fluff, just actionable stuff."}
-                            </p>
-                            <p className="text-slate-300 mt-4">
-                                Let's build something great together.
-                            </p>
-                            <p className="text-white font-semibold mt-2">
-                                - The Eliana Team
-                            </p>
+                <Card className="bg-gradient-to-br from-indigo-900/60 to-purple-900/60 border-white/10 p-12 text-center backdrop-blur-xl relative overflow-hidden">
+                    <div className="absolute inset-0 bg-grid-white/[0.05] bg-[length:20px_20px]" />
+                    <div className="relative z-10">
+                        <h2 className="text-4xl font-bold text-white mb-6">
+                            Ready to Deploy Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Autonomous Infrastructure</span>?
+                        </h2>
+                        <p className="text-xl text-slate-300 mb-10 max-w-2xl mx-auto font-light">
+                            Book a technical strategy session. We'll architect the exact stack needed to capture your ${potentialIncrease.replace('$', '')} opportunity.
+                        </p>
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                            <Button size="lg" className="bg-white text-black hover:bg-slate-200 text-lg px-8 py-6 rounded-full font-medium transition-all hover:scale-105">
+                                <Calendar className="w-5 h-5 mr-2" />
+                                Schedule Strategy Session
+                            </Button>
+                            <Button size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/10 text-lg px-8 py-6 rounded-full transition-all hover:scale-105">
+                                <Download className="w-5 h-5 mr-2" />
+                                Export Technical Report
+                            </Button>
                         </div>
                     </div>
                 </Card>

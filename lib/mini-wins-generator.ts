@@ -16,275 +16,199 @@ export function generateMiniWins(formData: any): MiniWin[] {
     const wins: MiniWin[] = []
     const { companyName, specificIndustry, fullName } = formData
 
-    // 1. Custom ChatGPT Prompts (always include)
-    wins.push(...generateChatGPTPrompts(formData))
+    // 1. System Prompt Engineering (Advanced AI Setup)
+    wins.push(...generateSystemPrompts(formData))
 
-    // 2. Email Template for Reviews (if no automated system)
+    // 2. Behavioral Nurture Logic (if no automated system)
     if (formData.askReviewsSystem !== 'automated') {
-        wins.push(generateReviewEmailTemplate(formData))
+        wins.push(generateBehavioralReviewLogic(formData))
     }
 
-    // 3. SMS Script for Missed Calls
+    // 3. Conversational Fallback Protocol
     if (formData.missedCalls !== '0-5') {
-        wins.push(generateMissedCallSMSScript(formData))
+        wins.push(generateMissedCallProtocol(formData))
     }
 
-    // 4. Follow-Up Email Sequence
+    // 4. Multi-Modal Nurture Sequence
     if (formData.systematicFollowUp !== 'Yes') {
-        wins.push(generateFollowUpEmailTemplate(formData))
+        wins.push(generateNurtureSequenceLogic(formData))
     }
 
-    // 5. Quick ROI Calculator Data
-    wins.push(generateROICalculatorData(formData))
+    // 5. Lifetime Value Expansion Model
+    wins.push(generateLTVModel(formData))
 
-    // 6. Industry-Specific Quick Win
-    wins.push(generateIndustryQuickWin(formData))
+    // 6. Vertical-Specific Agent Architecture
+    wins.push(generateIndustryAgentArchitecture(formData))
 
     return wins
 }
 
-function generateChatGPTPrompts(formData: any): MiniWin[] {
-    const { companyName, specificIndustry, fullName } = formData
+function generateSystemPrompts(formData: any): MiniWin[] {
+    const { companyName, specificIndustry } = formData
 
     return [
         {
-            title: '🤖 ChatGPT Prompt: Email Responder',
-            description: 'Use this to draft professional email responses instantly',
+            title: '🧠 System Prompt: Autonomous Intake Agent',
+            description: 'The core instruction set for your AI receptionist to handle inquiries indistinguishably from a human.',
             type: 'chatgpt_prompt',
             copyable: true,
-            icon: '✉️',
-            content: `You are the customer service manager for ${companyName}, a ${specificIndustry} business.
+            icon: '🤖',
+            content: `**SYSTEM MESSAGE (v1.0)**
+Role: Senior Intake Specialist for ${companyName}.
+Objective: Qualify inbound leads based on BANT (Budget, Authority, Need, Timeline) and schedule appointments.
 
-Your task: Draft professional, friendly email responses to customer inquiries.
+**CORE BEHAVIORS:**
+1. **Empathy First:** Acknowledge the user's pain point immediately (e.g., "I understand how frustrating [Industry Pain] can be...").
+2. **Consultative Qualification:** Do not interrogate. Weave qualification questions into natural conversation.
+3. **Objection Handling:**
+   - If User says "Too expensive" -> Pivot to ROI/Value: "We focus on [Value Prop], which typically saves our clients X in the long run."
+   - If User says "Just looking" -> Offer low-commitment resource (Lead Magnet).
 
-Guidelines:
-- Tone: Professional but warm
-- Brand voice: Helpful and solution-focused
-- Always include: Next steps, timeline, contact info
-- Keep responses under 150 words
+**KNOWLEDGE BASE ACCESS:**
+- Retrieval Tool: active
+- Index: ${specificIndustry}_Pricing_Guide_v2
 
-Customer inquiry: [PASTE CUSTOMER EMAIL HERE]
+**CONSTRAINTS:**
+- Never hallucinate features we don't have.
+- If unsure, escalate to human via function_call: { name: "escalate_to_manager" }.
+- Keep responses under 40 tokens for voice latency optimization.
 
-Draft a response that addresses their concern and moves the conversation forward.`
+**OUTPUT FORMAT:**
+JSON { "response": "text", "sentiment": "0-1", "intent": "booking|info|complaint" }`
         },
         {
-            title: '🤖 ChatGPT Prompt: Social Media Posts',
-            description: 'Generate engaging content for your business instantly',
+            title: '🎨 System Prompt: Content Generation Engine',
+            description: 'Automate your entire content supply chain with this brand-aligned persona.',
             type: 'chatgpt_prompt',
             copyable: true,
-            icon: '📱',
-            content: `You are the social media manager for ${companyName}, a ${specificIndustry} business.
+            icon: '⚡',
+            content: `**SYSTEM MESSAGE (Content-Bot)**
+Role: Lead Content Strategist for ${companyName}.
+Audience: ${specificIndustry} decision-makers.
+Tone: Authoritative, Insightful, yet Accessible (Reading Level: Grade 8).
 
-Create 5 engaging social media posts (Instagram/Facebook) that:
-- Showcase our expertise in ${specificIndustry}
-- Provide value to our audience
-- Include a clear call-to-action
-- Are 100-150 words each
-- Include relevant hashtags
+**TASK:**
+Generate a week's worth of LinkedIn/Twitter content pillars based on current industry trends.
 
-Topics to cover:
-1. Common customer problem we solve
-2. Behind-the-scenes of our work
-3. Customer success story (you can make one up)
-4. Industry tip/advice
-5. Special offer or announcement
+**FRAMEWORK (AIDA):**
+- **Attention:** Hook with a contrarian statement about ${specificIndustry}.
+- **Interest:** Back it up with data or a recent case study.
+- **Desire:** Show the "Dream Outcome" using ${companyName}'s methodology.
+- **Action:** Soft CTA (e.g., "DM me 'AUDIT' for a free assessment").
 
-Make them authentic, engaging, and professional.`
-        },
-        {
-            title: '🤖 ChatGPT Prompt: FAQ Generator',
-            description: 'Create comprehensive FAQs for your website',
-            type: 'chatgpt_prompt',
-            copyable: true,
-            icon: '❓',
-            content: `You are the content strategist for ${companyName}, a ${specificIndustry} business.
-
-Create a comprehensive FAQ section for our website with 10 questions and answers.
-
-Requirements:
-- Address common ${specificIndustry} customer concerns
-- Answers should be clear, concise (50-100 words each)
-- Include practical information (pricing, timeline, process)
-- End each answer with a subtle call-to-action when appropriate
-- Use a helpful, expert tone
-
-Format:
-**Q: [Question]**
-A: [Answer]
-
-Focus on questions potential customers actually ask before hiring a ${specificIndustry} company.`
+**STYLE GUIDE:**
+- No hashtags in the first comment.
+- Use line breaks for readability.
+- Avoid corporate jargon ("synergy", "paradigm shift").
+- Focus on "How-to" and actionable advice.`
         }
     ]
 }
 
-function generateReviewEmailTemplate(formData: any): MiniWin {
-    const { companyName, specificIndustry } = formData
-
-    return {
-        title: '⭐ Review Request Email Template',
-        description: 'Copy-paste this email to request reviews from happy customers',
-        type: 'email_template',
-        copyable: true,
-        icon: '⭐',
-        content: `Subject: Quick favor? Share your experience with ${companyName}
-
-Hi [Customer Name],
-
-Thank you for choosing ${companyName} for your recent [service/purchase]! We hope everything went smoothly and you're happy with the results.
-
-If you have 60 seconds, would you mind sharing your experience on Google? Your feedback helps other [homeowners/businesses/customers] make informed decisions, and it helps us continue improving.
-
-👉 Leave a review here: [YOUR GOOGLE REVIEW LINK]
-
-What to mention (if you're happy!):
-• What problem we helped you solve
-• Your experience working with our team
-• The result you got
-
-Thank you for your time and for trusting us with your ${specificIndustry} needs!
-
-Best regards,
-[Your Name]
-${companyName}
-
-P.S. If anything wasn't perfect, please reply to this email instead. I'd love to make it right.
-
----
-
-💡 TIP: Send this 2-3 days after completing a job when the experience is fresh!`
-    }
-}
-
-function generateMissedCallSMSScript(formData: any): MiniWin {
+function generateBehavioralReviewLogic(formData: any): MiniWin {
     const { companyName } = formData
 
     return {
-        title: '📞 Missed Call Recovery SMS Script',
-        description: 'Send this text when you miss a call to capture the lead',
+        title: '⭐ Sentiment-Triggered Review Engine',
+        description: 'Logic flow to capture reviews ONLY from happy clients.',
+        type: 'checklist',
+        copyable: true,
+        icon: '🔄',
+        content: `**LOGIC FLOW DIAGRAM:**
+
+1. **Trigger:** Service_Completed OR Product_Delivered event via Webhook.
+
+2. **Step 1: Sentiment Check (SMS/Email)**
+   - System sends: "Hi [Name], on a scale of 1-5, how was your experience with ${companyName}?"
+   - *Wait for reply...*
+
+3. **Step 2: Conditional Branching**
+   - **IF Score >= 4:**
+     - Immediate Reply: "So glad to hear that! Would you mind sharing that on Google? It helps a ton: [LINK]"
+     - Action: Tag CRM contact as "Brand Advocate".
+   
+   - **IF Score <= 3:**
+     - Immediate Reply: "I'm sorry we missed the mark. Can I have a manager call you to fix this?"
+     - Action: Create "High Priority Ticket" in Support System.
+     - Action: Alert Management via Slack/Teams.
+     - *NOTE: Do NOT send the review link.*
+
+**TECHNICAL REQUIREMENTS:**
+- Twilio/SendGrid API
+- Simple Logic Builder (Make.com or Zapier)
+- CRM Webhook capability`
+    }
+}
+
+function generateMissedCallProtocol(formData: any): MiniWin {
+    const { companyName } = formData
+
+    return {
+        title: '🛡️ Missed Call Defense Protocol',
+        description: 'Autonomous state machine to recover 100% of missed opportunities.',
         type: 'sms_script',
         copyable: true,
         icon: '📱',
-        content: `Hi! This is [Your Name] from ${companyName}.
+        content: `**STATE MACHINE CONFIGURATION:**
 
-Sorry I missed your call! I'm with a customer right now but I'll call you back within 2 hours.
+**Event:** Inbound Call Status = "Missed" or "Voicemail"
 
-In the meantime:
-• What can I help you with?
-• Is this urgent?
+**Action 0 (Immediate - <10s):**
+- System checks: Is this a known contact?
+- **IF YES:** Retrieve context (Last interaction: "Quote Sent").
+  - SMS: "Hey [Name], saw you called. Do you have questions about the quote I sent?"
+- **IF NO:**
+  - SMS: "Hi, this is the AI assistant for ${companyName}. I saw we missed you. Are you looking for a quote or support?"
 
-You can also text me here or book a time that works for you: [YOUR BOOKING LINK]
+**Action 1 (Wait 5 min):**
+- If no reply to SMS -> **Voice Drop Injection**
+- System calls user and leaves pre-recorded, natural-sounding voicemail:
+  "Hey, sorry I missed you. It's [Name] from ${companyName}. Just getting back to you. Text me back if that's easier."
 
-Talk soon!
+**Action 2 (Wait 30 min):**
+- If still no engagement -> **Email Fallback**
+- Subject: "Missed you / ${companyName}"
+- Body: Contains calendar link for booking.
 
----
-
-💡 PRO TIPS:
-
-1. **Automate this with Zapier/Make:**
-   - Trigger: Missed call in phone system
-   - Action: Send this SMS automatically
-
-2. **Response templates:**
-   If they reply "urgent" → Call them within 15 min
-   If they reply with question → Answer + book call
-   If they don't reply → Follow up in 24 hours
-
-3. **Track results:**
-   • Before automation: ${formData.missedCalls} missed calls/week lost
-   • After: Capture 50-70% with this simple SMS
-   • ROI: Huge! (Just 1 recovered call could = $1000s)
-
-4. **Tools to use:**
-   - Google Voice (free)
-   - Twilio ($1/month + $0.0079/SMS)
-   - Zapier to connect everything`
+**Recovery Rate:** Systems running this protocol typically recover 65-75% of missed inquiries without human intervention.`
     }
 }
 
-function generateFollowUpEmailTemplate(formData: any): MiniWin {
+function generateNurtureSequenceLogic(formData: any): MiniWin {
     const { companyName, specificIndustry } = formData
 
     return {
-        title: '📧 Lead Follow-Up Email Sequence',
-        description: '3-email sequence to convert leads who haven\'t responded',
+        title: '🧬 Multi-Modal Nurture Architecture',
+        description: 'An omnipresent follow-up sequence using Email, SMS, and Voicemail drops.',
         type: 'email_template',
         copyable: true,
-        icon: '💼',
-        content: `**EMAIL 1 - DAY 1 (Right after initial contact)**
-Subject: Quick follow-up - ${companyName}
+        icon: '🕸️',
+        content: `**SEQUENCE BLUEPRINT:**
 
-Hi [Name],
+**Day 1:**
+- **Instant:** Confirmation SMS + Email.
+- **+15 min:** "Value Add" Email (e.g., "Top 5 Mistakes in ${specificIndustry}").
 
-Thanks for reaching out about [their need/inquiry]! I wanted to make sure this got to you.
+**Day 2:**
+- **10:00 AM:** Soft SMS Check-in ("Did you get the guide?").
+- **Logic:** If link clicked -> Trigger Call Task for Sales Team.
 
-Based on what you shared, here's what I'm thinking:
-• [Specific solution to their problem]
-• Timeline: [realistic timeframe]
-• Next step: [clear action item]
+**Day 4:**
+- **Email:** Case Study / Social Proof.
+- "How [Client Name] achieved [Result] with ${companyName}."
 
-Do you have 15 minutes this week for a quick call?
+**Day 7:**
+- **"The Breakup" (Pattern Interrupt):**
+- Subject: "Permission to close your file?"
+- Body: "I assume this isn't a priority right now, so I'll close your file to stop bothering you. If you change your mind, here's my calendar."
 
-[BOOKING LINK or suggest 2-3 specific times]
-
-Best,
-[Your Name]
-
----
-
-**EMAIL 2 - DAY 3 (If no response)**
-Subject: [Name] - One quick question
-
-Hi [Name],
-
-Following up on my last email about [their need].
-
-Quick question: Is this still a priority for you?
-
-If yes → Let me know 2-3 times that work for a quick call
-If not right now → No problem! When should I check back?
-If you went another direction → I'd love to know why (helps me improve!)
-
-No pressure either way 😊
-
-[Your Name]
-${companyName}
-
----
-
-**EMAIL 3 - DAY 7 (Final follow-up)**
-Subject: Is this a bad time?
-
-Hi [Name],
-
-I don't want to be a pest, so this is my last email about [their need].
-
-I've worked with a lot of ${specificIndustry} clients dealing with [their problem], and I genuinely think I can help.
-
-But I also know life gets busy. If now isn't the right time, totally understand!
-
-Just let me know:
-1. Yes, I'm still interested → [Book here: LINK]
-2. Not now, check back in [timeframe]
-3. Not interested → All good, no hard feelings!
-
-Either way, I hope you solve [their problem]!
-
-Best,
-[Your Name]
-
----
-
-💡 AUTOMATION TIP:
-Set up these emails in your CRM to send automatically:
-• Email 1: Immediately after initial contact
-• Email 2: If no response after 3 days
-• Email 3: If no response after 7 days
-
-This simple sequence can increase conversions by 50%+!`
+**AUTOMATION RULES:**
+- **Stop on Reply:** If prospect replies to ANY channel, pause sequence and alert human.
+- **Sentiment Analysis:** If reply is "Not interested", move to "Long Term Nurture" (monthly newsletter).`
     }
 }
 
-function generateROICalculatorData(formData: any): MiniWin {
+function generateLTVModel(formData: any): MiniWin {
     const missedCallsPerWeek =
         formData.missedCalls === '30+' ? 35 :
         formData.missedCalls === '10-30' ? 20 :
@@ -305,200 +229,119 @@ function generateROICalculatorData(formData: any): MiniWin {
     const annualLostRevenue = missedCallsPerWeek * 52 * estimatedDealSize * conversionRate
 
     return {
-        title: '💰 Your Revenue Recovery Math',
-        description: 'See exactly how much money you\'re leaving on the table',
+        title: '📊 Operational Efficiency Model',
+        description: 'Financial projection of AI implementation vs. Status Quo.',
         type: 'calculator',
         copyable: true,
-        icon: '📊',
-        content: `**YOUR NUMBERS:**
+        icon: '📈',
+        content: `**INPUT VARIABLES:**
+- Lead Velocity: ${missedCallsPerWeek} missed opps/week
+- ACV (Avg Contract Value): $${estimatedDealSize.toLocaleString()}
+- Current Conversion Efficiency: ${(conversionRate * 100).toFixed(0)}%
 
-Missed calls per week: ${missedCallsPerWeek}
-Average deal size: $${estimatedDealSize.toLocaleString()}
-Conversion rate: ${(conversionRate * 100).toFixed(0)}%
+**PROJECTION A (Status Quo):**
+- Annual Opportunity Bleed: **$${annualLostRevenue.toLocaleString()}**
+- 5-Year Cumulative Loss: **$${(annualLostRevenue * 5).toLocaleString()}**
 
-**THE MATH:**
+**PROJECTION B (AI Augmented):**
+- Capture Rate: 99.9% (24/7 Availability)
+- Speed-to-Lead: <10 seconds
+- Expected Conversion Lift: +35% (conservative)
 
-${missedCallsPerWeek} missed calls/week
-× 52 weeks
-× $${estimatedDealSize.toLocaleString()} avg deal
-× ${(conversionRate * 100).toFixed(0)}% conversion
-= **$${annualLostRevenue.toLocaleString()}/year in lost revenue**
+**NET SYSTEM VALUE:**
+Implementation of an Autonomous Core would yield an estimated **$${(annualLostRevenue * 1.35).toLocaleString()}** in additional annual Gross Merchandise Value (GMV).
 
-**WHAT IF YOU CAPTURED JUST HALF?**
-
-50% of missed calls = +$${(annualLostRevenue / 2).toLocaleString()}/year
-75% of missed calls = +$${(annualLostRevenue * 0.75).toLocaleString()}/year
-100% of missed calls = +$${annualLostRevenue.toLocaleString()}/year
-
-**COST TO FIX:**
-
-Basic automation setup: $2,500 - $5,000 one-time
-Monthly tools: ~$100 - $300/month
-
-**BREAK-EVEN:**
-
-If you capture just ${Math.ceil((5000 / (estimatedDealSize * conversionRate)))} additional customers, you've paid for the automation.
-
-That's ${Math.ceil((5000 / (estimatedDealSize * conversionRate)) / 52)} customers per week.
-
-**TIME TO BREAK-EVEN:**
-
-At current missed call rate: ${Math.ceil((5000 / (estimatedDealSize * conversionRate)) / missedCallsPerWeek)} weeks
-
-ROI in Year 1: ${Math.round((annualLostRevenue * 0.75 - 5000) / 5000 * 100)}%
-
----
-
-💡 This is JUST from missed calls. Add in:
-• Better follow-up (20-30% more conversions)
-• Review automation (10% more leads)
-• Time saved (15-20 hours/week)
-
-Total potential: 2-3x these numbers!`
+**ROI CALCULATION:**
+Cost of System (Year 1): ~$15,000
+Net Profit (Year 1): $${(annualLostRevenue * 1.35 - 15000).toLocaleString()}
+Payback Period: < ${Math.ceil(15000 / ((annualLostRevenue * 1.35) / 12))} weeks`
     }
 }
 
-function generateIndustryQuickWin(formData: any): MiniWin {
+function generateIndustryAgentArchitecture(formData: any): MiniWin {
     const { specificIndustry, companyName } = formData
     const industry = specificIndustry.toLowerCase()
 
     const industryWins: { [key: string]: MiniWin } = {
         hvac: {
-            title: '❄️ HVAC Quick Win: Seasonal Reminder Automation',
-            description: 'Set up automated seasonal maintenance reminders',
+            title: '❄️ HVAC Dispatch & Triage Agent',
+            description: 'Architecture for an autonomous dispatching system.',
             type: 'checklist',
             copyable: true,
-            icon: '🛠️',
-            content: `**SEASONAL HVAC REMINDER SYSTEM**
+            icon: '🔧',
+            content: `**AGENT ARCHITECTURE: "Dispatcher-01"**
 
-This simple automation can generate 20-30% of your annual revenue!
+**INPUT:**
+- Incoming Voice Call
+- Web Form Submission
 
-**SETUP (30 minutes):**
+**PROCESS:**
+1. **Emergency Classification:**
+   - Detect keywords: "Leaking", "No heat", "Smell gas".
+   - If Critical -> Route immediately to On-Call Tech via Phone Call.
 
-1. **Export your customer list** from your CRM/spreadsheet
-   - Include: Name, Phone, Email, Last Service Date, System Type
+2. **Scheduling Logic:**
+   - Query ServiceTitan/Housecall Pro API for open slots.
+   - Negotiate time with user: "We have a slot at 2 PM or 4 PM?"
 
-2. **Set up reminder schedule:**
-   - Spring (Mar 1): AC maintenance reminders
-   - Fall (Sep 1): Heating maintenance reminders
+3. **Pre-Arrival Prep:**
+   - Send "Tech Bio" SMS to homeowner (increases trust).
+   - Send "System Age/Type" data to Technician.
 
-3. **Create message templates:**
-
-   **SPRING SMS:**
-   "Hi [Name]! It's [Your Name] from ${companyName}. Time for your AC tune-up before summer hits! Book now and get [offer]. Reply to schedule or book here: [LINK]"
-
-   **FALL SMS:**
-   "Hey [Name], winter's coming! Don't get caught with a broken furnace. Book your heating check today: [LINK] - [Your Name], ${companyName}"
-
-4. **Automate it:**
-   - Use Podium, ServiceTitan, or Zapier
-   - Or manually send in batches (still worth it!)
-
-5. **Track results:**
-   - Response rate target: 15-25%
-   - Conversion rate: 40-60%
-   - Expected bookings: 50-100 per season
-
-**EXPECTED ROI:**
-
-Customers in database: [Your number]
-× 20% response rate
-× 50% conversion
-× $150 avg maintenance
-= $[BIG NUMBER] in easy revenue!
-
-**BONUS WINS:**
-
-✓ Fills schedule during slow seasons
-✓ Prevents emergency calls (higher satisfaction)
-✓ Creates upsell opportunities (replacements)
-✓ Builds customer loyalty (they appreciate reminders)
-
-**TOOLS NEEDED:**
-
-Free: Google Sheets + manual sending
-Budget ($50/mo): Zapier + Twilio
-Pro ($200/mo): Podium or ServiceTitan`
+**INTEGRATION MAP:**
+- Voice: Vapi / Twilio
+- Logic: Make.com
+- Database: ServiceTitan`
         },
-
         dental: {
-            title: '🦷 Dental Quick Win: Recall Automation',
-            description: 'Automate 6-month cleaning reminders',
+            title: '🦷 Patient Reactivation Engine',
+            description: 'Automated hygiene recall system architecture.',
             type: 'checklist',
             copyable: true,
-            icon: '📅',
-            content: `**6-MONTH RECALL AUTOMATION**
+            icon: '🦷',
+            content: `**AGENT ARCHITECTURE: "Recall-Bot"**
 
-**SETUP:**
-1. Export patient list with last visit date
-2. Create automated reminders at 5.5 months
-3. Send via email + SMS for best results
+**TRIGGER:**
+- Patient status: "Due for Cleaning" AND "Unscheduled" > 2 weeks.
 
-**MESSAGE TEMPLATE:**
-"Hi [Name]! It's time for your cleaning at ${companyName}. Book now and choose your favorite hygienist: [LINK]"
+**SEQUENCE:**
+1. **Insurance Check:**
+   - Agent queries insurance portal API.
+   - Message: "Hi [Name], your insurance renews next month. Use your benefits before you lose them!"
 
-**EXPECTED RESULTS:**
-- 40-50% booking rate
-- Fills 60-80% of your schedule automatically
-- Reduces no-shows (people book when reminded)
+2. **Slot Filling:**
+   - Agent identifies "White Space" in tomorrow's calendar.
+   - SMS Blast to Waitlist: "Spot opened up tomorrow at 10 AM with Dr. Smith. Want it?"
 
-**TOOLS:** Dentrix, Eaglesoft, or Weave`
+3. **Confirmation:**
+   - Auto-write appointment to Dentrix/OpenDental.
+   - Send calendar invite.`
         },
-
         default: {
-            title: '🎯 Quick Win: Google My Business Optimization',
-            description: '30-minute setup for more local leads',
+            title: '🌐 Local Dominance Agent',
+            description: 'Automated GMB & Local SEO optimization architecture.',
             type: 'checklist',
             copyable: true,
-            icon: '🗺️',
-            content: `**OPTIMIZE YOUR GOOGLE BUSINESS PROFILE (30 MIN)**
+            icon: '🌍',
+            content: `**AGENT ARCHITECTURE: "Geo-Ranker"**
 
-This free tactic can 2x your local leads!
+**OBJECTIVE:**
+Rank ${companyName} in the "Map Pack" for ${specificIndustry} keywords.
 
-**CHECKLIST:**
+**TASKS:**
+1. **Photo Injection:**
+   - Agent scrapes "Tagged Photos" from Instagram.
+   - Uploads to Google Business Profile with EXIF data geotagged to service area.
 
-☐ **Complete ALL sections:**
-  - Business hours (including holidays)
-  - Services offered (be specific!)
-  - Service areas
-  - Attributes (women-owned, veteran-owned, etc.)
+2. **Q&A Seeding:**
+   - Agent identifies high-volume search queries.
+   - Posts Question to GMB profile -> Posts Answer (containing keywords).
 
-☐ **Add 10+ photos:**
-  - Team photos
-  - Work in progress
-  - Before/after
-  - Your facility
-  - (Update monthly!)
+3. **Review Response:**
+   - Auto-replies to reviews with keyword-rich text ("Thanks for hiring us for [Service] in [City]...").
 
-☐ **Write compelling description:**
-  - First sentence = what you do + who you serve
-  - Include key services
-  - Add your unique value prop
-  - End with CTA
-
-☐ **Create your first post:**
-  - Announce a special offer
-  - Share a recent project
-  - Post weekly for best results
-
-☐ **Set up messaging:**
-  - Enable Google Messages
-  - Respond within 24 hours
-  - 80% of users message before calling!
-
-☐ **Add booking link:**
-  - Add ${companyName} booking URL
-  - Makes it easy to schedule
-
-**BONUS:**
-Ask your last 10 happy customers for a Google review.
-Even 5-10 5-star reviews = 25% more leads!
-
-**EXPECTED RESULTS:**
-Before: X leads/month from Google
-After: 2-3X leads/month (for free!)
-
-**TIME TO RESULTS:** 2-4 weeks`
+**RESULT:**
+Consistent signals to Google algorithm = Higher ranking = More organic calls.`
         }
     }
 

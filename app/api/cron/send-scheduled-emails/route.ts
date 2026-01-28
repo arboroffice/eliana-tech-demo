@@ -3,7 +3,7 @@ import { db } from '@/lib/firebase'
 import { collection, query, where, getDocs, updateDoc, doc } from 'firebase/firestore'
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null
 
 /**
  * Cron job to send scheduled emails
@@ -11,6 +11,11 @@ const resend = new Resend(process.env.RESEND_API_KEY)
  */
 export async function GET(request: Request) {
     try {
+        if (!resend) {
+             console.error("Resend API key missing");
+             return NextResponse.json({ error: 'Configuration Error' }, { status: 500 })
+        }
+
         // Verify cron secret to prevent unauthorized access
         const authHeader = request.headers.get('authorization')
         if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
