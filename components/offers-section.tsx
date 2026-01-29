@@ -107,7 +107,7 @@ export function OffersSection() {
                 </h3>
                 <p className="text-slate-500 font-light mb-4">AI COO + website + content + sales + everything</p>
                 <div className="text-4xl font-bold text-slate-900">
-                  $25,000<span className="text-xl font-normal text-slate-400">, $50,000</span>
+                  $25,000<span className="text-xl font-normal text-slate-400"> - $50,000</span>
                 </div>
                 <p className="text-slate-400 text-sm mt-1">Based on scope · You own everything</p>
               </div>
