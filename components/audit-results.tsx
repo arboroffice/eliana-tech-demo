@@ -431,12 +431,17 @@ export function AuditResults({ formData, auditScore }: AuditResultsProps) {
             <p className="text-lg text-slate-300 max-w-xl mx-auto">
               Let&apos;s map out the exact AI stack your business needs — in a free 30-minute strategy call.
             </p>
+            <div className="w-full rounded-xl overflow-hidden border border-white/10 my-4" style={{ minHeight: 500 }}>
+              <iframe
+                src="https://cal.com/mia-louviere-a4n2hk/30min?embed=true&theme=dark"
+                width="100%"
+                height="500"
+                frameBorder="0"
+                style={{ border: 'none', background: 'transparent' }}
+                allow="payment"
+              />
+            </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-2">
-              <a href="https://cal.com/mia-louviere-a4n2hk/30min" target="_blank" rel="noopener noreferrer">
-                <Button size="lg" className="bg-white text-black hover:bg-slate-200 text-lg px-8 py-6 rounded-full font-medium">
-                  <Calendar className="w-5 h-5 mr-2" /> Book Your Strategy Call
-                </Button>
-              </a>
               <Link href="/ai-coo">
                 <Button size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/10 text-lg px-8 py-6 rounded-full">
                   Or get your AI COO installed <ArrowRight className="w-5 h-5 ml-2" />

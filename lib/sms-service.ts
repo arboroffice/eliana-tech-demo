@@ -207,6 +207,30 @@ export function personalizeSMS(template: string, data: Record<string, string>): 
 }
 
 /**
+ * Send WhatsApp notification for new applications
+ */
+export async function sendWhatsAppNotification(type: string, details: Record<string, string>) {
+    try {
+        const detailLines = Object.entries(details)
+            .map(([key, value]) => `${key}: ${value}`)
+            .join('\n')
+
+        const message = `📩 New ${type} Application\n\n${detailLines}`
+
+        await twilioClient.messages.create({
+            body: message,
+            from: `whatsapp:${TWILIO_PHONE}`,
+            to: `whatsapp:${YOUR_PHONE}`
+        })
+
+        console.log(`[WHATSAPP] Sent ${type} notification`)
+    } catch (error) {
+        console.error('[WHATSAPP ERROR]', error)
+        // Don't throw - this is just a notification
+    }
+}
+
+/**
  * Opt-out handling (required by Twilio)
  */
 export async function handleSMSOptOut(phoneNumber: string) {
