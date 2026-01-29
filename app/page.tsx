@@ -6,11 +6,11 @@ import Link from "next/link"
 const benefits = [
   {
     title: "An AI That Never Sleeps",
-    description: "Your business runs 24/7. Morning briefs, evening recaps, lead follow-ups — all handled before you wake up.",
+    description: "Your business runs 24/7. Morning briefs, evening recaps, lead follow-ups. All handled before you wake up.",
   },
   {
     title: "Get 20+ Hours Back",
-    description: "Email triage, content scheduling, pipeline management — automated. You focus on what actually moves the needle.",
+    description: "Email triage, content scheduling, pipeline management. Automated. You focus on what actually moves the needle.",
   },
   {
     title: "Growth on Autopilot",
@@ -53,7 +53,7 @@ export default function HomePage() {
                 </span>
               </h1>
               <p className="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto mb-12 leading-relaxed">
-                We install AI systems that run your business — so you can focus on growth, or just live your life. Both paths start with a free AI Audit.
+                We install AI systems that run your business so you can focus on growth, or just live your life. Both paths start with a free AI Audit.
               </p>
               <Link
                 href="/audit"
@@ -72,7 +72,7 @@ export default function HomePage() {
                   YOUR BUSINESS, UNCHAINED.
                 </h2>
                 <p className="text-lg text-slate-400 max-w-2xl mx-auto">
-                  Imagine waking up to a business that already handled the morning. That&apos;s not a dream — it&apos;s what we build.
+                  Imagine waking up to a business that already handled the morning. That&apos;s not a dream. It&apos;s what we build.
                 </p>
               </div>
 
