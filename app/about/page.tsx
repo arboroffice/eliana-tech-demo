@@ -3,6 +3,8 @@
 import { GlassmorphismNav } from "../../components/glassmorphism-nav"
 import Aurora from "../../components/Aurora"
 import { Footer } from "../../components/footer"
+import { motion } from "framer-motion"
+import Link from "next/link"
 
 export default function AboutPage() {
     return (
@@ -27,6 +29,26 @@ export default function AboutPage() {
                         From capturing every lead 24/7 to automating complex back-office workflows, our solutions are designed to be the invisible engine of your growth. We don't just provide software; we provide a digital workforce that grows with you.
                     </p>
                 </div>
+
+                {/* Meet the Founder CTA */}
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                    className="mt-16 text-center bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-10"
+                >
+                    <h2 className="text-3xl md:text-4xl font-bold mb-4">Meet the Founder</h2>
+                    <p className="text-lg text-slate-300 mb-8 max-w-xl mx-auto">
+                        From running a car dealership at 14 to building a $100M AI company — meet Mia, the force behind ElianaTech.
+                    </p>
+                    <Link
+                        href="/founder"
+                        className="inline-block px-8 py-4 bg-white text-black font-semibold rounded-full text-lg hover:bg-slate-200 transition-colors"
+                    >
+                        Read Mia&apos;s Story →
+                    </Link>
+                </motion.div>
             </main>
             <div className="relative z-10">
                 <Footer />
