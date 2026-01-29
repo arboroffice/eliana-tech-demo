@@ -7,7 +7,7 @@ const aiCooFeatures = [
   "Connected to WhatsApp, email & your tools",
   "Daily morning briefs & evening recaps",
   "Weekly performance reports (auto-generated)",
-  "Content engine — writes & schedules posts",
+  "Content engine, writes & schedules posts",
   "Email triage & draft responses",
   "Lead qualification & pipeline management",
   "SEO blog deployment (daily, automated)",
@@ -17,7 +17,7 @@ const aiCooFeatures = [
 
 const fullInfraFeatures = [
   "Everything in AI COO, plus:",
-  "Custom website — designed, built, deployed",
+  "Custom website, designed, built, deployed",
   "Full content strategy (4 weeks, every platform)",
   "Email sequences (welcome, nurture, follow-up)",
   "Lead magnets (written, designed, deployed)",
@@ -41,7 +41,7 @@ export function OffersSection() {
             Stop Being the Bottleneck
           </h2>
           <p className="text-lg text-slate-400 max-w-2xl mx-auto font-light">
-            We install AI systems that run your business — so you can focus on growth, or just live your life. Both paths start with a free AI Audit.
+            We install AI systems that run your business, so you can focus on growth, or just live your life. Both paths start with a free AI Audit.
           </p>
         </div>
 
@@ -50,7 +50,7 @@ export function OffersSection() {
           <div className="bg-white rounded-2xl overflow-hidden flex flex-col">
             <div className="bg-blue-600 px-8 py-4">
               <p className="text-center text-blue-100 text-sm font-medium">
-                Most Popular — Best for founders ready to automate
+                Most Popular. Best for founders ready to automate
               </p>
             </div>
             <div className="p-8 md:p-10 flex flex-col flex-1">
@@ -97,7 +97,7 @@ export function OffersSection() {
           <div className="bg-white rounded-2xl overflow-hidden flex flex-col border-2 border-amber-400">
             <div className="bg-gradient-to-r from-amber-500 to-yellow-500 px-8 py-4">
               <p className="text-center text-black text-sm font-bold">
-                PREMIUM — The complete transformation
+                PREMIUM. The complete transformation
               </p>
             </div>
             <div className="p-8 md:p-10 flex flex-col flex-1">
@@ -107,7 +107,7 @@ export function OffersSection() {
                 </h3>
                 <p className="text-slate-500 font-light mb-4">AI COO + website + content + sales + everything</p>
                 <div className="text-4xl font-bold text-slate-900">
-                  $25,000<span className="text-xl font-normal text-slate-400"> – $50,000</span>
+                  $25,000<span className="text-xl font-normal text-slate-400">, $50,000</span>
                 </div>
                 <p className="text-slate-400 text-sm mt-1">Based on scope · You own everything</p>
               </div>

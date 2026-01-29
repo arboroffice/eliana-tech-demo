@@ -48,7 +48,7 @@ export default function WhatWeDoPage() {
                             Stop Being the <span className="text-slate-400 italic">Bottleneck</span>
                         </motion.h1>
                         <motion.p variants={fadeInUp} className="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto font-light leading-relaxed">
-                            We install AI systems that run your business — so you can focus on growth, 
+                            We install AI systems that run your business, so you can focus on growth, 
                             or just live your life. Pick your path.
                         </motion.p>
                     </motion.div>
@@ -196,7 +196,7 @@ export default function WhatWeDoPage() {
                             </div>
 
                             <p className="text-slate-400 mb-8 leading-relaxed">
-                                Everything in the AI COO — plus we build your entire digital infrastructure from scratch.
+                                Everything in the AI COO, plus we build your entire digital infrastructure from scratch.
                                 Website. Content strategy. Sales pipeline. Lead magnets. Automations. The whole machine.
                             </p>
 
@@ -391,7 +391,7 @@ export default function WhatWeDoPage() {
                         </p>
                         <p className="text-slate-500 mb-12 max-w-xl mx-auto">
                             The audit is free. We'll look at your operations, show you where AI creates leverage, 
-                            and give you a clear roadmap — whether you work with us or not.
+                            and give you a clear roadmap, whether you work with us or not.
                         </p>
                         <Button size="lg" className="h-20 px-12 rounded-full text-xl font-bold bg-white text-black hover:bg-slate-200 group" asChild>
                             <a href="/audit">
