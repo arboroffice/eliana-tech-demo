@@ -102,7 +102,7 @@ export default function AICOOSalesPage() {
                 href="/ai-coo/checkout"
                 className="inline-flex items-center gap-3 bg-gradient-to-r from-amber-500 to-yellow-400 text-black font-bold text-lg sm:text-xl px-10 py-5 rounded-full hover:scale-105 transition-transform shadow-lg shadow-amber-500/25"
               >
-                Get Your AI COO — $10,000
+                Get Your AI COO &mdash; $10,000
                 <ArrowRight className="w-6 h-6" />
               </Link>
             </div>
