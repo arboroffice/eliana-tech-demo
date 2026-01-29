@@ -422,7 +422,239 @@ export function AuditResults({ formData, auditScore }: AuditResultsProps) {
         </FadeUp>
       )}
 
-      {/* ── 8. CTA ─────────────────────────────────────── */}
+      {/* ── 8. DIY Action Plan ─────────────────────────── */}
+      <FadeUp delay={0.28}>
+        <h2 className="text-2xl font-bold text-white mb-2 flex items-center gap-3">
+          <Rocket className="w-6 h-6 text-amber-400" /> DIY Action Plan — Start Today
+        </h2>
+        <p className="text-slate-400 mb-6">Don&apos;t want to wait? Here are things you can implement yourself right now.</p>
+        <div className="space-y-4">
+          {(() => {
+            const diy: { title: string; steps: string[]; time: string; impact: string; emoji: string; show: boolean }[] = [
+              {
+                title: "Set Up Free Email Automation",
+                steps: [
+                  "Sign up for Mailchimp or Brevo (free tier)",
+                  "Create a welcome email sequence (3 emails over 7 days)",
+                  "Add a signup form to your website",
+                  "Write emails: introduce yourself → share a quick win → invite to a call"
+                ],
+                time: "2-3 hours", impact: "Nurture leads 24/7 without lifting a finger",
+                emoji: "📧",
+                show: formData.systematicFollowUp !== 'Yes'
+              },
+              {
+                title: "Automate Review Requests",
+                steps: [
+                  "Use Google Business Profile's built-in 'Ask for reviews' link",
+                  "Create a text/email template: 'Thanks for choosing us! Would you mind leaving a quick review? [link]'",
+                  "Send it within 24 hours of every completed job",
+                  "Pro tip: Set a recurring calendar reminder so you never forget"
+                ],
+                time: "30 minutes", impact: "2-3× your review volume in 60 days",
+                emoji: "⭐",
+                show: formData.askReviewsSystem === 'none' || formData.askReviewsSystem === 'manual'
+              },
+              {
+                title: "Connect Your Tools with Zapier",
+                steps: [
+                  "Sign up for Zapier (free tier = 100 tasks/month)",
+                  "Connect your form builder → CRM (e.g., Typeform → HubSpot)",
+                  "Connect your CRM → email tool (e.g., new lead → welcome email)",
+                  "Connect your calendar → Slack/email (e.g., booking → team notification)",
+                  "Start with just 2-3 'Zaps' and build from there"
+                ],
+                time: "1-2 hours", impact: "Eliminate 80% of manual data entry",
+                emoji: "⚡",
+                show: formData.percentAutomated === 'none' || formData.percentAutomated === '<30%'
+              },
+              {
+                title: "Build a Simple Lead Capture Funnel",
+                steps: [
+                  "Create a free lead magnet (checklist, guide, or calculator)",
+                  "Build a landing page with Carrd.co ($19/year) or Notion",
+                  "Add an opt-in form connected to your email tool",
+                  "Share the link on social media, email signature, and website",
+                  "Follow up with your email sequence from Step 1"
+                ],
+                time: "3-4 hours", impact: "Capture leads on autopilot",
+                emoji: "🧲",
+                show: formData.leadSource === 'referrals' || formData.leadSource === 'none'
+              },
+              {
+                title: "Create a Client Onboarding Checklist",
+                steps: [
+                  "Document every step from 'deal closed' to 'work started'",
+                  "Turn it into a template (Google Docs, Notion, or Trello board)",
+                  "Include: welcome email, intake form, kickoff call, access requests",
+                  "Send automatically to every new client",
+                  "Ask for feedback after 30 days and refine"
+                ],
+                time: "1-2 hours", impact: "Professional client experience + fewer dropped balls",
+                emoji: "📋",
+                show: formData.systemsDocumented !== 'Yes'
+              },
+              {
+                title: "Set Up a CRM (If You Don't Have One)",
+                steps: [
+                  "Sign up for HubSpot CRM (free forever) or Pipedrive ($15/mo)",
+                  "Import your contacts from spreadsheets/email",
+                  "Create deal stages: Lead → Contacted → Proposal → Negotiation → Won/Lost",
+                  "Log every interaction — calls, emails, meetings",
+                  "Set reminders for follow-ups so nothing falls through the cracks"
+                ],
+                time: "2-3 hours", impact: "Never lose track of a lead again",
+                emoji: "💼",
+                show: !formData.tools?.includes('CRM (HubSpot, Salesforce, etc)')
+              },
+              {
+                title: "Reclaim 10 Hours/Week with Time Blocking",
+                steps: [
+                  "Audit your last week — where did every hour go?",
+                  "Identify your top 3 time-wasters (usually: email, meetings, admin)",
+                  "Block 2-hour 'deep work' slots on your calendar (no meetings allowed)",
+                  "Batch similar tasks: all calls in one block, all emails in another",
+                  "Delegate or eliminate anything that doesn't require YOUR brain"
+                ],
+                time: "1 hour to plan", impact: "10+ hours reclaimed per week",
+                emoji: "⏰",
+                show: formData.hoursPerWeek === '60+' || formData.highValueWork === '<10%' || formData.highValueWork === '10-30%'
+              },
+              {
+                title: "Launch a Simple Referral Program",
+                steps: [
+                  "Decide on a reward: discount, gift card, or cash bonus",
+                  "Create a one-page referral info sheet (who, what, how)",
+                  "Email your top 20 clients: 'Know someone who needs [your service]?'",
+                  "Follow up personally with anyone who refers",
+                  "Track referrals in your CRM"
+                ],
+                time: "1-2 hours", impact: "Your best leads come from happy clients",
+                emoji: "🤝",
+                show: formData.leadSource === 'referrals' || formData.repeatCustomers !== '50%+'
+              },
+              {
+                title: "Add a Chatbot to Your Website",
+                steps: [
+                  "Sign up for Tidio or Drift (both have free tiers)",
+                  "Install the widget on your site (copy-paste one script tag)",
+                  "Set up 3 automated responses: greeting, FAQ answers, lead capture",
+                  "Route qualified leads to your email/CRM automatically",
+                  "Review chat transcripts weekly to improve responses"
+                ],
+                time: "1 hour", impact: "Capture leads 24/7 — even while you sleep",
+                emoji: "💬",
+                show: true
+              },
+              {
+                title: "Document Your Top 5 Processes",
+                steps: [
+                  "List the 5 things you do most often (sales call, onboarding, invoicing, etc.)",
+                  "Screen-record yourself doing each one (use Loom — free)",
+                  "Write step-by-step instructions from the recording",
+                  "Store in a shared folder (Google Drive or Notion)",
+                  "Now anyone (or AI) can follow your exact process"
+                ],
+                time: "3-4 hours total", impact: "Foundation for delegation + automation",
+                emoji: "📝",
+                show: formData.systemsDocumented !== 'Yes'
+              }
+            ]
+            return diy.filter(d => d.show).slice(0, 5).map((d, i) => (
+              <Card key={i} className="bg-white/[0.03] backdrop-blur-md border-white/10 p-6 hover:border-amber-500/20 transition-all">
+                <div className="flex items-start gap-4">
+                  <span className="text-3xl">{d.emoji}</span>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between mb-3">
+                      <h3 className="text-white font-bold text-lg">{d.title}</h3>
+                      <div className="flex gap-3 text-xs">
+                        <span className="text-blue-400 bg-blue-500/10 px-2 py-1 rounded-full">⏱ {d.time}</span>
+                        <span className="text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded-full hidden sm:block">🎯 {d.impact}</span>
+                      </div>
+                    </div>
+                    <p className="text-emerald-400 text-sm mb-3 sm:hidden">🎯 {d.impact}</p>
+                    <ol className="space-y-2">
+                      {d.steps.map((step, j) => (
+                        <li key={j} className="text-slate-300 text-sm flex items-start gap-2">
+                          <span className="text-amber-400 font-bold text-xs mt-0.5 shrink-0">{j + 1}.</span>
+                          {step}
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+                </div>
+              </Card>
+            ))
+          })()}
+        </div>
+      </FadeUp>
+
+      {/* ── 9. Free Tools & Resources ──────────────────── */}
+      <FadeUp delay={0.29}>
+        <h2 className="text-2xl font-bold text-white mb-2 flex items-center gap-3">
+          <Zap className="w-6 h-6 text-blue-400" /> Free Tools We Recommend
+        </h2>
+        <p className="text-slate-400 mb-6">No budget? No problem. These free tools can get you started today.</p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {[
+            { name: "HubSpot CRM", use: "Track leads & deals", url: "hubspot.com", emoji: "💼", cat: "CRM" },
+            { name: "Mailchimp", use: "Email marketing (free to 500 contacts)", url: "mailchimp.com", emoji: "📧", cat: "Email" },
+            { name: "Zapier", use: "Connect apps & automate workflows", url: "zapier.com", emoji: "⚡", cat: "Automation" },
+            { name: "Calendly", use: "Automated scheduling", url: "calendly.com", emoji: "📅", cat: "Scheduling" },
+            { name: "Canva", use: "Design social posts & lead magnets", url: "canva.com", emoji: "🎨", cat: "Design" },
+            { name: "Loom", use: "Record SOPs & video messages", url: "loom.com", emoji: "🎥", cat: "Video" },
+            { name: "Tidio", use: "Website chatbot & live chat", url: "tidio.com", emoji: "💬", cat: "Chat" },
+            { name: "Notion", use: "Document processes & manage projects", url: "notion.so", emoji: "📝", cat: "Docs" },
+            { name: "ChatGPT", use: "Draft emails, content, scripts", url: "chat.openai.com", emoji: "🤖", cat: "AI" },
+          ].map((tool, i) => (
+            <div key={i} className="bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-xl p-4 hover:border-blue-500/20 transition-all">
+              <div className="flex items-center gap-3 mb-2">
+                <span className="text-2xl">{tool.emoji}</span>
+                <div>
+                  <h4 className="text-white font-semibold text-sm">{tool.name}</h4>
+                  <p className="text-slate-500 text-xs">{tool.cat}</p>
+                </div>
+              </div>
+              <p className="text-slate-400 text-sm">{tool.use}</p>
+            </div>
+          ))}
+        </div>
+      </FadeUp>
+
+      {/* ── 10. "What Happens If You Don't Act" ────────── */}
+      <FadeUp delay={0.3}>
+        <Card className="bg-red-500/5 backdrop-blur-md border-red-500/20 p-8">
+          <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+            <AlertCircle className="w-6 h-6 text-red-400" /> The Cost of Doing Nothing
+          </h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="space-y-2">
+              <p className="text-red-400 font-bold text-3xl">
+                {fmt$(parseMissedCalls(formData.missedCalls) * parseDealSize(formData.dealSize) * parseConversionPct(formData.conversionRate) * 12)}
+              </p>
+              <p className="text-slate-400 text-sm">Lost revenue per year from missed leads alone</p>
+            </div>
+            <div className="space-y-2">
+              <p className="text-red-400 font-bold text-3xl">
+                {formData.hoursPerWeek === '60+' ? '1,040+' : formData.hoursPerWeek === '40-60' ? '520+' : '260+'} hrs
+              </p>
+              <p className="text-slate-400 text-sm">Spent on tasks AI could handle this year</p>
+            </div>
+            <div className="space-y-2">
+              <p className="text-red-400 font-bold text-3xl">
+                {formData.twoWeeksOff === 'No' ? '0 days' : formData.twoWeeksOff === 'Maybe' ? '~5 days' : '14+ days'}
+              </p>
+              <p className="text-slate-400 text-sm">You can take off without the business breaking</p>
+            </div>
+          </div>
+          <p className="text-slate-300 mt-6 text-sm">
+            Every week without systems is another week of lost revenue, wasted time, and missed growth. 
+            The businesses that win aren&apos;t working harder — they&apos;re working smarter.
+          </p>
+        </Card>
+      </FadeUp>
+
+      {/* ── 11. CTA ─────────────────────────────────────── */}
       <FadeUp delay={0.3}>
         <Card className="bg-gradient-to-br from-indigo-900/50 to-purple-900/50 border-white/10 p-12 text-center backdrop-blur-xl relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.15),transparent)]" />
