@@ -29,7 +29,6 @@ const footerLinks: FooterSection[] = [
       { title: "About Us", href: "/about" },
       { title: "Contact", href: "/contact" },
       { title: "Affiliate Program", href: "/affiliates" },
-      { title: "Discounts", href: "/discounts" },
       { title: "Privacy Policy", href: "/privacy" },
       { title: "Terms of Service", href: "/terms" },
     ],
