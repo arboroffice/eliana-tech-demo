@@ -99,6 +99,66 @@ export default function HomePage() {
             </div>
           </section>
 
+          {/* HOW IT WORKS */}
+          <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5">
+            <div className="max-w-5xl mx-auto">
+              <div className="text-center mb-16 sm:mb-20">
+                <p className="text-sm uppercase tracking-[0.2em] text-slate-500 mb-4">Simple. Intentional. Effective.</p>
+                <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-6">
+                  How It Works
+                </h2>
+                <p className="text-lg text-slate-400 max-w-xl mx-auto">
+                  Four steps from overwhelmed to operating in flow.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {[
+                  { num: "01", title: "Apply for Your AI Audit", desc: "Free. Takes 5 minutes. Tell us about your business and where you're stuck." },
+                  { num: "02", title: "We Diagnose Your Business", desc: "We find the leaks, map the opportunities, and show you what's possible with AI." },
+                  { num: "03", title: "Choose Your Path", desc: "The Container (learn with Mia) or Done-For-You (we handle everything). Your call." },
+                  { num: "04", title: "Transform", desc: "Systems installed. Operations automated. Freedom unlocked." },
+                ].map((step) => (
+                  <div key={step.num} className="group p-8 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300">
+                    <span className="text-4xl font-black text-white/10 group-hover:text-white/20 transition-colors">{step.num}</span>
+                    <h3 className="text-xl font-bold text-white mt-4 mb-3">{step.title}</h3>
+                    <p className="text-slate-400 leading-relaxed">{step.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* INDUSTRIES */}
+          <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5">
+            <div className="max-w-5xl mx-auto text-center">
+              <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-12">
+                We&apos;ve Built Systems For
+              </h2>
+              <div className="flex flex-wrap justify-center gap-3 mb-12">
+                {[
+                  "Home Services", "Automotive", "Real Estate", "Healthcare",
+                  "Restaurants", "Salons & Spas", "Construction", "Retail",
+                  "Professional Services", "And 50+ more"
+                ].map((industry) => (
+                  <span
+                    key={industry}
+                    className={`px-5 py-2.5 rounded-full text-sm font-medium border transition-all duration-300 ${
+                      industry === "And 50+ more"
+                        ? "border-white/30 text-white bg-white/10"
+                        : "border-white/10 text-slate-300 bg-white/5 hover:bg-white/10 hover:border-white/20"
+                    }`}
+                  >
+                    {industry}
+                  </span>
+                ))}
+              </div>
+              <p className="text-lg text-slate-400 italic">
+                &ldquo;If your business has customers, leads, and operations, we can help.&rdquo;
+              </p>
+            </div>
+          </section>
+
           {/* FINAL CTA */}
           <section className="py-24 sm:py-32 px-4 sm:px-6">
             <div className="max-w-3xl mx-auto text-center">
