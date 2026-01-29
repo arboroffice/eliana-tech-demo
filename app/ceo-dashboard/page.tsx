@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import { GlassmorphismNav } from "@/components/glassmorphism-nav"
-import Footer from "@/components/footer"
+import { Footer } from "@/components/footer"
 import Aurora from "@/components/Aurora"
 import {
   Bot, Zap, Mail, Phone, Video, Handshake, Brain, TrendingUp,
