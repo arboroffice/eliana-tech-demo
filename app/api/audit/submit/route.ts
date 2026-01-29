@@ -5,6 +5,8 @@ import { calculateAuditScore, analyzeIntent } from '@/lib/audit-analyzer'
 import { db } from '@/lib/firebase'
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 import { sendHighIntentSMS, notifyTeamOfHotLead, scheduleSMSFollowUp, isValidPhoneNumber, formatPhoneNumber } from '@/lib/sms-service'
+import { scoreAndRouteLead } from '@/lib/lead-router'
+import { getSequence, personalizeEmail } from '@/lib/nurture-sequences'
 
 export async function POST(request: Request) {
     try {
@@ -104,11 +106,63 @@ export async function POST(request: Request) {
             }
         }
 
+        // ─── Lead Scoring & Nurture Sequence ─────────────────────────
+        const leadScore = scoreAndRouteLead(formData, auditScore)
+
+        // Send first nurture email immediately (Day 0)
+        const sequence = getSequence(leadScore.nurturSequence)
+        const firstEmail = personalizeEmail(sequence.emails[0], {
+            ...formData,
+            auditScore,
+            calLink: 'https://cal.com/mia-louviere-a4n2hk/30min'
+        })
+
+        // TODO: Send personalized nurture email when Resend is configured
+        // await sendEmail({ to: formData.email, subject: firstEmail.subject, html: firstEmail.bodyHtml })
+
+        // TODO: Queue remaining sequence emails in Firestore nurture_queue
+        // for (const email of sequence.emails.slice(1)) {
+        //   await addDoc(collection(db, 'nurture_queue'), {
+        //     email: formData.email,
+        //     formData,
+        //     auditScore,
+        //     sequenceId: leadScore.nurturSequence,
+        //     currentStep: 1,
+        //     nextEmailDate: new Date(Date.now() + email.day * 86400000),
+        //     status: 'active',
+        //     createdAt: serverTimestamp()
+        //   })
+        // }
+
+        // Team notification for hot leads
+        if (leadScore.level === 'hot') {
+            // TODO: Send team SMS alert when Twilio is configured
+            // const { personalizeSMS, smsTemplates } = await import('@/lib/sms-service')
+            // const alertMsg = personalizeSMS(smsTemplates.team_hot_alert, {
+            //     name: formData.fullName,
+            //     companyName: formData.companyName,
+            //     industry: formData.specificIndustry || '',
+            //     auditScore: String(auditScore),
+            //     painLevel: String(formData.painLevel?.[0] || ''),
+            //     budget: formData.growthBudget || '',
+            //     phone: formData.phoneNumber || ''
+            // })
+            // await twilioClient.messages.create({ body: alertMsg, from: TWILIO_PHONE, to: '+13373809059' })
+            console.log(`[LEAD ROUTER] 🔥 HOT lead: ${formData.fullName} (${formData.companyName}) — Score: ${leadScore.score}`)
+        } else {
+            console.log(`[LEAD ROUTER] ${leadScore.level.toUpperCase()} lead: ${formData.fullName} — Sequence ${leadScore.nurturSequence}`)
+        }
+
         return NextResponse.json({
             success: true,
             auditId,
             auditScore,
-            opportunities
+            opportunities,
+            leadScore: {
+                level: leadScore.level,
+                score: leadScore.score,
+                sequence: leadScore.nurturSequence
+            }
         })
 
     } catch (error) {

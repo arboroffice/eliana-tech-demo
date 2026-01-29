@@ -187,6 +187,25 @@ export function formatPhoneNumber(phone: string): string {
     return `+${cleaned}`
 }
 
+// ─── Nurture SMS Templates ───────────────────────────────────────────
+
+export const smsTemplates = {
+  hot_day0: "Hey {firstName}! Just reviewed your AI audit — impressive business. I have some specific ideas for {companyName}. Mind if I call you in the next hour? - Mia, ElianaTech",
+  warm_day2: "Hey {firstName}, did you get a chance to review your AI audit results? Happy to walk through them on a quick call: {calLink} - Mia",
+  warm_day5: "{firstName}, quick question — what's the #1 thing you'd automate if you could? I see a big opportunity for {companyName}. - Mia",
+  cold_day14: "No worries if timing isn't right {firstName}. Your audit results are saved whenever you're ready: elianatech.com/audit - Mia",
+  team_hot_alert: "🔥 HOT LEAD: {name} from {companyName} ({industry}). Score: {auditScore}. Pain: {painLevel}/10. Budget: {budget}. CALL NOW: {phone}",
+  team_warm_alert: "📊 New audit: {name} from {companyName}. Score: {auditScore}. Intent: {intentLevel}. Nurture sequence {sequence} started."
+}
+
+export function personalizeSMS(template: string, data: Record<string, string>): string {
+  let result = template
+  for (const [key, value] of Object.entries(data)) {
+    result = result.replaceAll(`{${key}}`, value)
+  }
+  return result
+}
+
 /**
  * Opt-out handling (required by Twilio)
  */
