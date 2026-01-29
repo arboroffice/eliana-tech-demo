@@ -1,8 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { ArrowLeft, ArrowRight, Check, Send } from "lucide-react"
+import { ArrowLeft, ArrowRight, Check, Send, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -14,20 +14,27 @@ import { Card } from "@/components/ui/card"
 import { AuditResults } from "@/components/audit-results"
 
 const STEPS = [
-    "Basics",
-    "Financials",
-    "Team",
-    "Sales",
-    "Strategy",
-    "Time",
-    "Pain",
-    "Capacity",
-    "Reputation",
-    "Retention",
-    "Tools",
-    "Big Picture",
-    "Final",
+    "About You",
+    "Revenue & Growth",
+    "Your Team",
+    "Sales & Leads",
+    "Time & Operations",
+    "Reputation & Retention",
+    "Tech & Tools",
+    "Let's Go",
 ]
+
+const ENCOURAGEMENTS = [
+    "Great start! Let's look at your numbers.",
+    "Almost a third done! Your team insights help us personalize.",
+    "Halfway point coming up! Your sales data unlocks big insights.",
+    "Over halfway! Let's see where your time goes.",
+    "Almost there! A few more questions about your reputation.",
+    "Last two steps! Tell us about your tech stack.",
+    "Final step! Just a few more clicks.",
+]
+
+const STORAGE_KEY = "elianatech-audit-progress"
 
 interface FormData {
     fullName: string;
@@ -89,98 +96,111 @@ interface FormData {
     newsletterOptIn: boolean;
 }
 
+const DEFAULT_FORM_DATA: FormData = {
+    fullName: "",
+    companyName: "",
+    email: "",
+    phoneNumber: "",
+    websiteUrl: "",
+    industryCategory: "",
+    specificIndustry: "",
+    currentRevenue: "",
+    revenueTrend: "",
+    profitMargin: "",
+    cashFlow: "",
+    teamSize: "",
+    teamPerformance: "",
+    systemsDocumented: "",
+    leadSource: "",
+    conversionRate: "",
+    dealSize: "",
+    salesCycle: "",
+    revenueGoal: "",
+    bottleneck: "",
+    timeInBusiness: "",
+    nicheIndustry: "",
+    hvacLeadsPerMonth: "",
+    hvacCloseRate: "",
+    hvacAvgTicket: "",
+    hvacMaintenance: "",
+    retentionRate: "",
+    customerValue: "",
+    hoursPerWeek: "",
+    highValueWork: "",
+    twoWeeksOff: "",
+    missedCalls: "",
+    systematicFollowUp: "",
+    fixTimeline: "",
+    painLevel: [5],
+    keepsUpAtNight: "",
+    whoRunsSystems: "",
+    techComfort: [5],
+    googleReviews: "",
+    googleRating: "",
+    askReviewsSystem: "",
+    respondReviews: "",
+    repeatCustomers: "",
+    recurringRevenue: "",
+    winBackSystem: "",
+    referralSystem: "",
+    tools: [],
+    percentAutomated: "",
+    dataOrganization: "",
+    next12MonthsGoal: "",
+    holdingBack: "",
+    problems: [],
+    excitementLevel: "",
+    startDate: "",
+    growthBudget: "",
+    decisionMaker: "",
+    newsletterOptIn: false,
+}
+
 export function AuditForm() {
     const [currentStep, setCurrentStep] = useState(0)
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [isSuccess, setIsSuccess] = useState(false)
     const [showResults, setShowResults] = useState(false)
+    const [showExitCapture, setShowExitCapture] = useState(false)
+    const [exitEmailSent, setExitEmailSent] = useState(false)
+    const [restoredProgress, setRestoredProgress] = useState(false)
+    const [encouragement, setEncouragement] = useState("")
 
-    const [formData, setFormData] = useState<FormData>({
-        // Step 1: Basics
-        fullName: "",
-        companyName: "",
-        email: "",
-        phoneNumber: "",
-        websiteUrl: "",
-        industryCategory: "",
-        specificIndustry: "",
+    const [formData, setFormData] = useState<FormData>(DEFAULT_FORM_DATA)
 
-        // Step 2: Diagnostics
-        currentRevenue: "",
-        revenueTrend: "",
-        profitMargin: "",
-        cashFlow: "",
+    // Restore progress from localStorage on mount
+    useEffect(() => {
+        try {
+            const saved = localStorage.getItem(STORAGE_KEY)
+            if (saved) {
+                const parsed = JSON.parse(saved)
+                if (parsed.formData) {
+                    setFormData({ ...DEFAULT_FORM_DATA, ...parsed.formData })
+                    if (parsed.currentStep) setCurrentStep(parsed.currentStep)
+                    setRestoredProgress(true)
+                    setTimeout(() => setRestoredProgress(false), 4000)
+                }
+            }
+        } catch { }
+    }, [])
 
-        // Step 3: Team
-        teamSize: "",
-        teamPerformance: "",
-        systemsDocumented: "",
+    // Save progress to localStorage on step/field change
+    useEffect(() => {
+        try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify({ formData, currentStep }))
+        } catch { }
+    }, [formData, currentStep])
 
-        // Step 4: Sales
-        leadSource: "",
-        conversionRate: "",
-        dealSize: "",
-        salesCycle: "",
-
-        // Step 5: Strategy
-        revenueGoal: "",
-        bottleneck: "",
-        timeInBusiness: "",
-        nicheIndustry: "", // Text input
-        // Conditional HVAC
-        hvacLeadsPerMonth: "",
-        hvacCloseRate: "",
-        hvacAvgTicket: "",
-        hvacMaintenance: "",
-        // Conditional Other
-        retentionRate: "",
-        customerValue: "",
-
-        // Step 6: Time
-        hoursPerWeek: "",
-        highValueWork: "",
-        twoWeeksOff: "",
-
-        // Step 7: Pain
-        missedCalls: "",
-        systematicFollowUp: "",
-        fixTimeline: "",
-        painLevel: [5], // Slider
-        keepsUpAtNight: "",
-
-        // Step 8: Capacity
-        whoRunsSystems: "",
-        techComfort: [5], // Slider
-
-        // Step 9: Reputation
-        googleReviews: "",
-        googleRating: "",
-        askReviewsSystem: "",
-        respondReviews: "",
-
-        // Step 10: Retention
-        repeatCustomers: "",
-        recurringRevenue: "",
-        winBackSystem: "",
-        referralSystem: "",
-
-        // Step 11: Tools
-        tools: [] as string[],
-        percentAutomated: "",
-        dataOrganization: "",
-
-        // Step 12: Big Picture
-        next12MonthsGoal: "",
-        holdingBack: "",
-        problems: [] as string[],
-
-        // Step 13: Final
-        excitementLevel: "",
-        startDate: "",
-        growthBudget: "",
-        decisionMaker: "",
-        newsletterOptIn: false,
-    })
+    // Exit-intent detection
+    useEffect(() => {
+        const handler = (e: MouseEvent) => {
+            if (e.clientY <= 0 && !showExitCapture && !isSuccess && currentStep > 0 && formData.email) {
+                setShowExitCapture(true)
+            }
+        }
+        document.addEventListener('mouseout', handler)
+        return () => document.removeEventListener('mouseout', handler)
+    }, [showExitCapture, isSuccess, currentStep, formData.email])
 
     // Helper to update fields
     const updateField = (field: keyof FormData, value: any) => {
@@ -200,7 +220,11 @@ export function AuditForm() {
 
     const handleNext = () => {
         if (currentStep < STEPS.length - 1) {
-            // Validate current step here if needed
+            // Show encouragement
+            if (currentStep < ENCOURAGEMENTS.length) {
+                setEncouragement(ENCOURAGEMENTS[currentStep])
+                setTimeout(() => setEncouragement(""), 3000)
+            }
             window.scrollTo({ top: 0, behavior: 'smooth' })
             setCurrentStep((prev) => prev + 1)
         }
@@ -216,7 +240,6 @@ export function AuditForm() {
     const handleSubmit = async () => {
         setIsSubmitting(true)
         try {
-            // Submit to your API route for processing
             const response = await fetch("/api/audit/submit", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -228,22 +251,38 @@ export function AuditForm() {
             if (response.ok && data.success) {
                 setIsSuccess(true)
                 setShowResults(true)
+                try { localStorage.removeItem(STORAGE_KEY) } catch { }
                 window.scrollTo({ top: 0, behavior: 'smooth' })
             } else {
-                // Show results anyway for better UX
                 console.warn("API submission failed, showing results anyway:", data)
                 setIsSuccess(true)
                 setShowResults(true)
+                try { localStorage.removeItem(STORAGE_KEY) } catch { }
                 window.scrollTo({ top: 0, behavior: 'smooth' })
             }
         } catch (error) {
-            // Show results anyway even if API fails
             console.error("Submission error, showing results anyway:", error)
             setIsSuccess(true)
             setShowResults(true)
+            try { localStorage.removeItem(STORAGE_KEY) } catch { }
             window.scrollTo({ top: 0, behavior: 'smooth' })
         } finally {
             setIsSubmitting(false)
+        }
+    }
+
+    const handleSaveProgress = async () => {
+        try {
+            await fetch("/api/audit/save-progress", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email: formData.email, name: formData.fullName, formData, currentStep }),
+            })
+            setExitEmailSent(true)
+            setTimeout(() => setShowExitCapture(false), 2000)
+        } catch {
+            setExitEmailSent(true)
+            setTimeout(() => setShowExitCapture(false), 2000)
         }
     }
 
@@ -253,6 +292,35 @@ export function AuditForm() {
 
     return (
         <div className="max-w-3xl mx-auto">
+            {/* Restored Progress Banner */}
+            <AnimatePresence>
+                {restoredProgress && (
+                    <motion.div
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        className="mb-4 p-3 rounded-lg bg-blue-600/20 border border-blue-500/30 text-blue-300 text-sm text-center"
+                    >
+                        👋 Welcome back! We saved your progress.
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            {/* Encouragement Message */}
+            <AnimatePresence>
+                {encouragement && (
+                    <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.3 }}
+                        className="mb-2 text-center text-sm text-purple-300 font-medium"
+                    >
+                        ✨ {encouragement}
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
             {/* Progress Bar */}
             <div className="mb-8">
                 <div className="flex justify-between text-sm text-slate-400 mb-2">
@@ -282,7 +350,7 @@ export function AuditForm() {
                         transition={{ duration: 0.2 }}
                         className="space-y-6"
                     >
-                        {/* Step 1: Basics */}
+                        {/* Step 1: About You */}
                         {currentStep === 0 && (
                             <div className="space-y-4">
                                 <div className="grid md:grid-cols-2 gap-4">
@@ -331,7 +399,7 @@ export function AuditForm() {
                             </div>
                         )}
 
-                        {/* Step 2: Financials */}
+                        {/* Step 2: Revenue & Growth */}
                         {currentStep === 1 && (
                             <div className="space-y-6">
                                 <div className="space-y-2">
@@ -374,19 +442,35 @@ export function AuditForm() {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label>Cash Flow Status</Label>
-                                    <div className="grid grid-cols-3 gap-3">
-                                        {["Healthy", "Tight", "Crisis"].map(opt => (
-                                            <Button key={opt} variant={formData.cashFlow === opt ? "default" : "outline"} onClick={() => updateField("cashFlow", opt)} className={formData.cashFlow === opt ? "bg-blue-600 hover:bg-blue-700" : "bg-transparent border-slate-700 hover:bg-slate-800"}>
-                                                {opt}
-                                            </Button>
-                                        ))}
-                                    </div>
+                                    <Label>12-Month Expansion Goal</Label>
+                                    <Select value={formData.revenueGoal} onValueChange={(val: string) => updateField("revenueGoal", val)}>
+                                        <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select Goal..." /></SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="double">Double Current Output</SelectItem>
+                                            <SelectItem value="scale">Significant Market Expansion</SelectItem>
+                                            <SelectItem value="dominate">Become Market Leader</SelectItem>
+                                            <SelectItem value="legacy">Build Legacy / Exit-Ready State</SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label>Biggest Bottleneck</Label>
+                                    <Select value={formData.bottleneck} onValueChange={(val: string) => updateField("bottleneck", val)}>
+                                        <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="leads">Lead Volume (Not enough leads)</SelectItem>
+                                            <SelectItem value="sales">Sales Process (Can't close leads)</SelectItem>
+                                            <SelectItem value="delivery">Delivery/Ops (Too busy doing the work)</SelectItem>
+                                            <SelectItem value="team">Team/Hiring (Need good people)</SelectItem>
+                                            <SelectItem value="strategy">Strategy (Don't know what to do next)</SelectItem>
+                                        </SelectContent>
+                                    </Select>
                                 </div>
                             </div>
                         )}
 
-                        {/* Step 3: Team */}
+                        {/* Step 3: Your Team */}
                         {currentStep === 2 && (
                             <div className="space-y-6">
                                 <div className="space-y-2">
@@ -424,10 +508,29 @@ export function AuditForm() {
                                         ))}
                                     </div>
                                 </div>
+                                <div className="space-y-2">
+                                    <Label>Who would run these new AI/Automation systems?</Label>
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                        {["Me", "My Team", "I need to hire"].map(opt => (
+                                            <Button key={opt} type="button" variant={formData.whoRunsSystems === opt ? "default" : "outline"} onClick={() => updateField("whoRunsSystems", opt)} className={formData.whoRunsSystems === opt ? "bg-blue-600 hover:bg-blue-700" : "bg-transparent border-slate-700 hover:bg-slate-800"}>
+                                                {opt}
+                                            </Button>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className="space-y-4">
+                                    <Label>Tech Comfort Level (1-10)</Label>
+                                    <Slider value={formData.techComfort} onValueChange={(val: number[]) => updateField("techComfort", val)} min={1} max={10} step={1} className="py-2" />
+                                    <div className="flex justify-between text-xs text-slate-400">
+                                        <span>Low</span>
+                                        <span>Medium</span>
+                                        <span>High</span>
+                                    </div>
+                                </div>
                             </div>
                         )}
 
-                        {/* Step 4: Sales */}
+                        {/* Step 4: Sales & Leads */}
                         {currentStep === 3 && (
                             <div className="space-y-6">
                                 <div className="space-y-2">
@@ -484,71 +587,33 @@ export function AuditForm() {
                                         </Select>
                                     </div>
                                 </div>
-                            </div>
-                        )}
-
-                        {/* Step 5: Strategy */}
-                        {currentStep === 4 && (
-                            <div className="space-y-6">
                                 <div className="space-y-2">
-                                    <Label>12-Month Expansion Goal</Label>
-                                    <Select value={formData.revenueGoal} onValueChange={(val: string) => updateField("revenueGoal", val)}>
-                                        <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select Goal..." /></SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value="double">Double Current Output</SelectItem>
-                                            <SelectItem value="scale">Significant Market Expansion</SelectItem>
-                                            <SelectItem value="dominate">Become Market Leader</SelectItem>
-                                            <SelectItem value="legacy">Build Legacy / Exit-Ready State</SelectItem>
-                                        </SelectContent>
-                                    </Select>
-                                </div>
-                                <div className="space-y-2">
-                                    <Label>Biggest Bottleneck</Label>
-                                    <Select value={formData.bottleneck} onValueChange={(val: string) => updateField("bottleneck", val)}>
+                                    <Label>Missed Calls / Opportunities Per Week</Label>
+                                    <Select value={formData.missedCalls} onValueChange={(val: string) => updateField("missedCalls", val)}>
                                         <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="leads">Lead Volume (Not enough leads)</SelectItem>
-                                            <SelectItem value="sales">Sales Process (Can't close leads)</SelectItem>
-                                            <SelectItem value="delivery">Delivery/Ops (Too busy doing the work)</SelectItem>
-                                            <SelectItem value="team">Team/Hiring (Need good people)</SelectItem>
-                                            <SelectItem value="strategy">Strategy (Don't know what to do next)</SelectItem>
+                                            <SelectItem value="0-5">0 - 5 (Not many)</SelectItem>
+                                            <SelectItem value="5-10">5 - 10</SelectItem>
+                                            <SelectItem value="10-30">10 - 30 (Leaking money)</SelectItem>
+                                            <SelectItem value="30+">30+ (Serious problem)</SelectItem>
                                         </SelectContent>
                                     </Select>
                                 </div>
                                 <div className="space-y-2">
-                                    <Label>Niche / Industry Industry (e.g. HVAC, SaaS)</Label>
-                                    <Input value={formData.nicheIndustry} onChange={(e) => updateField("nicheIndustry", e.target.value)} className="bg-slate-800 border-slate-700" />
-                                </div>
-
-                                {/* Conditional Fields based on input (Basic detection) */}
-                                {(formData.nicheIndustry.toLowerCase().includes("hvac") ||
-                                    formData.nicheIndustry.toLowerCase().includes("plumb") ||
-                                    formData.nicheIndustry.toLowerCase().includes("electric") ||
-                                    formData.industryCategory === "service") && (
-                                        <div className="p-4 bg-slate-800/50 rounded-lg border border-slate-700 space-y-4">
-                                            <h4 className="text-blue-400 font-medium text-sm uppercase">Service Business Metrics</h4>
-                                            <div className="grid md:grid-cols-2 gap-4">
-                                                <div className="space-y-2"><Label>Leads per Month</Label><Input value={formData.hvacLeadsPerMonth} onChange={e => updateField("hvacLeadsPerMonth", e.target.value)} className="bg-slate-900" /></div>
-                                                <div className="space-y-2"><Label>Average Ticket Value</Label><Input value={formData.hvacAvgTicket} onChange={e => updateField("hvacAvgTicket", e.target.value)} className="bg-slate-900" /></div>
-                                                <div className="space-y-2"><Label>Membership/Maint. %</Label><Input value={formData.hvacMaintenance} onChange={e => updateField("hvacMaintenance", e.target.value)} className="bg-slate-900" /></div>
-                                            </div>
-                                        </div>
-                                    )}
-
-                                {(!formData.nicheIndustry.toLowerCase().includes("hvac") && !formData.nicheIndustry.toLowerCase().includes("plum") && !formData.nicheIndustry.toLowerCase().includes("elec") && formData.industryCategory !== "service") && (
-                                    <div className="p-4 bg-slate-800/50 rounded-lg border border-slate-700 space-y-4">
-                                        <h4 className="text-purple-400 font-medium text-sm uppercase">Growth Metrics</h4>
-                                        <div className="grid md:grid-cols-2 gap-4">
-                                            <div className="space-y-2"><Label>Customer Retention Rate %</Label><Input value={formData.retentionRate} onChange={e => updateField("retentionRate", e.target.value)} className="bg-slate-900" /></div>
-                                            <div className="space-y-2"><Label>Average Customer Lifetime Value</Label><Input value={formData.customerValue} onChange={e => updateField("customerValue", e.target.value)} className="bg-slate-900" /></div>
-                                        </div>
+                                    <Label>Do you have a systematic follow-up process?</Label>
+                                    <div className="grid grid-cols-3 gap-3">
+                                        {["Yes", "Kinda", "No"].map(opt => (
+                                            <Button key={opt} type="button" variant={formData.systematicFollowUp === opt ? "default" : "outline"} onClick={() => updateField("systematicFollowUp", opt)} className={formData.systematicFollowUp === opt ? "bg-blue-600 hover:bg-blue-700" : "bg-transparent border-slate-700 hover:bg-slate-800"}>
+                                                {opt}
+                                            </Button>
+                                        ))}
                                     </div>
-                                )}
+                                </div>
                             </div>
                         )}
 
-                        {/* Step 6: Time */}
-                        {currentStep === 5 && (
+                        {/* Step 5: Time & Operations */}
+                        {currentStep === 4 && (
                             <div className="space-y-6">
                                 <div className="space-y-2">
                                     <Label>Hours Worked Per Week</Label>
@@ -584,34 +649,6 @@ export function AuditForm() {
                                         ))}
                                     </div>
                                 </div>
-                            </div>
-                        )}
-
-                        {/* Step 7: Pain */}
-                        {currentStep === 6 && (
-                            <div className="space-y-6">
-                                <div className="space-y-2">
-                                    <Label>Missed Calls / Opportunities Per Week</Label>
-                                    <Select value={formData.missedCalls} onValueChange={(val: string) => updateField("missedCalls", val)}>
-                                        <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value="0-5">0 - 5 (Not many)</SelectItem>
-                                            <SelectItem value="5-10">5 - 10</SelectItem>
-                                            <SelectItem value="10-30">10 - 30 (Leaking money)</SelectItem>
-                                            <SelectItem value="30+">30+ (Serious problem)</SelectItem>
-                                        </SelectContent>
-                                    </Select>
-                                </div>
-                                <div className="space-y-2">
-                                    <Label>Do you have a systematic follow-up process?</Label>
-                                    <div className="grid grid-cols-3 gap-3">
-                                        {["Yes", "Kinda", "No"].map(opt => (
-                                            <Button key={opt} type="button" variant={formData.systematicFollowUp === opt ? "default" : "outline"} onClick={() => updateField("systematicFollowUp", opt)} className={formData.systematicFollowUp === opt ? "bg-blue-600 hover:bg-blue-700" : "bg-transparent border-slate-700 hover:bg-slate-800"}>
-                                                {opt}
-                                            </Button>
-                                        ))}
-                                    </div>
-                                </div>
                                 <div className="space-y-4">
                                     <Label>Pain Level (1-10) - How urgent is this?</Label>
                                     <Slider value={formData.painLevel} onValueChange={(val: number[]) => updateField("painLevel", val)} min={1} max={10} step={1} className="py-2" />
@@ -622,39 +659,14 @@ export function AuditForm() {
                                     </div>
                                 </div>
                                 <div className="space-y-2">
-                                    <Label>What keeps you up at night regarding proper business?</Label>
+                                    <Label>What keeps you up at night regarding your business?</Label>
                                     <Textarea value={formData.keepsUpAtNight} onChange={(e) => updateField("keepsUpAtNight", e.target.value)} className="bg-slate-800 border-slate-700 h-24" placeholder="Be specific..." />
                                 </div>
                             </div>
                         )}
 
-                        {/* Step 8: Capacity */}
-                        {currentStep === 7 && (
-                            <div className="space-y-6">
-                                <div className="space-y-2">
-                                    <Label>Who would run these new AI/Automation systems?</Label>
-                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                                        {["Me", "My Team", "I need to hire"].map(opt => (
-                                            <Button key={opt} type="button" variant={formData.whoRunsSystems === opt ? "default" : "outline"} onClick={() => updateField("whoRunsSystems", opt)} className={formData.whoRunsSystems === opt ? "bg-blue-600 hover:bg-blue-700" : "bg-transparent border-slate-700 hover:bg-slate-800"}>
-                                                {opt}
-                                            </Button>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className="space-y-4">
-                                    <Label>Tech Comfort Level (1-10)</Label>
-                                    <Slider value={formData.techComfort} onValueChange={(val: number[]) => updateField("techComfort", val)} min={1} max={10} step={1} className="py-2" />
-                                    <div className="flex justify-between text-xs text-slate-400">
-                                        <span>Low</span>
-                                        <span>Medium</span>
-                                        <span>High</span>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-
-                        {/* Step 9: Reputation */}
-                        {currentStep === 8 && (
+                        {/* Step 6: Reputation & Retention */}
+                        {currentStep === 5 && (
                             <div className="space-y-6">
                                 <div className="grid md:grid-cols-2 gap-4">
                                     <div className="space-y-2">
@@ -689,12 +701,6 @@ export function AuditForm() {
                                         </SelectContent>
                                     </Select>
                                 </div>
-                            </div>
-                        )}
-
-                        {/* Step 10: Retention */}
-                        {currentStep === 9 && (
-                            <div className="space-y-6">
                                 <div className="space-y-2">
                                     <Label>% Repeat Customers</Label>
                                     <Select value={formData.repeatCustomers} onValueChange={(val: string) => updateField("repeatCustomers", val)}>
@@ -720,8 +726,8 @@ export function AuditForm() {
                             </div>
                         )}
 
-                        {/* Step 11: Tools */}
-                        {currentStep === 10 && (
+                        {/* Step 7: Tech & Tools */}
+                        {currentStep === 6 && (
                             <div className="space-y-6">
                                 <div className="space-y-3">
                                     <Label>Which tools do you currently use?</Label>
@@ -746,12 +752,6 @@ export function AuditForm() {
                                         </SelectContent>
                                     </Select>
                                 </div>
-                            </div>
-                        )}
-
-                        {/* Step 12: Big Picture */}
-                        {currentStep === 11 && (
-                            <div className="space-y-6">
                                 <div className="space-y-2">
                                     <Label>#1 Goal for Next 12 Months</Label>
                                     <Input value={formData.next12MonthsGoal} onChange={(e) => updateField("next12MonthsGoal", e.target.value)} placeholder="e.g. Double revenue, Hire a GM, Sell business" className="bg-slate-800 border-slate-700" />
@@ -774,8 +774,8 @@ export function AuditForm() {
                             </div>
                         )}
 
-                        {/* Step 13: Final */}
-                        {currentStep === 12 && (
+                        {/* Step 8: Let's Go */}
+                        {currentStep === 7 && (
                             <div className="space-y-6">
                                 <div className="space-y-2">
                                     <Label>Excitement Level (1-10) to fix this?</Label>
@@ -784,8 +784,20 @@ export function AuditForm() {
                                         <SelectContent>
                                             <SelectItem value="10">10 - Ready to go NOW</SelectItem>
                                             <SelectItem value="8-9">8-9 - Very Interested</SelectItem>
-                                            <SelectItem value="5-7">5-7 - exploring</SelectItem>
+                                            <SelectItem value="5-7">5-7 - Exploring</SelectItem>
                                             <SelectItem value="<5">Less than 5 - Just looking</SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                </div>
+                                <div className="space-y-2">
+                                    <Label>When do you want to start?</Label>
+                                    <Select value={formData.startDate} onValueChange={(val: string) => updateField("startDate", val)}>
+                                        <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="now">Right now</SelectItem>
+                                            <SelectItem value="this-month">This month</SelectItem>
+                                            <SelectItem value="next-quarter">Next quarter</SelectItem>
+                                            <SelectItem value="exploring">Just exploring</SelectItem>
                                         </SelectContent>
                                     </Select>
                                 </div>
@@ -847,8 +859,58 @@ export function AuditForm() {
                         </Button>
                     )}
                 </div>
-
             </Card>
+
+            {/* Exit-Intent Modal */}
+            <AnimatePresence>
+                {showExitCapture && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
+                    >
+                        <motion.div
+                            initial={{ scale: 0.9, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.9, opacity: 0 }}
+                        >
+                            <Card className="bg-slate-900 border-slate-700 p-8 max-w-md mx-4 relative">
+                                <button
+                                    onClick={() => setShowExitCapture(false)}
+                                    className="absolute top-4 right-4 text-slate-400 hover:text-white"
+                                >
+                                    <X className="w-5 h-5" />
+                                </button>
+                                {exitEmailSent ? (
+                                    <div className="text-center py-4">
+                                        <div className="text-3xl mb-3">📬</div>
+                                        <p className="text-white font-semibold text-lg">Check your inbox!</p>
+                                        <p className="text-slate-400 text-sm mt-1">We sent a link to finish your audit.</p>
+                                    </div>
+                                ) : (
+                                    <>
+                                        <h3 className="text-white text-xl font-bold mb-2">Wait! Don&apos;t lose your progress!</h3>
+                                        <p className="text-slate-400 text-sm mb-6">
+                                            We can send you a link to finish your audit later, or book a call and we&apos;ll walk you through it.
+                                        </p>
+                                        <div className="space-y-3">
+                                            <Button onClick={handleSaveProgress} className="w-full bg-blue-600 hover:bg-blue-700 text-white">
+                                                📧 Email Me a Link
+                                            </Button>
+                                            <Button asChild variant="outline" className="w-full border-slate-600 text-slate-300 hover:bg-slate-800">
+                                                <a href="https://cal.com/mia-louviere-a4n2hk/30min" target="_blank" rel="noopener noreferrer">
+                                                    📞 Book a Call Instead
+                                                </a>
+                                            </Button>
+                                        </div>
+                                    </>
+                                )}
+                            </Card>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     )
 }
