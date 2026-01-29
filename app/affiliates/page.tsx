@@ -6,9 +6,9 @@ import { Footer } from "../../components/footer"
 import Aurora from "../../components/Aurora"
 
 const steps = [
-  { num: "01", title: "Sign Up Below", desc: "Fill out the quick form and get your unique referral link." },
-  { num: "02", title: "Share With Businesses", desc: "Introduce us to businesses that need AI automation — that's it." },
-  { num: "03", title: "Earn 10% Commission", desc: "When they become a client, you get paid. Simple." },
+  { num: "01", title: "Apply Below", desc: "Tell us about yourself and how you'd refer clients. Takes 2 minutes." },
+  { num: "02", title: "We Review & Approve", desc: "We'll review your application and reach out if you're a good fit." },
+  { num: "03", title: "Earn 10% Commission", desc: "Once approved, refer businesses and earn on every closed deal." },
 ]
 
 const benefits = [
@@ -89,7 +89,7 @@ export default function AffiliatesPage() {
                 href="#signup"
                 className="inline-block bg-blue-600 hover:bg-blue-500 text-white font-semibold px-8 py-4 rounded-lg text-lg transition-colors"
               >
-                Join the Program →
+                Apply Now →
               </a>
             </div>
           </section>
@@ -156,14 +156,14 @@ export default function AffiliatesPage() {
           {/* Sign-Up Form */}
           <section id="signup" className="py-20 px-4">
             <div className="max-w-2xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-4">Join the Program</h2>
-              <p className="text-slate-400 text-center mb-12">Fill out the form below and we&apos;ll send you everything you need to start earning.</p>
+              <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-4">Apply to Become an Affiliate</h2>
+              <p className="text-slate-400 text-center mb-12">Submit your application below. We&apos;ll review it and contact you if you&apos;re a good fit.</p>
 
               {submitted ? (
                 <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-2xl p-12 text-center">
                   <p className="text-3xl mb-2">🎉</p>
-                  <h3 className="text-2xl font-bold text-white mb-2">You&apos;re In!</h3>
-                  <p className="text-slate-300">Check your email for your unique referral link and next steps.</p>
+                  <h3 className="text-2xl font-bold text-white mb-2">Application Received!</h3>
+                  <p className="text-slate-300">We&apos;ll review your application and reach out if you&apos;re a good fit. Keep an eye on your inbox.</p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="bg-slate-900/60 backdrop-blur border border-slate-700/50 rounded-2xl p-8 space-y-6">
@@ -227,7 +227,7 @@ export default function AffiliatesPage() {
                     disabled={loading}
                     className="w-full bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white font-semibold py-4 rounded-lg text-lg transition-colors"
                   >
-                    {loading ? "Submitting..." : "Join the Program"}
+                    {loading ? "Submitting..." : "Submit Application"}
                   </button>
                 </form>
               )}
