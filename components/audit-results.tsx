@@ -1,621 +1,452 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import {
-    TrendingUp,
-    TrendingDown,
-    AlertCircle,
-    CheckCircle2,
-    Target,
-    Lightbulb,
-    Wrench,
-    Rocket,
-    DollarSign,
-    Clock,
-    Users,
-    BarChart3,
-    ArrowRight,
-    Download,
-    Calendar,
-    Copy,
-    Check,
-    Gift,
-    Zap,
-    Brain,
-    Server,
-    Network,
-    Database,
-    Workflow,
-    Cpu,
-    ShieldCheck
+  TrendingUp, AlertCircle, CheckCircle2, Target, Lightbulb,
+  Rocket, DollarSign, Clock, Users, BarChart3, ArrowRight,
+  Download, Calendar, Zap, Brain, Phone, Mail, Star,
+  ShieldCheck, Settings, MessageSquare, FileText, Calculator
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { Progress } from "@/components/ui/progress"
-import { generateMiniWins, type MiniWin, formatMiniWinForCopy } from "@/lib/mini-wins-generator"
+import Link from "next/link"
 
 interface AuditResultsProps {
-    formData: any
-    auditScore: number
+  formData: any
+  auditScore: number
 }
 
-export function AuditResults({ formData, auditScore }: AuditResultsProps) {
-    const [copiedIndex, setCopiedIndex] = useState<number | null>(null)
+// ─── Helpers ──────────────────────────────────────────────
+function parseMissedCalls(v: string): number {
+  if (v === '30+') return 35
+  if (v === '10-30') return 20
+  if (v === '5-10') return 7
+  return 3
+}
 
-    // Generate mini-wins
-    const miniWins = generateMiniWins(formData)
+function parseDealSize(v: string): number {
+  if (v === 'enterprise') return 50000
+  if (v === 'high') return 15000
+  if (v === 'medium') return 5000
+  if (v === 'small') return 500
+  return 100
+}
 
-    const handleCopy = async (content: string, index: number) => {
-        await navigator.clipboard.writeText(content)
-        setCopiedIndex(index)
-        setTimeout(() => setCopiedIndex(null), 2000)
-    }
+function parseConversionPct(v: string): number {
+  if (v === '50%+') return 0.55
+  if (v === '30-50%') return 0.4
+  if (v === '20-30%') return 0.25
+  if (v === '10-20%') return 0.15
+  return 0.07
+}
 
-    // Calculate scores for different areas
-    const calculateAreaScore = (area: string): number => {
-        switch (area) {
-            case 'revenue':
-                return formData.revenueTrend === 'Growing' ? 75 : formData.revenueTrend === 'Flat' ? 50 : 25
-            case 'automation':
-                const autoScore = formData.percentAutomated === '>70%' ? 85 :
-                    formData.percentAutomated === '30-70%' ? 60 :
-                    formData.percentAutomated === '<30%' ? 35 : 15
-                return autoScore
-            case 'sales':
-                const convRate = formData.conversionRate === '50%+' ? 90 :
-                    formData.conversionRate === '30-50%' ? 70 :
-                    formData.conversionRate === '20-30%' ? 50 :
-                    formData.conversionRate === '10-20%' ? 30 : 15
-                return convRate
-            case 'retention':
-                const retRate = formData.repeatCustomers === '50%+' ? 85 :
-                    formData.repeatCustomers === '25-50%' ? 65 :
-                    formData.repeatCustomers === '10-25%' ? 40 : 20
-                return retRate
-            case 'time':
-                return formData.twoWeeksOff === 'Yes' ? 80 : formData.twoWeeksOff === 'Maybe' ? 45 : 20
-            default:
-                return 50
-        }
-    }
+function fmt$(n: number): string {
+  if (n >= 1_000_000) return `$${(n / 1_000_000).toFixed(1)}M`
+  if (n >= 1000) return `$${(n / 1000).toFixed(0)}K`
+  return `$${Math.round(n)}`
+}
 
-    const revenueScore = calculateAreaScore('revenue')
-    const automationScore = calculateAreaScore('automation')
-    const salesScore = calculateAreaScore('sales')
-    const retentionScore = calculateAreaScore('retention')
-    const timeScore = calculateAreaScore('time')
+function scoreColor(s: number) {
+  if (s >= 70) return "text-emerald-400"
+  if (s >= 40) return "text-yellow-400"
+  return "text-red-400"
+}
+function scoreBg(s: number) {
+  if (s >= 70) return "stroke-emerald-400"
+  if (s >= 40) return "stroke-yellow-400"
+  return "stroke-red-400"
+}
 
-    // Calculate potential revenue increase
-    const calculatePotentialIncrease = (): string => {
-        const missedCalls = formData.missedCalls === '30+' ? 30 :
-            formData.missedCalls === '10-30' ? 20 :
-            formData.missedCalls === '5-10' ? 7 : 3
+// ─── Sub-score calculator ─────────────────────────────────
+function calcSubScores(fd: any) {
+  const revenue = fd.revenueTrend === 'Growing' ? 78 : fd.revenueTrend === 'Flat' ? 48 : 22
+  const automation = fd.percentAutomated === '>70%' ? 85 : fd.percentAutomated === '30-70%' ? 58 : fd.percentAutomated === '<30%' ? 32 : 12
+  const sales = fd.conversionRate === '50%+' ? 88 : fd.conversionRate === '30-50%' ? 68 : fd.conversionRate === '20-30%' ? 48 : fd.conversionRate === '10-20%' ? 28 : 14
+  const retention = fd.repeatCustomers === '50%+' ? 85 : fd.repeatCustomers === '25-50%' ? 62 : fd.repeatCustomers === '10-25%' ? 38 : 18
+  const time = fd.twoWeeksOff === 'Yes' ? 82 : fd.twoWeeksOff === 'Maybe' ? 48 : 18
+  return { revenue, automation, sales, retention, time }
+}
 
-        const avgDealSize = formData.dealSize === 'enterprise' ? 50000 :
-            formData.dealSize === 'high' ? 15000 :
-            formData.dealSize === 'medium' ? 5000 :
-            formData.dealSize === 'small' ? 500 : 100
+function categoryInsight(cat: string, fd: any): string {
+  switch (cat) {
+    case 'Revenue':
+      if (fd.revenueTrend === 'Growing') return "Your financial foundation is solid. AI can accelerate this trajectory."
+      if (fd.revenueTrend === 'Flat') return "Revenue has plateaued — AI-driven lead gen and upsells can reignite growth."
+      return "Revenue is declining. Urgent AI intervention can stabilize and reverse the trend."
+    case 'Automation':
+      if (fd.percentAutomated === '>70%') return "You're well-automated. Fine-tuning and AI intelligence layers are your next edge."
+      if (fd.percentAutomated === '30-70%') return "You have the tools but they're not connected. Automation could save you 20+ hrs/week."
+      return "Most tasks are manual. Automation alone could transform your capacity overnight."
+    case 'Sales':
+      if (parseConversionPct(fd.conversionRate) >= 0.3) return "Strong conversion rate. AI can optimize your pipeline for even higher close rates."
+      return "Low conversion signals leaky pipeline stages. AI follow-up and scoring can double your close rate."
+    case 'Retention':
+      if (fd.repeatCustomers === '50%+') return "Excellent retention. AI can deepen loyalty with predictive offers and proactive outreach."
+      return "Low repeat business = high acquisition cost. Automated nurture sequences fix this fast."
+    case 'Time':
+      if (fd.twoWeeksOff === 'Yes') return "Your business runs without you — that's rare. AI can unlock the next level of scale."
+      return "You're the bottleneck. AI delegation systems let you step back without losing momentum."
+    default: return ""
+  }
+}
 
-        const currentConversion = formData.conversionRate === '<10%' ? 0.05 :
-            formData.conversionRate === '10-20%' ? 0.15 : 0.25
+const catIcons: Record<string, any> = {
+  Revenue: DollarSign, Automation: Settings, Sales: Target, Retention: Users, Time: Clock
+}
 
-        const potentialRevenue = missedCalls * 4 * avgDealSize * currentConversion
+// ─── Opportunities ────────────────────────────────────────
+function topOpportunities(fd: any) {
+  const missed = parseMissedCalls(fd.missedCalls)
+  const deal = parseDealSize(fd.dealSize)
+  const conv = parseConversionPct(fd.conversionRate)
+  const opps: { icon: any; title: string; desc: string; roi: string; timeline: string; priority: number }[] = []
 
-        if (potentialRevenue >= 1000000) {
-            return `$${(potentialRevenue / 1000000).toFixed(1)}M+`
-        } else if (potentialRevenue >= 1000) {
-            return `$${(potentialRevenue / 1000).toFixed(0)}K+`
-        }
-        return `$${potentialRevenue.toFixed(0)}+`
-    }
+  if (fd.missedCalls !== '0-5') {
+    const lostAnnual = missed * 52 * deal * conv
+    opps.push({
+      icon: Phone, title: "AI-Powered Call Capture",
+      desc: `You're missing ~${missed} calls/week. At ${fmt$(deal)} avg deal × ${(conv * 100).toFixed(0)}% close rate, that's ${fmt$(lostAnnual)} lost annually.`,
+      roi: `${fmt$(lostAnnual / 12)}/month recovered`, timeline: "2-3 weeks", priority: 95
+    })
+  }
+  if (fd.systematicFollowUp !== 'Yes') {
+    opps.push({
+      icon: Mail, title: "Automated Follow-Up Sequences",
+      desc: "Leads go cold without systematic follow-up. An AI nurture system re-engages every prospect automatically.",
+      roi: "30-50% more conversions", timeline: "2-4 weeks", priority: 88
+    })
+  }
+  if (fd.askReviewsSystem === 'none' || fd.askReviewsSystem === 'manual') {
+    opps.push({
+      icon: Star, title: "Automated Review Generation",
+      desc: "Manual review requests get forgotten. Automated post-job triggers can 2-3× your review volume in 30 days.",
+      roi: "2× review volume in 30 days", timeline: "1-2 weeks", priority: 72
+    })
+  }
+  if (fd.percentAutomated === 'none' || fd.percentAutomated === '<30%') {
+    opps.push({
+      icon: Zap, title: "Workflow Automation Hub",
+      desc: "With <30% automation, you're burning hours on repetitive tasks. A central automation layer saves 15-25 hrs/week.",
+      roi: `${fmt$(20 * 50 * 4)}/month in saved labor`, timeline: "3-4 weeks", priority: 82
+    })
+  }
+  if (fd.twoWeeksOff !== 'Yes') {
+    opps.push({
+      icon: Brain, title: "AI Business Delegation Layer",
+      desc: "You can't step away without things breaking. AI agents handle triage, scheduling, and client comms 24/7.",
+      roi: "Owner freedom + sustained revenue", timeline: "4-6 weeks", priority: 76
+    })
+  }
+  opps.sort((a, b) => b.priority - a.priority)
+  return opps.slice(0, 3)
+}
 
-    const potentialIncrease = calculatePotentialIncrease()
+// ─── Quick Wins ───────────────────────────────────────────
+function quickWins(fd: any) {
+  const wins: { icon: string; text: string }[] = []
+  if (fd.systematicFollowUp !== 'Yes') wins.push({ icon: "📩", text: "Set up an automated follow-up sequence — can increase conversions 50%" })
+  if (fd.askReviewsSystem === 'none' || fd.askReviewsSystem === 'manual') wins.push({ icon: "⭐", text: "Automate review requests after every job — 2× your review volume in 30 days" })
+  if (fd.twoWeeksOff === 'No') wins.push({ icon: "🧠", text: "Delegate email triage to AI — save 5-10 hrs/week instantly" })
+  if (fd.percentAutomated === 'none' || fd.percentAutomated === '<30%') wins.push({ icon: "⚡", text: "Connect your top 3 tools with Zapier — eliminate 80% of copy-paste work" })
+  if (fd.missedCalls !== '0-5') wins.push({ icon: "📞", text: "Install an AI receptionist to capture leads 24/7 — never miss a call again" })
+  if (fd.repeatCustomers !== '50%+') wins.push({ icon: "🔄", text: "Launch a win-back email campaign to past clients — recover 10-20% of churned revenue" })
+  if (fd.conversionRate === '<10%' || fd.conversionRate === '10-20%') wins.push({ icon: "🎯", text: "Add lead scoring to prioritize hot prospects — close 30% more deals with less effort" })
+  if (fd.revenueTrend !== 'Growing') wins.push({ icon: "📈", text: "Set up automated upsell/cross-sell sequences — increase avg deal value 15-25%" })
+  wins.push({ icon: "📊", text: "Create a real-time KPI dashboard — spot issues before they become problems" })
+  wins.push({ icon: "🤖", text: "Add a chatbot to your website for instant lead capture — convert 3× more visitors" })
+  return wins.slice(0, 5)
+}
 
-    // Generate personalized opportunities (Now Strategic Vectors)
-    const generateOpportunities = () => {
-        const opportunities = []
+// ─── Roadmap ──────────────────────────────────────────────
+function roadmap(fd: any) {
+  const phase1Items = ["AI call capture / receptionist setup", "CRM integration & data migration", "Automated follow-up sequences"]
+  const phase2Items = ["Tune response scripts from real call data", "A/B test nurture email sequences", "Train team on new dashboard"]
+  const missed = parseMissedCalls(fd.missedCalls)
+  const deal = parseDealSize(fd.dealSize)
+  const conv = parseConversionPct(fd.conversionRate)
+  const monthlyRec = Math.round(missed * 4 * deal * conv)
+  const phase3Items = [`Projected: ${fmt$(monthlyRec)}/mo in recovered revenue`, "Expand automation to new channels", "Full owner-optional operations"]
+  return [
+    { label: "Days 1-14", title: "Install & Configure", items: phase1Items, color: "border-blue-500/40 bg-blue-500/5" },
+    { label: "Days 15-30", title: "Optimize & Tune", items: phase2Items, color: "border-yellow-500/40 bg-yellow-500/5" },
+    { label: "Days 31-90", title: "Scale & Grow", items: phase3Items, color: "border-emerald-500/40 bg-emerald-500/5" },
+  ]
+}
 
-        if (formData.missedCalls !== '0-5') {
-            opportunities.push({
-                title: "Autonomous Lead Capture Agent",
-                impact: "Critical",
-                description: `Deploy a voice-enabled AI agent to handle ${formData.missedCalls} weekly missed calls with 24/7 availability and instant CRM sync.`,
-                icon: Server,
-                color: "text-red-400"
-            })
-        }
+// ─── Score Gauge SVG ──────────────────────────────────────
+function ScoreGauge({ score }: { score: number }) {
+  const r = 80, c = 2 * Math.PI * r, offset = c - (score / 100) * c
+  return (
+    <svg width="200" height="200" viewBox="0 0 200 200" className="mx-auto">
+      <circle cx="100" cy="100" r={r} fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="12" />
+      <circle cx="100" cy="100" r={r} fill="none" className={scoreBg(score)} strokeWidth="12"
+        strokeDasharray={c} strokeDashoffset={offset} strokeLinecap="round"
+        transform="rotate(-90 100 100)" style={{ transition: 'stroke-dashoffset 1.5s ease-out' }} />
+      <text x="100" y="92" textAnchor="middle" className={`${scoreColor(score)} text-5xl font-bold`} fill="currentColor" fontSize="48">{score}</text>
+      <text x="100" y="120" textAnchor="middle" fill="rgba(255,255,255,0.4)" fontSize="14">/100</text>
+    </svg>
+  )
+}
 
-        if (formData.systematicFollowUp !== 'Yes') {
-            opportunities.push({
-                title: "Nurture Sequence Orchestration",
-                impact: "High",
-                description: "Implement a multi-modal (SMS/Email) AI nurturer that intelligently adapts follow-ups based on lead sentiment and engagement.",
-                icon: Network,
-                color: "text-orange-400"
-            })
-        }
+// ─── ROI Calculator ───────────────────────────────────────
+function ROICalculator({ fd }: { fd: any }) {
+  const defaultHours = fd.percentAutomated === '>70%' ? 5 : fd.percentAutomated === '30-70%' ? 15 : 25
+  const defaultLeads = parseMissedCalls(fd.missedCalls) * 4
+  const defaultDeal = parseDealSize(fd.dealSize)
 
-        if (formData.askReviewsSystem === 'none' || formData.askReviewsSystem === 'manual') {
-            opportunities.push({
-                title: "Reputation Management Engine",
-                impact: "Medium",
-                description: "Automate post-interaction sentiment analysis to trigger review requests only for high-satisfaction interactions.",
-                icon: Brain,
-                color: "text-blue-400"
-            })
-        }
+  const [hours, setHours] = useState(defaultHours)
+  const [rate, setRate] = useState(50)
+  const [leads, setLeads] = useState(defaultLeads)
+  const [dealVal, setDealVal] = useState(defaultDeal)
 
-        if (parseInt(formData.painLevel[0]) >= 7) {
-            opportunities.push({
-                title: "Operational Bottleneck Elimination",
-                impact: "Critical",
-                description: `Pain level ${formData.painLevel[0]}/10 detected. Deploy task-specific agents to decouple revenue generation from manual effort.`,
-                icon: Zap,
-                color: "text-red-500"
-            })
-        }
+  const monthly = hours * 4 * rate + leads * dealVal * 0.2
+  const annual = monthly * 12
+  const roiPct = Math.round((annual / 10000) * 100)
 
-        if (formData.percentAutomated === 'none' || formData.percentAutomated === '<30%') {
-            opportunities.push({
-                title: "Workflow Automation Infrastructure",
-                impact: "High",
-                description: "Establish a central automation bus (e.g., Make/Zapier enterprise) to orchestrate data flow between disconnected systems.",
-                icon: Workflow,
-                color: "text-yellow-400"
-            })
-        }
-
-        return opportunities
-    }
-
-    const opportunities = generateOpportunities()
-
-    // Generate Architecture Blueprint (Replacing DIY Steps)
-    const generateArchitectureBlueprint = () => {
-        const steps = [
-            {
-                step: "01",
-                title: "Data Ingestion Layer",
-                description: "Centralize unstructured data (calls, emails, docs) into a vector database for AI retrieval.",
-                icon: Database
-            },
-            {
-                step: "02",
-                title: "Contextual Reasoning Engine",
-                description: "Deploy an LLM (GPT-4o/Claude 3.5) with custom system prompts to analyze intent and sentiment.",
-                icon: Brain
-            },
-            {
-                step: "03",
-                title: "Action Orchestration Bus",
-                description: "Connect the AI reasoning layer to your APIs (CRM, Calendar, Billing) to execute tasks autonomously.",
-                icon: Server
-            },
-            {
-                step: "04",
-                title: "Multi-Modal Output Interface",
-                description: "Deliver responses via the user's preferred channel: Voice, SMS, Email, or WhatsApp.",
-                icon: Network
-            },
-            {
-                step: "05",
-                title: "Feedback & Optimization Loop",
-                description: "Implement RAG (Retrieval Augmented Generation) to let the system learn from past interactions.",
-                icon: TrendingUp
-            }
-        ]
-
-        return steps
-    }
-
-    const architectureSteps = generateArchitectureBlueprint()
-
-    // Generate solution recommendations
-    const generateSolutions = () => {
-        const solutions = []
-
-        // Starter Package -> AI Core Infrastructure
-        if (formData.currentRevenue === 'early' || formData.growthBudget === 'starter') {
-            solutions.push({
-                tier: "AI Core Infrastructure",
-                price: "$2,500 - $5,000",
-                timeline: "2-4 weeks",
-                includes: [
-                    "Voice Agent Deployment",
-                    "Autonomous Nurture Sequences",
-                    "Sentiment-Based Review Engine",
-                    "CRM Vector Sync"
-                ],
-                bestFor: "Businesses establishing their AI foundation",
-                cta: "Deploy Core Infrastructure"
-            })
-        }
-
-        // Growth Package -> Autonomous Growth Engine
-        if (formData.currentRevenue === 'growth' || formData.growthBudget === 'moderate' || formData.growthBudget === 'aggressive') {
-            solutions.push({
-                tier: "Autonomous Growth Engine",
-                price: "$10,000 - $25,000",
-                timeline: "4-8 weeks",
-                includes: [
-                    "Everything in Core Infrastructure",
-                    "Custom Agent Swarm Development",
-                    "Omnichannel Orchestration",
-                    "Predictive Analytics Dashboard",
-                    "Staff AI Augmentation Training",
-                    "90-Day Neural Optimization"
-                ],
-                bestFor: "Scaling companies needing high-throughput automation",
-                cta: "Initialize Growth Engine"
-            })
-        }
-
-        // Enterprise Package -> Enterprise Neural Network
-        if (formData.currentRevenue === 'established' || formData.currentRevenue === 'leader' || formData.growthBudget === 'leader' || formData.growthBudget === 'enterprise') {
-            solutions.push({
-                tier: "Enterprise Neural Network",
-                price: "$50,000+",
-                timeline: "3-6 months",
-                includes: [
-                    "Everything in Growth Engine",
-                    "Full-Stack Business Re-Engineering",
-                    "Proprietary Model Fine-Tuning",
-                    "Multi-Location Sync",
-                    "Unlimited API Integrations",
-                    "Dedicated Solutions Architect",
-                    "12-Month Strategic Partnership"
-                ],
-                bestFor: "Market leaders dominating via technological moat",
-                cta: "Build Enterprise System"
-            })
-        }
-
-        // Co-Founder Model
-        solutions.push({
-            tier: "Strategic AI Partnership",
-            price: "Revenue Share Model",
-            timeline: "6-12 months",
-            includes: [
-                "Zero Upfront Development Cost",
-                "Full Technical Risk Absorption",
-                "End-to-End Digital Transformation",
-                "Continuous Model Optimization",
-                "Aligned Incentives Architecture"
-            ],
-            bestFor: "High-potential ventures with proven market fit",
-            cta: "Apply for Partnership"
-        })
-
-        return solutions
-    }
-
-    const solutions = generateSolutions()
-
-    return (
-        <div className="max-w-7xl mx-auto space-y-16 pb-20">
-            {/* Hero Section */}
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-center space-y-8"
-            >
-                <div className="inline-block relative">
-                    <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full blur opacity-25 animate-pulse"></div>
-                    <div className="relative bg-black/50 backdrop-blur-xl border border-white/10 rounded-full px-6 py-2">
-                        <span className="text-blue-400 font-mono text-sm tracking-wider">SYSTEM AUDIT COMPLETE</span>
-                    </div>
-                </div>
-                
-                <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight">
-                    Your AI Readiness <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Report</span>
-                </h1>
-                <p className="text-xl text-slate-400 max-w-2xl mx-auto font-light leading-relaxed">
-                    {formData.companyName}, we've analyzed your operational data. Here is your blueprint for achieving autonomous scale.
-                </p>
-            </motion.div>
-
-            {/* Overall Score */}
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-            >
-                <Card className="bg-black/40 backdrop-blur-xl border-white/10 p-10 relative overflow-hidden group">
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <div className="text-center space-y-8 relative z-10">
-                        <h2 className="text-2xl font-medium text-slate-200">System Maturity Index</h2>
-                        <div className="relative inline-block">
-                            <div className="text-8xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 bg-clip-text text-transparent animate-gradient-x">
-                                {Math.round((revenueScore + automationScore + salesScore + retentionScore + timeScore) / 5)}
-                            </div>
-                            <div className="text-slate-500 text-sm mt-4 font-mono tracking-widest uppercase">/ 100 Possible Score</div>
-                        </div>
-                        <div className="max-w-md mx-auto">
-                            <Progress
-                                value={(revenueScore + automationScore + salesScore + retentionScore + timeScore) / 5}
-                                className="h-2 bg-slate-800"
-                            />
-                        </div>
-                    </div>
-                </Card>
-            </motion.div>
-
-            {/* Mini-Wins -> AI Quick Deployments */}
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.15 }}
-                className="space-y-8"
-            >
-                <div className="flex items-center justify-between">
-                    <h2 className="text-3xl font-bold text-white flex items-center gap-4">
-                        <div className="p-3 bg-green-500/10 rounded-xl border border-green-500/20">
-                            <Cpu className="w-6 h-6 text-green-400" />
-                        </div>
-                        Rapid Deployment Assets
-                    </h2>
-                    <span className="text-xs font-mono text-green-400 bg-green-500/10 px-4 py-2 rounded-full border border-green-500/20">
-                        READY FOR DEPLOYMENT
-                    </span>
-                </div>
-                
-                <div className="grid md:grid-cols-2 gap-6">
-                    {miniWins.map((win, idx) => (
-                        <Card key={idx} className="bg-black/40 backdrop-blur-md border-white/10 p-8 hover:border-green-500/30 transition-all group relative overflow-hidden">
-                            <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                                <span className="text-6xl">{win.icon}</span>
-                            </div>
-                            <div className="space-y-6 relative z-10">
-                                <div>
-                                    <div className="flex items-center gap-3 mb-3">
-                                        <h3 className="text-white font-bold text-lg">{win.title}</h3>
-                                    </div>
-                                    <p className="text-slate-400 text-sm leading-relaxed">{win.description}</p>
-                                </div>
-
-                                <div className="bg-black/50 rounded-xl p-5 border border-white/5 font-mono text-xs text-slate-300 max-h-48 overflow-y-auto custom-scrollbar">
-                                    <pre className="whitespace-pre-wrap">{win.content}</pre>
-                                </div>
-
-                                <Button
-                                    onClick={() => handleCopy(formatMiniWinForCopy(win), idx)}
-                                    className="w-full bg-white/5 hover:bg-green-500/20 text-white border border-white/10 hover:border-green-500/50"
-                                    variant="outline"
-                                >
-                                    {copiedIndex === idx ? (
-                                        <>
-                                            <Check className="w-4 h-4 mr-2" />
-                                            Asset Copied
-                                        </>
-                                    ) : (
-                                        <>
-                                            <Copy className="w-4 h-4 mr-2" />
-                                            Copy Asset to Clipboard
-                                        </>
-                                    )}
-                                </Button>
-                            </div>
-                        </Card>
-                    ))}
-                </div>
-            </motion.div>
-
-            {/* Current State Analysis */}
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="space-y-8"
-            >
-                <h2 className="text-3xl font-bold text-white flex items-center gap-4">
-                    <div className="p-3 bg-blue-500/10 rounded-xl border border-blue-500/20">
-                        <BarChart3 className="w-6 h-6 text-blue-400" />
-                    </div>
-                    Operational Analysis
-                </h2>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {[
-                        { name: 'Revenue Growth', score: revenueScore, icon: TrendingUp },
-                        { name: 'Automation Density', score: automationScore, icon: Rocket },
-                        { name: 'Sales Efficiency', score: salesScore, icon: Target },
-                        { name: 'Retention Rate', score: retentionScore, icon: Users },
-                        { name: 'Founder Autonomy', score: timeScore, icon: Clock },
-                    ].map((area, idx) => (
-                        <Card key={idx} className="bg-black/40 backdrop-blur-md border-white/10 p-6 hover:border-blue-500/30 transition-all group">
-                            <div className="flex items-center justify-between mb-6">
-                                <div className={`p-2 rounded-lg bg-white/5 ${area.score >= 70 ? 'text-green-400' : area.score >= 40 ? 'text-yellow-400' : 'text-red-400'}`}>
-                                    <area.icon className="w-5 h-5" />
-                                </div>
-                                <span className="text-2xl font-bold text-white">{area.score}</span>
-                            </div>
-                            <h3 className="text-slate-200 font-medium mb-3">{area.name}</h3>
-                            <Progress value={area.score} className="h-1.5 bg-slate-800" />
-                        </Card>
-                    ))}
-                </div>
-            </motion.div>
-
-            {/* Opportunity Gaps */}
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="space-y-8"
-            >
-                <h2 className="text-3xl font-bold text-white flex items-center gap-4">
-                    <div className="p-3 bg-purple-500/10 rounded-xl border border-purple-500/20">
-                        <Lightbulb className="w-6 h-6 text-purple-400" />
-                    </div>
-                    Strategic Implementation Vectors
-                </h2>
-                
-                <Card className="bg-gradient-to-br from-purple-900/40 to-blue-900/40 border-white/10 p-10 backdrop-blur-xl">
-                    <div className="text-center space-y-4">
-                        <p className="text-slate-300 text-lg font-light">Projected Annual Value of Implementation</p>
-                        <div className="text-7xl md:text-8xl font-bold bg-gradient-to-r from-green-300 via-emerald-400 to-green-300 bg-clip-text text-transparent animate-shimmer">
-                            {potentialIncrease}
-                        </div>
-                        <p className="text-slate-500 font-mono text-sm tracking-wider">RECOVERABLE ANNUAL REVENUE</p>
-                    </div>
-                </Card>
-
-                <div className="grid md:grid-cols-2 gap-6">
-                    {opportunities.map((opp, idx) => (
-                        <Card key={idx} className="bg-black/40 border-white/10 p-8 hover:border-purple-500/30 transition-all group">
-                            <div className="flex items-start gap-6">
-                                <div className={`p-4 bg-white/5 rounded-xl border border-white/5 ${opp.color}`}>
-                                    <opp.icon className="w-6 h-6" />
-                                </div>
-                                <div className="flex-1 space-y-2">
-                                    <div className="flex items-center justify-between">
-                                        <h3 className="text-white font-bold text-lg">{opp.title}</h3>
-                                        <span className={`text-[10px] font-mono uppercase tracking-wider px-2 py-1 rounded border ${opp.impact === 'Critical' ? 'bg-red-500/10 text-red-400 border-red-500/20' : opp.impact === 'High' ? 'bg-orange-500/10 text-orange-400 border-orange-500/20' : 'bg-blue-500/10 text-blue-400 border-blue-500/20'}`}>
-                                            {opp.impact} Priority
-                                        </span>
-                                    </div>
-                                    <p className="text-slate-400 text-sm leading-relaxed">{opp.description}</p>
-                                </div>
-                            </div>
-                        </Card>
-                    ))}
-                </div>
-            </motion.div>
-
-            {/* System Architecture Blueprint (Replaced DIY Steps) */}
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className="space-y-8"
-            >
-                <h2 className="text-3xl font-bold text-white flex items-center gap-4">
-                    <div className="p-3 bg-orange-500/10 rounded-xl border border-orange-500/20">
-                        <Server className="w-6 h-6 text-orange-400" />
-                    </div>
-                    System Architecture Blueprint
-                </h2>
-                <p className="text-slate-400 text-lg">The technical roadmap to building your autonomous enterprise.</p>
-
-                <div className="space-y-4">
-                    {architectureSteps.map((step, idx) => (
-                        <Card key={idx} className="bg-black/40 backdrop-blur-md border-white/10 p-6 hover:border-orange-500/30 transition-all group">
-                            <div className="flex items-center gap-6">
-                                <div className="hidden md:flex flex-col items-center gap-2">
-                                    <div className="w-px h-8 bg-white/10 group-first:hidden"></div>
-                                    <div className="w-12 h-12 rounded-full border border-white/10 bg-black/50 flex items-center justify-center text-slate-500 font-mono text-sm group-hover:border-orange-500/50 group-hover:text-orange-400 transition-colors">
-                                        {step.step}
-                                    </div>
-                                    <div className="w-px h-8 bg-white/10 group-last:hidden"></div>
-                                </div>
-                                <div className="flex-1">
-                                    <div className="flex items-center gap-4 mb-2">
-                                        <div className="p-2 bg-white/5 rounded-lg text-orange-400 md:hidden">
-                                            {step.step}
-                                        </div>
-                                        <h3 className="text-white font-bold text-lg">{step.title}</h3>
-                                        <step.icon className="w-4 h-4 text-slate-600" />
-                                    </div>
-                                    <p className="text-slate-400 text-sm">{step.description}</p>
-                                </div>
-                            </div>
-                        </Card>
-                    ))}
-                </div>
-
-                <Card className="bg-yellow-900/10 border-yellow-500/20 p-6 backdrop-blur-sm">
-                    <div className="flex items-start gap-4">
-                        <ShieldCheck className="w-6 h-6 text-yellow-400 flex-shrink-0 mt-1" />
-                        <div>
-                            <h3 className="text-white font-bold mb-2">Technical Feasibility Assessment</h3>
-                            <p className="text-slate-300 text-sm leading-relaxed mb-4">
-                                While this architecture is buildable with off-the-shelf components (LangChain, Pinecone, OpenAI API), 
-                                implementing a production-grade system typically requires 400-600 engineering hours to ensure 
-                                reliability, latency handling, and proper guardrails against hallucinations.
-                            </p>
-                        </div>
-                    </div>
-                </Card>
-            </motion.div>
-
-            {/* Solutions */}
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-                className="space-y-8"
-            >
-                <h2 className="text-3xl font-bold text-white flex items-center gap-4">
-                    <div className="p-3 bg-purple-500/10 rounded-xl border border-purple-500/20">
-                        <Rocket className="w-6 h-6 text-purple-400" />
-                    </div>
-                    Deployment Options
-                </h2>
-                
-                <div className="grid md:grid-cols-2 gap-6">
-                    {solutions.map((solution, idx) => (
-                        <Card key={idx} className={`bg-black/40 backdrop-blur-xl border-white/10 p-8 hover:border-purple-500/30 transition-all ${solution.cta.includes('Initialize') ? 'border-purple-500/50 ring-1 ring-purple-500/20' : ''}`}>
-                            {solution.cta.includes('Initialize') && (
-                                <div className="bg-purple-500 text-white text-[10px] font-bold px-3 py-1 rounded-full inline-block mb-6 tracking-widest uppercase">
-                                    Recommended Configuration
-                                </div>
-                            )}
-                            <h3 className="text-2xl font-bold text-white mb-2">{solution.tier}</h3>
-                            <div className="flex items-baseline gap-2 mb-6">
-                                <span className="text-3xl font-light text-slate-200">
-                                    {solution.price}
-                                </span>
-                            </div>
-                            <p className="text-slate-500 text-sm font-mono mb-8 flex items-center gap-2">
-                                <Clock className="w-4 h-4" />
-                                EST. DEPLOYMENT: {solution.timeline}
-                            </p>
-
-                            <div className="space-y-4 mb-8">
-                                {solution.includes.map((item, i) => (
-                                    <div key={i} className="flex items-start gap-3">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-green-400 mt-2 flex-shrink-0" />
-                                        <span className="text-slate-300 text-sm">{item}</span>
-                                    </div>
-                                ))}
-                            </div>
-
-                            <Button className="w-full bg-white text-black hover:bg-slate-200 font-medium py-6">
-                                {solution.cta} <ArrowRight className="w-4 h-4 ml-2" />
-                            </Button>
-                        </Card>
-                    ))}
-                </div>
-            </motion.div>
-
-            {/* CTA Section */}
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 }}
-            >
-                <Card className="bg-gradient-to-br from-indigo-900/60 to-purple-900/60 border-white/10 p-12 text-center backdrop-blur-xl relative overflow-hidden">
-                    <div className="absolute inset-0 bg-grid-white/[0.05] bg-[length:20px_20px]" />
-                    <div className="relative z-10">
-                        <h2 className="text-4xl font-bold text-white mb-6">
-                            Ready to Deploy Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Autonomous Infrastructure</span>?
-                        </h2>
-                        <p className="text-xl text-slate-300 mb-10 max-w-2xl mx-auto font-light">
-                            Book a technical strategy session. We'll architect the exact stack needed to capture your ${potentialIncrease.replace('$', '')} opportunity.
-                        </p>
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <Button size="lg" className="bg-white text-black hover:bg-slate-200 text-lg px-8 py-6 rounded-full font-medium transition-all hover:scale-105">
-                                <Calendar className="w-5 h-5 mr-2" />
-                                Schedule Strategy Session
-                            </Button>
-                            <Button size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/10 text-lg px-8 py-6 rounded-full transition-all hover:scale-105">
-                                <Download className="w-5 h-5 mr-2" />
-                                Export Technical Report
-                            </Button>
-                        </div>
-                    </div>
-                </Card>
-            </motion.div>
+  return (
+    <div className="space-y-6">
+      <div className="grid md:grid-cols-2 gap-6">
+        <div>
+          <label className="text-slate-400 text-sm mb-2 block">Hours saved per week: <span className="text-white font-bold">{hours}</span></label>
+          <input type="range" min={1} max={40} value={hours} onChange={e => setHours(+e.target.value)}
+            className="w-full accent-emerald-500" />
         </div>
-    )
+        <div>
+          <label className="text-slate-400 text-sm mb-2 block">Hourly rate of saved time</label>
+          <input type="number" value={rate} onChange={e => setRate(+e.target.value)}
+            className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-white" />
+        </div>
+        <div>
+          <label className="text-slate-400 text-sm mb-2 block">Additional leads captured/month: <span className="text-white font-bold">{leads}</span></label>
+          <input type="range" min={0} max={200} value={leads} onChange={e => setLeads(+e.target.value)}
+            className="w-full accent-emerald-500" />
+        </div>
+        <div>
+          <label className="text-slate-400 text-sm mb-2 block">Average deal value</label>
+          <input type="number" value={dealVal} onChange={e => setDealVal(+e.target.value)}
+            className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-white" />
+        </div>
+      </div>
+      <div className="grid grid-cols-3 gap-4 pt-4">
+        {[
+          { label: "Monthly Savings", val: fmt$(monthly) },
+          { label: "Annual Impact", val: fmt$(annual) },
+          { label: "ROI on $10K", val: `${roiPct}%` },
+        ].map((item, i) => (
+          <div key={i} className="bg-white/5 rounded-xl p-4 text-center border border-white/10">
+            <div className="text-slate-400 text-xs mb-1">{item.label}</div>
+            <div className="text-2xl font-bold text-emerald-400">{item.val}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// ─── Fade wrapper ─────────────────────────────────────────
+function FadeUp({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
+  return (
+    <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.6, delay }}>
+      {children}
+    </motion.div>
+  )
+}
+
+// ═══════════════════════════════════════════════════════════
+// Main Component
+// ═══════════════════════════════════════════════════════════
+export function AuditResults({ formData, auditScore }: AuditResultsProps) {
+  const [showROI, setShowROI] = useState(false)
+  const [showChecklist, setShowChecklist] = useState(false)
+
+  const sub = useMemo(() => calcSubScores(formData), [formData])
+  const opps = useMemo(() => topOpportunities(formData), [formData])
+  const wins = useMemo(() => quickWins(formData), [formData])
+  const phases = useMemo(() => roadmap(formData), [formData])
+
+  const tagline = auditScore < 40
+    ? "There's massive untapped potential in your business."
+    : auditScore < 70
+      ? "You're leaving money on the table — but not for long."
+      : "You're ahead of most. Let's make you unstoppable."
+
+  const handleDownloadPDF = () => {
+    localStorage.setItem("elianatech-audit-report", JSON.stringify({ formData, auditScore }))
+    window.open("/audit/report", "_blank")
+  }
+
+  return (
+    <div className="max-w-5xl mx-auto space-y-20 pb-24">
+
+      {/* ── 1. Hero Score ───────────────────────────────── */}
+      <FadeUp>
+        <div className="text-center space-y-6">
+          <ScoreGauge score={auditScore} />
+          <h1 className="text-4xl md:text-5xl font-bold text-white">
+            Your AI Readiness Score: <span className={scoreColor(auditScore)}>{auditScore}</span>/100
+          </h1>
+          <p className="text-xl text-slate-400 max-w-xl mx-auto">{tagline}</p>
+        </div>
+      </FadeUp>
+
+      {/* ── 2. Score Breakdown ──────────────────────────── */}
+      <FadeUp delay={0.1}>
+        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+          <BarChart3 className="w-6 h-6 text-blue-400" /> Score Breakdown
+        </h2>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {(["Revenue", "Automation", "Sales", "Retention", "Time"] as const).map((cat) => {
+            const key = cat.toLowerCase() as keyof typeof sub
+            const s = sub[key]
+            const Icon = catIcons[cat]
+            return (
+              <Card key={cat} className="bg-white/[0.03] backdrop-blur-md border-white/10 p-5 hover:border-blue-500/30 transition-all">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className={`p-2 rounded-lg bg-white/5 ${scoreColor(s)}`}><Icon className="w-5 h-5" /></div>
+                  <span className="text-white font-semibold">{cat}</span>
+                  <span className={`ml-auto text-lg font-bold ${scoreColor(s)}`}>{s}</span>
+                </div>
+                <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden mb-3">
+                  <motion.div initial={{ width: 0 }} whileInView={{ width: `${s}%` }}
+                    viewport={{ once: true }} transition={{ duration: 1, delay: 0.3 }}
+                    className={`h-full rounded-full ${s >= 70 ? 'bg-emerald-500' : s >= 40 ? 'bg-yellow-500' : 'bg-red-500'}`} />
+                </div>
+                <p className="text-slate-400 text-sm leading-relaxed">{categoryInsight(cat, formData)}</p>
+              </Card>
+            )
+          })}
+        </div>
+      </FadeUp>
+
+      {/* ── 3. Top 3 AI Opportunities ──────────────────── */}
+      <FadeUp delay={0.15}>
+        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+          <Lightbulb className="w-6 h-6 text-purple-400" /> Top AI Opportunities
+        </h2>
+        <div className="space-y-4">
+          {opps.map((o, i) => (
+            <Card key={i} className="bg-white/[0.03] backdrop-blur-md border-white/10 p-6 hover:border-purple-500/30 transition-all">
+              <div className="flex items-start gap-5">
+                <div className="p-3 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400 shrink-0">
+                  <o.icon className="w-6 h-6" />
+                </div>
+                <div className="flex-1 space-y-2">
+                  <h3 className="text-white font-bold text-lg">{o.title}</h3>
+                  <p className="text-slate-400 text-sm leading-relaxed">{o.desc}</p>
+                  <div className="flex flex-wrap gap-4 pt-2 text-sm">
+                    <span className="text-emerald-400 flex items-center gap-1"><DollarSign className="w-4 h-4" /> {o.roi}</span>
+                    <span className="text-blue-400 flex items-center gap-1"><Clock className="w-4 h-4" /> {o.timeline}</span>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </FadeUp>
+
+      {/* ── 4. 90-Day Roadmap ──────────────────────────── */}
+      <FadeUp delay={0.2}>
+        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+          <Rocket className="w-6 h-6 text-orange-400" /> Your Custom AI Roadmap
+        </h2>
+        <div className="grid md:grid-cols-3 gap-4">
+          {phases.map((p, i) => (
+            <Card key={i} className={`border p-6 ${p.color} backdrop-blur-md`}>
+              <div className="text-xs font-mono text-slate-400 mb-2">{p.label}</div>
+              <h3 className="text-white font-bold text-lg mb-4">{p.title}</h3>
+              <ul className="space-y-2">
+                {p.items.map((item, j) => (
+                  <li key={j} className="text-slate-300 text-sm flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 mt-0.5 shrink-0" /> {item}
+                  </li>
+                ))}
+              </ul>
+            </Card>
+          ))}
+        </div>
+      </FadeUp>
+
+      {/* ── 5. Lead Magnets ────────────────────────────── */}
+      <FadeUp delay={0.25}>
+        <h2 className="text-2xl font-bold text-white mb-6">Your Resources</h2>
+        <div className="grid md:grid-cols-3 gap-4">
+          <Card className="bg-white/[0.03] backdrop-blur-md border-white/10 p-6 text-center hover:border-emerald-500/30 transition-all cursor-pointer"
+            onClick={handleDownloadPDF}>
+            <FileText className="w-8 h-8 text-emerald-400 mx-auto mb-3" />
+            <h3 className="text-white font-bold mb-1">Download Full AI Report</h3>
+            <p className="text-slate-400 text-sm">PDF with all scores, opportunities & roadmap</p>
+          </Card>
+          <Card className="bg-white/[0.03] backdrop-blur-md border-white/10 p-6 text-center hover:border-blue-500/30 transition-all cursor-pointer"
+            onClick={() => setShowROI(!showROI)}>
+            <Calculator className="w-8 h-8 text-blue-400 mx-auto mb-3" />
+            <h3 className="text-white font-bold mb-1">Calculate Your ROI</h3>
+            <p className="text-slate-400 text-sm">Interactive calculator pre-filled with your data</p>
+          </Card>
+          <Card className="bg-white/[0.03] backdrop-blur-md border-white/10 p-6 text-center hover:border-yellow-500/30 transition-all cursor-pointer"
+            onClick={() => setShowChecklist(!showChecklist)}>
+            <CheckCircle2 className="w-8 h-8 text-yellow-400 mx-auto mb-3" />
+            <h3 className="text-white font-bold mb-1">Quick Wins Checklist</h3>
+            <p className="text-slate-400 text-sm">5 things you can do THIS WEEK</p>
+          </Card>
+        </div>
+      </FadeUp>
+
+      {/* ── 6. Inline ROI Calculator ───────────────────── */}
+      {showROI && (
+        <FadeUp>
+          <Card className="bg-white/[0.03] backdrop-blur-md border-white/10 p-8">
+            <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+              <Calculator className="w-5 h-5 text-blue-400" /> ROI Calculator
+            </h3>
+            <ROICalculator fd={formData} />
+          </Card>
+        </FadeUp>
+      )}
+
+      {/* ── 7. Quick Wins Checklist ────────────────────── */}
+      {showChecklist && (
+        <FadeUp>
+          <Card className="bg-white/[0.03] backdrop-blur-md border-white/10 p-8">
+            <h3 className="text-xl font-bold text-white mb-6">⚡ This Week's Quick Wins</h3>
+            <div className="space-y-4">
+              {wins.map((w, i) => (
+                <div key={i} className="flex items-start gap-3 p-3 rounded-lg bg-white/5 border border-white/5">
+                  <span className="text-2xl">{w.icon}</span>
+                  <p className="text-slate-300 text-sm leading-relaxed">{w.text}</p>
+                </div>
+              ))}
+            </div>
+          </Card>
+        </FadeUp>
+      )}
+
+      {/* ── 8. CTA ─────────────────────────────────────── */}
+      <FadeUp delay={0.3}>
+        <Card className="bg-gradient-to-br from-indigo-900/50 to-purple-900/50 border-white/10 p-12 text-center backdrop-blur-xl relative overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.15),transparent)]" />
+          <div className="relative z-10 space-y-6">
+            <h2 className="text-3xl md:text-4xl font-bold text-white">Ready to install these systems?</h2>
+            <p className="text-lg text-slate-300 max-w-xl mx-auto">
+              Let&apos;s map out the exact AI stack your business needs — in a free 30-minute strategy call.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-2">
+              <a href="https://cal.com/mia-louviere-a4n2hk/30min" target="_blank" rel="noopener noreferrer">
+                <Button size="lg" className="bg-white text-black hover:bg-slate-200 text-lg px-8 py-6 rounded-full font-medium">
+                  <Calendar className="w-5 h-5 mr-2" /> Book Your Strategy Call
+                </Button>
+              </a>
+              <Link href="/ai-coo">
+                <Button size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/10 text-lg px-8 py-6 rounded-full">
+                  Or get your AI COO installed <ArrowRight className="w-5 h-5 ml-2" />
+                </Button>
+              </Link>
+            </div>
+            <p className="text-slate-500 text-sm pt-4">Your results have been saved. Check your email for your full report.</p>
+          </div>
+        </Card>
+      </FadeUp>
+    </div>
+  )
 }
