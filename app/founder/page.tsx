@@ -17,38 +17,38 @@ const fadeUp = {
 
 const chapters = [
   {
-    emoji: "≡ƒÜù",
-    title: "Running My Dad's Car Dealership at 14",
-    body: "While most kids my age were in school, I dropped out at 14 to run my dad's car dealership. The whole operation ΓÇö just me. Sales, customers, paperwork, all of it. I didn't know it then, but I was learning how to build.",
+    emoji: "\u{1F697}",
+    title: "Running My Dad\u2019s Car Dealership at 14",
+    body: "While most kids my age were in school, I dropped out at 14 to run my dad\u2019s car dealership. The whole operation \u2014 just me. Sales, customers, paperwork, all of it. I didn\u2019t know it then, but I was learning how to build.",
   },
   {
-    emoji: "≡ƒî│",
-    title: "Scaling My Dad's Tree Service at 16",
-    body: "At 16, I took over my dad's tree service. I built systems for everything ΓÇö sales, scheduling, hiring, customer calls, operations. We scaled to multiple seven figures. I cut my dad's hours from 70 to 40 per week. But I was still buried in the day-to-day.\n\nI took all my skills and turned them into repeatable systems. I wanted to hire someone to replace myself. My dad said no. So I built AI systems to replace myself instead.",
+    emoji: "\u{1F333}",
+    title: "Scaling My Dad\u2019s Tree Service at 16",
+    body: "At 16, I took over my dad\u2019s tree service. I built systems for everything \u2014 sales, scheduling, hiring, customer calls, operations. We scaled to multiple seven figures. I cut my dad\u2019s hours from 70 to 40 per week. But I was still buried in the day-to-day.\n\nI took all my skills and turned them into repeatable systems. I wanted to hire someone to replace myself. My dad said no. So I built AI systems to replace myself instead.",
   },
   {
-    emoji: "≡ƒÆí",
+    emoji: "\u{1F4A1}",
     title: "The Moment Everything Clicked",
-    body: 'Every business owner I talked to said the same thing: "I wish I had what you have, but I can\'t clone myself."\n\nThen AI came out. And I realized ΓÇö now you can.',
+    body: "Every business owner I talked to said the same thing: \"I wish I had what you have, but I can\u2019t clone myself.\"\n\nThen AI came out. And I realized \u2014 now you can.",
   },
   {
-    emoji: "≡ƒÜÇ",
+    emoji: "\u{1F680}",
     title: "Building ElianaTech",
-    body: "That's why ElianaTech was born. Most businesses run on manual work that AI could do better, faster, and cheaper. We're not a software company. We're an AI operations company. We put smart systems into businesses that cut busywork, catch every opportunity, and scale without burning out the founder.\n\nThe mission? Help 1 million businesses install AI operations.\nThe vision? Build a $100M company that changes how the world works.",
+    body: "That\u2019s why ElianaTech was born. Most businesses run on manual work that AI could do better, faster, and cheaper. We\u2019re not a software company. We\u2019re an AI operations company. We put smart systems into businesses that cut busywork, catch every opportunity, and scale without burning out the founder.\n\nThe mission? Help 1 million businesses install AI operations.\nThe vision? Build a $100M company that changes how the world works.",
   },
   {
-    emoji: "≡ƒîè",
+    emoji: "\u{1F30A}",
     title: "Flow Over Force",
-    body: "I used to believe in grinding harder than everyone else. Wake up earlier. Stay later. Outwork the competition. But I learned the hard way that force has a ceiling. Systems don't. The businesses that win aren't the ones working the hardest ΓÇö they're the ones with the best systems. Flow over force means building things that work while you sleep, scale without you, and grow over time.",
+    body: "I used to believe in grinding harder than everyone else. Wake up earlier. Stay later. Outwork the competition. But I learned the hard way that force has a ceiling. Systems don\u2019t. The businesses that win aren\u2019t the ones working the hardest \u2014 they\u2019re the ones with the best systems. Flow over force means building things that work while you sleep, scale without you, and grow over time.",
   },
 ]
 
 const beliefs = [
   "Systems beat hustle. Every time.",
   "The best businesses run themselves.",
-  "AI isn't replacing humans ΓÇö it's freeing them.",
+  "AI isn\u2019t replacing humans \u2014 it\u2019s freeing them.",
   "Revenue is a lagging indicator. Systems are the lead.",
-  "If you're the bottleneck, you don't have a business ΓÇö you have a job.",
+  "If you\u2019re the bottleneck, you don\u2019t have a business \u2014 you have a job.",
   "The founders who win the next decade will be the ones who adopt AI first.",
   "Flow over force. Always.",
 ]
@@ -154,7 +154,7 @@ export default function FounderPage() {
             href="/audit"
             className="inline-block px-8 py-4 bg-white text-black font-semibold rounded-full text-lg hover:bg-slate-200 transition-colors"
           >
-            Work With Me ΓåÆ
+            Work With Me &rarr;
           </Link>
         </motion.div>
       </main>
