@@ -29,7 +29,7 @@ export function StorySection() {
                             </p>
                             <p className="text-slate-600 leading-relaxed">
                                 We were drowning. He worked 100 hours a week. Missed dinners. Missed weekends.
-                                The business owned him. He wasn't living — he was just working.
+                                The business owned him. He wasn't living, he was just working.
                             </p>
                         </div>
 

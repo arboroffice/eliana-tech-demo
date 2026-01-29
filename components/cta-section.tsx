@@ -22,7 +22,7 @@ export function CTASection() {
           </h2>
 
           <p className="text-lg text-slate-600 mb-4 font-light">
-            Apply for yours — it's free. In 5 minutes, we'll understand your business. Then we'll show you exactly where AI can give you your time back.
+            Apply for yours. It's free. In 5 minutes, we'll understand your business. Then we'll show you exactly where AI can give you your time back.
           </p>
 
           <p className="text-slate-500 mb-10">

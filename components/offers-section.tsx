@@ -31,7 +31,7 @@ export function OffersSection() {
             Choose Your Path
           </h2>
           <p className="text-lg text-slate-400 max-w-2xl mx-auto font-light">
-            Whether you want to learn alongside us or have us handle everything — both paths start with a free AI Audit.
+            Whether you want to learn alongside us or have us handle everything. Both paths start with a free AI Audit.
           </p>
         </div>
 

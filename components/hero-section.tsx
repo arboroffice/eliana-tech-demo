@@ -15,7 +15,7 @@ export function HeroSection() {
         </h1>
 
         <p className="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto mb-10 leading-relaxed font-light">
-          We partner with business owners doing $1M–$50M+ to install AI systems that handle sales, support, and operations — so you can lead from flow, not force.
+          We partner with business owners doing $1M-$50M+ to install AI systems that handle sales, support, and operations, so you can lead from flow, not force.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

@@ -296,7 +296,7 @@ const LeadQualificationDemo = ({ isActive }: { isActive: boolean }) => {
                                 />
                             </div>
                             <span className="text-sm font-medium text-slate-600 w-12 text-right">
-                                {lead.status === "analyzing" ? "..." : lead.score > 0 ? `${lead.score}%` : "—"}
+                                {lead.status === "analyzing" ? "..." : lead.score > 0 ? `${lead.score}%` : "-"}
                             </span>
                         </div>
                     </div>

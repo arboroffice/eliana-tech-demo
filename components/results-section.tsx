@@ -9,7 +9,7 @@ const results = [
   {
     metric: "312",
     unit: "calls handled by AI monthly",
-    description: "Inbound calls answered, qualified, and routed — without a single human picking up.",
+    description: "Inbound calls answered, qualified, and routed, without a single human picking up.",
   },
   {
     metric: "47%",

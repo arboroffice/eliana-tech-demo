@@ -37,7 +37,7 @@ export function IndustriesSection() {
                 </div>
 
                 <p className="text-center text-slate-400 text-lg font-light">
-                    "If your business has customers, leads, and operations — we can help."
+                    "If your business has customers, leads, and operations, we can help."
                 </p>
             </div>
         </section>
