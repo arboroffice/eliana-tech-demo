@@ -99,10 +99,10 @@ export default function AICOOSalesPage() {
                 One-time investment. No monthly fees. You own everything.
               </p>
               <Link
-                href="/ai-coo/checkout"
+                href="/audit"
                 className="inline-flex items-center gap-3 bg-gradient-to-r from-amber-500 to-yellow-400 text-black font-bold text-lg sm:text-xl px-10 py-5 rounded-full hover:scale-105 transition-transform shadow-lg shadow-amber-500/25"
               >
-                Get Your AI COO — $10,000 One-Time
+                Book Your Free AI Audit
                 <ArrowRight className="w-6 h-6" />
               </Link>
             </div>
@@ -258,10 +258,10 @@ export default function AICOOSalesPage() {
                 We refuse to rush it. When the 5 spots are filled, <span className="text-white font-semibold">you wait until next month.</span>
               </p>
               <Link
-                href="/ai-coo/checkout"
+                href="/audit"
                 className="inline-flex items-center gap-3 bg-gradient-to-r from-amber-500 to-yellow-400 text-black font-bold text-lg sm:text-xl px-10 py-5 rounded-full hover:scale-105 transition-transform shadow-lg shadow-amber-500/25"
               >
-                Claim Your Spot — $10,000 One-Time
+                Book Your AI Audit — It&apos;s Free
                 <ArrowRight className="w-6 h-6" />
               </Link>
             </div>
@@ -291,14 +291,14 @@ export default function AICOOSalesPage() {
                 Your AI COO is ready to start. The only question is — are you?
               </p>
               <Link
-                href="/ai-coo/checkout"
+                href="/audit"
                 className="inline-flex items-center gap-3 bg-gradient-to-r from-amber-500 to-yellow-400 text-black font-bold text-lg sm:text-xl px-12 py-6 rounded-full hover:scale-105 transition-transform shadow-lg shadow-amber-500/25"
               >
-                Get Your AI COO Now
+                Get Your Free AI Audit
                 <ArrowRight className="w-6 h-6" />
               </Link>
               <p className="text-slate-500 mt-6 text-sm">
-                $10,000 one-time · No monthly fees · ROI Guaranteed · Own everything
+                Free audit · No obligation · See exactly how AI fits your business
               </p>
             </div>
           </section>
