@@ -33,8 +33,9 @@ export function Footer() {
         </AnimatedContainer>
       </div>
 
-      <div className="mt-8 text-center">
+      <div className="mt-8 text-center space-y-2">
         <p className="text-muted-foreground text-sm">© {new Date().getFullYear()} Eliana Tech. All rights reserved.</p>
+        <p className="text-muted-foreground/40 text-xs italic">Made with ease, light and love ✨</p>
       </div>
     </footer>
   )
