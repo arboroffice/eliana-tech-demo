@@ -4,8 +4,6 @@ import { GlassmorphismNav } from "../../components/glassmorphism-nav"
 import Aurora from "../../components/Aurora"
 import { Footer } from "../../components/footer"
 import { getAllBlogPosts } from "../../lib/blog"
-import { NewsletterSignup } from "../../components/newsletter-signup"
-
 export default function BlogPage() {
     const posts = getAllBlogPosts()
 
@@ -23,11 +21,6 @@ export default function BlogPage() {
                     <p className="text-xl text-slate-300 max-w-2xl mx-auto">
                         Insights on the future of work, AI automation, and scaling your business without scaling headcount.
                     </p>
-                </div>
-
-                {/* Newsletter Signup */}
-                <div className="mb-24">
-                    <NewsletterSignup />
                 </div>
 
                 {/* Blog Grid */}
