@@ -20,13 +20,13 @@ export default function HomePage() {
                 For Founders Doing $500K–$5M Who Feel Trapped
               </p>
               <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight mb-8">
-                THE OPERATING SYSTEM{" "}
+                IP LICENSING &{" "}
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-slate-200 to-slate-500">
-                  YOUR BUSINESS NEEDS
+                  GROWTH INFRASTRUCTURE
                 </span>
               </h1>
-              <p className="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto mb-6 leading-relaxed">
-                You built a business. Congrats. Now here&apos;s the problem nobody tells you: you&apos;re not a founder anymore. You&apos;re an employee of your own company.
+              <p className="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto mb-6 leading-relaxed italic">
+                You built a business. Congrats. Now here&apos;s the problem: you built a prison.
               </p>
               <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto mb-12 leading-relaxed">
                 Every decision goes through you. Every problem lands on your desk. The bigger you get, the more trapped you become. This isn&apos;t a motivation problem. This is a <span className="text-white font-semibold">systems problem</span>.
@@ -102,14 +102,14 @@ export default function HomePage() {
           </section>
 
           {/* WHAT AN OS LOOKS LIKE */}
-          <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5">
+          <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5 bg-gradient-to-b from-transparent to-slate-900/20">
             <div className="max-w-5xl mx-auto">
               <div className="text-center mb-16">
                 <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-6">
-                  What An Operating System Actually Looks Like
+                  What Growth Infrastructure Actually Looks Like
                 </h2>
                 <p className="text-lg text-slate-400 max-w-xl mx-auto">
-                  It&apos;s not complicated. It&apos;s actually simple. But it has to be built right.
+                  It&apos;s not a tool. It&apos;s the IP that runs the tool.
                 </p>
               </div>
 
@@ -228,18 +228,18 @@ export default function HomePage() {
                 {/* Step 3 */}
                 <div className="p-8 rounded-2xl border border-white/10 bg-white/5">
                   <span className="text-5xl font-black text-white/10">03</span>
-                  <h3 className="text-2xl font-bold text-white mt-4 mb-4">You Choose</h3>
+                  <h3 className="text-2xl font-bold text-white mt-4 mb-4">Install Your Assets</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                     <div className="p-6 rounded-xl border border-white/10 bg-white/5">
-                      <h4 className="text-white font-bold text-lg mb-2">The Container</h4>
-                      <p className="text-slate-400">You learn it. We guide you. You build it inside your business. Takes longer. You own the process. Better if you want to understand how your business works.</p>
+                      <h4 className="text-white font-bold text-lg mb-2">The Container (IP Licensing)</h4>
+                      <p className="text-slate-400">You license our frameworks. We guide you. You build it inside your business. You own the infrastructure. Better if you want to understand the machine.</p>
                     </div>
                     <div className="p-6 rounded-xl border border-white/20 bg-white/10">
-                      <h4 className="text-white font-bold text-lg mb-2">Done-For-You</h4>
-                      <p className="text-slate-300">We build it. We install it. We make it work. Takes shorter. You focus on other things. Better if you want results fast.</p>
+                      <h4 className="text-white font-bold text-lg mb-2">Done-For-You (OS Installation)</h4>
+                      <p className="text-slate-300">We build it. We install it. We make it work. High-speed deployment. You focus on revenue while we build the backend.</p>
                     </div>
                   </div>
-                  <p className="text-slate-400 mt-6">Both paths get you to the same place. Different timelines. Different investments. Your choice.</p>
+                  <p className="text-slate-400 mt-6">Both paths result in true IP ownership. Different timelines. Different involvement. Your choice.</p>
                 </div>
 
                 {/* Step 4 */}
@@ -281,10 +281,10 @@ export default function HomePage() {
           </section>
 
           {/* INDUSTRIES */}
-          <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5">
+          <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5 bg-slate-900/10">
             <div className="max-w-5xl mx-auto text-center">
               <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-12">
-                We&apos;ve Built Operating Systems For
+                Infrastructure We&apos;ve Licensed For
               </h2>
               <div className="flex flex-wrap justify-center gap-3 mb-12">
                 {[
