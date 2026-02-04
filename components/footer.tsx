@@ -76,15 +76,6 @@ export function Footer() {
         >
           <LinkedInIcon className="size-5" />
         </Link>
-        <Link
-          href="https://instagram.com/miaelianaa"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-muted-foreground hover:text-white transition-colors"
-          aria-label="Follow on Instagram"
-        >
-          <InstagramIcon className="size-5" />
-        </Link>
       </AnimatedContainer>
 
       <div className="mt-6 text-center space-y-2">
