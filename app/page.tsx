@@ -17,20 +17,20 @@ export default function HomePage() {
           <section className="min-h-screen flex items-center justify-center px-4 sm:px-6">
             <div className="max-w-4xl mx-auto text-center">
               <p className="text-sm sm:text-base uppercase tracking-[0.2em] text-slate-400 mb-6">
-                AI Infrastructure for Info &amp; SaaS Companies
+                Your AI Wing
               </p>
               <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight mb-8">
-                SCALE TO{" "}
+                WE BUILD YOU INTO AN{" "}
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-slate-200 to-slate-500">
-                  $1M+ ARR
+                  AI-NATIVE
                 </span>{" "}
-                WITHOUT SCALING HEADCOUNT
+                ORGANIZATION
               </h1>
               <p className="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto mb-6 leading-relaxed italic">
-                The fastest-growing info and SaaS companies aren't hiring more people. They're building AI systems that do the work of 10.
+                We install growth infrastructure and act as your Chief AI Officer—building the systems that let you scale without scaling headcount.
               </p>
               <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto mb-12 leading-relaxed">
-                We build the <span className="text-white font-semibold">automated backend</span> that runs your onboarding, support, retention, and growth ops—so you can focus on <span className="text-white font-semibold">product and revenue</span>.
+                The fastest-growing info and SaaS companies aren't hiring more people. They have an <span className="text-white font-semibold">AI wing</span> building systems that do the work of 10—so they can focus on <span className="text-white font-semibold">product and revenue</span>.
               </p>
               <Link
                 href="/audit"
@@ -73,106 +73,66 @@ export default function HomePage() {
             </div>
           </section>
 
-          {/* REFRAME */}
+          {/* YOUR AI WING */}
           <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5">
             <div className="max-w-3xl mx-auto text-center">
+              <p className="text-sm uppercase tracking-[0.2em] text-slate-500 mb-6">Your Chief AI Officer</p>
               <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-10">
-                You Don't Need More Hires.<br />You Need Systems.
+                We Don't Just Build Tools.<br />We Become Your AI Wing.
               </h2>
               <p className="text-lg text-slate-400 leading-relaxed mb-8">
-                Hiring more people adds more management. Buying more tools adds more tabs. Neither gets you out of the machine.
+                Most companies bolt AI onto broken processes. We embed inside your business and rebuild it from the infrastructure up—turning you into an <span className="text-white font-semibold">AI-native organization</span> where growth compounds and operations run themselves.
               </p>
               <p className="text-lg text-slate-300 leading-relaxed">
-                You need <span className="text-white font-semibold">automated infrastructure</span> that runs your business behind the scenes—the same backend systems that let lean teams outperform companies 10x their size.
+                Think of us as your fractional Chief AI Officer—except we don't just advise. We <span className="text-white font-semibold">architect, build, and install</span> every system ourselves.
               </p>
             </div>
           </section>
 
-          {/* SOLUTIONS */}
+          {/* FOUR PILLARS */}
           <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5 bg-gradient-to-b from-transparent to-slate-900/20">
             <div className="max-w-5xl mx-auto">
               <div className="text-center mb-16">
                 <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-6">
-                  What We Build for You
+                  Growth Infrastructure
                 </h2>
-                <p className="text-lg text-slate-400 max-w-xl mx-auto">
-                  Concrete systems that replace the grind. Not tools—outcomes.
+                <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+                  Four pillars that turn your company into a machine that runs—and grows—without you in it.
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {[
-                  { title: "Automated Onboarding", desc: "From signup to activation to first value—zero manual touches. AI-driven sequences that adapt to each user's behavior and guide them to 'aha' faster." },
-                  { title: "Churn Prevention Engine", desc: "Detect at-risk users before they cancel. Automated health scoring, re-engagement sequences, and win-back campaigns that run 24/7." },
-                  { title: "AI Content Engine", desc: "One long-form piece becomes 30+ assets. Clips, threads, carousels, emails—generated in your voice, not generic AI slop." },
-                  { title: "Support That Scales", desc: "AI trained on your product and docs handles 80% of tickets instantly. Your team only gets pulled in when it actually matters." },
-                  { title: "Revenue Intelligence", desc: "Know exactly which channel, campaign, and touchpoint drove each conversion. Kill what doesn't work. Double down on what does." },
-                  { title: "Trial-to-Paid Automation", desc: "Behavior-triggered nudges, upgrade prompts, and personalized offers that convert free users into paying customers on autopilot." },
+                  {
+                    title: "TIP Licensing",
+                    desc: "Proven frameworks and systems you can license and own. Build once, benefit forever.",
+                    icon: "01",
+                  },
+                  {
+                    title: "Autonomous Operations",
+                    desc: "Processes that execute without you. Triggers, actions, and outcomes—all automated.",
+                    icon: "02",
+                  },
+                  {
+                    title: "Executive Intelligence",
+                    desc: "Real-time dashboards and AI-powered insights. Make decisions based on data, not gut.",
+                    icon: "03",
+                  },
+                  {
+                    title: "Exit Readiness",
+                    desc: "A business that runs on systems is a business that can be sold. We build for enterprise value.",
+                    icon: "04",
+                  },
                 ].map((item) => (
                   <div
                     key={item.title}
                     className="group p-8 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300"
                   >
+                    <span className="text-4xl font-black text-white/10 block mb-4">{item.icon}</span>
                     <h3 className="text-xl font-bold text-white mb-3">{item.title}</h3>
                     <p className="text-slate-400 leading-relaxed">{item.desc}</p>
                   </div>
                 ))}
-              </div>
-            </div>
-          </section>
-
-          {/* BEFORE / AFTER */}
-          <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5">
-            <div className="max-w-4xl mx-auto">
-              <div className="text-center mb-16">
-                <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-6">
-                  The Transformation
-                </h2>
-                <p className="text-lg text-slate-400 max-w-xl mx-auto">
-                  What changes when your business runs on systems instead of you.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {/* Before */}
-                <div className="p-8 rounded-2xl border border-red-500/20 bg-red-500/5">
-                  <h3 className="text-sm uppercase tracking-wider text-red-400 font-bold mb-6">Before</h3>
-                  <ul className="space-y-4">
-                    {[
-                      "60+ hours/week firefighting operations",
-                      "Churn you can see but can't stop",
-                      "Support backlog growing every week",
-                      "Onboarding is a manual mess",
-                      "Revenue plateaus despite more traffic",
-                      "Burning out on the business you built",
-                    ].map((item) => (
-                      <li key={item} className="flex items-start gap-3">
-                        <span className="text-red-400 mt-0.5">✕</span>
-                        <span className="text-slate-400">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* After */}
-                <div className="p-8 rounded-2xl border border-green-500/20 bg-green-500/5">
-                  <h3 className="text-sm uppercase tracking-wider text-green-400 font-bold mb-6">After</h3>
-                  <ul className="space-y-4">
-                    {[
-                      "20–25 hours/week focused on product & growth",
-                      "Churn cut by 30–50% with automated retention",
-                      "80% of support handled by AI instantly",
-                      "Users activate themselves through smart sequences",
-                      "Revenue compounds through automated upsells",
-                      "Excited about your business again",
-                    ].map((item) => (
-                      <li key={item} className="flex items-start gap-3">
-                        <span className="text-green-400 mt-0.5">✓</span>
-                        <span className="text-slate-300">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
               </div>
             </div>
           </section>
