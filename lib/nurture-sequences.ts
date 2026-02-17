@@ -71,16 +71,16 @@ const sequenceA: NurtureSequence = {
 </div>
 <p><strong>Here's what stands out — your top 3 opportunities:</strong></p>
 <ol style="padding-left:20px;">
-<li style="margin-bottom:12px;"><strong>Missed Lead Recovery</strong> — You're losing calls and leads right now. An AI receptionist captures them 24/7. <em>Estimated value: $3,000-$8,000/mo in recovered revenue.</em></li>
-<li style="margin-bottom:12px;"><strong>Automated Follow-Up</strong> — No more leads falling through the cracks. AI follows up within minutes, not days. <em>Estimated value: 40-60% more conversions.</em></li>
-<li style="margin-bottom:12px;"><strong>Time Liberation</strong> — Automate the repetitive tasks keeping you stuck at 60+ hours/week. <em>Estimated value: 15-20 hours/week reclaimed.</em></li>
+<li style="margin-bottom:12px;"><strong>Automated Onboarding</strong> — Your users are dropping off before they see value. An AI-driven onboarding sequence gets them to 'aha' 3x faster. <em>Estimated value: 20-40% activation improvement.</em></li>
+<li style="margin-bottom:12px;"><strong>Churn Prevention</strong> — Users go quiet, then cancel. AI detects at-risk users and re-engages before it's too late. <em>Estimated value: 30-50% churn reduction.</em></li>
+<li style="margin-bottom:12px;"><strong>Support Automation</strong> — Your team spends hours on repetitive tickets. AI handles 80% instantly. <em>Estimated value: 15-20 hours/week reclaimed.</em></li>
 </ol>
 <p>I've prepared a full breakdown with specific numbers for {companyName}. Want to walk through it together?</p>
 ${ctaButton('Book Your Strategy Call →')}
 <p>This is a working session — not a pitch. You'll leave with a clear action plan either way.</p>
 <p>Talk soon,<br><strong>Mia</strong><br>Founder, ElianaTech</p>
       `),
-      smsText: 'Hey {firstName}! Just reviewed your AI audit — impressive business. I have some specific ideas for {companyName}. Mind if I call you in the next hour? - Mia, ElianaTech'
+      smsText: 'Hey {firstName}! Just reviewed your AI audit — impressive product. I have some specific ideas for {companyName}. Mind if I call you in the next hour? - Mia, ElianaTech'
     },
     {
       day: 1,
@@ -91,9 +91,9 @@ ${ctaButton('Book Your Strategy Call →')}
 <div style="background:#eff6ff;padding:20px;border-radius:6px;margin:20px 0;">
 <h3 style="margin:0 0 12px;color:#1e40af;">Case Study: {industry} Business Transformation</h3>
 <table width="100%" cellpadding="8" style="font-size:14px;">
-<tr><td style="color:#dc2626;font-weight:600;">Before:</td><td>60+ hr weeks, missed calls, manual follow-ups, no review system</td></tr>
-<tr><td style="color:#16a34a;font-weight:600;">After:</td><td>35 hr weeks, AI captures every lead, automated nurture sequences, 4.9★ rating</td></tr>
-<tr><td style="color:#2563eb;font-weight:600;">Results:</td><td>+$12K/mo revenue, 20+ hrs/week saved, 3x more reviews</td></tr>
+<tr><td style="color:#dc2626;font-weight:600;">Before:</td><td>60+ hr weeks, manual onboarding, support backlog, high churn</td></tr>
+<tr><td style="color:#16a34a;font-weight:600;">After:</td><td>25 hr weeks, automated onboarding, AI support handling 80% of tickets, churn cut in half</td></tr>
+<tr><td style="color:#2563eb;font-weight:600;">Results:</td><td>+$15K/mo ARR, 20+ hrs/week saved, 45% churn reduction</td></tr>
 </table>
 </div>
 <p><strong>This is exactly what we'd build for {companyName}.</strong></p>
@@ -111,9 +111,9 @@ ${ctaButton('See How We\'d Do This For You →')}
 <div style="border:1px solid #e2e8f0;border-radius:6px;overflow:hidden;margin:20px 0;">
 <div style="background:#1e293b;color:white;padding:12px 20px;font-weight:600;">🔧 Your Custom AI Installation Plan</div>
 <div style="padding:20px;">
-<p style="margin:0 0 16px;"><strong>System 1: AI Lead Capture & Response</strong><br><span style="color:#64748b;">Never miss another call. AI answers, qualifies, and books — 24/7.</span></p>
-<p style="margin:0 0 16px;"><strong>System 2: Smart Follow-Up Engine</strong><br><span style="color:#64748b;">Automated email + SMS sequences personalized to each lead's behavior.</span></p>
-<p style="margin:0 0 16px;"><strong>System 3: Operations Autopilot</strong><br><span style="color:#64748b;">Scheduling, reminders, invoicing, and reporting — all automated.</span></p>
+<p style="margin:0 0 16px;"><strong>System 1: Automated Onboarding Engine</strong><br><span style="color:#64748b;">From signup to activation to first value — zero manual touches.</span></p>
+<p style="margin:0 0 16px;"><strong>System 2: Churn Prevention System</strong><br><span style="color:#64748b;">AI-powered health scoring, re-engagement sequences, and win-back campaigns.</span></p>
+<p style="margin:0 0 16px;"><strong>System 3: AI Support Layer</strong><br><span style="color:#64748b;">Handle 80% of support tickets instantly. Your team only gets pulled in when it matters.</span></p>
 </div>
 </div>
 <p>Want the full proposal with timelines and ROI projections?</p>
@@ -129,10 +129,10 @@ ${ctaButton('Let\'s Talk — Get the Full Proposal →')}
 <p>Hey {name},</p>
 <p>Let's talk numbers. Based on your audit, here's what AI could do for <strong>{companyName}</strong>:</p>
 <table width="100%" cellpadding="12" style="border-collapse:collapse;margin:20px 0;font-size:14px;">
-<tr style="background:#f8fafc;"><td style="border:1px solid #e2e8f0;font-weight:600;">Missed leads recovered</td><td style="border:1px solid #e2e8f0;">10-30/week → <strong style="color:#16a34a;">$4,000-$12,000/mo</strong></td></tr>
+<tr style="background:#f8fafc;"><td style="border:1px solid #e2e8f0;font-weight:600;">Churn reduction</td><td style="border:1px solid #e2e8f0;">30-50% fewer cancellations → <strong style="color:#16a34a;">$5,000-$15,000/mo saved</strong></td></tr>
 <tr><td style="border:1px solid #e2e8f0;font-weight:600;">Hours saved weekly</td><td style="border:1px solid #e2e8f0;">15-20 hrs → <strong style="color:#16a34a;">$2,500-$4,000/mo value</strong></td></tr>
 <tr style="background:#f8fafc;"><td style="border:1px solid #e2e8f0;font-weight:600;">Conversion rate improvement</td><td style="border:1px solid #e2e8f0;">+30-50% → <strong style="color:#16a34a;">$5,000-$15,000/mo</strong></td></tr>
-<tr><td style="border:1px solid #e2e8f0;font-weight:600;">Review generation</td><td style="border:1px solid #e2e8f0;">3x more reviews → <strong style="color:#16a34a;">Higher rankings + trust</strong></td></tr>
+<tr><td style="border:1px solid #e2e8f0;font-weight:600;">Support automation</td><td style="border:1px solid #e2e8f0;">80% ticket deflection → <strong style="color:#16a34a;">Faster response, happier users</strong></td></tr>
 <tr style="background:#eff6ff;"><td style="border:1px solid #2563eb;font-weight:700;color:#1e40af;">Total estimated impact</td><td style="border:1px solid #2563eb;font-weight:700;color:#1e40af;font-size:18px;">$11,500-$31,000/mo</td></tr>
 </table>
 <p>vs. hiring a full-time operations person ($5,000-$8,000/mo who still can't work 24/7).</p>
@@ -152,10 +152,10 @@ ${ctaButton('Book a Call — Let\'s Build This →')}
 </div>
 <p>Here's what {companyName} would get:</p>
 <ul style="padding-left:20px;">
-<li>✅ AI Lead Capture (24/7 — never miss another call)</li>
+<li>✅ Automated Onboarding (signup → activation on autopilot)</li>
 <li>✅ Smart Follow-Up Sequences (automated, personalized)</li>
-<li>✅ Operations Autopilot (scheduling, invoicing, reporting)</li>
-<li>✅ Review Generation Engine (build your reputation on autopilot)</li>
+<li>✅ AI Support Layer (handle 80% of tickets instantly)</li>
+<li>✅ Revenue Intelligence (know which channels actually drive revenue)</li>
 <li>✅ Custom Dashboard (see everything in one place)</li>
 <li>✅ 90-Day Installation + Ongoing Support</li>
 </ul>
@@ -186,8 +186,8 @@ const sequenceB: NurtureSequence = {
 </div>
 <p><strong>3 Quick Wins You Can Implement This Week:</strong></p>
 <ol style="padding-left:20px;">
-<li style="margin-bottom:10px;"><strong>Set up auto-replies</strong> — Even a simple "Thanks, we'll call you back within 1 hour" reduces lead drop-off by 30%.</li>
-<li style="margin-bottom:10px;"><strong>Ask for reviews after every job</strong> — A simple text message template can 3x your review rate.</li>
+<li style="margin-bottom:10px;"><strong>Set up a welcome email sequence</strong> — Even a simple 3-email onboarding flow reduces drop-off by 30%.</li>
+<li style="margin-bottom:10px;"><strong>Add an in-app NPS survey</strong> — A simple popup at day 7 gives you early churn signals and testimonials.</li>
 <li style="margin-bottom:10px;"><strong>Block 2 hours for high-value work</strong> — Use that time ONLY for revenue-generating activities.</li>
 </ol>
 <p>Want to see the full list of opportunities specific to {companyName}?</p>
@@ -203,11 +203,11 @@ ${ctaButton('View Full Report →', 'https://elianatech.com/audit/results')}
 <p>There's a lot of hype around AI. Let me cut through it and show you what it <em>actually</em> looks like for a <strong>{industry}</strong> business like {companyName}.</p>
 <h3 style="color:#1e293b;">What AI Does:</h3>
 <ul style="padding-left:20px;">
-<li>✅ Answers calls & texts 24/7 (no more missed leads at 2am)</li>
-<li>✅ Follows up with every lead automatically (personalized, not spammy)</li>
-<li>✅ Books appointments on your calendar</li>
-<li>✅ Sends invoices and payment reminders</li>
-<li>✅ Asks for reviews at the perfect moment</li>
+<li>✅ Onboards new users automatically (personalized, behavior-driven sequences)</li>
+<li>✅ Detects at-risk users and re-engages them before they churn</li>
+<li>✅ Handles 80% of support tickets instantly</li>
+<li>✅ Triggers upgrade prompts at the right moment</li>
+<li>✅ Generates content from your long-form pieces</li>
 <li>✅ Generates reports so you see what's working</li>
 </ul>
 <h3 style="color:#1e293b;">What AI Doesn't Do:</h3>
@@ -227,16 +227,16 @@ ${ctaButton('View Full Report →', 'https://elianatech.com/audit/results')}
 <p>Hey {name},</p>
 <p>Wanted to share some results from business owners like you:</p>
 <div style="background:#f8fafc;padding:20px;border-radius:6px;margin:20px 0;">
-<p style="font-style:italic;margin:0 0 8px;">"We went from missing 40% of calls to capturing every single one. Revenue jumped $8K/mo in the first month."</p>
-<p style="margin:0;font-weight:600;color:#64748b;">— Sarah M., Home Services</p>
+<p style="font-style:italic;margin:0 0 8px;">"Our onboarding went from 3 hours manual to fully automated. Activation rate jumped 40% in the first month."</p>
+<p style="margin:0;font-weight:600;color:#64748b;">— Sarah M., SaaS Founder</p>
 </div>
 <div style="background:#f8fafc;padding:20px;border-radius:6px;margin:20px 0;">
 <p style="font-style:italic;margin:0 0 8px;">"I got 20 hours of my week back. I actually took a vacation for the first time in 3 years."</p>
-<p style="margin:0;font-weight:600;color:#64748b;">— Marcus T., Professional Services</p>
+<p style="margin:0;font-weight:600;color:#64748b;">— Marcus T., Course Creator</p>
 </div>
 <div style="background:#f8fafc;padding:20px;border-radius:6px;margin:20px 0;">
-<p style="font-style:italic;margin:0 0 8px;">"Our review count went from 23 to 147 in 90 days. Now we're the top-rated in our area."</p>
-<p style="margin:0;font-weight:600;color:#64748b;">— Lisa K., Healthcare</p>
+<p style="font-style:italic;margin:0 0 8px;">"Our churn dropped from 12% to 5% in 90 days. That's an extra $180K ARR we would have lost."</p>
+<p style="margin:0;font-weight:600;color:#64748b;">— Lisa K., B2B SaaS</p>
 </div>
 <p>Curious what results would look like for {companyName}?</p>
 ${ctaButton('Let\'s Find Out →')}
@@ -275,7 +275,7 @@ ${ctaButton('Download Your Free Playbook →', 'https://elianatech.com/playbook'
 <li>🏖️ Finally took a real vacation</li>
 <li>📈 Focused on growth instead of operations</li>
 <li>👨‍👩‍👧 Spent more time with family</li>
-<li>💡 Launched new service lines</li>
+<li>💡 Launched new products and features</li>
 <li>🏋️ Got back to the gym (seriously)</li>
 </ul>
 <p>Your audit showed {companyName} is spending way too much time on things AI can handle. The math is clear — you just need to make the switch.</p>
@@ -340,7 +340,7 @@ const sequenceC: NurtureSequence = {
 </div>
 <p><strong>Here's 1 quick win you can do today:</strong></p>
 <div style="background:#f0fdf4;padding:16px 20px;border-radius:6px;margin:16px 0;">
-<p style="margin:0;"><strong>Set up a Google Voice number</strong> as a backup line. Forward missed calls to it. It's free, and it'll capture leads you're currently losing. Takes 5 minutes.</p>
+<p style="margin:0;"><strong>Set up a simple welcome email sequence</strong> in your email tool. Even 3 emails (welcome, quick win, next steps) reduces new user drop-off by 30%. Takes 15 minutes.</p>
 </div>
 <p>I'll send you more tips and resources over the coming weeks. No spam — just useful stuff.</p>
 <p>Mia<br>ElianaTech</p>
@@ -371,16 +371,16 @@ ${ctaButton('Read the Full Guide →', 'https://elianatech.com/blog')}
 <p>Quick story I thought you'd appreciate:</p>
 <p>A business owner came to us working 60+ hours/week. Sound familiar? They were:</p>
 <ul style="padding-left:20px;">
-<li>Answering every call personally</li>
+<li>Manually onboarding every new user</li>
 <li>Manually following up with every lead</li>
-<li>Doing their own invoicing</li>
+<li>Handling every support ticket personally</li>
 <li>Posting on social media at midnight</li>
 </ul>
 <p>90 days later:</p>
 <ul style="padding-left:20px;">
 <li>AI handles calls and books appointments 24/7</li>
 <li>Follow-ups run automatically (personalized, not robotic)</li>
-<li>Invoices go out automatically after each job</li>
+<li>80% of support tickets resolved by AI instantly</li>
 <li>Content is scheduled weeks in advance</li>
 </ul>
 <p><strong>Result: 35-hour weeks and $12K/mo more revenue.</strong></p>

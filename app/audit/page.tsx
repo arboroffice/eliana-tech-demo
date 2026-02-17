@@ -22,15 +22,15 @@ export default function AuditPage() {
                         <div className="max-w-4xl mx-auto text-center mb-12">
                             <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm font-medium mb-8 animate-fade-in-badge">
                                 <span className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
-                                Free Business Efficiency Audit
+                                Free Automation Audit
                             </div>
 
                             <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">
-                                Benchmark Your <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Growth Engine</span>
+                                Find Your Biggest <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Automation Wins</span>
                             </h1>
 
                             <p className="text-lg text-slate-300 max-w-2xl mx-auto">
-                                Take 5 minutes to complete this deep-dive audit. We'll analyze your financials, operations, and sales process to identify your biggest leverage points.
+                                Take 5 minutes to map your business. We'll identify the workflows costing you the most time, the automation opportunities with the highest ROI, and exactly where to start.
                             </p>
                         </div>
 

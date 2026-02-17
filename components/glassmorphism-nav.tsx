@@ -56,7 +56,7 @@ export function GlassmorphismNav() {
               href="/audit"
               className="px-6 py-2.5 rounded-full bg-white text-black text-sm font-semibold hover:bg-slate-200 transition-all duration-300 hover:scale-105"
             >
-              Free Audit
+              Free Automation Audit
             </Link>
           </div>
 
@@ -94,7 +94,7 @@ export function GlassmorphismNav() {
                 className="block w-full text-center px-6 py-4 rounded-full bg-white text-black text-lg font-bold hover:bg-slate-200 transition-all"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                Free Audit
+                Free Automation Audit
               </Link>
             </div>
           </motion.div>

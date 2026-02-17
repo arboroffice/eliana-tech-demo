@@ -47,7 +47,7 @@ export const GROWTH_STAGES: StageData[] = [
                     "Website optimization for lead capture",
                     "Social media profile setup and optimization",
                     "Content calendar template (30-day plan)",
-                    "Google Business Profile optimization",
+                    "Product listing and marketplace optimization",
                     "Basic SEO setup (keywords, meta descriptions)",
                     "Email newsletter setup and welcome sequence",
                     "Review request automation",
@@ -408,10 +408,10 @@ export const GROWTH_STAGES: StageData[] = [
 ]
 
 export const INDUSTRIES = {
-    "Home Services": [
-        "Tree Care & Landscaping", "Plumbing", "HVAC", "Roofing",
-        "Electrical", "Cleaning Services", "Pest Control",
-        "Pool Services", "Painting", "Flooring"
+    "Info Products & Courses": [
+        "Online Course Creators", "Coaching Programs", "Membership Sites",
+        "Digital Product Sellers", "Cohort-Based Programs", "Newsletter Operators",
+        "Community Builders", "Certification Programs", "Mastermind Groups", "Workshop Facilitators"
     ],
     "Health & Wellness": [
         "Gyms & Fitness Studios", "Spas & Salons", "Chiropractors",

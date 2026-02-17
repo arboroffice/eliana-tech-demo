@@ -1,6 +1,5 @@
 /**
- * Lead Scoring & Routing
- * Scores leads based on audit data and routes them to the right nurture sequence
+ * Lead Scoring & Routing — Info & SaaS Companies
  */
 
 export interface LeadScore {
@@ -29,42 +28,44 @@ export function scoreAndRouteLead(formData: any, auditScore: number): LeadScore 
 
   // Budget scoring (0-20 points)
   const budgetScores: Record<string, number> = {
-    enterprise: 20, leader: 18, aggressive: 15, moderate: 10, starter: 5
+    enterprise: 20, aggressive: 15, moderate: 10, starter: 5
   }
   score += budgetScores[budget] || 0
-  if (['enterprise', 'leader', 'aggressive'].includes(budget)) {
+  if (['enterprise', 'aggressive'].includes(budget)) {
     reasons.push(`Strong budget signal (${budget})`)
   }
 
   // Audit score bonus (0-10 points) — lower audit = more opportunity
   const opportunityBonus = Math.round((100 - auditScore) / 10)
   score += opportunityBonus
-  if (auditScore < 40) reasons.push(`Low AI readiness (${auditScore}/100) = high opportunity`)
+  if (auditScore < 40) reasons.push(`Low automation readiness (${auditScore}/100) = high opportunity`)
 
-  // Intent signals (0-10 points)
-  if (formData.missedCalls === '30+' || formData.missedCalls === '10-30') {
+  // Info/SaaS-specific intent signals (0-10 points)
+  if (formData.churnRate === '20+' || formData.churnRate === '10-20') {
     score += 5
-    reasons.push('Missing significant calls/leads')
+    reasons.push('High churn rate — urgent need')
   }
-  if (formData.systematicFollowUp === 'No') {
+  if (formData.onboardingAutomated === 'No') {
     score += 3
-    reasons.push('No follow-up system in place')
+    reasons.push('No onboarding automation')
   }
-  if (formData.twoWeeksOff === 'No way') {
+  if (formData.twoWeeksOff === 'No') {
     score += 2
     reasons.push('Cannot step away from business')
+  }
+  if (formData.supportHoursPerWeek === '10+') {
+    score += 3
+    reasons.push('10+ hrs/week on support')
   }
 
   score = Math.min(100, Math.max(0, score))
 
-  // HOT lead detection
   const isHot =
     score >= 80 ||
     excitementLevel >= 8 ||
     painLevel >= 8 ||
-    (['aggressive', 'leader', 'enterprise'].includes(budget) && excitementLevel >= 5)
+    (['aggressive', 'enterprise'].includes(budget) && excitementLevel >= 5)
 
-  // WARM lead detection
   const isWarm =
     !isHot && (
       score >= 50 ||
@@ -96,7 +97,7 @@ export function scoreAndRouteLead(formData: any, auditScore: number): LeadScore 
       recommendedActions: [
         'Email nurture sequence',
         'SMS on Day 2',
-        'Retarget with case studies',
+        'Send case study',
         'Weekly check-in'
       ],
       nurturSequence: 'B'

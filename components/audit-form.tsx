@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { ArrowLeft, ArrowRight, Check, Send, X } from "lucide-react"
+import { ArrowLeft, ArrowRight, Send, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -15,23 +15,21 @@ import { AuditResults } from "@/components/audit-results"
 
 const STEPS = [
     "About You",
+    "Your Product",
     "Revenue & Growth",
-    "Your Team",
-    "Sales & Leads",
+    "Audience & Acquisition",
     "Time & Operations",
-    "Reputation & Retention",
-    "Tech & Tools",
+    "Tech & Automation",
     "Let's Go",
 ]
 
 const ENCOURAGEMENTS = [
-    "Great start! Let's look at your numbers.",
-    "Almost a third done! Your team insights help us personalize.",
-    "Halfway point coming up! Your sales data unlocks big insights.",
-    "Over halfway! Let's see where your time goes.",
-    "Almost there! A few more questions about your reputation.",
-    "Last two steps! Tell us about your tech stack.",
-    "Final step! Just a few more clicks.",
+    "Great start! Let's look at what you sell.",
+    "Nice — now let's understand your numbers.",
+    "Halfway there! Let's look at your audience.",
+    "Almost done — how you spend your time matters most.",
+    "Last two steps! Let's see your tech stack.",
+    "Final step — just a few more clicks.",
 ]
 
 const STORAGE_KEY = "elianatech-audit-progress"
@@ -42,50 +40,35 @@ interface FormData {
     email: string;
     phoneNumber: string;
     websiteUrl: string;
-    industryCategory: string;
-    specificIndustry: string;
+    businessType: string;
+    businessTypeOther: string;
+    productDescription: string;
+    productPricePoint: string;
+    numberOfProducts: string;
+    platform: string;
+    deliveryMethod: string;
     currentRevenue: string;
     revenueTrend: string;
     profitMargin: string;
-    cashFlow: string;
-    teamSize: string;
-    teamPerformance: string;
-    systemsDocumented: string;
-    leadSource: string;
-    conversionRate: string;
-    dealSize: string;
-    salesCycle: string;
     revenueGoal: string;
     bottleneck: string;
-    timeInBusiness: string;
-    nicheIndustry: string;
-    hvacLeadsPerMonth: string;
-    hvacCloseRate: string;
-    hvacAvgTicket: string;
-    hvacMaintenance: string;
-    retentionRate: string;
-    customerValue: string;
+    teamSize: string;
+    listSize: string;
+    trafficSource: string;
+    conversionRate: string;
+    launchesPerYear: string;
+    churnRate: string;
+    contentCreationHours: string;
     hoursPerWeek: string;
     highValueWork: string;
     twoWeeksOff: string;
-    missedCalls: string;
-    systematicFollowUp: string;
-    fixTimeline: string;
+    supportHoursPerWeek: string;
+    onboardingAutomated: string;
     painLevel: number[];
     keepsUpAtNight: string;
-    whoRunsSystems: string;
-    techComfort: number[];
-    googleReviews: string;
-    googleRating: string;
-    askReviewsSystem: string;
-    respondReviews: string;
-    repeatCustomers: string;
-    recurringRevenue: string;
-    winBackSystem: string;
-    referralSystem: string;
     tools: string[];
     percentAutomated: string;
-    dataOrganization: string;
+    biggestTimeWaste: string;
     next12MonthsGoal: string;
     holdingBack: string;
     problems: string[];
@@ -102,50 +85,35 @@ const DEFAULT_FORM_DATA: FormData = {
     email: "",
     phoneNumber: "",
     websiteUrl: "",
-    industryCategory: "",
-    specificIndustry: "",
+    businessType: "",
+    businessTypeOther: "",
+    productDescription: "",
+    productPricePoint: "",
+    numberOfProducts: "",
+    platform: "",
+    deliveryMethod: "",
     currentRevenue: "",
     revenueTrend: "",
     profitMargin: "",
-    cashFlow: "",
-    teamSize: "",
-    teamPerformance: "",
-    systemsDocumented: "",
-    leadSource: "",
-    conversionRate: "",
-    dealSize: "",
-    salesCycle: "",
     revenueGoal: "",
     bottleneck: "",
-    timeInBusiness: "",
-    nicheIndustry: "",
-    hvacLeadsPerMonth: "",
-    hvacCloseRate: "",
-    hvacAvgTicket: "",
-    hvacMaintenance: "",
-    retentionRate: "",
-    customerValue: "",
+    teamSize: "",
+    listSize: "",
+    trafficSource: "",
+    conversionRate: "",
+    launchesPerYear: "",
+    churnRate: "",
+    contentCreationHours: "",
     hoursPerWeek: "",
     highValueWork: "",
     twoWeeksOff: "",
-    missedCalls: "",
-    systematicFollowUp: "",
-    fixTimeline: "",
+    supportHoursPerWeek: "",
+    onboardingAutomated: "",
     painLevel: [5],
     keepsUpAtNight: "",
-    whoRunsSystems: "",
-    techComfort: [5],
-    googleReviews: "",
-    googleRating: "",
-    askReviewsSystem: "",
-    respondReviews: "",
-    repeatCustomers: "",
-    recurringRevenue: "",
-    winBackSystem: "",
-    referralSystem: "",
     tools: [],
     percentAutomated: "",
-    dataOrganization: "",
+    biggestTimeWaste: "",
     next12MonthsGoal: "",
     holdingBack: "",
     problems: [],
@@ -168,7 +136,6 @@ export function AuditForm() {
 
     const [formData, setFormData] = useState<FormData>(DEFAULT_FORM_DATA)
 
-    // Restore progress from localStorage on mount
     useEffect(() => {
         try {
             const saved = localStorage.getItem(STORAGE_KEY)
@@ -184,14 +151,12 @@ export function AuditForm() {
         } catch { }
     }, [])
 
-    // Save progress to localStorage on step/field change
     useEffect(() => {
         try {
             localStorage.setItem(STORAGE_KEY, JSON.stringify({ formData, currentStep }))
         } catch { }
     }, [formData, currentStep])
 
-    // Exit-intent detection
     useEffect(() => {
         const handler = (e: MouseEvent) => {
             if (e.clientY <= 0 && !showExitCapture && !isSuccess && currentStep > 0 && formData.email) {
@@ -202,7 +167,6 @@ export function AuditForm() {
         return () => document.removeEventListener('mouseout', handler)
     }, [showExitCapture, isSuccess, currentStep, formData.email])
 
-    // Helper to update fields
     const updateField = (field: keyof FormData, value: any) => {
         setFormData((prev) => ({ ...prev, [field]: value }))
     }
@@ -220,7 +184,6 @@ export function AuditForm() {
 
     const handleNext = () => {
         if (currentStep < STEPS.length - 1) {
-            // Show encouragement
             if (currentStep < ENCOURAGEMENTS.length) {
                 setEncouragement(ENCOURAGEMENTS[currentStep])
                 setTimeout(() => setEncouragement(""), 3000)
@@ -254,14 +217,13 @@ export function AuditForm() {
                 try { localStorage.removeItem(STORAGE_KEY) } catch { }
                 window.scrollTo({ top: 0, behavior: 'smooth' })
             } else {
-                console.warn("API submission failed, showing results anyway:", data)
                 setIsSuccess(true)
                 setShowResults(true)
                 try { localStorage.removeItem(STORAGE_KEY) } catch { }
                 window.scrollTo({ top: 0, behavior: 'smooth' })
             }
         } catch (error) {
-            console.error("Submission error, showing results anyway:", error)
+            console.error("Submission error:", error)
             setIsSuccess(true)
             setShowResults(true)
             try { localStorage.removeItem(STORAGE_KEY) } catch { }
@@ -292,81 +254,59 @@ export function AuditForm() {
 
     return (
         <div className="max-w-3xl mx-auto">
-            {/* Restored Progress Banner */}
             <AnimatePresence>
                 {restoredProgress && (
-                    <motion.div
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        className="mb-4 p-3 rounded-lg bg-blue-600/20 border border-blue-500/30 text-blue-300 text-sm text-center"
-                    >
-                        👋 Welcome back! We saved your progress.
+                    <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}
+                        className="mb-4 p-3 rounded-lg bg-blue-600/20 border border-blue-500/30 text-blue-300 text-sm text-center">
+                        Welcome back! We saved your progress.
                     </motion.div>
                 )}
             </AnimatePresence>
 
-            {/* Encouragement Message */}
             <AnimatePresence>
                 {encouragement && (
-                    <motion.div
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        transition={{ duration: 0.3 }}
-                        className="mb-2 text-center text-sm text-purple-300 font-medium"
-                    >
-                        ✨ {encouragement}
+                    <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.3 }} className="mb-2 text-center text-sm text-purple-300 font-medium">
+                        {encouragement}
                     </motion.div>
                 )}
             </AnimatePresence>
 
-            {/* Progress Bar */}
             <div className="mb-8">
                 <div className="flex justify-between text-sm text-slate-400 mb-2">
                     <span>Step {currentStep + 1} of {STEPS.length}</span>
                     <span>{Math.round(((currentStep + 1) / STEPS.length) * 100)}%</span>
                 </div>
                 <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
-                    <motion.div
-                        className="h-full bg-gradient-to-r from-blue-500 to-purple-500"
-                        initial={{ width: 0 }}
-                        animate={{ width: `${((currentStep + 1) / STEPS.length) * 100}%` }}
-                        transition={{ duration: 0.3 }}
-                    />
+                    <motion.div className="h-full bg-gradient-to-r from-blue-500 to-purple-500"
+                        initial={{ width: 0 }} animate={{ width: `${((currentStep + 1) / STEPS.length) * 100}%` }}
+                        transition={{ duration: 0.3 }} />
                 </div>
-                <div className="mt-2 text-center text-white font-medium text-lg">
-                    {STEPS[currentStep]}
-                </div>
+                <div className="mt-2 text-center text-white font-medium text-lg">{STEPS[currentStep]}</div>
             </div>
 
             <Card className="bg-slate-900/50 border-slate-800 backdrop-blur-md p-6 md:p-8">
                 <AnimatePresence mode="wait">
-                    <motion.div
-                        key={currentStep}
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -20 }}
-                        transition={{ duration: 0.2 }}
-                        className="space-y-6"
-                    >
+                    <motion.div key={currentStep} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.2 }} className="space-y-6">
+
                         {/* Step 1: About You */}
                         {currentStep === 0 && (
                             <div className="space-y-4">
                                 <div className="grid md:grid-cols-2 gap-4">
                                     <div className="space-y-2">
                                         <Label>Full Name</Label>
-                                        <Input value={formData.fullName} onChange={(e) => updateField("fullName", e.target.value)} placeholder="John Doe" className="bg-slate-800 border-slate-700" />
+                                        <Input value={formData.fullName} onChange={(e) => updateField("fullName", e.target.value)} placeholder="Jane Smith" className="bg-slate-800 border-slate-700" />
                                     </div>
                                     <div className="space-y-2">
-                                        <Label>Company Name</Label>
-                                        <Input value={formData.companyName} onChange={(e) => updateField("companyName", e.target.value)} placeholder="Acme Inc." className="bg-slate-800 border-slate-700" />
+                                        <Label>Company / Brand Name</Label>
+                                        <Input value={formData.companyName} onChange={(e) => updateField("companyName", e.target.value)} placeholder="Your Brand" className="bg-slate-800 border-slate-700" />
                                     </div>
                                 </div>
                                 <div className="grid md:grid-cols-2 gap-4">
                                     <div className="space-y-2">
                                         <Label>Email Address</Label>
-                                        <Input type="email" value={formData.email} onChange={(e) => updateField("email", e.target.value)} placeholder="john@example.com" className="bg-slate-800 border-slate-700" />
+                                        <Input type="email" value={formData.email} onChange={(e) => updateField("email", e.target.value)} placeholder="jane@example.com" className="bg-slate-800 border-slate-700" />
                                     </div>
                                     <div className="space-y-2">
                                         <Label>Phone Number</Label>
@@ -377,236 +317,272 @@ export function AuditForm() {
                                     <Label>Website URL</Label>
                                     <Input value={formData.websiteUrl} onChange={(e) => updateField("websiteUrl", e.target.value)} placeholder="https://..." className="bg-slate-800 border-slate-700" />
                                 </div>
+                                <div className="space-y-2">
+                                    <Label>What type of business do you run?</Label>
+                                    <Select value={formData.businessType} onValueChange={(val: string) => updateField("businessType", val)}>
+                                        <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="course-creator">Course Creator</SelectItem>
+                                            <SelectItem value="coaching">Coaching / Consulting</SelectItem>
+                                            <SelectItem value="membership">Membership / Community</SelectItem>
+                                            <SelectItem value="saas">SaaS / Software</SelectItem>
+                                            <SelectItem value="digital-products">Digital Products (templates, tools, etc.)</SelectItem>
+                                            <SelectItem value="newsletter">Newsletter / Media</SelectItem>
+                                            <SelectItem value="cohort">Cohort-Based Program</SelectItem>
+                                            <SelectItem value="other">Other</SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                </div>
+                                {formData.businessType === "other" && (
+                                    <div className="space-y-2">
+                                        <Label>Describe your business</Label>
+                                        <Input value={formData.businessTypeOther} onChange={(e) => updateField("businessTypeOther", e.target.value)} placeholder="e.g. Agency, Service business..." className="bg-slate-800 border-slate-700" />
+                                    </div>
+                                )}
+                            </div>
+                        )}
+
+                        {/* Step 2: Your Product */}
+                        {currentStep === 1 && (
+                            <div className="space-y-6">
+                                <div className="space-y-2">
+                                    <Label>Briefly describe what you sell</Label>
+                                    <Textarea value={formData.productDescription} onChange={(e) => updateField("productDescription", e.target.value)}
+                                        className="bg-slate-800 border-slate-700 h-20" placeholder="e.g. A 12-week coaching program for early-stage SaaS founders..." />
+                                </div>
                                 <div className="grid md:grid-cols-2 gap-4">
                                     <div className="space-y-2">
-                                        <Label>Industry Category</Label>
-                                        <Select value={formData.industryCategory} onValueChange={(val: string) => updateField("industryCategory", val)}>
+                                        <Label>Primary Price Point</Label>
+                                        <Select value={formData.productPricePoint} onValueChange={(val: string) => updateField("productPricePoint", val)}>
                                             <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
                                             <SelectContent>
-                                                <SelectItem value="service">Local Service (HVAC, Plumbing, etc)</SelectItem>
-                                                <SelectItem value="agency">Agency / B2B Service</SelectItem>
-                                                <SelectItem value="health">Healthcare / Medical</SelectItem>
-                                                <SelectItem value="retail">Retail / E-commerce</SelectItem>
+                                                <SelectItem value="under-50">Under $50</SelectItem>
+                                                <SelectItem value="50-200">$50 - $200</SelectItem>
+                                                <SelectItem value="200-1k">$200 - $1,000</SelectItem>
+                                                <SelectItem value="1k-5k">$1,000 - $5,000</SelectItem>
+                                                <SelectItem value="5k+">$5,000+</SelectItem>
+                                                <SelectItem value="recurring">Recurring (monthly/annual sub)</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label>Number of Products / Offers</Label>
+                                        <Select value={formData.numberOfProducts} onValueChange={(val: string) => updateField("numberOfProducts", val)}>
+                                            <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="1">1 core offer</SelectItem>
+                                                <SelectItem value="2-3">2 - 3 offers</SelectItem>
+                                                <SelectItem value="4-10">4 - 10 products</SelectItem>
+                                                <SelectItem value="10+">10+ products</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+                                </div>
+                                <div className="grid md:grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <Label>Primary Platform</Label>
+                                        <Select value={formData.platform} onValueChange={(val: string) => updateField("platform", val)}>
+                                            <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="kajabi">Kajabi</SelectItem>
+                                                <SelectItem value="teachable">Teachable</SelectItem>
+                                                <SelectItem value="skool">Skool</SelectItem>
+                                                <SelectItem value="circle">Circle</SelectItem>
+                                                <SelectItem value="gumroad">Gumroad</SelectItem>
+                                                <SelectItem value="shopify">Shopify</SelectItem>
+                                                <SelectItem value="wordpress">WordPress</SelectItem>
+                                                <SelectItem value="custom-saas">Custom-built SaaS</SelectItem>
+                                                <SelectItem value="stripe-direct">Stripe (direct)</SelectItem>
                                                 <SelectItem value="other">Other</SelectItem>
                                             </SelectContent>
                                         </Select>
                                     </div>
                                     <div className="space-y-2">
-                                        <Label>Specific Industry</Label>
-                                        <Input value={formData.specificIndustry} onChange={(e) => updateField("specificIndustry", e.target.value)} placeholder="e.g. Solar, Dentist, Gym" className="bg-slate-800 border-slate-700" />
+                                        <Label>How do you deliver?</Label>
+                                        <Select value={formData.deliveryMethod} onValueChange={(val: string) => updateField("deliveryMethod", val)}>
+                                            <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="self-paced">Self-paced (async)</SelectItem>
+                                                <SelectItem value="live">Live (calls, cohorts)</SelectItem>
+                                                <SelectItem value="hybrid">Hybrid (mix of both)</SelectItem>
+                                                <SelectItem value="software">Software / SaaS product</SelectItem>
+                                                <SelectItem value="done-for-you">Done-for-you service</SelectItem>
+                                            </SelectContent>
+                                        </Select>
                                     </div>
                                 </div>
                             </div>
                         )}
 
-                        {/* Step 2: Revenue & Growth */}
-                        {currentStep === 1 && (
+                        {/* Step 3: Revenue & Growth */}
+                        {currentStep === 2 && (
                             <div className="space-y-6">
                                 <div className="space-y-2">
-                                    <Label>Current Monthly Revenue Stage</Label>
+                                    <Label>Current Annual Revenue</Label>
                                     <Select value={formData.currentRevenue} onValueChange={(val: string) => updateField("currentRevenue", val)}>
-                                        <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select Stage" /></SelectTrigger>
+                                        <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="early">Early Stage (Foundation)</SelectItem>
-                                            <SelectItem value="growth">Growth Stage (Scaling)</SelectItem>
-                                            <SelectItem value="established">Established Business</SelectItem>
-                                            <SelectItem value="leader">Market Leader</SelectItem>
-                                            <SelectItem value="enterprise">Enterprise / Scaling Fast</SelectItem>
+                                            <SelectItem value="pre-revenue">Pre-revenue / Just starting</SelectItem>
+                                            <SelectItem value="under-100k">Under $100K</SelectItem>
+                                            <SelectItem value="100k-250k">$100K - $250K</SelectItem>
+                                            <SelectItem value="250k-500k">$250K - $500K</SelectItem>
+                                            <SelectItem value="500k-1m">$500K - $1M</SelectItem>
+                                            <SelectItem value="1m-3m">$1M - $3M</SelectItem>
+                                            <SelectItem value="3m+">$3M+</SelectItem>
                                         </SelectContent>
                                     </Select>
                                 </div>
-
                                 <div className="space-y-2">
                                     <Label>Revenue Trend (Last 3 Months)</Label>
                                     <div className="grid grid-cols-3 gap-3">
                                         {["Growing", "Flat", "Declining"].map(opt => (
-                                            <Button key={opt} variant={formData.revenueTrend === opt ? "default" : "outline"} onClick={() => updateField("revenueTrend", opt)} className={formData.revenueTrend === opt ? "bg-blue-600 hover:bg-blue-700" : "bg-transparent border-slate-700 hover:bg-slate-800"}>
+                                            <Button key={opt} type="button" variant={formData.revenueTrend === opt ? "default" : "outline"}
+                                                onClick={() => updateField("revenueTrend", opt)}
+                                                className={formData.revenueTrend === opt ? "bg-blue-600 hover:bg-blue-700" : "bg-transparent border-slate-700 hover:bg-slate-800"}>
                                                 {opt}
                                             </Button>
                                         ))}
                                     </div>
                                 </div>
-
                                 <div className="space-y-2">
                                     <Label>Profit Margin Estimate</Label>
                                     <Select value={formData.profitMargin} onValueChange={(val: string) => updateField("profitMargin", val)}>
                                         <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="negative">Negative (Losing Money)</SelectItem>
-                                            <SelectItem value="<10%">Less than 10%</SelectItem>
-                                            <SelectItem value="10-20%">10-20%</SelectItem>
-                                            <SelectItem value="20-50%">20-50%</SelectItem>
-                                            <SelectItem value="50%+">50%+</SelectItem>
+                                            <SelectItem value="negative">Negative (losing money)</SelectItem>
+                                            <SelectItem value="under-20">Under 20%</SelectItem>
+                                            <SelectItem value="20-40">20 - 40%</SelectItem>
+                                            <SelectItem value="40-60">40 - 60%</SelectItem>
+                                            <SelectItem value="60+">60%+ (high margin)</SelectItem>
                                         </SelectContent>
                                     </Select>
                                 </div>
-
                                 <div className="space-y-2">
-                                    <Label>12-Month Expansion Goal</Label>
+                                    <Label>12-Month Goal</Label>
                                     <Select value={formData.revenueGoal} onValueChange={(val: string) => updateField("revenueGoal", val)}>
-                                        <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select Goal..." /></SelectTrigger>
+                                        <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="double">Double Current Output</SelectItem>
-                                            <SelectItem value="scale">Significant Market Expansion</SelectItem>
-                                            <SelectItem value="dominate">Become Market Leader</SelectItem>
-                                            <SelectItem value="legacy">Build Legacy / Exit-Ready State</SelectItem>
+                                            <SelectItem value="double">Double revenue</SelectItem>
+                                            <SelectItem value="scale">Scale to 7 figures</SelectItem>
+                                            <SelectItem value="freedom">More time freedom (same revenue)</SelectItem>
+                                            <SelectItem value="systemize">Systemize so I can step back</SelectItem>
+                                            <SelectItem value="exit">Build to sell / exit</SelectItem>
                                         </SelectContent>
                                     </Select>
                                 </div>
-
                                 <div className="space-y-2">
-                                    <Label>Biggest Bottleneck</Label>
+                                    <Label>Biggest Bottleneck Right Now</Label>
                                     <Select value={formData.bottleneck} onValueChange={(val: string) => updateField("bottleneck", val)}>
                                         <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="leads">Lead Volume (Not enough leads)</SelectItem>
-                                            <SelectItem value="sales">Sales Process (Can't close leads)</SelectItem>
-                                            <SelectItem value="delivery">Delivery/Ops (Too busy doing the work)</SelectItem>
-                                            <SelectItem value="team">Team/Hiring (Need good people)</SelectItem>
-                                            <SelectItem value="strategy">Strategy (Don't know what to do next)</SelectItem>
+                                            <SelectItem value="traffic">Traffic / audience growth</SelectItem>
+                                            <SelectItem value="conversion">Conversion (traffic but no sales)</SelectItem>
+                                            <SelectItem value="fulfillment">Fulfillment / delivery at scale</SelectItem>
+                                            <SelectItem value="churn">Churn / retention</SelectItem>
+                                            <SelectItem value="time">Time (I'm the bottleneck)</SelectItem>
+                                            <SelectItem value="team">Team / hiring</SelectItem>
                                         </SelectContent>
                                     </Select>
                                 </div>
-                            </div>
-                        )}
-
-                        {/* Step 3: Your Team */}
-                        {currentStep === 2 && (
-                            <div className="space-y-6">
                                 <div className="space-y-2">
                                     <Label>Team Size</Label>
                                     <Select value={formData.teamSize} onValueChange={(val: string) => updateField("teamSize", val)}>
                                         <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="1">Just Me (Solopreneur)</SelectItem>
-                                            <SelectItem value="2-5">2 - 5 Employees</SelectItem>
-                                            <SelectItem value="5-10">5 - 10 Employees</SelectItem>
-                                            <SelectItem value="10+">10+ Employees</SelectItem>
+                                            <SelectItem value="solo">Just me</SelectItem>
+                                            <SelectItem value="2-3">2 - 3 people</SelectItem>
+                                            <SelectItem value="4-10">4 - 10 people</SelectItem>
+                                            <SelectItem value="10+">10+</SelectItem>
                                         </SelectContent>
                                     </Select>
-                                </div>
-                                <div className="space-y-2">
-                                    <Label>How would you rate your team's performance?</Label>
-                                    <Select value={formData.teamPerformance} onValueChange={(val: string) => updateField("teamPerformance", val)}>
-                                        <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value="excellent">Excellent - They handle everything</SelectItem>
-                                            <SelectItem value="good">Good - But need direction</SelectItem>
-                                            <SelectItem value="inconsistent">Inconsistent - Hot and cold</SelectItem>
-                                            <SelectItem value="struggling">Struggling - Frequent errors</SelectItem>
-                                            <SelectItem value="na">N/A - No team yet</SelectItem>
-                                        </SelectContent>
-                                    </Select>
-                                </div>
-                                <div className="space-y-2">
-                                    <Label>Are your systems and processes documented?</Label>
-                                    <div className="grid grid-cols-3 gap-3">
-                                        {["Yes", "Partially", "No"].map(opt => (
-                                            <Button key={opt} type="button" variant={formData.systemsDocumented === opt ? "default" : "outline"} onClick={() => updateField("systemsDocumented", opt)} className={formData.systemsDocumented === opt ? "bg-blue-600 hover:bg-blue-700" : "bg-transparent border-slate-700 hover:bg-slate-800"}>
-                                                {opt}
-                                            </Button>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className="space-y-2">
-                                    <Label>Who would run these new AI/Automation systems?</Label>
-                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                                        {["Me", "My Team", "I need to hire"].map(opt => (
-                                            <Button key={opt} type="button" variant={formData.whoRunsSystems === opt ? "default" : "outline"} onClick={() => updateField("whoRunsSystems", opt)} className={formData.whoRunsSystems === opt ? "bg-blue-600 hover:bg-blue-700" : "bg-transparent border-slate-700 hover:bg-slate-800"}>
-                                                {opt}
-                                            </Button>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className="space-y-4">
-                                    <Label>Tech Comfort Level (1-10)</Label>
-                                    <Slider value={formData.techComfort} onValueChange={(val: number[]) => updateField("techComfort", val)} min={1} max={10} step={1} className="py-2" />
-                                    <div className="flex justify-between text-xs text-slate-400">
-                                        <span>Low</span>
-                                        <span>Medium</span>
-                                        <span>High</span>
-                                    </div>
                                 </div>
                             </div>
                         )}
 
-                        {/* Step 4: Sales & Leads */}
+                        {/* Step 4: Audience & Acquisition */}
                         {currentStep === 3 && (
                             <div className="space-y-6">
                                 <div className="space-y-2">
-                                    <Label>Primary Lead Source</Label>
-                                    <Select value={formData.leadSource} onValueChange={(val: string) => updateField("leadSource", val)}>
+                                    <Label>Email List / User Base Size</Label>
+                                    <Select value={formData.listSize} onValueChange={(val: string) => updateField("listSize", val)}>
                                         <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="referrals">Referrals / Word of Mouth</SelectItem>
-                                            <SelectItem value="ads">Paid Ads (FB, Google, etc.)</SelectItem>
-                                            <SelectItem value="seo">Content / SEO</SelectItem>
-                                            <SelectItem value="outbound">Outbound / Cold Outreach</SelectItem>
-                                            <SelectItem value="none">None / Random</SelectItem>
+                                            <SelectItem value="under-1k">Under 1,000</SelectItem>
+                                            <SelectItem value="1k-5k">1,000 - 5,000</SelectItem>
+                                            <SelectItem value="5k-10k">5,000 - 10,000</SelectItem>
+                                            <SelectItem value="10k-50k">10,000 - 50,000</SelectItem>
+                                            <SelectItem value="50k+">50,000+</SelectItem>
                                         </SelectContent>
                                     </Select>
                                 </div>
                                 <div className="space-y-2">
-                                    <Label>Sales Conversion Rate (Leads to Customers)</Label>
-                                    <Select value={formData.conversionRate} onValueChange={(val: string) => updateField("conversionRate", val)}>
+                                    <Label>Primary Traffic / Lead Source</Label>
+                                    <Select value={formData.trafficSource} onValueChange={(val: string) => updateField("trafficSource", val)}>
                                         <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="<10%">Less than 10%</SelectItem>
-                                            <SelectItem value="10-20%">10 - 20%</SelectItem>
-                                            <SelectItem value="20-30%">20 - 30%</SelectItem>
-                                            <SelectItem value="30-50%">30 - 50%</SelectItem>
-                                            <SelectItem value="50%+">50%+</SelectItem>
-                                            <SelectItem value="unknown">I don't know</SelectItem>
+                                            <SelectItem value="organic-social">Organic social (Twitter/X, LinkedIn, IG, TikTok)</SelectItem>
+                                            <SelectItem value="paid-ads">Paid ads (Meta, Google, YouTube)</SelectItem>
+                                            <SelectItem value="seo">SEO / Content marketing</SelectItem>
+                                            <SelectItem value="email">Email list</SelectItem>
+                                            <SelectItem value="affiliates">Affiliates / Partnerships</SelectItem>
+                                            <SelectItem value="referrals">Word of mouth / Referrals</SelectItem>
+                                            <SelectItem value="mixed">Mix of several</SelectItem>
                                         </SelectContent>
                                     </Select>
                                 </div>
                                 <div className="grid md:grid-cols-2 gap-4">
                                     <div className="space-y-2">
-                                        <Label>Average Transaction / Deal Size</Label>
-                                        <Select value={formData.dealSize} onValueChange={(val: string) => updateField("dealSize", val)}>
-                                            <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select Size..." /></SelectTrigger>
+                                        <Label>Visitor / Lead to Customer Conversion Rate</Label>
+                                        <Select value={formData.conversionRate} onValueChange={(val: string) => updateField("conversionRate", val)}>
+                                            <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
                                             <SelectContent>
-                                                <SelectItem value="micro">Micro Transactions</SelectItem>
-                                                <SelectItem value="small">Small (Standard Consumer)</SelectItem>
-                                                <SelectItem value="medium">Medium (Premium Service)</SelectItem>
-                                                <SelectItem value="high">High-Value (B2B/Contract)</SelectItem>
-                                                <SelectItem value="enterprise">Enterprise / Large Scale</SelectItem>
+                                                <SelectItem value="under-1">Under 1%</SelectItem>
+                                                <SelectItem value="1-3">1 - 3%</SelectItem>
+                                                <SelectItem value="3-5">3 - 5%</SelectItem>
+                                                <SelectItem value="5-10">5 - 10%</SelectItem>
+                                                <SelectItem value="10+">10%+</SelectItem>
+                                                <SelectItem value="unknown">I don't know</SelectItem>
                                             </SelectContent>
                                         </Select>
                                     </div>
                                     <div className="space-y-2">
-                                        <Label>Sales Cycle Length</Label>
-                                        <Select value={formData.salesCycle} onValueChange={(val: string) => updateField("salesCycle", val)}>
+                                        <Label>Launches or Campaigns Per Year</Label>
+                                        <Select value={formData.launchesPerYear} onValueChange={(val: string) => updateField("launchesPerYear", val)}>
                                             <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
                                             <SelectContent>
-                                                <SelectItem value="<7days">Less than 7 days</SelectItem>
-                                                <SelectItem value="7-30days">7 - 30 days</SelectItem>
-                                                <SelectItem value="1-3months">1 - 3 months</SelectItem>
-                                                <SelectItem value="3months+">3 months+</SelectItem>
+                                                <SelectItem value="0-1">0 - 1 (evergreen only)</SelectItem>
+                                                <SelectItem value="2-4">2 - 4 launches</SelectItem>
+                                                <SelectItem value="5-8">5 - 8 launches</SelectItem>
+                                                <SelectItem value="continuous">Continuous (always selling)</SelectItem>
                                             </SelectContent>
                                         </Select>
                                     </div>
                                 </div>
-                                <div className="space-y-2">
-                                    <Label>Missed Calls / Opportunities Per Week</Label>
-                                    <Select value={formData.missedCalls} onValueChange={(val: string) => updateField("missedCalls", val)}>
-                                        <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value="0-5">0 - 5 (Not many)</SelectItem>
-                                            <SelectItem value="5-10">5 - 10</SelectItem>
-                                            <SelectItem value="10-30">10 - 30 (Leaking money)</SelectItem>
-                                            <SelectItem value="30+">30+ (Serious problem)</SelectItem>
-                                        </SelectContent>
-                                    </Select>
-                                </div>
-                                <div className="space-y-2">
-                                    <Label>Do you have a systematic follow-up process?</Label>
-                                    <div className="grid grid-cols-3 gap-3">
-                                        {["Yes", "Kinda", "No"].map(opt => (
-                                            <Button key={opt} type="button" variant={formData.systematicFollowUp === opt ? "default" : "outline"} onClick={() => updateField("systematicFollowUp", opt)} className={formData.systematicFollowUp === opt ? "bg-blue-600 hover:bg-blue-700" : "bg-transparent border-slate-700 hover:bg-slate-800"}>
-                                                {opt}
-                                            </Button>
-                                        ))}
+                                <div className="grid md:grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <Label>Churn / Refund Rate</Label>
+                                        <Select value={formData.churnRate} onValueChange={(val: string) => updateField("churnRate", val)}>
+                                            <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="under-5">Under 5% (healthy)</SelectItem>
+                                                <SelectItem value="5-10">5 - 10%</SelectItem>
+                                                <SelectItem value="10-20">10 - 20% (needs work)</SelectItem>
+                                                <SelectItem value="20+">20%+ (urgent)</SelectItem>
+                                                <SelectItem value="unknown">I don't track this</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label>Hours / Week on Content Creation</Label>
+                                        <Select value={formData.contentCreationHours} onValueChange={(val: string) => updateField("contentCreationHours", val)}>
+                                            <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="under-5">Under 5 hours</SelectItem>
+                                                <SelectItem value="5-10">5 - 10 hours</SelectItem>
+                                                <SelectItem value="10-20">10 - 20 hours</SelectItem>
+                                                <SelectItem value="20+">20+ hours</SelectItem>
+                                            </SelectContent>
+                                        </Select>
                                     </div>
                                 </div>
                             </div>
@@ -615,124 +591,103 @@ export function AuditForm() {
                         {/* Step 5: Time & Operations */}
                         {currentStep === 4 && (
                             <div className="space-y-6">
-                                <div className="space-y-2">
-                                    <Label>Hours Worked Per Week</Label>
-                                    <Select value={formData.hoursPerWeek} onValueChange={(val: string) => updateField("hoursPerWeek", val)}>
-                                        <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value="<30">Less than 30</SelectItem>
-                                            <SelectItem value="30-40">30-40 Hours</SelectItem>
-                                            <SelectItem value="40-60">40-60 Hours</SelectItem>
-                                            <SelectItem value="60+">60+ Hours (Burnout Territory)</SelectItem>
-                                        </SelectContent>
-                                    </Select>
+                                <div className="grid md:grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <Label>Total Hours Worked Per Week</Label>
+                                        <Select value={formData.hoursPerWeek} onValueChange={(val: string) => updateField("hoursPerWeek", val)}>
+                                            <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="under-20">Under 20</SelectItem>
+                                                <SelectItem value="20-40">20 - 40 hours</SelectItem>
+                                                <SelectItem value="40-60">40 - 60 hours</SelectItem>
+                                                <SelectItem value="60+">60+ hours (burnout zone)</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label>Hours / Week on Support &amp; Admin</Label>
+                                        <Select value={formData.supportHoursPerWeek} onValueChange={(val: string) => updateField("supportHoursPerWeek", val)}>
+                                            <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="0-2">0 - 2 hours</SelectItem>
+                                                <SelectItem value="2-5">2 - 5 hours</SelectItem>
+                                                <SelectItem value="5-10">5 - 10 hours</SelectItem>
+                                                <SelectItem value="10+">10+ hours</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
                                 </div>
                                 <div className="space-y-2">
-                                    <Label>% Time on Strategic / High-Value Work</Label>
+                                    <Label>% Time on High-Value Work (creating, selling, strategy)</Label>
                                     <Select value={formData.highValueWork} onValueChange={(val: string) => updateField("highValueWork", val)}>
                                         <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="<10%">Less than 10% (Stuck in weeds)</SelectItem>
-                                            <SelectItem value="10-30%">10 - 30%</SelectItem>
-                                            <SelectItem value="30-70%">30 - 70%</SelectItem>
-                                            <SelectItem value="70%+">70%+ (Pure Exec/Strategy)</SelectItem>
+                                            <SelectItem value="under-20">Under 20% (stuck in the weeds)</SelectItem>
+                                            <SelectItem value="20-40">20 - 40%</SelectItem>
+                                            <SelectItem value="40-60">40 - 60%</SelectItem>
+                                            <SelectItem value="60+">60%+ (mostly strategic)</SelectItem>
                                         </SelectContent>
                                     </Select>
                                 </div>
                                 <div className="space-y-2">
-                                    <Label>Could you take 2 weeks off without a crisis?</Label>
+                                    <Label>Is your onboarding / delivery automated?</Label>
+                                    <div className="grid grid-cols-3 gap-3">
+                                        {["Yes", "Partially", "No"].map(opt => (
+                                            <Button key={opt} type="button" variant={formData.onboardingAutomated === opt ? "default" : "outline"}
+                                                onClick={() => updateField("onboardingAutomated", opt)}
+                                                className={formData.onboardingAutomated === opt ? "bg-blue-600 hover:bg-blue-700" : "bg-transparent border-slate-700 hover:bg-slate-800"}>
+                                                {opt}
+                                            </Button>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className="space-y-2">
+                                    <Label>Could you take 2 weeks off without revenue dipping?</Label>
                                     <div className="grid grid-cols-3 gap-3">
                                         {["Yes", "Maybe", "No"].map(opt => (
-                                            <Button key={opt} type="button" variant={formData.twoWeeksOff === opt ? "default" : "outline"} onClick={() => updateField("twoWeeksOff", opt)} className={formData.twoWeeksOff === opt ? "bg-blue-600 hover:bg-blue-700" : "bg-transparent border-slate-700 hover:bg-slate-800"}>
+                                            <Button key={opt} type="button" variant={formData.twoWeeksOff === opt ? "default" : "outline"}
+                                                onClick={() => updateField("twoWeeksOff", opt)}
+                                                className={formData.twoWeeksOff === opt ? "bg-blue-600 hover:bg-blue-700" : "bg-transparent border-slate-700 hover:bg-slate-800"}>
                                                 {opt}
                                             </Button>
                                         ))}
                                     </div>
                                 </div>
                                 <div className="space-y-4">
-                                    <Label>Pain Level (1-10) - How urgent is this?</Label>
+                                    <Label>Pain Level (1-10) — How urgent is fixing this?</Label>
                                     <Slider value={formData.painLevel} onValueChange={(val: number[]) => updateField("painLevel", val)} min={1} max={10} step={1} className="py-2" />
                                     <div className="flex justify-between text-xs text-slate-400">
-                                        <span>1 (Fine)</span>
-                                        <span>5 (Annoying)</span>
-                                        <span>10 (Crisis)</span>
+                                        <span>1 (Fine)</span><span>5 (Annoying)</span><span>10 (Crisis)</span>
                                     </div>
                                 </div>
                                 <div className="space-y-2">
-                                    <Label>What keeps you up at night regarding your business?</Label>
-                                    <Textarea value={formData.keepsUpAtNight} onChange={(e) => updateField("keepsUpAtNight", e.target.value)} className="bg-slate-800 border-slate-700 h-24" placeholder="Be specific..." />
+                                    <Label>What keeps you up at night about your business?</Label>
+                                    <Textarea value={formData.keepsUpAtNight} onChange={(e) => updateField("keepsUpAtNight", e.target.value)}
+                                        className="bg-slate-800 border-slate-700 h-24" placeholder="Be specific..." />
                                 </div>
                             </div>
                         )}
 
-                        {/* Step 6: Reputation & Retention */}
+                        {/* Step 6: Tech & Automation */}
                         {currentStep === 5 && (
-                            <div className="space-y-6">
-                                <div className="grid md:grid-cols-2 gap-4">
-                                    <div className="space-y-2">
-                                        <Label>Google Reviews Count</Label>
-                                        <Input value={formData.googleReviews} onChange={(e) => updateField("googleReviews", e.target.value)} type="number" className="bg-slate-800 border-slate-700" />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label>Average Google Rating</Label>
-                                        <Input value={formData.googleRating} onChange={(e) => updateField("googleRating", e.target.value)} type="number" step="0.1" className="bg-slate-800 border-slate-700" />
-                                    </div>
-                                </div>
-                                <div className="space-y-2">
-                                    <Label>System to ask for reviews?</Label>
-                                    <Select value={formData.askReviewsSystem} onValueChange={(val: string) => updateField("askReviewsSystem", val)}>
-                                        <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value="automated">Automated (Software)</SelectItem>
-                                            <SelectItem value="manual">Manual (We ask in person)</SelectItem>
-                                            <SelectItem value="none">None / Random</SelectItem>
-                                        </SelectContent>
-                                    </Select>
-                                </div>
-                                <div className="space-y-2">
-                                    <Label>Do you respond to reviews?</Label>
-                                    <Select value={formData.respondReviews} onValueChange={(val: string) => updateField("respondReviews", val)}>
-                                        <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value="always">Always</SelectItem>
-                                            <SelectItem value="negative-only">Only Negative Ones</SelectItem>
-                                            <SelectItem value="sometimes">Sometimes</SelectItem>
-                                            <SelectItem value="never">Never</SelectItem>
-                                        </SelectContent>
-                                    </Select>
-                                </div>
-                                <div className="space-y-2">
-                                    <Label>% Repeat Customers</Label>
-                                    <Select value={formData.repeatCustomers} onValueChange={(val: string) => updateField("repeatCustomers", val)}>
-                                        <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value="<10%">Less than 10%</SelectItem>
-                                            <SelectItem value="10-25%">10 - 25%</SelectItem>
-                                            <SelectItem value="25-50%">25 - 50%</SelectItem>
-                                            <SelectItem value="50%+">50%+</SelectItem>
-                                        </SelectContent>
-                                    </Select>
-                                </div>
-                                <div className="space-y-2">
-                                    <Label>Recurring Revenue?</Label>
-                                    <div className="grid grid-cols-3 gap-3">
-                                        {["Yes (>30%)", "Small (<30%)", "No"].map(opt => (
-                                            <Button key={opt} type="button" variant={formData.recurringRevenue === opt ? "default" : "outline"} onClick={() => updateField("recurringRevenue", opt)} className={formData.recurringRevenue === opt ? "bg-blue-600 hover:bg-blue-700" : "bg-transparent border-slate-700 hover:bg-slate-800"}>
-                                                {opt}
-                                            </Button>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-
-                        {/* Step 7: Tech & Tools */}
-                        {currentStep === 6 && (
                             <div className="space-y-6">
                                 <div className="space-y-3">
                                     <Label>Which tools do you currently use?</Label>
                                     <div className="grid grid-cols-2 gap-2">
-                                        {["CRM (HubSpot, Salesforce, etc)", "Spreadsheets / Excel", "Project Mgmt (Trello, Asana)", "Slack / Teams", "Zapier / Make", "Email Marketing", "Accounting (Xero/Quickbooks)", "Calendar Booking"].map(tool => (
+                                        {[
+                                            "Kajabi / Teachable / Thinkific",
+                                            "Skool / Circle / Mighty Networks",
+                                            "ConvertKit / Mailchimp / ActiveCampaign",
+                                            "Stripe / PayPal",
+                                            "Zapier / Make",
+                                            "Slack / Discord",
+                                            "Notion / ClickUp / Asana",
+                                            "Webflow / WordPress",
+                                            "Intercom / Zendesk / Crisp",
+                                            "Analytics (GA, Mixpanel, etc.)",
+                                            "CRM (HubSpot, Pipedrive, etc.)",
+                                            "Calendar Booking (Cal, Calendly)"
+                                        ].map(tool => (
                                             <div key={tool} className="flex items-center space-x-2">
                                                 <Checkbox id={tool} checked={formData.tools.includes(tool)} onCheckedChange={() => toggleArrayItem("tools", tool)} className="border-slate-600 data-[state=checked]:bg-blue-600" />
                                                 <label htmlFor={tool} className="text-sm text-slate-300 cursor-pointer">{tool}</label>
@@ -741,29 +696,40 @@ export function AuditForm() {
                                     </div>
                                 </div>
                                 <div className="space-y-2">
-                                    <Label>% Processes Automated</Label>
+                                    <Label>% of Your Business That's Automated</Label>
                                     <Select value={formData.percentAutomated} onValueChange={(val: string) => updateField("percentAutomated", val)}>
                                         <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="none">0% (All Manual)</SelectItem>
-                                            <SelectItem value="<30%">Less than 30%</SelectItem>
-                                            <SelectItem value="30-70%">30 - 70%</SelectItem>
-                                            <SelectItem value=">70%">70%+ (Highly Automated)</SelectItem>
+                                            <SelectItem value="none">Almost nothing (all manual)</SelectItem>
+                                            <SelectItem value="under-30">Under 30%</SelectItem>
+                                            <SelectItem value="30-60">30 - 60%</SelectItem>
+                                            <SelectItem value="60+">60%+ (highly automated)</SelectItem>
                                         </SelectContent>
                                     </Select>
                                 </div>
                                 <div className="space-y-2">
-                                    <Label>#1 Goal for Next 12 Months</Label>
-                                    <Input value={formData.next12MonthsGoal} onChange={(e) => updateField("next12MonthsGoal", e.target.value)} placeholder="e.g. Double revenue, Hire a GM, Sell business" className="bg-slate-800 border-slate-700" />
+                                    <Label>Biggest Time-Waster in Your Business</Label>
+                                    <Input value={formData.biggestTimeWaste} onChange={(e) => updateField("biggestTimeWaste", e.target.value)}
+                                        placeholder="e.g. Answering DMs, onboarding calls, content editing..." className="bg-slate-800 border-slate-700" />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label>Biggest Thing Holding You Back</Label>
-                                    <Input value={formData.holdingBack} onChange={(e) => updateField("holdingBack", e.target.value)} placeholder="e.g. Cash flow, finding staff" className="bg-slate-800 border-slate-700" />
+                                    <Label>#1 Goal for Next 12 Months</Label>
+                                    <Input value={formData.next12MonthsGoal} onChange={(e) => updateField("next12MonthsGoal", e.target.value)}
+                                        placeholder="e.g. Hit $1M ARR, launch new product, take a month off" className="bg-slate-800 border-slate-700" />
                                 </div>
                                 <div className="space-y-3">
                                     <Label>What problems are you experiencing?</Label>
                                     <div className="grid grid-cols-2 gap-2">
-                                        {["Team Confusion", "Burnout", "Inconsistent Sales", "Customer Complaints", "Low Profit Margins", "Tech Overwhelm", "Can't Scale"].map(prob => (
+                                        {[
+                                            "Burnout / overwork",
+                                            "High churn / refunds",
+                                            "Inconsistent revenue",
+                                            "Support overwhelm",
+                                            "Can't scale without hiring",
+                                            "Content creation hamster wheel",
+                                            "Low conversion rates",
+                                            "Tech overwhelm"
+                                        ].map(prob => (
                                             <div key={prob} className="flex items-center space-x-2">
                                                 <Checkbox id={prob} checked={formData.problems.includes(prob)} onCheckedChange={() => toggleArrayItem("problems", prob)} className="border-slate-600 data-[state=checked]:bg-red-600" />
                                                 <label htmlFor={prob} className="text-sm text-slate-300 cursor-pointer">{prob}</label>
@@ -774,18 +740,18 @@ export function AuditForm() {
                             </div>
                         )}
 
-                        {/* Step 8: Let's Go */}
-                        {currentStep === 7 && (
+                        {/* Step 7: Let's Go */}
+                        {currentStep === 6 && (
                             <div className="space-y-6">
                                 <div className="space-y-2">
-                                    <Label>Excitement Level (1-10) to fix this?</Label>
+                                    <Label>How excited are you to fix this? (1-10)</Label>
                                     <Select value={formData.excitementLevel} onValueChange={(val: string) => updateField("excitementLevel", val)}>
                                         <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
                                         <SelectContent>
                                             <SelectItem value="10">10 - Ready to go NOW</SelectItem>
-                                            <SelectItem value="8-9">8-9 - Very Interested</SelectItem>
+                                            <SelectItem value="8-9">8-9 - Very interested</SelectItem>
                                             <SelectItem value="5-7">5-7 - Exploring</SelectItem>
-                                            <SelectItem value="<5">Less than 5 - Just looking</SelectItem>
+                                            <SelectItem value="under-5">Under 5 - Just looking</SelectItem>
                                         </SelectContent>
                                     </Select>
                                 </div>
@@ -802,15 +768,14 @@ export function AuditForm() {
                                     </Select>
                                 </div>
                                 <div className="space-y-2">
-                                    <Label>Investment Tolerance for Growth</Label>
+                                    <Label>Investment Comfort Level</Label>
                                     <Select value={formData.growthBudget} onValueChange={(val: string) => updateField("growthBudget", val)}>
-                                        <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select Tolerance..." /></SelectTrigger>
+                                        <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="starter">Starting Foundation</SelectItem>
-                                            <SelectItem value="moderate">Steady Growth</SelectItem>
-                                            <SelectItem value="aggressive">Aggressive Scaling</SelectItem>
-                                            <SelectItem value="leader">Market Dominance</SelectItem>
-                                            <SelectItem value="enterprise">Full System Overhaul</SelectItem>
+                                            <SelectItem value="starter">Under $5K (single system)</SelectItem>
+                                            <SelectItem value="moderate">$5K - $15K (multiple systems)</SelectItem>
+                                            <SelectItem value="aggressive">$15K - $40K (full build)</SelectItem>
+                                            <SelectItem value="enterprise">$40K+ (AI-native operations)</SelectItem>
                                         </SelectContent>
                                     </Select>
                                 </div>
@@ -820,18 +785,17 @@ export function AuditForm() {
                                         <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
                                         <SelectContent>
                                             <SelectItem value="me">Yes, just me</SelectItem>
-                                            <SelectItem value="partner">Me + Business Partner</SelectItem>
-                                            <SelectItem value="board">Board / Committee</SelectItem>
-                                            <SelectItem value="other">No, I'm researching for someone else</SelectItem>
+                                            <SelectItem value="partner">Me + business partner</SelectItem>
+                                            <SelectItem value="team">Team decision</SelectItem>
+                                            <SelectItem value="other">Researching for someone else</SelectItem>
                                         </SelectContent>
                                     </Select>
                                 </div>
-
                                 <div className="pt-4 border-t border-slate-800">
                                     <div className="flex items-start space-x-2">
                                         <Checkbox id="optin" checked={formData.newsletterOptIn} onCheckedChange={(c: boolean) => updateField("newsletterOptIn", c === true)} className="mt-1 border-slate-600 data-[state=checked]:bg-blue-600" />
                                         <label htmlFor="optin" className="text-sm text-slate-400">
-                                            I agree to receive the detailed audit results and occasional growth insights via email. We respect your inbox.
+                                            I agree to receive my detailed audit results and occasional growth insights via email.
                                         </label>
                                     </div>
                                 </div>
@@ -841,17 +805,13 @@ export function AuditForm() {
                     </motion.div>
                 </AnimatePresence>
 
-                {/* Navigation Buttons */}
                 <div className="flex justify-between mt-8 pt-8 border-t border-slate-800">
                     <Button variant="ghost" onClick={handleBack} disabled={currentStep === 0} className="text-slate-400 hover:text-white hover:bg-slate-800">
                         <ArrowLeft className="w-4 h-4 mr-2" /> Back
                     </Button>
-
                     {currentStep === STEPS.length - 1 ? (
                         <Button onClick={handleSubmit} disabled={isSubmitting || !formData.newsletterOptIn} className="bg-green-600 hover:bg-green-700 text-white px-8">
-                            {isSubmitting ? "Submitting..." : (
-                                <>Submit Audit <Send className="w-4 h-4 ml-2" /></>
-                            )}
+                            {isSubmitting ? "Submitting..." : (<>Submit Audit <Send className="w-4 h-4 ml-2" /></>)}
                         </Button>
                     ) : (
                         <Button onClick={handleNext} className="bg-white text-black hover:bg-slate-200">
@@ -864,43 +824,31 @@ export function AuditForm() {
             {/* Exit-Intent Modal */}
             <AnimatePresence>
                 {showExitCapture && (
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
-                    >
-                        <motion.div
-                            initial={{ scale: 0.9, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
-                            exit={{ scale: 0.9, opacity: 0 }}
-                        >
+                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+                        <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }}>
                             <Card className="bg-slate-900 border-slate-700 p-8 max-w-md mx-4 relative">
-                                <button
-                                    onClick={() => setShowExitCapture(false)}
-                                    className="absolute top-4 right-4 text-slate-400 hover:text-white"
-                                >
+                                <button onClick={() => setShowExitCapture(false)} className="absolute top-4 right-4 text-slate-400 hover:text-white">
                                     <X className="w-5 h-5" />
                                 </button>
                                 {exitEmailSent ? (
                                     <div className="text-center py-4">
-                                        <div className="text-3xl mb-3">📬</div>
                                         <p className="text-white font-semibold text-lg">Check your inbox!</p>
                                         <p className="text-slate-400 text-sm mt-1">We sent a link to finish your audit.</p>
                                     </div>
                                 ) : (
                                     <>
-                                        <h3 className="text-white text-xl font-bold mb-2">Wait! Don&apos;t lose your progress!</h3>
+                                        <h3 className="text-white text-xl font-bold mb-2">Don&apos;t lose your progress!</h3>
                                         <p className="text-slate-400 text-sm mb-6">
                                             We can send you a link to finish your audit later, or book a call and we&apos;ll walk you through it.
                                         </p>
                                         <div className="space-y-3">
                                             <Button onClick={handleSaveProgress} className="w-full bg-blue-600 hover:bg-blue-700 text-white">
-                                                📧 Email Me a Link
+                                                Email Me a Link
                                             </Button>
                                             <Button asChild variant="outline" className="w-full border-slate-600 text-slate-300 hover:bg-slate-800">
                                                 <a href="https://cal.com/mia-louviere-a4n2hk/30min" target="_blank" rel="noopener noreferrer">
-                                                    📞 Book a Call Instead
+                                                    Book a Call Instead
                                                 </a>
                                             </Button>
                                         </div>

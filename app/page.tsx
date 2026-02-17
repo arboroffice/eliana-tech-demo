@@ -17,110 +17,97 @@ export default function HomePage() {
           <section className="min-h-screen flex items-center justify-center px-4 sm:px-6">
             <div className="max-w-4xl mx-auto text-center">
               <p className="text-sm sm:text-base uppercase tracking-[0.2em] text-slate-400 mb-6">
-                For Founders Doing $500K–$5M Who Feel Trapped
+                AI Infrastructure for Info &amp; SaaS Companies
               </p>
               <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight mb-8">
-                IP LICENSING &{" "}
+                SCALE TO{" "}
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-slate-200 to-slate-500">
-                  GROWTH INFRASTRUCTURE
-                </span>
+                  $1M+ ARR
+                </span>{" "}
+                WITHOUT SCALING HEADCOUNT
               </h1>
               <p className="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto mb-6 leading-relaxed italic">
-                You built a business. Congrats. Now here&apos;s the problem: you built a prison.
+                The fastest-growing info and SaaS companies aren't hiring more people. They're building AI systems that do the work of 10.
               </p>
               <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto mb-12 leading-relaxed">
-                Every decision goes through you. Every problem lands on your desk. The bigger you get, the more trapped you become. This isn&apos;t a motivation problem. This is a <span className="text-white font-semibold">systems problem</span>.
+                We build the <span className="text-white font-semibold">automated backend</span> that runs your onboarding, support, retention, and growth ops—so you can focus on <span className="text-white font-semibold">product and revenue</span>.
               </p>
               <Link
                 href="/audit"
                 className="inline-block px-10 py-4 rounded-full bg-white text-black text-lg font-bold hover:bg-slate-200 transition-all duration-300 hover:scale-105"
               >
-                Get Your Free Audit
+                Get Your Free Automation Audit →
               </Link>
             </div>
           </section>
 
-          {/* THE REAL PROBLEM */}
+          {/* PAIN — YOU'RE STUCK IN THE MACHINE */}
           <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5">
-            <div className="max-w-3xl mx-auto">
-              <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-10">
-                Here&apos;s The Real Problem
-              </h2>
-              <div className="space-y-6 text-lg text-slate-400 leading-relaxed">
-                <p>
-                  You built your business on yourself. Your instincts. Your decisions. Your relationships.
+            <div className="max-w-4xl mx-auto">
+              <div className="text-center mb-16">
+                <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-6">
+                  You're Stuck in the Machine
+                </h2>
+                <p className="text-lg text-slate-400 max-w-xl mx-auto">
+                  You built a product people love. Now you're drowning in the operations around it.
                 </p>
-                <p>
-                  That worked at $100K. That worked at $500K. But now you&apos;re at a crossroads:
-                </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-10">
-                  <div className="p-6 rounded-2xl border border-white/10 bg-white/5">
-                    <h3 className="text-white font-bold text-xl mb-3">Path 1: Stay Stuck</h3>
-                    <p className="text-slate-400">You keep doing everything yourself. You make good money but you&apos;re trapped. You can&apos;t scale because you can&apos;t clone yourself.</p>
+              </div>
+
+              <div className="space-y-6">
+                {[
+                  { pain: "Onboarding every new user or customer manually", twist: "You're doing $50/hr work in a $500/hr business." },
+                  { pain: "Support tickets eating your entire day", twist: "Your inbox is a full-time job you didn't hire for." },
+                  { pain: "Churn you can see coming but can't prevent", twist: "Users go quiet, then cancel—and you find out too late." },
+                  { pain: "No idea which channels actually drive revenue", twist: "You're spending blind—budget over strategy." },
+                  { pain: "Can't take a week off without things breaking", twist: "Your business is a job with better branding." },
+                ].map((item) => (
+                  <div
+                    key={item.pain}
+                    className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-6 p-6 rounded-2xl border border-white/10 bg-white/5"
+                  >
+                    <p className="text-white font-medium flex-1">{item.pain}</p>
+                    <p className="text-slate-400 italic flex-1">{item.twist}</p>
                   </div>
-                  <div className="p-6 rounded-2xl border border-white/20 bg-white/10">
-                    <h3 className="text-white font-bold text-xl mb-3">Path 2: Build The System</h3>
-                    <p className="text-slate-300">You rebuild your business so it runs without you in the middle of everything.</p>
-                  </div>
-                </div>
-                <p>
-                  Most founders don&apos;t take path 2 because they think it&apos;s too hard. Or too expensive. Or they don&apos;t know where to start.
-                </p>
-                <p className="text-slate-500">
-                  They stay on path 1. For years. Making the same money. Working the same hours. Getting more tired.
-                </p>
+                ))}
               </div>
             </div>
           </section>
 
-          {/* WHY SCALING FAILS */}
+          {/* REFRAME */}
           <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5">
-            <div className="max-w-3xl mx-auto">
+            <div className="max-w-3xl mx-auto text-center">
               <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-10">
-                Why Most Scaling Attempts Fail
+                You Don't Need More Hires.<br />You Need Systems.
               </h2>
-              <div className="space-y-8">
-                {[
-                  { attempt: "You hire a manager.", result: "They need direction from you. So nothing changes." },
-                  { attempt: "You create processes.", result: "Your team doesn't follow them. Because they don't match how your business actually works." },
-                  { attempt: "You implement software.", result: "It sits unused. Because nobody understands why it matters." },
-                  { attempt: "You take a course on delegation.", result: "You feel motivated for a week. Then you go back to doing everything because it's faster than explaining it." },
-                ].map((item, i) => (
-                  <div key={i} className="flex gap-4">
-                    <span className="text-2xl text-white/20 font-black shrink-0">✕</span>
-                    <div>
-                      <p className="text-white font-semibold text-lg">{item.attempt}</p>
-                      <p className="text-slate-400 mt-1">{item.result}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <p className="text-lg text-slate-300 mt-10 p-6 rounded-2xl border border-white/10 bg-white/5">
-                The problem isn&apos;t execution. The problem is you never built the actual operating system. You just layered stuff on top of the broken system you already had.
+              <p className="text-lg text-slate-400 leading-relaxed mb-8">
+                Hiring more people adds more management. Buying more tools adds more tabs. Neither gets you out of the machine.
+              </p>
+              <p className="text-lg text-slate-300 leading-relaxed">
+                You need <span className="text-white font-semibold">automated infrastructure</span> that runs your business behind the scenes—the same backend systems that let lean teams outperform companies 10x their size.
               </p>
             </div>
           </section>
 
-          {/* WHAT AN OS LOOKS LIKE */}
+          {/* SOLUTIONS */}
           <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5 bg-gradient-to-b from-transparent to-slate-900/20">
             <div className="max-w-5xl mx-auto">
               <div className="text-center mb-16">
                 <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-6">
-                  What Growth Infrastructure Actually Looks Like
+                  What We Build for You
                 </h2>
                 <p className="text-lg text-slate-400 max-w-xl mx-auto">
-                  It&apos;s not a tool. It&apos;s the IP that runs the tool.
+                  Concrete systems that replace the grind. Not tools—outcomes.
                 </p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {[
-                  { title: "Clear Workflows", desc: "Everyone knows what to do and when to do it. No guessing. No waiting for you." },
-                  { title: "Decision Frameworks", desc: "Your team makes decisions without you because they know the rules. When to say yes. When to say no." },
-                  { title: "Smart Automation", desc: "Leads get followed up. Reports get made. Content gets scheduled. Because the system does it — not because someone remembers." },
-                  { title: "Real Accountability", desc: "People know what they're responsible for. Results are tracked. Problems get fixed fast." },
-                  { title: "True Scalability", desc: "Add revenue without adding proportional overhead. Your business grows. Your workload doesn't." },
-                  { title: "Your Freedom", desc: "You work less. You think more about strategy. You actually have time to live your life." },
+                  { title: "Automated Onboarding", desc: "From signup to activation to first value—zero manual touches. AI-driven sequences that adapt to each user's behavior and guide them to 'aha' faster." },
+                  { title: "Churn Prevention Engine", desc: "Detect at-risk users before they cancel. Automated health scoring, re-engagement sequences, and win-back campaigns that run 24/7." },
+                  { title: "AI Content Engine", desc: "One long-form piece becomes 30+ assets. Clips, threads, carousels, emails—generated in your voice, not generic AI slop." },
+                  { title: "Support That Scales", desc: "AI trained on your product and docs handles 80% of tickets instantly. Your team only gets pulled in when it actually matters." },
+                  { title: "Revenue Intelligence", desc: "Know exactly which channel, campaign, and touchpoint drove each conversion. Kill what doesn't work. Double down on what does." },
+                  { title: "Trial-to-Paid Automation", desc: "Behavior-triggered nudges, upgrade prompts, and personalized offers that convert free users into paying customers on autopilot." },
                 ].map((item) => (
                   <div
                     key={item.title}
@@ -131,182 +118,242 @@ export default function HomePage() {
                   </div>
                 ))}
               </div>
-
-              <p className="text-center text-lg text-slate-300 mt-12">
-                That&apos;s it. That&apos;s what separates businesses that scale from businesses that stay stuck.
-              </p>
             </div>
           </section>
 
-          {/* TIMELINE — WHAT HAPPENS WITHOUT IT */}
+          {/* BEFORE / AFTER */}
           <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5">
-            <div className="max-w-3xl mx-auto">
-              <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-12">
-                What Happens When You Don&apos;t Build This
-              </h2>
-              <div className="space-y-8 relative">
-                <div className="absolute left-4 top-2 bottom-2 w-px bg-gradient-to-b from-white/20 via-white/10 to-white/5 hidden sm:block" />
-                {[
-                  { year: "Year 1–2", text: "You're excited. You're making money. Life is good.", color: "text-green-400" },
-                  { year: "Year 3–4", text: "Growth slows. You're tired. Every new customer requires more of your time.", color: "text-yellow-400" },
-                  { year: "Year 5+", text: "You're stuck. Making decent money but can't grow. Hiring more people doesn't help — they just slow you down waiting for decisions.", color: "text-red-400" },
-                ].map((item) => (
-                  <div key={item.year} className="flex gap-6 sm:pl-10">
-                    <div>
-                      <span className={`text-sm font-bold uppercase tracking-wider ${item.color}`}>{item.year}</span>
-                      <p className="text-lg text-slate-400 mt-2">{item.text}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <p className="text-slate-500 mt-10 text-lg italic">
-                A business that looks successful from the outside but feels like a prison from the inside. This is where most founders live.
-              </p>
-            </div>
-          </section>
-
-          {/* WHAT HAPPENS WHEN YOU DO */}
-          <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5">
-            <div className="max-w-3xl mx-auto">
-              <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-10">
-                What Happens When You Do
-              </h2>
-              <div className="space-y-6">
-                {[
-                  "Leads come in and get qualified automatically. No more dead leads sitting in your inbox.",
-                  "Your team moves fast. They make decisions. They execute. They don't wait for you.",
-                  "Problems get caught early because there's visibility. You're not firefighting anymore.",
-                  "Growth accelerates because your business can handle more customers without your personal involvement.",
-                  "You work less. You think more about strategy. You actually have time to live your life.",
-                ].map((item, i) => (
-                  <div key={i} className="flex gap-4 items-start">
-                    <span className="text-white/30 text-xl mt-1">→</span>
-                    <p className="text-lg text-slate-300">{item}</p>
-                  </div>
-                ))}
-              </div>
-              <p className="text-white font-semibold text-lg mt-10">
-                This isn&apos;t theoretical. We&apos;ve done this for 50+ different types of businesses.
-              </p>
-            </div>
-          </section>
-
-          {/* HOW WE DO IT */}
-          <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5">
-            <div className="max-w-5xl mx-auto">
+            <div className="max-w-4xl mx-auto">
               <div className="text-center mb-16">
                 <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-6">
-                  How We Actually Do It
+                  The Transformation
                 </h2>
+                <p className="text-lg text-slate-400 max-w-xl mx-auto">
+                  What changes when your business runs on systems instead of you.
+                </p>
               </div>
 
-              <div className="space-y-12">
-                {/* Step 1 */}
-                <div className="p-8 rounded-2xl border border-white/10 bg-white/5">
-                  <span className="text-5xl font-black text-white/10">01</span>
-                  <h3 className="text-2xl font-bold text-white mt-4 mb-4">The Audit</h3>
-                  <p className="text-lg text-slate-400 leading-relaxed mb-4">
-                    We spend time in your actual business. Not surface level. Deep. We talk to your team. We see how decisions really get made. We find where time disappears.
-                  </p>
-                  <p className="text-slate-400 leading-relaxed">
-                    Most founders think they know what&apos;s wrong. They&apos;re usually wrong. They think it&apos;s a people problem. It&apos;s a systems problem.
-                  </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {/* Before */}
+                <div className="p-8 rounded-2xl border border-red-500/20 bg-red-500/5">
+                  <h3 className="text-sm uppercase tracking-wider text-red-400 font-bold mb-6">Before</h3>
+                  <ul className="space-y-4">
+                    {[
+                      "60+ hours/week firefighting operations",
+                      "Churn you can see but can't stop",
+                      "Support backlog growing every week",
+                      "Onboarding is a manual mess",
+                      "Revenue plateaus despite more traffic",
+                      "Burning out on the business you built",
+                    ].map((item) => (
+                      <li key={item} className="flex items-start gap-3">
+                        <span className="text-red-400 mt-0.5">✕</span>
+                        <span className="text-slate-400">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
 
-                {/* Step 2 */}
-                <div className="p-8 rounded-2xl border border-white/10 bg-white/5">
-                  <span className="text-5xl font-black text-white/10">02</span>
-                  <h3 className="text-2xl font-bold text-white mt-4 mb-4">The Diagnosis</h3>
-                  <p className="text-lg text-slate-400 leading-relaxed mb-4">
-                    We map out what your operating system needs to look like. What stays with you. What gets delegated. What gets automated. Where your team needs training.
-                  </p>
-                  <p className="text-slate-400 leading-relaxed">
-                    Most people are surprised. Not by how expensive it is. By how much money they&apos;re already leaving on the table.
-                  </p>
+                {/* After */}
+                <div className="p-8 rounded-2xl border border-green-500/20 bg-green-500/5">
+                  <h3 className="text-sm uppercase tracking-wider text-green-400 font-bold mb-6">After</h3>
+                  <ul className="space-y-4">
+                    {[
+                      "20–25 hours/week focused on product & growth",
+                      "Churn cut by 30–50% with automated retention",
+                      "80% of support handled by AI instantly",
+                      "Users activate themselves through smart sequences",
+                      "Revenue compounds through automated upsells",
+                      "Excited about your business again",
+                    ].map((item) => (
+                      <li key={item} className="flex items-start gap-3">
+                        <span className="text-green-400 mt-0.5">✓</span>
+                        <span className="text-slate-300">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
+              </div>
+            </div>
+          </section>
 
-                {/* Step 3 */}
-                <div className="p-8 rounded-2xl border border-white/10 bg-white/5">
-                  <span className="text-5xl font-black text-white/10">03</span>
-                  <h3 className="text-2xl font-bold text-white mt-4 mb-4">Install Your Assets</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                    <div className="p-6 rounded-xl border border-white/10 bg-white/5">
-                      <h4 className="text-white font-bold text-lg mb-2">The Container (IP Licensing)</h4>
-                      <p className="text-slate-400">You license our frameworks. We guide you. You build it inside your business. You own the infrastructure. Better if you want to understand the machine.</p>
-                    </div>
-                    <div className="p-6 rounded-xl border border-white/20 bg-white/10">
-                      <h4 className="text-white font-bold text-lg mb-2">Done-For-You (OS Installation)</h4>
-                      <p className="text-slate-300">We build it. We install it. We make it work. High-speed deployment. You focus on revenue while we build the backend.</p>
-                    </div>
+          {/* HOW IT WORKS */}
+          <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5 bg-gradient-to-b from-transparent to-slate-900/20">
+            <div className="max-w-4xl mx-auto">
+              <div className="text-center mb-16">
+                <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-6">
+                  How It Works
+                </h2>
+                <p className="text-lg text-slate-400 max-w-xl mx-auto">
+                  Three steps from overwhelmed operator to automated growth machine.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {[
+                  {
+                    step: "01",
+                    title: "Automation Audit",
+                    desc: "We map your entire business—every workflow, every bottleneck, every hour wasted on ops. You get a custom blueprint for what to automate and in what order.",
+                  },
+                  {
+                    step: "02",
+                    title: "Build & Install",
+                    desc: "We build your AI systems and integrate them into your existing stack. Stripe, Intercom, ConvertKit, Webflow, your CRM—whatever you use, we plug into it.",
+                  },
+                  {
+                    step: "03",
+                    title: "Launch & Optimize",
+                    desc: "Your systems go live. We monitor, tune, and optimize for 30 days. You get trained on everything so you're never dependent on us.",
+                  },
+                ].map((item) => (
+                  <div key={item.step} className="text-center">
+                    <div className="text-5xl font-black text-white/10 mb-4">{item.step}</div>
+                    <h3 className="text-xl font-bold text-white mb-3">{item.title}</h3>
+                    <p className="text-slate-400 leading-relaxed">{item.desc}</p>
                   </div>
-                  <p className="text-slate-400 mt-6">Both paths result in true IP ownership. Different timelines. Different involvement. Your choice.</p>
-                </div>
-
-                {/* Step 4 */}
-                <div className="p-8 rounded-2xl border border-white/10 bg-white/5">
-                  <span className="text-5xl font-black text-white/10">04</span>
-                  <h3 className="text-2xl font-bold text-white mt-4 mb-4">Transformation</h3>
-                  <p className="text-lg text-slate-400 leading-relaxed">
-                    Systems get installed. Workflows get built. Your team gets trained. Automations start running. Within <span className="text-white font-semibold">90 days</span>, everything looks different. Your team moves faster. You&apos;re not in every decision. Growth accelerates. You have time back.
-                  </p>
-                </div>
+                ))}
               </div>
             </div>
           </section>
 
-          {/* THE AUDIT IS FREE */}
+          {/* PRICING */}
           <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5">
-            <div className="max-w-3xl mx-auto">
-              <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-8">
-                The Audit Is Actually Free
-              </h2>
-              <div className="space-y-6 text-lg text-slate-400 leading-relaxed">
-                <p>
-                  Not a sales call disguised as a consultation. Not a pitch.
+            <div className="max-w-4xl mx-auto">
+              <div className="text-center mb-16">
+                <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-6">
+                  We Win When You Win
+                </h2>
+                <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+                  No bloated retainers. No hourly billing. You pay a one-time setup fee to build the systems, then a performance fee tied to results. Our incentives are aligned with yours.
                 </p>
-                <p>
-                  We actually diagnose your business. We show you where you&apos;re broken. What opportunities you&apos;re missing. What&apos;s possible.
-                </p>
-                <p>
-                  Some people do the audit and decide they don&apos;t need us. That&apos;s fine. At least they know what they&apos;re dealing with.
-                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {/* Setup Fee */}
+                <div className="p-8 rounded-2xl border border-white/10 bg-white/5">
+                  <div className="mb-6">
+                    <span className="text-sm uppercase tracking-wider text-slate-400">Step 1</span>
+                    <h3 className="text-2xl font-bold text-white mt-2">Setup Fee</h3>
+                  </div>
+                  <p className="text-slate-400 leading-relaxed mb-8">
+                    Covers the build — we architect and install your AI systems, integrate with your existing stack, and get everything live. You own it all.
+                  </p>
+                  <ul className="space-y-3 mb-8">
+                    {[
+                      "Custom system architecture & build",
+                      "Full integration with your tools",
+                      "30 days of optimization & tuning",
+                      "Team training & documentation",
+                    ].map((item) => (
+                      <li key={item} className="flex items-start gap-3">
+                        <span className="text-white mt-0.5">—</span>
+                        <span className="text-slate-300 text-sm">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="border-t border-white/10 pt-6">
+                    <p className="text-slate-400 text-sm">Scoped per project. Starts at <span className="text-white font-bold">$5K</span> for a single system.</p>
+                  </div>
+                </div>
+
+                {/* Performance Fee */}
+                <div className="p-8 rounded-2xl border border-amber-500/30 bg-gradient-to-br from-amber-500/10 to-transparent">
+                  <div className="mb-6">
+                    <span className="text-sm uppercase tracking-wider text-amber-400">Step 2</span>
+                    <h3 className="text-2xl font-bold text-white mt-2">Performance Fee</h3>
+                  </div>
+                  <p className="text-slate-400 leading-relaxed mb-8">
+                    Once your systems are live, we earn a percentage of the revenue they help generate. If we don't move the needle, you don't pay.
+                  </p>
+                  <ul className="space-y-3 mb-8">
+                    {[
+                      "Revenue share on system-attributed growth",
+                      "Ongoing monitoring & optimization",
+                      "Priority support & system upgrades",
+                      "Quarterly strategy reviews with Mia",
+                    ].map((item) => (
+                      <li key={item} className="flex items-start gap-3">
+                        <span className="text-amber-400 mt-0.5">—</span>
+                        <span className="text-slate-300 text-sm">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="border-t border-amber-500/20 pt-6">
+                    <p className="text-slate-400 text-sm">Percentage based on scope. <span className="text-amber-400 font-bold">We only eat when you eat.</span></p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-12 p-6 rounded-2xl border border-white/10 bg-white/5 text-center">
                 <p className="text-slate-300">
-                  Most people do the audit and realize their business is costing them way more than they thought. In time. In missed opportunities. In trapped potential.
-                </p>
-                <p className="text-white font-semibold">
-                  That insight alone is worth something. The path forward is worth even more.
+                  Not sure which systems you need? <span className="text-white font-semibold">Start with the free audit.</span> We'll map your business, identify the highest-ROI automations, and scope it out — no commitment.
                 </p>
               </div>
             </div>
           </section>
 
-          {/* INDUSTRIES */}
+          {/* BUILT FOR */}
           <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5 bg-slate-900/10">
             <div className="max-w-5xl mx-auto text-center">
               <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-12">
-                Infrastructure We&apos;ve Licensed For
+                Built for Info &amp; SaaS Companies
               </h2>
               <div className="flex flex-wrap justify-center gap-3 mb-12">
                 {[
-                  "Home Services", "Automotive", "Real Estate", "Healthcare",
-                  "Restaurants", "Salons & Spas", "Construction", "Retail",
-                  "Professional Services", "And 50+ more"
-                ].map((industry) => (
+                  "Course Creators", "Coaches", "SaaS Founders", "Community Builders",
+                  "Membership Sites", "Digital Product Sellers", "Newsletter Operators",
+                  "Dev Tool Companies", "B2B SaaS", "Cohort-Based Programs",
+                ].map((type) => (
                   <span
-                    key={industry}
-                    className={`px-5 py-2.5 rounded-full text-sm font-medium border transition-all duration-300 ${
-                      industry === "And 50+ more"
-                        ? "border-white/30 text-white bg-white/10"
-                        : "border-white/10 text-slate-300 bg-white/5 hover:bg-white/10 hover:border-white/20"
-                    }`}
+                    key={type}
+                    className="px-5 py-2.5 rounded-full text-sm font-medium border border-white/10 text-slate-300 bg-white/5 hover:bg-white/10 hover:border-white/20 transition-all duration-300"
                   >
-                    {industry}
+                    {type}
                   </span>
                 ))}
               </div>
-              <p className="text-lg text-slate-400 italic">
-                &ldquo;If your business has customers, leads, and operations, we can help.&rdquo;
+              <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+                If you sell software, knowledge, or access—and you're tired of being the entire operations team—we built this for you.
               </p>
+            </div>
+          </section>
+
+          {/* FAQ */}
+          <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5">
+            <div className="max-w-3xl mx-auto">
+              <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-12 text-center">
+                Common Questions
+              </h2>
+              <div className="space-y-6">
+                {[
+                  {
+                    q: "Do I need to be technical?",
+                    a: "Not at all. We handle every aspect of the build. You just tell us how your business works, and we build the systems around it.",
+                  },
+                  {
+                    q: "Will this work with my existing tools?",
+                    a: "Yes. We integrate with Stripe, Intercom, ConvertKit, Kajabi, Teachable, Webflow, HubSpot, Zapier, and pretty much anything with an API. We build around your stack, not against it.",
+                  },
+                  {
+                    q: "How long until my systems are live?",
+                    a: "A single system takes 2–4 weeks. A full-stack build takes 6–8 weeks. Enterprise builds are scoped individually but typically 8–12 weeks.",
+                  },
+                  {
+                    q: "What if I outgrow the system?",
+                    a: "That's the point. These systems are built to scale with you. And if you need to expand, we can add new systems anytime—each one compounds on the last.",
+                  },
+                  {
+                    q: "Is this just ChatGPT wrappers?",
+                    a: "No. We build custom infrastructure—automated workflows, intelligent routing, data pipelines, and AI agents trained on your specific business. This is engineering, not prompt tricks.",
+                  },
+                ].map((item) => (
+                  <div key={item.q} className="p-6 rounded-2xl border border-white/10 bg-white/5">
+                    <h3 className="text-lg font-bold text-white mb-3">{item.q}</h3>
+                    <p className="text-slate-400 leading-relaxed">{item.a}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </section>
 
@@ -314,16 +361,16 @@ export default function HomePage() {
           <section className="py-24 sm:py-32 px-4 sm:px-6">
             <div className="max-w-3xl mx-auto text-center">
               <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-6">
-                Ready to stop being the bottleneck in your own business?
+                Your Business Should Work<br />Without You in It.
               </h2>
-              <p className="text-lg text-slate-400 mb-10">
-                The audit is free. The insight is priceless. The transformation is inevitable.
+              <p className="text-lg text-slate-400 mb-10 max-w-2xl mx-auto">
+                Take the free automation audit. We'll show you exactly where you're losing time, what to automate first, and what it looks like on the other side.
               </p>
               <Link
                 href="/audit"
                 className="inline-block px-12 py-5 rounded-full bg-white text-black text-lg font-bold hover:bg-slate-200 transition-all duration-300 hover:scale-105"
               >
-                Get Your Free Audit
+                Get Your Free Automation Audit →
               </Link>
             </div>
           </section>

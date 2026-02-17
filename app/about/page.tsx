@@ -17,16 +17,16 @@ export default function AboutPage() {
                 <h1 className="text-4xl md:text-6xl font-bold mb-8 text-center">About Eliana Tech</h1>
                 <div className="prose prose-invert prose-lg max-w-none space-y-6">
                     <p className="text-xl text-slate-300 leading-relaxed text-center mb-12">
-                        We are building the future of autonomous business operations.
+                        We build AI infrastructure that lets info and SaaS companies scale without scaling headcount.
                     </p>
                     <p>
-                        Eliana Tech is at the forefront of the AI revolution, dedicated to transforming how businesses operate. We believe that the future workforce is hybrid-where humans and AI work together seamlessly to achieve unprecedented scale and efficiency.
+                        Most growing companies hit the same wall: revenue goes up, but so does the operational chaos. More users means more support tickets. More customers means more onboarding. More growth means more busywork that pulls founders away from the thing that actually matters—building great products and serving their audience.
                     </p>
                     <p>
-                        Our mission is to democratize access to advanced AI technology. We build intelligent agents that handle the repetitive, complex, and time-consuming tasks of modern business, freeing up human creativity and strategic thinking.
+                        Eliana Tech exists to solve that. We build automated systems—onboarding flows, churn prevention engines, AI-powered support, content pipelines, revenue intelligence—that handle the operational grind so you don't have to.
                     </p>
                     <p>
-                        From capturing every lead 24/7 to automating complex back-office workflows, our solutions are designed to be the invisible engine of your growth. We don't just provide software; we provide a digital workforce that grows with you.
+                        We're not consultants who hand you a PDF and leave. We're not an agency renting you hours. We build real infrastructure that becomes part of your company, compounds in value over time, and lets lean teams operate like organizations 10x their size.
                     </p>
                 </div>
 
@@ -40,7 +40,7 @@ export default function AboutPage() {
                 >
                     <h2 className="text-3xl md:text-4xl font-bold mb-4">Meet the Founder</h2>
                     <p className="text-lg text-slate-300 mb-8 max-w-xl mx-auto">
-                        From running a car dealership at 14 to building a $100M AI company — meet Mia, the force behind ElianaTech.
+                        From running a car dealership at 14 to building an AI infrastructure company — meet Mia, the force behind ElianaTech.
                     </p>
                     <Link
                         href="/founder"

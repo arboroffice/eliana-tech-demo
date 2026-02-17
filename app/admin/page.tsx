@@ -24,30 +24,58 @@ interface Submission {
     email: string
     phoneNumber?: string
     websiteUrl?: string
-    industryCategory?: string
-    specificIndustry?: string
+    // New info/SaaS fields
+    businessType?: string
+    businessTypeOther?: string
+    productDescription?: string
+    productPricePoint?: string
+    numberOfProducts?: string
+    platform?: string
+    deliveryMethod?: string
+    listSize?: string
+    trafficSource?: string
+    launchesPerYear?: string
+    churnRate?: string
+    contentCreationHours?: string
+    supportHoursPerWeek?: string
+    onboardingAutomated?: string
+    biggestTimeWaste?: string
+    // Shared fields (old + new)
     currentRevenue?: string
     revenueTrend?: string
     profitMargin?: string
-    cashFlow?: string
     revenueGoal?: string
     bottleneck?: string
     teamSize?: string
-    teamPerformance?: string
-    systemsDocumented?: string
-    whoRunsSystems?: string
-    techComfort?: number[]
-    leadSource?: string
     conversionRate?: string
-    dealSize?: string
-    salesCycle?: string
-    missedCalls?: string
-    systematicFollowUp?: string
     hoursPerWeek?: string
     highValueWork?: string
     twoWeeksOff?: string
     painLevel?: number[]
     keepsUpAtNight?: string
+    tools?: string[]
+    percentAutomated?: string
+    next12MonthsGoal?: string
+    holdingBack?: string
+    problems?: string[]
+    excitementLevel?: string
+    startDate?: string
+    growthBudget?: string
+    decisionMaker?: string
+    newsletterOptIn?: boolean
+    // Legacy fields (backward compat)
+    industryCategory?: string
+    specificIndustry?: string
+    cashFlow?: string
+    teamPerformance?: string
+    systemsDocumented?: string
+    whoRunsSystems?: string
+    techComfort?: number[]
+    leadSource?: string
+    dealSize?: string
+    salesCycle?: string
+    missedCalls?: string
+    systematicFollowUp?: string
     fixTimeline?: string
     googleReviews?: string
     googleRating?: string
@@ -57,17 +85,7 @@ interface Submission {
     recurringRevenue?: string
     winBackSystem?: string
     referralSystem?: string
-    tools?: string[]
-    percentAutomated?: string
     dataOrganization?: string
-    next12MonthsGoal?: string
-    holdingBack?: string
-    problems?: string[]
-    excitementLevel?: string
-    startDate?: string
-    growthBudget?: string
-    decisionMaker?: string
-    newsletterOptIn?: boolean
     timeInBusiness?: string
     nicheIndustry?: string
     hvacLeadsPerMonth?: string
@@ -108,46 +126,48 @@ function calcSubScores(s: Submission) {
     let revenue = 50
     if (s.revenueTrend === 'Growing') revenue += 25
     else if (s.revenueTrend === 'Declining') revenue -= 25
-    if (s.profitMargin === '50%+') revenue += 15
-    else if (s.profitMargin === '20-50%') revenue += 10
-    else if (s.profitMargin === '<10%') revenue -= 10
+    if (s.profitMargin === '60+') revenue += 15
+    else if (s.profitMargin === '40-60') revenue += 10
+    else if (s.profitMargin === 'under-20') revenue -= 10
     else if (s.profitMargin === 'negative') revenue -= 20
-    if (s.cashFlow === 'Healthy') revenue += 10
-    else if (s.cashFlow === 'Tight') revenue -= 5
-    else if (s.cashFlow === 'Crisis') revenue -= 15
+    if (s.currentRevenue === '3m+') revenue += 10
+    else if (s.currentRevenue === '1m-3m') revenue += 5
+    else if (s.currentRevenue === 'pre-revenue') revenue -= 10
     revenue = Math.max(0, Math.min(100, revenue))
 
     // Automation
     let automation = 0
-    if (s.percentAutomated === '>70%') automation = 85
-    else if (s.percentAutomated === '30-70%') automation = 60
-    else if (s.percentAutomated === '<30%') automation = 35
+    if (s.percentAutomated === '60+') automation = 85
+    else if (s.percentAutomated === '30-60') automation = 60
+    else if (s.percentAutomated === 'under-30') automation = 35
     else if (s.percentAutomated === 'none') automation = 15
     automation += Math.min(15, safeArray(s.tools).length * 2)
+    if (s.onboardingAutomated === 'Yes') automation += 10
+    else if (s.onboardingAutomated === 'Partially') automation += 5
     automation = Math.max(0, Math.min(100, automation))
 
-    // Sales
-    let sales = 50
-    if (s.conversionRate === '50%+') sales = 90
-    else if (s.conversionRate === '30-50%') sales = 70
-    else if (s.conversionRate === '20-30%') sales = 50
-    else if (s.conversionRate === '10-20%') sales = 30
-    else if (s.conversionRate === '<10%') sales = 15
-    if (s.missedCalls === '30+') sales -= 20
-    else if (s.missedCalls === '10-30') sales -= 15
-    else if (s.missedCalls === '5-10') sales -= 5
-    if (s.systematicFollowUp === 'Yes') sales += 10
-    else if (s.systematicFollowUp !== 'Kinda') sales -= 10
-    sales = Math.max(0, Math.min(100, sales))
+    // Acquisition
+    let acquisition = 50
+    if (s.conversionRate === '10+') acquisition = 90
+    else if (s.conversionRate === '5-10') acquisition = 75
+    else if (s.conversionRate === '3-5') acquisition = 55
+    else if (s.conversionRate === '1-3') acquisition = 35
+    else if (s.conversionRate === 'under-1') acquisition = 15
+    if (s.listSize === '50k+') acquisition += 10
+    else if (s.listSize === '10k-50k') acquisition += 5
+    else if (s.listSize === 'under-1k') acquisition -= 10
+    if (s.trafficSource === 'mixed') acquisition += 5
+    acquisition = Math.max(0, Math.min(100, acquisition))
 
     // Retention
-    let retention = 20
-    if (s.repeatCustomers === '50%+') retention = 85
-    else if (s.repeatCustomers === '25-50%') retention = 65
-    else if (s.repeatCustomers === '10-25%') retention = 40
-    if (s.recurringRevenue === 'Yes (>30%)') retention += 10
-    else if (s.recurringRevenue === 'Small (<30%)') retention += 5
-    if (s.referralSystem === 'Yes') retention += 5
+    let retention = 50
+    if (s.churnRate === 'under-5') retention = 85
+    else if (s.churnRate === '5-10') retention = 60
+    else if (s.churnRate === '10-20') retention = 35
+    else if (s.churnRate === '20+') retention = 15
+    else if (s.churnRate === 'unknown') retention = 30
+    if (s.productPricePoint === '5k+' || s.productPricePoint === '1k-5k') retention += 10
+    if (s.productPricePoint === 'recurring') retention += 5
     retention = Math.max(0, Math.min(100, retention))
 
     // Time
@@ -155,16 +175,16 @@ function calcSubScores(s: Submission) {
     if (s.twoWeeksOff === 'Yes') time = 80
     else if (s.twoWeeksOff === 'Maybe') time = 45
     else time = 20
-    if (s.hoursPerWeek === '<30') time += 10
-    else if (s.hoursPerWeek === '30-40') time += 5
+    if (s.hoursPerWeek === 'under-20') time += 10
+    else if (s.hoursPerWeek === '20-40') time += 5
     else if (s.hoursPerWeek === '40-60') time -= 5
     else if (s.hoursPerWeek === '60+') time -= 15
-    if (s.highValueWork === '70%+') time += 10
-    else if (s.highValueWork === '10-30%') time -= 10
-    else if (s.highValueWork === '<10%') time -= 15
+    if (s.highValueWork === '60+') time += 10
+    else if (s.highValueWork === '20-40') time -= 10
+    else if (s.highValueWork === 'under-20') time -= 15
     time = Math.max(0, Math.min(100, time))
 
-    return { revenue, automation, sales, retention, time }
+    return { revenue, automation, acquisition, retention, time }
 }
 
 function calcLeadScore(s: Submission, auditScore: number) {
@@ -181,21 +201,22 @@ function calcLeadScore(s: Submission, auditScore: number) {
     score += Math.min(30, painLevel * 3)
     if (painLevel >= 8) reasons.push(`High pain level (${painLevel}/10)`)
 
-    const budgetScores: Record<string, number> = { enterprise: 20, leader: 18, aggressive: 15, moderate: 10, starter: 5 }
+    const budgetScores: Record<string, number> = { enterprise: 20, aggressive: 15, moderate: 10, starter: 5 }
     score += budgetScores[budget] || 0
-    if (['enterprise', 'leader', 'aggressive'].includes(budget)) reasons.push(`Strong budget (${budget})`)
+    if (['enterprise', 'aggressive'].includes(budget)) reasons.push(`Strong budget (${budget})`)
 
     const oppBonus = Math.round((100 - auditScore) / 10)
     score += oppBonus
-    if (auditScore < 40) reasons.push(`Low AI readiness (${auditScore}/100) = high opportunity`)
+    if (auditScore < 40) reasons.push(`Low automation readiness (${auditScore}/100) = high opportunity`)
 
-    if (s.missedCalls === '30+' || s.missedCalls === '10-30') { score += 5; reasons.push('Missing significant calls') }
-    if (s.systematicFollowUp === 'No') { score += 3; reasons.push('No follow-up system') }
+    if (s.churnRate === '20+' || s.churnRate === '10-20') { score += 5; reasons.push('High churn rate — urgent need') }
+    if (s.onboardingAutomated === 'No') { score += 3; reasons.push('No onboarding automation') }
     if (s.twoWeeksOff === 'No') { score += 2; reasons.push('Cannot step away') }
+    if (s.supportHoursPerWeek === '10+') { score += 3; reasons.push('10+ hrs/week on support') }
 
     score = Math.min(100, Math.max(0, score))
 
-    const isHot = score >= 80 || excitementLevel >= 8 || painLevel >= 8 || (['aggressive', 'leader', 'enterprise'].includes(budget) && excitementLevel >= 5)
+    const isHot = score >= 80 || excitementLevel >= 8 || painLevel >= 8 || (['aggressive', 'enterprise'].includes(budget) && excitementLevel >= 5)
     const isWarm = !isHot && (score >= 50 || (excitementLevel >= 5 && excitementLevel <= 7) || (painLevel >= 5 && painLevel <= 7) || (budgetScores[budget] >= 10))
 
     const level: 'hot' | 'warm' | 'cold' = isHot ? 'hot' : isWarm ? 'warm' : 'cold'
@@ -210,25 +231,27 @@ function calcLeadScore(s: Submission, auditScore: number) {
 }
 
 function calcROI(s: Submission) {
-    const missed = s.missedCalls === '30+' ? 35 : s.missedCalls === '10-30' ? 20 : s.missedCalls === '5-10' ? 7 : 3
-    const deal = s.dealSize === 'enterprise' ? 50000 : s.dealSize === 'high' ? 15000 : s.dealSize === 'medium' ? 5000 : s.dealSize === 'small' ? 500 : 100
-    const conv = s.conversionRate === '50%+' ? 0.55 : s.conversionRate === '30-50%' ? 0.4 : s.conversionRate === '20-30%' ? 0.25 : s.conversionRate === '10-20%' ? 0.15 : 0.07
+    // Churn-based revenue loss
+    const churnPct = s.churnRate === '20+' ? 0.25 : s.churnRate === '10-20' ? 0.15 : s.churnRate === '5-10' ? 0.07 : 0.03
+    const price = s.productPricePoint === '5k+' ? 7500 : s.productPricePoint === '1k-5k' ? 3000 : s.productPricePoint === '500-1k' ? 750 : s.productPricePoint === '100-500' ? 300 : s.productPricePoint === 'recurring' ? 100 : 50
+    const listSize = s.listSize === '50k+' ? 75000 : s.listSize === '10k-50k' ? 30000 : s.listSize === '5k-10k' ? 7500 : s.listSize === '1k-5k' ? 3000 : 500
 
-    const lostAnnual = missed * 52 * deal * conv
+    const lostAnnual = Math.round(listSize * churnPct * price)
     const lostMonthly = Math.round(lostAnnual / 12)
-    const wastedHours = s.hoursPerWeek === '60+' ? '1,040+' : s.hoursPerWeek === '40-60' ? '520+' : s.hoursPerWeek === '30-40' ? '260+' : '130+'
+    const wastedHours = s.hoursPerWeek === '60+' ? '1,040+' : s.hoursPerWeek === '40-60' ? '520+' : s.hoursPerWeek === '20-40' ? '260+' : '130+'
     const vacationDays = s.twoWeeksOff === 'No' ? '0' : s.twoWeeksOff === 'Maybe' ? '~5' : '14+'
+
+    const supportHrs = s.supportHoursPerWeek === '10+' ? 12 : s.supportHoursPerWeek === '5-10' ? 7 : s.supportHoursPerWeek === '2-5' ? 3 : 1
 
     const pkg = (() => {
         const pain = safeNumFromSlider(s.painLevel)
-        if (pain >= 7) return 'Scale'
-        if (s.currentRevenue === 'early' || s.growthBudget === 'starter') return 'Foundation'
-        if (s.currentRevenue === 'growth' || s.growthBudget === 'moderate' || s.growthBudget === 'aggressive') return 'Scale'
-        if (['established', 'leader'].includes(s.currentRevenue || '') || ['leader', 'enterprise'].includes(s.growthBudget || '')) return 'Transformation'
-        return 'Foundation'
+        if (pain >= 7) return 'Full Build'
+        if (s.currentRevenue === 'pre-revenue' || s.currentRevenue === 'under-100k' || s.growthBudget === 'starter') return 'Single System'
+        if (['500k-1m', '1m-3m', '3m+'].includes(s.currentRevenue || '') || ['aggressive', 'enterprise'].includes(s.growthBudget || '')) return 'Full Build'
+        return 'Multi-System'
     })()
 
-    return { lostAnnual, lostMonthly, wastedHours, vacationDays, missed, deal, conv, pkg }
+    return { lostAnnual, lostMonthly, wastedHours, vacationDays, churnPct, price, listSize, supportHrs, pkg }
 }
 
 function fmt$(n: number) {
@@ -422,15 +445,15 @@ function SubmissionDetail({ submission: s, onBack, onDelete }: { submission: Sub
                         <div className="space-y-4">
                             <ScoreBar label="Revenue & Growth" value={sub.revenue} />
                             <ScoreBar label="Automation & Tech" value={sub.automation} />
-                            <ScoreBar label="Sales & Leads" value={sub.sales} />
-                            <ScoreBar label="Retention & Reputation" value={sub.retention} />
+                            <ScoreBar label="Acquisition & Conversion" value={sub.acquisition} />
+                            <ScoreBar label="Retention & Engagement" value={sub.retention} />
                             <ScoreBar label="Time & Operations" value={sub.time} />
                         </div>
                         <div className="mt-4 pt-4 border-t border-white/5 grid grid-cols-5 gap-2 text-center">
                             {[
                                 { label: "Revenue", val: sub.revenue },
                                 { label: "Automation", val: sub.automation },
-                                { label: "Sales", val: sub.sales },
+                                { label: "Acquisition", val: sub.acquisition },
                                 { label: "Retention", val: sub.retention },
                                 { label: "Time", val: sub.time },
                             ].map(({ label, val }) => (
@@ -458,7 +481,7 @@ function SubmissionDetail({ submission: s, onBack, onDelete }: { submission: Sub
                             <div className="bg-white/[0.03] rounded-xl p-4 border border-white/5">
                                 <p className="text-xs text-slate-500 mb-2">Recommended Package</p>
                                 <p className="text-white font-bold text-lg">{roi.pkg}</p>
-                                <p className="text-slate-400 text-xs mt-1">{roi.pkg === 'Foundation' ? 'Core systems setup' : roi.pkg === 'Scale' ? 'Growth acceleration' : 'Full transformation'}</p>
+                                <p className="text-slate-400 text-xs mt-1">{roi.pkg === 'Single System' ? 'One core system' : roi.pkg === 'Multi-System' ? 'Multiple systems' : 'Full build-out'}</p>
                             </div>
                         </div>
 
@@ -491,11 +514,11 @@ function SubmissionDetail({ submission: s, onBack, onDelete }: { submission: Sub
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
                             <div className="bg-red-500/5 border border-red-500/20 rounded-xl p-4 text-center">
                                 <p className="text-red-400 font-bold text-2xl">{fmt$(roi.lostAnnual)}</p>
-                                <p className="text-slate-400 text-xs mt-1">Lost revenue/year from missed leads</p>
+                                <p className="text-slate-400 text-xs mt-1">Lost revenue/year from churn</p>
                             </div>
                             <div className="bg-red-500/5 border border-red-500/20 rounded-xl p-4 text-center">
                                 <p className="text-red-400 font-bold text-2xl">{roi.wastedHours} hrs</p>
-                                <p className="text-slate-400 text-xs mt-1">Spent on tasks AI could handle/year</p>
+                                <p className="text-slate-400 text-xs mt-1">Spent on tasks automation could handle/year</p>
                             </div>
                             <div className="bg-red-500/5 border border-red-500/20 rounded-xl p-4 text-center">
                                 <p className="text-red-400 font-bold text-2xl">{roi.vacationDays} days</p>
@@ -505,10 +528,10 @@ function SubmissionDetail({ submission: s, onBack, onDelete }: { submission: Sub
                         <div className="bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-4">
                             <p className="text-emerald-400 font-semibold mb-2">If we close this lead:</p>
                             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
-                                <div><p className="text-white font-bold">{fmt$(roi.lostMonthly)}</p><p className="text-xs text-slate-500">Monthly recovery</p></div>
-                                <div><p className="text-white font-bold">{roi.missed}/wk</p><p className="text-xs text-slate-500">Missed calls</p></div>
-                                <div><p className="text-white font-bold">{fmt$(roi.deal)}</p><p className="text-xs text-slate-500">Avg deal size</p></div>
-                                <div><p className="text-white font-bold">{Math.round(roi.conv * 100)}%</p><p className="text-xs text-slate-500">Conversion rate</p></div>
+                                <div><p className="text-white font-bold">{fmt$(roi.lostMonthly)}</p><p className="text-xs text-slate-500">Monthly churn cost</p></div>
+                                <div><p className="text-white font-bold">{Math.round(roi.churnPct * 100)}%</p><p className="text-xs text-slate-500">Churn rate</p></div>
+                                <div><p className="text-white font-bold">{fmt$(roi.price)}</p><p className="text-xs text-slate-500">Avg product price</p></div>
+                                <div><p className="text-white font-bold">{roi.supportHrs} hrs/wk</p><p className="text-xs text-slate-500">Support hours</p></div>
                             </div>
                         </div>
                     </DetailSection>
@@ -546,14 +569,14 @@ function SubmissionDetail({ submission: s, onBack, onDelete }: { submission: Sub
                     {/* Quick key facts */}
                     <DetailSection title="Key Facts at a Glance" icon={Eye} iconColor="text-cyan-400">
                         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-                            <DetailField label="Industry" value={s.specificIndustry || s.industryCategory} />
-                            <DetailField label="Revenue Stage" value={s.currentRevenue} />
+                            <DetailField label="Business Type" value={s.businessType || s.specificIndustry || s.industryCategory} />
+                            <DetailField label="Revenue" value={s.currentRevenue} />
                             <DetailField label="Team Size" value={s.teamSize} />
+                            <DetailField label="Platform" value={s.platform} />
                             <DetailField label="Growth Budget" value={s.growthBudget} />
-                            <DetailField label="Decision Maker" value={s.decisionMaker} />
                             <DetailField label="Wants to Start" value={s.startDate} />
                             <DetailField label="Excitement" value={s.excitementLevel} />
-                            <DetailField label="Revenue Goal" value={s.revenueGoal} />
+                            <DetailField label="Churn Rate" value={s.churnRate} />
                         </div>
                     </DetailSection>
                 </>
@@ -564,63 +587,51 @@ function SubmissionDetail({ submission: s, onBack, onDelete }: { submission: Sub
                     <DetailSection title="About You" icon={Users} iconColor="text-blue-400">
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                             <DetailField label="Full Name" value={s.fullName} /><DetailField label="Company Name" value={s.companyName} /><DetailField label="Email" value={s.email} />
-                            <DetailField label="Phone Number" value={s.phoneNumber} /><DetailField label="Website URL" value={s.websiteUrl} /><DetailField label="Industry Category" value={s.industryCategory} />
-                            <DetailField label="Specific Industry" value={s.specificIndustry} /><DetailField label="Time in Business" value={s.timeInBusiness} /><DetailField label="Niche Industry" value={s.nicheIndustry} />
+                            <DetailField label="Phone Number" value={s.phoneNumber} /><DetailField label="Website URL" value={s.websiteUrl} />
+                            <DetailField label="Business Type" value={s.businessType} /><DetailField label="Business Type (Other)" value={s.businessTypeOther} />
+                            {/* Legacy */}
+                            <DetailField label="Industry Category" value={s.industryCategory} /><DetailField label="Specific Industry" value={s.specificIndustry} />
+                        </div>
+                    </DetailSection>
+
+                    <DetailSection title="Product" icon={Briefcase} iconColor="text-purple-400">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                            <DetailField label="Product Description" value={s.productDescription} />
+                            <DetailField label="Price Point" value={s.productPricePoint} /><DetailField label="# of Products" value={s.numberOfProducts} />
+                            <DetailField label="Platform" value={s.platform} /><DetailField label="Delivery Method" value={s.deliveryMethod} />
                         </div>
                     </DetailSection>
 
                     <DetailSection title="Revenue & Growth" icon={DollarSign} iconColor="text-green-400">
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                            <DetailField label="Current Revenue Stage" value={s.currentRevenue} /><DetailField label="Revenue Trend (Last 3 Mo)" value={s.revenueTrend} /><DetailField label="Profit Margin" value={s.profitMargin} />
-                            <DetailField label="Cash Flow" value={s.cashFlow} /><DetailField label="12-Month Expansion Goal" value={s.revenueGoal} /><DetailField label="Biggest Bottleneck" value={s.bottleneck} />
+                            <DetailField label="Current Revenue" value={s.currentRevenue} /><DetailField label="Revenue Trend" value={s.revenueTrend} /><DetailField label="Profit Margin" value={s.profitMargin} />
+                            <DetailField label="Revenue Goal" value={s.revenueGoal} /><DetailField label="Biggest Bottleneck" value={s.bottleneck} /><DetailField label="Team Size" value={s.teamSize} />
                         </div>
                     </DetailSection>
 
-                    <DetailSection title="Your Team" icon={Briefcase} iconColor="text-purple-400">
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-4">
-                            <DetailField label="Team Size" value={s.teamSize} /><DetailField label="Team Performance" value={s.teamPerformance} />
-                            <DetailField label="Systems Documented?" value={s.systemsDocumented} /><DetailField label="Who Runs AI Systems?" value={s.whoRunsSystems} />
-                        </div>
-                        {safeNumFromSlider(s.techComfort) > 0 && <SliderBar label="Tech Comfort Level" value={safeNumFromSlider(s.techComfort)} />}
-                    </DetailSection>
-
-                    <DetailSection title="Sales & Leads" icon={Target} iconColor="text-orange-400">
+                    <DetailSection title="Audience & Acquisition" icon={Target} iconColor="text-orange-400">
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                            <DetailField label="Primary Lead Source" value={s.leadSource} /><DetailField label="Conversion Rate" value={s.conversionRate} /><DetailField label="Avg Deal Size" value={s.dealSize} />
-                            <DetailField label="Sales Cycle Length" value={s.salesCycle} /><DetailField label="Missed Calls/Week" value={s.missedCalls} /><DetailField label="Systematic Follow-Up?" value={s.systematicFollowUp} />
+                            <DetailField label="List / User Base Size" value={s.listSize} /><DetailField label="Traffic Source" value={s.trafficSource} /><DetailField label="Conversion Rate" value={s.conversionRate} />
+                            <DetailField label="Launches Per Year" value={s.launchesPerYear} /><DetailField label="Churn / Refund Rate" value={s.churnRate} /><DetailField label="Content Creation Hrs/Wk" value={s.contentCreationHours} />
+                            {/* Legacy */}
+                            <DetailField label="Lead Source (legacy)" value={s.leadSource} /><DetailField label="Deal Size (legacy)" value={s.dealSize} /><DetailField label="Missed Calls (legacy)" value={s.missedCalls} />
                         </div>
-                        {(s.hvacLeadsPerMonth || s.hvacCloseRate || s.hvacAvgTicket || s.hvacMaintenance) && (
-                            <div className="mt-4 pt-4 border-t border-white/5"><p className="text-xs text-slate-500 mb-3">Industry-Specific</p>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                                    <DetailField label="Leads/Month" value={s.hvacLeadsPerMonth} /><DetailField label="Close Rate" value={s.hvacCloseRate} /><DetailField label="Avg Ticket" value={s.hvacAvgTicket} />
-                                    <DetailField label="Maintenance Plans" value={s.hvacMaintenance} /><DetailField label="Retention Rate" value={s.retentionRate} /><DetailField label="Customer Value" value={s.customerValue} />
-                                </div>
-                            </div>
-                        )}
                     </DetailSection>
 
                     <DetailSection title="Time & Operations" icon={Clock} iconColor="text-cyan-400">
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-4">
-                            <DetailField label="Hours Worked/Week" value={s.hoursPerWeek} /><DetailField label="% High-Value Work" value={s.highValueWork} />
-                            <DetailField label="Can Take 2 Weeks Off?" value={s.twoWeeksOff} /><DetailField label="Fix Timeline" value={s.fixTimeline} />
+                            <DetailField label="Hours Worked/Week" value={s.hoursPerWeek} /><DetailField label="Support Hrs/Week" value={s.supportHoursPerWeek} />
+                            <DetailField label="% High-Value Work" value={s.highValueWork} /><DetailField label="Onboarding Automated?" value={s.onboardingAutomated} />
+                            <DetailField label="Can Take 2 Weeks Off?" value={s.twoWeeksOff} /><DetailField label="Biggest Time Waste" value={s.biggestTimeWaste} />
                         </div>
                         {safeNumFromSlider(s.painLevel) > 0 && <div className="mb-4"><SliderBar label="Pain Level" value={safeNumFromSlider(s.painLevel)} /></div>}
                         {s.keepsUpAtNight && <div className="bg-white/[0.03] rounded-xl p-4 border border-white/5"><span className="text-xs text-slate-500 block mb-1">What keeps them up at night</span><p className="text-slate-300 text-sm leading-relaxed">{s.keepsUpAtNight}</p></div>}
                     </DetailSection>
 
-                    <DetailSection title="Reputation & Retention" icon={Star} iconColor="text-yellow-400">
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                            <DetailField label="Google Reviews Count" value={s.googleReviews} /><DetailField label="Google Rating" value={s.googleRating} /><DetailField label="Review Request System" value={s.askReviewsSystem} />
-                            <DetailField label="Responds to Reviews?" value={s.respondReviews} /><DetailField label="% Repeat Customers" value={s.repeatCustomers} /><DetailField label="Recurring Revenue" value={s.recurringRevenue} />
-                            <DetailField label="Win-Back System?" value={s.winBackSystem} /><DetailField label="Referral System?" value={s.referralSystem} />
-                        </div>
-                    </DetailSection>
-
                     <DetailSection title="Tech & Tools" icon={Settings} iconColor="text-indigo-400">
                         {safeArray<string>(s.tools).length > 0 && <div className="mb-4"><span className="text-xs text-slate-500 block mb-2">Current Tools</span><div className="flex flex-wrap gap-2">{safeArray<string>(s.tools).map((t, i) => <span key={i} className="px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs">{t}</span>)}</div></div>}
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-4">
-                            <DetailField label="% Automated" value={s.percentAutomated} /><DetailField label="Data Organization" value={s.dataOrganization} />
-                            <DetailField label="#1 Goal (12 Mo)" value={s.next12MonthsGoal} /><DetailField label="Holding Back" value={s.holdingBack} />
+                            <DetailField label="% Automated" value={s.percentAutomated} /><DetailField label="#1 Goal (12 Mo)" value={s.next12MonthsGoal} /><DetailField label="Holding Back" value={s.holdingBack} />
                         </div>
                         {safeArray<string>(s.problems).length > 0 && <div><span className="text-xs text-slate-500 block mb-2">Problems</span><div className="flex flex-wrap gap-2">{safeArray<string>(s.problems).map((p, i) => <span key={i} className="px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-red-300 text-xs">{p}</span>)}</div></div>}
                     </DetailSection>
@@ -642,10 +653,10 @@ function SubmissionDetail({ submission: s, onBack, onDelete }: { submission: Sub
 // ═══════════════════════════════════════════════════════════════════════════
 
 function exportToCSV(submissions: Submission[]) {
-    const headers = ["Date","Full Name","Company","Email","Phone","Website","Industry Category","Specific Industry","Revenue Stage","Revenue Trend","Profit Margin","Cash Flow","Revenue Goal","Bottleneck","Team Size","Team Performance","Systems Documented","Who Runs Systems","Tech Comfort","Lead Source","Conversion Rate","Deal Size","Sales Cycle","Missed Calls","Follow-Up System","Hours/Week","High-Value Work %","2 Weeks Off?","Pain Level","Keeps Up at Night","Fix Timeline","Google Reviews","Google Rating","Review System","Responds to Reviews","Repeat Customers","Recurring Revenue","Win-Back System","Referral System","Tools","% Automated","Data Organization","12-Mo Goal","Holding Back","Problems","Excitement","Start Date","Growth Budget","Decision Maker","Newsletter Opt-In","Audit Score","Intent Level","Lead Temperature","Lead Score","Opportunities"]
+    const headers = ["Date","Full Name","Company","Email","Phone","Website","Business Type","Product Description","Price Point","# Products","Platform","Delivery Method","Revenue Stage","Revenue Trend","Profit Margin","Revenue Goal","Bottleneck","Team Size","List Size","Traffic Source","Conversion Rate","Launches/Year","Churn Rate","Content Creation Hrs","Support Hrs/Week","Onboarding Automated","Hours/Week","High-Value Work %","2 Weeks Off?","Pain Level","Keeps Up at Night","Biggest Time Waste","Tools","% Automated","12-Mo Goal","Holding Back","Problems","Excitement","Start Date","Growth Budget","Decision Maker","Newsletter Opt-In","Audit Score","Intent Level","Lead Temperature","Lead Score","Opportunities"]
     const rows = submissions.map(s => {
         const lead = calcLeadScore(s, s.auditScore ?? 0)
-        return [s.createdAt||s.submittedAt||"",s.fullName,s.companyName,s.email,s.phoneNumber||"",s.websiteUrl||"",s.industryCategory||"",s.specificIndustry||"",s.currentRevenue||"",s.revenueTrend||"",s.profitMargin||"",s.cashFlow||"",s.revenueGoal||"",s.bottleneck||"",s.teamSize||"",s.teamPerformance||"",s.systemsDocumented||"",s.whoRunsSystems||"",safeNumFromSlider(s.techComfort).toString(),s.leadSource||"",s.conversionRate||"",s.dealSize||"",s.salesCycle||"",s.missedCalls||"",s.systematicFollowUp||"",s.hoursPerWeek||"",s.highValueWork||"",s.twoWeeksOff||"",safeNumFromSlider(s.painLevel).toString(),s.keepsUpAtNight||"",s.fixTimeline||"",s.googleReviews||"",s.googleRating||"",s.askReviewsSystem||"",s.respondReviews||"",s.repeatCustomers||"",s.recurringRevenue||"",s.winBackSystem||"",s.referralSystem||"",safeArray<string>(s.tools).join("; "),s.percentAutomated||"",s.dataOrganization||"",s.next12MonthsGoal||"",s.holdingBack||"",safeArray<string>(s.problems).join("; "),s.excitementLevel||"",s.startDate||"",s.growthBudget||"",s.decisionMaker||"",s.newsletterOptIn?"Yes":"No",s.auditScore?.toString()||"",s.intentLevel||"",lead.level,lead.score.toString(),safeArray(s.opportunities).map((o:any)=>`${o?.title||''} (${o?.impact||''})`).join("; ")]
+        return [s.createdAt||s.submittedAt||"",s.fullName,s.companyName,s.email,s.phoneNumber||"",s.websiteUrl||"",s.businessType||s.industryCategory||"",s.productDescription||"",s.productPricePoint||"",s.numberOfProducts||"",s.platform||"",s.deliveryMethod||"",s.currentRevenue||"",s.revenueTrend||"",s.profitMargin||"",s.revenueGoal||"",s.bottleneck||"",s.teamSize||"",s.listSize||"",s.trafficSource||"",s.conversionRate||"",s.launchesPerYear||"",s.churnRate||"",s.contentCreationHours||"",s.supportHoursPerWeek||"",s.onboardingAutomated||"",s.hoursPerWeek||"",s.highValueWork||"",s.twoWeeksOff||"",safeNumFromSlider(s.painLevel).toString(),s.keepsUpAtNight||"",s.biggestTimeWaste||"",safeArray<string>(s.tools).join("; "),s.percentAutomated||"",s.next12MonthsGoal||"",s.holdingBack||"",safeArray<string>(s.problems).join("; "),s.excitementLevel||"",s.startDate||"",s.growthBudget||"",s.decisionMaker||"",s.newsletterOptIn?"Yes":"No",s.auditScore?.toString()||"",s.intentLevel||"",lead.level,lead.score.toString(),safeArray(s.opportunities).map((o:any)=>`${o?.title||''} (${o?.impact||''})`).join("; ")]
     })
     const esc = (v: string) => `"${v.replace(/"/g, '""')}"`
     const csv = [headers.map(esc).join(","), ...rows.map(r => r.map(esc).join(","))].join("\n")
@@ -693,7 +704,7 @@ function Dashboard({ token, onLogout }: { token: string; onLogout: () => void })
     const filtered = submissions
         .filter((s) => {
             const q = search.toLowerCase()
-            const matchesSearch = !search || s.fullName?.toLowerCase().includes(q) || s.companyName?.toLowerCase().includes(q) || s.email?.toLowerCase().includes(q) || s.specificIndustry?.toLowerCase().includes(q) || s.phoneNumber?.includes(search)
+            const matchesSearch = !search || s.fullName?.toLowerCase().includes(q) || s.companyName?.toLowerCase().includes(q) || s.email?.toLowerCase().includes(q) || s.businessType?.toLowerCase().includes(q) || s.platform?.toLowerCase().includes(q) || s.phoneNumber?.includes(search)
             const matchesIntent = intentFilter === "all" || s.intentLevel === intentFilter
             return matchesSearch && matchesIntent
         })

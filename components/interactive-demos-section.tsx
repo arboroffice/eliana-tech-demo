@@ -12,8 +12,8 @@ const LeadGenPlanDemo = ({ isActive }: { isActive: boolean }) => {
     const prompt = "Create me a plan to get more leads this month"
     const steps = [
         { name: "Analyzing your market data", icon: "📊" },
-        { name: "Ordering EDDM flyers (2,500 homes)", icon: "📬" },
-        { name: "Scheduling flyer delivery routes", icon: "🗺️" },
+        { name: "Launching email campaign (2,500 subscribers)", icon: "📬" },
+        { name: "Setting up retargeting ads", icon: "🗺️" },
         { name: "Creating social media content", icon: "📱" },
         { name: "Setting up SMS campaign", icon: "💬" },
         { name: "Building email drip sequence", icon: "📧" },
@@ -476,7 +476,7 @@ const SMSCampaignDemo = ({ isActive }: { isActive: boolean }) => {
                 <div className="space-y-3">
                     <div className="bg-slate-800 rounded-lg p-3">
                         <p className="text-slate-400 text-xs mb-1">Campaign Message:</p>
-                        <p className="text-white text-sm">"Hi! This is a reminder about our January special - 20% off all services. Reply YES to book!"</p>
+                        <p className="text-white text-sm">"Hi! This is a reminder about our January special - 20% off annual plans. Reply YES to learn more!"</p>
                     </div>
 
                     {responses > 30 && (
@@ -554,7 +554,7 @@ const MissedCallDemo = ({ isActive }: { isActive: boolean }) => {
                     <div className="bg-slate-800 rounded-xl p-4">
                         <p className="text-slate-400 text-xs mb-2">Customer replied:</p>
                         <div className="bg-slate-700 rounded-lg p-3 text-white text-sm">
-                            "Hi! I need a quote for tree removal. Big oak in my backyard."
+                            "Hi! I'm interested in your growth plan. We're a SaaS doing about $40K MRR."
                         </div>
                         <p className="text-green-400 text-xs mt-2">→ Lead added to CRM</p>
                     </div>
@@ -569,7 +569,7 @@ const ReviewResponseDemo = ({ isActive }: { isActive: boolean }) => {
     const [phase, setPhase] = useState<"idle" | "new" | "analyzing" | "drafting" | "posted">("idle")
     const [responseText, setResponseText] = useState("")
 
-    const fullResponse = "Thank you so much for the kind words, Sarah! We're thrilled you loved the service. Our team takes pride in every job. See you next time! 🙏"
+    const fullResponse = "Thank you so much for the kind words, Sarah! We're thrilled the onboarding automation is saving you time. Our team takes pride in every build. Here's to scaling even further! 🙏"
 
     useEffect(() => {
         if (!isActive) {
@@ -614,7 +614,7 @@ const ReviewResponseDemo = ({ isActive }: { isActive: boolean }) => {
                         </div>
                         {phase === "new" && <span className="ml-auto text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded">New</span>}
                     </div>
-                    <p className="text-slate-600 text-sm">"Amazing service! They showed up on time, did great work, and cleaned up perfectly. Highly recommend!"</p>
+                    <p className="text-slate-600 text-sm">"Amazing results! Our onboarding went from 3 hours manual to fully automated. Churn dropped 40% in the first month. Highly recommend!"</p>
                 </div>
 
                 {/* AI Response */}
@@ -638,9 +638,9 @@ const ReviewResponseDemo = ({ isActive }: { isActive: boolean }) => {
 // Invoice Collection Demo
 const InvoiceCollectionDemo = ({ isActive }: { isActive: boolean }) => {
     const [invoices, setInvoices] = useState([
-        { client: "Johnson Home", amount: 2450, days: 15, status: "overdue" },
-        { client: "Martinez LLC", amount: 890, days: 7, status: "overdue" },
-        { client: "Park Family", amount: 1200, days: 3, status: "due" },
+        { client: "Apex SaaS Co", amount: 2450, days: 15, status: "overdue" },
+        { client: "CourseFlow Inc", amount: 890, days: 7, status: "overdue" },
+        { client: "MemberHub Pro", amount: 1200, days: 3, status: "due" },
     ])
     const [currentAction, setCurrentAction] = useState(-1)
 
@@ -776,7 +776,7 @@ const DailyReportDemo = ({ isActive }: { isActive: boolean }) => {
                             </div>
                             <div className="bg-slate-800 rounded-lg p-3 text-center">
                                 <p className="text-2xl font-bold text-green-400">{stats.booked}</p>
-                                <p className="text-xs text-slate-500">Jobs Booked</p>
+                                <p className="text-xs text-slate-500">Demos Booked</p>
                             </div>
                             <div className="bg-slate-800 rounded-lg p-3 text-center">
                                 <p className="text-2xl font-bold text-white">${stats.revenue.toLocaleString()}</p>
@@ -840,7 +840,7 @@ const SocialPostDemo = ({ isActive }: { isActive: boolean }) => {
                     <div className="space-y-3">
                         <div className="bg-slate-50 rounded-xl p-4 border border-slate-200">
                             <p className="text-slate-800 text-sm mb-3">
-                                "🌳 Spring is here! Time to get your yard ready. Book your tree trimming this week and get 15% off. Link in bio! #TreeService #SpringCleanup"
+                                "🚀 Just shipped: automated churn prediction that catches at-risk users 14 days before they cancel. Our clients are seeing 30-50% churn reduction. Link in bio! #SaaS #AIAutomation"
                             </p>
                             <div className="bg-slate-200 rounded-lg h-20 flex items-center justify-center text-slate-400 text-xs">
                                 [Generated Image Preview]
@@ -882,10 +882,10 @@ const QuoteGeneratorDemo = ({ isActive }: { isActive: boolean }) => {
     const [lineItems, setLineItems] = useState<{ item: string; price: number; visible: boolean }[]>([])
 
     const items = [
-        { item: "Tree removal (large oak)", price: 1200 },
-        { item: "Stump grinding", price: 250 },
-        { item: "Debris hauling", price: 150 },
-        { item: "Permit fee", price: 75 },
+        { item: "Automated onboarding system", price: 4500 },
+        { item: "Churn prediction engine", price: 3200 },
+        { item: "Integration setup (Stripe + CRM)", price: 1500 },
+        { item: "30-day optimization period", price: 800 },
     ]
 
     useEffect(() => {
@@ -920,7 +920,7 @@ const QuoteGeneratorDemo = ({ isActive }: { isActive: boolean }) => {
                 {phase === "input" && (
                     <div className="bg-slate-50 rounded-lg p-3 mb-3">
                         <p className="text-slate-500 text-xs mb-1">Customer request:</p>
-                        <p className="text-slate-800 text-sm">"I need a large oak tree removed from my backyard, including the stump."</p>
+                        <p className="text-slate-800 text-sm">"We need automated onboarding for our SaaS + churn prediction. Currently at 8% monthly churn."</p>
                     </div>
                 )}
 
@@ -994,7 +994,7 @@ const WinBackDemo = ({ isActive }: { isActive: boolean }) => {
             <div className="p-4">
                 <div className="bg-slate-50 rounded-lg p-3 mb-4 border border-slate-200">
                     <p className="text-xs text-slate-500 mb-1">Auto-message:</p>
-                    <p className="text-sm text-slate-700">"Hey [Name]! We miss you 😊 Come back this month and get 20% off your next service."</p>
+                    <p className="text-sm text-slate-700">"Hey [Name]! We miss you 😊 We just launched new AI features — come back this month and get 20% off your annual plan."</p>
                 </div>
                 <div className="space-y-3">
                     {customers.map((c, idx) => (
@@ -1024,7 +1024,7 @@ const WinBackDemo = ({ isActive }: { isActive: boolean }) => {
 const VoicemailDemo = ({ isActive }: { isActive: boolean }) => {
     const [phase, setPhase] = useState<"idle" | "playing" | "transcribing" | "done">("idle")
     const [transcript, setTranscript] = useState("")
-    const fullTranscript = "Hi, this is Mark from 542 Oak Street. I've got a big branch hanging over my roof after the storm. Can someone come take a look? My number is 555-0147. Thanks!"
+    const fullTranscript = "Hi, this is Mark from ScaleUp Labs. We're running a coaching program doing about $80K a month and need help automating our onboarding and follow-ups. My number is 555-0147. Thanks!"
 
     useEffect(() => {
         if (!isActive) {
@@ -1177,12 +1177,12 @@ const FeedbackDemo = ({ isActive }: { isActive: boolean }) => {
     return (
         <div className="bg-white rounded-2xl border border-slate-200 h-80 overflow-hidden">
             <div className="px-4 py-3 border-b border-slate-200 bg-slate-50">
-                <span className="text-sm font-medium text-slate-700">Post-Job Feedback</span>
+                <span className="text-sm font-medium text-slate-700">Customer Satisfaction</span>
             </div>
             <div className="p-4 space-y-4">
                 <div className="bg-slate-50 rounded-lg p-3 border border-slate-200">
-                    <p className="text-xs text-slate-500 mb-2">Auto-sent after job completion:</p>
-                    <p className="text-sm text-slate-700">"Thanks for choosing us! How would you rate your experience today?"</p>
+                    <p className="text-xs text-slate-500 mb-2">Auto-sent after onboarding:</p>
+                    <p className="text-sm text-slate-700">"Thanks for completing onboarding! How would you rate your experience so far?"</p>
                 </div>
 
                 {phase !== "idle" && phase !== "sending" && (
@@ -1219,9 +1219,9 @@ const FeedbackDemo = ({ isActive }: { isActive: boolean }) => {
 // Competitor Price Monitor Demo
 const CompetitorDemo = ({ isActive }: { isActive: boolean }) => {
     const [competitors, setCompetitors] = useState([
-        { name: "ABC Tree Service", price: 0, change: "" },
-        { name: "Pro Tree Guys", price: 0, change: "" },
-        { name: "Green Thumb Co", price: 0, change: "" },
+        { name: "AutomateHQ", price: 0, change: "" },
+        { name: "GrowthStack AI", price: 0, change: "" },
+        { name: "ScaleSystems", price: 0, change: "" },
     ])
     const [alert, setAlert] = useState(false)
 
@@ -1253,7 +1253,7 @@ const CompetitorDemo = ({ isActive }: { isActive: boolean }) => {
         <div className="bg-slate-900 rounded-2xl h-80 overflow-hidden">
             <div className="px-4 py-3 border-b border-slate-800 flex items-center justify-between">
                 <span className="text-sm font-medium text-slate-300">Competitor Intel</span>
-                <span className="text-xs text-slate-500">Tree Trimming Prices</span>
+                <span className="text-xs text-slate-500">Onboarding Automation</span>
             </div>
             <div className="p-4 space-y-3">
                 {competitors.map((c, idx) => (
@@ -1278,7 +1278,7 @@ const CompetitorDemo = ({ isActive }: { isActive: boolean }) => {
 
                 {alert && (
                     <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-3">
-                        <p className="text-yellow-400 text-sm">⚠️ Pro Tree Guys dropped prices. Consider promotional offer?</p>
+                        <p className="text-yellow-400 text-sm">⚠️ GrowthStack AI dropped prices. Consider promotional offer?</p>
                     </div>
                 )}
             </div>
@@ -1325,7 +1325,7 @@ const ReferralDemo = ({ isActive }: { isActive: boolean }) => {
                     <div className="space-y-2">
                         <div className="bg-slate-100 rounded-lg p-3">
                             <p className="text-slate-500 text-xs mb-1">Sarah replied:</p>
-                            <p className="text-slate-800 text-sm">"Yes! My neighbor John needs his trees done. His number is 555-0199"</p>
+                            <p className="text-slate-800 text-sm">"Yes! My friend John runs a SaaS and needs automation help. His number is 555-0199"</p>
                         </div>
                         <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
                             <p className="text-blue-700 text-sm">✓ New lead created: John (Referral from Sarah M.)</p>
@@ -1340,10 +1340,10 @@ const ReferralDemo = ({ isActive }: { isActive: boolean }) => {
 // Email Triage Demo
 const EmailTriageDemo = ({ isActive }: { isActive: boolean }) => {
     const [emails, setEmails] = useState([
-        { subject: "URGENT: Fallen tree blocking driveway", priority: "", action: "" },
-        { subject: "Newsletter from TreeTech Weekly", priority: "", action: "" },
-        { subject: "Quote request - 3 trees", priority: "", action: "" },
-        { subject: "Invoice #4521 from supplier", priority: "", action: "" },
+        { subject: "URGENT: Production API down, customers can't log in", priority: "", action: "" },
+        { subject: "Newsletter from SaaS Weekly", priority: "", action: "" },
+        { subject: "Quote request - onboarding automation", priority: "", action: "" },
+        { subject: "Invoice #4521 from AWS", priority: "", action: "" },
     ])
 
     useEffect(() => {
@@ -1353,7 +1353,7 @@ const EmailTriageDemo = ({ isActive }: { isActive: boolean }) => {
         }
 
         const results = [
-            { priority: "🔴 High", action: "→ Dispatched to crew" },
+            { priority: "🔴 High", action: "→ Escalated to engineering" },
             { priority: "⚪ Low", action: "→ Archived" },
             { priority: "🟡 Medium", action: "→ Quote sent" },
             { priority: "🟢 Normal", action: "→ Forwarded to accounting" },
@@ -1413,13 +1413,13 @@ const demos = [
     },
     {
         title: "Missed Call Text-Back",
-        description: "Never lose a lead. AI instantly texts back anyone who calls when you can't answer.",
+        description: "Never lose a lead. AI instantly texts back anyone who calls when you're unavailable.",
         demo: MissedCallDemo,
         size: "medium"
     },
     {
         title: "Review Response AI",
-        description: "Automatically respond to Google, Yelp, and Facebook reviews with personalized replies.",
+        description: "Automatically respond to G2, Capterra, and Product Hunt reviews with personalized replies.",
         demo: ReviewResponseDemo,
         size: "medium"
     },
@@ -1466,8 +1466,8 @@ const demos = [
         size: "medium"
     },
     {
-        title: "Post-Job Feedback",
-        description: "Automatically collect reviews after every job and funnel 5-stars to Google.",
+        title: "Customer Satisfaction",
+        description: "Automatically collect NPS scores after onboarding and funnel promoters to leave public reviews.",
         demo: FeedbackDemo,
         size: "medium"
     },
@@ -1497,7 +1497,7 @@ const demos = [
     },
     {
         title: "Instant Quote Generator",
-        description: "Turn customer requests into professional quotes in seconds, not hours.",
+        description: "Turn prospect requests into professional proposals in seconds, not hours.",
         demo: QuoteGeneratorDemo,
         size: "medium"
     },

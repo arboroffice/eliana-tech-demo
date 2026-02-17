@@ -1,5 +1,5 @@
 /**
- * Freebie Generator — Rich lead magnet content
+ * Freebie Generator — Rich lead magnet content (Info & SaaS)
  */
 
 export interface QuickWin {
@@ -22,80 +22,80 @@ export interface IndustryPlaybook {
 export function generateQuickWinsChecklist(formData: any, opportunities?: any[]): QuickWin[] {
   const wins: (QuickWin & { priority: number })[] = []
 
-  if (formData.systematicFollowUp !== 'Yes') {
+  if (formData.onboardingAutomated !== 'Yes') {
     wins.push({
-      icon: "📩", title: "Automate Follow-Up Sequences",
-      description: "Set up a 5-touch email/SMS sequence triggered when a lead comes in. Most leads convert on touch 3-5, but most businesses only follow up once.",
-      timeToImplement: "2-3 hours", expectedImpact: "50% increase in lead-to-close rate", priority: 95
+      icon: "🚀", title: "Automate Onboarding Sequences",
+      description: "Create a 5-email welcome sequence triggered on purchase/signup. Guide new users to their first win within 48 hours. This is the #1 way to reduce early churn.",
+      timeToImplement: "2-3 hours", expectedImpact: "30%+ reduction in early churn", priority: 95
     })
   }
 
-  if (formData.askReviewsSystem === 'none' || formData.askReviewsSystem === 'manual') {
+  if (formData.churnRate === '20+' || formData.churnRate === '10-20') {
     wins.push({
-      icon: "⭐", title: "Automate Review Requests",
-      description: "Send an automated text/email 2 hours after job completion asking for a Google review. Include a direct link. Happy customers will leave reviews if you make it easy.",
-      timeToImplement: "1 hour", expectedImpact: "2× review volume in 30 days", priority: 88
+      icon: "🔄", title: "Launch a Win-Back Campaign",
+      description: "Export churned users from the last 6 months. Send a 3-email re-engagement sequence: 'We miss you' → new features/value → special offer to return.",
+      timeToImplement: "2-3 hours", expectedImpact: "Recover 10-20% of churned revenue", priority: 92
     })
   }
 
   if (formData.twoWeeksOff === 'No') {
     wins.push({
-      icon: "🧠", title: "Delegate Email Triage to AI",
-      description: "Use an AI email assistant (e.g., SaneBox or custom GPT) to categorize, draft replies, and flag urgent items. You review instead of process.",
+      icon: "🧠", title: "Delegate Email & Support to AI",
+      description: "Use an AI assistant to categorize support requests, draft replies, and flag urgent items. You review instead of process every message.",
       timeToImplement: "1 hour setup", expectedImpact: "Save 5-10 hrs/week instantly", priority: 85
     })
   }
 
-  if (formData.percentAutomated === 'none' || formData.percentAutomated === '<30%') {
+  if (formData.percentAutomated === 'none' || formData.percentAutomated === 'under-30') {
     wins.push({
       icon: "⚡", title: "Connect Your Top 3 Tools",
-      description: "Identify the 3 tools you use most (CRM, email, calendar) and connect them with Zapier or Make. Start with: new lead → CRM entry → welcome email → calendar invite.",
-      timeToImplement: "2-4 hours", expectedImpact: "Eliminate 80% of copy-paste work", priority: 82
+      description: "Identify your 3 most-used tools (Stripe, email platform, community) and connect them with Zapier or Make. Start with: new purchase → welcome email → community access → CRM update.",
+      timeToImplement: "2-4 hours", expectedImpact: "Eliminate 80% of manual workflows", priority: 82
     })
   }
 
-  if (formData.missedCalls !== '0-5') {
+  if (formData.supportHoursPerWeek === '10+' || formData.supportHoursPerWeek === '5-10') {
     wins.push({
-      icon: "📞", title: "Install AI Receptionist",
-      description: "Set up a virtual receptionist (e.g., Smith.ai or a custom voice agent) to answer calls 24/7, qualify leads, and book appointments directly into your calendar.",
-      timeToImplement: "Same day", expectedImpact: "Capture 100% of inbound leads", priority: 92
+      icon: "💬", title: "Deploy AI Support Chatbot",
+      description: "Gather your top 50 FAQs. Set up a chatbot (Intercom, Crisp, or Tidio) trained on your content. Handle 80% of questions automatically.",
+      timeToImplement: "2-3 hours", expectedImpact: "Reduce support load by 60-80%", priority: 88
     })
   }
 
-  if (formData.repeatCustomers !== '50%+') {
+  if (formData.contentCreationHours === '20+' || formData.contentCreationHours === '10-20') {
     wins.push({
-      icon: "🔄", title: "Launch Win-Back Campaign",
-      description: "Export past clients who haven't bought in 90+ days. Send a 3-email sequence with a special offer or check-in. Most businesses recover 10-20% of churned customers.",
-      timeToImplement: "2 hours", expectedImpact: "Recover 10-20% churned revenue", priority: 75
+      icon: "📝", title: "AI Content Repurposing Pipeline",
+      description: "Take your best long-form content and use AI to extract 5 social posts, 3 email snippets, and 1 thread. Schedule with Buffer or Hypefury.",
+      timeToImplement: "1-2 hours", expectedImpact: "Save 10-15 hrs/week on content", priority: 78
     })
   }
 
-  if (formData.conversionRate === '<10%' || formData.conversionRate === '10-20%') {
+  if (formData.conversionRate === 'under-1' || formData.conversionRate === '1-3') {
     wins.push({
-      icon: "🎯", title: "Add Lead Scoring",
-      description: "Score leads based on source, engagement, and fit. Focus your time on hot leads first — stop treating all leads equally.",
-      timeToImplement: "3 hours", expectedImpact: "Close 30% more deals with less effort", priority: 78
+      icon: "🎯", title: "Optimize Your Sales Funnel",
+      description: "Map every step of your funnel. Identify the biggest drop-off. A/B test headlines and CTAs. Add urgency and social proof to your offer page.",
+      timeToImplement: "3 hours", expectedImpact: "2-3x conversion rate over 30 days", priority: 80
     })
   }
 
   if (formData.revenueTrend !== 'Growing') {
     wins.push({
       icon: "📈", title: "Automated Upsell Sequences",
-      description: "After each sale, trigger an automated sequence recommending complementary products/services. Works while you sleep.",
-      timeToImplement: "2-3 hours", expectedImpact: "Increase avg deal value 15-25%", priority: 72
+      description: "After each purchase, trigger an automated sequence recommending complementary products or upgrades. Works while you sleep.",
+      timeToImplement: "2-3 hours", expectedImpact: "Increase LTV by 15-25%", priority: 72
     })
   }
 
   wins.push({
     icon: "📊", title: "Build a Real-Time KPI Dashboard",
-    description: "Set up a simple dashboard (Google Sheets + Zapier or Databox) showing leads, conversions, revenue, and pipeline in real time.",
-    timeToImplement: "3-4 hours", expectedImpact: "Spot issues before they cost you money", priority: 60
+    description: "Set up a dashboard showing MRR, churn, new signups, support tickets, and engagement metrics. Spot issues before they become crises.",
+    timeToImplement: "3-4 hours", expectedImpact: "Data-driven decisions instead of guessing", priority: 60
   })
 
   wins.push({
-    icon: "🤖", title: "Add Website Chatbot",
-    description: "Install a conversational chatbot on your website to capture leads outside business hours. Pre-qualify with 3-4 questions and book meetings automatically.",
-    timeToImplement: "1-2 hours", expectedImpact: "Convert 3× more website visitors", priority: 65
+    icon: "📧", title: "Segment Your Email List",
+    description: "Tag subscribers by behavior: purchased, engaged, inactive. Send targeted campaigns to each segment. Clean your list quarterly.",
+    timeToImplement: "1-2 hours", expectedImpact: "30-50% boost in email engagement", priority: 65
   })
 
   wins.sort((a, b) => b.priority - a.priority)
@@ -104,98 +104,44 @@ export function generateQuickWinsChecklist(formData: any, opportunities?: any[])
 
 // ─── Industry Playbook ────────────────────────────────────
 export function generateIndustryPlaybook(formData: any): IndustryPlaybook {
-  const industry = (formData.specificIndustry || formData.industry || '').toLowerCase()
+  const businessType = (formData.businessType || '').toLowerCase()
 
   const playbooks: Record<string, IndustryPlaybook> = {
-    service: {
-      industryName: "Home Services (HVAC / Plumbing / Electrical)",
+    'course-creator': {
+      industryName: "Course Creator / Online Education",
       topChallenges: [
-        "Missed calls during jobs lose new customers",
-        "Inconsistent follow-up on estimates",
-        "Manual scheduling creates bottlenecks",
-        "Reviews don't reflect actual customer satisfaction",
-        "Owner is on every job — can't scale"
+        "Low course completion rates",
+        "Support overwhelm from students",
+        "Content creation hamster wheel",
+        "Inconsistent launch results",
+        "Can't scale without burning out"
       ],
       aiSolutions: [
-        { challenge: "Missed calls", solution: "AI voice agent answers 24/7, qualifies leads, books estimates into your calendar", roi: "Capture 30-50 extra leads/month" },
-        { challenge: "Estimate follow-up", solution: "Automated 5-touch SMS/email sequence after every estimate sent", roi: "Close 40% more estimates" },
-        { challenge: "Scheduling chaos", solution: "AI dispatch optimization assigns techs based on location, skill, and availability", roi: "Fit 2-3 more jobs per day" },
-        { challenge: "Low review count", solution: "Automated review request triggered by invoice payment", roi: "2-3× reviews in 60 days" }
+        { challenge: "Low completion", solution: "AI-driven drip content + progress nudges + personalized check-ins", roi: "2x completion rates" },
+        { challenge: "Support overwhelm", solution: "AI chatbot trained on course material handles 80% of student questions", roi: "60-80% fewer support tickets" },
+        { challenge: "Content hamster wheel", solution: "AI repurposing pipeline: 1 long-form piece → 30+ micro-content assets", roi: "10-15 hrs/week saved" },
+        { challenge: "Inconsistent launches", solution: "Automated evergreen funnel with behavior-triggered email sequences", roi: "Consistent revenue vs. feast/famine" }
       ],
-      caseStudy: { type: "HVAC Company", before: "15 missed calls/week, 2.8 Google stars, owner on every call", after: "Zero missed calls, 4.7 stars, 40% revenue increase in 90 days" },
-      nextSteps: ["Audit your current call handling", "Set up AI receptionist", "Build estimate follow-up sequence", "Automate review requests", "Create technician dispatch system"]
+      caseStudy: { type: "Course Creator", before: "12% completion, 40 support tickets/day, $50K launches", after: "38% completion, 8 tickets/day, $120K evergreen/month" },
+      nextSteps: ["Automate onboarding sequence", "Deploy AI support bot", "Build content repurposing pipeline", "Create evergreen funnel", "Set up churn prevention alerts"]
     },
-    agency: {
-      industryName: "Marketing / Creative Agency",
+    coaching: {
+      industryName: "Coaching / Consulting",
       topChallenges: [
-        "Client onboarding is manual and slow",
-        "Reporting takes hours every month",
-        "Scope creep erodes margins",
-        "Lead gen for the agency itself is neglected",
-        "Knowledge lives in people's heads, not systems"
+        "Revenue tied to personal hours",
+        "Client onboarding is inconsistent",
+        "No scalable delivery system",
+        "Marketing takes time away from clients",
+        "Difficult to systematize expertise"
       ],
       aiSolutions: [
-        { challenge: "Slow onboarding", solution: "AI-powered intake forms + automated project setup in PM tools", roi: "Save 5 hrs per new client" },
-        { challenge: "Manual reporting", solution: "Auto-generated client reports pulling from analytics APIs", roi: "Save 15-20 hrs/month" },
-        { challenge: "Scope creep", solution: "AI contract analyzer flags out-of-scope requests automatically", roi: "Recover 10-15% lost revenue" },
-        { challenge: "Neglected lead gen", solution: "Automated outbound + AI-written case studies from project data", roi: "3-5 new leads/week on autopilot" }
+        { challenge: "Hours-for-dollars trap", solution: "AI-assisted group programs + async coaching tools", roi: "3-5x revenue per hour of work" },
+        { challenge: "Inconsistent onboarding", solution: "Automated intake → assessment → resource delivery → kickoff scheduling", roi: "Save 3-5 hrs per new client" },
+        { challenge: "No scalable delivery", solution: "AI coaching companion between sessions for accountability and support", roi: "Higher retention + less 1:1 time needed" },
+        { challenge: "Marketing time sink", solution: "AI content engine turns client wins into case studies and social proof", roi: "Consistent lead flow on autopilot" }
       ],
-      caseStudy: { type: "Digital Agency", before: "20 hrs/month on reports, inconsistent pipeline, 25% margin", after: "2 hrs/month reports, steady 8 leads/week, 42% margin" },
-      nextSteps: ["Map your client journey end-to-end", "Automate reporting first (biggest time save)", "Build intake automation", "Set up outbound lead system", "Create AI knowledge base"]
-    },
-    healthcare: {
-      industryName: "Healthcare / Medical Practice",
-      topChallenges: [
-        "Patient no-shows waste revenue",
-        "Insurance verification is manual",
-        "After-hours calls go to voicemail",
-        "Patient intake paperwork is slow",
-        "Recall/reactivation of dormant patients"
-      ],
-      aiSolutions: [
-        { challenge: "No-shows", solution: "Multi-channel automated reminders (SMS + email + call) with easy reschedule link", roi: "Reduce no-shows by 50-70%" },
-        { challenge: "Insurance verification", solution: "AI-powered eligibility checks before appointments", roi: "Save 2 hrs/day of staff time" },
-        { challenge: "After-hours calls", solution: "AI voice agent handles scheduling, FAQs, and triage 24/7", roi: "Capture 100% of patient inquiries" },
-        { challenge: "Slow intake", solution: "Digital intake forms with AI pre-fill from insurance data", roi: "Save 15 min per patient visit" }
-      ],
-      caseStudy: { type: "Dental Practice", before: "22% no-show rate, 45 min avg intake, 30% recall rate", after: "8% no-shows, 10 min intake, 65% recall rate" },
-      nextSteps: ["Implement automated appointment reminders", "Digitize patient intake", "Set up AI phone handling", "Build recall campaign", "Automate insurance verification"]
-    },
-    retail: {
-      industryName: "Retail / E-Commerce",
-      topChallenges: [
-        "Cart abandonment loses 70% of sales",
-        "Customer support volume overwhelms team",
-        "Inventory management is reactive",
-        "Email marketing is generic, not personalized",
-        "Returns processing is manual"
-      ],
-      aiSolutions: [
-        { challenge: "Cart abandonment", solution: "AI-triggered recovery sequences with personalized incentives based on browsing behavior", roi: "Recover 15-25% of abandoned carts" },
-        { challenge: "Support volume", solution: "AI chatbot handles 80% of common questions, escalates complex issues", roi: "Reduce support tickets by 60%" },
-        { challenge: "Reactive inventory", solution: "Predictive demand forecasting using sales data + trends", roi: "Reduce stockouts by 40%" },
-        { challenge: "Generic emails", solution: "AI segmentation + personalized product recommendations", roi: "2-3× email revenue" }
-      ],
-      caseStudy: { type: "E-Commerce Store", before: "72% cart abandonment, 200 support tickets/day, 1.2% email CTR", after: "51% abandonment, 60 tickets/day, 4.8% email CTR" },
-      nextSteps: ["Set up cart abandonment sequence", "Deploy AI chatbot", "Implement email personalization", "Build demand forecasting model", "Automate returns workflow"]
-    },
-    realestate: {
-      industryName: "Real Estate",
-      topChallenges: [
-        "Lead response time is too slow",
-        "Nurturing hundreds of leads manually",
-        "Showing scheduling is a time sink",
-        "Market analysis takes hours",
-        "Transaction coordination is chaotic"
-      ],
-      aiSolutions: [
-        { challenge: "Slow response", solution: "AI instant response to new leads via text within 60 seconds — 24/7", roi: "10× more lead conversions (speed-to-lead)" },
-        { challenge: "Manual nurturing", solution: "AI drip campaigns personalized by property interest, timeline, and budget", roi: "Convert 3× more long-term leads" },
-        { challenge: "Showing scheduling", solution: "AI scheduling assistant handles availability, confirmations, and reminders", roi: "Save 8-10 hrs/week" },
-        { challenge: "Market analysis", solution: "AI-generated CMA reports and market updates for clients", roi: "Save 3 hrs per listing" }
-      ],
-      caseStudy: { type: "Real Estate Team", before: "45 min avg lead response, 2% conversion, 60 hrs/week", after: "58 sec response, 8% conversion, 35 hrs/week" },
-      nextSteps: ["Set up instant lead response", "Build nurture sequences by buyer stage", "Automate showing scheduling", "Create AI market report templates", "Implement transaction management system"]
+      caseStudy: { type: "Business Coach", before: "15 1:1 clients max, $200K/year, 50 hrs/week", after: "80 group members + 5 premium 1:1, $600K/year, 25 hrs/week" },
+      nextSteps: ["Document your coaching framework", "Build automated onboarding", "Create group program structure", "Set up AI content pipeline", "Implement client success tracking"]
     },
     saas: {
       industryName: "SaaS / Software",
@@ -209,47 +155,77 @@ export function generateIndustryPlaybook(formData: any): IndustryPlaybook {
       aiSolutions: [
         { challenge: "Low trial conversion", solution: "AI-driven onboarding sequences triggered by in-app behavior", roi: "Increase trial conversion 30-50%" },
         { challenge: "Churn risk", solution: "Predictive churn model alerts CS team before cancellation", roi: "Reduce churn 20-30%" },
-        { challenge: "Weak support docs", solution: "AI knowledge base that understands natural language questions", roi: "Deflect 60% of support tickets" },
-        { challenge: "Onboarding drop-off", solution: "AI copilot guides users to 'aha moment' with contextual nudges", roi: "2× activation rate" }
+        { challenge: "Weak support", solution: "AI knowledge base that understands natural language questions", roi: "Deflect 60% of support tickets" },
+        { challenge: "Onboarding drop-off", solution: "AI copilot guides users to 'aha moment' with contextual nudges", roi: "2x activation rate" }
       ],
       caseStudy: { type: "B2B SaaS", before: "12% trial conversion, 8% monthly churn, 200 tickets/day", after: "28% trial conversion, 4% churn, 75 tickets/day" },
       nextSteps: ["Map user activation milestones", "Build behavior-triggered onboarding", "Deploy AI support chatbot", "Implement churn prediction", "Create feature request pipeline"]
+    },
+    membership: {
+      industryName: "Membership / Community",
+      topChallenges: [
+        "Member engagement drops after month 1",
+        "Content demand is constant",
+        "Community moderation takes too much time",
+        "Hard to demonstrate ongoing value",
+        "Churn spikes after 3-6 months"
+      ],
+      aiSolutions: [
+        { challenge: "Engagement drop-off", solution: "AI-powered personalized content recommendations + activity nudges", roi: "2x engagement after month 1" },
+        { challenge: "Content demand", solution: "AI content calendar + repurposing pipeline + member-generated content curation", roi: "50% less content creation time" },
+        { challenge: "Moderation burden", solution: "AI community moderator handles FAQs, flags issues, sparks discussions", roi: "Save 10+ hrs/week" },
+        { challenge: "Churn at 3-6 months", solution: "Automated 'value milestones' that celebrate member progress", roi: "30-40% reduction in mid-term churn" }
+      ],
+      caseStudy: { type: "Online Community", before: "45% annual churn, owner spent 20 hrs/week on community", after: "18% churn, 5 hrs/week, 3x membership revenue" },
+      nextSteps: ["Set up engagement tracking", "Build automated welcome journey", "Deploy AI moderator", "Create value milestone system", "Implement churn prevention alerts"]
+    },
+    'digital-products': {
+      industryName: "Digital Products / Templates / Downloads",
+      topChallenges: [
+        "Revenue is launch-dependent",
+        "Support for product questions",
+        "No systematic upsell path",
+        "Marketing requires constant effort",
+        "Product updates are manual"
+      ],
+      aiSolutions: [
+        { challenge: "Launch dependency", solution: "Evergreen funnel with AI-optimized email sequences and retargeting", roi: "Consistent daily revenue vs. launch spikes" },
+        { challenge: "Product support", solution: "AI assistant answers product questions and provides tutorials", roi: "80% fewer support emails" },
+        { challenge: "No upsell path", solution: "AI-driven product recommendations based on purchase history", roi: "25-40% increase in LTV" },
+        { challenge: "Marketing effort", solution: "AI content engine creates social proof, testimonials, and use cases automatically", roi: "Consistent lead flow" }
+      ],
+      caseStudy: { type: "Template Business", before: "$8K launch spikes, $2K between launches, 50 support emails/week", after: "$15K/month evergreen, 10 support emails/week, 2x product line" },
+      nextSteps: ["Build evergreen sales funnel", "Set up AI support for products", "Create automated upsell sequences", "Implement content repurposing", "Build customer feedback loop"]
     }
   }
 
-  // Match industry
-  const key = Object.keys(playbooks).find(k => industry.includes(k)) ||
-    (industry.includes('hvac') || industry.includes('plumb') || industry.includes('electric') || industry.includes('roofing') || industry.includes('cleaning') ? 'service' : null) ||
-    (industry.includes('market') || industry.includes('design') || industry.includes('creative') ? 'agency' : null) ||
-    (industry.includes('doctor') || industry.includes('dental') || industry.includes('medical') || industry.includes('health') ? 'healthcare' : null) ||
-    (industry.includes('shop') || industry.includes('store') || industry.includes('ecomm') ? 'retail' : null) ||
-    (industry.includes('real') || industry.includes('property') || industry.includes('mortgage') ? 'realestate' : null) ||
-    (industry.includes('software') || industry.includes('app') || industry.includes('tech') ? 'saas' : null)
+  // Match business type
+  const key = Object.keys(playbooks).find(k => businessType.includes(k)) || null
 
   if (key && playbooks[key]) return playbooks[key]
 
-  // Generic fallback
+  // Generic fallback for info/SaaS
   return {
-    industryName: formData.specificIndustry || "Your Industry",
+    industryName: formData.businessType || "Info / SaaS Business",
     topChallenges: [
-      "Missed leads and slow response times",
-      "Manual processes consuming too many hours",
-      "Inconsistent follow-up and nurturing",
-      "No systematic review/referral generation",
-      "Owner dependency — business stops when you do"
+      "Manual onboarding losing early customers",
+      "Support overwhelm eating into growth time",
+      "Content creation taking too many hours",
+      "Churn eroding revenue gains",
+      "Owner is the bottleneck — can't scale"
     ],
     aiSolutions: [
-      { challenge: "Missed leads", solution: "AI receptionist + instant response system", roi: "Capture 30-50% more leads" },
-      { challenge: "Manual processes", solution: "Workflow automation connecting your core tools", roi: "Save 15-20 hrs/week" },
-      { challenge: "Inconsistent follow-up", solution: "Automated multi-channel nurture sequences", roi: "50% more conversions" },
-      { challenge: "No review system", solution: "Automated post-service review requests", roi: "2× reviews in 30 days" }
+      { challenge: "Manual onboarding", solution: "Automated welcome sequences with personalized activation paths", roi: "3x faster activation, 30% less early churn" },
+      { challenge: "Support overwhelm", solution: "AI chatbot trained on your content handles 80% of questions", roi: "60-80% fewer support tickets" },
+      { challenge: "Content hamster wheel", solution: "AI repurposing pipeline: 1 piece → 30+ assets in your voice", roi: "10-15 hrs/week saved" },
+      { challenge: "Revenue churn", solution: "Predictive health scoring + automated re-engagement", roi: "30-50% reduction in churn" }
     ],
-    caseStudy: { type: "Small Business", before: "Owner working 60 hrs/week, inconsistent revenue, manual everything", after: "35 hrs/week, 40% revenue increase, 80% automated" },
-    nextSteps: ["Audit your current lead flow", "Set up AI call handling", "Build automated follow-up", "Automate review requests", "Create owner delegation system"]
+    caseStudy: { type: "Info/SaaS Business", before: "Owner working 50+ hrs/week, high churn, manual everything", after: "25 hrs/week, 50% less churn, 80% automated operations" },
+    nextSteps: ["Automate onboarding flow", "Deploy AI support chatbot", "Build content repurposing pipeline", "Set up churn prediction alerts", "Create owner delegation system"]
   }
 }
 
-// ─── Main export (backwards compat) ───────────────────────
+// ─── Main export ─────────────────────────────────────────
 export async function generateFreebies(formData: any, auditScore: number, opportunities: any[]) {
   return {
     quickWins: generateQuickWinsChecklist(formData, opportunities),

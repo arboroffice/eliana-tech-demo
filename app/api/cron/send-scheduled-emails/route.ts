@@ -239,16 +239,16 @@ function getEmailTemplate(templateName: string, data: any): string {
                     <h2>Weekly Automation Tip #1</h2>
                     <p>Hey ${firstName},</p>
                     <p>Quick tip for ${companyName}:</p>
-                    <p><strong>Week 1 Focus: Missed Call Recovery</strong></p>
-                    <p>You mentioned missing ${formData?.missedCalls || 'some'} calls per week. Here's the simplest automation to capture these:</p>
+                    <p><strong>Week 1 Focus: Automated Onboarding</strong></p>
+                    <p>The #1 way to reduce early churn is a great onboarding experience. Here's the simplest version:</p>
                     <ol>
-                        <li>Set up Google Voice or similar</li>
-                        <li>Connect to Zapier/Make</li>
-                        <li>Auto-send SMS: "Thanks for calling! We'll respond within 2 hours. What can we help with?"</li>
-                        <li>Log in your CRM</li>
+                        <li>Map your customer's first "aha moment"</li>
+                        <li>Create a 3-email welcome sequence (access → quick win → community)</li>
+                        <li>Set up triggers in your email tool (ConvertKit, ActiveCampaign, etc.)</li>
+                        <li>Track completion rates and iterate</li>
                     </ol>
-                    <p><strong>Time to set up:</strong> 30 minutes<br>
-                    <strong>Potential ROI:</strong> Thousands per year</p>
+                    <p><strong>Time to set up:</strong> 2-3 hours<br>
+                    <strong>Potential ROI:</strong> 30%+ reduction in early churn</p>
                     <p>Need help? Reply to this email.</p>
                     <p>Best,<br>The Eliana Team</p>
                 </div>

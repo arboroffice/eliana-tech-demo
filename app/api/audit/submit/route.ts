@@ -177,30 +177,30 @@ export async function POST(request: Request) {
 function identifyOpportunities(formData: any) {
     const opportunities = []
 
-    if (formData.missedCalls !== '0-5') {
+    if (formData.onboardingAutomated === 'No' || formData.onboardingAutomated === 'Partially') {
         opportunities.push({
-            title: "Capture Every Lead",
+            title: "Automated Onboarding",
             impact: "High",
-            description: `You're missing ${formData.missedCalls} calls per week. An AI receptionist could capture these leads 24/7.`,
-            category: "lead_capture"
+            description: "Manual onboarding creates bottlenecks and inconsistent experiences. AI-driven sequences can activate users 3x faster.",
+            category: "onboarding"
         })
     }
 
-    if (formData.systematicFollowUp !== 'Yes') {
+    if (formData.churnRate === '20+' || formData.churnRate === '10-20') {
         opportunities.push({
-            title: "Automated Follow-Up System",
-            impact: "High",
-            description: "Systematic follow-ups can increase conversions by 50%. Automate this entirely with AI.",
-            category: "sales_automation"
+            title: "Churn Prevention Engine",
+            impact: "Critical",
+            description: `Your churn rate is ${formData.churnRate}%. Automated health scoring and re-engagement can cut churn by 30-50%.`,
+            category: "retention"
         })
     }
 
-    if (formData.askReviewsSystem === 'none' || formData.askReviewsSystem === 'manual') {
+    if (formData.supportHoursPerWeek === '10+' || formData.supportHoursPerWeek === '5-10') {
         opportunities.push({
-            title: "Review Generation Engine",
-            impact: "Medium",
-            description: "Automated review requests can double your review rate, boosting local SEO and trust.",
-            category: "reputation"
+            title: "AI-Powered Support",
+            impact: "High",
+            description: `You're spending ${formData.supportHoursPerWeek} hrs/week on support. AI trained on your content can handle 80% of questions instantly.`,
+            category: "support"
         })
     }
 
@@ -214,12 +214,21 @@ function identifyOpportunities(formData: any) {
         })
     }
 
-    if (formData.percentAutomated === 'none' || formData.percentAutomated === '<30%') {
+    if (formData.percentAutomated === 'none' || formData.percentAutomated === 'under-30') {
         opportunities.push({
-            title: "Low-Hanging Automation Wins",
+            title: "Workflow Automation",
             impact: "High",
-            description: "70%+ of repetitive tasks can be automated, freeing 15-20 hours per week.",
+            description: "With most processes still manual, automation can free 15-20 hours per week and eliminate errors.",
             category: "quick_wins"
+        })
+    }
+
+    if (formData.contentCreationHours === '20+' || formData.contentCreationHours === '10-20') {
+        opportunities.push({
+            title: "AI Content Engine",
+            impact: "Medium",
+            description: "You're spending significant time on content. AI repurposing can turn 1 piece into 30+ assets in your voice.",
+            category: "content"
         })
     }
 
