@@ -204,11 +204,12 @@ function identifyOpportunities(formData: any) {
         })
     }
 
-    if (parseInt(formData.painLevel[0]) >= 7) {
+    const painVal = Array.isArray(formData.painLevel) ? parseInt(String(formData.painLevel[0])) || 0 : parseInt(String(formData.painLevel)) || 0
+    if (painVal >= 7) {
         opportunities.push({
             title: "Urgent Process Automation",
             impact: "Critical",
-            description: `Your pain level is ${formData.painLevel[0]}/10. Immediate automation can relieve this pressure within 30 days.`,
+            description: `Your pain level is ${painVal}/10. Immediate automation can relieve this pressure within 30 days.`,
             category: "urgent"
         })
     }
