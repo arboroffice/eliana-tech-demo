@@ -41,38 +41,6 @@ export default function HomePage() {
             </div>
           </section>
 
-          {/* PAIN - YOU'RE STUCK IN THE MACHINE */}
-          <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5">
-            <div className="max-w-4xl mx-auto">
-              <div className="text-center mb-16">
-                <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-6">
-                  You're Stuck in the Machine
-                </h2>
-                <p className="text-lg text-slate-400 max-w-xl mx-auto">
-                  You built a product people love. Now you're drowning in the operations around it.
-                </p>
-              </div>
-
-              <div className="space-y-6">
-                {[
-                  { pain: "Onboarding every new user or customer manually", twist: "You're doing $50/hr work in a $500/hr business." },
-                  { pain: "Support tickets eating your entire day", twist: "Your inbox is a full-time job you didn't hire for." },
-                  { pain: "Churn you can see coming but can't prevent", twist: "Users go quiet, then cancel. And you find out too late." },
-                  { pain: "No idea which channels actually drive revenue", twist: "You're spending blind. Budget over strategy." },
-                  { pain: "Can't take a week off without things breaking", twist: "Your business is a job with better branding." },
-                ].map((item) => (
-                  <div
-                    key={item.pain}
-                    className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-6 p-6 rounded-2xl border border-white/10 bg-white/5"
-                  >
-                    <p className="text-white font-medium flex-1">{item.pain}</p>
-                    <p className="text-slate-400 italic flex-1">{item.twist}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
           {/* YOUR AI WING */}
           <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5">
             <div className="max-w-3xl mx-auto text-center">

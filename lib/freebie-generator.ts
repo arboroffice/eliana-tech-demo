@@ -196,6 +196,168 @@ export function generateIndustryPlaybook(formData: any): IndustryPlaybook {
       ],
       caseStudy: { type: "Template Business", before: "$8K launch spikes, $2K between launches, 50 support emails/week", after: "$15K/month evergreen, 10 support emails/week, 2x product line" },
       nextSteps: ["Build evergreen sales funnel", "Set up AI support for products", "Create automated upsell sequences", "Implement content repurposing", "Build customer feedback loop"]
+    },
+    'home-services': {
+      industryName: "Home Services (HVAC, Plumbing, Electrical)",
+      topChallenges: [
+        "Missed calls and lost leads",
+        "Scheduling and dispatch chaos",
+        "No follow-up after service visits",
+        "Seasonal revenue swings",
+        "Technician utilization gaps"
+      ],
+      aiSolutions: [
+        { challenge: "Missed calls", solution: "AI answering service captures every call 24/7, books appointments, and qualifies leads automatically", roi: "Recover 30-40% of lost leads" },
+        { challenge: "Scheduling chaos", solution: "AI-powered dispatch optimizes routes and schedules based on tech skills, location, and urgency", roi: "20-30% more jobs per day" },
+        { challenge: "No follow-up", solution: "Automated post-service review requests, maintenance reminders, and seasonal check-in campaigns", roi: "35% increase in repeat business" },
+        { challenge: "Seasonal swings", solution: "AI-driven marketing campaigns that ramp up before slow seasons with maintenance offers and service plans", roi: "Stabilize revenue year-round" }
+      ],
+      caseStudy: { type: "HVAC Company", before: "Missing 40% of calls, no follow-up system, feast-or-famine revenue", after: "98% call capture, 3x Google reviews, 45% repeat customer rate" },
+      nextSteps: ["Set up AI call answering", "Automate appointment booking", "Build post-service follow-up sequence", "Create seasonal marketing campaigns", "Implement maintenance plan upsells"]
+    },
+    healthcare: {
+      industryName: "Healthcare / Dental / Wellness",
+      topChallenges: [
+        "No-shows and last-minute cancellations",
+        "Patient intake is slow and manual",
+        "Staff overwhelmed with phone calls",
+        "Low patient retention and reactivation",
+        "Compliance-heavy communication"
+      ],
+      aiSolutions: [
+        { challenge: "No-shows", solution: "AI appointment reminders via text, email, and voice with smart rescheduling for cancellations", roi: "Reduce no-shows by 50-70%" },
+        { challenge: "Manual intake", solution: "Digital intake forms with AI pre-fill, insurance verification, and automated record creation", roi: "Save 15-20 min per patient" },
+        { challenge: "Phone overwhelm", solution: "AI receptionist handles scheduling, insurance questions, and routing 24/7", roi: "60-80% fewer front desk calls" },
+        { challenge: "Low retention", solution: "Automated recall campaigns for overdue patients with personalized health reminders", roi: "30-40% reactivation rate" }
+      ],
+      caseStudy: { type: "Dental Practice", before: "22% no-show rate, 3 front desk staff overwhelmed, losing patients to competitors", after: "6% no-show rate, 1 front desk + AI, 40% patient reactivation" },
+      nextSteps: ["Deploy AI appointment reminders", "Digitize patient intake", "Set up AI phone answering", "Build patient recall campaigns", "Automate review collection"]
+    },
+    'professional-services': {
+      industryName: "Professional Services (Law, Accounting, Finance)",
+      topChallenges: [
+        "Slow client intake and onboarding",
+        "Billable hours lost to admin work",
+        "Inconsistent lead follow-up",
+        "Document preparation is manual",
+        "Client communication gaps"
+      ],
+      aiSolutions: [
+        { challenge: "Slow intake", solution: "AI-powered client intake forms with conflict checks, document collection, and automated engagement letters", roi: "Cut intake time by 70%" },
+        { challenge: "Admin overhead", solution: "AI handles scheduling, billing reminders, document drafting, and routine correspondence", roi: "Recover 10-15 billable hrs/week" },
+        { challenge: "Lead follow-up", solution: "Automated nurture sequences for consultations with case-type-specific content", roi: "2x consultation-to-client conversion" },
+        { challenge: "Manual documents", solution: "AI document assembly from templates with smart field population and review workflows", roi: "80% faster document prep" }
+      ],
+      caseStudy: { type: "Law Firm", before: "45-min intake per client, losing leads to slow follow-up, 15 hrs/week on admin", after: "10-min intake, same-day follow-up, 3 hrs/week admin" },
+      nextSteps: ["Automate client intake process", "Deploy AI scheduling assistant", "Build lead nurture sequences", "Set up document automation", "Implement billing automation"]
+    },
+    construction: {
+      industryName: "Construction / Trades",
+      topChallenges: [
+        "Estimating and bidding takes too long",
+        "Project communication is scattered",
+        "Subcontractor coordination is manual",
+        "Cash flow and invoicing gaps",
+        "Lead follow-up falls through cracks"
+      ],
+      aiSolutions: [
+        { challenge: "Slow estimates", solution: "AI-assisted estimating from plans and specs with automated bid generation", roi: "3x faster estimates, win more bids" },
+        { challenge: "Scattered communication", solution: "Centralized AI project hub with automated updates to clients, subs, and inspectors", roi: "Eliminate 90% of status call/texts" },
+        { challenge: "Sub coordination", solution: "Automated scheduling, reminders, and document collection for subcontractors", roi: "Reduce project delays by 40%" },
+        { challenge: "Cash flow gaps", solution: "Automated progress invoicing, payment reminders, and lien waiver collection", roi: "Get paid 30-50% faster" }
+      ],
+      caseStudy: { type: "General Contractor", before: "2 days per estimate, constant phone calls, late invoicing", after: "4-hour estimates, automated updates, invoices sent same day" },
+      nextSteps: ["Set up AI estimating tools", "Build automated client updates", "Automate subcontractor coordination", "Implement progress invoicing", "Deploy lead capture system"]
+    },
+    'restaurant-hospitality': {
+      industryName: "Restaurant / Hospitality",
+      topChallenges: [
+        "Reservation no-shows and empty tables",
+        "Staff scheduling and turnover",
+        "Online reputation management",
+        "Slow response to online orders/inquiries",
+        "Customer retention and loyalty"
+      ],
+      aiSolutions: [
+        { challenge: "No-shows", solution: "AI reservation confirmations with smart waitlist management and deposit collection", roi: "Reduce no-shows by 60%" },
+        { challenge: "Staff scheduling", solution: "AI-optimized scheduling based on historical traffic, events, and staff preferences", roi: "Save 5+ hrs/week on scheduling" },
+        { challenge: "Reputation", solution: "Automated review requests after visits + AI-drafted responses to all reviews", roi: "2x review volume, higher ratings" },
+        { challenge: "Slow response", solution: "AI handles online orders, catering inquiries, and event bookings 24/7", roi: "Capture 30% more orders" }
+      ],
+      caseStudy: { type: "Restaurant Group", before: "25% no-show rate, 3-star average, manual scheduling chaos", after: "8% no-show rate, 4.6-star average, automated scheduling" },
+      nextSteps: ["Deploy AI reservation management", "Automate review collection", "Set up AI order handling", "Build customer loyalty automation", "Implement staff scheduling AI"]
+    },
+    'real-estate': {
+      industryName: "Real Estate",
+      topChallenges: [
+        "Lead response time too slow",
+        "Nurturing hundreds of contacts manually",
+        "Transaction coordination is chaotic",
+        "Marketing content takes too much time",
+        "No systematic follow-up after closing"
+      ],
+      aiSolutions: [
+        { challenge: "Slow response", solution: "AI instant lead response via text/email with qualification questions and showing scheduling", roi: "5x more leads converted (speed-to-lead)" },
+        { challenge: "Manual nurturing", solution: "AI drip campaigns segmented by buyer stage, price range, and preferences", roi: "3x engagement on nurture campaigns" },
+        { challenge: "Transaction chaos", solution: "Automated transaction timelines with task reminders for all parties", roi: "Zero missed deadlines" },
+        { challenge: "Content time", solution: "AI generates listing descriptions, market updates, and social content from MLS data", roi: "Save 8-10 hrs/week" }
+      ],
+      caseStudy: { type: "Real Estate Team", before: "2-hour average lead response, manual follow-up, 2% conversion", after: "90-second response, automated nurture, 8% conversion" },
+      nextSteps: ["Set up instant lead response AI", "Build segmented nurture campaigns", "Automate transaction coordination", "Deploy AI content generation", "Create post-closing follow-up"]
+    },
+    manufacturing: {
+      industryName: "Manufacturing / Logistics",
+      topChallenges: [
+        "Quoting and order processing is slow",
+        "Inventory and supply chain visibility gaps",
+        "Quality control is reactive",
+        "Customer communication on order status",
+        "Workforce scheduling and safety tracking"
+      ],
+      aiSolutions: [
+        { challenge: "Slow quoting", solution: "AI-powered RFQ processing with automated quote generation from specs and historical pricing", roi: "80% faster quotes, win more contracts" },
+        { challenge: "Inventory gaps", solution: "AI demand forecasting and automated reorder triggers based on production schedules", roi: "30% reduction in stockouts" },
+        { challenge: "Reactive QC", solution: "AI-powered quality prediction from production data to catch defects before they happen", roi: "50% fewer defect escapes" },
+        { challenge: "Order status", solution: "Automated order tracking updates and proactive delay notifications to customers", roi: "70% fewer status inquiry calls" }
+      ],
+      caseStudy: { type: "Manufacturer", before: "3-day quote turnaround, frequent stockouts, constant status calls", after: "Same-day quotes, 95% inventory accuracy, automated updates" },
+      nextSteps: ["Automate quote generation", "Set up inventory forecasting", "Build automated order updates", "Deploy quality monitoring AI", "Implement production scheduling"]
+    },
+    agency: {
+      industryName: "Agency (Marketing, Creative, Dev)",
+      topChallenges: [
+        "Client reporting takes too many hours",
+        "Project scope creep and communication gaps",
+        "Lead pipeline is inconsistent",
+        "Talent utilization and capacity planning",
+        "Scaling without proportional headcount"
+      ],
+      aiSolutions: [
+        { challenge: "Reporting overhead", solution: "AI-generated client reports pulling data from all platforms with insights and recommendations", roi: "Save 10-20 hrs/month on reporting" },
+        { challenge: "Scope creep", solution: "Automated project tracking with AI-flagged scope changes, budget alerts, and client update summaries", roi: "Protect margins on every project" },
+        { challenge: "Inconsistent pipeline", solution: "AI-powered outreach, case study generation, and automated proposal creation", roi: "2x qualified leads per month" },
+        { challenge: "Capacity planning", solution: "AI resource allocation based on skills, availability, and project timelines", roi: "25% better utilization rates" }
+      ],
+      caseStudy: { type: "Digital Agency", before: "20 hrs/month on reports, constant scope creep, unpredictable pipeline", after: "2 hrs/month on reports, automated scope tracking, consistent lead flow" },
+      nextSteps: ["Automate client reporting", "Set up project tracking alerts", "Build AI proposal system", "Implement capacity planning", "Create automated case studies"]
+    },
+    ecommerce: {
+      industryName: "E-commerce / Retail",
+      topChallenges: [
+        "Cart abandonment rate is high",
+        "Customer support volume during peak seasons",
+        "Product descriptions and content at scale",
+        "Inventory management and forecasting",
+        "Low repeat purchase rates"
+      ],
+      aiSolutions: [
+        { challenge: "Cart abandonment", solution: "AI-powered abandonment sequences with personalized incentives based on cart value and customer history", roi: "Recover 15-25% of abandoned carts" },
+        { challenge: "Support volume", solution: "AI chatbot handles order tracking, returns, sizing questions, and product recommendations", roi: "Handle 80% of inquiries automatically" },
+        { challenge: "Content at scale", solution: "AI generates product descriptions, collection pages, and email campaigns from product data", roi: "10x faster content production" },
+        { challenge: "Low repeat rates", solution: "AI-driven post-purchase sequences with personalized recommendations and replenishment reminders", roi: "35% increase in repeat purchases" }
+      ],
+      caseStudy: { type: "E-commerce Brand", before: "72% cart abandonment, 200+ daily support tickets, 15% repeat rate", after: "55% abandonment, 40 daily tickets, 38% repeat rate" },
+      nextSteps: ["Deploy cart abandonment automation", "Set up AI customer support", "Build product content pipeline", "Implement post-purchase sequences", "Create loyalty automation"]
     }
   }
 

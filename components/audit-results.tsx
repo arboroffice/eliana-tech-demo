@@ -12,6 +12,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import Link from "next/link"
+import { generateIndustryPlaybook } from "@/lib/freebie-generator"
 
 interface AuditResultsProps {
   formData: any
@@ -138,25 +139,46 @@ function calcSubScores(fd: any) {
 }
 
 function categoryInsight(cat: string, fd: any): string {
+  const bt = (fd.businessType || '').toLowerCase()
+  const isTraditional = ['home-services','healthcare','professional-services','construction','restaurant-hospitality','real-estate','manufacturing'].some(t => bt.includes(t))
+
   switch (cat) {
     case 'Revenue':
       if (fd.revenueTrend === 'Growing') return "Revenue is trending up. AI infrastructure can accelerate this without adding headcount."
-      if (fd.revenueTrend === 'Flat') return "Revenue has plateaued. Automated funnels and AI-driven upsells can reignite growth."
+      if (fd.revenueTrend === 'Flat') return isTraditional
+        ? "Revenue has plateaued. Automated follow-up, review generation, and lead capture can reignite growth."
+        : "Revenue has plateaued. Automated funnels and AI-driven upsells can reignite growth."
       return "Revenue is declining. Urgent automation of acquisition and retention can stabilize and reverse the trend."
     case 'Automation':
       if ((fd.percentAutomated === '60+')) return "You're well-automated. AI intelligence layers and optimization are your next edge."
-      if (fd.percentAutomated === '30-60') return "You have tools but they're not connected. Full automation could save 20+ hrs/week."
-      return "Most of your operations are manual. Automation alone could transform your capacity overnight."
+      if (fd.percentAutomated === '30-60') return isTraditional
+        ? "You have some tools in place, but they're siloed. Connecting them creates a system that runs itself."
+        : "You have tools but they're not connected. Full automation could save 20+ hrs/week."
+      return isTraditional
+        ? "Most of your operations are manual. Even basic automation of scheduling, follow-up, and invoicing will transform your capacity."
+        : "Most of your operations are manual. Automation alone could transform your capacity overnight."
     case 'Acquisition':
-      if (parseConversionPct(fd.conversionRate) >= 0.05) return "Solid conversion rate. AI can optimize your funnel for even higher enrollment and purchase rates."
-      return "Low conversion rate means your funnel is leaking. AI-driven optimization and follow-up can 2-3x your conversions."
+      if (parseConversionPct(fd.conversionRate) >= 0.05) return isTraditional
+        ? "Strong conversion rate. AI can optimize your booking flow and follow-up for even better results."
+        : "Solid conversion rate. AI can optimize your funnel for even higher enrollment and purchase rates."
+      return isTraditional
+        ? "Low conversion means leads are slipping through the cracks. Faster response times and automated follow-up can 2-3x your bookings."
+        : "Low conversion rate means your funnel is leaking. AI-driven optimization and follow-up can 2-3x your conversions."
     case 'Retention':
-      if (fd.churnRate === 'under-5') return "Excellent retention. AI can deepen engagement with personalized content and proactive outreach."
-      if (fd.churnRate === '5-10') return "Moderate churn. Automated onboarding and engagement sequences can cut this significantly."
-      return "High churn is eating your growth. Automated health scoring and re-engagement can cut churn by 30-50%."
+      if (fd.churnRate === 'under-5') return isTraditional
+        ? "Excellent customer retention. AI can boost repeat business with proactive maintenance reminders and loyalty campaigns."
+        : "Excellent retention. AI can deepen engagement with personalized content and proactive outreach."
+      if (fd.churnRate === '5-10') return isTraditional
+        ? "Moderate customer churn. Automated post-service follow-ups and review requests can strengthen loyalty."
+        : "Moderate churn. Automated onboarding and engagement sequences can cut this significantly."
+      return isTraditional
+        ? "You're losing customers that should be coming back. Automated follow-up and loyalty programs can cut this by 30-50%."
+        : "High churn is eating your growth. Automated health scoring and re-engagement can cut churn by 30-50%."
     case 'Time':
-      if (fd.twoWeeksOff === 'Yes') return "Your business runs without you — that's rare. AI can unlock the next level of scale."
-      return "You're the bottleneck. AI delegation systems let you step back without losing momentum."
+      if (fd.twoWeeksOff === 'Yes') return "Your business runs without you. AI can unlock the next level of scale."
+      return isTraditional
+        ? "You're the bottleneck in daily operations. AI can handle scheduling, follow-up, and client communication so you can focus on growth."
+        : "You're the bottleneck. AI delegation systems let you step back without losing momentum."
     default: return ""
   }
 }
@@ -168,12 +190,16 @@ const catIcons: Record<string, any> = {
 // ─── Opportunities ────────────────────────────────────────
 function topOpportunities(fd: any) {
   const opps: { icon: any; title: string; desc: string; roi: string; timeline: string; priority: number }[] = []
+  const bt = (fd.businessType || '').toLowerCase()
+  const isTraditional = ['home-services','healthcare','professional-services','construction','restaurant-hospitality','real-estate','manufacturing'].some(t => bt.includes(t))
 
   if (fd.onboardingAutomated === 'No' || fd.onboardingAutomated === 'Partially') {
     opps.push({
-      icon: Rocket, title: "Automated Onboarding",
-      desc: "Manual onboarding creates bottlenecks and inconsistent experiences. AI-driven sequences can activate users 3x faster and reduce early churn.",
-      roi: "3x faster activation", timeline: "2-3 weeks", priority: 92
+      icon: Rocket, title: isTraditional ? "Automated Client Onboarding" : "Automated Onboarding",
+      desc: isTraditional
+        ? "Manual intake and onboarding creates delays and inconsistent first impressions. Automated scheduling, intake forms, and welcome sequences get clients started faster."
+        : "Manual onboarding creates bottlenecks and inconsistent experiences. AI-driven sequences can activate users 3x faster and reduce early churn.",
+      roi: isTraditional ? "70% faster client onboarding" : "3x faster activation", timeline: "2-3 weeks", priority: 92
     })
   }
   if (fd.churnRate === '20+' || fd.churnRate === '10-20') {
@@ -182,44 +208,56 @@ function topOpportunities(fd: any) {
     const list = parseListSize(fd.listSize)
     const lostAnnual = Math.round(list * churnPct * price)
     opps.push({
-      icon: RefreshCw, title: "Churn Prevention Engine",
-      desc: `Your ${fd.churnRate}% churn rate is costing you an estimated ${fmt$(lostAnnual)}/year. Automated health scoring and re-engagement sequences can cut churn by 30-50%.`,
+      icon: RefreshCw, title: isTraditional ? "Customer Retention System" : "Churn Prevention Engine",
+      desc: isTraditional
+        ? `You're losing customers that should be coming back. Automated follow-up, maintenance reminders, and loyalty campaigns can recover ${fmt$(lostAnnual * 0.3)}/year.`
+        : `Your ${fd.churnRate}% churn rate is costing you an estimated ${fmt$(lostAnnual)}/year. Automated health scoring and re-engagement sequences can cut churn by 30-50%.`,
       roi: `${fmt$(lostAnnual * 0.3)}/year saved`, timeline: "3-4 weeks", priority: 95
     })
   }
   if (fd.supportHoursPerWeek === '10+' || fd.supportHoursPerWeek === '5-10') {
     const hrs = fd.supportHoursPerWeek === '10+' ? 12 : 7
     opps.push({
-      icon: Headphones, title: "AI-Powered Support",
-      desc: `You're spending ${fd.supportHoursPerWeek} hrs/week on support. An AI assistant trained on your content can handle 80% of questions instantly.`,
+      icon: Headphones, title: isTraditional ? "AI Phone & Support System" : "AI-Powered Support",
+      desc: isTraditional
+        ? `You're spending ${fd.supportHoursPerWeek} hrs/week on calls and inquiries. An AI receptionist can handle scheduling, FAQs, and routing 24/7.`
+        : `You're spending ${fd.supportHoursPerWeek} hrs/week on support. An AI assistant trained on your content can handle 80% of questions instantly.`,
       roi: `${Math.round(hrs * 0.8 * 4)} hrs/month freed up`, timeline: "2-3 weeks", priority: 88
     })
   }
   if (fd.contentCreationHours === '20+' || fd.contentCreationHours === '10-20') {
     opps.push({
-      icon: FileText, title: "AI Content Engine",
-      desc: "You're spending significant time on content. AI repurposing can turn 1 piece into 30+ assets in your voice and style.",
-      roi: "10-15 hrs/week saved", timeline: "1-2 weeks", priority: 82
+      icon: FileText, title: isTraditional ? "Automated Marketing & Reviews" : "AI Content Engine",
+      desc: isTraditional
+        ? "Automate review requests after every job, generate social proof, and run targeted campaigns without lifting a finger."
+        : "You're spending significant time on content. AI repurposing can turn 1 piece into 30+ assets in your voice and style.",
+      roi: isTraditional ? "3x reviews, consistent lead flow" : "10-15 hrs/week saved", timeline: "1-2 weeks", priority: 82
     })
   }
   if (fd.percentAutomated === 'none' || fd.percentAutomated === 'under-30') {
     opps.push({
       icon: Zap, title: "Workflow Automation Hub",
-      desc: "With most processes still manual, a central automation layer connecting your tools can save 15-20 hours per week and eliminate errors.",
+      desc: isTraditional
+        ? "Scheduling, invoicing, follow-ups, and client communication are all manual. Connecting these systems saves 15-20 hours per week and eliminates dropped balls."
+        : "With most processes still manual, a central automation layer connecting your tools can save 15-20 hours per week and eliminate errors.",
       roi: "15-20 hrs/week saved", timeline: "3-4 weeks", priority: 85
     })
   }
   if (fd.conversionRate === 'under-1' || fd.conversionRate === '1-3') {
     opps.push({
-      icon: Target, title: "Funnel Optimization",
-      desc: "Low conversion rates mean your funnel is leaking. AI-driven A/B testing, lead scoring, and personalized follow-up can 2-3x your conversion rate.",
+      icon: Target, title: isTraditional ? "Lead Capture & Follow-up" : "Funnel Optimization",
+      desc: isTraditional
+        ? "Slow response times and missed follow-ups are costing you jobs. AI instant response and automated nurture can 2-3x your booking rate."
+        : "Low conversion rates mean your funnel is leaking. AI-driven A/B testing, lead scoring, and personalized follow-up can 2-3x your conversion rate.",
       roi: "2-3x conversion rate", timeline: "2-4 weeks", priority: 80
     })
   }
   if (fd.twoWeeksOff !== 'Yes') {
     opps.push({
       icon: Brain, title: "AI Business Delegation Layer",
-      desc: "You can't step away without things breaking. AI agents handle triage, support, and client comms 24/7.",
+      desc: isTraditional
+        ? "You can't step away without jobs falling through the cracks. AI systems handle scheduling, client communication, and dispatch 24/7."
+        : "You can't step away without things breaking. AI agents handle triage, support, and client comms 24/7.",
       roi: "Owner freedom + sustained revenue", timeline: "4-6 weeks", priority: 76
     })
   }
@@ -261,6 +299,40 @@ function roadmap(fd: any) {
     { label: "Days 15-30", title: "Optimize & Tune", items: phase2Items, color: "border-yellow-500/40 bg-yellow-500/5" },
     { label: "Days 31-90", title: "Scale & Grow", items: phase3Items, color: "border-emerald-500/40 bg-emerald-500/5" },
   ]
+}
+
+// ─── Growth Level ─────────────────────────────────────────
+function getGrowthLevel(fd: any): { level: string; label: string; insight: string } {
+  const rev = fd.currentRevenue
+  const auto = fd.percentAutomated
+  const trend = fd.revenueTrend
+
+  if (rev === 'pre-revenue' || rev === 'under-100k') {
+    return {
+      level: 'early',
+      label: 'Early Stage',
+      insight: 'You\'re in build mode. The priority is automating lead capture and onboarding so you can focus on product and growth instead of manual operations.'
+    }
+  }
+  if (rev === '100k-500k' || (rev === '500k-1m' && auto !== '60+')) {
+    return {
+      level: 'growth',
+      label: 'Growth Stage',
+      insight: 'You\'ve found product-market fit. Now you need systems to handle the volume without adding headcount. Automation, churn prevention, and funnel optimization are your highest-ROI moves.'
+    }
+  }
+  if (rev === '500k-1m' || rev === '1m-3m') {
+    return {
+      level: 'scale',
+      label: 'Scale Stage',
+      insight: 'You\'re past the grind phase. The bottleneck is now operational capacity. AI infrastructure should replace manual processes across onboarding, support, and retention to free the leadership team.'
+    }
+  }
+  return {
+    level: 'enterprise',
+    label: 'Enterprise Stage',
+    insight: 'At your scale, every manual process is a drag on margins and enterprise value. Full AI integration across departments creates the operational leverage that drives valuation multiples.'
+  }
 }
 
 // ─── Score Gauge SVG ──────────────────────────────────────
@@ -356,6 +428,8 @@ export function AuditResults({ formData, auditScore }: AuditResultsProps) {
   const opps = useMemo(() => topOpportunities(formData), [formData])
   const wins = useMemo(() => quickWins(formData), [formData])
   const phases = useMemo(() => roadmap(formData), [formData])
+  const playbook = useMemo(() => generateIndustryPlaybook(formData), [formData])
+  const growthLevel = useMemo(() => getGrowthLevel(formData), [formData])
 
   const tagline = auditScore < 40
     ? "There's massive untapped potential in your business."
@@ -409,6 +483,54 @@ export function AuditResults({ formData, auditScore }: AuditResultsProps) {
             )
           })}
         </div>
+      </FadeUp>
+
+      {/* ── 2b. Your Growth Stage ─────────────────────────── */}
+      <FadeUp delay={0.12}>
+        <Card className="bg-white/[0.03] backdrop-blur-md border-white/10 p-6">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="p-2 rounded-lg bg-amber-500/10 text-amber-400"><TrendingUp className="w-5 h-5" /></div>
+            <div>
+              <h3 className="text-white font-bold">Your Growth Stage: {growthLevel.label}</h3>
+              <p className="text-slate-500 text-sm">{playbook.industryName}</p>
+            </div>
+          </div>
+          <p className="text-slate-300 text-sm leading-relaxed">{growthLevel.insight}</p>
+        </Card>
+      </FadeUp>
+
+      {/* ── 2c. Industry Playbook ─────────────────────────── */}
+      <FadeUp delay={0.13}>
+        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+          <ShieldCheck className="w-6 h-6 text-emerald-400" /> Your {playbook.industryName} Playbook
+        </h2>
+        <div className="space-y-3 mb-8">
+          {playbook.aiSolutions.map((s, i) => (
+            <Card key={i} className="bg-white/[0.03] backdrop-blur-md border-white/10 p-5 hover:border-emerald-500/20 transition-all">
+              <div className="flex items-start gap-4">
+                <span className="text-emerald-400 font-bold text-sm mt-0.5 shrink-0">0{i + 1}</span>
+                <div className="flex-1">
+                  <h4 className="text-white font-semibold mb-1">{s.challenge}</h4>
+                  <p className="text-slate-400 text-sm leading-relaxed mb-2">{s.solution}</p>
+                  <span className="text-emerald-400 text-xs bg-emerald-500/10 px-2 py-1 rounded-full">{s.roi}</span>
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+        <Card className="bg-gradient-to-r from-emerald-500/5 to-transparent border-emerald-500/20 p-5">
+          <h4 className="text-white font-semibold text-sm mb-2">Industry Benchmark</h4>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <p className="text-red-400 text-xs font-mono mb-1">BEFORE</p>
+              <p className="text-slate-400 text-sm">{playbook.caseStudy.before}</p>
+            </div>
+            <div>
+              <p className="text-emerald-400 text-xs font-mono mb-1">AFTER</p>
+              <p className="text-slate-300 text-sm">{playbook.caseStudy.after}</p>
+            </div>
+          </div>
+        </Card>
       </FadeUp>
 
       {/* ── 3. Top AI Opportunities ──────────────────────── */}
@@ -727,7 +849,7 @@ export function AuditResults({ formData, auditScore }: AuditResultsProps) {
           </div>
           <p className="text-slate-300 mt-6 text-sm">
             Every week without systems is another week of lost revenue, preventable churn, and missed growth.
-            The info and SaaS companies that win aren&apos;t working harder — they&apos;re building smarter infrastructure.
+            The companies that win aren&apos;t working harder. They&apos;re building smarter infrastructure.
           </p>
         </Card>
       </FadeUp>
