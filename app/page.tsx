@@ -256,10 +256,13 @@ export default function HomePage() {
           {/* BUILT FOR */}
           <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5 bg-slate-900/10">
             <div className="max-w-5xl mx-auto text-center">
-              <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-12">
+              <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-6">
                 Built for Info &amp; SaaS Companies
               </h2>
-              <div className="flex flex-wrap justify-center gap-3 mb-12">
+              <p className="text-lg text-slate-400 max-w-2xl mx-auto mb-12">
+                Our core focus is digital-first businesses that scale through systems, not headcount.
+              </p>
+              <div className="flex flex-wrap justify-center gap-3 mb-16">
                 {[
                   "Course Creators", "Coaches", "SaaS Founders", "Community Builders",
                   "Membership Sites", "Digital Product Sellers", "Newsletter Operators",
@@ -273,9 +276,29 @@ export default function HomePage() {
                   </span>
                 ))}
               </div>
-              <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-                If you sell software, knowledge, or access and you're tired of being the entire operations team, we built this for you.
-              </p>
+
+              <div className="border-t border-white/10 pt-16">
+                <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4">
+                  We Also Work With Traditional Industries
+                </h3>
+                <p className="text-slate-400 text-lg max-w-2xl mx-auto mb-10">
+                  AI infrastructure isn't just for online businesses. We've built systems for companies across every sector.
+                </p>
+                <div className="flex flex-wrap justify-center gap-3">
+                  {[
+                    "Home Services", "Healthcare & Dental", "Law Firms", "Real Estate",
+                    "Restaurants & Hospitality", "Construction & Trades", "E-commerce & Retail",
+                    "Agencies", "Manufacturing", "Professional Services",
+                  ].map((type) => (
+                    <span
+                      key={type}
+                      className="px-5 py-2.5 rounded-full text-sm font-medium border border-white/5 text-slate-500 bg-white/[0.02] hover:bg-white/5 hover:text-slate-300 hover:border-white/10 transition-all duration-300"
+                    >
+                      {type}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
           </section>
 

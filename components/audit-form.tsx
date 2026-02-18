@@ -329,6 +329,15 @@ export function AuditForm() {
                                             <SelectItem value="digital-products">Digital Products (templates, tools, etc.)</SelectItem>
                                             <SelectItem value="newsletter">Newsletter / Media</SelectItem>
                                             <SelectItem value="cohort">Cohort-Based Program</SelectItem>
+                                            <SelectItem value="agency">Agency (Marketing, Creative, Dev)</SelectItem>
+                                            <SelectItem value="ecommerce">E-commerce / Retail</SelectItem>
+                                            <SelectItem value="home-services">Home Services (HVAC, Plumbing, Electrical, etc.)</SelectItem>
+                                            <SelectItem value="healthcare">Healthcare / Dental / Wellness</SelectItem>
+                                            <SelectItem value="professional-services">Professional Services (Law, Accounting, Finance)</SelectItem>
+                                            <SelectItem value="construction">Construction / Trades</SelectItem>
+                                            <SelectItem value="restaurant-hospitality">Restaurant / Hospitality</SelectItem>
+                                            <SelectItem value="real-estate">Real Estate</SelectItem>
+                                            <SelectItem value="manufacturing">Manufacturing / Logistics</SelectItem>
                                             <SelectItem value="other">Other</SelectItem>
                                         </SelectContent>
                                     </Select>
