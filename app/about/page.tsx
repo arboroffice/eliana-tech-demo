@@ -17,7 +17,7 @@ export default function AboutPage() {
                 <h1 className="text-4xl md:text-6xl font-bold mb-8 text-center">About Eliana Tech</h1>
                 <div className="prose prose-invert prose-lg max-w-none space-y-6">
                     <p className="text-xl text-slate-300 leading-relaxed text-center mb-12">
-                        We build AI infrastructure that lets info and SaaS companies scale without scaling headcount.
+                        We build AI infrastructure that frees founders from their businesses, so they can scale without scaling headcount.
                     </p>
                     <p>
                         Most growing companies hit the same wall: revenue goes up, but so does the operational chaos. More users means more support tickets. More customers means more onboarding. More growth means more busywork that pulls founders away from the thing that actually matters—building great products and serving their audience.

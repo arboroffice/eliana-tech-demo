@@ -1,5 +1,5 @@
 /**
- * Audit Analyzer — Info & SaaS Companies
+ * Audit Analyzer — All Industries
  * Calculates scores and analyzes intent from audit responses
  */
 

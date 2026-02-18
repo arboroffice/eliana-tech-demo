@@ -1,5 +1,5 @@
 /**
- * Auto Proposal Generator (Info & SaaS)
+ * Auto Proposal Generator — All Industries
  * Generates custom proposals based on audit data
  */
 
@@ -26,7 +26,7 @@ export function generateProposal(formData: any, auditScore: number): Proposal {
   return {
     clientName: formData.fullName || 'Valued Client',
     companyName: formData.companyName || 'Your Company',
-    businessType: formData.businessType || 'Info / SaaS',
+    businessType: formData.businessType || 'Business',
     date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
     painPoints,
     recommendedPackage,

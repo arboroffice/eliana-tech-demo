@@ -1,5 +1,5 @@
 /**
- * Instant Mini-Wins Generator (Info & SaaS)
+ * Instant Mini-Wins Generator — All Industries
  * Provides immediate, actionable value after audit completion
  */
 
@@ -85,7 +85,7 @@ JSON { "response": "text", "sentiment": "0-1", "intent": "support|billing|featur
             icon: '',
             content: `**SYSTEM MESSAGE (Content-Bot)**
 Role: Lead Content Strategist for ${companyName}.
-Audience: ${businessType || 'Info/SaaS'} buyers and prospects.
+Audience: ${businessType || 'your'} buyers and prospects.
 Tone: Authoritative, Insightful, yet Accessible (Reading Level: Grade 8).
 
 **TASK:**
@@ -368,7 +368,7 @@ function generateBusinessAgentArchitecture(formData: any): MiniWin {
 - Payments: Stripe`
         },
         default: {
-            title: 'Info Business Automation Architecture',
+            title: 'Business Automation Architecture',
             description: 'Full-stack automation system for scaling without headcount.',
             type: 'checklist',
             copyable: true,

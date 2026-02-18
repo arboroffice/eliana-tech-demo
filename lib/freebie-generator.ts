@@ -1,5 +1,5 @@
 /**
- * Freebie Generator — Rich lead magnet content (Info & SaaS)
+ * Freebie Generator — Rich lead magnet content for all industries
  */
 
 export interface QuickWin {
@@ -366,24 +366,24 @@ export function generateIndustryPlaybook(formData: any): IndustryPlaybook {
 
   if (key && playbooks[key]) return playbooks[key]
 
-  // Generic fallback for info/SaaS
+  // Generic fallback
   return {
-    industryName: formData.businessType || "Info / SaaS Business",
+    industryName: formData.businessType || "Your Business",
     topChallenges: [
       "Manual onboarding losing early customers",
       "Support overwhelm eating into growth time",
       "Content creation taking too many hours",
       "Churn eroding revenue gains",
-      "Owner is the bottleneck — can't scale"
+      "Owner is the bottleneck and can't step away"
     ],
     aiSolutions: [
       { challenge: "Manual onboarding", solution: "Automated welcome sequences with personalized activation paths", roi: "3x faster activation, 30% less early churn" },
-      { challenge: "Support overwhelm", solution: "AI chatbot trained on your content handles 80% of questions", roi: "60-80% fewer support tickets" },
-      { challenge: "Content hamster wheel", solution: "AI repurposing pipeline: 1 piece → 30+ assets in your voice", roi: "10-15 hrs/week saved" },
-      { challenge: "Revenue churn", solution: "Predictive health scoring + automated re-engagement", roi: "30-50% reduction in churn" }
+      { challenge: "Support overwhelm", solution: "AI assistant trained on your business handles 80% of questions", roi: "60-80% fewer support tickets" },
+      { challenge: "Content and marketing", solution: "AI repurposing pipeline: 1 piece of content becomes 30+ assets", roi: "10-15 hrs/week saved" },
+      { challenge: "Customer retention", solution: "Predictive health scoring + automated re-engagement", roi: "30-50% reduction in churn" }
     ],
-    caseStudy: { type: "Info/SaaS Business", before: "Owner working 50+ hrs/week, high churn, manual everything", after: "25 hrs/week, 50% less churn, 80% automated operations" },
-    nextSteps: ["Automate onboarding flow", "Deploy AI support chatbot", "Build content repurposing pipeline", "Set up churn prediction alerts", "Create owner delegation system"]
+    caseStudy: { type: "Founder-Led Business", before: "Owner working 50+ hrs/week, high churn, manual everything", after: "25 hrs/week, 50% less churn, 80% automated operations" },
+    nextSteps: ["Automate onboarding flow", "Deploy AI support assistant", "Build marketing automation pipeline", "Set up churn prediction alerts", "Create owner delegation system"]
   }
 }
 

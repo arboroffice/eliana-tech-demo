@@ -30,7 +30,7 @@ export default function HomePage() {
                 We install growth infrastructure and act as your Chief AI Officer. Building the systems that let you scale without scaling headcount.
               </p>
               <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto mb-12 leading-relaxed">
-                The fastest-growing info and SaaS companies aren't hiring more people. They have an <span className="text-white font-semibold">AI wing</span> building systems that do the work of 10, so they can focus on <span className="text-white font-semibold">product and revenue</span>.
+                The fastest-growing founders aren't hiring more people. They have an <span className="text-white font-semibold">AI wing</span> building systems that do the work of 10, so they can focus on <span className="text-white font-semibold">vision and revenue</span>.
               </p>
               <Link
                 href="/audit"
@@ -127,7 +127,7 @@ export default function HomePage() {
                   {
                     step: "02",
                     title: "Build & Install",
-                    desc: "We build your AI systems and integrate them into your existing stack. Stripe, Intercom, ConvertKit, Webflow, your CRM, whatever you use, we plug into it.",
+                    desc: "We build your AI systems and integrate them into your existing stack. Your CRM, payment processor, scheduling tool, whatever you use, we plug into it.",
                   },
                   {
                     step: "03",
@@ -225,16 +225,19 @@ export default function HomePage() {
           <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5 bg-slate-900/10">
             <div className="max-w-5xl mx-auto text-center">
               <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-6">
-                Built for Info &amp; SaaS Companies
+                Built for Founders Who Want Freedom
               </h2>
               <p className="text-lg text-slate-400 max-w-2xl mx-auto mb-12">
-                Our core focus is digital-first businesses that scale through systems, not headcount.
+                Online, local, or enterprise. If you're a founder stuck running the machine instead of building your dream life, we're your AI wing.
               </p>
-              <div className="flex flex-wrap justify-center gap-3 mb-16">
+              <div className="flex flex-wrap justify-center gap-3">
                 {[
-                  "Course Creators", "Coaches", "SaaS Founders", "Community Builders",
-                  "Membership Sites", "Digital Product Sellers", "Newsletter Operators",
-                  "Dev Tool Companies", "B2B SaaS", "Cohort-Based Programs",
+                  "SaaS Founders", "Course Creators", "Coaches & Consultants",
+                  "E-commerce & Retail", "Agencies", "Home Services",
+                  "Healthcare & Dental", "Law Firms & Accounting", "Real Estate",
+                  "Restaurants & Hospitality", "Construction & Trades",
+                  "Manufacturing & Logistics", "Membership & Community",
+                  "Digital Products", "Professional Services",
                 ].map((type) => (
                   <span
                     key={type}
@@ -243,29 +246,6 @@ export default function HomePage() {
                     {type}
                   </span>
                 ))}
-              </div>
-
-              <div className="border-t border-white/10 pt-16">
-                <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4">
-                  We Also Work With Traditional Industries
-                </h3>
-                <p className="text-slate-400 text-lg max-w-2xl mx-auto mb-10">
-                  AI infrastructure isn't just for online businesses. We've built systems for companies across every sector.
-                </p>
-                <div className="flex flex-wrap justify-center gap-3">
-                  {[
-                    "Home Services", "Healthcare & Dental", "Law Firms", "Real Estate",
-                    "Restaurants & Hospitality", "Construction & Trades", "E-commerce & Retail",
-                    "Agencies", "Manufacturing", "Professional Services",
-                  ].map((type) => (
-                    <span
-                      key={type}
-                      className="px-5 py-2.5 rounded-full text-sm font-medium border border-white/5 text-slate-500 bg-white/[0.02] hover:bg-white/5 hover:text-slate-300 hover:border-white/10 transition-all duration-300"
-                    >
-                      {type}
-                    </span>
-                  ))}
-                </div>
               </div>
             </div>
           </section>
@@ -284,7 +264,7 @@ export default function HomePage() {
                   },
                   {
                     q: "Will this work with my existing tools?",
-                    a: "Yes. We integrate with Stripe, Intercom, ConvertKit, Kajabi, Teachable, Webflow, HubSpot, Zapier, and pretty much anything with an API. We build around your stack, not against it.",
+                    a: "Yes. We integrate with Stripe, HubSpot, Salesforce, QuickBooks, ServiceTitan, Jobber, Shopify, Webflow, Zapier, and pretty much anything with an API. We build around your stack, not against it.",
                   },
                   {
                     q: "How long until my systems are live?",

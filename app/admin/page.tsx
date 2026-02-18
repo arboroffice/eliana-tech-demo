@@ -24,7 +24,7 @@ interface Submission {
     email: string
     phoneNumber?: string
     websiteUrl?: string
-    // New info/SaaS fields
+    // Business detail fields
     businessType?: string
     businessTypeOther?: string
     productDescription?: string

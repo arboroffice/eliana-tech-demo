@@ -12,7 +12,7 @@ export const faqData = [
       { q: "Do you do the work for me?", a: "Yes! We don't just teach you - we build everything for you. Then we show you how it works." },
       { q: "How long does it take to set everything up?", a: "Most builds take 2-4 weeks. Bigger projects can take 6-8 weeks. We'll give you a clear timeline before we start." },
       { q: "Is Elianatech a software I buy?", a: "No. We're a team that builds custom systems for your business. Every business is different, so every system we build is different." },
-      { q: "What types of businesses do you work with?", a: "Info products, SaaS companies, coaches, course creators, membership sites, and digital-first businesses. If you sell software, knowledge, or access, we can help you scale." },
+      { q: "What types of businesses do you work with?", a: "Any founder-led business that wants to scale without scaling headcount. SaaS, e-commerce, coaching, home services, healthcare, law firms, real estate, restaurants, agencies, construction, manufacturing, and more. If you're a founder stuck in the operations, we can help." },
       { q: "Can I see examples of your work?", a: "Yes! We have case studies that show real results. Just ask and we'll share ones that fit your industry." },
       { q: "What happens in the first call?", a: "We listen. You tell us what's not working, and we figure out if we can help. No pressure, no tricks - just a real talk about your business." }
     ]
@@ -154,7 +154,7 @@ export const faqData = [
       { q: "Do you offer 'done-for-you' services?", a: "Yes, our core offering is a high-touch, custom implementation where we build and deploy everything for you." },
       { q: "How long does a typical implementation take?", a: "Most 'Build & Release' cycles take between 8 to 12 weeks, depending on the complexity of your current tech stack and goals." },
       { q: "Is Eliana Tech a SaaS platform?", a: "No, we are a service provider that builds custom solutions on top of world-class platforms (like Gemini, OpenAI, Claude) tailored to your specific business." },
-      { q: "What industries do you specialize in?", a: "We have deep experience in SaaS, info products, coaching, course creation, membership sites, and digital-first businesses." },
+      { q: "What industries do you specialize in?", a: "We work across all industries. Online businesses (SaaS, courses, coaching, memberships), local businesses (home services, healthcare, restaurants, real estate), and enterprise companies. If it has a founder who wants freedom, we build the systems." },
       { q: "Can I see any case studies?", a: "Yes, you can view our recent success stories on the [Case Studies](/case-studies) page." },
       { q: "What is Step 0: The Deep Audit?", a: "It's our mandatory first step where we map out every manual process in your business and identify exactly where you are losing money." },
       { q: "What is the 'Build & Release' offer?", a: "It's our primary service where we design, build, and deploy your custom Growth Infrastructure over a fixed period." },

@@ -1,5 +1,5 @@
 /**
- * Lead Scoring & Routing — Info & SaaS Companies
+ * Lead Scoring & Routing — All Industries
  */
 
 export interface LeadScore {
@@ -40,7 +40,7 @@ export function scoreAndRouteLead(formData: any, auditScore: number): LeadScore 
   score += opportunityBonus
   if (auditScore < 40) reasons.push(`Low automation readiness (${auditScore}/100) = high opportunity`)
 
-  // Info/SaaS-specific intent signals (0-10 points)
+  // Business-specific intent signals (0-10 points)
   if (formData.churnRate === '20+' || formData.churnRate === '10-20') {
     score += 5
     reasons.push('High churn rate — urgent need')
