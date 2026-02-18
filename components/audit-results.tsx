@@ -13,13 +13,14 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import Link from "next/link"
 import { generateIndustryPlaybook } from "@/lib/freebie-generator"
+import { getBusinessCategory, type BusinessCategory } from "@/lib/audit-industry-config"
 
 interface AuditResultsProps {
   formData: any
   auditScore: number
 }
 
-// ─── Helpers ──────────────────────────────────────────────
+// ─── Helpers (industry-aware number parsing) ─────────────
 function parseChurnPct(v: string): number {
   if (v === '20+') return 0.25
   if (v === '10-20') return 0.15
@@ -28,16 +29,26 @@ function parseChurnPct(v: string): number {
   return 0.10
 }
 
-function parseProductPrice(v: string): number {
-  if (v === '5k+') return 7500
-  if (v === '1k-5k') return 3000
-  if (v === '500-1k') return 750
-  if (v === '100-500') return 300
-  if (v === 'recurring') return 100
-  return 50
+function parseProductPrice(v: string, cat: BusinessCategory): number {
+  // Same value keys map to different dollar amounts per industry
+  const map: Record<BusinessCategory, Record<string, number>> = {
+    online: { '5k+': 7500, '1k-5k': 3000, '200-1k': 600, '50-200': 125, 'under-50': 30, 'recurring': 100 },
+    local: { '5k+': 15000, '1k-5k': 5000, '200-1k': 1200, '50-200': 350, 'under-50': 100, 'recurring': 200 },
+    professional: { '5k+': 25000, '1k-5k': 10000, '200-1k': 3500, '50-200': 1000, 'under-50': 250, 'recurring': 5000 },
+    product: { '5k+': 7500, '1k-5k': 2500, '200-1k': 600, '50-200': 100, 'under-50': 30, 'recurring': 50 },
+  }
+  return map[cat]?.[v] ?? 100
 }
 
-function parseConversionPct(v: string): number {
+function parseConversionPct(v: string, cat: BusinessCategory): number {
+  // Local/professional use different scales (20-80% close rates vs 1-10% web conversion)
+  if (cat === 'local' || cat === 'professional') {
+    if (v === '10+') return 0.80
+    if (v === '5-10') return 0.65
+    if (v === '3-5') return 0.45
+    if (v === '1-3') return 0.30
+    return 0.15
+  }
   if (v === '10+') return 0.12
   if (v === '5-10') return 0.07
   if (v === '3-5') return 0.04
@@ -45,12 +56,15 @@ function parseConversionPct(v: string): number {
   return 0.005
 }
 
-function parseListSize(v: string): number {
-  if (v === '50k+') return 75000
-  if (v === '10k-50k') return 30000
-  if (v === '5k-10k') return 7500
-  if (v === '1k-5k') return 3000
-  return 500
+function parseListSize(v: string, cat: BusinessCategory): number {
+  // Same keys map to different actual counts per industry
+  const map: Record<BusinessCategory, Record<string, number>> = {
+    online: { '50k+': 75000, '10k-50k': 30000, '5k-10k': 7500, '1k-5k': 3000, 'under-1k': 500 },
+    local: { '50k+': 15000, '10k-50k': 5000, '5k-10k': 1000, '1k-5k': 300, 'under-1k': 50 },
+    professional: { '50k+': 750, '10k-50k': 250, '5k-10k': 60, '1k-5k': 20, 'under-1k': 5 },
+    product: { '50k+': 150000, '10k-50k': 50000, '5k-10k': 12000, '1k-5k': 2500, 'under-1k': 250 },
+  }
+  return map[cat]?.[v] ?? 500
 }
 
 function fmt$(n: number): string {
@@ -139,46 +153,112 @@ function calcSubScores(fd: any) {
 }
 
 function categoryInsight(cat: string, fd: any): string {
-  const bt = (fd.businessType || '').toLowerCase()
-  const isTraditional = ['home-services','healthcare','professional-services','construction','restaurant-hospitality','real-estate','manufacturing'].some(t => bt.includes(t))
+  const bCat = getBusinessCategory(fd.businessType || '')
 
   switch (cat) {
-    case 'Revenue':
-      if (fd.revenueTrend === 'Growing') return "Revenue is trending up. AI infrastructure can accelerate this without adding headcount."
-      if (fd.revenueTrend === 'Flat') return isTraditional
-        ? "Revenue has plateaued. Automated follow-up, review generation, and lead capture can reignite growth."
-        : "Revenue has plateaued. Automated funnels and AI-driven upsells can reignite growth."
-      return "Revenue is declining. Urgent automation of acquisition and retention can stabilize and reverse the trend."
-    case 'Automation':
-      if ((fd.percentAutomated === '60+')) return "You're well-automated. AI intelligence layers and optimization are your next edge."
-      if (fd.percentAutomated === '30-60') return isTraditional
-        ? "You have some tools in place, but they're siloed. Connecting them creates a system that runs itself."
-        : "You have tools but they're not connected. Full automation could save 20+ hrs/week."
-      return isTraditional
-        ? "Most of your operations are manual. Even basic automation of scheduling, follow-up, and invoicing will transform your capacity."
-        : "Most of your operations are manual. Automation alone could transform your capacity overnight."
-    case 'Acquisition':
-      if (parseConversionPct(fd.conversionRate) >= 0.05) return isTraditional
-        ? "Strong conversion rate. AI can optimize your booking flow and follow-up for even better results."
-        : "Solid conversion rate. AI can optimize your funnel for even higher enrollment and purchase rates."
-      return isTraditional
-        ? "Low conversion means leads are slipping through the cracks. Faster response times and automated follow-up can 2-3x your bookings."
-        : "Low conversion rate means your funnel is leaking. AI-driven optimization and follow-up can 2-3x your conversions."
-    case 'Retention':
-      if (fd.churnRate === 'under-5') return isTraditional
-        ? "Excellent customer retention. AI can boost repeat business with proactive maintenance reminders and loyalty campaigns."
-        : "Excellent retention. AI can deepen engagement with personalized content and proactive outreach."
-      if (fd.churnRate === '5-10') return isTraditional
-        ? "Moderate customer churn. Automated post-service follow-ups and review requests can strengthen loyalty."
-        : "Moderate churn. Automated onboarding and engagement sequences can cut this significantly."
-      return isTraditional
-        ? "You're losing customers that should be coming back. Automated follow-up and loyalty programs can cut this by 30-50%."
-        : "High churn is eating your growth. Automated health scoring and re-engagement can cut churn by 30-50%."
-    case 'Time':
+    case 'Revenue': {
+      if (fd.revenueTrend === 'Growing') {
+        const m: Record<BusinessCategory, string> = {
+          online: "Revenue is trending up. AI infrastructure can accelerate this without adding headcount.",
+          local: "Revenue is climbing. Automated booking, review generation, and follow-up can compound this growth without adding crew.",
+          professional: "Revenue is trending up. Systematizing client delivery and pipeline automation can accelerate growth without proportional hiring.",
+          product: "Revenue is growing. Automated inventory, marketing, and fulfillment can sustain this trajectory at higher volume.",
+        }
+        return m[bCat]
+      }
+      if (fd.revenueTrend === 'Flat') {
+        const m: Record<BusinessCategory, string> = {
+          online: "Revenue has plateaued. Automated funnels and AI-driven upsells can reignite growth.",
+          local: "Revenue has plateaued. Automated follow-up, review generation, and lead capture can reignite growth without more ad spend.",
+          professional: "Revenue is flat. Automated pipeline nurture, proposal systems, and upsell sequences to existing clients can restart momentum.",
+          product: "Sales have plateaued. Email automation, abandoned cart recovery, and retargeting can unlock the next growth phase.",
+        }
+        return m[bCat]
+      }
+      const m: Record<BusinessCategory, string> = {
+        online: "Revenue is declining. Urgent automation of acquisition and retention can stabilize and reverse the trend.",
+        local: "Revenue is declining. Immediate focus on lead recapture, review generation, and reactivating past customers can reverse this.",
+        professional: "Revenue is declining. Urgent pipeline rebuilding, client reactivation, and referral automation can stabilize the business.",
+        product: "Revenue is declining. Immediate focus on customer retention, marketing optimization, and reducing returns can stop the bleeding.",
+      }
+      return m[bCat]
+    }
+    case 'Automation': {
+      if (fd.percentAutomated === '60+') return "You're well-automated. AI intelligence layers and optimization are your next edge."
+      if (fd.percentAutomated === '30-60') {
+        const m: Record<BusinessCategory, string> = {
+          online: "You have tools but they're not connected. Full automation could save 20+ hrs/week.",
+          local: "You have some tools in place, but they're siloed. Connecting scheduling, invoicing, and follow-up creates a system that runs itself.",
+          professional: "You have tools but they're not talking to each other. Connecting CRM, project management, and billing can eliminate 15+ hours of admin per week.",
+          product: "Your systems are partially connected. Linking inventory, orders, and shipping into one flow can eliminate errors and save 15+ hrs/week.",
+        }
+        return m[bCat]
+      }
+      const m: Record<BusinessCategory, string> = {
+        online: "Most of your operations are manual. Automation alone could transform your capacity overnight.",
+        local: "Most of your operations are manual. Even basic automation of scheduling, follow-up, and invoicing will transform your capacity.",
+        professional: "Most of your workflows are manual. Automating client intake, proposals, and project tracking will free your team for billable work.",
+        product: "Most of your operations are manual. Automating order processing, inventory updates, and customer communication is the fastest path to scale.",
+      }
+      return m[bCat]
+    }
+    case 'Acquisition': {
+      const cvr = parseConversionPct(fd.conversionRate, bCat)
+      const goodThreshold = bCat === 'local' || bCat === 'professional' ? 0.50 : 0.05
+      if (cvr >= goodThreshold) {
+        const m: Record<BusinessCategory, string> = {
+          online: "Solid conversion rate. AI can optimize your funnel for even higher enrollment and purchase rates.",
+          local: "Strong close rate. AI can optimize your booking flow and speed up response times for even better results.",
+          professional: "Strong proposal close rate. AI can enhance your proposals, speed follow-up, and identify cross-sell opportunities.",
+          product: "Solid conversion rate. AI-driven A/B testing and personalization can push this even higher.",
+        }
+        return m[bCat]
+      }
+      const m: Record<BusinessCategory, string> = {
+        online: "Low conversion rate means your funnel is leaking. AI-driven optimization and follow-up can 2-3x your conversions.",
+        local: "Leads are slipping through the cracks. Faster response times, automated follow-up, and online booking can 2-3x your close rate.",
+        professional: "Low close rate means deals are dying in the pipeline. Faster proposals, automated nurture, and better qualification can double your win rate.",
+        product: "Low conversion rate means visitors aren't buying. Personalized recommendations, urgency triggers, and cart recovery can 2-3x conversions.",
+      }
+      return m[bCat]
+    }
+    case 'Retention': {
+      if (fd.churnRate === 'under-5') {
+        const m: Record<BusinessCategory, string> = {
+          online: "Excellent retention. AI can deepen engagement with personalized content and proactive outreach.",
+          local: "Excellent customer retention. Proactive maintenance reminders and loyalty campaigns can boost repeat business even further.",
+          professional: "Excellent client retention. AI can identify expansion opportunities and automate renewal conversations.",
+          product: "Excellent repeat purchase rate. AI can optimize loyalty programs and personalized recommendations to increase LTV.",
+        }
+        return m[bCat]
+      }
+      if (fd.churnRate === '5-10') {
+        const m: Record<BusinessCategory, string> = {
+          online: "Moderate churn. Automated onboarding and engagement sequences can cut this significantly.",
+          local: "Moderate customer loss. Automated post-service follow-ups, review requests, and maintenance reminders can strengthen loyalty.",
+          professional: "Moderate client churn. Proactive check-ins, automated reporting, and quarterly reviews can improve retention.",
+          product: "Moderate return/churn rate. Post-purchase nurture sequences and loyalty programs can improve this.",
+        }
+        return m[bCat]
+      }
+      const m: Record<BusinessCategory, string> = {
+        online: "High churn is eating your growth. Automated health scoring and re-engagement can cut churn by 30-50%.",
+        local: "You're losing customers that should be coming back. Automated follow-up, satisfaction surveys, and loyalty programs can cut this by 30-50%.",
+        professional: "Client attrition is dragging revenue. Automated satisfaction checks, proactive value delivery, and retention systems can cut losses significantly.",
+        product: "High return/churn rate is killing margins. Better product descriptions, post-purchase education, and quality improvements are critical.",
+      }
+      return m[bCat]
+    }
+    case 'Time': {
       if (fd.twoWeeksOff === 'Yes') return "Your business runs without you. AI can unlock the next level of scale."
-      return isTraditional
-        ? "You're the bottleneck in daily operations. AI can handle scheduling, follow-up, and client communication so you can focus on growth."
-        : "You're the bottleneck. AI delegation systems let you step back without losing momentum."
+      const m: Record<BusinessCategory, string> = {
+        online: "You're the bottleneck. AI delegation systems let you step back without losing momentum.",
+        local: "You're the bottleneck in daily operations. AI can handle scheduling, follow-up, and client communication so you focus on growth.",
+        professional: "You're the bottleneck. AI can handle client intake, scheduling, and routine communication so your team focuses on billable work.",
+        product: "You're tied to daily operations. AI can handle order management, customer service, and inventory so you focus on growth strategy.",
+      }
+      return m[bCat]
+    }
     default: return ""
   }
 }
@@ -187,117 +267,287 @@ const catIcons: Record<string, any> = {
   Revenue: DollarSign, Automation: Settings, Acquisition: Target, Retention: Users, Time: Clock
 }
 
-// ─── Opportunities ────────────────────────────────────────
+// ─── Opportunities (fully category-aware + growth-level aware) ─
 function topOpportunities(fd: any) {
   const opps: { icon: any; title: string; desc: string; roi: string; timeline: string; priority: number }[] = []
-  const bt = (fd.businessType || '').toLowerCase()
-  const isTraditional = ['home-services','healthcare','professional-services','construction','restaurant-hospitality','real-estate','manufacturing'].some(t => bt.includes(t))
+  const cat = getBusinessCategory(fd.businessType || '')
+  const growth = getGrowthLevel(fd)
 
   if (fd.onboardingAutomated === 'No' || fd.onboardingAutomated === 'Partially') {
-    opps.push({
-      icon: Rocket, title: isTraditional ? "Automated Client Onboarding" : "Automated Onboarding",
-      desc: isTraditional
-        ? "Manual intake and onboarding creates delays and inconsistent first impressions. Automated scheduling, intake forms, and welcome sequences get clients started faster."
-        : "Manual onboarding creates bottlenecks and inconsistent experiences. AI-driven sequences can activate users 3x faster and reduce early churn.",
-      roi: isTraditional ? "70% faster client onboarding" : "3x faster activation", timeline: "2-3 weeks", priority: 92
-    })
+    const titles: Record<BusinessCategory, string> = {
+      online: "Automated Onboarding",
+      local: "Automated Client Intake & Scheduling",
+      professional: "Automated Client Onboarding",
+      product: "Automated Order & Fulfillment Flow",
+    }
+    const descs: Record<BusinessCategory, string> = {
+      online: "Manual onboarding creates bottlenecks and inconsistent experiences. AI-driven sequences can activate users 3x faster and reduce early churn.",
+      local: "Manual intake wastes time and loses leads. Automated booking confirmation, intake forms, and pre-visit communication get jobs started faster and reduce no-shows.",
+      professional: "Manual client onboarding creates delays and inconsistent first impressions. Automated intake, document collection, and welcome sequences set the right tone from day one.",
+      product: "Manual order processing creates delays and errors. Automated confirmation, tracking updates, and post-purchase sequences improve the customer experience at scale.",
+    }
+    const rois: Record<BusinessCategory, string> = {
+      online: "3x faster activation",
+      local: "70% faster client onboarding, 50% fewer no-shows",
+      professional: "70% faster client onboarding",
+      product: "2x faster order processing",
+    }
+    opps.push({ icon: Rocket, title: titles[cat], desc: descs[cat], roi: rois[cat], timeline: "2-3 weeks", priority: 92 })
   }
+
   if (fd.churnRate === '20+' || fd.churnRate === '10-20') {
     const churnPct = parseChurnPct(fd.churnRate)
-    const price = parseProductPrice(fd.productPricePoint)
-    const list = parseListSize(fd.listSize)
+    const price = parseProductPrice(fd.productPricePoint, cat)
+    const list = parseListSize(fd.listSize, cat)
     const lostAnnual = Math.round(list * churnPct * price)
-    opps.push({
-      icon: RefreshCw, title: isTraditional ? "Customer Retention System" : "Churn Prevention Engine",
-      desc: isTraditional
-        ? `You're losing customers that should be coming back. Automated follow-up, maintenance reminders, and loyalty campaigns can recover ${fmt$(lostAnnual * 0.3)}/year.`
-        : `Your ${fd.churnRate}% churn rate is costing you an estimated ${fmt$(lostAnnual)}/year. Automated health scoring and re-engagement sequences can cut churn by 30-50%.`,
-      roi: `${fmt$(lostAnnual * 0.3)}/year saved`, timeline: "3-4 weeks", priority: 95
-    })
+    const titles: Record<BusinessCategory, string> = {
+      online: "Churn Prevention Engine",
+      local: "Customer Retention & Repeat Business System",
+      professional: "Client Retention & Renewal System",
+      product: "Customer Loyalty & Repeat Purchase Engine",
+    }
+    const descs: Record<BusinessCategory, string> = {
+      online: `Your ${fd.churnRate}% churn rate is costing an estimated ${fmt$(lostAnnual)}/year. Automated health scoring and re-engagement sequences can cut churn by 30-50%.`,
+      local: `You're losing customers worth an estimated ${fmt$(lostAnnual)}/year. Automated follow-up, maintenance reminders, and satisfaction surveys can recover 30-50% of that.`,
+      professional: `Client attrition is costing an estimated ${fmt$(lostAnnual)}/year. Automated check-ins, proactive reporting, and renewal sequences can cut churn by 30-50%.`,
+      product: `Customer loss is costing an estimated ${fmt$(lostAnnual)}/year. Loyalty programs, post-purchase nurture, and reorder reminders can recover 30-50% of lost revenue.`,
+    }
+    opps.push({ icon: RefreshCw, title: titles[cat], desc: descs[cat], roi: `${fmt$(lostAnnual * 0.3)}/year saved`, timeline: "3-4 weeks", priority: 95 })
   }
+
   if (fd.supportHoursPerWeek === '10+' || fd.supportHoursPerWeek === '5-10') {
     const hrs = fd.supportHoursPerWeek === '10+' ? 12 : 7
-    opps.push({
-      icon: Headphones, title: isTraditional ? "AI Phone & Support System" : "AI-Powered Support",
-      desc: isTraditional
-        ? `You're spending ${fd.supportHoursPerWeek} hrs/week on calls and inquiries. An AI receptionist can handle scheduling, FAQs, and routing 24/7.`
-        : `You're spending ${fd.supportHoursPerWeek} hrs/week on support. An AI assistant trained on your content can handle 80% of questions instantly.`,
-      roi: `${Math.round(hrs * 0.8 * 4)} hrs/month freed up`, timeline: "2-3 weeks", priority: 88
-    })
+    const titles: Record<BusinessCategory, string> = {
+      online: "AI-Powered Support",
+      local: "AI Receptionist & Support System",
+      professional: "AI Client Communication Layer",
+      product: "AI Customer Service System",
+    }
+    const descs: Record<BusinessCategory, string> = {
+      online: `You're spending ${fd.supportHoursPerWeek} hrs/week on support. An AI assistant trained on your content can handle 80% of questions instantly.`,
+      local: `You're spending ${fd.supportHoursPerWeek} hrs/week on calls and inquiries. An AI receptionist handles scheduling, FAQs, and call routing 24/7 — even after hours.`,
+      professional: `You're spending ${fd.supportHoursPerWeek} hrs/week on client communication. AI can handle status updates, scheduling, and routine questions, freeing your team for billable work.`,
+      product: `You're spending ${fd.supportHoursPerWeek} hrs/week on customer service. An AI system can handle order status, returns, and FAQs — resolving 80% of tickets instantly.`,
+    }
+    opps.push({ icon: Headphones, title: titles[cat], desc: descs[cat], roi: `${Math.round(hrs * 0.8 * 4)} hrs/month freed up`, timeline: "2-3 weeks", priority: 88 })
   }
+
   if (fd.contentCreationHours === '20+' || fd.contentCreationHours === '10-20') {
-    opps.push({
-      icon: FileText, title: isTraditional ? "Automated Marketing & Reviews" : "AI Content Engine",
-      desc: isTraditional
-        ? "Automate review requests after every job, generate social proof, and run targeted campaigns without lifting a finger."
-        : "You're spending significant time on content. AI repurposing can turn 1 piece into 30+ assets in your voice and style.",
-      roi: isTraditional ? "3x reviews, consistent lead flow" : "10-15 hrs/week saved", timeline: "1-2 weeks", priority: 82
-    })
+    const titles: Record<BusinessCategory, string> = {
+      online: "AI Content Engine",
+      local: "Automated Marketing & Review Engine",
+      professional: "AI Thought Leadership & Marketing Engine",
+      product: "AI Marketing & Product Content Engine",
+    }
+    const descs: Record<BusinessCategory, string> = {
+      online: "You're spending significant time on content. AI repurposing can turn 1 piece into 30+ assets in your voice and style.",
+      local: "Automate review requests after every job, generate social proof, and run targeted local campaigns without lifting a finger.",
+      professional: "AI can draft case studies, LinkedIn posts, and email campaigns from your existing client work — building authority without the time sink.",
+      product: "AI can generate product descriptions, social content, and email campaigns from your existing assets — at 10x the speed.",
+    }
+    const rois: Record<BusinessCategory, string> = {
+      online: "10-15 hrs/week saved", local: "3x reviews, consistent lead flow",
+      professional: "5-10 hrs/week saved, consistent pipeline", product: "10-15 hrs/week saved",
+    }
+    opps.push({ icon: FileText, title: titles[cat], desc: descs[cat], roi: rois[cat], timeline: "1-2 weeks", priority: 82 })
   }
+
   if (fd.percentAutomated === 'none' || fd.percentAutomated === 'under-30') {
-    opps.push({
-      icon: Zap, title: "Workflow Automation Hub",
-      desc: isTraditional
-        ? "Scheduling, invoicing, follow-ups, and client communication are all manual. Connecting these systems saves 15-20 hours per week and eliminates dropped balls."
-        : "With most processes still manual, a central automation layer connecting your tools can save 15-20 hours per week and eliminate errors.",
-      roi: "15-20 hrs/week saved", timeline: "3-4 weeks", priority: 85
-    })
+    const descs: Record<BusinessCategory, string> = {
+      online: "With most processes still manual, a central automation layer connecting your tools can save 15-20 hours per week and eliminate errors.",
+      local: "Scheduling, invoicing, follow-ups, and client communication are all manual. Connecting these systems saves 15-20 hours per week and eliminates dropped balls.",
+      professional: "Client intake, proposals, billing, and project updates are all manual. An automation hub connecting these saves 15-20 hours per week and reduces errors.",
+      product: "Order processing, inventory updates, and customer communication are all manual. Automating these workflows saves 15-20 hours per week and prevents costly errors.",
+    }
+    opps.push({ icon: Zap, title: "Workflow Automation Hub", desc: descs[cat], roi: "15-20 hrs/week saved", timeline: "3-4 weeks", priority: 85 })
   }
+
   if (fd.conversionRate === 'under-1' || fd.conversionRate === '1-3') {
-    opps.push({
-      icon: Target, title: isTraditional ? "Lead Capture & Follow-up" : "Funnel Optimization",
-      desc: isTraditional
-        ? "Slow response times and missed follow-ups are costing you jobs. AI instant response and automated nurture can 2-3x your booking rate."
-        : "Low conversion rates mean your funnel is leaking. AI-driven A/B testing, lead scoring, and personalized follow-up can 2-3x your conversion rate.",
-      roi: "2-3x conversion rate", timeline: "2-4 weeks", priority: 80
-    })
+    const titles: Record<BusinessCategory, string> = {
+      online: "Funnel Optimization",
+      local: "Lead Capture & Speed-to-Contact",
+      professional: "Pipeline & Proposal Optimization",
+      product: "Conversion Rate Optimization",
+    }
+    const descs: Record<BusinessCategory, string> = {
+      online: "Low conversion rates mean your funnel is leaking. AI-driven A/B testing, lead scoring, and personalized follow-up can 2-3x your conversion rate.",
+      local: "Slow response times and missed follow-ups are costing you jobs. AI instant response and automated nurture can 2-3x your booking rate.",
+      professional: "Deals are dying in the pipeline. Faster proposal generation, automated follow-up, and better lead qualification can double your win rate.",
+      product: "Low conversion rate means visitors aren't buying. Personalized recommendations, urgency triggers, and abandoned cart recovery can 2-3x conversions.",
+    }
+    opps.push({ icon: Target, title: titles[cat], desc: descs[cat], roi: "2-3x conversion rate", timeline: "2-4 weeks", priority: 80 })
   }
+
   if (fd.twoWeeksOff !== 'Yes') {
-    opps.push({
-      icon: Brain, title: "AI Business Delegation Layer",
-      desc: isTraditional
-        ? "You can't step away without jobs falling through the cracks. AI systems handle scheduling, client communication, and dispatch 24/7."
-        : "You can't step away without things breaking. AI agents handle triage, support, and client comms 24/7.",
-      roi: "Owner freedom + sustained revenue", timeline: "4-6 weeks", priority: 76
-    })
+    // Priority increases if they're also working 60+ hours and in growth/scale stage
+    let delegationPriority = 76
+    if (fd.hoursPerWeek === '60+') delegationPriority += 8
+    if (growth.level === 'scale' || growth.level === 'enterprise') delegationPriority += 5
+    if (fd.bottleneck === 'time') delegationPriority += 10
+
+    const descs: Record<BusinessCategory, string> = {
+      online: "You can't step away without things breaking. AI agents handle triage, support, and client comms 24/7.",
+      local: "You can't step away without jobs falling through the cracks. AI handles scheduling, client communication, and dispatch 24/7.",
+      professional: "You can't take vacation without client work slipping. AI handles intake, scheduling, and routine client communication while you're away.",
+      product: "You can't step away without orders and customer issues piling up. AI handles order management, support, and inventory alerts 24/7.",
+    }
+    opps.push({ icon: Brain, title: "AI Business Delegation Layer", desc: descs[cat], roi: "Owner freedom + sustained revenue", timeline: "4-6 weeks", priority: delegationPriority })
   }
+
+  // Boost priority for bottleneck-aligned opportunities
+  const bottleneckMap: Record<string, string[]> = {
+    traffic: ["Lead Capture", "Funnel", "Marketing", "Conversion"],
+    conversion: ["Funnel", "Conversion", "Pipeline", "Lead Capture"],
+    fulfillment: ["Workflow", "Automated Order", "Automated Client"],
+    churn: ["Churn", "Retention", "Loyalty", "Repeat"],
+    time: ["Delegation", "Workflow", "Automation Hub"],
+    team: ["Delegation", "Automation Hub", "Workflow"],
+  }
+  const boostTerms = bottleneckMap[fd.bottleneck] || []
+  opps.forEach(o => {
+    if (boostTerms.some(t => o.title.includes(t))) o.priority += 10
+  })
+
   opps.sort((a, b) => b.priority - a.priority)
   return opps.slice(0, 3)
 }
 
-// ─── Quick Wins ───────────────────────────────────────────
+// ─── Quick Wins (industry-aware) ──────────────────────────
 function quickWins(fd: any) {
   const wins: { icon: string; text: string }[] = []
-  if (fd.onboardingAutomated !== 'Yes') wins.push({ icon: "🚀", text: "Set up automated onboarding emails for new customers — reduce early churn by 30%+" })
-  if (fd.churnRate === '20+' || fd.churnRate === '10-20') wins.push({ icon: "🔄", text: "Launch a win-back email campaign to churned users — recover 10-20% of lost revenue" })
-  if (fd.twoWeeksOff === 'No') wins.push({ icon: "🧠", text: "Delegate email triage and support to AI — save 5-10 hrs/week instantly" })
-  if (fd.percentAutomated === 'none' || fd.percentAutomated === 'under-30') wins.push({ icon: "⚡", text: "Connect your top 3 tools with Zapier/Make — eliminate 80% of manual workflows" })
-  if (fd.supportHoursPerWeek === '10+' || fd.supportHoursPerWeek === '5-10') wins.push({ icon: "💬", text: "Add an AI chatbot trained on your content — handle 80% of support questions automatically" })
-  if (fd.contentCreationHours === '20+' || fd.contentCreationHours === '10-20') wins.push({ icon: "📝", text: "Use AI to repurpose your long-form content into social posts, emails, and threads" })
-  if (fd.conversionRate === 'under-1' || fd.conversionRate === '1-3') wins.push({ icon: "🎯", text: "Add an automated email nurture sequence for leads — convert 30-50% more prospects" })
-  if (fd.revenueTrend !== 'Growing') wins.push({ icon: "📈", text: "Set up automated upsell/cross-sell sequences to existing customers — increase LTV 15-25%" })
-  wins.push({ icon: "📊", text: "Create a real-time KPI dashboard — spot churn, revenue, and engagement issues early" })
-  wins.push({ icon: "📧", text: "Segment your email list by engagement level — send targeted re-activation campaigns" })
+  const cat = getBusinessCategory(fd.businessType || '')
+
+  if (fd.onboardingAutomated !== 'Yes') {
+    const m: Record<BusinessCategory, string> = {
+      online: "Set up automated onboarding emails for new customers — reduce early churn by 30%+",
+      local: "Set up automated booking confirmations and pre-visit instructions — reduce no-shows by 40%+",
+      professional: "Set up automated client welcome sequences with intake forms and scheduling — make a great first impression every time",
+      product: "Set up automated order confirmation and shipping notification emails — reduce support tickets by 30%+",
+    }
+    wins.push({ icon: "🚀", text: m[cat] })
+  }
+  if (fd.churnRate === '20+' || fd.churnRate === '10-20') {
+    const m: Record<BusinessCategory, string> = {
+      online: "Launch a win-back email campaign to churned users — recover 10-20% of lost revenue",
+      local: "Send a 'we miss you' campaign to past customers with a special offer — reactivate 10-20% of dormant clients",
+      professional: "Reach out to past clients with a value-add update or check-in — reactivate 10-20% of dormant relationships",
+      product: "Launch a win-back campaign to lapsed buyers with personalized recommendations — recover 10-20% of lost customers",
+    }
+    wins.push({ icon: "🔄", text: m[cat] })
+  }
+  if (fd.twoWeeksOff === 'No') {
+    const m: Record<BusinessCategory, string> = {
+      online: "Delegate email triage and support to AI — save 5-10 hrs/week instantly",
+      local: "Set up an after-hours auto-response with booking link — stop losing leads outside business hours",
+      professional: "Delegate routine client emails and scheduling to AI — save 5-10 hrs/week instantly",
+      product: "Set up automated customer service responses for common questions — save 5-10 hrs/week",
+    }
+    wins.push({ icon: "🧠", text: m[cat] })
+  }
+  if (fd.percentAutomated === 'none' || fd.percentAutomated === 'under-30') {
+    const m: Record<BusinessCategory, string> = {
+      online: "Connect your top 3 tools with Zapier/Make — eliminate 80% of manual workflows",
+      local: "Connect your booking, invoicing, and review tools — eliminate double data entry and missed follow-ups",
+      professional: "Connect your CRM, calendar, and billing — eliminate manual data entry between systems",
+      product: "Connect your store, inventory, and shipping tools — eliminate manual order processing errors",
+    }
+    wins.push({ icon: "⚡", text: m[cat] })
+  }
+  if (fd.supportHoursPerWeek === '10+' || fd.supportHoursPerWeek === '5-10') {
+    const m: Record<BusinessCategory, string> = {
+      online: "Add an AI chatbot trained on your content — handle 80% of support questions automatically",
+      local: "Add an AI chatbot to your website for booking and FAQs — capture leads 24/7 without answering the phone",
+      professional: "Add a chatbot to your site for intake screening and FAQs — qualify leads automatically",
+      product: "Add an AI chatbot for order status, returns, and product questions — resolve 80% of tickets instantly",
+    }
+    wins.push({ icon: "💬", text: m[cat] })
+  }
+  if (fd.contentCreationHours === '20+' || fd.contentCreationHours === '10-20') {
+    const m: Record<BusinessCategory, string> = {
+      online: "Use AI to repurpose your long-form content into social posts, emails, and threads",
+      local: "Set up automated review request emails after every completed job — build social proof on autopilot",
+      professional: "Use AI to turn client wins into case studies, LinkedIn posts, and email campaigns",
+      product: "Use AI to generate product descriptions, social posts, and email campaigns from your existing content",
+    }
+    wins.push({ icon: "📝", text: m[cat] })
+  }
+  if (fd.conversionRate === 'under-1' || fd.conversionRate === '1-3') {
+    const m: Record<BusinessCategory, string> = {
+      online: "Add an automated email nurture sequence for leads — convert 30-50% more prospects",
+      local: "Respond to every new lead within 5 minutes with an automated text/email — businesses that respond first win 78% of jobs",
+      professional: "Add an automated proposal follow-up sequence — deals that get follow-up close at 2x the rate",
+      product: "Set up abandoned cart email recovery — recapture 10-15% of lost sales automatically",
+    }
+    wins.push({ icon: "🎯", text: m[cat] })
+  }
+  if (fd.revenueTrend !== 'Growing') {
+    const m: Record<BusinessCategory, string> = {
+      online: "Set up automated upsell/cross-sell sequences to existing customers — increase LTV 15-25%",
+      local: "Send seasonal maintenance reminders to your customer list — generate repeat business on autopilot",
+      professional: "Send quarterly value reports to existing clients with expansion opportunities — increase account value 15-25%",
+      product: "Set up post-purchase cross-sell and reorder reminder emails — increase repeat purchase rate 15-25%",
+    }
+    wins.push({ icon: "📈", text: m[cat] })
+  }
+
+  // Always-show items (industry-specific)
+  const dashboardText: Record<BusinessCategory, string> = {
+    online: "Create a real-time KPI dashboard — spot churn, revenue, and engagement issues early",
+    local: "Create a real-time dashboard tracking leads, jobs, revenue, and reviews — spot problems before they cost you",
+    professional: "Create a pipeline dashboard tracking proposals, close rate, and utilization — spot issues before they impact revenue",
+    product: "Create a real-time dashboard tracking orders, inventory, returns, and ad spend — spot issues before they cost you",
+  }
+  wins.push({ icon: "📊", text: dashboardText[cat] })
+
   return wins.slice(0, 5)
 }
 
-// ─── Roadmap ──────────────────────────────────────────────
+// ─── Roadmap (industry + growth-level aware) ─────────────
 function roadmap(fd: any) {
-  const phase1Items = ["Audit existing tech stack & integrations", "Automated onboarding sequences", "AI support chatbot setup"]
-  const phase2Items = ["A/B test email sequences & funnels", "Churn prediction & re-engagement automation", "Content repurposing pipeline"]
+  const cat = getBusinessCategory(fd.businessType || '')
+  const growth = getGrowthLevel(fd)
+
+  const phase1: Record<BusinessCategory, string[]> = {
+    online: ["Audit existing tech stack & integrations", "Automated onboarding sequences", "AI support chatbot setup"],
+    local: ["Audit existing tools & disconnected systems", "Automated booking confirmation & reminders", "AI receptionist / after-hours response"],
+    professional: ["Audit existing tools & client workflow", "Automated client intake & welcome sequence", "AI-assisted proposal & scheduling"],
+    product: ["Audit existing tech stack & integrations", "Automated order processing & fulfillment alerts", "AI customer service for common inquiries"],
+  }
+
+  const phase2: Record<BusinessCategory, string[]> = {
+    online: ["A/B test email sequences & funnels", "Churn prediction & re-engagement automation", "Content repurposing pipeline"],
+    local: ["Automated review requests after every job", "Re-engagement campaigns for past customers", "Lead follow-up speed optimization"],
+    professional: ["Automated proposal follow-up sequences", "Client health scoring & proactive check-ins", "Thought leadership content pipeline"],
+    product: ["Abandoned cart recovery & email flows", "Customer loyalty & repeat purchase automation", "Product content & social media pipeline"],
+  }
+
+  // Growth-level adjustments for phase 2
+  if (growth.level === 'early') {
+    phase2[cat] = phase2[cat].map(item => {
+      if (item.includes('Churn') || item.includes('health scoring')) return cat === 'local' ? "Google Business Profile optimization" : "Lead magnet & list building automation"
+      return item
+    })
+  }
 
   const churnPct = parseChurnPct(fd.churnRate)
-  const price = parseProductPrice(fd.productPricePoint)
-  const list = parseListSize(fd.listSize)
+  const price = parseProductPrice(fd.productPricePoint, cat)
+  const list = parseListSize(fd.listSize, cat)
   const churnSaved = Math.round(list * churnPct * price * 0.3)
   const supportHrs = fd.supportHoursPerWeek === '10+' ? 10 : fd.supportHoursPerWeek === '5-10' ? 5 : 2
   const hrsRecovered = Math.round(supportHrs * 0.8 * 4)
 
-  const phase3Items = [`Projected: ${fmt$(churnSaved)}/year saved from reduced churn`, `${hrsRecovered}+ hrs/month freed from automated support`, "Full owner-optional operations"]
+  const phase3Shared = [`Projected: ${fmt$(churnSaved)}/year saved from reduced churn`, `${hrsRecovered}+ hrs/month freed from automated support`]
+  const phase3Final: Record<BusinessCategory, string> = {
+    online: "Full owner-optional operations",
+    local: "Business runs without you on-site daily",
+    professional: "Senior team focused on clients, not admin",
+    product: "Operations run at 2x volume without hiring",
+  }
+
   return [
-    { label: "Days 1-14", title: "Install & Configure", items: phase1Items, color: "border-blue-500/40 bg-blue-500/5" },
-    { label: "Days 15-30", title: "Optimize & Tune", items: phase2Items, color: "border-yellow-500/40 bg-yellow-500/5" },
-    { label: "Days 31-90", title: "Scale & Grow", items: phase3Items, color: "border-emerald-500/40 bg-emerald-500/5" },
+    { label: "Days 1-14", title: "Install & Configure", items: phase1[cat], color: "border-blue-500/40 bg-blue-500/5" },
+    { label: "Days 15-30", title: "Optimize & Tune", items: phase2[cat], color: "border-yellow-500/40 bg-yellow-500/5" },
+    { label: "Days 31-90", title: "Scale & Grow", items: [...phase3Shared, phase3Final[cat]], color: "border-emerald-500/40 bg-emerald-500/5" },
   ]
 }
 
@@ -305,34 +555,42 @@ function roadmap(fd: any) {
 function getGrowthLevel(fd: any): { level: string; label: string; insight: string } {
   const rev = fd.currentRevenue
   const auto = fd.percentAutomated
-  const trend = fd.revenueTrend
+  const cat = getBusinessCategory(fd.businessType || '')
 
   if (rev === 'pre-revenue' || rev === 'under-100k') {
-    return {
-      level: 'early',
-      label: 'Early Stage',
-      insight: 'You\'re in build mode. The priority is automating lead capture and onboarding so you can focus on product and growth instead of manual operations.'
+    const insights: Record<BusinessCategory, string> = {
+      online: 'You\'re in build mode. The priority is automating lead capture and onboarding so you can focus on product and growth instead of manual operations.',
+      local: 'You\'re in the early days. The priority is capturing every lead and call, automating booking, and building a review engine to establish your reputation.',
+      professional: 'You\'re building your practice. The priority is automating client intake, streamlining proposals, and building a referral engine to grow your pipeline.',
+      product: 'You\'re in launch mode. The priority is automating order processing, building your customer base, and optimizing your marketing spend.',
     }
+    return { level: 'early', label: 'Early Stage', insight: insights[cat] }
   }
   if (rev === '100k-500k' || (rev === '500k-1m' && auto !== '60+')) {
-    return {
-      level: 'growth',
-      label: 'Growth Stage',
-      insight: 'You\'ve found product-market fit. Now you need systems to handle the volume without adding headcount. Automation, churn prevention, and funnel optimization are your highest-ROI moves.'
+    const insights: Record<BusinessCategory, string> = {
+      online: 'You\'ve found product-market fit. Now you need systems to handle the volume without adding headcount. Automation, churn prevention, and funnel optimization are your highest-ROI moves.',
+      local: 'You\'ve got steady demand. Now you need systems so growth doesn\'t mean more chaos. Automated scheduling, follow-up, and review generation are your highest-ROI moves.',
+      professional: 'You\'ve built a solid client base. Now you need systems to handle capacity without proportional hiring. Pipeline automation, client onboarding, and delivery systems are key.',
+      product: 'You\'ve got market traction. Now you need systems to handle volume without burning out. Fulfillment automation, email marketing, and inventory management are your highest-ROI moves.',
     }
+    return { level: 'growth', label: 'Growth Stage', insight: insights[cat] }
   }
   if (rev === '500k-1m' || rev === '1m-3m') {
-    return {
-      level: 'scale',
-      label: 'Scale Stage',
-      insight: 'You\'re past the grind phase. The bottleneck is now operational capacity. AI infrastructure should replace manual processes across onboarding, support, and retention to free the leadership team.'
+    const insights: Record<BusinessCategory, string> = {
+      online: 'You\'re past the grind phase. The bottleneck is now operational capacity. AI infrastructure should replace manual processes across onboarding, support, and retention to free the leadership team.',
+      local: 'You\'re past survival mode. The bottleneck is now operational capacity. AI systems for dispatch, customer communication, and team management will unlock the next level without more hires.',
+      professional: 'You\'re past the feast-or-famine phase. The bottleneck is now delivery capacity and margins. AI-powered project management, client communication, and proposal systems free your senior team.',
+      product: 'You\'re past the startup grind. The bottleneck is now supply chain and operations. AI-powered inventory forecasting, customer service, and marketing automation drive the next growth phase.',
     }
+    return { level: 'scale', label: 'Scale Stage', insight: insights[cat] }
   }
-  return {
-    level: 'enterprise',
-    label: 'Enterprise Stage',
-    insight: 'At your scale, every manual process is a drag on margins and enterprise value. Full AI integration across departments creates the operational leverage that drives valuation multiples.'
+  const insights: Record<BusinessCategory, string> = {
+    online: 'At your scale, every manual process is a drag on margins and enterprise value. Full AI integration across departments creates the operational leverage that drives valuation multiples.',
+    local: 'At your scale, every manual process limits growth and enterprise value. Full AI integration across locations, crews, and operations creates the leverage that drives valuation multiples.',
+    professional: 'At your scale, every manual process drags on margins and limits partner earnings. Full AI integration across client service, operations, and business development creates institutional leverage.',
+    product: 'At your scale, every manual process limits throughput and margins. Full AI integration across supply chain, customer experience, and operations creates the efficiency that drives enterprise value.',
   }
+  return { level: 'enterprise', label: 'Enterprise Stage', insight: insights[cat] }
 }
 
 // ─── Score Gauge SVG ──────────────────────────────────────
@@ -352,9 +610,10 @@ function ScoreGauge({ score }: { score: number }) {
 
 // ─── ROI Calculator ───────────────────────────────────────
 function ROICalculator({ fd }: { fd: any }) {
+  const cat = getBusinessCategory(fd.businessType || '')
   const defaultHours = fd.percentAutomated === '60+' ? 5 : fd.percentAutomated === '30-60' ? 12 : 25
-  const defaultChurnSaved = Math.round(parseListSize(fd.listSize) * parseChurnPct(fd.churnRate) * 0.3)
-  const defaultPrice = parseProductPrice(fd.productPricePoint)
+  const defaultChurnSaved = Math.round(parseListSize(fd.listSize, cat) * parseChurnPct(fd.churnRate) * 0.3)
+  const defaultPrice = parseProductPrice(fd.productPricePoint, cat)
 
   const [hours, setHours] = useState(defaultHours)
   const [rate, setRate] = useState(75)
@@ -643,45 +902,131 @@ export function AuditResults({ formData, auditScore }: AuditResultsProps) {
         <p className="text-slate-400 mb-6">Don&apos;t want to wait? Here are things you can implement yourself right now.</p>
         <div className="space-y-4">
           {(() => {
-            const diy: { title: string; steps: string[]; time: string; impact: string; emoji: string; show: boolean }[] = [
-              {
+            const cat = getBusinessCategory(formData.businessType || '')
+
+            const onboardingDIY: Record<BusinessCategory, { title: string; steps: string[] }> = {
+              online: {
                 title: "Set Up Automated Onboarding Emails",
                 steps: [
                   "Map your ideal customer journey from purchase to 'aha moment'",
-                  "Create a 5-email welcome sequence in ConvertKit or ActiveCampaign",
+                  "Create a 5-email welcome sequence in your email platform",
                   "Include: welcome + access → quick win tutorial → community invite → success story → next step CTA",
                   "Set up triggers so they fire automatically on purchase/signup"
-                ],
-                time: "2-3 hours", impact: "Reduce early churn by 30%+ and boost activation",
-                emoji: "🚀",
-                show: formData.onboardingAutomated !== 'Yes'
+                ]
               },
-              {
+              local: {
+                title: "Set Up Automated Booking & Pre-Visit Sequence",
+                steps: [
+                  "Set up instant booking confirmation via email/text with job details",
+                  "Send a 'what to expect' message 24 hours before the appointment",
+                  "Include directions, prep instructions, and technician info",
+                  "Add a same-day reminder text to reduce no-shows by 40%+"
+                ]
+              },
+              professional: {
+                title: "Set Up Automated Client Welcome Sequence",
+                steps: [
+                  "Create a welcome email with engagement letter and intake questionnaire",
+                  "Send a 'meet the team' email with your process overview and timeline",
+                  "Include a scheduling link for the kickoff call",
+                  "Set up an automated document collection workflow"
+                ]
+              },
+              product: {
+                title: "Set Up Post-Purchase Email Sequence",
+                steps: [
+                  "Create an order confirmation email with estimated delivery",
+                  "Send a shipping notification with tracking link",
+                  "Follow up 3 days after delivery with care/usage tips",
+                  "Send a review request 7 days after delivery"
+                ]
+              },
+            }
+
+            const churnDIY: Record<BusinessCategory, { title: string; steps: string[] }> = {
+              online: {
                 title: "Launch a Churn Win-Back Campaign",
                 steps: [
                   "Export a list of churned/refunded customers from the last 6 months",
                   "Segment by reason (if known): price, usage, support, alternative",
                   "Send a 3-email re-engagement sequence: 'We miss you' → new feature/value → special offer",
                   "Track open rates and replies — respond personally to engaged leads"
-                ],
-                time: "2-3 hours", impact: "Recover 10-20% of churned revenue",
-                emoji: "🔄",
-                show: formData.churnRate === '20+' || formData.churnRate === '10-20'
+                ]
               },
-              {
+              local: {
+                title: "Reactivate Past Customers",
+                steps: [
+                  "Pull a list of customers who haven't booked in 6+ months",
+                  "Send a 'we miss you' email/text with a special return offer",
+                  "Include seasonal maintenance reminders relevant to their last service",
+                  "Follow up with a phone call to the top 20% by past spend"
+                ]
+              },
+              professional: {
+                title: "Reactivate Dormant Client Relationships",
+                steps: [
+                  "Identify clients who haven't engaged in 6+ months",
+                  "Send a personalized 'checking in' email with a relevant industry update",
+                  "Offer a complimentary review or assessment of their current situation",
+                  "Schedule catch-up calls with the top 10 by past revenue"
+                ]
+              },
+              product: {
+                title: "Launch a Win-Back Campaign for Lapsed Buyers",
+                steps: [
+                  "Export customers who haven't purchased in 90+ days",
+                  "Send a personalized 'new arrivals' email based on their past purchases",
+                  "Include a time-limited discount or free shipping offer",
+                  "Set up an automated reorder reminder sequence for consumable products"
+                ]
+              },
+            }
+
+            const automationDIY: Record<BusinessCategory, { title: string; steps: string[] }> = {
+              online: {
                 title: "Connect Your Tools with Zapier/Make",
                 steps: [
                   "Sign up for Zapier or Make (both have free tiers)",
-                  "Connect your payment tool (Stripe) → email platform (ConvertKit/ActiveCampaign)",
-                  "Connect your community (Skool/Circle) → CRM for engagement tracking",
-                  "Set up Slack/email notifications for new purchases and cancellations",
+                  "Connect your payment tool → email platform for auto-tagging new buyers",
+                  "Connect your community platform → CRM for engagement tracking",
+                  "Set up notifications for new purchases and cancellations",
                   "Start with 3-5 automations and expand from there"
-                ],
-                time: "1-2 hours", impact: "Eliminate 80% of manual data entry and notifications",
-                emoji: "⚡",
-                show: formData.percentAutomated === 'none' || formData.percentAutomated === 'under-30'
+                ]
               },
-              {
+              local: {
+                title: "Connect Your Booking, Invoicing & Review Tools",
+                steps: [
+                  "Sign up for Zapier or Make (both have free tiers)",
+                  "Connect your booking system → invoicing tool for automatic billing",
+                  "Set up automatic review requests after completed jobs",
+                  "Add new leads to your CRM automatically from web forms and calls",
+                  "Set up text/email notifications for new bookings and cancellations"
+                ]
+              },
+              professional: {
+                title: "Connect Your CRM, Calendar & Billing",
+                steps: [
+                  "Sign up for Zapier or Make (both have free tiers)",
+                  "Connect your CRM → calendar for automatic meeting scheduling",
+                  "Set up automatic invoice generation when projects hit milestones",
+                  "Connect intake forms → CRM for automatic lead creation",
+                  "Set up notifications for new leads, won deals, and overdue invoices"
+                ]
+              },
+              product: {
+                title: "Connect Your Store, Inventory & Shipping",
+                steps: [
+                  "Sign up for Zapier or Make (both have free tiers)",
+                  "Connect your store → shipping tool for automatic label generation",
+                  "Set up low-inventory alerts to prevent stockouts",
+                  "Connect orders → accounting software for automatic bookkeeping",
+                  "Set up notifications for returns, refunds, and high-value orders"
+                ]
+              },
+            }
+
+            const supportDIY: Record<BusinessCategory, { title: string; steps: string[] }> = {
+              online: {
                 title: "Build an AI Support Bot",
                 steps: [
                   "Gather your top 50 FAQs from support tickets, DMs, and emails",
@@ -689,12 +1034,42 @@ export function AuditResults({ formData, auditScore }: AuditResultsProps) {
                   "Upload your FAQ content and let the AI train on it",
                   "Install the widget on your website and community",
                   "Review weekly transcripts to improve accuracy"
-                ],
-                time: "2-3 hours", impact: "Handle 80% of support questions automatically",
-                emoji: "💬",
-                show: formData.supportHoursPerWeek === '10+' || formData.supportHoursPerWeek === '5-10'
+                ]
               },
-              {
+              local: {
+                title: "Set Up an AI Receptionist / Website Chatbot",
+                steps: [
+                  "Gather your top 30 customer questions (pricing, hours, service areas, etc.)",
+                  "Sign up for a chatbot tool (Tidio or Crisp — free tiers available)",
+                  "Train it on your services, pricing, and booking process",
+                  "Install on your website with a 'Book Now' button for instant scheduling",
+                  "Set up after-hours auto-responses with a booking link"
+                ]
+              },
+              professional: {
+                title: "Build an AI Client Intake & FAQ Bot",
+                steps: [
+                  "Gather your top 30 prospect questions (services, process, pricing, timeline)",
+                  "Sign up for a chatbot tool (Intercom or Crisp — free tiers available)",
+                  "Train it to qualify leads and collect intake information",
+                  "Install on your website with a 'Schedule a Consultation' CTA",
+                  "Review weekly to improve lead qualification accuracy"
+                ]
+              },
+              product: {
+                title: "Build an AI Customer Service Bot",
+                steps: [
+                  "Gather your top 50 customer questions (order status, returns, sizing, etc.)",
+                  "Sign up for a chatbot tool (Tidio or Gorgias — free tiers available)",
+                  "Connect it to your order system for real-time tracking lookups",
+                  "Install on your website and post-purchase emails",
+                  "Review weekly transcripts and add new FAQs"
+                ]
+              },
+            }
+
+            const contentDIY: Record<BusinessCategory, { title: string; steps: string[] }> = {
+              online: {
                 title: "Set Up AI Content Repurposing",
                 steps: [
                   "Take your best-performing long-form content (podcast, video, blog)",
@@ -702,12 +1077,42 @@ export function AuditResults({ formData, auditScore }: AuditResultsProps) {
                   "Create templates: 1 long-form → 5 social posts + 3 email snippets + 1 thread",
                   "Schedule distribution across platforms with Buffer or Hypefury",
                   "Track engagement and double down on what resonates"
-                ],
-                time: "1-2 hours", impact: "10-15 hrs/week saved on content creation",
-                emoji: "📝",
-                show: formData.contentCreationHours === '20+' || formData.contentCreationHours === '10-20'
+                ]
               },
-              {
+              local: {
+                title: "Build an Automated Review & Social Proof Engine",
+                steps: [
+                  "Set up automated review request texts/emails after every completed job",
+                  "Use AI to turn your best reviews into social media posts",
+                  "Create before/after photo templates for Instagram and Facebook",
+                  "Respond to every review (positive and negative) within 24 hours",
+                  "Share customer testimonials in your email marketing"
+                ]
+              },
+              professional: {
+                title: "Build a Thought Leadership Content Engine",
+                steps: [
+                  "Use AI to turn client wins and case studies into LinkedIn posts",
+                  "Create a monthly email newsletter with industry insights (AI-assisted)",
+                  "Record a 10-minute Loom video → use AI to create a blog post + social clips",
+                  "Repurpose your best content into lead magnets and email sequences",
+                  "Track engagement and double down on topics that resonate"
+                ]
+              },
+              product: {
+                title: "Set Up AI Product Content Pipeline",
+                steps: [
+                  "Use AI to generate product descriptions from your photos and specs",
+                  "Create social media templates for new arrivals and bestsellers",
+                  "Set up automated email campaigns for product launches",
+                  "Use AI to create UGC-style content from customer reviews and photos",
+                  "Track which content drives sales and iterate"
+                ]
+              },
+            }
+
+            const conversionDIY: Record<BusinessCategory, { title: string; steps: string[] }> = {
+              online: {
                 title: "Optimize Your Sales Funnel",
                 steps: [
                   "Map every step: ad/traffic → landing page → opt-in → nurture → offer → purchase",
@@ -715,25 +1120,42 @@ export function AuditResults({ formData, auditScore }: AuditResultsProps) {
                   "A/B test headlines and CTAs on your landing page",
                   "Add urgency or social proof to your offer page",
                   "Set up an abandoned cart/checkout email sequence"
-                ],
-                time: "3-4 hours", impact: "2-3x your conversion rate over 30 days",
-                emoji: "🎯",
-                show: formData.conversionRate === 'under-1' || formData.conversionRate === '1-3'
+                ]
               },
-              {
-                title: "Segment Your Email List",
+              local: {
+                title: "Speed Up Your Lead Response Time",
                 steps: [
-                  "Tag subscribers by behavior: purchased, engaged, inactive",
-                  "Create segments: hot leads, customers, churned, cold list",
-                  "Send targeted campaigns to each segment (not one-size-fits-all)",
-                  "Set up automated re-engagement for inactive subscribers",
-                  "Clean your list quarterly — remove permanently inactive contacts"
-                ],
-                time: "1-2 hours", impact: "Boost email open rates 30-50% and reduce unsubscribes",
-                emoji: "📧",
-                show: true
+                  "Set up instant auto-response (text + email) for every new lead",
+                  "Include your booking link, service area, and next available slots",
+                  "Follow up with a phone call within 30 minutes during business hours",
+                  "Send a 'still need help?' follow-up after 24 hours if no booking",
+                  "Track response time and close rate to see improvement"
+                ]
               },
-              {
+              professional: {
+                title: "Optimize Your Proposal & Close Process",
+                steps: [
+                  "Create proposal templates so you can send within 24 hours of consultation",
+                  "Add case studies and testimonials to your proposal package",
+                  "Set up an automated 3-email follow-up sequence after sending proposals",
+                  "Include a clear CTA and deadline in every proposal",
+                  "Track win rate by proposal type and adjust"
+                ]
+              },
+              product: {
+                title: "Optimize Your Store Conversion Rate",
+                steps: [
+                  "Add customer reviews and photos to product pages",
+                  "Simplify your checkout flow (fewer steps = higher conversion)",
+                  "Add urgency triggers (low stock, limited time)",
+                  "Set up abandoned cart email recovery (3-email sequence)",
+                  "A/B test product page headlines, images, and CTAs"
+                ]
+              },
+            }
+
+            const timeBlockDIY: Record<BusinessCategory, { title: string; steps: string[] }> = {
+              online: {
                 title: "Reclaim 10 Hours/Week with Time Blocking",
                 steps: [
                   "Audit your last week — where did every hour go?",
@@ -741,13 +1163,43 @@ export function AuditResults({ formData, auditScore }: AuditResultsProps) {
                   "Block 2-hour 'deep work' slots on your calendar (no meetings allowed)",
                   "Batch similar tasks: all content in one block, all support in another",
                   "Delegate or automate anything that doesn't require YOUR expertise"
-                ],
-                time: "1 hour to plan", impact: "10+ hours reclaimed per week",
-                emoji: "⏰",
-                show: formData.hoursPerWeek === '60+' || formData.highValueWork === 'under-20'
+                ]
               },
-              {
-                title: "Create a Real-Time Dashboard",
+              local: {
+                title: "Get Out of the Day-to-Day Grind",
+                steps: [
+                  "Audit your last week — how much time was on the phone, dispatching, and admin?",
+                  "Identify the top 3 tasks someone else (or a tool) could handle",
+                  "Block mornings for high-value work (estimates, client meetings, growth)",
+                  "Batch admin tasks: invoicing in one slot, callbacks in another",
+                  "Delegate or automate everything that doesn't require you personally"
+                ]
+              },
+              professional: {
+                title: "Reclaim Billable Hours from Admin",
+                steps: [
+                  "Track your time for one week — separate billable from non-billable",
+                  "Identify the top 3 non-billable time sinks (proposals, scheduling, follow-up)",
+                  "Block focused client work time on your calendar (no admin allowed)",
+                  "Batch similar admin tasks: all proposals Monday, all billing Friday",
+                  "Delegate or automate everything that isn't client-facing or strategic"
+                ]
+              },
+              product: {
+                title: "Reclaim 10 Hours/Week from Operations",
+                steps: [
+                  "Audit your last week — how much time was on orders, shipping, and customer emails?",
+                  "Identify the top 3 repetitive tasks that could be automated or delegated",
+                  "Block time for strategic work (product development, marketing, partnerships)",
+                  "Batch operational tasks: all shipping in one slot, all customer service in another",
+                  "Delegate or automate everything that doesn't drive growth"
+                ]
+              },
+            }
+
+            const dashboardDIY: Record<BusinessCategory, { title: string; steps: string[]; metrics: string }> = {
+              online: {
+                title: "Create a Real-Time KPI Dashboard",
                 steps: [
                   "Choose a tool: Google Sheets, Notion, or a dashboard tool like Databox",
                   "Track 5 key metrics: MRR, churn rate, new signups, support tickets, engagement",
@@ -755,10 +1207,61 @@ export function AuditResults({ formData, auditScore }: AuditResultsProps) {
                   "Review weekly and look for trends before they become problems",
                   "Share with your team so everyone is aligned on what matters"
                 ],
-                time: "2-3 hours", impact: "Spot problems before they become crises",
-                emoji: "📊",
-                show: true
-              }
+                metrics: "MRR, churn rate, new signups, support tickets, engagement"
+              },
+              local: {
+                title: "Create a Business Health Dashboard",
+                steps: [
+                  "Choose a tool: Google Sheets or a simple dashboard like Databox",
+                  "Track 5 key metrics: new leads, booked jobs, revenue, reviews, and response time",
+                  "Set up weekly auto-reports sent to your email",
+                  "Review weekly and look for trends before they cost you",
+                  "Share with your team so everyone knows what matters"
+                ],
+                metrics: "new leads, booked jobs, revenue, reviews, response time"
+              },
+              professional: {
+                title: "Create a Pipeline & Performance Dashboard",
+                steps: [
+                  "Choose a tool: your CRM dashboard, Google Sheets, or Databox",
+                  "Track 5 key metrics: pipeline value, proposals sent, close rate, utilization, and revenue",
+                  "Set up weekly auto-reports sent to your email",
+                  "Review weekly and identify pipeline gaps before they impact revenue",
+                  "Share with your team so everyone is aligned on targets"
+                ],
+                metrics: "pipeline value, proposals sent, close rate, utilization, revenue"
+              },
+              product: {
+                title: "Create a Sales & Operations Dashboard",
+                steps: [
+                  "Choose a tool: Shopify analytics, Google Sheets, or Triple Whale",
+                  "Track 5 key metrics: orders, revenue, conversion rate, return rate, and ad ROAS",
+                  "Set up weekly auto-reports sent to your email",
+                  "Review weekly and spot trends before they become problems",
+                  "Share with your team so everyone is aligned"
+                ],
+                metrics: "orders, revenue, conversion rate, return rate, ad ROAS"
+              },
+            }
+
+            const ob = onboardingDIY[cat]
+            const ch = churnDIY[cat]
+            const au = automationDIY[cat]
+            const su = supportDIY[cat]
+            const co = contentDIY[cat]
+            const cv = conversionDIY[cat]
+            const tb = timeBlockDIY[cat]
+            const db = dashboardDIY[cat]
+
+            const diy: { title: string; steps: string[]; time: string; impact: string; emoji: string; show: boolean }[] = [
+              { ...ob, time: "2-3 hours", impact: cat === 'local' ? "40%+ fewer no-shows" : "Reduce early churn by 30%+", emoji: "🚀", show: formData.onboardingAutomated !== 'Yes' },
+              { ...ch, time: "2-3 hours", impact: "Recover 10-20% of lost revenue", emoji: "🔄", show: formData.churnRate === '20+' || formData.churnRate === '10-20' },
+              { ...au, time: "1-2 hours", impact: "Eliminate 80% of manual workflows", emoji: "⚡", show: formData.percentAutomated === 'none' || formData.percentAutomated === 'under-30' },
+              { ...su, time: "2-3 hours", impact: "Handle 80% of inquiries automatically", emoji: "💬", show: formData.supportHoursPerWeek === '10+' || formData.supportHoursPerWeek === '5-10' },
+              { ...co, time: "1-2 hours", impact: cat === 'local' ? "3x more reviews on autopilot" : "10-15 hrs/week saved", emoji: "📝", show: formData.contentCreationHours === '20+' || formData.contentCreationHours === '10-20' },
+              { ...cv, time: "3-4 hours", impact: "2-3x your conversion rate over 30 days", emoji: "🎯", show: formData.conversionRate === 'under-1' || formData.conversionRate === '1-3' },
+              { ...tb, time: "1 hour to plan", impact: "10+ hours reclaimed per week", emoji: "⏰", show: formData.hoursPerWeek === '60+' || formData.highValueWork === 'under-20' },
+              { ...db, time: "2-3 hours", impact: "Spot problems before they become crises", emoji: "📊", show: true },
             ]
             return diy.filter(d => d.show).slice(0, 5).map((d, i) => (
               <Card key={i} className="bg-white/[0.03] backdrop-blur-md border-white/10 p-6 hover:border-amber-500/20 transition-all">
@@ -796,17 +1299,46 @@ export function AuditResults({ formData, auditScore }: AuditResultsProps) {
         </h2>
         <p className="text-slate-400 mb-6">No budget? No problem. These free tools can get you started today.</p>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {[
-            { name: "ConvertKit", use: "Email marketing built for creators (free to 1K subs)", emoji: "📧", cat: "Email" },
-            { name: "Zapier", use: "Connect apps & automate workflows", emoji: "⚡", cat: "Automation" },
-            { name: "Notion", use: "Document processes, SOPs & manage projects", emoji: "📝", cat: "Docs" },
-            { name: "Stripe", use: "Payment processing & subscription management", emoji: "💳", cat: "Payments" },
-            { name: "Cal.com", use: "Open-source scheduling for strategy calls", emoji: "📅", cat: "Scheduling" },
-            { name: "Canva", use: "Design course assets, social posts & lead magnets", emoji: "🎨", cat: "Design" },
-            { name: "Loom", use: "Record tutorials, SOPs & async video", emoji: "🎥", cat: "Video" },
-            { name: "Crisp", use: "Live chat + AI chatbot for support", emoji: "💬", cat: "Support" },
-            { name: "Claude", use: "AI assistant for content, strategy & automation", emoji: "🤖", cat: "AI" },
-          ].map((tool, i) => (
+          {((): { name: string; use: string; emoji: string; cat: string }[] => {
+            const bCat = getBusinessCategory(formData.businessType || '')
+            const shared = [
+              { name: "Zapier", use: "Connect apps & automate workflows", emoji: "⚡", cat: "Automation" },
+              { name: "Cal.com", use: "Open-source scheduling for calls & bookings", emoji: "📅", cat: "Scheduling" },
+              { name: "Canva", use: "Design marketing assets & social posts", emoji: "🎨", cat: "Design" },
+              { name: "Claude", use: "AI assistant for content, strategy & automation", emoji: "🤖", cat: "AI" },
+            ]
+            const byIndustry: Record<BusinessCategory, { name: string; use: string; emoji: string; cat: string }[]> = {
+              online: [
+                { name: "ConvertKit", use: "Email marketing built for creators (free to 1K subs)", emoji: "📧", cat: "Email" },
+                { name: "Notion", use: "Document processes, SOPs & manage projects", emoji: "📝", cat: "Docs" },
+                { name: "Stripe", use: "Payment processing & subscription management", emoji: "💳", cat: "Payments" },
+                { name: "Loom", use: "Record tutorials, SOPs & async video", emoji: "🎥", cat: "Video" },
+                { name: "Crisp", use: "Live chat + AI chatbot for support", emoji: "💬", cat: "Support" },
+              ],
+              local: [
+                { name: "Jobber", use: "Scheduling, invoicing & client management for service businesses", emoji: "🔧", cat: "Operations" },
+                { name: "Google Business", use: "Free listing — get found in local search & collect reviews", emoji: "📍", cat: "Marketing" },
+                { name: "Mailchimp", use: "Email marketing for customer follow-up (free tier)", emoji: "📧", cat: "Email" },
+                { name: "Wave", use: "Free invoicing and accounting for small businesses", emoji: "💳", cat: "Payments" },
+                { name: "Tidio", use: "Website chatbot for booking & FAQs (free tier)", emoji: "💬", cat: "Support" },
+              ],
+              professional: [
+                { name: "HubSpot CRM", use: "Free CRM for pipeline, contacts & deals", emoji: "📊", cat: "CRM" },
+                { name: "Notion", use: "Document processes, proposals & client portals", emoji: "📝", cat: "Docs" },
+                { name: "Loom", use: "Record client updates & async video proposals", emoji: "🎥", cat: "Video" },
+                { name: "FreshBooks", use: "Simple invoicing & time tracking (free trial)", emoji: "💳", cat: "Billing" },
+                { name: "Crisp", use: "Website chat for lead qualification & intake", emoji: "💬", cat: "Support" },
+              ],
+              product: [
+                { name: "Klaviyo", use: "Email marketing built for e-commerce (free to 250 contacts)", emoji: "📧", cat: "Email" },
+                { name: "Shopify", use: "E-commerce platform with built-in analytics", emoji: "🛒", cat: "Store" },
+                { name: "ShipStation", use: "Shipping & order fulfillment automation", emoji: "📦", cat: "Shipping" },
+                { name: "Triple Whale", use: "E-commerce analytics & attribution", emoji: "📊", cat: "Analytics" },
+                { name: "Tidio", use: "AI chatbot for order status & customer service", emoji: "💬", cat: "Support" },
+              ],
+            }
+            return [...byIndustry[bCat], ...shared]
+          })().map((tool, i) => (
             <div key={i} className="bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-xl p-4 hover:border-blue-500/20 transition-all">
               <div className="flex items-center gap-3 mb-2">
                 <span className="text-2xl">{tool.emoji}</span>
@@ -830,7 +1362,7 @@ export function AuditResults({ formData, auditScore }: AuditResultsProps) {
           <div className="grid md:grid-cols-3 gap-6">
             <div className="space-y-2">
               <p className="text-red-400 font-bold text-3xl">
-                {fmt$(parseListSize(formData.listSize) * parseChurnPct(formData.churnRate) * parseProductPrice(formData.productPricePoint))}
+                {fmt$(parseListSize(formData.listSize, getBusinessCategory(formData.businessType || '')) * parseChurnPct(formData.churnRate) * parseProductPrice(formData.productPricePoint, getBusinessCategory(formData.businessType || '')))}
               </p>
               <p className="text-slate-400 text-sm">Lost revenue per year from churn alone</p>
             </div>

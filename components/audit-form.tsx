@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ArrowLeft, ArrowRight, Send, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -12,25 +12,8 @@ import { Textarea } from "@/components/ui/textarea"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Card } from "@/components/ui/card"
 import { AuditResults } from "@/components/audit-results"
-
-const STEPS = [
-    "About You",
-    "Your Product",
-    "Revenue & Growth",
-    "Audience & Acquisition",
-    "Time & Operations",
-    "Tech & Automation",
-    "Let's Go",
-]
-
-const ENCOURAGEMENTS = [
-    "Great start! Let's look at what you sell.",
-    "Nice — now let's understand your numbers.",
-    "Halfway there! Let's look at your audience.",
-    "Almost done — how you spend your time matters most.",
-    "Last two steps! Let's see your tech stack.",
-    "Final step — just a few more clicks.",
-]
+import { getIndustryConfig } from "@/lib/audit-industry-config"
+import { calculateAuditScore } from "@/lib/audit-analyzer"
 
 const STORAGE_KEY = "elianatech-audit-progress"
 
@@ -135,6 +118,10 @@ export function AuditForm() {
     const [encouragement, setEncouragement] = useState("")
 
     const [formData, setFormData] = useState<FormData>(DEFAULT_FORM_DATA)
+
+    const config = useMemo(() => getIndustryConfig(formData.businessType), [formData.businessType])
+    const STEPS = config.stepLabels
+    const ENCOURAGEMENTS = config.encouragements
 
     useEffect(() => {
         try {
@@ -249,7 +236,7 @@ export function AuditForm() {
     }
 
     if (isSuccess && showResults) {
-        return <AuditResults formData={formData} auditScore={75} />
+        return <AuditResults formData={formData} auditScore={calculateAuditScore(formData)} />
     }
 
     return (
@@ -290,7 +277,7 @@ export function AuditForm() {
                     <motion.div key={currentStep} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.2 }} className="space-y-6">
 
-                        {/* Step 1: About You */}
+                        {/* Step 1: About You (same for all) */}
                         {currentStep === 0 && (
                             <div className="space-y-4">
                                 <div className="grid md:grid-cols-2 gap-4">
@@ -351,71 +338,58 @@ export function AuditForm() {
                             </div>
                         )}
 
-                        {/* Step 2: Your Product */}
+                        {/* Step 2: Product / Services (industry-aware) */}
                         {currentStep === 1 && (
                             <div className="space-y-6">
                                 <div className="space-y-2">
-                                    <Label>Briefly describe what you sell</Label>
+                                    <Label>{config.step2.productDescription.label}</Label>
                                     <Textarea value={formData.productDescription} onChange={(e) => updateField("productDescription", e.target.value)}
-                                        className="bg-slate-800 border-slate-700 h-20" placeholder="e.g. A 12-week coaching program for early-stage SaaS founders..." />
+                                        className="bg-slate-800 border-slate-700 h-20" placeholder={config.step2.productDescription.placeholder} />
                                 </div>
                                 <div className="grid md:grid-cols-2 gap-4">
                                     <div className="space-y-2">
-                                        <Label>Primary Price Point</Label>
+                                        <Label>{config.step2.productPricePoint.label}</Label>
                                         <Select value={formData.productPricePoint} onValueChange={(val: string) => updateField("productPricePoint", val)}>
                                             <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
                                             <SelectContent>
-                                                <SelectItem value="under-50">Under $50</SelectItem>
-                                                <SelectItem value="50-200">$50 - $200</SelectItem>
-                                                <SelectItem value="200-1k">$200 - $1,000</SelectItem>
-                                                <SelectItem value="1k-5k">$1,000 - $5,000</SelectItem>
-                                                <SelectItem value="5k+">$5,000+</SelectItem>
-                                                <SelectItem value="recurring">Recurring (monthly/annual sub)</SelectItem>
+                                                {config.step2.productPricePoint.options?.map(opt => (
+                                                    <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
+                                                ))}
                                             </SelectContent>
                                         </Select>
                                     </div>
                                     <div className="space-y-2">
-                                        <Label>Number of Products / Offers</Label>
+                                        <Label>{config.step2.numberOfProducts.label}</Label>
                                         <Select value={formData.numberOfProducts} onValueChange={(val: string) => updateField("numberOfProducts", val)}>
                                             <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
                                             <SelectContent>
-                                                <SelectItem value="1">1 core offer</SelectItem>
-                                                <SelectItem value="2-3">2 - 3 offers</SelectItem>
-                                                <SelectItem value="4-10">4 - 10 products</SelectItem>
-                                                <SelectItem value="10+">10+ products</SelectItem>
+                                                {config.step2.numberOfProducts.options?.map(opt => (
+                                                    <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
+                                                ))}
                                             </SelectContent>
                                         </Select>
                                     </div>
                                 </div>
                                 <div className="grid md:grid-cols-2 gap-4">
                                     <div className="space-y-2">
-                                        <Label>Primary Platform</Label>
+                                        <Label>{config.step2.platform.label}</Label>
                                         <Select value={formData.platform} onValueChange={(val: string) => updateField("platform", val)}>
                                             <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
                                             <SelectContent>
-                                                <SelectItem value="kajabi">Kajabi</SelectItem>
-                                                <SelectItem value="teachable">Teachable</SelectItem>
-                                                <SelectItem value="skool">Skool</SelectItem>
-                                                <SelectItem value="circle">Circle</SelectItem>
-                                                <SelectItem value="gumroad">Gumroad</SelectItem>
-                                                <SelectItem value="shopify">Shopify</SelectItem>
-                                                <SelectItem value="wordpress">WordPress</SelectItem>
-                                                <SelectItem value="custom-saas">Custom-built SaaS</SelectItem>
-                                                <SelectItem value="stripe-direct">Stripe (direct)</SelectItem>
-                                                <SelectItem value="other">Other</SelectItem>
+                                                {config.step2.platform.options?.map(opt => (
+                                                    <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
+                                                ))}
                                             </SelectContent>
                                         </Select>
                                     </div>
                                     <div className="space-y-2">
-                                        <Label>How do you deliver?</Label>
+                                        <Label>{config.step2.deliveryMethod.label}</Label>
                                         <Select value={formData.deliveryMethod} onValueChange={(val: string) => updateField("deliveryMethod", val)}>
                                             <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
                                             <SelectContent>
-                                                <SelectItem value="self-paced">Self-paced (async)</SelectItem>
-                                                <SelectItem value="live">Live (calls, cohorts)</SelectItem>
-                                                <SelectItem value="hybrid">Hybrid (mix of both)</SelectItem>
-                                                <SelectItem value="software">Software / SaaS product</SelectItem>
-                                                <SelectItem value="done-for-you">Done-for-you service</SelectItem>
+                                                {config.step2.deliveryMethod.options?.map(opt => (
+                                                    <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
+                                                ))}
                                             </SelectContent>
                                         </Select>
                                     </div>
@@ -423,7 +397,7 @@ export function AuditForm() {
                             </div>
                         )}
 
-                        {/* Step 3: Revenue & Growth */}
+                        {/* Step 3: Revenue & Growth (industry-aware bottleneck) */}
                         {currentStep === 2 && (
                             <div className="space-y-6">
                                 <div className="space-y-2">
@@ -484,12 +458,9 @@ export function AuditForm() {
                                     <Select value={formData.bottleneck} onValueChange={(val: string) => updateField("bottleneck", val)}>
                                         <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="traffic">Traffic / audience growth</SelectItem>
-                                            <SelectItem value="conversion">Conversion (traffic but no sales)</SelectItem>
-                                            <SelectItem value="fulfillment">Fulfillment / delivery at scale</SelectItem>
-                                            <SelectItem value="churn">Churn / retention</SelectItem>
-                                            <SelectItem value="time">Time (I'm the bottleneck)</SelectItem>
-                                            <SelectItem value="team">Team / hiring</SelectItem>
+                                            {config.step3.bottleneck.options?.map(opt => (
+                                                <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
+                                            ))}
                                         </SelectContent>
                                     </Select>
                                 </div>
@@ -508,88 +479,75 @@ export function AuditForm() {
                             </div>
                         )}
 
-                        {/* Step 4: Audience & Acquisition */}
+                        {/* Step 4: Audience / Customers (industry-aware) */}
                         {currentStep === 3 && (
                             <div className="space-y-6">
                                 <div className="space-y-2">
-                                    <Label>Email List / User Base Size</Label>
+                                    <Label>{config.step4.listSize.label}</Label>
                                     <Select value={formData.listSize} onValueChange={(val: string) => updateField("listSize", val)}>
                                         <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="under-1k">Under 1,000</SelectItem>
-                                            <SelectItem value="1k-5k">1,000 - 5,000</SelectItem>
-                                            <SelectItem value="5k-10k">5,000 - 10,000</SelectItem>
-                                            <SelectItem value="10k-50k">10,000 - 50,000</SelectItem>
-                                            <SelectItem value="50k+">50,000+</SelectItem>
+                                            {config.step4.listSize.options?.map(opt => (
+                                                <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
+                                            ))}
                                         </SelectContent>
                                     </Select>
                                 </div>
                                 <div className="space-y-2">
-                                    <Label>Primary Traffic / Lead Source</Label>
+                                    <Label>{config.step4.trafficSource.label}</Label>
                                     <Select value={formData.trafficSource} onValueChange={(val: string) => updateField("trafficSource", val)}>
                                         <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="organic-social">Organic social (Twitter/X, LinkedIn, IG, TikTok)</SelectItem>
-                                            <SelectItem value="paid-ads">Paid ads (Meta, Google, YouTube)</SelectItem>
-                                            <SelectItem value="seo">SEO / Content marketing</SelectItem>
-                                            <SelectItem value="email">Email list</SelectItem>
-                                            <SelectItem value="affiliates">Affiliates / Partnerships</SelectItem>
-                                            <SelectItem value="referrals">Word of mouth / Referrals</SelectItem>
-                                            <SelectItem value="mixed">Mix of several</SelectItem>
+                                            {config.step4.trafficSource.options?.map(opt => (
+                                                <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
+                                            ))}
                                         </SelectContent>
                                     </Select>
                                 </div>
                                 <div className="grid md:grid-cols-2 gap-4">
                                     <div className="space-y-2">
-                                        <Label>Visitor / Lead to Customer Conversion Rate</Label>
+                                        <Label>{config.step4.conversionRate.label}</Label>
                                         <Select value={formData.conversionRate} onValueChange={(val: string) => updateField("conversionRate", val)}>
                                             <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
                                             <SelectContent>
-                                                <SelectItem value="under-1">Under 1%</SelectItem>
-                                                <SelectItem value="1-3">1 - 3%</SelectItem>
-                                                <SelectItem value="3-5">3 - 5%</SelectItem>
-                                                <SelectItem value="5-10">5 - 10%</SelectItem>
-                                                <SelectItem value="10+">10%+</SelectItem>
-                                                <SelectItem value="unknown">I don't know</SelectItem>
+                                                {config.step4.conversionRate.options?.map(opt => (
+                                                    <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
+                                                ))}
                                             </SelectContent>
                                         </Select>
                                     </div>
                                     <div className="space-y-2">
-                                        <Label>Launches or Campaigns Per Year</Label>
+                                        <Label>{config.step4.launchesPerYear.label}</Label>
                                         <Select value={formData.launchesPerYear} onValueChange={(val: string) => updateField("launchesPerYear", val)}>
                                             <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
                                             <SelectContent>
-                                                <SelectItem value="0-1">0 - 1 (evergreen only)</SelectItem>
-                                                <SelectItem value="2-4">2 - 4 launches</SelectItem>
-                                                <SelectItem value="5-8">5 - 8 launches</SelectItem>
-                                                <SelectItem value="continuous">Continuous (always selling)</SelectItem>
+                                                {config.step4.launchesPerYear.options?.map(opt => (
+                                                    <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
+                                                ))}
                                             </SelectContent>
                                         </Select>
                                     </div>
                                 </div>
                                 <div className="grid md:grid-cols-2 gap-4">
                                     <div className="space-y-2">
-                                        <Label>Churn / Refund Rate</Label>
+                                        <Label>{config.step4.churnRate.label}</Label>
                                         <Select value={formData.churnRate} onValueChange={(val: string) => updateField("churnRate", val)}>
                                             <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
                                             <SelectContent>
-                                                <SelectItem value="under-5">Under 5% (healthy)</SelectItem>
-                                                <SelectItem value="5-10">5 - 10%</SelectItem>
-                                                <SelectItem value="10-20">10 - 20% (needs work)</SelectItem>
-                                                <SelectItem value="20+">20%+ (urgent)</SelectItem>
-                                                <SelectItem value="unknown">I don't track this</SelectItem>
+                                                {config.step4.churnRate.options?.map(opt => (
+                                                    <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
+                                                ))}
                                             </SelectContent>
                                         </Select>
                                     </div>
                                     <div className="space-y-2">
-                                        <Label>Hours / Week on Content Creation</Label>
+                                        <Label>{config.step4.contentCreationHours.label}</Label>
                                         <Select value={formData.contentCreationHours} onValueChange={(val: string) => updateField("contentCreationHours", val)}>
                                             <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
                                             <SelectContent>
-                                                <SelectItem value="under-5">Under 5 hours</SelectItem>
-                                                <SelectItem value="5-10">5 - 10 hours</SelectItem>
-                                                <SelectItem value="10-20">10 - 20 hours</SelectItem>
-                                                <SelectItem value="20+">20+ hours</SelectItem>
+                                                {config.step4.contentCreationHours.options?.map(opt => (
+                                                    <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
+                                                ))}
                                             </SelectContent>
                                         </Select>
                                     </div>
@@ -597,7 +555,7 @@ export function AuditForm() {
                             </div>
                         )}
 
-                        {/* Step 5: Time & Operations */}
+                        {/* Step 5: Time & Operations (industry-aware labels) */}
                         {currentStep === 4 && (
                             <div className="space-y-6">
                                 <div className="grid md:grid-cols-2 gap-4">
@@ -614,7 +572,7 @@ export function AuditForm() {
                                         </Select>
                                     </div>
                                     <div className="space-y-2">
-                                        <Label>Hours / Week on Support &amp; Admin</Label>
+                                        <Label>{config.step5.supportHoursPerWeek.label}</Label>
                                         <Select value={formData.supportHoursPerWeek} onValueChange={(val: string) => updateField("supportHoursPerWeek", val)}>
                                             <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
                                             <SelectContent>
@@ -639,7 +597,7 @@ export function AuditForm() {
                                     </Select>
                                 </div>
                                 <div className="space-y-2">
-                                    <Label>Is your onboarding / delivery automated?</Label>
+                                    <Label>{config.step5.onboardingAutomated.label}</Label>
                                     <div className="grid grid-cols-3 gap-3">
                                         {["Yes", "Partially", "No"].map(opt => (
                                             <Button key={opt} type="button" variant={formData.onboardingAutomated === opt ? "default" : "outline"}
@@ -663,7 +621,7 @@ export function AuditForm() {
                                     </div>
                                 </div>
                                 <div className="space-y-4">
-                                    <Label>Pain Level (1-10) — How urgent is fixing this?</Label>
+                                    <Label>Pain Level (1-10) -- How urgent is fixing this?</Label>
                                     <Slider value={formData.painLevel} onValueChange={(val: number[]) => updateField("painLevel", val)} min={1} max={10} step={1} className="py-2" />
                                     <div className="flex justify-between text-xs text-slate-400">
                                         <span>1 (Fine)</span><span>5 (Annoying)</span><span>10 (Crisis)</span>
@@ -677,26 +635,13 @@ export function AuditForm() {
                             </div>
                         )}
 
-                        {/* Step 6: Tech & Automation */}
+                        {/* Step 6: Tech & Automation (industry-aware tools & problems) */}
                         {currentStep === 5 && (
                             <div className="space-y-6">
                                 <div className="space-y-3">
                                     <Label>Which tools do you currently use?</Label>
                                     <div className="grid grid-cols-2 gap-2">
-                                        {[
-                                            "Kajabi / Teachable / Thinkific",
-                                            "Skool / Circle / Mighty Networks",
-                                            "ConvertKit / Mailchimp / ActiveCampaign",
-                                            "Stripe / PayPal",
-                                            "Zapier / Make",
-                                            "Slack / Discord",
-                                            "Notion / ClickUp / Asana",
-                                            "Webflow / WordPress",
-                                            "Intercom / Zendesk / Crisp",
-                                            "Analytics (GA, Mixpanel, etc.)",
-                                            "CRM (HubSpot, Pipedrive, etc.)",
-                                            "Calendar Booking (Cal, Calendly)"
-                                        ].map(tool => (
+                                        {config.step6.tools.map(tool => (
                                             <div key={tool} className="flex items-center space-x-2">
                                                 <Checkbox id={tool} checked={formData.tools.includes(tool)} onCheckedChange={() => toggleArrayItem("tools", tool)} className="border-slate-600 data-[state=checked]:bg-blue-600" />
                                                 <label htmlFor={tool} className="text-sm text-slate-300 cursor-pointer">{tool}</label>
@@ -705,7 +650,7 @@ export function AuditForm() {
                                     </div>
                                 </div>
                                 <div className="space-y-2">
-                                    <Label>% of Your Business That's Automated</Label>
+                                    <Label>% of Your Business That&apos;s Automated</Label>
                                     <Select value={formData.percentAutomated} onValueChange={(val: string) => updateField("percentAutomated", val)}>
                                         <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
                                         <SelectContent>
@@ -719,26 +664,17 @@ export function AuditForm() {
                                 <div className="space-y-2">
                                     <Label>Biggest Time-Waster in Your Business</Label>
                                     <Input value={formData.biggestTimeWaste} onChange={(e) => updateField("biggestTimeWaste", e.target.value)}
-                                        placeholder="e.g. Answering DMs, onboarding calls, content editing..." className="bg-slate-800 border-slate-700" />
+                                        placeholder={config.step6.biggestTimeWaste.placeholder} className="bg-slate-800 border-slate-700" />
                                 </div>
                                 <div className="space-y-2">
                                     <Label>#1 Goal for Next 12 Months</Label>
                                     <Input value={formData.next12MonthsGoal} onChange={(e) => updateField("next12MonthsGoal", e.target.value)}
-                                        placeholder="e.g. Hit $1M ARR, launch new product, take a month off" className="bg-slate-800 border-slate-700" />
+                                        placeholder={config.step6.next12MonthsGoal.placeholder} className="bg-slate-800 border-slate-700" />
                                 </div>
                                 <div className="space-y-3">
                                     <Label>What problems are you experiencing?</Label>
                                     <div className="grid grid-cols-2 gap-2">
-                                        {[
-                                            "Burnout / overwork",
-                                            "High churn / refunds",
-                                            "Inconsistent revenue",
-                                            "Support overwhelm",
-                                            "Can't scale without hiring",
-                                            "Content creation hamster wheel",
-                                            "Low conversion rates",
-                                            "Tech overwhelm"
-                                        ].map(prob => (
+                                        {config.step6.problems.map(prob => (
                                             <div key={prob} className="flex items-center space-x-2">
                                                 <Checkbox id={prob} checked={formData.problems.includes(prob)} onCheckedChange={() => toggleArrayItem("problems", prob)} className="border-slate-600 data-[state=checked]:bg-red-600" />
                                                 <label htmlFor={prob} className="text-sm text-slate-300 cursor-pointer">{prob}</label>
@@ -749,7 +685,7 @@ export function AuditForm() {
                             </div>
                         )}
 
-                        {/* Step 7: Let's Go */}
+                        {/* Step 7: Let's Go (same for all) */}
                         {currentStep === 6 && (
                             <div className="space-y-6">
                                 <div className="space-y-2">
