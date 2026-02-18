@@ -104,7 +104,7 @@ export default function HomePage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {[
                   {
-                    title: "TIP Licensing",
+                    title: "IP Licensing",
                     desc: "Proven frameworks and systems you can license and own. Build once, benefit forever.",
                     icon: "01",
                   },
