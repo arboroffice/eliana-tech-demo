@@ -27,10 +27,10 @@ export default function HomePage() {
                 ORGANIZATION
               </h1>
               <p className="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto mb-6 leading-relaxed italic">
-                We install growth infrastructure and act as your Chief AI Officer—building the systems that let you scale without scaling headcount.
+                We install growth infrastructure and act as your Chief AI Officer. Building the systems that let you scale without scaling headcount.
               </p>
               <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto mb-12 leading-relaxed">
-                The fastest-growing info and SaaS companies aren't hiring more people. They have an <span className="text-white font-semibold">AI wing</span> building systems that do the work of 10—so they can focus on <span className="text-white font-semibold">product and revenue</span>.
+                The fastest-growing info and SaaS companies aren't hiring more people. They have an <span className="text-white font-semibold">AI wing</span> building systems that do the work of 10, so they can focus on <span className="text-white font-semibold">product and revenue</span>.
               </p>
               <Link
                 href="/audit"
@@ -41,7 +41,7 @@ export default function HomePage() {
             </div>
           </section>
 
-          {/* PAIN — YOU'RE STUCK IN THE MACHINE */}
+          {/* PAIN - YOU'RE STUCK IN THE MACHINE */}
           <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5">
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-16">
@@ -57,8 +57,8 @@ export default function HomePage() {
                 {[
                   { pain: "Onboarding every new user or customer manually", twist: "You're doing $50/hr work in a $500/hr business." },
                   { pain: "Support tickets eating your entire day", twist: "Your inbox is a full-time job you didn't hire for." },
-                  { pain: "Churn you can see coming but can't prevent", twist: "Users go quiet, then cancel—and you find out too late." },
-                  { pain: "No idea which channels actually drive revenue", twist: "You're spending blind—budget over strategy." },
+                  { pain: "Churn you can see coming but can't prevent", twist: "Users go quiet, then cancel. And you find out too late." },
+                  { pain: "No idea which channels actually drive revenue", twist: "You're spending blind. Budget over strategy." },
                   { pain: "Can't take a week off without things breaking", twist: "Your business is a job with better branding." },
                 ].map((item) => (
                   <div
@@ -81,10 +81,10 @@ export default function HomePage() {
                 We Don't Just Build Tools.<br />We Become Your AI Wing.
               </h2>
               <p className="text-lg text-slate-400 leading-relaxed mb-8">
-                Most companies bolt AI onto broken processes. We embed inside your business and rebuild it from the infrastructure up—turning you into an <span className="text-white font-semibold">AI-native organization</span> where growth compounds and operations run themselves.
+                Most companies bolt AI onto broken processes. We embed inside your business and rebuild it from the infrastructure up, turning you into an <span className="text-white font-semibold">AI-native organization</span> where growth compounds and operations run themselves.
               </p>
               <p className="text-lg text-slate-300 leading-relaxed">
-                Think of us as your fractional Chief AI Officer—except we don't just advise. We <span className="text-white font-semibold">architect, build, and install</span> every system ourselves.
+                Think of us as your fractional Chief AI Officer, except we don't just advise. We <span className="text-white font-semibold">architect, build, and install</span> every system ourselves.
               </p>
             </div>
           </section>
@@ -97,7 +97,7 @@ export default function HomePage() {
                   Growth Infrastructure
                 </h2>
                 <p className="text-lg text-slate-400 max-w-2xl mx-auto">
-                  Four pillars that turn your company into a machine that runs—and grows—without you in it.
+                  Four pillars that turn your company into a machine that runs and grows without you in it.
                 </p>
               </div>
 
@@ -110,7 +110,7 @@ export default function HomePage() {
                   },
                   {
                     title: "Autonomous Operations",
-                    desc: "Processes that execute without you. Triggers, actions, and outcomes—all automated.",
+                    desc: "Processes that execute without you. Triggers, actions, and outcomes, all automated.",
                     icon: "02",
                   },
                   {
@@ -154,12 +154,12 @@ export default function HomePage() {
                   {
                     step: "01",
                     title: "Automation Audit",
-                    desc: "We map your entire business—every workflow, every bottleneck, every hour wasted on ops. You get a custom blueprint for what to automate and in what order.",
+                    desc: "We map your entire business: every workflow, every bottleneck, every hour wasted on ops. You get a custom blueprint for what to automate and in what order.",
                   },
                   {
                     step: "02",
                     title: "Build & Install",
-                    desc: "We build your AI systems and integrate them into your existing stack. Stripe, Intercom, ConvertKit, Webflow, your CRM—whatever you use, we plug into it.",
+                    desc: "We build your AI systems and integrate them into your existing stack. Stripe, Intercom, ConvertKit, Webflow, your CRM, whatever you use, we plug into it.",
                   },
                   {
                     step: "03",
@@ -197,7 +197,7 @@ export default function HomePage() {
                     <h3 className="text-2xl font-bold text-white mt-2">Setup Fee</h3>
                   </div>
                   <p className="text-slate-400 leading-relaxed mb-8">
-                    Covers the build — we architect and install your AI systems, integrate with your existing stack, and get everything live. You own it all.
+                    Covers the build. We architect and install your AI systems, integrate with your existing stack, and get everything live. You own it all.
                   </p>
                   <ul className="space-y-3 mb-8">
                     {[
@@ -207,7 +207,7 @@ export default function HomePage() {
                       "Team training & documentation",
                     ].map((item) => (
                       <li key={item} className="flex items-start gap-3">
-                        <span className="text-white mt-0.5">—</span>
+                        <span className="text-white mt-0.5">&#x2022;</span>
                         <span className="text-slate-300 text-sm">{item}</span>
                       </li>
                     ))}
@@ -234,7 +234,7 @@ export default function HomePage() {
                       "Quarterly strategy reviews with Mia",
                     ].map((item) => (
                       <li key={item} className="flex items-start gap-3">
-                        <span className="text-amber-400 mt-0.5">—</span>
+                        <span className="text-amber-400 mt-0.5">&#x2022;</span>
                         <span className="text-slate-300 text-sm">{item}</span>
                       </li>
                     ))}
@@ -247,7 +247,7 @@ export default function HomePage() {
 
               <div className="mt-12 p-6 rounded-2xl border border-white/10 bg-white/5 text-center">
                 <p className="text-slate-300">
-                  Not sure which systems you need? <span className="text-white font-semibold">Start with the free audit.</span> We'll map your business, identify the highest-ROI automations, and scope it out — no commitment.
+                  Not sure which systems you need? <span className="text-white font-semibold">Start with the free audit.</span> We'll map your business, identify the highest-ROI automations, and scope it out. No commitment.
                 </p>
               </div>
             </div>
@@ -274,7 +274,7 @@ export default function HomePage() {
                 ))}
               </div>
               <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-                If you sell software, knowledge, or access—and you're tired of being the entire operations team—we built this for you.
+                If you sell software, knowledge, or access and you're tired of being the entire operations team, we built this for you.
               </p>
             </div>
           </section>
@@ -301,11 +301,11 @@ export default function HomePage() {
                   },
                   {
                     q: "What if I outgrow the system?",
-                    a: "That's the point. These systems are built to scale with you. And if you need to expand, we can add new systems anytime—each one compounds on the last.",
+                    a: "That's the point. These systems are built to scale with you. And if you need to expand, we can add new systems anytime. Each one compounds on the last.",
                   },
                   {
                     q: "Is this just ChatGPT wrappers?",
-                    a: "No. We build custom infrastructure—automated workflows, intelligent routing, data pipelines, and AI agents trained on your specific business. This is engineering, not prompt tricks.",
+                    a: "No. We build custom infrastructure: automated workflows, intelligent routing, data pipelines, and AI agents trained on your specific business. This is engineering, not prompt tricks.",
                   },
                 ].map((item) => (
                   <div key={item.q} className="p-6 rounded-2xl border border-white/10 bg-white/5">
