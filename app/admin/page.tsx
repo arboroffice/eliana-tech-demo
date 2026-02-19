@@ -12,6 +12,7 @@ import {
 } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
+import { getIndustryConfig, getBusinessCategory } from '@/lib/audit-industry-config'
 
 // ═══════════════════════════════════════════════════════════════════════════
 // TYPES
@@ -383,6 +384,9 @@ function SubmissionDetail({ submission: s, onBack, onDelete }: { submission: Sub
     const sub = useMemo(() => calcSubScores(s), [s])
     const lead = useMemo(() => calcLeadScore(s, auditScore), [s, auditScore])
     const roi = useMemo(() => calcROI(s), [s])
+    const config = useMemo(() => getIndustryConfig(s.businessType || ''), [s.businessType])
+    const businessCat = useMemo(() => getBusinessCategory(s.businessType || ''), [s.businessType])
+    const catLabel = { online: 'Online', local: 'Local Services', professional: 'Professional', product: 'Product / E-com' }[businessCat]
 
     const leadTempIcon = lead.level === 'hot' ? Flame : lead.level === 'warm' ? Thermometer : Snowflake
     const leadTempColor = lead.level === 'hot' ? 'text-red-400 bg-red-400/10 border-red-400/20' : lead.level === 'warm' ? 'text-orange-400 bg-orange-400/10 border-orange-400/20' : 'text-blue-400 bg-blue-400/10 border-blue-400/20'
@@ -400,7 +404,7 @@ function SubmissionDetail({ submission: s, onBack, onDelete }: { submission: Sub
                 <div className="flex flex-wrap items-start justify-between gap-4">
                     <div>
                         <h2 className="text-2xl font-bold text-white">{s.fullName}</h2>
-                        <p className="text-slate-400 mt-1">{s.companyName}</p>
+                        <p className="text-slate-400 mt-1">{s.companyName} <span className="ml-2 px-2 py-0.5 rounded-full text-xs font-medium bg-white/5 border border-white/10 text-slate-400">{catLabel}</span></p>
                         <div className="flex items-center gap-3 mt-2 text-sm text-slate-500">
                             <span>{formattedDate}</span>
                             {s.email && <span>| {s.email}</span>}
@@ -570,13 +574,14 @@ function SubmissionDetail({ submission: s, onBack, onDelete }: { submission: Sub
                     <DetailSection title="Key Facts at a Glance" icon={Eye} iconColor="text-cyan-400">
                         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
                             <DetailField label="Business Type" value={s.businessType || s.specificIndustry || s.industryCategory} />
+                            <DetailField label="Category" value={catLabel} />
                             <DetailField label="Revenue" value={s.currentRevenue} />
                             <DetailField label="Team Size" value={s.teamSize} />
-                            <DetailField label="Platform" value={s.platform} />
+                            <DetailField label={config.step2.platform.label || "Platform"} value={s.platform} />
                             <DetailField label="Growth Budget" value={s.growthBudget} />
                             <DetailField label="Wants to Start" value={s.startDate} />
                             <DetailField label="Excitement" value={s.excitementLevel} />
-                            <DetailField label="Churn Rate" value={s.churnRate} />
+                            <DetailField label={config.step4.churnRate.label || "Churn Rate"} value={s.churnRate} />
                         </div>
                     </DetailSection>
                 </>
@@ -594,11 +599,11 @@ function SubmissionDetail({ submission: s, onBack, onDelete }: { submission: Sub
                         </div>
                     </DetailSection>
 
-                    <DetailSection title="Product" icon={Briefcase} iconColor="text-purple-400">
+                    <DetailSection title={config.stepLabels[1]} icon={Briefcase} iconColor="text-purple-400">
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                            <DetailField label="Product Description" value={s.productDescription} />
-                            <DetailField label="Price Point" value={s.productPricePoint} /><DetailField label="# of Products" value={s.numberOfProducts} />
-                            <DetailField label="Platform" value={s.platform} /><DetailField label="Delivery Method" value={s.deliveryMethod} />
+                            <DetailField label={config.step2.productDescription.label || "Description"} value={s.productDescription} />
+                            <DetailField label={config.step2.productPricePoint.label || "Price Point"} value={s.productPricePoint} /><DetailField label={config.step2.numberOfProducts.label || "# of Products"} value={s.numberOfProducts} />
+                            <DetailField label={config.step2.platform.label || "Platform"} value={s.platform} /><DetailField label={config.step2.deliveryMethod.label || "Delivery Method"} value={s.deliveryMethod} />
                         </div>
                     </DetailSection>
 
@@ -609,26 +614,26 @@ function SubmissionDetail({ submission: s, onBack, onDelete }: { submission: Sub
                         </div>
                     </DetailSection>
 
-                    <DetailSection title="Audience & Acquisition" icon={Target} iconColor="text-orange-400">
+                    <DetailSection title={config.stepLabels[3]} icon={Target} iconColor="text-orange-400">
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                            <DetailField label="List / User Base Size" value={s.listSize} /><DetailField label="Traffic Source" value={s.trafficSource} /><DetailField label="Conversion Rate" value={s.conversionRate} />
-                            <DetailField label="Launches Per Year" value={s.launchesPerYear} /><DetailField label="Churn / Refund Rate" value={s.churnRate} /><DetailField label="Content Creation Hrs/Wk" value={s.contentCreationHours} />
+                            <DetailField label={config.step4.listSize.label || "List Size"} value={s.listSize} /><DetailField label={config.step4.trafficSource.label || "Traffic Source"} value={s.trafficSource} /><DetailField label={config.step4.conversionRate.label || "Conversion Rate"} value={s.conversionRate} />
+                            <DetailField label={config.step4.launchesPerYear.label || "Launches Per Year"} value={s.launchesPerYear} /><DetailField label={config.step4.churnRate.label || "Churn Rate"} value={s.churnRate} /><DetailField label={config.step4.contentCreationHours.label || "Content Hrs/Wk"} value={s.contentCreationHours} />
                             {/* Legacy */}
                             <DetailField label="Lead Source (legacy)" value={s.leadSource} /><DetailField label="Deal Size (legacy)" value={s.dealSize} /><DetailField label="Missed Calls (legacy)" value={s.missedCalls} />
                         </div>
                     </DetailSection>
 
-                    <DetailSection title="Time & Operations" icon={Clock} iconColor="text-cyan-400">
+                    <DetailSection title={config.stepLabels[4]} icon={Clock} iconColor="text-cyan-400">
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-4">
-                            <DetailField label="Hours Worked/Week" value={s.hoursPerWeek} /><DetailField label="Support Hrs/Week" value={s.supportHoursPerWeek} />
-                            <DetailField label="% High-Value Work" value={s.highValueWork} /><DetailField label="Onboarding Automated?" value={s.onboardingAutomated} />
+                            <DetailField label="Hours Worked/Week" value={s.hoursPerWeek} /><DetailField label={config.step5.supportHoursPerWeek.label || "Support Hrs/Week"} value={s.supportHoursPerWeek} />
+                            <DetailField label="% High-Value Work" value={s.highValueWork} /><DetailField label={config.step5.onboardingAutomated.label || "Onboarding Automated?"} value={s.onboardingAutomated} />
                             <DetailField label="Can Take 2 Weeks Off?" value={s.twoWeeksOff} /><DetailField label="Biggest Time Waste" value={s.biggestTimeWaste} />
                         </div>
                         {safeNumFromSlider(s.painLevel) > 0 && <div className="mb-4"><SliderBar label="Pain Level" value={safeNumFromSlider(s.painLevel)} /></div>}
                         {s.keepsUpAtNight && <div className="bg-white/[0.03] rounded-xl p-4 border border-white/5"><span className="text-xs text-slate-500 block mb-1">What keeps them up at night</span><p className="text-slate-300 text-sm leading-relaxed">{s.keepsUpAtNight}</p></div>}
                     </DetailSection>
 
-                    <DetailSection title="Tech & Tools" icon={Settings} iconColor="text-indigo-400">
+                    <DetailSection title={config.stepLabels[5]} icon={Settings} iconColor="text-indigo-400">
                         {safeArray<string>(s.tools).length > 0 && <div className="mb-4"><span className="text-xs text-slate-500 block mb-2">Current Tools</span><div className="flex flex-wrap gap-2">{safeArray<string>(s.tools).map((t, i) => <span key={i} className="px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs">{t}</span>)}</div></div>}
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-4">
                             <DetailField label="% Automated" value={s.percentAutomated} /><DetailField label="#1 Goal (12 Mo)" value={s.next12MonthsGoal} /><DetailField label="Holding Back" value={s.holdingBack} />
@@ -653,10 +658,11 @@ function SubmissionDetail({ submission: s, onBack, onDelete }: { submission: Sub
 // ═══════════════════════════════════════════════════════════════════════════
 
 function exportToCSV(submissions: Submission[]) {
-    const headers = ["Date","Full Name","Company","Email","Phone","Website","Business Type","Product Description","Price Point","# Products","Platform","Delivery Method","Revenue Stage","Revenue Trend","Profit Margin","Revenue Goal","Bottleneck","Team Size","List Size","Traffic Source","Conversion Rate","Launches/Year","Churn Rate","Content Creation Hrs","Support Hrs/Week","Onboarding Automated","Hours/Week","High-Value Work %","2 Weeks Off?","Pain Level","Keeps Up at Night","Biggest Time Waste","Tools","% Automated","12-Mo Goal","Holding Back","Problems","Excitement","Start Date","Growth Budget","Decision Maker","Newsletter Opt-In","Audit Score","Intent Level","Lead Temperature","Lead Score","Opportunities"]
+    const headers = ["Date","Full Name","Company","Email","Phone","Website","Business Type","Business Category","Product Description","Price Point","# Products","Platform","Delivery Method","Revenue Stage","Revenue Trend","Profit Margin","Revenue Goal","Bottleneck","Team Size","List Size","Traffic Source","Conversion Rate","Launches/Year","Churn Rate","Content Creation Hrs","Support Hrs/Week","Onboarding Automated","Hours/Week","High-Value Work %","2 Weeks Off?","Pain Level","Keeps Up at Night","Biggest Time Waste","Tools","% Automated","12-Mo Goal","Holding Back","Problems","Excitement","Start Date","Growth Budget","Decision Maker","Newsletter Opt-In","Audit Score","Intent Level","Lead Temperature","Lead Score","Opportunities"]
     const rows = submissions.map(s => {
         const lead = calcLeadScore(s, s.auditScore ?? 0)
-        return [s.createdAt||s.submittedAt||"",s.fullName,s.companyName,s.email,s.phoneNumber||"",s.websiteUrl||"",s.businessType||s.industryCategory||"",s.productDescription||"",s.productPricePoint||"",s.numberOfProducts||"",s.platform||"",s.deliveryMethod||"",s.currentRevenue||"",s.revenueTrend||"",s.profitMargin||"",s.revenueGoal||"",s.bottleneck||"",s.teamSize||"",s.listSize||"",s.trafficSource||"",s.conversionRate||"",s.launchesPerYear||"",s.churnRate||"",s.contentCreationHours||"",s.supportHoursPerWeek||"",s.onboardingAutomated||"",s.hoursPerWeek||"",s.highValueWork||"",s.twoWeeksOff||"",safeNumFromSlider(s.painLevel).toString(),s.keepsUpAtNight||"",s.biggestTimeWaste||"",safeArray<string>(s.tools).join("; "),s.percentAutomated||"",s.next12MonthsGoal||"",s.holdingBack||"",safeArray<string>(s.problems).join("; "),s.excitementLevel||"",s.startDate||"",s.growthBudget||"",s.decisionMaker||"",s.newsletterOptIn?"Yes":"No",s.auditScore?.toString()||"",s.intentLevel||"",lead.level,lead.score.toString(),safeArray(s.opportunities).map((o:any)=>`${o?.title||''} (${o?.impact||''})`).join("; ")]
+        const cat = s.businessType ? getBusinessCategory(s.businessType) : ''
+        return [s.createdAt||s.submittedAt||"",s.fullName,s.companyName,s.email,s.phoneNumber||"",s.websiteUrl||"",s.businessType||s.industryCategory||"",cat,s.productDescription||"",s.productPricePoint||"",s.numberOfProducts||"",s.platform||"",s.deliveryMethod||"",s.currentRevenue||"",s.revenueTrend||"",s.profitMargin||"",s.revenueGoal||"",s.bottleneck||"",s.teamSize||"",s.listSize||"",s.trafficSource||"",s.conversionRate||"",s.launchesPerYear||"",s.churnRate||"",s.contentCreationHours||"",s.supportHoursPerWeek||"",s.onboardingAutomated||"",s.hoursPerWeek||"",s.highValueWork||"",s.twoWeeksOff||"",safeNumFromSlider(s.painLevel).toString(),s.keepsUpAtNight||"",s.biggestTimeWaste||"",safeArray<string>(s.tools).join("; "),s.percentAutomated||"",s.next12MonthsGoal||"",s.holdingBack||"",safeArray<string>(s.problems).join("; "),s.excitementLevel||"",s.startDate||"",s.growthBudget||"",s.decisionMaker||"",s.newsletterOptIn?"Yes":"No",s.auditScore?.toString()||"",s.intentLevel||"",lead.level,lead.score.toString(),safeArray(s.opportunities).map((o:any)=>`${o?.title||''} (${o?.impact||''})`).join("; ")]
     })
     const esc = (v: string) => `"${v.replace(/"/g, '""')}"`
     const csv = [headers.map(esc).join(","), ...rows.map(r => r.map(esc).join(","))].join("\n")
@@ -872,7 +878,7 @@ function Dashboard({ token, onLogout }: { token: string; onLogout: () => void })
                                                 <p className="text-white text-sm font-medium">{sub.fullName}</p>
                                                 <p className="text-slate-500 text-xs truncate">{sub.email}</p>
                                             </div>
-                                            <div className="lg:col-span-2 flex items-center"><p className="text-slate-300 text-sm truncate">{sub.companyName}</p></div>
+                                            <div className="lg:col-span-2 flex items-center gap-2"><p className="text-slate-300 text-sm truncate">{sub.companyName}</p>{sub.businessType && <span className="hidden lg:inline px-1.5 py-0.5 rounded text-[10px] font-medium bg-white/5 text-slate-500 shrink-0">{{ online: 'Online', local: 'Local', professional: 'Prof', product: 'Product' }[getBusinessCategory(sub.businessType)]}</span>}</div>
                                             <div className="lg:col-span-1 flex items-center justify-center"><span className="text-white text-sm font-medium">{sub.auditScore ?? "--"}</span></div>
                                             <div className="lg:col-span-1 flex items-center justify-center"><span className={`px-2 py-0.5 rounded-full text-xs font-medium ${tempBadge}`}>{lead.level.toUpperCase()}</span></div>
                                             <div className="lg:col-span-1 flex items-center justify-center"><span className={`px-2 py-0.5 rounded-full text-xs font-medium ${intentBadge}`}>{(sub.intentLevel || "--").toUpperCase()}</span></div>

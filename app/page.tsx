@@ -127,7 +127,7 @@ export default function HomePage() {
                   {
                     step: "02",
                     title: "Build & Install",
-                    desc: "We build your AI systems and integrate them into your existing stack. Your CRM, payment processor, scheduling tool, whatever you use, we plug into it.",
+                    desc: "We build your AI systems and integrate them into your existing stack. Your CRM, payment processor, scheduling tool, whatever you use, we plug into it. We install infrastructure and develop custom proven systems for your industry and bottlenecks—getting them ranked on engines like ChatGPT and developing their agent logic and infrastructure to run autonomously.",
                   },
                   {
                     step: "03",
@@ -153,7 +153,7 @@ export default function HomePage() {
                   We Win When You Win
                 </h2>
                 <p className="text-lg text-slate-400 max-w-2xl mx-auto">
-                  No bloated retainers. No hourly billing. You pay a one-time setup fee to build the systems, then a performance fee tied to results. Our incentives are aligned with yours.
+                  No bloated retainers. No hourly billing. You pay a one-time setup fee to build the systems. Want ongoing support? Add an optional partnership. Our incentives are aligned with yours.
                 </p>
               </div>
 
@@ -185,14 +185,15 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                {/* Performance Fee */}
-                <div className="p-8 rounded-2xl border border-amber-500/30 bg-gradient-to-br from-amber-500/10 to-transparent">
+                {/* Ongoing Partnership */}
+                <div className="p-8 rounded-2xl border border-amber-500/30 bg-gradient-to-br from-amber-500/10 to-transparent relative">
+                  <span className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider border border-amber-500/30 text-amber-400 bg-amber-500/10">Optional</span>
                   <div className="mb-6">
                     <span className="text-sm uppercase tracking-wider text-amber-400">Step 2</span>
-                    <h3 className="text-2xl font-bold text-white mt-2">Performance Fee</h3>
+                    <h3 className="text-2xl font-bold text-white mt-2">Ongoing Partnership</h3>
                   </div>
                   <p className="text-slate-400 leading-relaxed mb-8">
-                    Once your systems are live, we earn a percentage of the revenue they help generate. If we don't move the needle, you don't pay.
+                    Want us to stay on? We monitor, optimize, and scale your systems over time. We earn a percentage of the revenue they help generate. If we don't move the needle, you don't pay.
                   </p>
                   <ul className="space-y-3 mb-8">
                     {[

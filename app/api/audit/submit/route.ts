@@ -7,6 +7,7 @@ import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 import { sendHighIntentSMS, notifyTeamOfHotLead, scheduleSMSFollowUp, isValidPhoneNumber, formatPhoneNumber } from '@/lib/sms-service'
 import { scoreAndRouteLead } from '@/lib/lead-router'
 import { getSequence, personalizeEmail } from '@/lib/nurture-sequences'
+import { getBusinessCategory } from '@/lib/audit-industry-config'
 
 export async function POST(request: Request) {
     try {
@@ -176,30 +177,52 @@ export async function POST(request: Request) {
 
 function identifyOpportunities(formData: any) {
     const opportunities = []
+    const cat = getBusinessCategory(formData.businessType || '')
+
+    const onboardingDesc: Record<string, string> = {
+        online: "Manual onboarding creates bottlenecks and inconsistent experiences. AI-driven sequences can activate users 3x faster.",
+        local: "Manual scheduling and intake wastes hours every week. Automated booking, confirmations, and job prep can cut admin time by 80%.",
+        professional: "Manual client intake creates inconsistent first impressions. Automated onboarding with welcome sequences and doc collection can save 5+ hrs/week.",
+        product: "Manual order processing creates delays and errors. Automated fulfillment workflows and confirmation sequences can cut processing time by 70%.",
+    }
 
     if (formData.onboardingAutomated === 'No' || formData.onboardingAutomated === 'Partially') {
         opportunities.push({
-            title: "Automated Onboarding",
+            title: cat === 'local' ? "Automated Scheduling & Intake" : cat === 'product' ? "Automated Order Processing" : "Automated Onboarding",
             impact: "High",
-            description: "Manual onboarding creates bottlenecks and inconsistent experiences. AI-driven sequences can activate users 3x faster.",
+            description: onboardingDesc[cat],
             category: "onboarding"
         })
     }
 
+    const churnDesc: Record<string, string> = {
+        online: `Your churn rate is ${formData.churnRate}%. Automated health scoring and re-engagement can cut churn by 30-50%.`,
+        local: `Your customer loss rate is ${formData.churnRate}%. Automated follow-ups, review requests, and re-engagement campaigns can boost retention by 30-50%.`,
+        professional: `Your client churn is ${formData.churnRate}%. Proactive check-ins, satisfaction scoring, and renewal automation can improve retention by 30-50%.`,
+        product: `Your return/refund rate is ${formData.churnRate}%. Better post-purchase sequences, proactive support, and quality automation can reduce returns by 30-50%.`,
+    }
+
     if (formData.churnRate === '20+' || formData.churnRate === '10-20') {
         opportunities.push({
-            title: "Churn Prevention Engine",
+            title: cat === 'local' ? "Customer Retention Engine" : cat === 'product' ? "Return Prevention System" : "Churn Prevention Engine",
             impact: "Critical",
-            description: `Your churn rate is ${formData.churnRate}%. Automated health scoring and re-engagement can cut churn by 30-50%.`,
+            description: churnDesc[cat],
             category: "retention"
         })
     }
 
+    const supportDesc: Record<string, string> = {
+        online: `You're spending ${formData.supportHoursPerWeek} hrs/week on support. AI trained on your content can handle 80% of questions instantly.`,
+        local: `You're spending ${formData.supportHoursPerWeek} hrs/week on calls, scheduling & admin. Automated call routing, booking, and FAQs can reclaim 60-80% of that time.`,
+        professional: `You're spending ${formData.supportHoursPerWeek} hrs/week on client communication & admin. AI-assisted responses and automated status updates can save 60-80% of that time.`,
+        product: `You're spending ${formData.supportHoursPerWeek} hrs/week on customer service. AI-powered order tracking, returns handling, and FAQ automation can deflect 80% of tickets.`,
+    }
+
     if (formData.supportHoursPerWeek === '10+' || formData.supportHoursPerWeek === '5-10') {
         opportunities.push({
-            title: "AI-Powered Support",
+            title: cat === 'local' ? "AI Call & Admin Assistant" : "AI-Powered Support",
             impact: "High",
-            description: `You're spending ${formData.supportHoursPerWeek} hrs/week on support. AI trained on your content can handle 80% of questions instantly.`,
+            description: supportDesc[cat],
             category: "support"
         })
     }
@@ -214,20 +237,34 @@ function identifyOpportunities(formData: any) {
         })
     }
 
+    const workflowDesc: Record<string, string> = {
+        online: "With most processes still manual, automation can free 15-20 hours per week and eliminate errors.",
+        local: "With most operations still manual, automating dispatch, invoicing, and follow-ups can free 15-20 hours per week and reduce missed jobs.",
+        professional: "With most workflows still manual, automating proposals, time tracking, and client updates can free 15-20 hours per week.",
+        product: "With most operations still manual, automating inventory, orders, and shipping can free 15-20 hours per week and reduce fulfillment errors.",
+    }
+
     if (formData.percentAutomated === 'none' || formData.percentAutomated === 'under-30') {
         opportunities.push({
             title: "Workflow Automation",
             impact: "High",
-            description: "With most processes still manual, automation can free 15-20 hours per week and eliminate errors.",
+            description: workflowDesc[cat],
             category: "quick_wins"
         })
     }
 
+    const contentDesc: Record<string, string> = {
+        online: "You're spending significant time on content. AI repurposing can turn 1 piece into 30+ assets in your voice.",
+        local: "You're spending significant time on marketing. AI-powered review generation, social posts, and local SEO content can save 10+ hrs/week.",
+        professional: "You're spending significant time on biz dev & marketing. AI-powered thought leadership, case studies, and outreach can save 10+ hrs/week.",
+        product: "You're spending significant time on marketing & content. AI-powered product descriptions, social content, and email campaigns can save 10+ hrs/week.",
+    }
+
     if (formData.contentCreationHours === '20+' || formData.contentCreationHours === '10-20') {
         opportunities.push({
-            title: "AI Content Engine",
+            title: cat === 'local' ? "AI Marketing Engine" : cat === 'professional' ? "AI Biz Dev Engine" : "AI Content Engine",
             impact: "Medium",
-            description: "You're spending significant time on content. AI repurposing can turn 1 piece into 30+ assets in your voice.",
+            description: contentDesc[cat],
             category: "content"
         })
     }
