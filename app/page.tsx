@@ -64,7 +64,7 @@ export default function HomePage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 1.0, ease: [0.21, 0.47, 0.32, 0.98] }}
               >
-                We don't pitch decks. We don't advise. We build and install - then prove it works before asking you for more.
+                We don't pitch decks. We don't advise. We build and install - then prove it works.
               </motion.p>
               <motion.div
                 initial={{ opacity: 0, y: 15 }}
@@ -81,30 +81,30 @@ export default function HomePage() {
             </div>
           </section>
 
-          {/* THE FIX */}
-          <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5 bg-gradient-to-b from-transparent to-slate-900/20">
+          {/* THE FIX — LIGHT PATTERN INTERRUPT */}
+          <section className="py-24 sm:py-32 px-4 sm:px-6 bg-stone-50 relative">
             <div className="max-w-3xl mx-auto text-center">
               <ScrollReveal>
-                <p className="text-sm uppercase tracking-[0.2em] text-slate-500 mb-6">What we actually do</p>
+                <p className="text-sm uppercase tracking-[0.2em] text-stone-400 mb-6">What we actually do</p>
               </ScrollReveal>
               <ScrollReveal delay={0.1}>
-                <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-8">
+                <h2 className="text-3xl sm:text-5xl font-black text-stone-900 tracking-tight mb-8">
                   We Install AI Systems That Do the Work You Shouldn't Be Doing.
                 </h2>
               </ScrollReveal>
 
-              <Divider className="my-8" />
+              <div className="flex justify-center my-8"><div className="w-16 h-px bg-stone-300" /></div>
 
               <ScrollReveal delay={0.2}>
-                <p className="text-lg text-slate-400 leading-relaxed mb-6">
-                  Not consulting. Not strategy sessions. Not a roadmap that sits in a Google Doc. We <span className="text-white font-semibold">architect, build, and install</span> the actual systems - integrated into the tools you already use - and we don't leave until they're running.
+                <p className="text-lg text-stone-600 leading-relaxed mb-6">
+                  We <span className="text-stone-900 font-semibold">architect, build, and install</span> the actual systems - integrated into the tools you already use - and we don't leave until they're running.
                 </p>
               </ScrollReveal>
 
-              <Divider className="my-8" />
+              <div className="flex justify-center my-8"><div className="w-16 h-px bg-stone-300" /></div>
 
               <ScrollReveal delay={0.3}>
-                <p className="text-lg text-slate-300 leading-relaxed">
+                <p className="text-lg text-stone-500 leading-relaxed">
                   Think of us as your AI wing. We start by solving your single biggest bottleneck. As we prove it works, we grow deeper into your business - system by system, each one compounding on the last - until your operations run themselves.
                 </p>
               </ScrollReveal>
@@ -213,30 +213,30 @@ export default function HomePage() {
             </div>
           </section>
 
-          {/* GUARANTEE */}
-          <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5 bg-gradient-to-b from-transparent to-slate-900/20">
+          {/* GUARANTEE — LIGHT PATTERN INTERRUPT */}
+          <section className="py-24 sm:py-32 px-4 sm:px-6 bg-stone-50 relative">
             <div className="max-w-3xl mx-auto text-center">
               <ScrollReveal>
-                <p className="text-sm uppercase tracking-[0.2em] text-slate-500 mb-6">Our guarantee</p>
+                <p className="text-sm uppercase tracking-[0.2em] text-stone-400 mb-6">Our guarantee</p>
               </ScrollReveal>
               <ScrollReveal delay={0.1}>
-                <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-8">
+                <h2 className="text-3xl sm:text-5xl font-black text-stone-900 tracking-tight mb-8">
                   If It Doesn't Save You Time,<br />We Keep Working Until It Does.
                 </h2>
               </ScrollReveal>
 
-              <Divider className="my-8" />
+              <div className="flex justify-center my-8"><div className="w-16 h-px bg-stone-300" /></div>
 
               <ScrollReveal delay={0.2}>
-                <p className="text-lg text-slate-400 leading-relaxed mb-8">
+                <p className="text-lg text-stone-600 leading-relaxed mb-8">
                   Every system we build comes with 30 days of optimization included. If it's not performing the way we scoped it, we don't call it done. We stay on it - at no extra cost - until it is.
                 </p>
               </ScrollReveal>
 
-              <Divider className="my-6" />
+              <div className="flex justify-center my-6"><div className="w-16 h-px bg-stone-300" /></div>
 
               <ScrollReveal delay={0.3}>
-                <p className="text-slate-500">
+                <p className="text-stone-500">
                   We're not in the business of collecting checks and disappearing. Our reputation is the only thing that gets us the next client.
                 </p>
               </ScrollReveal>
@@ -310,10 +310,6 @@ export default function HomePage() {
                     a: "A single system takes 30 days - build, install, and optimization included. A full department build is 6–8 weeks. Enterprise is scoped individually.",
                   },
                   {
-                    q: "Is this just ChatGPT wrappers?",
-                    a: "No. We build custom infrastructure: automated workflows, intelligent routing, data pipelines, and AI agents trained on your specific business logic. This is engineering - not prompt tricks.",
-                  },
-                  {
                     q: "Why start with an audit instead of just quoting me?",
                     a: "Because every business is different and we don't sell generic packages. The audit is how we find the one thing that will move the needle most for you specifically - so we're not guessing and neither are you.",
                   },
@@ -342,7 +338,7 @@ export default function HomePage() {
               </ScrollReveal>
               <ScrollReveal delay={0.2}>
                 <p className="text-lg text-slate-400 mb-4 max-w-2xl mx-auto">
-                  Start with the free audit. We'll find your biggest operational leak, tell you exactly what to build, and scope what it would cost to fix it. No pitch. No pressure.
+                  Start with the free audit. We'll find your biggest operational leak, tell you exactly what to build, and scope what it would cost to fix it.
                 </p>
               </ScrollReveal>
               <ScrollReveal delay={0.25}>
