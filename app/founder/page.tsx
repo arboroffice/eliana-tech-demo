@@ -19,17 +19,17 @@ const chapters = [
   {
     emoji: "\u{1F697}",
     title: "Running My Dad\u2019s Car Dealership at 14",
-    body: "While most kids my age were in school, I dropped out at 14 to run my dad\u2019s car dealership. The whole operation \u2014 just me. Sales, customers, paperwork, all of it. I didn\u2019t know it then, but I was learning how to build.",
+    body: "While most kids my age were in school, I dropped out at 14 to run my dad\u2019s car dealership. The whole operation \ -  just me. Sales, customers, paperwork, all of it. I didn\u2019t know it then, but I was learning how to build.",
   },
   {
     emoji: "\u{1F333}",
     title: "Scaling My Dad\u2019s Tree Service at 16",
-    body: "At 16, I took over my dad\u2019s tree service. I built systems for everything \u2014 sales, scheduling, hiring, customer calls, operations. We scaled to multiple seven figures. I cut my dad\u2019s hours from 70 to 40 per week. But I was still buried in the day-to-day.\n\nI took all my skills and turned them into repeatable systems. I wanted to hire someone to replace myself. My dad said no. So I built AI systems to replace myself instead.",
+    body: "At 16, I took over my dad\u2019s tree service. I built systems for everything \ -  sales, scheduling, hiring, customer calls, operations. We scaled to multiple seven figures. I cut my dad\u2019s hours from 70 to 40 per week. But I was still buried in the day-to-day.\n\nI took all my skills and turned them into repeatable systems. I wanted to hire someone to replace myself. My dad said no. So I built AI systems to replace myself instead.",
   },
   {
     emoji: "\u{1F4A1}",
     title: "The Moment Everything Clicked",
-    body: "Every business owner I talked to said the same thing: \"I wish I had what you have, but I can\u2019t clone myself.\"\n\nThen AI came out. And I realized \u2014 now you can.",
+    body: "Every business owner I talked to said the same thing: \"I wish I had what you have, but I can\u2019t clone myself.\"\n\nThen AI came out. And I realized \ -  now you can.",
   },
   {
     emoji: "\u{1F680}",
@@ -39,16 +39,16 @@ const chapters = [
   {
     emoji: "\u{1F30A}",
     title: "Flow Over Force",
-    body: "I used to believe in grinding harder than everyone else. Wake up earlier. Stay later. Outwork the competition. But I learned the hard way that force has a ceiling. Systems don\u2019t. The businesses that win aren\u2019t the ones working the hardest \u2014 they\u2019re the ones with the best systems. Flow over force means building things that work while you sleep, scale without you, and grow over time.",
+    body: "I used to believe in grinding harder than everyone else. Wake up earlier. Stay later. Outwork the competition. But I learned the hard way that force has a ceiling. Systems don\u2019t. The businesses that win aren\u2019t the ones working the hardest \ -  they\u2019re the ones with the best systems. Flow over force means building things that work while you sleep, scale without you, and grow over time.",
   },
 ]
 
 const beliefs = [
   "Systems beat hustle. Every time.",
   "The best businesses run themselves.",
-  "AI isn\u2019t replacing humans \u2014 it\u2019s freeing them.",
+  "AI isn\u2019t replacing humans \ -  it\u2019s freeing them.",
   "Revenue is a lagging indicator. Systems are the lead.",
-  "If you\u2019re the bottleneck, you don\u2019t have a business \u2014 you have a job.",
+  "If you\u2019re the bottleneck, you don\u2019t have a business \ -  you have a job.",
   "The founders who win the next decade will be the ones who adopt AI first.",
   "Flow over force. Always.",
 ]

@@ -17,76 +17,121 @@ export default function HomePage() {
           <section className="min-h-screen flex items-center justify-center px-4 sm:px-6">
             <div className="max-w-4xl mx-auto text-center">
               <p className="text-sm sm:text-base uppercase tracking-[0.2em] text-slate-400 mb-6">
-                Your AI Wing
+                For founders who are done being the bottleneck
               </p>
-              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight mb-8">
-                WE BUILD YOU INTO AN{" "}
+              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight mb-8 leading-[1.05]">
+                YOUR BUSINESS IS EATING YOUR LIFE.<br />
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-slate-200 to-slate-500">
-                  AI-NATIVE
-                </span>{" "}
-                ORGANIZATION
+                  WE FIX THAT IN 30 DAYS.
+                </span>
               </h1>
-              <p className="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto mb-6 leading-relaxed italic">
-                We install growth infrastructure and act as your Chief AI Officer. Building the systems that let you scale without scaling headcount.
+              <p className="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto mb-4 leading-relaxed">
+                We find the one process that's costing you the most time, build an AI system that eliminates it, and install it into your business in 30 days. If it doesn't work, we keep going until it does.
               </p>
-              <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto mb-12 leading-relaxed">
-                The fastest-growing founders aren't hiring more people. They have an <span className="text-white font-semibold">AI wing</span> building systems that do the work of 10, so they can focus on <span className="text-white font-semibold">vision and revenue</span>.
+              <p className="text-base text-slate-500 max-w-xl mx-auto mb-12">
+                We don't pitch decks. We don't advise. We build and install - then prove it works before asking you for more.
               </p>
               <Link
                 href="/audit"
                 className="inline-block px-10 py-4 rounded-full bg-white text-black text-lg font-bold hover:bg-slate-200 transition-all duration-300 hover:scale-105"
               >
-                Get Your Free Automation Audit →
+                Get Your Free Audit - Find Your Biggest Leak →
               </Link>
             </div>
           </section>
 
-          {/* YOUR AI WING + FOUR PILLARS */}
-          <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5 bg-gradient-to-b from-transparent to-slate-900/20">
-            <div className="max-w-5xl mx-auto">
-              <div className="max-w-3xl mx-auto text-center mb-20">
-                <p className="text-sm uppercase tracking-[0.2em] text-slate-500 mb-6">Your Chief AI Officer</p>
-                <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-10">
-                  We Don't Just Build Tools.<br />We Become Your AI Wing.
-                </h2>
-                <p className="text-lg text-slate-400 leading-relaxed mb-8">
-                  Most companies bolt AI onto broken processes. We embed inside your business and rebuild it from the infrastructure up, turning you into an <span className="text-white font-semibold">AI-native organization</span> where growth compounds and operations run themselves.
-                </p>
-                <p className="text-lg text-slate-300 leading-relaxed">
-                  Think of us as your fractional Chief AI Officer, except we don't just advise. We <span className="text-white font-semibold">architect, build, and install</span> every system ourselves.
-                </p>
+          {/* PAIN SECTION */}
+          <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5">
+            <div className="max-w-3xl mx-auto">
+              <p className="text-sm uppercase tracking-[0.2em] text-slate-500 mb-6 text-center">The real problem</p>
+              <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-12 text-center">
+                You Don't Have a Growth Problem.<br />You Have an Operations Problem.
+              </h2>
+              <div className="space-y-6">
+                {[
+                  {
+                    stat: "10–20 hrs/week",
+                    label: "lost to manual ops that could be fully automated",
+                  },
+                  {
+                    stat: "Every process that lives in your head",
+                    label: "is a liability - you can't scale, sell, or step away from what only you can do",
+                  },
+                  {
+                    stat: "Every hire you make to fix an ops problem",
+                    label: "is a symptom. The system is broken. More people don't fix broken systems - they just cost more",
+                  },
+                  {
+                    stat: "The founders pulling away from you",
+                    label: "aren't working harder. They have AI running their ops while they focus on revenue and vision",
+                  },
+                ].map((item) => (
+                  <div key={item.stat} className="flex gap-6 p-6 rounded-2xl border border-white/10 bg-white/5">
+                    <div className="flex-shrink-0 w-1 rounded-full bg-white/20" />
+                    <div>
+                      <p className="text-white font-bold text-lg mb-1">{item.stat}</p>
+                      <p className="text-slate-400">{item.label}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
+            </div>
+          </section>
 
+          {/* THE FIX */}
+          <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5 bg-gradient-to-b from-transparent to-slate-900/20">
+            <div className="max-w-3xl mx-auto text-center">
+              <p className="text-sm uppercase tracking-[0.2em] text-slate-500 mb-6">What we actually do</p>
+              <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-8">
+                We Install AI Systems That Do the Work You Shouldn't Be Doing.
+              </h2>
+              <p className="text-lg text-slate-400 leading-relaxed mb-6">
+                Not consulting. Not strategy sessions. Not a roadmap that sits in a Google Doc. We <span className="text-white font-semibold">architect, build, and install</span> the actual systems - integrated into the tools you already use - and we don't leave until they're running.
+              </p>
+              <p className="text-lg text-slate-300 leading-relaxed">
+                Think of us as your AI wing. We start by solving your single biggest bottleneck. As we prove it works, we grow deeper into your business - system by system, each one compounding on the last - until your operations run themselves.
+              </p>
+            </div>
+          </section>
+
+          {/* WHAT WE BUILD */}
+          <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5">
+            <div className="max-w-5xl mx-auto">
               <div className="text-center mb-16">
+                <p className="text-sm uppercase tracking-[0.2em] text-slate-500 mb-6">What you get</p>
                 <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-6">
-                  Growth Infrastructure
+                  Four Systems That Change How Your Business Runs
                 </h2>
                 <p className="text-lg text-slate-400 max-w-2xl mx-auto">
-                  Four pillars that turn your company into a machine that runs and grows without you in it.
+                  These aren't tools you have to manage. They're infrastructure that runs whether you're in the building or not.
                 </p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {[
                   {
-                    title: "IP Licensing",
-                    desc: "Proven frameworks and systems you can license and own. Build once, benefit forever.",
                     icon: "01",
-                  },
-                  {
                     title: "Autonomous Operations",
-                    desc: "Processes that execute without you. Triggers, actions, and outcomes, all automated.",
+                    problem: "You're the one making everything happen.",
+                    fix: "We build triggers, automations, and AI agents that handle the recurring work - lead follow-up, scheduling, reporting, client comms - without you in the loop.",
+                  },
+                  {
                     icon: "02",
-                  },
-                  {
                     title: "Executive Intelligence",
-                    desc: "Real-time dashboards and AI-powered insights. Make decisions based on data, not gut.",
-                    icon: "03",
+                    problem: "You're making decisions on gut and vibes.",
+                    fix: "Real-time dashboards and AI-powered insights so you always know what's working, what's leaking, and what to do next. Data in, decisions out.",
                   },
                   {
-                    title: "Exit Readiness",
-                    desc: "A business that runs on systems is a business that can be sold. We build for enterprise value.",
+                    icon: "03",
+                    title: "IP Licensing",
+                    problem: "You're doing the same work for every new client.",
+                    fix: "We turn your expertise into licensable frameworks and systems. Build it once, deploy it infinitely. Your knowledge becomes a product.",
+                  },
+                  {
                     icon: "04",
+                    title: "Exit Readiness",
+                    problem: "Your business can't run without you - which means it's worth less.",
+                    fix: "A business that runs on documented, automated systems commands a multiple. We build for enterprise value from day one.",
                   },
                 ].map((item) => (
                   <div
@@ -94,8 +139,9 @@ export default function HomePage() {
                     className="group p-8 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300"
                   >
                     <span className="text-4xl font-black text-white/10 block mb-4">{item.icon}</span>
-                    <h3 className="text-xl font-bold text-white mb-3">{item.title}</h3>
-                    <p className="text-slate-400 leading-relaxed">{item.desc}</p>
+                    <h3 className="text-xl font-bold text-white mb-4">{item.title}</h3>
+                    <p className="text-slate-500 text-sm mb-2 italic">"{item.problem}"</p>
+                    <p className="text-slate-400 leading-relaxed">{item.fix}</p>
                   </div>
                 ))}
               </div>
@@ -106,11 +152,12 @@ export default function HomePage() {
           <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5 bg-gradient-to-b from-transparent to-slate-900/20">
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-16">
+                <p className="text-sm uppercase tracking-[0.2em] text-slate-500 mb-6">How we work</p>
                 <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-6">
-                  How It Works
+                  We Prove It Works Before We Ask for More
                 </h2>
                 <p className="text-lg text-slate-400 max-w-xl mx-auto">
-                  Three steps from overwhelmed operator to automated growth machine.
+                  No long contracts. No bloated kickoffs. We start small, deliver fast, and earn the right to go deeper.
                 </p>
               </div>
 
@@ -118,53 +165,64 @@ export default function HomePage() {
                 {[
                   {
                     step: "01",
-                    title: "Automation Audit",
-                    desc: "We map your entire business: every workflow, every bottleneck, every hour wasted on ops. You get a custom blueprint for what to automate and in what order.",
+                    title: "Free Audit",
+                    time: "Week 1",
+                    desc: "We map your entire business - every workflow, every bottleneck, every hour leaking out of ops. You leave with a ranked list of what to automate and exactly what it would take. No charge. No commitment.",
                   },
                   {
                     step: "02",
                     title: "Build & Install",
-                    desc: "We start by solving one problem—your biggest bottleneck. Over 30 days of building and implementing, we architect and install your first AI system, integrate it into your existing stack, and prove it works. As we deliver results, we grow as your AI wing: expanding system by system, each one compounding on the last—custom built for your industry, plugged into your existing tools, running autonomously.",
+                    time: "30 Days",
+                    desc: "We pick the one system that moves the needle most and build it. Fully integrated into your existing stack - your CRM, your payments, your scheduling tool. We install it, test it, and run it live before we call it done.",
                   },
                   {
                     step: "03",
-                    title: "Launch & Optimize",
-                    desc: "Your systems go live. We monitor, tune, and optimize for 30 days. You get trained on everything so you're never dependent on us.",
+                    title: "Prove & Expand",
+                    time: "Ongoing",
+                    desc: "You see the results. Time saved. Revenue captured. Ops running without you. Then we decide together what to build next. You own everything. We earn the right to keep going.",
                   },
                 ].map((item) => (
                   <div key={item.step} className="text-center">
-                    <div className="text-5xl font-black text-white/10 mb-4">{item.step}</div>
+                    <div className="text-5xl font-black text-white/10 mb-2">{item.step}</div>
+                    <p className="text-xs uppercase tracking-wider text-slate-500 mb-3">{item.time}</p>
                     <h3 className="text-xl font-bold text-white mb-3">{item.title}</h3>
                     <p className="text-slate-400 leading-relaxed">{item.desc}</p>
                   </div>
                 ))}
               </div>
+            </div>
+          </section>
 
-              <div className="mt-24 text-center mb-16">
+          {/* OFFER */}
+          <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5">
+            <div className="max-w-4xl mx-auto">
+              <div className="text-center mb-16">
+                <p className="text-sm uppercase tracking-[0.2em] text-slate-500 mb-6">The offer</p>
                 <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-6">
-                  We Win When You Win
+                  Here's Exactly What You Get
                 </h2>
                 <p className="text-lg text-slate-400 max-w-2xl mx-auto">
-                  No bloated retainers. No hourly billing. You pay a one-time setup fee to build the systems. Want ongoing support? Add an optional partnership. Our incentives are aligned with yours.
+                  One setup fee. You own everything we build. No retainer unless you want us to stay on.
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {/* Setup Fee */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                {/* The Build */}
                 <div className="p-8 rounded-2xl border border-white/10 bg-white/5">
                   <div className="mb-6">
-                    <span className="text-sm uppercase tracking-wider text-slate-400">Step 1</span>
-                    <h3 className="text-2xl font-bold text-white mt-2">Setup Fee</h3>
+                    <span className="text-sm uppercase tracking-wider text-slate-400">Step 1 - Required</span>
+                    <h3 className="text-2xl font-bold text-white mt-2">The Build</h3>
                   </div>
                   <p className="text-slate-400 leading-relaxed mb-8">
-                    Covers the build. We architect and install your AI systems, integrate with your existing stack, and get everything live. You own it all.
+                    We build, install, and test your system. You own the code, the logic, and the results. We don't hold anything hostage.
                   </p>
                   <ul className="space-y-3 mb-8">
                     {[
-                      "Custom system architecture & build",
-                      "Full integration with your tools",
-                      "30 days of optimization & tuning",
-                      "Team training & documentation",
+                      "Custom architecture for your specific bottleneck",
+                      "Full integration with your existing tools",
+                      "30 days of build, install & optimization",
+                      "Team training - you're never dependent on us",
+                      "You own everything we build",
                     ].map((item) => (
                       <li key={item} className="flex items-start gap-3">
                         <span className="text-white mt-0.5">&#x2022;</span>
@@ -172,20 +230,31 @@ export default function HomePage() {
                       </li>
                     ))}
                   </ul>
-                  <div className="border-t border-white/10 pt-6">
-                    <p className="text-slate-400 text-sm">Scoped per project. Starts at <span className="text-white font-bold">$5K</span> for a single system.</p>
+                  <div className="border-t border-white/10 pt-6 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-slate-400 text-sm">Single system</span>
+                      <span className="text-white font-bold text-sm">Starting at $5K</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-slate-400 text-sm">Department</span>
+                      <span className="text-white font-bold text-sm">Starting at $20K</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-slate-400 text-sm">Custom build</span>
+                      <span className="text-white font-bold text-sm">Starting at $50K</span>
+                    </div>
                   </div>
                 </div>
 
-                {/* Ongoing Partnership */}
+                {/* The Partnership */}
                 <div className="p-8 rounded-2xl border border-amber-500/30 bg-gradient-to-br from-amber-500/10 to-transparent relative">
                   <span className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider border border-amber-500/30 text-amber-400 bg-amber-500/10">Optional</span>
                   <div className="mb-6">
-                    <span className="text-sm uppercase tracking-wider text-amber-400">Step 2</span>
-                    <h3 className="text-2xl font-bold text-white mt-2">Ongoing Partnership</h3>
+                    <span className="text-sm uppercase tracking-wider text-amber-400">Step 2 - If You Want Us to Stay</span>
+                    <h3 className="text-2xl font-bold text-white mt-2">The Partnership</h3>
                   </div>
                   <p className="text-slate-400 leading-relaxed mb-8">
-                    Want us to stay on? We monitor, optimize, and scale your systems over time. We earn a percentage of the revenue they help generate. If we don't move the needle, you don't pay.
+                    We stay on, monitor results, optimize performance, and keep building. We earn a percentage of the revenue the systems help generate. If we don't move the needle, we don't eat.
                   </p>
                   <ul className="space-y-3 mb-8">
                     {[
@@ -206,11 +275,7 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <div className="mt-8 text-center">
-                <p className="text-slate-500 text-sm">Scoped per project — starting at <span className="text-slate-300">$5K</span> for a single system, <span className="text-slate-300">$20K</span> for a department, and <span className="text-slate-300">$50K</span> for custom builds. Submit an audit to see how we can help you.</p>
-              </div>
-
-              <div className="mt-6 p-6 rounded-2xl border border-white/10 bg-white/5 text-center">
+              <div className="p-6 rounded-2xl border border-white/10 bg-white/5 text-center">
                 <p className="text-slate-300">
                   Not sure which systems you need? <span className="text-white font-semibold">Start with the free audit.</span> We'll map your business, identify the highest-ROI automations, and scope it out. No commitment.
                 </p>
@@ -218,14 +283,31 @@ export default function HomePage() {
             </div>
           </section>
 
-          {/* BUILT FOR */}
+          {/* GUARANTEE */}
+          <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5 bg-gradient-to-b from-transparent to-slate-900/20">
+            <div className="max-w-3xl mx-auto text-center">
+              <p className="text-sm uppercase tracking-[0.2em] text-slate-500 mb-6">Our guarantee</p>
+              <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-8">
+                If It Doesn't Save You Time,<br />We Keep Working Until It Does.
+              </h2>
+              <p className="text-lg text-slate-400 leading-relaxed mb-8">
+                Every system we build comes with 30 days of optimization included. If it's not performing the way we scoped it, we don't call it done. We stay on it - at no extra cost - until it is.
+              </p>
+              <p className="text-slate-500">
+                We're not in the business of collecting checks and disappearing. Our reputation is the only thing that gets us the next client.
+              </p>
+            </div>
+          </section>
+
+          {/* WHO IT'S FOR */}
           <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5 bg-slate-900/10">
             <div className="max-w-5xl mx-auto text-center">
+              <p className="text-sm uppercase tracking-[0.2em] text-slate-500 mb-6">Who this is for</p>
               <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-6">
-                Built for Founders Who Want Freedom
+                Built for Founders Who Are Done Being the Operator
               </h2>
               <p className="text-lg text-slate-400 max-w-2xl mx-auto mb-12">
-                Online, local, or enterprise. If you're a founder stuck running the machine instead of building your dream life, we're your AI wing.
+                Online, local, or enterprise - if you're a founder stuck running the machine instead of building the vision, we're built for you.
               </p>
               <div className="flex flex-wrap justify-center gap-3">
                 {[
@@ -250,30 +332,35 @@ export default function HomePage() {
           {/* FAQ */}
           <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5">
             <div className="max-w-3xl mx-auto">
+              <p className="text-sm uppercase tracking-[0.2em] text-slate-500 mb-6 text-center">Objections</p>
               <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-12 text-center">
-                Common Questions
+                Straight Answers
               </h2>
               <div className="space-y-6">
                 {[
                   {
+                    q: "What if it doesn't work?",
+                    a: "Then we haven't done our job. Every system ships with 30 days of optimization. If it's not hitting the outcome we scoped, we keep working - no extra charge. We don't get paid to build things. We get paid to build things that work.",
+                  },
+                  {
                     q: "Do I need to be technical?",
-                    a: "Not at all. We handle every aspect of the build. You just tell us how your business works, and we build the systems around it.",
+                    a: "No. You tell us how your business works. We handle everything else - the architecture, the build, the integrations, the testing. You show up to see the demo.",
                   },
                   {
                     q: "Will this work with my existing tools?",
-                    a: "Yes. We integrate with Stripe, HubSpot, Salesforce, QuickBooks, ServiceTitan, Jobber, Shopify, Webflow, Zapier, and pretty much anything with an API. We build around your stack, not against it.",
+                    a: "Yes. Stripe, HubSpot, Salesforce, QuickBooks, ServiceTitan, Jobber, Shopify, Webflow, Zapier - if it has an API, we plug into it. We build around your stack, not against it.",
                   },
                   {
-                    q: "How long until my systems are live?",
-                    a: "A single system takes 2–4 weeks. A full-stack build takes 6–8 weeks. Enterprise builds are scoped individually but typically 8–12 weeks.",
-                  },
-                  {
-                    q: "What if I outgrow the system?",
-                    a: "That's the point. These systems are built to scale with you. And if you need to expand, we can add new systems anytime. Each one compounds on the last.",
+                    q: "How long does this actually take?",
+                    a: "A single system takes 30 days - build, install, and optimization included. A full department build is 6–8 weeks. Enterprise is scoped individually.",
                   },
                   {
                     q: "Is this just ChatGPT wrappers?",
-                    a: "No. We build custom infrastructure: automated workflows, intelligent routing, data pipelines, and AI agents trained on your specific business. This is engineering, not prompt tricks.",
+                    a: "No. We build custom infrastructure: automated workflows, intelligent routing, data pipelines, and AI agents trained on your specific business logic. This is engineering - not prompt tricks.",
+                  },
+                  {
+                    q: "Why start with an audit instead of just quoting me?",
+                    a: "Because every business is different and we don't sell generic packages. The audit is how we find the one thing that will move the needle most for you specifically - so we're not guessing and neither are you.",
                   },
                 ].map((item) => (
                   <div key={item.q} className="p-6 rounded-2xl border border-white/10 bg-white/5">
@@ -288,17 +375,21 @@ export default function HomePage() {
           {/* FINAL CTA */}
           <section className="py-24 sm:py-32 px-4 sm:px-6">
             <div className="max-w-3xl mx-auto text-center">
+              <p className="text-sm uppercase tracking-[0.2em] text-slate-500 mb-6">One step</p>
               <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-6">
-                Your Business Should Work<br />Without You in It.
+                One System. 30 Days.<br />We Prove It Works.
               </h2>
-              <p className="text-lg text-slate-400 mb-10 max-w-2xl mx-auto">
-                Take the free automation audit. We'll show you exactly where you're losing time, what to automate first, and what it looks like on the other side.
+              <p className="text-lg text-slate-400 mb-4 max-w-2xl mx-auto">
+                Start with the free audit. We'll find your biggest operational leak, tell you exactly what to build, and scope what it would cost to fix it. No pitch. No pressure.
+              </p>
+              <p className="text-slate-500 mb-10">
+                If it doesn't make sense for you, you walk away with a blueprint you can use anyway.
               </p>
               <Link
                 href="/audit"
                 className="inline-block px-12 py-5 rounded-full bg-white text-black text-lg font-bold hover:bg-slate-200 transition-all duration-300 hover:scale-105"
               >
-                Get Your Free Automation Audit →
+                Get Your Free Audit →
               </Link>
             </div>
           </section>
