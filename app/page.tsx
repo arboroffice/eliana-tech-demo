@@ -26,9 +26,6 @@ export default function HomePage() {
                 </span>{" "}
                 ORGANIZATION
               </h1>
-              <p className="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto mb-6 leading-relaxed italic">
-                We install growth infrastructure and act as your Chief AI Officer. Building the systems that let you scale without scaling headcount.
-              </p>
               <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto mb-4 leading-relaxed">
                 We find the one process that's costing you the most time, build an AI system that eliminates it, and install it into your business in 30 days. If it doesn't work, we keep going until it does.
               </p>
