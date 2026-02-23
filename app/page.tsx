@@ -41,25 +41,22 @@ export default function HomePage() {
             </div>
           </section>
 
-          {/* YOUR AI WING */}
-          <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5">
-            <div className="max-w-3xl mx-auto text-center">
-              <p className="text-sm uppercase tracking-[0.2em] text-slate-500 mb-6">Your Chief AI Officer</p>
-              <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-10">
-                We Don't Just Build Tools.<br />We Become Your AI Wing.
-              </h2>
-              <p className="text-lg text-slate-400 leading-relaxed mb-8">
-                Most companies bolt AI onto broken processes. We embed inside your business and rebuild it from the infrastructure up, turning you into an <span className="text-white font-semibold">AI-native organization</span> where growth compounds and operations run themselves.
-              </p>
-              <p className="text-lg text-slate-300 leading-relaxed">
-                Think of us as your fractional Chief AI Officer, except we don't just advise. We <span className="text-white font-semibold">architect, build, and install</span> every system ourselves.
-              </p>
-            </div>
-          </section>
-
-          {/* FOUR PILLARS */}
+          {/* YOUR AI WING + FOUR PILLARS */}
           <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5 bg-gradient-to-b from-transparent to-slate-900/20">
             <div className="max-w-5xl mx-auto">
+              <div className="max-w-3xl mx-auto text-center mb-20">
+                <p className="text-sm uppercase tracking-[0.2em] text-slate-500 mb-6">Your Chief AI Officer</p>
+                <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-10">
+                  We Don't Just Build Tools.<br />We Become Your AI Wing.
+                </h2>
+                <p className="text-lg text-slate-400 leading-relaxed mb-8">
+                  Most companies bolt AI onto broken processes. We embed inside your business and rebuild it from the infrastructure up, turning you into an <span className="text-white font-semibold">AI-native organization</span> where growth compounds and operations run themselves.
+                </p>
+                <p className="text-lg text-slate-300 leading-relaxed">
+                  Think of us as your fractional Chief AI Officer, except we don't just advise. We <span className="text-white font-semibold">architect, build, and install</span> every system ourselves.
+                </p>
+              </div>
+
               <div className="text-center mb-16">
                 <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-6">
                   Growth Infrastructure
@@ -127,7 +124,7 @@ export default function HomePage() {
                   {
                     step: "02",
                     title: "Build & Install",
-                    desc: "We build your AI systems and integrate them into your existing stack. Your CRM, payment processor, scheduling tool, whatever you use, we plug into it. We install infrastructure and develop custom proven systems for your industry and bottlenecks—getting them ranked on engines like ChatGPT and developing their agent logic and infrastructure to run autonomously.",
+                    desc: "We start by solving one problem—your biggest bottleneck. Over 30 days of building and implementing, we architect and install your first AI system, integrate it into your existing stack, and prove it works. As we deliver results, we grow as your AI wing: expanding system by system, each one compounding on the last—custom built for your industry, plugged into your existing tools, running autonomously.",
                   },
                   {
                     step: "03",
@@ -142,13 +139,8 @@ export default function HomePage() {
                   </div>
                 ))}
               </div>
-            </div>
-          </section>
 
-          {/* PRICING */}
-          <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5">
-            <div className="max-w-4xl mx-auto">
-              <div className="text-center mb-16">
+              <div className="mt-24 text-center mb-16">
                 <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-6">
                   We Win When You Win
                 </h2>
@@ -214,7 +206,11 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <div className="mt-12 p-6 rounded-2xl border border-white/10 bg-white/5 text-center">
+              <div className="mt-8 text-center">
+                <p className="text-slate-500 text-sm">Scoped per project — starting at <span className="text-slate-300">$5K</span> for a single system, <span className="text-slate-300">$20K</span> for a department, and <span className="text-slate-300">$50K</span> for custom builds. Submit an audit to see how we can help you.</p>
+              </div>
+
+              <div className="mt-6 p-6 rounded-2xl border border-white/10 bg-white/5 text-center">
                 <p className="text-slate-300">
                   Not sure which systems you need? <span className="text-white font-semibold">Start with the free audit.</span> We'll map your business, identify the highest-ROI automations, and scope it out. No commitment.
                 </p>
