@@ -17,25 +17,26 @@ export default function HomePage() {
           <section className="min-h-screen flex items-center justify-center px-4 sm:px-6">
             <div className="max-w-4xl mx-auto text-center">
               <p className="text-sm sm:text-base uppercase tracking-[0.2em] text-slate-400 mb-6">
-                For founders who are done being the bottleneck
+                Your AI Wing
               </p>
-              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight mb-8 leading-[1.05]">
-                YOUR BUSINESS IS EATING YOUR LIFE.<br />
+              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight mb-8">
+                WE BUILD YOU INTO AN{" "}
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-slate-200 to-slate-500">
-                  WE FIX THAT IN 30 DAYS.
-                </span>
+                  AI-NATIVE
+                </span>{" "}
+                ORGANIZATION
               </h1>
-              <p className="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto mb-4 leading-relaxed">
-                We find the one process that's costing you the most time, build an AI system that eliminates it, and install it into your business in 30 days. If it doesn't work, we keep going until it does.
+              <p className="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto mb-6 leading-relaxed italic">
+                We install growth infrastructure and act as your Chief AI Officer. Building the systems that let you scale without scaling headcount.
               </p>
-              <p className="text-base text-slate-500 max-w-xl mx-auto mb-12">
-                We don't pitch decks. We don't advise. We build and install - then prove it works before asking you for more.
+              <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto mb-12 leading-relaxed">
+                The fastest-growing founders aren't hiring more people. They have an <span className="text-white font-semibold">AI wing</span> building systems that do the work of 10, so they can focus on <span className="text-white font-semibold">vision and revenue</span>.
               </p>
               <Link
                 href="/audit"
                 className="inline-block px-10 py-4 rounded-full bg-white text-black text-lg font-bold hover:bg-slate-200 transition-all duration-300 hover:scale-105"
               >
-                Get Your Free Audit - Find Your Biggest Leak →
+                Get Your Free Automation Audit →
               </Link>
             </div>
           </section>
