@@ -57,54 +57,6 @@ export default function HomePage() {
             </div>
           </section>
 
-          {/* WHAT WE BUILD */}
-          <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5">
-            <div className="max-w-5xl mx-auto">
-              <div className="text-center mb-16">
-                <p className="text-sm uppercase tracking-[0.2em] text-slate-500 mb-6">What you get</p>
-                <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-6">
-                  Three Systems That Change How Your Business Runs
-                </h2>
-                <p className="text-lg text-slate-400 max-w-2xl mx-auto">
-                  These aren't tools you have to manage. They're infrastructure that runs whether you're in the building or not.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {[
-                  {
-                    icon: "01",
-                    title: "Autonomous Operations",
-                    problem: "You're the one making everything happen.",
-                    fix: "We build triggers, automations, and AI agents that handle the recurring work - lead follow-up, scheduling, reporting, client comms - without you in the loop.",
-                  },
-                  {
-                    icon: "02",
-                    title: "Executive Intelligence",
-                    problem: "You're making decisions on gut and vibes.",
-                    fix: "Real-time dashboards and AI-powered insights so you always know what's working, what's leaking, and what to do next. Data in, decisions out.",
-                  },
-                  {
-                    icon: "03",
-                    title: "Exit Readiness",
-                    problem: "Your business can't run without you - which means it's worth less.",
-                    fix: "A business that runs on documented, automated systems commands a multiple. We build for enterprise value from day one.",
-                  },
-                ].map((item) => (
-                  <div
-                    key={item.title}
-                    className="group p-8 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300"
-                  >
-                    <span className="text-4xl font-black text-white/10 block mb-4">{item.icon}</span>
-                    <h3 className="text-xl font-bold text-white mb-4">{item.title}</h3>
-                    <p className="text-slate-500 text-sm mb-2 italic">"{item.problem}"</p>
-                    <p className="text-slate-400 leading-relaxed">{item.fix}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
           {/* OFFER */}
           <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5">
             <div className="max-w-4xl mx-auto">
