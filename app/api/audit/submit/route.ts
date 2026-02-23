@@ -51,6 +51,28 @@ export async function POST(request: Request) {
             auditId
         })
 
+        // Subscribe to Founder of the Future newsletter on Substack
+        if (formData.newsletterOptIn && formData.email) {
+            try {
+                await fetch('https://miaelianaa.substack.com/api/v1/free?nojs=true', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams({
+                        email: formData.email,
+                        first_url: 'https://elianatech.com/audit',
+                        first_referrer: 'https://elianatech.com',
+                        current_url: 'https://elianatech.com/audit',
+                        current_referrer: 'https://elianatech.com',
+                    }).toString(),
+                })
+                console.log(`[SUBSTACK] Subscribed ${formData.email} to Founder of the Future`)
+            } catch (substackError) {
+                console.error('[SUBSTACK ERROR]', substackError)
+            }
+        }
+
         // SMS follow-up for high-intent leads
         if (intentLevel === 'high' && formData.phoneNumber && isValidPhoneNumber(formData.phoneNumber)) {
             try {
