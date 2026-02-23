@@ -41,30 +41,12 @@ export default function HomePage() {
                 ORGANIZATION
               </motion.h1>
               <motion.p
-                className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto mb-4 leading-relaxed"
+                className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto mb-12 leading-relaxed"
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.7, ease: [0.21, 0.47, 0.32, 0.98] }}
               >
                 We find the one process that's costing you the most time, build an AI system that eliminates it, and install it into your business in 30 days. If it doesn't work, we keep going until it does.
-              </motion.p>
-
-              <motion.div
-                className="flex justify-center my-6"
-                initial={{ opacity: 0, scaleX: 0 }}
-                animate={{ opacity: 1, scaleX: 1 }}
-                transition={{ duration: 0.5, delay: 0.9 }}
-              >
-                <div className="w-1.5 h-1.5 rounded-full bg-white/20" />
-              </motion.div>
-
-              <motion.p
-                className="text-base sm:text-lg text-slate-500 max-w-2xl mx-auto mb-12 leading-relaxed"
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 1.0, ease: [0.21, 0.47, 0.32, 0.98] }}
-              >
-                We don't pitch decks. We don't advise. We build and install - then prove it works.
               </motion.p>
               <motion.div
                 initial={{ opacity: 0, y: 15 }}
