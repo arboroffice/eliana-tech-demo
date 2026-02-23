@@ -29,8 +29,11 @@ export default function HomePage() {
               <p className="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto mb-6 leading-relaxed italic">
                 We install growth infrastructure and act as your Chief AI Officer. Building the systems that let you scale without scaling headcount.
               </p>
-              <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto mb-12 leading-relaxed">
-                The fastest-growing founders aren't hiring more people. They have an <span className="text-white font-semibold">AI wing</span> building systems that do the work of 10, so they can focus on <span className="text-white font-semibold">vision and revenue</span>.
+              <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto mb-4 leading-relaxed">
+                We find the one process that's costing you the most time, build an AI system that eliminates it, and install it into your business in 30 days. If it doesn't work, we keep going until it does.
+              </p>
+              <p className="text-base sm:text-lg text-slate-500 max-w-2xl mx-auto mb-12 leading-relaxed">
+                We don't pitch decks. We don't advise. We build and install - then prove it works before asking you for more.
               </p>
               <Link
                 href="/audit"
