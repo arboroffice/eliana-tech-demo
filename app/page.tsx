@@ -247,22 +247,22 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                {/* The Partnership */}
+                {/* Growth Infrastructure */}
                 <div className="p-8 rounded-2xl border border-amber-500/30 bg-gradient-to-br from-amber-500/10 to-transparent relative">
                   <span className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider border border-amber-500/30 text-amber-400 bg-amber-500/10">Optional</span>
                   <div className="mb-6">
-                    <span className="text-sm uppercase tracking-wider text-amber-400">Step 2 - If You Want Us to Stay</span>
-                    <h3 className="text-2xl font-bold text-white mt-2">The Partnership</h3>
+                    <span className="text-sm uppercase tracking-wider text-amber-400">Step 2 - Growth Infrastructure</span>
+                    <h3 className="text-2xl font-bold text-white mt-2">Revenue Partnership</h3>
                   </div>
                   <p className="text-slate-400 leading-relaxed mb-8">
-                    We stay on, monitor results, optimize performance, and keep building. We earn a percentage of the revenue the systems help generate. If we don't move the needle, we don't eat.
+                    Once the system is live, we stay on as your growth infrastructure. We're not maintaining — we're building and compounding. New systems, new revenue channels, new automation layers. We earn a percentage of what the systems generate. If revenue doesn't grow, we don't get paid.
                   </p>
                   <ul className="space-y-3 mb-8">
                     {[
                       "Revenue share on system-attributed growth",
-                      "Ongoing monitoring & optimization",
+                      "Continuous build — new systems added as you scale",
+                      "Growth strategy with Mia every quarter",
                       "Priority support & system upgrades",
-                      "Quarterly strategy reviews with Mia",
                     ].map((item) => (
                       <li key={item} className="flex items-start gap-3">
                         <span className="text-amber-400 mt-0.5">&#x2022;</span>
