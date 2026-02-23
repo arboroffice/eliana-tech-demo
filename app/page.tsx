@@ -17,7 +17,7 @@ export default function HomePage() {
           <section className="min-h-screen flex items-center justify-center px-4 sm:px-6">
             <div className="max-w-4xl mx-auto text-center">
               <p className="text-sm sm:text-base uppercase tracking-[0.2em] text-slate-400 mb-6">
-                Your AI Wing
+                Your AI Wing / Chief AI Officer
               </p>
               <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight mb-8">
                 WE BUILD YOU INTO AN{" "}
