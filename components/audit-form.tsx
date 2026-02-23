@@ -740,7 +740,8 @@ export function AuditForm() {
                                     <div className="flex items-start space-x-2">
                                         <Checkbox id="optin" checked={formData.newsletterOptIn} onCheckedChange={(c: boolean) => updateField("newsletterOptIn", c === true)} className="mt-1 border-slate-600 data-[state=checked]:bg-blue-600" />
                                         <label htmlFor="optin" className="text-sm text-slate-400">
-                                            I agree to receive my detailed audit results and occasional growth insights via email.
+                                            I agree to receive my detailed audit results, occasional growth insights via email, and subscribe to the{' '}
+                                            <a href="https://miaelianaa.substack.com" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 underline">Founder of the Future</a> newsletter.
                                         </label>
                                     </div>
                                 </div>
