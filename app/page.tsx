@@ -1,7 +1,11 @@
+"use client"
+
 import { GlassmorphismNav } from "../components/glassmorphism-nav"
 import { Footer } from "../components/footer"
 import Aurora from "../components/Aurora"
 import Link from "next/link"
+import { motion } from "framer-motion"
+import { ScrollReveal, StaggerContainer, StaggerItem, Divider } from "../components/scroll-reveal"
 
 export default function HomePage() {
   return (
@@ -16,44 +20,94 @@ export default function HomePage() {
           {/* HERO */}
           <section className="min-h-screen flex items-center justify-center px-4 sm:px-6">
             <div className="max-w-4xl mx-auto text-center">
-              <p className="text-sm sm:text-base uppercase tracking-[0.2em] text-slate-400 mb-6">
+              <motion.p
+                className="text-sm sm:text-base uppercase tracking-[0.2em] text-slate-400 mb-6"
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2, ease: [0.21, 0.47, 0.32, 0.98] }}
+              >
                 Your AI Wing / Chief AI Officer
-              </p>
-              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight mb-8">
+              </motion.p>
+              <motion.h1
+                className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight mb-8"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.4, ease: [0.21, 0.47, 0.32, 0.98] }}
+              >
                 WE BUILD YOU INTO AN{" "}
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-slate-200 to-slate-500">
                   AI-NATIVE
                 </span>{" "}
                 ORGANIZATION
-              </h1>
-              <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto mb-4 leading-relaxed">
-                We find the one process that's costing you the most time, build an AI system that eliminates it, and install it into your business in 30 days. If it doesn't work, we keep going until it does.
-              </p>
-              <p className="text-base sm:text-lg text-slate-500 max-w-2xl mx-auto mb-12 leading-relaxed">
-                We don't pitch decks. We don't advise. We build and install - then prove it works before asking you for more.
-              </p>
-              <Link
-                href="/audit"
-                className="inline-block px-10 py-4 rounded-full bg-white text-black text-lg font-bold hover:bg-slate-200 transition-all duration-300 hover:scale-105"
+              </motion.h1>
+              <motion.p
+                className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto mb-4 leading-relaxed"
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.7, ease: [0.21, 0.47, 0.32, 0.98] }}
               >
-                Get Your Free Automation Audit →
-              </Link>
+                We find the one process that's costing you the most time, build an AI system that eliminates it, and install it into your business in 30 days. If it doesn't work, we keep going until it does.
+              </motion.p>
+
+              <motion.div
+                className="flex justify-center my-6"
+                initial={{ opacity: 0, scaleX: 0 }}
+                animate={{ opacity: 1, scaleX: 1 }}
+                transition={{ duration: 0.5, delay: 0.9 }}
+              >
+                <div className="w-1.5 h-1.5 rounded-full bg-white/20" />
+              </motion.div>
+
+              <motion.p
+                className="text-base sm:text-lg text-slate-500 max-w-2xl mx-auto mb-12 leading-relaxed"
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 1.0, ease: [0.21, 0.47, 0.32, 0.98] }}
+              >
+                We don't pitch decks. We don't advise. We build and install - then prove it works before asking you for more.
+              </motion.p>
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 1.2, ease: [0.21, 0.47, 0.32, 0.98] }}
+              >
+                <Link
+                  href="/audit"
+                  className="inline-block px-10 py-4 rounded-full bg-white text-black text-lg font-bold hover:bg-slate-200 transition-all duration-300 hover:scale-105"
+                >
+                  Get Your Free Automation Audit →
+                </Link>
+              </motion.div>
             </div>
           </section>
 
           {/* THE FIX */}
           <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5 bg-gradient-to-b from-transparent to-slate-900/20">
             <div className="max-w-3xl mx-auto text-center">
-              <p className="text-sm uppercase tracking-[0.2em] text-slate-500 mb-6">What we actually do</p>
-              <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-8">
-                We Install AI Systems That Do the Work You Shouldn't Be Doing.
-              </h2>
-              <p className="text-lg text-slate-400 leading-relaxed mb-6">
-                Not consulting. Not strategy sessions. Not a roadmap that sits in a Google Doc. We <span className="text-white font-semibold">architect, build, and install</span> the actual systems - integrated into the tools you already use - and we don't leave until they're running.
-              </p>
-              <p className="text-lg text-slate-300 leading-relaxed">
-                Think of us as your AI wing. We start by solving your single biggest bottleneck. As we prove it works, we grow deeper into your business - system by system, each one compounding on the last - until your operations run themselves.
-              </p>
+              <ScrollReveal>
+                <p className="text-sm uppercase tracking-[0.2em] text-slate-500 mb-6">What we actually do</p>
+              </ScrollReveal>
+              <ScrollReveal delay={0.1}>
+                <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-8">
+                  We Install AI Systems That Do the Work You Shouldn't Be Doing.
+                </h2>
+              </ScrollReveal>
+
+              <Divider className="my-8" />
+
+              <ScrollReveal delay={0.2}>
+                <p className="text-lg text-slate-400 leading-relaxed mb-6">
+                  Not consulting. Not strategy sessions. Not a roadmap that sits in a Google Doc. We <span className="text-white font-semibold">architect, build, and install</span> the actual systems - integrated into the tools you already use - and we don't leave until they're running.
+                </p>
+              </ScrollReveal>
+
+              <Divider className="my-8" />
+
+              <ScrollReveal delay={0.3}>
+                <p className="text-lg text-slate-300 leading-relaxed">
+                  Think of us as your AI wing. We start by solving your single biggest bottleneck. As we prove it works, we grow deeper into your business - system by system, each one compounding on the last - until your operations run themselves.
+                </p>
+              </ScrollReveal>
             </div>
           </section>
 
@@ -61,119 +115,151 @@ export default function HomePage() {
           <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5">
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-16">
-                <p className="text-sm uppercase tracking-[0.2em] text-slate-500 mb-6">The offer</p>
-                <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-6">
-                  Here's Exactly What You Get
-                </h2>
-                <p className="text-lg text-slate-400 max-w-2xl mx-auto">
-                  One setup fee. You own everything we build. No retainer unless you want us to stay on.
-                </p>
+                <ScrollReveal>
+                  <p className="text-sm uppercase tracking-[0.2em] text-slate-500 mb-6">The offer</p>
+                </ScrollReveal>
+                <ScrollReveal delay={0.1}>
+                  <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-6">
+                    Here's Exactly What You Get
+                  </h2>
+                </ScrollReveal>
+                <ScrollReveal delay={0.15}>
+                  <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+                    One setup fee. You own everything we build. No retainer unless you want us to stay on.
+                  </p>
+                </ScrollReveal>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
                 {/* The Build */}
-                <div className="p-8 rounded-2xl border border-white/10 bg-white/5">
-                  <div className="mb-6">
-                    <span className="text-sm uppercase tracking-wider text-slate-400">Step 1 - Required</span>
-                    <h3 className="text-2xl font-bold text-white mt-2">The Build</h3>
+                <ScrollReveal direction="left" delay={0.1}>
+                  <div className="p-8 rounded-2xl border border-white/10 bg-white/5 h-full">
+                    <div className="mb-6">
+                      <span className="text-sm uppercase tracking-wider text-slate-400">Step 1 - Required</span>
+                      <h3 className="text-2xl font-bold text-white mt-2">The Build</h3>
+                    </div>
+                    <p className="text-slate-400 leading-relaxed mb-8">
+                      We build, install, and test your system end-to-end. Fully integrated into your existing stack and ready to run.
+                    </p>
+                    <ul className="space-y-3 mb-8">
+                      {[
+                        "Custom architecture for your specific bottleneck",
+                        "Full integration with your existing tools",
+                        "30 days of build, install & optimization",
+                        "Team training - you're never dependent on us",
+                        "You own everything we build",
+                      ].map((item) => (
+                        <li key={item} className="flex items-start gap-3">
+                          <span className="text-white mt-0.5">&#x2022;</span>
+                          <span className="text-slate-300 text-sm">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="border-t border-white/10 pt-6 space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-slate-400 text-sm">Single system</span>
+                        <span className="text-white font-bold text-sm">Starting at $5K</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-slate-400 text-sm">Department</span>
+                        <span className="text-white font-bold text-sm">Starting at $20K</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-slate-400 text-sm">Custom build</span>
+                        <span className="text-white font-bold text-sm">Starting at $50K</span>
+                      </div>
+                    </div>
                   </div>
-                  <p className="text-slate-400 leading-relaxed mb-8">
-                    We build, install, and test your system end-to-end. Fully integrated into your existing stack and ready to run.
-                  </p>
-                  <ul className="space-y-3 mb-8">
-                    {[
-                      "Custom architecture for your specific bottleneck",
-                      "Full integration with your existing tools",
-                      "30 days of build, install & optimization",
-                      "Team training - you're never dependent on us",
-                      "You own everything we build",
-                    ].map((item) => (
-                      <li key={item} className="flex items-start gap-3">
-                        <span className="text-white mt-0.5">&#x2022;</span>
-                        <span className="text-slate-300 text-sm">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="border-t border-white/10 pt-6 space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="text-slate-400 text-sm">Single system</span>
-                      <span className="text-white font-bold text-sm">Starting at $5K</span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-slate-400 text-sm">Department</span>
-                      <span className="text-white font-bold text-sm">Starting at $20K</span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-slate-400 text-sm">Custom build</span>
-                      <span className="text-white font-bold text-sm">Starting at $50K</span>
-                    </div>
-                  </div>
-                </div>
+                </ScrollReveal>
 
                 {/* Growth Infrastructure */}
-                <div className="p-8 rounded-2xl border border-amber-500/30 bg-gradient-to-br from-amber-500/10 to-transparent relative">
-                  <span className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider border border-amber-500/30 text-amber-400 bg-amber-500/10">Optional</span>
-                  <div className="mb-6">
-                    <span className="text-sm uppercase tracking-wider text-amber-400">Step 2 - Growth Infrastructure</span>
-                    <h3 className="text-2xl font-bold text-white mt-2">Revenue Partnership</h3>
+                <ScrollReveal direction="right" delay={0.2}>
+                  <div className="p-8 rounded-2xl border border-amber-500/30 bg-gradient-to-br from-amber-500/10 to-transparent relative h-full">
+                    <span className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider border border-amber-500/30 text-amber-400 bg-amber-500/10">Optional</span>
+                    <div className="mb-6">
+                      <span className="text-sm uppercase tracking-wider text-amber-400">Step 2 - Growth Infrastructure</span>
+                      <h3 className="text-2xl font-bold text-white mt-2">Revenue Partnership</h3>
+                    </div>
+                    <p className="text-slate-400 leading-relaxed mb-8">
+                      Once the system is live, we stay on as your growth infrastructure. We're not maintaining — we're building and compounding. New systems, new revenue channels, new automation layers. We earn a percentage of what the systems generate. If revenue doesn't grow, we don't get paid.
+                    </p>
+                    <ul className="space-y-3 mb-8">
+                      {[
+                        "Revenue share on system-attributed growth",
+                        "Continuous build — new systems added as you scale",
+                        "Growth strategy with Mia every quarter",
+                        "Priority support & system upgrades",
+                      ].map((item) => (
+                        <li key={item} className="flex items-start gap-3">
+                          <span className="text-amber-400 mt-0.5">&#x2022;</span>
+                          <span className="text-slate-300 text-sm">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="border-t border-amber-500/20 pt-6">
+                      <p className="text-slate-400 text-sm">Percentage based on scope. Discussed after the audit.</p>
+                    </div>
                   </div>
-                  <p className="text-slate-400 leading-relaxed mb-8">
-                    Once the system is live, we stay on as your growth infrastructure. We're not maintaining — we're building and compounding. New systems, new revenue channels, new automation layers. We earn a percentage of what the systems generate. If revenue doesn't grow, we don't get paid.
-                  </p>
-                  <ul className="space-y-3 mb-8">
-                    {[
-                      "Revenue share on system-attributed growth",
-                      "Continuous build — new systems added as you scale",
-                      "Growth strategy with Mia every quarter",
-                      "Priority support & system upgrades",
-                    ].map((item) => (
-                      <li key={item} className="flex items-start gap-3">
-                        <span className="text-amber-400 mt-0.5">&#x2022;</span>
-                        <span className="text-slate-300 text-sm">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="border-t border-amber-500/20 pt-6">
-                    <p className="text-slate-400 text-sm">Percentage based on scope. Discussed after the audit.</p>
-                  </div>
-                </div>
+                </ScrollReveal>
               </div>
 
-              <div className="p-6 rounded-2xl border border-white/10 bg-white/5 text-center">
-                <p className="text-slate-300">
-                  Not sure which systems you need? <span className="text-white font-semibold">Start with the free audit.</span> We'll map your business, identify the highest-ROI automations, and scope it out. No commitment.
-                </p>
-              </div>
+              <ScrollReveal delay={0.3}>
+                <div className="p-6 rounded-2xl border border-white/10 bg-white/5 text-center">
+                  <p className="text-slate-300">
+                    Not sure which systems you need? <span className="text-white font-semibold">Start with the free audit.</span> We'll map your business, identify the highest-ROI automations, and scope it out. No commitment.
+                  </p>
+                </div>
+              </ScrollReveal>
             </div>
           </section>
 
           {/* GUARANTEE */}
           <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5 bg-gradient-to-b from-transparent to-slate-900/20">
             <div className="max-w-3xl mx-auto text-center">
-              <p className="text-sm uppercase tracking-[0.2em] text-slate-500 mb-6">Our guarantee</p>
-              <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-8">
-                If It Doesn't Save You Time,<br />We Keep Working Until It Does.
-              </h2>
-              <p className="text-lg text-slate-400 leading-relaxed mb-8">
-                Every system we build comes with 30 days of optimization included. If it's not performing the way we scoped it, we don't call it done. We stay on it - at no extra cost - until it is.
-              </p>
-              <p className="text-slate-500">
-                We're not in the business of collecting checks and disappearing. Our reputation is the only thing that gets us the next client.
-              </p>
+              <ScrollReveal>
+                <p className="text-sm uppercase tracking-[0.2em] text-slate-500 mb-6">Our guarantee</p>
+              </ScrollReveal>
+              <ScrollReveal delay={0.1}>
+                <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-8">
+                  If It Doesn't Save You Time,<br />We Keep Working Until It Does.
+                </h2>
+              </ScrollReveal>
+
+              <Divider className="my-8" />
+
+              <ScrollReveal delay={0.2}>
+                <p className="text-lg text-slate-400 leading-relaxed mb-8">
+                  Every system we build comes with 30 days of optimization included. If it's not performing the way we scoped it, we don't call it done. We stay on it - at no extra cost - until it is.
+                </p>
+              </ScrollReveal>
+
+              <Divider className="my-6" />
+
+              <ScrollReveal delay={0.3}>
+                <p className="text-slate-500">
+                  We're not in the business of collecting checks and disappearing. Our reputation is the only thing that gets us the next client.
+                </p>
+              </ScrollReveal>
             </div>
           </section>
 
           {/* WHO IT'S FOR */}
           <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5 bg-slate-900/10">
             <div className="max-w-5xl mx-auto text-center">
-              <p className="text-sm uppercase tracking-[0.2em] text-slate-500 mb-6">Who this is for</p>
-              <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-6">
-                Built for Founders Who Are Done Being the Operator
-              </h2>
-              <p className="text-lg text-slate-400 max-w-2xl mx-auto mb-12">
-                Online, local, or enterprise - if you're a founder stuck running the machine instead of building the vision, we're built for you.
-              </p>
-              <div className="flex flex-wrap justify-center gap-3">
+              <ScrollReveal>
+                <p className="text-sm uppercase tracking-[0.2em] text-slate-500 mb-6">Who this is for</p>
+              </ScrollReveal>
+              <ScrollReveal delay={0.1}>
+                <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-6">
+                  Built for Founders Who Are Done Being the Operator
+                </h2>
+              </ScrollReveal>
+              <ScrollReveal delay={0.15}>
+                <p className="text-lg text-slate-400 max-w-2xl mx-auto mb-12">
+                  Online, local, or enterprise - if you're a founder stuck running the machine instead of building the vision, we're built for you.
+                </p>
+              </ScrollReveal>
+              <StaggerContainer className="flex flex-wrap justify-center gap-3" staggerDelay={0.04}>
                 {[
                   "SaaS Founders", "Course Creators", "Coaches & Consultants",
                   "E-commerce & Retail", "Agencies", "Home Services",
@@ -182,25 +268,30 @@ export default function HomePage() {
                   "Manufacturing & Logistics", "Membership & Community",
                   "Digital Products", "Professional Services",
                 ].map((type) => (
-                  <span
-                    key={type}
-                    className="px-5 py-2.5 rounded-full text-sm font-medium border border-white/10 text-slate-300 bg-white/5 hover:bg-white/10 hover:border-white/20 transition-all duration-300"
-                  >
-                    {type}
-                  </span>
+                  <StaggerItem key={type}>
+                    <span
+                      className="inline-block px-5 py-2.5 rounded-full text-sm font-medium border border-white/10 text-slate-300 bg-white/5 hover:bg-white/10 hover:border-white/20 transition-all duration-300"
+                    >
+                      {type}
+                    </span>
+                  </StaggerItem>
                 ))}
-              </div>
+              </StaggerContainer>
             </div>
           </section>
 
           {/* FAQ */}
           <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5">
             <div className="max-w-3xl mx-auto">
-              <p className="text-sm uppercase tracking-[0.2em] text-slate-500 mb-6 text-center">Objections</p>
-              <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-12 text-center">
-                Straight Answers
-              </h2>
-              <div className="space-y-6">
+              <ScrollReveal>
+                <p className="text-sm uppercase tracking-[0.2em] text-slate-500 mb-6 text-center">Objections</p>
+              </ScrollReveal>
+              <ScrollReveal delay={0.1}>
+                <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-12 text-center">
+                  Straight Answers
+                </h2>
+              </ScrollReveal>
+              <StaggerContainer className="space-y-6" staggerDelay={0.1}>
                 {[
                   {
                     q: "What if it doesn't work?",
@@ -227,34 +318,46 @@ export default function HomePage() {
                     a: "Because every business is different and we don't sell generic packages. The audit is how we find the one thing that will move the needle most for you specifically - so we're not guessing and neither are you.",
                   },
                 ].map((item) => (
-                  <div key={item.q} className="p-6 rounded-2xl border border-white/10 bg-white/5">
-                    <h3 className="text-lg font-bold text-white mb-3">{item.q}</h3>
-                    <p className="text-slate-400 leading-relaxed">{item.a}</p>
-                  </div>
+                  <StaggerItem key={item.q}>
+                    <div className="p-6 rounded-2xl border border-white/10 bg-white/5">
+                      <h3 className="text-lg font-bold text-white mb-3">{item.q}</h3>
+                      <p className="text-slate-400 leading-relaxed">{item.a}</p>
+                    </div>
+                  </StaggerItem>
                 ))}
-              </div>
+              </StaggerContainer>
             </div>
           </section>
 
           {/* FINAL CTA */}
           <section className="py-24 sm:py-32 px-4 sm:px-6">
             <div className="max-w-3xl mx-auto text-center">
-              <p className="text-sm uppercase tracking-[0.2em] text-slate-500 mb-6">One step</p>
-              <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-6">
-                One System. 30 Days.<br />We Prove It Works.
-              </h2>
-              <p className="text-lg text-slate-400 mb-4 max-w-2xl mx-auto">
-                Start with the free audit. We'll find your biggest operational leak, tell you exactly what to build, and scope what it would cost to fix it. No pitch. No pressure.
-              </p>
-              <p className="text-slate-500 mb-10">
-                If it doesn't make sense for you, you walk away with a blueprint you can use anyway.
-              </p>
-              <Link
-                href="/audit"
-                className="inline-block px-12 py-5 rounded-full bg-white text-black text-lg font-bold hover:bg-slate-200 transition-all duration-300 hover:scale-105"
-              >
-                Get Your Free Audit →
-              </Link>
+              <ScrollReveal>
+                <p className="text-sm uppercase tracking-[0.2em] text-slate-500 mb-6">One step</p>
+              </ScrollReveal>
+              <ScrollReveal delay={0.1}>
+                <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-6">
+                  One System. 30 Days.<br />We Prove It Works.
+                </h2>
+              </ScrollReveal>
+              <ScrollReveal delay={0.2}>
+                <p className="text-lg text-slate-400 mb-4 max-w-2xl mx-auto">
+                  Start with the free audit. We'll find your biggest operational leak, tell you exactly what to build, and scope what it would cost to fix it. No pitch. No pressure.
+                </p>
+              </ScrollReveal>
+              <ScrollReveal delay={0.25}>
+                <p className="text-slate-500 mb-10">
+                  If it doesn't make sense for you, you walk away with a blueprint you can use anyway.
+                </p>
+              </ScrollReveal>
+              <ScrollReveal delay={0.3}>
+                <Link
+                  href="/audit"
+                  className="inline-block px-12 py-5 rounded-full bg-white text-black text-lg font-bold hover:bg-slate-200 transition-all duration-300 hover:scale-105"
+                >
+                  Get Your Free Audit →
+                </Link>
+              </ScrollReveal>
             </div>
           </section>
 

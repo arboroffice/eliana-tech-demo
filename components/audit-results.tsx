@@ -7,7 +7,7 @@ import {
   Rocket, DollarSign, Clock, Users, BarChart3, ArrowRight,
   Download, Calendar, Zap, Brain, Mail,
   ShieldCheck, Settings, MessageSquare, FileText, Calculator,
-  RefreshCw, Headphones, LayoutDashboard
+  RefreshCw, Headphones, LayoutDashboard, Layers, Building2
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -593,6 +593,194 @@ function getGrowthLevel(fd: any): { level: string; label: string; insight: strin
   return { level: 'enterprise', label: 'Enterprise Stage', insight: insights[cat] }
 }
 
+// ─── Executive Intelligence Report ───────────────────────
+function executiveReport(fd: any, score: number) {
+  const cat = getBusinessCategory(fd.businessType || '')
+  const churnPct = parseChurnPct(fd.churnRate)
+  const price = parseProductPrice(fd.productPricePoint, cat)
+  const list = parseListSize(fd.listSize, cat)
+  const annualChurnLoss = Math.round(list * churnPct * price)
+  const weeklyHrs = fd.hoursPerWeek === '60+' ? 60 : fd.hoursPerWeek === '40-60' ? 50 : fd.hoursPerWeek === '20-40' ? 30 : 20
+  const automatedPct = fd.percentAutomated === '60+' ? 70 : fd.percentAutomated === '30-60' ? 45 : fd.percentAutomated === 'under-30' ? 20 : 5
+  const supportHrs = fd.supportHoursPerWeek === '10+' ? 10 : fd.supportHoursPerWeek === '5-10' ? 5 : 2
+
+  const findings: { type: 'critical' | 'warning' | 'opportunity'; label: string; value: string; detail: string }[] = []
+
+  if (annualChurnLoss > 3000) {
+    findings.push({
+      type: 'critical',
+      label: 'Revenue Leaking from Churn',
+      value: fmt$(annualChurnLoss) + '/year',
+      detail: `Based on your ${fd.churnRate}% churn rate and average customer value, you are losing an estimated ${fmt$(annualChurnLoss)} per year in revenue that AI retention systems can recover.`
+    })
+  }
+
+  if (fd.percentAutomated === 'none' || fd.percentAutomated === 'under-30') {
+    const opsPct = 100 - automatedPct
+    findings.push({
+      type: 'critical',
+      label: 'Operations Gap',
+      value: `${opsPct}% still manual`,
+      detail: `${opsPct}% of your recurring operations are manual. Businesses at your stage that automate 60%+ of ops generate 2-3x more revenue per employee and command higher exit multiples.`
+    })
+  }
+
+  if (fd.twoWeeksOff === 'No') {
+    findings.push({
+      type: 'critical',
+      label: 'Owner Dependency Risk',
+      value: 'Business stops without you',
+      detail: 'Your business cannot function without your direct involvement. This caps your growth ceiling, suppresses your valuation, and is a leading cause of founder burnout.'
+    })
+  }
+
+  if (fd.conversionRate === 'under-1' || fd.conversionRate === '1-3') {
+    findings.push({
+      type: 'warning',
+      label: 'Conversion Underperformance',
+      value: 'Below industry average',
+      detail: 'Your conversion rate is significantly below what AI-optimized businesses in your category achieve. A 2x improvement requires no new traffic - just better systems and automated follow-up.'
+    })
+  }
+
+  if (fd.supportHoursPerWeek === '10+' || fd.supportHoursPerWeek === '5-10') {
+    findings.push({
+      type: 'warning',
+      label: 'High-Cost Support Load',
+      value: `${supportHrs}+ hrs/week manual`,
+      detail: `You or your team spend ${supportHrs}+ hours per week on support that AI can handle. At $75/hr equivalent, that is ${fmt$(supportHrs * 4 * 75)}/month in recoverable capacity.`
+    })
+  }
+
+  if (findings.length < 3) {
+    findings.push({
+      type: 'opportunity',
+      label: 'Growth Acceleration Window',
+      value: 'High potential',
+      detail: 'Your business foundation is solid. AI infrastructure will compound your existing momentum - more revenue from the same inputs, without proportional cost increases.'
+    })
+  }
+
+  const timeValueAtStake = Math.round(weeklyHrs * 0.35 * 52 * 75)
+  const totalAtStake = annualChurnLoss + timeValueAtStake
+
+  return { findings: findings.slice(0, 4), totalAtStake, annualChurnLoss }
+}
+
+// ─── Industry Benchmarks ──────────────────────────────────
+function getIndustryBenchmarks(fd: any) {
+  const cat = getBusinessCategory(fd.businessType || '')
+
+  const targets: Record<BusinessCategory, { automation: number; churn: number; conversion: number; hoursPerWeek: string }> = {
+    online:       { automation: 65, churn: 5,  conversion: 5,  hoursPerWeek: '20-40' },
+    local:        { automation: 55, churn: 12, conversion: 45, hoursPerWeek: '40-60' },
+    professional: { automation: 60, churn: 8,  conversion: 40, hoursPerWeek: '40-60' },
+    product:      { automation: 70, churn: 8,  conversion: 4,  hoursPerWeek: '40-60' },
+  }
+  const t = targets[cat]
+  const autoPct = fd.percentAutomated === '60+' ? 70 : fd.percentAutomated === '30-60' ? 45 : fd.percentAutomated === 'under-30' ? 20 : 5
+  const churnNum = parseChurnPct(fd.churnRate) * 100
+  const convNum = parseConversionPct(fd.conversionRate, cat) * 100
+
+  return [
+    {
+      metric: 'Operations Automated',
+      yours: `${autoPct}%`,
+      benchmark: `${t.automation}%`,
+      gap: autoPct >= t.automation ? null : `${t.automation - autoPct}% gap`,
+      status: autoPct >= t.automation ? 'good' : autoPct >= t.automation * 0.65 ? 'warning' : 'critical',
+    },
+    {
+      metric: cat === 'local' ? 'Customer Retention Loss' : cat === 'professional' ? 'Client Attrition Rate' : 'Churn Rate',
+      yours: `${churnNum.toFixed(0)}%`,
+      benchmark: `${t.churn}% or less`,
+      gap: churnNum <= t.churn ? null : `${(churnNum - t.churn).toFixed(0)}% above target`,
+      status: churnNum <= t.churn ? 'good' : churnNum <= t.churn * 1.5 ? 'warning' : 'critical',
+    },
+    {
+      metric: cat === 'local' || cat === 'professional' ? 'Lead-to-Client Close Rate' : 'Conversion Rate',
+      yours: `${convNum.toFixed(1)}%`,
+      benchmark: `${t.conversion}%+`,
+      gap: convNum >= t.conversion ? null : `${(t.conversion - convNum).toFixed(1)}% below target`,
+      status: convNum >= t.conversion ? 'good' : convNum >= t.conversion * 0.6 ? 'warning' : 'critical',
+    },
+    {
+      metric: 'Owner Hours per Week',
+      yours: fd.hoursPerWeek || '40-60',
+      benchmark: t.hoursPerWeek,
+      gap: (fd.hoursPerWeek === 'under-20' || fd.hoursPerWeek === '20-40') ? null : 'Above sustainable range',
+      status: (fd.hoursPerWeek === 'under-20' || fd.hoursPerWeek === '20-40') ? 'good' : fd.hoursPerWeek === '40-60' ? 'warning' : 'critical',
+    },
+    {
+      metric: 'Can Step Away 2 Weeks',
+      yours: fd.twoWeeksOff || 'No',
+      benchmark: 'Yes',
+      gap: fd.twoWeeksOff === 'Yes' ? null : 'Business is owner-dependent',
+      status: fd.twoWeeksOff === 'Yes' ? 'good' : fd.twoWeeksOff === 'Maybe' ? 'warning' : 'critical',
+    },
+  ]
+}
+
+// ─── Full System Architecture ─────────────────────────────
+function systemArchitecture(fd: any) {
+  const cat = getBusinessCategory(fd.businessType || '')
+  const price = parseProductPrice(fd.productPricePoint, cat)
+  const list = parseListSize(fd.listSize, cat)
+  const churnPct = parseChurnPct(fd.churnRate)
+  const supportHrs = fd.supportHoursPerWeek === '10+' ? 10 : fd.supportHoursPerWeek === '5-10' ? 5 : 2
+
+  type Sys = { name: string; phase: 1 | 2 | 3; problem: string; value: string; timeline: string; priority: 'critical' | 'high' | 'medium' }
+
+  const allSystems: Record<BusinessCategory, Sys[]> = {
+    online: [
+      { name: "AI Lead Capture & Qualifier", phase: 1, problem: "Leads visiting but not converting", value: "+15-30% more qualified leads", timeline: "Week 1-2", priority: 'critical' },
+      { name: "Automated Onboarding Engine", phase: 1, problem: "New customers confused, churning early", value: "-30% early churn", timeline: "Week 1-2", priority: 'critical' },
+      { name: "AI Support System", phase: 1, problem: `${supportHrs}+ hrs/week on manual support`, value: fmt$(supportHrs * 4 * 60) + '/mo in recovered time', timeline: "Week 2-3", priority: 'high' },
+      { name: "Churn Prevention Engine", phase: 2, problem: `${fd.churnRate}% churn eating revenue`, value: fmt$(Math.round(list * churnPct * price * 0.3)) + '/year saved', timeline: "Week 3-4", priority: 'critical' },
+      { name: "Content Repurposing Pipeline", phase: 2, problem: "Content creation eating 10-20 hrs/week", value: "10-15 hrs/week saved", timeline: "Week 3-5", priority: 'high' },
+      { name: "Revenue Intelligence Dashboard", phase: 2, problem: "No real-time view of what is working", value: "Spot issues before they cost you", timeline: "Week 4-5", priority: 'high' },
+      { name: "AI Upsell & Expansion Engine", phase: 3, problem: "Leaving LTV on the table", value: "+15-25% revenue from existing base", timeline: "Week 6-8", priority: 'medium' },
+      { name: "Predictive Analytics Layer", phase: 3, problem: "Reactive decisions, not proactive", value: "30% faster decision-making", timeline: "Week 8-10", priority: 'medium' },
+      { name: "Partner & Affiliate Automation", phase: 3, problem: "Manual partnership management", value: "+New revenue channel on autopilot", timeline: "Week 10-12", priority: 'medium' },
+    ],
+    local: [
+      { name: "AI Receptionist & Lead Capture", phase: 1, problem: "Missing calls and after-hours leads", value: "+20-40% more booked jobs", timeline: "Week 1-2", priority: 'critical' },
+      { name: "Automated Booking & Confirmation", phase: 1, problem: "Manual scheduling and no-shows", value: "-40% no-shows", timeline: "Week 1-2", priority: 'critical' },
+      { name: "Automated Review Engine", phase: 1, problem: "No systematic review generation", value: "3-5x more reviews, higher ranking", timeline: "Week 2-3", priority: 'high' },
+      { name: "Customer Follow-Up & Retention System", phase: 2, problem: "Customers not returning after service", value: "+30% repeat business", timeline: "Week 3-4", priority: 'critical' },
+      { name: "Invoice & Payment Automation", phase: 2, problem: "Manual billing and collections", value: "5-8 hrs/week saved, faster payments", timeline: "Week 3-5", priority: 'high' },
+      { name: "Business Health Dashboard", phase: 2, problem: "No real-time view of jobs, revenue, reviews", value: "Spot issues before they cost you", timeline: "Week 4-5", priority: 'high' },
+      { name: "Referral & Loyalty Program", phase: 3, problem: "No systematic referral generation", value: "+10-20% new customers from referrals", timeline: "Week 6-8", priority: 'medium' },
+      { name: "Seasonal Campaign Engine", phase: 3, problem: "Revenue dips in slow seasons", value: "Predictable revenue year-round", timeline: "Week 8-10", priority: 'medium' },
+      { name: "Team & Dispatch Automation", phase: 3, problem: "Manual crew management and coordination", value: "10+ hrs/week saved in coordination", timeline: "Week 10-12", priority: 'medium' },
+    ],
+    professional: [
+      { name: "AI Client Intake & Qualification", phase: 1, problem: "Manual intake wasting senior team time", value: "5-10 hrs/week saved on intake", timeline: "Week 1-2", priority: 'critical' },
+      { name: "Automated Proposal System", phase: 1, problem: "Slow proposals losing deals", value: "+30% close rate, 3x faster proposals", timeline: "Week 1-2", priority: 'critical' },
+      { name: "Client Portal & Communication", phase: 1, problem: `${supportHrs}+ hrs/week on status updates`, value: fmt$(supportHrs * 4 * 100) + '/mo in recovered billable time', timeline: "Week 2-3", priority: 'high' },
+      { name: "Pipeline & Deal Automation", phase: 2, problem: "Deals dying in the pipeline", value: "+20-30% win rate improvement", timeline: "Week 3-4", priority: 'critical' },
+      { name: "Client Health & Retention System", phase: 2, problem: `${fd.churnRate}% client attrition`, value: fmt$(Math.round(list * churnPct * price * 0.3)) + '/year saved', timeline: "Week 3-5", priority: 'high' },
+      { name: "Thought Leadership Engine", phase: 2, problem: "Inconsistent content and pipeline", value: "Consistent inbound pipeline on autopilot", timeline: "Week 4-6", priority: 'high' },
+      { name: "Referral & Partnership System", phase: 3, problem: "No systematic referral generation", value: "+15-25% new client pipeline", timeline: "Week 6-8", priority: 'medium' },
+      { name: "Revenue Intelligence Dashboard", phase: 3, problem: "No view of pipeline health or margins", value: "Spot issues before they cost you", timeline: "Week 8-10", priority: 'medium' },
+      { name: "Upsell & Account Expansion Engine", phase: 3, problem: "Leaving expansion revenue on the table", value: "+15-20% revenue from existing clients", timeline: "Week 10-12", priority: 'medium' },
+    ],
+    product: [
+      { name: "Abandoned Cart Recovery System", phase: 1, problem: "70%+ of carts abandoned", value: "+10-15% recovered revenue", timeline: "Week 1-2", priority: 'critical' },
+      { name: "Post-Purchase Nurture Engine", phase: 1, problem: "Low repeat purchase rate", value: "+20-30% repeat purchases", timeline: "Week 1-2", priority: 'critical' },
+      { name: "AI Customer Service System", phase: 1, problem: `${supportHrs}+ hrs/week on manual support`, value: fmt$(supportHrs * 4 * 60) + '/mo saved, 80% auto-resolution', timeline: "Week 2-3", priority: 'high' },
+      { name: "Customer Retention & Loyalty Engine", phase: 2, problem: `${fd.churnRate}% customer loss`, value: fmt$(Math.round(list * churnPct * price * 0.3)) + '/year saved', timeline: "Week 3-4", priority: 'critical' },
+      { name: "Inventory & Fulfillment Automation", phase: 2, problem: "Manual order processing errors and delays", value: "10-15 hrs/week saved, fewer errors", timeline: "Week 3-5", priority: 'high' },
+      { name: "AI Marketing & Content Engine", phase: 2, problem: "Manual content creation for ads and email", value: "10-15 hrs/week saved", timeline: "Week 4-6", priority: 'high' },
+      { name: "Revenue Intelligence Dashboard", phase: 3, problem: "No real-time view of sales, inventory, ROAS", value: "Spot issues before they cost you", timeline: "Week 6-8", priority: 'medium' },
+      { name: "Predictive Reorder System", phase: 3, problem: "Stockouts and overstock waste", value: "20-30% reduction in inventory costs", timeline: "Week 8-10", priority: 'medium' },
+      { name: "VIP & High-LTV Customer Program", phase: 3, problem: "No systematic treatment of best customers", value: "+25-40% LTV from top tier", timeline: "Week 10-12", priority: 'medium' },
+    ],
+  }
+
+  return allSystems[cat]
+}
+
 // ─── Score Gauge SVG ──────────────────────────────────────
 function ScoreGauge({ score }: { score: number }) {
   const r = 80, c = 2 * Math.PI * r, offset = c - (score / 100) * c
@@ -689,6 +877,9 @@ export function AuditResults({ formData, auditScore }: AuditResultsProps) {
   const phases = useMemo(() => roadmap(formData), [formData])
   const playbook = useMemo(() => generateIndustryPlaybook(formData), [formData])
   const growthLevel = useMemo(() => getGrowthLevel(formData), [formData])
+  const execReport = useMemo(() => executiveReport(formData, auditScore), [formData, auditScore])
+  const benchmarks = useMemo(() => getIndustryBenchmarks(formData), [formData])
+  const systems = useMemo(() => systemArchitecture(formData), [formData])
 
   const tagline = auditScore < 40
     ? "There's massive untapped potential in your business."
@@ -703,6 +894,60 @@ export function AuditResults({ formData, auditScore }: AuditResultsProps) {
 
   return (
     <div className="max-w-5xl mx-auto space-y-20 pb-24">
+
+      {/* ── 0. Executive Intelligence Report ───────────── */}
+      <FadeUp>
+        <div className="border border-white/10 rounded-2xl overflow-hidden">
+          <div className="bg-white/5 px-8 py-5 border-b border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div>
+              <p className="text-slate-500 text-xs uppercase tracking-widest mb-1">Confidential — Business Intelligence Report</p>
+              <h2 className="text-white font-bold text-xl">{formData.companyName || (formData.fullName ? formData.fullName + "'s Business" : 'Your Business')}</h2>
+              <p className="text-slate-500 text-sm">{playbook.industryName} &middot; {growthLevel.label} &middot; {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+            </div>
+            <div className="text-left sm:text-right">
+              <p className="text-slate-500 text-xs uppercase tracking-widest mb-1">Overall Health Score</p>
+              <p className={`text-4xl font-black ${scoreColor(auditScore)}`}>{auditScore}<span className="text-slate-500 text-xl">/100</span></p>
+            </div>
+          </div>
+          <div className="p-8">
+            <p className="text-slate-400 text-sm mb-6 leading-relaxed">
+              This report identifies your highest-leverage automation opportunities based on your business profile, revenue stage, and operational data. The findings below represent the gaps between where your business operates today and what businesses at your stage with optimized AI infrastructure achieve.
+            </p>
+            <h3 className="text-white font-bold mb-4 text-sm uppercase tracking-wider">Critical Findings</h3>
+            <div className="space-y-3">
+              {execReport.findings.map((f, i) => (
+                <div key={i} className={`flex items-start gap-4 p-4 rounded-xl border ${
+                  f.type === 'critical' ? 'border-red-500/20 bg-red-500/5' :
+                  f.type === 'warning' ? 'border-yellow-500/20 bg-yellow-500/5' :
+                  'border-emerald-500/20 bg-emerald-500/5'
+                }`}>
+                  <div className={`w-2 h-2 rounded-full mt-2 shrink-0 ${
+                    f.type === 'critical' ? 'bg-red-400' : f.type === 'warning' ? 'bg-yellow-400' : 'bg-emerald-400'
+                  }`} />
+                  <div className="flex-1">
+                    <div className="flex items-start justify-between gap-4 mb-1">
+                      <span className="text-white font-semibold text-sm">{f.label}</span>
+                      <span className={`text-xs font-mono font-bold shrink-0 ${
+                        f.type === 'critical' ? 'text-red-400' : f.type === 'warning' ? 'text-yellow-400' : 'text-emerald-400'
+                      }`}>{f.value}</span>
+                    </div>
+                    <p className="text-slate-400 text-sm leading-relaxed">{f.detail}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            {execReport.totalAtStake > 5000 && (
+              <div className="mt-6 p-4 rounded-xl bg-white/5 border border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                <div>
+                  <p className="text-slate-500 text-xs uppercase tracking-wider mb-1">Estimated Total Value at Stake</p>
+                  <p className="text-white text-sm">Revenue + capacity loss if current gaps persist 12 months</p>
+                </div>
+                <p className="text-red-400 font-black text-3xl shrink-0">{fmt$(execReport.totalAtStake)}</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </FadeUp>
 
       {/* ── 1. Hero Score ───────────────────────────────── */}
       <FadeUp>
@@ -818,6 +1063,56 @@ export function AuditResults({ formData, auditScore }: AuditResultsProps) {
         </div>
       </FadeUp>
 
+      {/* ── 3b. Full System Architecture ────────────────── */}
+      <FadeUp delay={0.18}>
+        <h2 className="text-2xl font-bold text-white mb-2 flex items-center gap-3">
+          <Layers className="w-6 h-6 text-cyan-400" /> Your Full System Architecture
+        </h2>
+        <p className="text-slate-400 mb-8">Every system we would build for you, sequenced by impact and implementation phase.</p>
+        <div className="space-y-8">
+          {([1, 2, 3] as const).map((phase) => {
+            const phaseSystems = systems.filter(s => s.phase === phase)
+            const phaseConfig = {
+              1: { label: 'Phase 1 — Foundation (Month 1)', color: 'text-blue-400', bar: 'bg-blue-500/20', card: 'bg-blue-500/5 border-blue-500/20' },
+              2: { label: 'Phase 2 — Optimization (Months 2-3)', color: 'text-yellow-400', bar: 'bg-yellow-500/20', card: 'bg-yellow-500/5 border-yellow-500/20' },
+              3: { label: 'Phase 3 — Scale (Months 3-6)', color: 'text-emerald-400', bar: 'bg-emerald-500/20', card: 'bg-emerald-500/5 border-emerald-500/20' },
+            }[phase]!
+            return (
+              <div key={phase}>
+                <div className={`flex items-center gap-3 mb-4 text-xs font-mono uppercase tracking-wider ${phaseConfig.color}`}>
+                  <div className={`h-px flex-1 ${phaseConfig.bar}`} />
+                  {phaseConfig.label}
+                  <div className={`h-px flex-1 ${phaseConfig.bar}`} />
+                </div>
+                <div className="space-y-2">
+                  {phaseSystems.map((s, i) => (
+                    <Card key={i} className={`border p-5 backdrop-blur-md ${phaseConfig.card}`}>
+                      <div className="flex items-center justify-between gap-4 flex-wrap">
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 mb-1 flex-wrap">
+                            <span className={`text-xs font-bold px-2 py-0.5 rounded shrink-0 ${
+                              s.priority === 'critical' ? 'bg-red-500/20 text-red-400' :
+                              s.priority === 'high' ? 'bg-orange-500/20 text-orange-400' :
+                              'bg-slate-500/20 text-slate-400'
+                            }`}>{s.priority.toUpperCase()}</span>
+                            <h4 className="text-white font-bold text-sm">{s.name}</h4>
+                          </div>
+                          <p className="text-slate-400 text-sm">Solves: {s.problem}</p>
+                        </div>
+                        <div className="text-right shrink-0">
+                          <p className="text-emerald-400 text-sm font-bold">{s.value}</p>
+                          <p className="text-slate-500 text-xs">{s.timeline}</p>
+                        </div>
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </FadeUp>
+
       {/* ── 4. 90-Day Roadmap ──────────────────────────── */}
       <FadeUp delay={0.2}>
         <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
@@ -838,6 +1133,51 @@ export function AuditResults({ formData, auditScore }: AuditResultsProps) {
             </Card>
           ))}
         </div>
+      </FadeUp>
+
+      {/* ── 4b. Industry Benchmarks ──────────────────────── */}
+      <FadeUp delay={0.22}>
+        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+          <Building2 className="w-6 h-6 text-indigo-400" /> Where You Stand vs. Your Industry
+        </h2>
+        <Card className="bg-white/[0.03] backdrop-blur-md border-white/10 overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-white/10">
+                  <th className="text-left p-4 text-slate-500 text-xs uppercase tracking-wider font-medium">Metric</th>
+                  <th className="text-center p-4 text-slate-500 text-xs uppercase tracking-wider font-medium">Your Business</th>
+                  <th className="text-center p-4 text-slate-500 text-xs uppercase tracking-wider font-medium">Industry Target</th>
+                  <th className="text-center p-4 text-slate-500 text-xs uppercase tracking-wider font-medium">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {benchmarks.map((b, i) => (
+                  <tr key={i} className={`border-b border-white/5 ${i % 2 === 0 ? '' : 'bg-white/[0.01]'}`}>
+                    <td className="p-4 text-white text-sm font-medium">{b.metric}</td>
+                    <td className="p-4 text-center">
+                      <span className={`text-sm font-mono font-bold ${
+                        b.status === 'good' ? 'text-emerald-400' : b.status === 'warning' ? 'text-yellow-400' : 'text-red-400'
+                      }`}>{b.yours}</span>
+                    </td>
+                    <td className="p-4 text-center">
+                      <span className="text-slate-400 text-sm">{b.benchmark}</span>
+                    </td>
+                    <td className="p-4 text-center">
+                      {b.gap ? (
+                        <span className={`text-xs px-2 py-1 rounded-full font-medium ${
+                          b.status === 'warning' ? 'bg-yellow-500/10 text-yellow-400' : 'bg-red-500/10 text-red-400'
+                        }`}>{b.gap}</span>
+                      ) : (
+                        <span className="text-xs px-2 py-1 rounded-full bg-emerald-500/10 text-emerald-400 font-medium">On Track</span>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
       </FadeUp>
 
       {/* ── 5. Lead Magnets ────────────────────────────── */}
