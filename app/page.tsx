@@ -288,6 +288,62 @@ export default function HomePage() {
               </StaggerContainer>
             </div>
           </section>
+          {/* FOUNDERS OF THE FUTURE SECTION */}
+          <section className="py-24 sm:py-32 px-4 sm:px-6 bg-black relative overflow-hidden border-t border-white/5">
+            {/* Ambient Background for this section */}
+            <div className="absolute inset-0 opacity-20 pointer-events-none">
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-slate-500/20 blur-[120px] rounded-full"></div>
+            </div>
+
+            <div className="max-w-6xl mx-auto relative z-10">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <ScrollReveal>
+                  <div>
+                    <span className="inline-block px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-bold uppercase tracking-widest text-slate-400 mb-8">
+                      The Ecosystem
+                    </span>
+                    <h2 className="text-4xl sm:text-6xl font-black text-white tracking-tight mb-8 uppercase leading-[1.1]">
+                      Founders of<br />the Future
+                    </h2>
+                    <p className="text-xl text-slate-400 leading-relaxed mb-10 italic">
+                      "A new way to build. A new way to live. No hustle. No burnout. Just smart systems, AI, and a life designed on purpose."
+                    </p>
+                    <div className="flex flex-wrap gap-4">
+                      <Link
+                        href="/fotf"
+                        className="px-8 py-4 rounded-full bg-white text-black font-bold hover:bg-slate-200 transition-all hover:scale-105"
+                      >
+                        Explore FOTF →
+                      </Link>
+                      <Link
+                        href="/fotf#plans"
+                        className="px-8 py-4 rounded-full bg-white/5 border border-white/10 text-white font-bold hover:bg-white/10 transition-all"
+                      >
+                        See All Plans
+                      </Link>
+                    </div>
+                  </div>
+                </ScrollReveal>
+
+                <ScrollReveal delay={0.2}>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {[
+                      { icon: "✉", title: "Newsletter", desc: "Two letters every week. Deep essays and short truths." },
+                      { icon: "🤝", title: "Community", desc: "Private room for founders who build the same way you do." },
+                      { icon: "🎓", title: "Boardroom", desc: "The complete system. 52 lessons. 30+ templates." },
+                      { icon: "🎙", title: "Podcast", desc: "The audio version of the waterfall. Deep dives with Mia." }
+                    ].map((item, idx) => (
+                      <div key={idx} className="p-8 rounded-3xl bg-white/5 border border-white/5 backdrop-blur-sm group hover:bg-white/10 transition-all">
+                        <span className="text-3xl mb-4 block">{item.icon}</span>
+                        <h4 className="text-white font-bold uppercase mb-2 tracking-tight">{item.title}</h4>
+                        <p className="text-slate-500 text-xs leading-relaxed">{item.desc}</p>
+                      </div>
+                    ))}
+                  </div>
+                </ScrollReveal>
+              </div>
+            </div>
+          </section>
 
           {/* FAQ */}
           <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5">
