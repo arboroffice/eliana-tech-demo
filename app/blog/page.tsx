@@ -18,9 +18,24 @@ export default function BlogPage() {
                 {/* Hero */}
                 <div className="px-6 max-w-7xl mx-auto mb-12 text-center">
                     <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">Insights</h1>
-                    <p className="text-xl text-slate-300 max-w-2xl mx-auto">
+                    <p className="text-xl text-slate-300 max-w-2xl mx-auto mb-8">
                         Insights on the future of work, AI automation, and scaling your business without scaling headcount.
                     </p>
+
+                    {/* Substack Newsletter CTA */}
+                    <div className="flex justify-center mb-16 px-4">
+                        <div className="bg-white p-1 rounded-xl shadow-2xl overflow-hidden max-w-full">
+                            <iframe
+                                src="https://miaelianaa.substack.com/embed"
+                                width="480"
+                                height="320"
+                                style={{ border: 'none', background: 'white' }}
+                                frameBorder="0"
+                                scrolling="no"
+                                className="max-w-full"
+                            ></iframe>
+                        </div>
+                    </div>
                 </div>
 
                 {/* Filtered Blog Grid */}

@@ -29,16 +29,15 @@ export default function HomePage() {
                 Your AI Wing / Chief AI Officer
               </motion.p>
               <motion.h1
-                className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight mb-8"
+                className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight mb-8 uppercase"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.4, ease: [0.21, 0.47, 0.32, 0.98] }}
               >
-                WE BUILD YOU INTO AN{" "}
+                RECLAIM 20 HOURS A WEEK WITH YOUR{" "}
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-slate-200 to-slate-500">
-                  AI-NATIVE
+                  CUSTOM AI EMPLOYEE
                 </span>{" "}
-                ORGANIZATION
               </motion.h1>
               <motion.p
                 className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto mb-12 leading-relaxed"
@@ -46,7 +45,7 @@ export default function HomePage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.7, ease: [0.21, 0.47, 0.32, 0.98] }}
               >
-                We find the one process that's costing you the most time, build an AI system that eliminates it, and install it into your business in 30 days. If it doesn't work, we keep going until it does.
+                We architect, build, and install a custom AI system into your business in 30 days. No strategy sessions. No learning prompts. We build it - you get your time back. Guaranteed.
               </motion.p>
               <motion.div
                 initial={{ opacity: 0, y: 15 }}
@@ -115,10 +114,13 @@ export default function HomePage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
                 {/* The Build */}
                 <ScrollReveal direction="left" delay={0.1}>
-                  <div className="p-8 rounded-2xl border border-white/10 bg-white/5 h-full">
+                  <div className="p-8 rounded-2xl border border-white/10 bg-white/5 h-full relative overflow-hidden">
+                    <div className="absolute top-0 right-0 bg-blue-600 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-widest">
+                      Most Popular
+                    </div>
                     <div className="mb-6">
-                      <span className="text-sm uppercase tracking-wider text-slate-400">Step 1 - Required</span>
-                      <h3 className="text-2xl font-bold text-white mt-2">The Build</h3>
+                      <span className="text-sm uppercase tracking-wider text-slate-400">Step 1</span>
+                      <h3 className="text-2xl font-bold text-white mt-2">The 30-Day Efficiency Install</h3>
                     </div>
                     <p className="text-slate-400 leading-relaxed mb-8">
                       We build, install, and test your system end-to-end. Fully integrated into your existing stack and ready to run.
@@ -137,6 +139,20 @@ export default function HomePage() {
                         </li>
                       ))}
                     </ul>
+
+                    {/* Bonuses */}
+                    <div className="bg-blue-600/10 border border-blue-500/20 rounded-xl p-4 mb-8">
+                      <p className="text-blue-400 text-xs font-bold uppercase tracking-widest mb-3">Included Bonuses:</p>
+                      <ul className="space-y-2">
+                        <li className="flex items-center gap-2 text-white text-sm font-semibold italic">
+                          <span className="text-blue-400">+</span> The Founder&apos;s AI Blueprint ($1,500 Value)
+                        </li>
+                        <li className="flex items-center gap-2 text-white text-sm font-semibold italic">
+                          <span className="text-blue-400">+</span> Priority Support 30-Day Sprint ($2,000 Value)
+                        </li>
+                      </ul>
+                    </div>
+
                     <div className="border-t border-white/10 pt-6 space-y-2">
                       <div className="flex items-center justify-between">
                         <span className="text-slate-400 text-sm">Single system</span>
@@ -203,7 +219,7 @@ export default function HomePage() {
               </ScrollReveal>
               <ScrollReveal delay={0.1}>
                 <h2 className="text-3xl sm:text-5xl font-black text-stone-900 tracking-tight mb-8">
-                  If It Doesn't Save You Time,<br />We Keep Working Until It Does.
+                  If It Doesn&apos;t Save You at Least 15 Hours a Week,<br />We Keep Working For Free.
                 </h2>
               </ScrollReveal>
 
@@ -211,17 +227,62 @@ export default function HomePage() {
 
               <ScrollReveal delay={0.2}>
                 <p className="text-lg text-stone-600 leading-relaxed mb-8">
-                  Every system we build comes with 30 days of optimization included. If it's not performing the way we scoped it, we don't call it done. We stay on it - at no extra cost - until it is.
+                  We don&apos;t call it done until the system is hitting the outcome we scoped. If it takes longer than 30 days to get your time back, we stay on it — <span className="text-stone-900 font-bold">at our expense</span> — until the job is done. Zero risk. All upside.
                 </p>
               </ScrollReveal>
 
               <div className="flex justify-center my-6"><div className="w-16 h-px bg-stone-300" /></div>
 
               <ScrollReveal delay={0.3}>
-                <p className="text-stone-500">
-                  We're not in the business of collecting checks and disappearing. Our reputation is the only thing that gets us the next client.
+                <p className="text-stone-500 italic">
+                  &quot;Money-back guarantees are for people who aren&apos;t sure they can deliver. We&apos;re sure. We just keep working until you win.&quot;
                 </p>
               </ScrollReveal>
+            </div>
+          </section>
+
+          {/* COMPARISON CHART */}
+          <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5">
+            <div className="max-w-4xl mx-auto">
+              <div className="text-center mb-16">
+                <ScrollReveal>
+                  <p className="text-sm uppercase tracking-[0.2em] text-slate-500 mb-6">The math</p>
+                </ScrollReveal>
+                <ScrollReveal delay={0.1}>
+                  <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-6">
+                    Why Founders Choose Us
+                  </h2>
+                </ScrollReveal>
+              </div>
+
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="border-b border-white/10">
+                      <th className="py-6 px-4 text-slate-400 font-medium uppercase tracking-wider text-xs">Feature</th>
+                      <th className="py-6 px-4 text-slate-400 font-medium uppercase tracking-wider text-xs">Hiring a Dev</th>
+                      <th className="py-6 px-4 text-slate-400 font-medium uppercase tracking-wider text-xs">Agencies</th>
+                      <th className="py-6 px-4 text-white font-bold uppercase tracking-wider text-xs bg-white/5">Eliana Tech</th>
+                    </tr>
+                  </thead>
+                  <tbody className="text-slate-300">
+                    {[
+                      { f: "Speed to Result", d: "Months", a: "Indefinite", e: "30 Days" },
+                      { f: "Cost Structure", d: "$100k - $150k /yr", a: "$5k - $10k /mo", e: "One-Time Build Fee" },
+                      { f: "Setup Required", d: "Massive", a: "Endless meetings", e: "None (Done-for-you)" },
+                      { f: "Outcome Focused", d: "Salary based", a: "Retainer based", e: "Results based" },
+                      { f: "IP Ownership", d: "You own", a: "Varies", e: "You own 100%" },
+                    ].map((row, i) => (
+                      <tr key={i} className="border-b border-white/5">
+                        <td className="py-5 px-4 font-medium text-slate-400">{row.f}</td>
+                        <td className="py-5 px-4">{row.d}</td>
+                        <td className="py-5 px-4">{row.a}</td>
+                        <td className="py-5 px-4 font-bold text-white bg-white/5">{row.e}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </section>
 
@@ -238,7 +299,7 @@ export default function HomePage() {
               </ScrollReveal>
               <ScrollReveal delay={0.15}>
                 <p className="text-lg text-slate-400 max-w-2xl mx-auto mb-12">
-                  Online, local, or enterprise - if you're a founder stuck running the machine instead of building the vision, we're built for you.
+                  Online, local, or enterprise - if you&apos;re a founder stuck running the machine instead of building the vision, we&apos;re built for you.
                 </p>
               </ScrollReveal>
               <StaggerContainer className="flex flex-wrap justify-center gap-3" staggerDelay={0.04}>
