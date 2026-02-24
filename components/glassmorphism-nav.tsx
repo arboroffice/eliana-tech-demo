@@ -109,6 +109,9 @@ export function GlassmorphismNav() {
             <Link href="/blog" className="text-sm text-slate-300 hover:text-white transition-colors">
               Blog
             </Link>
+            <Link href="/webinar" className="text-sm text-white font-bold transition-colors">
+              Free Training
+            </Link>
             <Link
               href="/audit"
               className="px-6 py-2.5 rounded-full bg-white text-black text-sm font-semibold hover:bg-slate-200 transition-all duration-300 hover:scale-105"
@@ -164,6 +167,9 @@ export function GlassmorphismNav() {
               </Link>
               <Link href="/blog" className="block text-center text-lg text-slate-300 hover:text-white transition-colors py-2" onClick={() => setIsMobileMenuOpen(false)}>
                 Blog
+              </Link>
+              <Link href="/webinar" className="block text-center text-lg text-white font-bold transition-colors py-2" onClick={() => setIsMobileMenuOpen(false)}>
+                Free Training
               </Link>
               <Link
                 href="/audit"
