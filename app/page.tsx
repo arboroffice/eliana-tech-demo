@@ -241,50 +241,6 @@ export default function HomePage() {
             </div>
           </section>
 
-          {/* COMPARISON CHART */}
-          <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5">
-            <div className="max-w-4xl mx-auto">
-              <div className="text-center mb-16">
-                <ScrollReveal>
-                  <p className="text-sm uppercase tracking-[0.2em] text-slate-500 mb-6">The math</p>
-                </ScrollReveal>
-                <ScrollReveal delay={0.1}>
-                  <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-6">
-                    Why Founders Choose Us
-                  </h2>
-                </ScrollReveal>
-              </div>
-
-              <div className="overflow-x-auto">
-                <table className="w-full text-left border-collapse">
-                  <thead>
-                    <tr className="border-b border-white/10">
-                      <th className="py-6 px-4 text-slate-400 font-medium uppercase tracking-wider text-xs">Feature</th>
-                      <th className="py-6 px-4 text-slate-400 font-medium uppercase tracking-wider text-xs">Hiring a Dev</th>
-                      <th className="py-6 px-4 text-slate-400 font-medium uppercase tracking-wider text-xs">Agencies</th>
-                      <th className="py-6 px-4 text-white font-bold uppercase tracking-wider text-xs bg-white/5">Eliana Tech</th>
-                    </tr>
-                  </thead>
-                  <tbody className="text-slate-300">
-                    {[
-                      { f: "Speed to Result", d: "Months", a: "Indefinite", e: "30 Days" },
-                      { f: "Cost Structure", d: "$100k - $150k /yr", a: "$5k - $10k /mo", e: "One-Time Build Fee" },
-                      { f: "Setup Required", d: "Massive", a: "Endless meetings", e: "None (Done-for-you)" },
-                      { f: "Outcome Focused", d: "Salary based", a: "Retainer based", e: "Results based" },
-                      { f: "IP Ownership", d: "You own", a: "Varies", e: "You own 100%" },
-                    ].map((row, i) => (
-                      <tr key={i} className="border-b border-white/5">
-                        <td className="py-5 px-4 font-medium text-slate-400">{row.f}</td>
-                        <td className="py-5 px-4">{row.d}</td>
-                        <td className="py-5 px-4">{row.a}</td>
-                        <td className="py-5 px-4 font-bold text-white bg-white/5">{row.e}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </section>
 
           {/* WHO IT'S FOR */}
           <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5 bg-slate-900/10">
@@ -304,19 +260,29 @@ export default function HomePage() {
               </ScrollReveal>
               <StaggerContainer className="flex flex-wrap justify-center gap-3" staggerDelay={0.04}>
                 {[
-                  "SaaS Founders", "Course Creators", "Coaches & Consultants",
-                  "E-commerce & Retail", "Agencies", "Home Services",
-                  "Healthcare & Dental", "Law Firms & Accounting", "Real Estate",
-                  "Restaurants & Hospitality", "Construction & Trades",
-                  "Manufacturing & Logistics", "Membership & Community",
-                  "Digital Products", "Professional Services",
-                ].map((type) => (
-                  <StaggerItem key={type}>
-                    <span
-                      className="inline-block px-5 py-2.5 rounded-full text-sm font-medium border border-white/10 text-slate-300 bg-white/5 hover:bg-white/10 hover:border-white/20 transition-all duration-300"
+                  { name: "SaaS Founders", slug: "saas" },
+                  { name: "Course Creators", slug: "course-creators" },
+                  { name: "Coaches & Consultants", slug: "coaching" },
+                  { name: "E-commerce & Retail", slug: "ecommerce" },
+                  { name: "Agencies", slug: "agencies" },
+                  { name: "Home Services", slug: "home-services" },
+                  { name: "Healthcare & Dental", slug: "healthcare" },
+                  { name: "Law Firms & Accounting", slug: "legal-finance" },
+                  { name: "Real Estate", slug: "real-estate" },
+                  { name: "Restaurants & Hospitality", slug: "hospitality" },
+                  { name: "Construction & Trades", slug: "construction" },
+                  { name: "Manufacturing & Logistics", slug: "manufacturing" },
+                  { name: "Membership & Community", slug: "membership" },
+                  { name: "Digital Products", slug: "digital-products" },
+                  { name: "Professional Services", slug: "professional-services" },
+                ].map((industry) => (
+                  <StaggerItem key={industry.slug}>
+                    <Link
+                      href={`/industries/${industry.slug}`}
+                      className="inline-block px-5 py-2.5 rounded-full text-sm font-medium border border-white/10 text-slate-300 bg-white/5 hover:bg-white/10 hover:border-white/20 transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
                     >
-                      {type}
-                    </span>
+                      {industry.name}
+                    </Link>
                   </StaggerItem>
                 ))}
               </StaggerContainer>
