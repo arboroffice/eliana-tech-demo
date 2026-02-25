@@ -23,6 +23,11 @@ export interface IndustryContent {
     };
     longFormContent: string; // This will hold the "5k words" section
     faq: { q: string; a: string }[];
+    layers?: {
+        department: string;
+        roles: string[];
+        tasks: string[];
+    }[];
 }
 
 export const industries: IndustryContent[] = [
@@ -46,6 +51,31 @@ export const industries: IndustryContent[] = [
                         title: "Automated Trial Concierge",
                         detail: "AI agents that guide trial users through 'Magic Moments' based on real-time behavior, increasing conversion.",
                         roi: "Typical 30% increase in Trial-to-Paid conversion."
+                    },
+                    {
+                        title: "Profitability Pulse",
+                        detail: "AI financial engine that analyzes LTV/CAC in real-time and suggests spend adjustments per channel.",
+                        roi: "Improves ROAS by 22% via automated budget re-allocation."
+                    },
+                    {
+                        title: "The Security Questionnaire Bot",
+                        detail: "AI that handles complex Enterprise security questionnaires using your technical docs and compliance history.",
+                        roi: "Reclaims 40+ hours of senior dev time per month tijdens sales cycles."
+                    },
+                    {
+                        title: "Infrastructure Sentinel",
+                        detail: "AI that monitors server logs and predicts resource scaling needs or potential vulnerabilities before they trigger alerts.",
+                        roi: "99.99% uptime with 20% lower cloud compute costs."
+                    },
+                    {
+                        title: "Feature Adoption Accelerator",
+                        detail: "AI that identifies users who haven't enabled core features and sends personalized 'how-to' outreach based on their specific account data.",
+                        roi: "40% increase in product-stickiness in the first 60 days."
+                    },
+                    {
+                        title: "Product Roadmap Intelligence",
+                        detail: "AI that aggregates feedback from Slack, Intercom, and Email to prioritize the roadmap based on revenue impact.",
+                        roi: "Reclaims 20+ hours/month of Product Manager research time."
                     }
                 ]
             },
@@ -62,6 +92,16 @@ export const industries: IndustryContent[] = [
                         area: "Sales & SDR",
                         detail: "AI SDRs that research prospects, craft bespoke outreach, and book demos on autopilot.",
                         impact: "4x increase in outbound pipeline."
+                    },
+                    {
+                        area: "Data & BI",
+                        detail: "Autonomous data analysts that write SQL, run reports, and flag anomalies in your growth metrics.",
+                        impact: "Executive-level visibility without a data team."
+                    },
+                    {
+                        area: "Product & QA",
+                        detail: "Automated regression testing and bug triage that identifies root causes before the first developer looks at it.",
+                        impact: "50% faster feature release cycles."
                     }
                 ]
             },
@@ -71,7 +111,11 @@ export const industries: IndustryContent[] = [
                 features: [
                     "Custom proprietary LLM nodes for product-specific tasks",
                     "Automated QA and Bug triage systems",
-                    "Investor-ready automated reporting and growth forecasting"
+                    "Investor-ready automated reporting and growth forecasting",
+                    "Autonomous HR & Recruitment filters for scaling teams",
+                    "Automated Technical Documentation & Wiki maintenance",
+                    "Continuous Compliance Monitoring (SOC2/GDPR) via AI",
+                    "Strategic P&L Optimization using predictive modeling"
                 ]
             }
         },
@@ -108,6 +152,28 @@ export const industries: IndustryContent[] = [
         faq: [
             { q: "Can the AI handle technical API questions?", a: "Yes, by indexing your documentation and even your codebase structure, the AI can provide accurate, up-to-date technical support." },
             { q: "Is this just 'ChatGPT for my site'?", a: "No. This is a sequence of autonomous agents that interact with your database, CRM, and Stripe to execute real business workflows." }
+        ],
+        layers: [
+            {
+                department: "Product & Engineering",
+                roles: ["QA tester", "Bug triage", "Documentation writer", "DevOps Assistant", "Performance Architect"],
+                tasks: ["Auto test features", "Summarize bug reports", "Write help docs", "Monitor server health", "Automate PR reviews", "Optimize database queries", "Predict infrastructure bottlenecks"]
+            },
+            {
+                department: "Customer Success & Support",
+                roles: ["Onboarding rep", "Renewal manager", "Technical support agent", "Churn Strategist"],
+                tasks: ["Walk users through setup", "Monitor usage", "Trigger upgrade prompts", "Predict churn", "Solve API queries", "Triage tickets", "Bespoke re-engagement campaigns"]
+            },
+            {
+                department: "Sales & Marketing",
+                roles: ["SDR", "Growth Hacker", "Content Strategist", "Revenue Analyst"],
+                tasks: ["Scrape leads", "Craft outreach", "Post to social", "Analyze ROAS", "Dynamic pricing tests", "Automate webinar follow-ups", "Track cohort LTV"]
+            },
+            {
+                department: "Operations & HR",
+                roles: ["Finance assistant", "Recruiter", "Office manager", "Compliance Officer"],
+                tasks: ["Automate billing", "Screen resumes", "Schedule interviews", "Manage vendor payments", "Investor reporting", "Continuous SOC2 audit logs", "Predictive head-count planning"]
+            }
         ]
     },
     {
@@ -130,6 +196,36 @@ export const industries: IndustryContent[] = [
                         title: "Launch Sales Assistant",
                         detail: "AI agent that handles objections in real-time during your open-cart period.",
                         roi: "Increases launch revenue by 20% through instant objection handling."
+                    },
+                    {
+                        title: "The Testimonial Collector",
+                        detail: "AI that identifies student 'Wins' in the chat and automatically requests and transcribes a testimonial.",
+                        roi: "4x increase in usable marketing assets."
+                    },
+                    {
+                        title: "Personalized Study Plan Gen",
+                        detail: "AI that interviews a student on day 1 and creates a custom path through your course based on their goals.",
+                        roi: "Improves course completion rate by 45%."
+                    },
+                    {
+                        title: "The Viral Repurposer",
+                        detail: "AI that takes your long-form video lessons and automatically extracts 'knowledge-bombs' for TikTok and Instagram Reels.",
+                        roi: "Builds authority on autopilot with 0 extra recording time."
+                    },
+                    {
+                        title: "Homework Assessment Bot",
+                        detail: "AI that reviews student submissions against your rubrics and provides instant, constructive feedback.",
+                        roi: "Scales high-impact coaching to thousands without a grading team."
+                    },
+                    {
+                        title: "Student Sentiment Sentinel",
+                        detail: "AI that monitors community chat for frustration or confusion and alerts your team before it leads to a refund.",
+                        roi: "Reduces refund requests by 35%."
+                    },
+                    {
+                        title: "Dynamic Content Planner",
+                        detail: "AI that analyzes which lessons have the most questions and suggests topics for your next 'Office Hours' or update.",
+                        roi: "Ensures course material stays hyper-relevant with zero research."
                     }
                 ]
             },
@@ -146,6 +242,16 @@ export const industries: IndustryContent[] = [
                         area: "Marketing & Growth",
                         detail: "Automated content repurposing: turn one video into 10 tweets, 5 LinkedIn posts, and 2 emails with your voice.",
                         impact: "Consistent multi-channel presence with 0 extra work."
+                    },
+                    {
+                        area: "Community Management",
+                        detail: "AI moderator that flags sentiment, answers tech issues, and highlights 'Super Users' for you.",
+                        impact: "Self-sustaining community with 90% less manual moderation."
+                    },
+                    {
+                        area: "Sales & Enrollment",
+                        detail: "AI agents that handle payment failure recovery and personalized installment tracking via SMS/DM.",
+                        impact: "Recovers 15-20% of traditionally lost revenue."
                     }
                 ]
             },
@@ -155,7 +261,11 @@ export const industries: IndustryContent[] = [
                 features: [
                     "Custom AI Tutor/Coach trained on your specific methodology",
                     "Automated high-ticket upsell logic based on student behavior",
-                    "Dynamic course content that adapts to student skill levels"
+                    "Dynamic course content that adapts to student skill levels",
+                    "Autonomous multi-channel webinar/launch orchestration",
+                    "Integrated membership retention engine",
+                    "Proprietary Lead-to-Leader growth scoring system",
+                    "Autonomous Curriculum & Asset maintenance"
                 ]
             }
         },
@@ -183,6 +293,28 @@ export const industries: IndustryContent[] = [
         faq: [
             { q: "Will the AI sound like me?", a: "Yes. We feed the AI your past courses, emails, and videos to clone your unique 'voice' and teaching style." },
             { q: "Can it help with high-ticket sales?", a: "Absolutely. It can qualify leads, handle initial objections, and only book calls for people who are 100% ready to buy." }
+        ],
+        layers: [
+            {
+                department: "Content & Strategy",
+                roles: ["Creator assistant", "Script writer", "Video researcher", "Repurposer", "Trend Analyst"],
+                tasks: ["Write scripts", "Research trends", "Auto-edit shorts", "Distribute to 5+ channels", "Analyze performance hooks"]
+            },
+            {
+                department: "Student Success",
+                roles: ["Enrollment assistant", "Student advisor", "Community manager", "Success coach", "Retention Analyst"],
+                tasks: ["Process applications", "Recommend classes", "Send reminders", "Track progress", "Moderate forum", "Celebrate wins", "Flag churn risks"]
+            },
+            {
+                department: "Teaching & Operations",
+                roles: ["Lesson planner", "Grader", "Tech support", "Finance manager", "Asset Curator"],
+                tasks: ["Generate lesson plans", "Create quizzes", "Grade assignments", "Personalize tutoring", "Fix login issues", "Recover failed payments", "Maintain member portal"]
+            },
+            {
+                department: "Partnerships & Sales",
+                roles: ["Affiliate manager", "Outreach SDR", "JV Coordinator"],
+                tasks: ["Scout influencers", "Track affiliate sales", "Automate partner payouts", "Manage launch calendar", "Triage collaboration DMs"]
+            }
         ]
     },
     {
@@ -205,6 +337,31 @@ export const industries: IndustryContent[] = [
                         title: "Automated Onboarding Concierge",
                         detail: "AI that guides new clients through their first 48 hours, collecting assets and setting expectations.",
                         roi: "Increases client retention and 'wow' factor."
+                    },
+                    {
+                        title: "The Session Insight Gen",
+                        detail: "AI that listens to your coaching calls and automatically generates transcripts, key takeaways, and action items for the client.",
+                        roi: "Increases client satisfaction and outcome velocity."
+                    },
+                    {
+                        title: "Retention Radar",
+                        detail: "AI that flags when a client's engagement or results are dipping, prompting a manual intervention.",
+                        roi: "Reduces client churn by 30%."
+                    },
+                    {
+                        title: "The Methodology Clone",
+                        detail: "AI trained on your intellectual property that can answer 80% of client 'How-to' questions exactly as you would.",
+                        roi: "Enables 1-to-Many scaling without a team of junior coaches."
+                    },
+                    {
+                        title: "Dynamic Content Architect",
+                        detail: "AI that scans your coaching calls and creates 30 days of social media content based on the breakthroughs you had that week.",
+                        roi: "Consistent authority-building with zero extra writing time."
+                    },
+                    {
+                        title: "Client Breakthrough Scouter",
+                        detail: "AI that identifies the specific moment in a call where a client had a major realization, for use in case studies.",
+                        roi: "5x more effective marketing materials."
                     }
                 ]
             },
@@ -213,14 +370,24 @@ export const industries: IndustryContent[] = [
                 description: "Transform your consulting practice into an automated machine.",
                 areas: [
                     {
-                        area: "Operations",
-                        detail: "AI-driven calendar management that syncs with your energy levels and project deadlines.",
-                        impact: "Zero scheduling fatigue."
-                    },
-                    {
                         area: "Client Success",
                         detail: "AI Support Coach that answers client questions between sessions using your specific frameworks.",
                         impact: "Clients get 24/7 support while you sleep."
+                    },
+                    {
+                        area: "Sales & Marketing",
+                        detail: "AI SDRs and content repurposers that keep your pipeline full while you focus on delivery.",
+                        impact: "Consistent high-ticket flow without founder-led sales."
+                    },
+                    {
+                        area: "Strategic Analysis",
+                        detail: "AI that aggregates client result data to identify which of your modules are producing the most 'Aha!' moments.",
+                        impact: "Objective-driven program improvement."
+                    },
+                    {
+                        area: "Operations & HR",
+                        detail: "AI recruiter that helps you hire and vet junior coaches by analyzing their role-play sessions against your methodology.",
+                        impact: "Scale your agency without quality drop-off."
                     }
                 ]
             },
@@ -230,7 +397,9 @@ export const industries: IndustryContent[] = [
                 features: [
                     "Custom 'Clone' of your coaching methodology for student queries",
                     "Automated insight generation from client session transcripts",
-                    "Dynamic program scaling infrastructure"
+                    "Dynamic program scaling infrastructure",
+                    "Proprietary client success prediction engine",
+                    "Automated multi-level reporting for high-ticket clients"
                 ]
             }
         },
@@ -258,6 +427,28 @@ export const industries: IndustryContent[] = [
         faq: [
             { q: "Will clients be mad they are talking to an AI?", a: "Actually, clients love getting instant answers at 11 PM instead of waiting 3 days for an email." },
             { q: "Can it handle my specific framework?", a: "Yes. We train the AI on your specific intellectual property so it answers exactly how you would." }
+        ],
+        layers: [
+            {
+                department: "Acquisition & Marketing",
+                roles: ["Content creator", "Ad manager", "Whale scout", "Social manager", "Trend Researcher"],
+                tasks: ["Turn ideas into posts", "Write captions", "Run ads", "Adjust targeting", "Identify high-value leads", "Analyze competitor viral hooks"]
+            },
+            {
+                department: "Sales & Lead Flow",
+                roles: ["ISA", "Appointment setter", "Closer Assistant", "Triage Officer"],
+                tasks: ["Respond in under 5 seconds", "Pre qualify prospects", "Book discovery calls", "Nurture long term leads", "Handle objections", "Analyze call quality"]
+            },
+            {
+                department: "Client Delivery & Success",
+                roles: ["Client manager", "Junior coach assistant", "Retention analyst", "Breakthrough Scout"],
+                tasks: ["Monitor client health", "Answer framework questions", "Draft session notes", "Collect assets", "Process success stories", "Flag stalled students"]
+            },
+            {
+                department: "Practice Ops",
+                roles: ["Finance manager", "Calendar architect", "Event coordinator"],
+                tasks: ["Automate billing", "Optimize energy-budget scheduling", "Coordinate workshops", "Track LTV per lead source"]
+            }
         ]
     },
     {
@@ -280,6 +471,36 @@ export const industries: IndustryContent[] = [
                         title: "Intelligent WISMO Solver",
                         detail: "Automated 'Where Is My Order' agent that tracks shipments and calms customers without a human agent.",
                         roi: "Reduces support tickets by 60%."
+                    },
+                    {
+                        title: "The Refund Deflector",
+                        detail: "AI that engages customers during the return process to offer exchanges or credit instead of cash.",
+                        roi: "Retains 20% of traditionally lost revenue."
+                    },
+                    {
+                        title: "Personalized Bundle Gen",
+                        detail: "AI that creates a custom bundle offer at checkout based on the specific items in the cart.",
+                        roi: "Increases Average Order Value (AOV) by 15%."
+                    },
+                    {
+                        title: "The Loyalty Architect",
+                        detail: "AI that predicts when a regular customer is likely to restock and sends a personalized SMS offer 3 days prior.",
+                        roi: "40% increase in repeat purchase rate."
+                    },
+                    {
+                        title: "Sentiment-Based Recovery",
+                        detail: "AI that scans social mentions and reviews for negative sentiment and proactively reaches out with a solution.",
+                        roi: "Turns 1-star potentials into lifelong fans."
+                    },
+                    {
+                        title: "Dynamic Pricing Engine",
+                        detail: "AI that adjusts prices in real-time based on competitor activity, inventory levels, and demand signals.",
+                        roi: "Optimizes margins by 8-12%."
+                    },
+                    {
+                        title: "Cross-Sell Orchestrator",
+                        detail: "AI that analyzes post-purchase behavior to send a perfectly timed 'Wait, you forgot this' offer 48 hours later.",
+                        roi: "20% increase in repeat order value."
                     }
                 ]
             },
@@ -288,14 +509,24 @@ export const industries: IndustryContent[] = [
                 description: "Full-scale commerce automation.",
                 areas: [
                     {
-                        area: "Customer Service",
+                        area: "Customer Experience",
                         detail: "End-to-end support automation including returns, exchanges, and refunds handled by AI.",
-                        impact: "Massive reduction in overhead."
+                        impact: "Massive reduction in support overhead."
                     },
                     {
-                        area: "Marketing",
+                        area: "Growth & Marketing",
                         detail: "AI that sends personalized, behavior-based SMS and Email follow-ups that sound like they came from a human.",
                         impact: "30% increase in LTV (Lifetime Value)."
+                    },
+                    {
+                        area: "Supply Chain & Logistics",
+                        detail: "AI that predicts stockouts and automatically communicates delays to customers before they complain.",
+                        impact: "Zero-latency supply chain transparency."
+                    },
+                    {
+                        area: "Creative & SEO",
+                        detail: "AI that generates hundreds of SEO-optimized product descriptions and ad variations weekly.",
+                        impact: "Dominates search results with 0 extra writing."
                     }
                 ]
             },
@@ -305,7 +536,9 @@ export const industries: IndustryContent[] = [
                 features: [
                     "Predictive inventory management AI",
                     "Custom lifestyle matching recommendation engine",
-                    "Multi-channel support orchestration (Social, Web, Email)"
+                    "Multi-channel support orchestration (Social, Web, Email)",
+                    "Automated influencer and affiliate payout tracker",
+                    "Dynamic loyalty and gamification system"
                 ]
             }
         },
@@ -336,6 +569,23 @@ export const industries: IndustryContent[] = [
         faq: [
             { q: "Does it work with Shopify?", a: "Yes. We integrate directly with Shopify, Klaviyo, and your shipping providers." },
             { q: "Can it handle returns?", a: "It can qualify a return based on your policy and even generate the label automatically." }
+        ],
+        layers: [
+            {
+                department: "Store Operations",
+                roles: ["Inventory planner", "Price analyst", "Vendor chaser", "Logistics Watchdog"],
+                tasks: ["Predict stockouts", "Adjust prices dynamically", "Follow up with suppliers", "Monitor shipments", "Audit courier performance"]
+            },
+            {
+                department: "Customer Experience",
+                roles: ["Chat rep", "Refund processor", "Loyalty manager", "Sentiment Analyst"],
+                tasks: ["Answer 90 percent of tickets", "Process returns", "Track orders", "Upsell products", "Fix UX frictions", "Recover negative reviews"]
+            },
+            {
+                department: "Growth & Marketing",
+                roles: ["Media buyer assistant", "CRO analyst", "Copywriter", "Influencer scout", "LTV Architect"],
+                tasks: ["Test ad creatives", "Analyze funnels", "Adjust bids", "A/B test landing pages", "Manage affiliate DMs", "Segment high-value customers"]
+            }
         ]
     },
     {
@@ -358,6 +608,31 @@ export const industries: IndustryContent[] = [
                         title: "The Client Portal Agent",
                         detail: "AI that lives in your Slack/Discord to answer client 'How's it going?' questions using your PM data.",
                         roi: "Reclaims hours of account management time."
+                    },
+                    {
+                        title: "Dynamic Retainer Reviewer",
+                        detail: "AI that analyzes client deliverables against the contract in real-time to flag scope creep.",
+                        roi: "Protects agency margins by 15-20%."
+                    },
+                    {
+                        title: "The Creative Asset Engine",
+                        detail: "AI that generates hundreds of variations of client creative based on top-performing templates.",
+                        roi: "3x increase in media buying efficiency."
+                    },
+                    {
+                        title: "Talent Scout AI",
+                        detail: "AI that proactively identifies and vets niche freelancers on Upwork/LinkedIn for upcoming project loads.",
+                        roi: "Eliminates 'hiring panic' during client surges."
+                    },
+                    {
+                        title: "The Scope Creep Sentinel",
+                        detail: "AI that monitors project chat and emails to flag when a client is asking for work outside the original SOW.",
+                        roi: "Saves $5k-10k per month in unbilled time."
+                    },
+                    {
+                        title: "Proposal Architect",
+                        detail: "AI that takes your research and client notes to draft high-conversion, bespoke proposals in your agency's voice.",
+                        roi: "Increases close rate by 20% and cuts proposal time by 80%."
                     }
                 ]
             },
@@ -371,9 +646,14 @@ export const industries: IndustryContent[] = [
                         impact: "Consistent pipeline without 'founder-led' sales."
                     },
                     {
-                        area: "Fulfillment",
+                        area: "Fulfillment & Delivery",
                         detail: "AI agents that produce 80% finished drafts for copy, design briefs, or code based on your internal 'Standard Operating Procedures'.",
                         impact: "Doubles the capacity of your existing team."
+                    },
+                    {
+                        area: "Client Acquisition",
+                        detail: "AI agents that handle the entire 'Inbound to Booked' funnel, including objection handling and booking.",
+                        impact: "3x increase in sales capacity."
                     }
                 ]
             },
@@ -381,9 +661,11 @@ export const industries: IndustryContent[] = [
                 title: "The Agency OS",
                 description: "The ultimate leveraged agency infrastructure.",
                 features: [
-                    "Proprietary 'AI Worker' nodes for your specific niche (e.g., SEO, Paid Ads, Content)",
+                    "Proprietary 'AI Worker' nodes for your specific niche",
                     "Automated client reporting and ROI tracking dashboards",
-                    "Dynamic resource allocation AI"
+                    "Dynamic resource and talent allocation AI",
+                    "Autonomous HR & specialized freelancer sourcing",
+                    "Integrated multi-channel client communication hub"
                 ]
             }
         },
@@ -412,6 +694,28 @@ export const industries: IndustryContent[] = [
         faq: [
             { q: "Will clients know we use AI?", a: "We focus on 'Human-in-the-loop' systems where AI does the heavy lifting and humans do the final polish. The result is just faster, better work." },
             { q: "Can it integrate with ClickUp/Asana?", a: "Yes. We plug into your project management tools to keep everything synced." }
+        ],
+        layers: [
+            {
+                department: "Creative & Production",
+                roles: ["Script writer", "Video researcher", "Copy editor", "Design coordinator", "AI-Prompt Engineer"],
+                tasks: ["Draft content", "Research markets", "Polish assets", "Manage project timeline", "Optimize AI outputs"]
+            },
+            {
+                department: "Account Management",
+                roles: ["Client success lead", "Status update coordinator", "Retention strategist", "Sentiment Specialist"],
+                tasks: ["Monitor client happiness", "Send weekly reports", "Answer Slack queries", "Spot upsell opportunities", "Proactively resolve friction"]
+            },
+            {
+                department: "Growth & Sales",
+                roles: ["Outbound SDR", "Marketing analyst", "Lead researcher", "Funnel architect"],
+                tasks: ["Scrape targets", "Send outreach", "Track pipeline", "Analyze campaign ROI", "Patch leaky buckets"]
+            },
+            {
+                department: "People & Finance",
+                roles: ["Operations manager", "Finance assistant", "Freelance coordinator", "Margin Analyst"],
+                tasks: ["Automate billing", "Triage project expenses", "Triage incoming applications", "Onboard contractors", "Monitor billable utilization"]
+            }
         ]
     },
     {
@@ -434,6 +738,26 @@ export const industries: IndustryContent[] = [
                         title: "The Review Multiplier",
                         detail: "Automatically follows up with every completed job via SMS to get a 5-star Google review.",
                         roi: "Boost local SEO rankings and trust."
+                    },
+                    {
+                        title: "The Voice-to-Inventory Bridge",
+                        detail: "AI that listens to technician voice notes and automatically updates parts inventory and drafts POs.",
+                        roi: "Reduces inventory leakage by 15%."
+                    },
+                    {
+                        title: "Dynamic Financing Qualifier",
+                        detail: "AI agent that qualifies customers for financing on high-ticket repairs during the initial call/text.",
+                        roi: "Typical 20% increase in average job size."
+                    },
+                    {
+                        title: "Automated Fleet Intelligence",
+                        detail: "AI that analyzes fuel cards, GPS, and maintenance logs to predict next-month fuel spend and vehicle downtime.",
+                        roi: "Reduces unexpected repair costs by 22%."
+                    },
+                    {
+                        title: "Material Price Predictor",
+                        detail: "AI that scans multi-vendor price lists (Lowe's, Ferguson, Grainger) to suggest the best place to source for the next job.",
+                        roi: "Saves 8-12% on raw material costs."
                     }
                 ]
             },
@@ -450,6 +774,21 @@ export const industries: IndustryContent[] = [
                         area: "Sales & Estimating",
                         detail: "AI that can provide ballpark quotes based on photos uploaded by the customer.",
                         impact: "Eliminate 50% of wasted 'driving for quotes' time."
+                    },
+                    {
+                        area: "Logistics & Fleet",
+                        detail: "AI that monitors fuel usage, maintenance schedules, and optimizes part runs for crews in the field.",
+                        impact: "10-15% reduction in monthly fleet overhead."
+                    },
+                    {
+                        area: "Marketing & Reviews",
+                        detail: "Automated local SEO machine that turns every finished job into a review and a social media 'Before/After' post.",
+                        impact: "Dominates local search results with 0 effort."
+                    },
+                    {
+                        area: "Finance & HR",
+                        detail: "AI that audits every job invoice against the technician's time stamps and material usage to flag leaks.",
+                        impact: "15% increase in net job profitability."
                     }
                 ]
             },
@@ -459,7 +798,9 @@ export const industries: IndustryContent[] = [
                 features: [
                     "Cross-location resource optimization AI",
                     "Custom lead quality scoring model",
-                    "Automated fleet and material tracking"
+                    "Automated fleet and material tracking",
+                    "Integrated multi-vendor material price comparison engine",
+                    "Autonomous technician training and safety monitoring"
                 ]
             }
         },
@@ -488,6 +829,23 @@ export const industries: IndustryContent[] = [
         faq: [
             { q: "Can it work with ServiceTitan or Jobber?", a: "Yes, we build custom bridges to your existing field management software." },
             { q: "Does it work over the phone?", a: "Yes, we can implement AI voice agents that sound incredibly human and handle full booking flows." }
+        ],
+        layers: [
+            {
+                department: "Sales & Estimating",
+                roles: ["Lead qualifier", "Estimator", "Follow up rep", "CRM manager", "Financing Specialist"],
+                tasks: ["Answer inbound calls", "Text back missed calls", "Pre qualify leads", "Generate estimates", "Send proposals", "Follow up 7 to 15 times", "Book jobs", "Upsell services", "Verify financing eligibility"]
+            },
+            {
+                department: "Operations & Dispatch",
+                roles: ["Scheduler", "Route planner", "Job coordinator", "Inventory tracker", "Fleet Analyst"],
+                tasks: ["Build daily crew schedule", "Optimize routes", "Track truck location", "Track materials", "Send crew reminders", "Reschedule weather delays", "Update customers automatically", "Predict vehicle maintenance"]
+            },
+            {
+                department: "Field Ops & Admin",
+                roles: ["Billing assistant", "Permit coordinator", "Vendor manager", "Compliance Officer"],
+                tasks: ["Process payments", "Check permit status", "Reorder parts", "Verify technician notes", "Automate job close-out", "Monitor safety documentation", "Audit job profitability"]
+            }
         ]
     },
     {
@@ -510,6 +868,26 @@ export const industries: IndustryContent[] = [
                         title: "Automated Referral Follow-up",
                         detail: "AI that scans referral faxes and proactively reaches out to the patient within 60 seconds of receipt.",
                         roi: "Typical 2x increase in referral conversion."
+                    },
+                    {
+                        title: "Clinical Note Auto-Scribe",
+                        detail: "AI that listens to the patient visit and drafts a detailed clinical note for the doctor to review and sign.",
+                        roi: "Reclaims 2+ hours of administrative time per doctor, per day."
+                    },
+                    {
+                        title: "Insurance VOB Engine",
+                        detail: "AI that automatically verifies patient benefits and out-of-pocket costs before the patient arrives.",
+                        roi: "Reduces billing friction and improves front-desk efficiency by 35%."
+                    },
+                    {
+                        title: "Patient Reactivation Bot",
+                        detail: "AI that scans records for patients overdue for cleanings or follow-ups and reaches out via personalized SMS/Phone to rebook.",
+                        roi: "Recovers $20k+ in monthly recurring revenue for dental/general practices."
+                    },
+                    {
+                        title: "Supply Chain Equity Auditor",
+                        detail: "AI that monitors usage of medical disposables (gloves, gauze, sutures) and predicts restock needs based on the upcoming procedure calendar.",
+                        roi: "Eliminates urgent over-night shipping costs and supply shortages."
                     }
                 ]
             },
@@ -518,14 +896,29 @@ export const industries: IndustryContent[] = [
                 description: "Total office and intake overhaul.",
                 areas: [
                     {
-                        area: "Patient Support",
+                        area: "Patient Support & Triage",
                         detail: "AI knowledge base for common medical/dental queries, symptoms triage, and post-op care instructions.",
                         impact: "90% fewer phone tag cycles."
                     },
                     {
-                        area: "Billing & Admin",
-                        detail: "AI that analyzes EOBs and prepares claims to ensure maximum reimbursement and fewer denials.",
-                        impact: "Faster cash flow and less admin friction."
+                        area: "Revenue Cycle Management (RCM)",
+                        detail: "AI that analyzes EOBs, identifies denial patterns, and prepares appeals to ensure maximum reimbursement.",
+                        impact: "Faster cash flow and 15% reduction in billing denials."
+                    },
+                    {
+                        area: "Compliance & Security",
+                        detail: "Autonomous audit logs and HIPAA monitoring that ensures all data access follows strict healthcare protocols.",
+                        impact: "Risk-free scaling for multi-location practices."
+                    },
+                    {
+                        area: "HR & Credentialing",
+                        detail: "AI that monitors clinician licenses, CE requirements, and payer credentialing timelines automatically.",
+                        impact: "Zero-latency compliance management."
+                    },
+                    {
+                        area: "Patient Marketing",
+                        detail: "AI that identifies your happiest patients (based on sentiment) and automates high-trust referral campaigns and case studies.",
+                        impact: "2x growth in organic new-patient acquisition."
                     }
                 ]
             },
@@ -535,7 +928,9 @@ export const industries: IndustryContent[] = [
                 features: [
                     "Proprietary AI diagnostic assistant nodes (non-clinical support)",
                     "Custom patient longevity and retention engine",
-                    "Integrated multi-provider resource optimization"
+                    "Integrated multi-provider resource optimization",
+                    "Automated multi-channel patient education engine",
+                    "AI-driven predictive demand and staffing model"
                 ]
             }
         },
@@ -564,6 +959,23 @@ export const industries: IndustryContent[] = [
         faq: [
             { q: "Is this HIPAA compliant?", a: "Yes. We use enterprise-grade, encrypted AI models and ensure all data handling meets strict compliance standards." },
             { q: "Can it integrate with my EMR/PMS?", a: "Yes, we integrate with major platforms like OpenDental, Curve, NexHealth, and others via APIs." }
+        ],
+        layers: [
+            {
+                department: "Front Office & Intake",
+                roles: ["Intake coordinator", "Insurance verifier", "Patient liaison", "Scheduling Architect"],
+                tasks: ["Verify benefits", "Schedule patients", "Send reminders", "Pre-fill paperwork", "Capture referrals", "Optimize provider utilization"]
+            },
+            {
+                department: "Clinical Operations",
+                roles: ["Medical scribe", "Clinical assistant", "Triage coordinator", "Procedure Analyst"],
+                tasks: ["Transcribe visits", "Create visit summaries", "Draft follow up instructions", "Triage symptoms", "Update charts", "Monitor room turnaround times"]
+            },
+            {
+                department: "Revenue & Admin",
+                roles: ["Billing specialist", "RCM analyst", "Credentialing manager", "Compliance Auditor"],
+                tasks: ["Scrub claims", "Manage denials", "Verify EOBs", "Monitor compliance", "Update provider credentials", "Audit HIPAA access logs", "P&L tracking per office"]
+            }
         ]
     },
     {
@@ -578,14 +990,44 @@ export const industries: IndustryContent[] = [
                 description: "High-accuracy automation for professional services.",
                 examples: [
                     {
-                        title: "The AI Discovery Assistant",
-                        detail: "AI that scans thousands of documents to find key clauses, dates, or anomalies in seconds.",
-                        roi: "Reclaims 80% of research and discovery time."
+                        title: "The Zero-Error Audit Bot",
+                        detail: "AI that scans thousands of transactions to flag anomalies, potential fraud, or compliance slips instantly.",
+                        roi: "Eliminates 90% of manual auditing time."
                     },
                     {
-                        title: "Precision Intake Qualifer",
-                        detail: "AI that interviews potential clients to ensure their case/finances meet your firm's standards before a human ever looks at it.",
-                        roi: "Reclaims 15+ hours a week of partner/associate time."
+                        title: "The 24/7 Legal Intake Agent",
+                        detail: "AI that qualifies potential claimants by asking complex legal screening questions 24/7.",
+                        roi: "3x increase in qualified lead flow."
+                    },
+                    {
+                        title: "Automated Evidence Summarizer",
+                        detail: "AI that takes thousands of pages of discovery and creates a concise, searchable map of key facts.",
+                        roi: "Reclaims dozens of paralegal hours per case."
+                    },
+                    {
+                        title: "The Compliance Sentinel",
+                        detail: "AI that monitors all client communication for regulatory compliance (SEC, FINRA, HIPAA) in real-time.",
+                        roi: "Ensures 100% adherence to reporting standards."
+                    },
+                    {
+                        title: "Automated P&L Reconciliation",
+                        detail: "AI that maps bank statements to ledger categories and flags tax-deductible outliers automatically.",
+                        roi: "Saves 20+ hours of senior partner time during month-end close."
+                    },
+                    {
+                        title: "Trust Account Monitor",
+                        detail: "AI that monitors trust/escrow account movements against case files to prevent co-mingling or errors.",
+                        roi: "Ensures perfect 3-way reconciliation for bar audits."
+                    },
+                    {
+                        title: "Dynamic Billing Auditor",
+                        detail: "AI that reviews staff diaries and calendars to suggest missed billable entries based on project activity.",
+                        roi: "Recovers 8-12% of traditionally 'lost' billable time."
+                    },
+                    {
+                        title: "Regulatory Delta Engine",
+                        detail: "AI that scans daily updates from SEC, FINRA, and industry bodies to flag only those relevant to your active clients.",
+                        roi: "Saves 10+ hours/week of senior research time."
                     }
                 ]
             },
@@ -594,14 +1036,29 @@ export const industries: IndustryContent[] = [
                 description: "Automate the lifecycle of a case or client.",
                 areas: [
                     {
-                        area: "Client Service",
-                        detail: "24/7 portal where clients can ask 'What is the status of my file?' and get an instant, data-backed answer.",
-                        impact: "Zero status-update emails for your staff."
+                        area: "Client Intake & Triage",
+                        detail: "AI knowledge assistants that answer 'Do I have a case?' based on your firm's specific history and victory data.",
+                        impact: "Pre-qualified leads ready for a closer."
                     },
                     {
-                        area: "Document Production",
-                        detail: "AI that drafts the first 90% of complex contracts, pleadings, or tax summaries based on your templates.",
-                        impact: "3x faster turnaround times."
+                        area: "Document Operations",
+                        detail: "Autonomous filing and summary agents that keep your case files organized and up-to-date with 0 manual entry.",
+                        impact: "Total paperless efficiency."
+                    },
+                    {
+                        area: "Marketing & Growth",
+                        detail: "AI that turns your past case wins into anonymous, high-authority blog posts and local SEO assets.",
+                        impact: "Build authority while you sleep."
+                    },
+                    {
+                        area: "Finance & Billing",
+                        detail: "AI that audits every billable hour against your staff's digital trails to ensure no revenue is left on the table.",
+                        impact: "15-20% boost in billable recapture."
+                    },
+                    {
+                        area: "Compliance & Risk",
+                        detail: "AI that scans new case files for potential conflicts of interest and regulatory red flags before intake.",
+                        impact: "Zero-liability scaling for growing firms."
                     }
                 ]
             },
@@ -611,7 +1068,9 @@ export const industries: IndustryContent[] = [
                 features: [
                     "Custom vector store of all past successful cases/filings for internal search",
                     "Automated compliance and risk-monitoring AI",
-                    "Dynamic pricing and billing optimization engine"
+                    "Dynamic pricing and billing optimization engine",
+                    "Autonomous Conflict of Interest check system",
+                    "Integrated multi-channel client stewardship machine"
                 ]
             }
         },
@@ -640,6 +1099,23 @@ export const industries: IndustryContent[] = [
         faq: [
             { q: "Is my data secure?", a: "We use private, non-training models so your firm's proprietary data and client confidentiality are 100% protected." },
             { q: "Can it write actual legal/accounting advice?", a: "We focus on 'support' and 'prep' AI. The machine does the heavy lifting, but the final sign-off is always by the licensed professional." }
+        ],
+        layers: [
+            {
+                department: "Intake & Sales",
+                roles: ["Lead qualifier", "Intake specialist", "Case researcher", "Discovery Officer"],
+                tasks: ["Answer incoming leads", "Pre-screen for case fit", "GATHER initial documents", "Book initial consults", "Research past case wins", "Triage high-priority matters"]
+            },
+            {
+                department: "Legal/Finance Ops",
+                roles: ["Paralegal assistant", "Document summarizer", "Research lead", "Compliance Monitor"],
+                tasks: ["Summarize documents", "Prepare initial drafts", "Research statutes", "Audit case files", "Track deadlines", "Monitor SEC/FINRA updates", "Flag conflict of interest"]
+            },
+            {
+                department: "Billing & Admin",
+                roles: ["Billing assistant", "P&A coordinator", "Trust account manager", "Revenue Auditor"],
+                tasks: ["Generate invoices", "Verify billable hours", "Monitor trust accounts", "Follow up on collections", "Investor/Partner reporting", "Reconcile escrow funds", "Predict quarterly tax liabilty"]
+            }
         ]
     },
     {
@@ -647,21 +1123,51 @@ export const industries: IndustryContent[] = [
         name: "Real Estate",
         hook: "Be the First to the Lead, Every Single Time.",
         problem: "Real estate is a speed game. If you don't respond to a Zillow or Web lead within 2 minutes, you've lost them. But you're in the middle of a showing or a closing. You can't be available 24/7, but your systems can.",
-        operatorProblem: "The 'Operator' agent is the one texting back 'Hey, are you still interested?' at 10 PM. The 'Founder' agent has an AI assistant that engages the lead, qualifies their budget and location, and books the showing in 30 seconds.",
+        operatorProblem: "The 'Founder' agent has an AI assistant that engages the lead, qualifies their budget and location, and books the showing in 30 seconds.",
         services: {
             singleSystems: {
                 title: "Single System Installs",
                 description: "Dominate your local market with speed.",
                 examples: [
                     {
-                        title: "The 24/7 ISA (Inside Sales Agent)",
-                        detail: "AI that engages leads on SMS/Web, qualifies 15+ data points, and books appointments on your calendar.",
-                        roi: "Capture 5x more appointments from existing lead traffic."
+                        title: "The Lead-Flow Conductor",
+                        detail: "AI that captures leads from Zillow/Realtor.com and qualifies them via SMS in under 10 seconds.",
+                        roi: "Prevents 'Speed-to-Lead' loss and boosts appointments by 50%."
+                    },
+                    {
+                        title: "The Automated Listing Architect",
+                        detail: "AI that generates premium listing descriptions, social posts, and property flyers from 5 raw photos.",
+                        roi: "Saves 3+ hours per listing."
+                    },
+                    {
+                        title: "Transaction Milestone Manager",
+                        detail: "AI that guides buyers and sellers through the 50+ steps from contract to close automatically.",
+                        roi: "Improves client referral rates by 40%."
+                    },
+                    {
+                        title: "Portfolio Insight Engine",
+                        detail: "AI that analyzes market trends to tell property owners exactly when to sell or raise rent.",
+                        roi: "Maximizes ROI for property investors."
+                    },
+                    {
+                        title: "MLS Description Optimizer",
+                        detail: "AI that analyzes the top-performing listings in your specific zip code and rewrites your copy to trigger the algorithm.",
+                        roi: "Increases listing impressions and saves hours of creative work."
+                    },
+                    {
+                        title: "Inspection Report Scraper",
+                        detail: "AI that reads 50-page inspection reports and extracts the 5 most critical cost-drivers for negotiation.",
+                        roi: "Gives agents an immediate tactical edge in price reduction talks."
+                    },
+                    {
+                        title: "Dynamic Seller Scout",
+                        detail: "AI that monitors property tax delinquencies and life events to flag potential motivated sellers before they list.",
+                        roi: "Typical 20% increase in proprietary listing appointments."
                     },
                     {
                         title: "Property FAQ Agent",
-                        detail: "An AI that has memorized every detail of your listings and answers buyer questions instantly.",
-                        roi: "Increases listing engagement and time-on-site."
+                        detail: "AI listing assistant for every property that knows every detail and handles touring requests 24/7.",
+                        roi: "Increases lead engagement by 80% on higher-value listings."
                     }
                 ]
             },
@@ -670,14 +1176,39 @@ export const industries: IndustryContent[] = [
                 description: "Total brokerage automation.",
                 areas: [
                     {
-                        area: "Marketing",
-                        detail: "AI that creates all property descriptions, social posts, and email blasts in your personal brand voice.",
-                        impact: "Consistent marketing with 0 effort."
+                        area: "Sales & Acquisition",
+                        detail: "AI SDRs that reach out to FSBO and Expired listings with personalized, high-value scripts.",
+                        impact: "A self-filling listing pipeline."
                     },
                     {
-                        area: "Follow-up",
-                        detail: "Long-term nurture AI that checks in with past clients and cold prospects for months without you touching it.",
-                        impact: "The ultimate 'Stay Top of Mind' machine."
+                        area: "Transaction Coordination",
+                        detail: "AI that manages escrow, monitors deadlines, and handles all communication with lenders/title companies.",
+                        impact: "0 failed transactions due to administrative error."
+                    },
+                    {
+                        area: "Content & Branding",
+                        detail: "AI that turns every 'Just Listed' into a week of social content, YouTube scripts, and local SEO blog posts.",
+                        impact: "Dominant local brand with 0 extra recording."
+                    },
+                    {
+                        area: "Operations & HR",
+                        detail: "AI that helps you recruit, train, and manage showing assistants and junior agents based on your 'Golden Scripts'.",
+                        impact: "Scale from solo agent to dominant team."
+                    },
+                    {
+                        area: "Property Management",
+                        detail: "AI that handles tenant maintenance requests, schedules contractors, and processes rent payments automatically.",
+                        impact: "Hands-free management for multi-unit portfolios."
+                    },
+                    {
+                        area: "Brand & Content",
+                        detail: "AI that turns every 'Just Listed' into a week of social content, YouTube scripts, and local SEO blog posts.",
+                        impact: "Dominant local brand with 0 extra recording or writing."
+                    },
+                    {
+                        area: "Retention & Referral",
+                        detail: "AI that stays top-of-mind with past clients via monthly personalized market snapshots and home-anniversary gifts.",
+                        impact: "30% increase in repeat and referral business."
                     }
                 ]
             },
@@ -687,7 +1218,9 @@ export const industries: IndustryContent[] = [
                 features: [
                     "Predictive seller lead generation model",
                     "Custom brokerage recruiting and onboarding AI",
-                    "Unified CRM orchestration layer"
+                    "Unified CRM orchestration layer",
+                    "Autonomous MLS data analysis and valuation engine",
+                    "Integrated multi-channel reputation and referral bot"
                 ]
             }
         },
@@ -716,6 +1249,23 @@ export const industries: IndustryContent[] = [
         faq: [
             { q: "Does it work with my CRM (Follow Up Boss, LionDesk)?", a: "Yes, we integrate with most major real estate CRMs." },
             { q: "Can it qualify sellers?", a: "Yes, it can ask about the address, motivation, mortgage balance, and condition to give you a pre-qualified seller lead." }
+        ],
+        layers: [
+            {
+                department: "Sales & Listing Flow",
+                roles: ["Lead qualifier", "Listing coordinator", "ISA", "Showing Assistant Architect"],
+                tasks: ["Qualify Zillow leads", "Follow up on property inquiries", "Create listing descriptions", "Book property showings", "Manage agent calendar", "Triage FSBO outreach"]
+            },
+            {
+                department: "Transaction & Operations",
+                roles: ["TC assistant", "Document coordinator", "Title/Lender liaison", "Deadline Watchdog"],
+                tasks: ["Monitor escrow dates", "Verify document signatures", "Communicate with lenders", "Update buyer/seller dashboards", "Audit file compliance", "Coordinate key exchanges"]
+            },
+            {
+                department: "Branding & Property Ops",
+                roles: ["Content creator", "Local SEO strategist", "Maintenance coordinator", "Property analyst"],
+                tasks: ["Post listing updates", "Identify local trends", "Schedule property repairs", "Draft rent increase notices", "Reconcile property P&Ls", "Automate HOA applications"]
+            }
         ]
     },
     {
@@ -723,21 +1273,51 @@ export const industries: IndustryContent[] = [
         name: "Restaurants & Hospitality",
         hook: "Your Staff Should Be Serving Guests, Not Answering the Phone.",
         problem: "On Friday night, your phone is ringing off the hook for reservations, directions, and hours. Your host is distracted, your guests are ignored, and you're losing missed calls to competitors. You need a way to handle the volume without adding more payroll.",
-        operatorProblem: "The 'Operator' owner is the one fixing the reservation system at 8 PM. The 'Founder' owner builds a system where the AI handles the reservations, the group bookings, and the FAQ, so the team can focus on the guest experience.",
+        operatorProblem: "The 'Operator' owner builds a system where the AI handles the reservations, the group bookings, and the FAQ, so the team can focus on the guest experience.",
         services: {
             singleSystems: {
                 title: "Single System Installs",
                 description: "Zero-friction hospitality tools.",
                 examples: [
                     {
-                        title: "The AI Hostess",
-                        detail: "Voice and Text AI that takes reservations, handles cancellations, and answers 'Are you dog friendly?' instantly.",
-                        roi: "Reduces missed calls and staffing stress during peak hours."
+                        title: "The Guest Sentiment Radar",
+                        detail: "AI that scans internal feedback and public reviews to identify micro-trends in guest dissatisfaction before they become 1-star reviews.",
+                        roi: "Typical 0.5 point increase in OTA ratings."
                     },
                     {
-                        title: "Group Booking Concierge",
-                        detail: "AI that handles the complex back-and-forth for private events and parties, collecting deposits automatically.",
-                        roi: "Increases high-margin event revenue by 30%."
+                        title: "24/7 AI Guest Concierge",
+                        detail: "Multi-lingual AI that answers guests' 'Where is the pool?' and 'How do I use the coffee machine?' questions instantly via SMS/WhatsApp.",
+                        roi: "Reduces front-desk calls by 60%."
+                    },
+                    {
+                        title: "Automated Group Sales Agent",
+                        detail: "AI that handles initial inquiries for weddings and corporate retreats, qualifying budgets and checking dates automatically.",
+                        roi: "3x increase in event sales pipeline velocity."
+                    },
+                    {
+                        title: "Dynamic Upsell Engine",
+                        detail: "AI that identifies high-value guests and sends personalized 'Late Checkout' or 'Room Upgrade' offers at exactly the moment they are most likely to buy.",
+                        roi: "Increases Ancillary Revenue per room by 15%."
+                    },
+                    {
+                        title: "The Dynamic Rate Optimizer",
+                        detail: "AI that analyzes local events (concerts, games) and competitor pricing every 15 minutes to adjust your occupancy rates.",
+                        roi: "12% lift in RevPAR (Revenue Per Available Room)."
+                    },
+                    {
+                        title: "Housekeeping Efficiency Map",
+                        detail: "AI that analyzes guest checkout logs to create real-time optimized cleaning routes for staff.",
+                        roi: "Reduces housekeeping labor costs by 18% during peak turnover."
+                    },
+                    {
+                        title: "The Dynamic Guest FAQ Agent",
+                        detail: "AI that handles complex guest questions (local recs, policy details) via SMS/WhatsApp with 0 delay.",
+                        roi: "Reduces front-desk burden by 70% and increases guest happiness."
+                    },
+                    {
+                        title: "Group Sales Accelerator",
+                        detail: "AI that qualifies and drafts proposals for event inquiries (weddings, corporate) based on current availability.",
+                        roi: "3x increase in event sales pipeline velocity."
                     }
                 ]
             },
@@ -746,14 +1326,29 @@ export const industries: IndustryContent[] = [
                 description: "Total operations and marketing overhaul.",
                 areas: [
                     {
-                        area: "Marketing",
-                        detail: "AI that reaches out to past guests on their birthdays/anniversaries with personalized offers based on their past orders.",
-                        impact: "Massive increase in guest frequency."
+                        area: "Guest Experience & Front Desk",
+                        detail: "AI that handles 90% of guest inquiries, check-ins, and concierge services, freeing up staff for high-touch interactions.",
+                        impact: "Elevated guest satisfaction and reduced front-desk workload."
                     },
                     {
-                        area: "Ops / Logistics",
-                        detail: "AI that analyzes POS data to predict staffing needs and inventory ordering for the next week.",
-                        impact: "Reduces labor costs and food waste by 10-15%."
+                        area: "Revenue Management",
+                        detail: "AI that dynamically adjusts pricing, manages inventory, and forecasts demand based on real-time market conditions and events.",
+                        impact: "Maximized RevPAR and optimized occupancy rates."
+                    },
+                    {
+                        area: "Sales & Events",
+                        detail: "AI that qualifies group bookings, manages event inquiries, and automates follow-ups for high-margin events.",
+                        impact: "Increased event revenue and streamlined sales process."
+                    },
+                    {
+                        area: "Back-of-House Operations",
+                        detail: "AI that optimizes housekeeping routes, predicts maintenance needs, and manages inventory for F&B and supplies.",
+                        impact: "Reduced labor costs, minimized waste, and improved operational efficiency."
+                    },
+                    {
+                        area: "Marketing & Loyalty",
+                        detail: "AI that personalizes guest communications, manages loyalty programs, and responds to reviews across all platforms.",
+                        impact: "Stronger brand reputation and increased repeat business."
                     }
                 ]
             },
@@ -763,7 +1358,9 @@ export const industries: IndustryContent[] = [
                 features: [
                     "Multi-location unified guest profile AI",
                     "Custom loyalty and gaming-based retention systems",
-                    "Predictive demand and labor forecasting engine"
+                    "Predictive demand and labor forecasting engine",
+                    "Integrated multi-channel event sales CRM",
+                    "Autonomous POS-to-Accounting reconciliation"
                 ]
             }
         },
@@ -790,8 +1387,24 @@ export const industries: IndustryContent[] = [
       Hospitality doesn't end when the check is paid. Our AI loyalty agents reach out to guests on their birthdays or anniversaries with personalized offers based on their past orders. This turns "One-Time Diners" into "Lifer Regulars" without you ever lifting a finger. 
     `,
         faq: [
-            { q: "Does it work with OpenTable/Resy?", a: "Yes, we can bridge AI agents to most modern reservation platforms." },
             { q: "Can it take orders?", a: "We focus on reservations and FAQs, but we can build custom ordering flows for takeout and delivery." }
+        ],
+        layers: [
+            {
+                department: "Guest Experience & Front Desk",
+                roles: ["Virtual concierge", "Reservationist", "Review manager", "Hostess assistant"],
+                tasks: ["Handle bookings", "Upsell rooms", "Answer guest questions", "Manage check-in", "Respond to feedback"]
+            },
+            {
+                department: "Revenue & Operations",
+                roles: ["Pricing analyst", "Occupancy forecaster", "Inventory manager"],
+                tasks: ["Adjust room rates", "Forecast occupancy", "Monitor competitor pricing", "Audit inventory", "Auto-reorder supplies"]
+            },
+            {
+                department: "Marketing & Retention",
+                roles: ["Loyalty coordinator", "Event sales assistant", "Social manager"],
+                tasks: ["Nurture regulars", "Triage event inquiries", "Post daily specials", "Manage ad spend", "Trigger anniversary offers"]
+            }
         ]
     },
     {
@@ -799,21 +1412,41 @@ export const industries: IndustryContent[] = [
         name: "Construction & Trades",
         hook: "The AI Foreman: How Construction & Trades Scale Beyond the Job Site.",
         problem: "You're on a job site. The saw is running, the crew has questions, and your phone won't stop vibrating in your pocket. It's a potential lead calling for a $50k kitchen remodel. You can't answer. By the time you call them back, they've already booked with someone else.",
-        operatorProblem: "In the trades, the 'Operator' is the founder who is still on the job site answering phones. The 'Founder' builds an 'AI Foreman' that triages leads, qualifies budgets, schedules site visits, and keeps clients updated on project progress without the founder ever touching their phone.",
+        operatorProblem: "The 'Operator' in the trades is the founder who is still on the job site answering phones. The 'Founder' builds an 'AI Foreman' that triages leads, qualifies budgets, schedules site visits, and keeps clients updated on project progress without the founder ever touching their phone.",
         services: {
             singleSystems: {
                 title: "Single System Installs",
                 description: "Dominate the field with automated intake.",
                 examples: [
                     {
-                        title: "The 24/7 AI Intake Engine",
-                        detail: "AI that qualifies leads, checks budgets, and requests project photos before you ever drive to a quote.",
-                        roi: "Reclaims 15+ hours a week of 'trash' lead drives."
+                        title: "The 24/7 Safety Compliance Bot",
+                        detail: "AI that reviews site photos and daily logs to ensure all safety protocols are being met and documented.",
+                        roi: "Reduces insurance premiums and audit risk by 20%."
                     },
                     {
-                        title: "Automated Site Visit Scheduler",
-                        detail: "AI that syncs with Jobber/ServiceTitan to book estimates only when you're available.",
-                        roi: "Ensures you never miss a high-value quote."
+                        title: "Automated Lien Waiver Agent",
+                        detail: "AI that tracks payments and automatically generates and sends lien waivers to subs for signing.",
+                        roi: "Eliminates weeks of administrative 'chase' time."
+                    },
+                    {
+                        title: "Material Price Watchdog",
+                        detail: "AI that scans multi-source material prices (Lumber, Steel, Copper) to identify the best purchase timing.",
+                        roi: "Protects job margins against market volatility."
+                    },
+                    {
+                        title: "The Daily Log Summarizer",
+                        detail: "AI that converts technician voice notes and messy field logs into professional daily reports for the client.",
+                        roi: "Increases client transparency and trust levels."
+                    },
+                    {
+                        title: "Automated Permit Tracker",
+                        detail: "AI that monitors city portal status and notifies your team of review comments or approval milestones in real-time.",
+                        roi: "Prevents 10-15% of project delays caused by administrative bottlenecks."
+                    },
+                    {
+                        title: "Change Order Risk Bot",
+                        detail: "AI that analyzes project blueprints against field reports to identify 'Invisible' scope creep before it costs you money.",
+                        roi: "Recovers 8-12% in traditionally lost change-order revenue."
                     }
                 ]
             },
@@ -822,14 +1455,24 @@ export const industries: IndustryContent[] = [
                 description: "Full office and field communication overhaul.",
                 areas: [
                     {
-                        area: "Project Communication",
-                        detail: "AI that sends daily progress updates and 'Technician is on-site' texts with bios.",
-                        impact: "Unrivaled professional reputation."
+                        area: "Supply Chain Ops",
+                        detail: "AI agents that monitor inventory levels and automatically issue POs to vendors based on lead times.",
+                        impact: "95% reduction in stockouts and manual procurement time."
                     },
                     {
-                        area: "Review & Referral",
-                        detail: "AI that requests Google reviews the moment a job is marked 'Complete' in your field software.",
-                        impact: "Consistent influx of high-trust local leads."
+                        area: "Production Logistics",
+                        detail: "AI that optimizes the movement of raw materials from warehouse to the assembly line to prevent 'Starvation' delays.",
+                        impact: "12% increase in daily production throughput."
+                    },
+                    {
+                        area: "Fleet Management",
+                        detail: "AI that tracks vehicle telemetry and driver performance to suggest maintenance and route optimizations.",
+                        impact: "10% reduction in fuel and maintenance costs."
+                    },
+                    {
+                        area: "Customer Support",
+                        detail: "AI agents that handle 100% of 'Where is my order?' queries via web and email with real-time tracking.",
+                        impact: "Reclaims 60% of CSR bandwidth for higher-value activities."
                     }
                 ]
             },
@@ -839,7 +1482,9 @@ export const industries: IndustryContent[] = [
                 features: [
                     "Multi-crew dispatch optimization AI",
                     "Custom material and inventory forecasting",
-                    "Integrated subcontracting communication layer"
+                    "Integrated subcontracting communication layer",
+                    "Autonomous project timeline and delay prediction engine",
+                    "Integrated multi-channel reputation and case-study bot"
                 ]
             }
         },
@@ -866,8 +1511,24 @@ export const industries: IndustryContent[] = [
       The goal isn't just to have more trucks; it's to have a business that runs itself. By installing an AI Foreman, you reclaim your role as the Founder and Visionary. You focus on the big-picture strategy; the AI handles the day-to-day coordination.
     `,
         faq: [
-            { q: "Can it work with Jobber?", a: "Yes, we integrate with Jobber, ServiceTitan, and other field management tools." },
             { q: "How do I see the photos students/leads send?", a: "The AI collects them and puts them directly into your CRM or a shared folder for your review." }
+        ],
+        layers: [
+            {
+                department: "Sales & Pre-Con",
+                roles: ["Lead qualifier", "Bid manager", "Estimator assistant", "Plan Scraper"],
+                tasks: ["Identify new projects", "Summarize blueprints", "Request sub-quotes", "Draft proposals", "Track bid deadlines", "Extract spec details"]
+            },
+            {
+                department: "Project Management",
+                roles: ["Project coordinator", "Schedule architect", "Material chaser", "Safety auditor"],
+                tasks: ["Update schedule daily", "Track sub completion", "Monitor deliveries", "Review site photos", "Flag safety risks", "Draft daily reports"]
+            },
+            {
+                department: "Operations & Admin",
+                roles: ["Billing specialist", "Lien manager", "Permit coordinator", "Margin Watchdog"],
+                tasks: ["Generate invoices", "Track lien waivers", "Submit permit apps", "Verify job costs", "Manage vendor payouts", "Monitor project P&L", "Audit labor hours vs bid"]
+            }
         ]
     },
     {
@@ -888,8 +1549,48 @@ export const industries: IndustryContent[] = [
                     },
                     {
                         title: "Smart Inventory Forecaster",
-                        detail: "AI that predicts stockouts before they happen based on historic lead times and sales velocity.",
+                        detail: "AI that predicts stockouts before they happen based on lead times and sales velocity.",
                         roi: "Optimizes working capital by 15%."
+                    },
+                    {
+                        title: "Predictive Maintenance Node",
+                        detail: "AI that monitors machine vibration/heat data to predict failure before it happens.",
+                        roi: "Reduces unplanned downtime by 22%."
+                    },
+                    {
+                        title: "Multi-Modal Freight Optimizer",
+                        detail: "AI that compares sea, air, and land rates in real-time to find the fastest/cheapest route.",
+                        roi: "Typically saves 10% on annual freight spend."
+                    },
+                    {
+                        title: "The 24/7 Safety Compliance Bot",
+                        detail: "AI that reviews site photos and daily logs to ensure all safety protocols are being met and documented.",
+                        roi: "Reduces insurance premiums and audit risk by 20%."
+                    },
+                    {
+                        title: "Automated Lien Waiver Agent",
+                        detail: "AI that tracks payments and automatically generates and sends lien waivers to subs for signing.",
+                        roi: "Eliminates weeks of administrative 'chase' time."
+                    },
+                    {
+                        title: "Material Price Watchdog",
+                        detail: "AI that scans multi-source material prices (Lumber, Steel, Copper) to identify the best purchase timing.",
+                        roi: "Protects job margins against market volatility."
+                    },
+                    {
+                        title: "The Daily Log Summarizer",
+                        detail: "AI that converts technician voice notes and messy field logs into professional daily reports for the client.",
+                        roi: "Increases client transparency and trust levels."
+                    },
+                    {
+                        title: "Automated Permit Tracker",
+                        detail: "AI that monitors city portal status and notifies your team of review comments or approval milestones in real-time.",
+                        roi: "Prevents 10-15% of project delays caused by administrative bottlenecks."
+                    },
+                    {
+                        title: "Change Order Risk Bot",
+                        detail: "AI that analyzes project blueprints against field reports to identify 'Invisible' scope creep before it costs you money.",
+                        roi: "Recovers 8-12% in traditionally lost change-order revenue."
                     }
                 ]
             },
@@ -897,6 +1598,11 @@ export const industries: IndustryContent[] = [
                 title: "Department Automation",
                 description: "Total logistics and production and floor automation.",
                 areas: [
+                    {
+                        area: "Procurement & Sourcing",
+                        detail: "AI that compares raw material costs across 50+ vendors and negotiates volume discounts.",
+                        impact: "Immediate reduction in COGS."
+                    },
                     {
                         area: "Customer Service & Logistics",
                         detail: "24/7 AI tracking agent that answers client questions about their shipment status and delivery ETAs.",
@@ -906,6 +1612,11 @@ export const industries: IndustryContent[] = [
                         area: "Production Ops",
                         detail: "AI that analyzes machine data and shift logs to identify bottlenecks in the production line.",
                         impact: "Immediate ROI on production throughput."
+                    },
+                    {
+                        area: "Quality Control",
+                        detail: "Computer vision AI that scans products on the line for defects at 10x human speed.",
+                        impact: "Zero-defect delivery reputation."
                     }
                 ]
             },
@@ -915,7 +1626,9 @@ export const industries: IndustryContent[] = [
                 features: [
                     "Custom computer vision quality control nodes",
                     "Predictive maintenance models for high-value machinery",
-                    "Unified supply chain orchestration dashboard"
+                    "Unified supply chain orchestration dashboard",
+                    "Autonomous shift scheduling and labor forecasting",
+                    "Integrated multi-vendor procurement brain"
                 ]
             }
         },
@@ -942,8 +1655,24 @@ export const industries: IndustryContent[] = [
       In manufacturing, your "Secret Sauce" is everything. We deploy our AI systems on private, secure cloud instances. Your production data, vendor lists, and proprietary processes are never used to train public AI models. Your business intelligence remains 100% private.
     `,
         faq: [
-            { q: "Can it integrate with our ERP?", a: "Yes, we build custom connectors for SAP, Oracle, NetSuite, and smaller proprietary ERPs." },
             { q: "What about data privacy?", a: "We deploy on private cloud instances where your production data is never used for training public models." }
+        ],
+        layers: [
+            {
+                department: "Production Planning",
+                roles: ["Demand planner", "Production scheduler", "Material coordinator", "Capacity Analyst"],
+                tasks: ["Forecast demand", "Order raw materials", "Optimize machine time", "Reduce waste", "Verify shift logs", "Analyze OEE metrics"]
+            },
+            {
+                department: "Supply Chain & Logistics",
+                roles: ["Dispatch analyst", "Procurement assistant", "Fleet manager", "Freight coordinator"],
+                tasks: ["Assign loads", "Optimize fuel usage", "Compare suppliers", "Track shipping delays", "Predict breakdowns", "Audit shipping invoices"]
+            },
+            {
+                department: "Warehouse & QC",
+                roles: ["QC Inspector", "Returns manager", "Inventory auditor", "Design Engineer assistant"],
+                tasks: ["Scan for defects", "Categorize returns", "Audit stock levels", "Identify shrinkage", "Track material substitutions", "Generate safety certs"]
+            }
         ]
     },
     {
@@ -966,6 +1695,36 @@ export const industries: IndustryContent[] = [
                         title: "Sentiment & Churn Radar",
                         detail: "AI that flags members who stop engaging or express frustration so you can intervene manually.",
                         roi: "Fixes churn before it happens."
+                    },
+                    {
+                        title: "The Gamification Engine",
+                        detail: "AI that triggers custom rewards and badges based on complex engagement milestones.",
+                        roi: "2x increase in daily active users (DAU)."
+                    },
+                    {
+                        title: "Content Piracy Monitor",
+                        detail: "AI that scans the web and social for leaked forum content or shared logins.",
+                        roi: "Protects recurring revenue integrity."
+                    },
+                    {
+                        title: "The Member Matching Engine",
+                        detail: "AI that analyzes member profiles and goals to suggest high-value 1-on-1 networking connections within your community.",
+                        roi: "3x increase in member-to-member value perception."
+                    },
+                    {
+                        title: "Event Attendance Predictor",
+                        detail: "AI that analyzes past attendance and engagement to predict turnout for your next workshop, allowing for better resource allocation.",
+                        roi: "Optimizes event spend and host energy."
+                    },
+                    {
+                        title: "The Content Discovery Brain",
+                        detail: "AI that makes your entire past forum and group history searchable via natural language questions.",
+                        roi: "Reduces redundant support questions by 70%."
+                    },
+                    {
+                        title: "Super-Fan Scout",
+                        detail: "AI that identifies members who are the most helpful and active to invite into your proprietary referral program.",
+                        roi: "Typical 2x increase in internal referral growth."
                     }
                 ]
             },
@@ -974,7 +1733,7 @@ export const industries: IndustryContent[] = [
                 description: "Full membership lifecycle automation.",
                 areas: [
                     {
-                        area: "Member Success",
+                        area: "Member Success & Retention",
                         detail: "AI-driven 'Next Best Action' for members, guiding them through your curriculum or community tracks.",
                         impact: "Deep member satisfaction and results."
                     },
@@ -982,6 +1741,36 @@ export const industries: IndustryContent[] = [
                         area: "Marketing & Growth",
                         detail: "AI that identifies your 'super-fans' and automates referral and testimonial campaigns.",
                         impact: "Viral growth from within your existing member base."
+                    },
+                    {
+                        area: "Event Strategy",
+                        detail: "AI that manages event registration, live-chat moderation, and post-event highlight generation.",
+                        impact: "Professional-grade events with 0 extra staff."
+                    },
+                    {
+                        area: "Support & Tech",
+                        detail: "Automated helpdesk that fixes 90% of login, billing, and navigation issues instantly.",
+                        impact: "Zero-latency support desk."
+                    },
+                    {
+                        area: "Member Success & Retention",
+                        detail: "AI-driven 'Next Best Action' for members, guiding them through your curriculum or community tracks.",
+                        impact: "Deep member satisfaction and results."
+                    },
+                    {
+                        area: "Onboarding Ops",
+                        detail: "AI agents that welcome new members and guide them through their first high-value action in the group.",
+                        impact: "90% reduction in first-week churn."
+                    },
+                    {
+                        area: "Community Stewardship",
+                        detail: "AI that monitors for toxicity or spam while answering basic navigation and rule-based questions.",
+                        impact: "Reclaims 80% of moderator time for high-value engagement."
+                    },
+                    {
+                        area: "Brand & Revenue Growth",
+                        detail: "AI that identifies super-fans and automates the collection of video testimonials and referral outreach.",
+                        impact: "Consistent pipeline of warm internally-generated leads."
                     }
                 ]
             },
@@ -991,7 +1780,9 @@ export const industries: IndustryContent[] = [
                 features: [
                     "Custom 'Brand Brain' that knows every past post and resource",
                     "Automated event and workshop coordination AI",
-                    "Multi-tiered access and gamification orchestration"
+                    "Multi-tiered access and gamification orchestration",
+                    "Autonomous member-matching and networking engine",
+                    "Integrated multi-channel community growth tracker"
                 ]
             }
         },
@@ -1018,8 +1809,24 @@ export const industries: IndustryContent[] = [
       Success for a membership founder isn't about working more; it's about building a system that becomes more valuable the more people join. We provide the AI infrastructure that turns your community into a self-sustaining ecosystem.
     `,
         faq: [
-            { q: "Will members feel like they are talking to a robot?", a: "We design the AI as a helpful 'Concierge' or 'Assistant' that is transparent and incredibly useful, which members appreciate." },
             { q: "Can it moderate content?", a: "Yes, it can flag inappropriate content or spam based on your community guidelines." }
+        ],
+        layers: [
+            {
+                department: "Engagement & Moderation",
+                roles: ["Community manager assistant", "Sentiment analyst", "Moderation bot", "Networking Scout"],
+                tasks: ["Welcome new members", "Answer repetitive questions", "Identify rising trends", "Flag member frustration", "Delete spam", "Suggest member matches"]
+            },
+            {
+                department: "Retention & Success",
+                roles: ["Member success agent", "Referral manager", "Coach assistant", "LTV Analyst"],
+                tasks: ["Monitor member activity", "Trigger re-engagement sequences", "Guide members through curriculum", "Automate testimonial requests", "Celebrate member wins", "Predict high-risk churn profiles"]
+            },
+            {
+                department: "Growth & Integration",
+                roles: ["Marketing analyst", "Affiliate manager", "Partnership scout", "Curriculum Assistant"],
+                tasks: ["Track LTV per channel", "Triage partner applications", "Manage affiliate payouts", "Monitor viral loops", "Update course descriptions", "Tag webinar timestamps"]
+            }
         ]
     },
     {
@@ -1042,6 +1849,26 @@ export const industries: IndustryContent[] = [
                         title: "Automated Tech Support Agent",
                         detail: "AI that helps users trouble-shoot downloads, logins, and compatibility issues instantly.",
                         roi: "Reduces support tickets by 70%."
+                    },
+                    {
+                        title: "The Affiliate Payout Tracker",
+                        detail: "AI agent that monitors and verifies affiliate sales against fraud patterns and automates payouts.",
+                        roi: "Eliminates 100% of affiliate billing overhead."
+                    },
+                    {
+                        title: "Dynamic Ad Creative Gen",
+                        detail: "AI that generates hundreds of ad variations and hooks for your digital products based on best-performing ads.",
+                        roi: "Reduces creative testing costs by 40%."
+                    },
+                    {
+                        title: "Abandoned Checkout Video-SMS",
+                        detail: "AI that generates a personalized video message for abandoned carts and sends it via SMS/iMessage.",
+                        roi: "Recovers 25% of traditionally lost high-ticket sales."
+                    },
+                    {
+                        title: "Bundle Optimization AI",
+                        detail: "AI that tests different product bundle price points in real-time to maximize Average Order Value (AOV).",
+                        roi: "15-20% boost in revenue per visitor."
                     }
                 ]
             },
@@ -1050,14 +1877,44 @@ export const industries: IndustryContent[] = [
                 description: "Total digital empire automation.",
                 areas: [
                     {
-                        area: "Sales & Marketing",
+                        area: "Sales & Marketing Ops",
                         detail: "AI that creates personalized dynamic bundles for customers at checkout based on their browsing history.",
                         impact: "Higher Average Order Value (AOV)."
                     },
                     {
-                        area: "Customer Experience",
+                        area: "Customer Experience & Success",
                         detail: "AI that sends personalized 'How-to' videos and check-ins after purchase to ensure the customer uses the product.",
                         impact: "Zero refund requests and higher trust."
+                    },
+                    {
+                        area: "Content Protection",
+                        detail: "Autonomous monitors that scan for leaked courses on forums/Telegram and issue takedowns.",
+                        impact: "Protects IP and recurring revenue."
+                    },
+                    {
+                        area: "Conversion Optimization",
+                        detail: "AI that A/B tests headlines and copy on your sales pages in real-time based on visitor intent.",
+                        impact: "Static 5-10% lift in conversion floor."
+                    },
+                    {
+                        area: "Sales & Marketing Ops",
+                        detail: "AI that creates personalized dynamic bundles for customers at checkout based on their browsing history.",
+                        impact: "Higher Average Order Value (AOV)."
+                    },
+                    {
+                        area: "Affiliate & Partner Ops",
+                        detail: "AI agents that manage partner relationships, track commissions, and automate payout verification.",
+                        impact: "100% hands-free affiliate network management."
+                    },
+                    {
+                        area: "Anti-Piracy Ops",
+                        detail: "Autonomous monitors that scan forums and Telegram groups for leaked content and issue takedowns automatically.",
+                        impact: "Protects your IP value and recurring revenue."
+                    },
+                    {
+                        area: "Customer Support Ops",
+                        detail: "AI that handles 90% of account, login, and access issues via web chat and email.",
+                        impact: "Reclaims 70% of support bandwidth."
                     }
                 ]
             },
@@ -1067,7 +1924,9 @@ export const industries: IndustryContent[] = [
                 features: [
                     "Custom 'Product Recommendation' AI engine",
                     "Automated affiliate and partner management layer",
-                    "Dynamic pricing and discount optimization AI"
+                    "Dynamic pricing and discount optimization AI",
+                    "Autonomous anti-piracy and IP protection layer",
+                    "Integrated multi-channel sales and support hub"
                 ]
             }
         },
@@ -1094,8 +1953,24 @@ export const industries: IndustryContent[] = [
       The transition happens when you stop managing downloads and start managing the vision. We help you build the "Product OS" that allows you to sell to 100,000 people with the same overhead it took to sell to 100.
     `,
         faq: [
-            { q: "Does it work with LemonSqueezy/Stripe?", a: "Yes, we integrate with all major payment and delivery platforms." },
             { q: "Can it handle piracy issues?", a: "We can build AI agents that scan for unauthorized sharing and take action automatically." }
+        ],
+        layers: [
+            {
+                department: "Product & Delivery",
+                roles: ["Content manager", "Onboarding assistant", "Support lead", "IP Watchdog"],
+                tasks: ["Update course modules", "Monitor student logins", "Solve tech issues", "Automate initial setup", "Scan for leaks", "Issue takedown notices"]
+            },
+            {
+                department: "Sales & Marketing Ops",
+                roles: ["Objection-handler", "Media buyer assistant", "Affiliate manager", "Funnel Strategist"],
+                tasks: ["Answer 'Will this work for me?'", "Analyze funnel performance", "Test ad creatives", "Automate dynamic bundles", "Verify affiliate sales", "A/B test checkout pages"]
+            },
+            {
+                department: "Customer Experience & Retention",
+                roles: ["Tech support agent", "Success coordinator", "Refund deflector", "LTV Analyst"],
+                tasks: ["Troubleshoot downloads", "Resolve login issues", "Send personalized 'How-to' videos", "Monitor refund requests", "Incentivize exchanges", "Segment high-value buyers"]
+            }
         ]
     },
     {
@@ -1118,6 +1993,26 @@ export const industries: IndustryContent[] = [
                         title: "The Smart Intake Flow",
                         detail: "AI that qualifies high-ticket clients and ensures they have all their documents ready before your first meeting.",
                         roi: "Eliminates 'wasted' first meetings."
+                    },
+                    {
+                        title: "Proposal Generation Agent",
+                        detail: "AI that drafts bespoke, professional proposals based on your meeting notes and fee structure.",
+                        roi: "Saves 5+ hours of administrative drafting per week."
+                    },
+                    {
+                        title: "Bespoke Report Generator",
+                        detail: "AI that takes raw project data and formats it into a high-end client-facing report in your brand style.",
+                        roi: "2x faster project delivery cycles."
+                    },
+                    {
+                        title: "Automatic P&L Snapshot",
+                        detail: "AI that summarizes client financial or project health into a one-page dashboard for your weekly check-in.",
+                        roi: "100% performance transparency with 0 manual reporting."
+                    },
+                    {
+                        title: "Expertise Discovery Bot",
+                        detail: "AI that scans your firm's private internal wiki to find who has the most experience with a specific niche/problem.",
+                        roi: "Optimizes internal talent allocation for high-ticket projects."
                     }
                 ]
             },
@@ -1126,14 +2021,39 @@ export const industries: IndustryContent[] = [
                 description: "Total practice automation.",
                 areas: [
                     {
-                        area: "Client Management",
+                        area: "Client Service Management",
                         detail: "AI that proactively manages client expectations and project timelines with regular personalized updates.",
                         impact: "Premium client experience with 0 effort."
                     },
                     {
-                        area: "Ops / Admin",
+                        area: "Advisory & Strategy",
+                        detail: "AI that synthesizes industry reports and client data to provide high-level 'First Draft' strategies.",
+                        impact: "Partners focus on the final 10% of high-value wisdom."
+                    },
+                    {
+                        area: "Internal Knowledge Ops",
+                        detail: "Proprietary AI 'Brain' that indexs all past client successes and search-able through natural language.",
+                        impact: "Institutional knowledge stays in the firm, not just people's heads."
+                    },
+                    {
+                        area: "Admin & Operations",
                         detail: "AI that handles all invoicing, contracting, and vendor management for your firm.",
-                        impact: "Massive reduction in overhead."
+                        impact: "Massive reduction in non-billable overhead."
+                    },
+                    {
+                        area: "Practice Ops & Admin",
+                        detail: "AI agents that handle client intake, conflict checks, and initial document indexing.",
+                        impact: "90% reduction in new client setup time."
+                    },
+                    {
+                        area: "Client Success & Loyalty",
+                        detail: "AI that stays top-of-mind with past clients via monthly personalized market snapshots and home-anniversary gifts.",
+                        impact: "30% increase in repeat and referral business."
+                    },
+                    {
+                        area: "Knowledge Management",
+                        detail: "Proprietary AI 'Brain' that indexs all past client successes and search-able through natural language.",
+                        impact: "Institutional knowledge stays in the firm, not just people's heads."
                     }
                 ]
             },
@@ -1143,7 +2063,9 @@ export const industries: IndustryContent[] = [
                 features: [
                     "Custom 'Knowledge Engine' of your firm's successful past projects",
                     "Automated client insight and trend forecasting AI",
-                    "Integrated multi-channel outreach and reputation machine"
+                    "Integrated multi-channel outreach and reputation machine",
+                    "Autonomous project resource and billable tracking",
+                    "Integrated multi-firm collaborative AI layer"
                 ]
             }
         },
@@ -1170,8 +2092,268 @@ export const industries: IndustryContent[] = [
       We help you transition from an "Employee of your own firm" to a "Systems Strategist." By installing an AI layer for your professional operations, you reclaim your freedom and your focus.
     `,
         faq: [
-            { q: "Will this replace my team?", a: "No. It makes your team 5x more effective by removing the boring tasks, allowing them to focus on high-value client transformation." },
             { q: "Is it secure for sensitive client data?", a: "Absolute. We use non-training, encrypted models to ensure your firm's data remains private." }
+        ],
+        layers: [
+            {
+                department: "Strategy & People",
+                roles: ["Lead strategist assistant", "HR coordinator", "Recruitment analyst", "Knowledge Architect"],
+                tasks: ["Digest market research", "Draft strategy briefs", "Screen candidates", "Coordinate interviews", "Track billable time", "Maintain internal wiki"]
+            },
+            {
+                department: "Project Delivery",
+                roles: ["Data analyst assistant", "Report writer", "Project coordinator", "QA Reviewer"],
+                tasks: ["Prepare data sets", "Draft initial reports", "Monitor deadlines", "Update client portal", "Collect feedback", "Verify professional standards"]
+            },
+            {
+                department: "Admin & Operations",
+                roles: ["Billing assistant", "Contract manager", "Vendor liaison", "Margin Strategist"],
+                tasks: ["Generate invoices", "Verify contract terms", "Manage vendor payments", "Monitor firm P&L", "Audit project expenses", "Predict revenue quarterly"]
+            }
+        ]
+    },
+    {
+        slug: "healthcare",
+        name: "Healthcare & Wellness",
+        hook: "Care for Patients, Not Paperwork.",
+        problem: "Your practitioners are burnt out by administrative drag. Charting, billing, and scheduling are eating 40% of their clinical time. You're losing potential patients because your intake process is slow and your follow-ups are manual.",
+        operatorProblem: "In Healthcare, the 'Operator' is the one managing the intake and the follow-up. The 'Founder' builds an 'Autonomous Clinic' where AI handles the patient journey from discovery to post-care check-in.",
+        services: {
+            singleSystems: {
+                title: "Single System Installs",
+                description: "Reclaim clinical time with AI.",
+                examples: [
+                    {
+                        title: "The AI Charting Assistant",
+                        detail: "AI that listens to patient sessions and generates first-draft clinical notes for the practitioner to review.",
+                        roi: "Saves 2+ hours of charting per practitioner daily."
+                    },
+                    {
+                        title: "Smart Intake & Triage",
+                        detail: "AI agent that qualifies patient urgency and ensures all insurance/forms are completed before they arrive.",
+                        roi: "Eliminates 'empty' appointment slots due to missing paperwork."
+                    },
+                    {
+                        title: "Post-Care Nurture Agent",
+                        detail: "AI that checks in with patients 48 hours after their visit to answer questions and ensure compliance.",
+                        roi: "Typical 25% increase in patient satisfaction scores."
+                    },
+                    {
+                        title: "Insurance Verification Bot",
+                        detail: "AI that automatically verifies patient insurance coverage and flags co-pays before the visit.",
+                        roi: "Reduces billing disputes and front-desk friction."
+                    },
+                    {
+                        title: "Treatment Plan Tracker",
+                        detail: "AI that monitors patient compliance with at-home exercises or prescriptions and sends gentle reminders.",
+                        roi: "Increases patient outcome success rates by 30%."
+                    },
+                    {
+                        title: "Practitioner Scheduling Genius",
+                        detail: "AI that optimizes the clinic calendar based on procedure complexity and practitioner energy levels.",
+                        roi: "Increases weekly patient capacity by 15% without adding staff."
+                    }
+                ]
+            },
+            departments: {
+                title: "Department Automation",
+                description: "Total clinic infrastructure automation.",
+                areas: [
+                    {
+                        area: "Patient Experience",
+                        detail: "AI that handles all scheduling, rescheduling, and basic medical FAQs 24/7.",
+                        impact: "90% reduction in front-desk call volume."
+                    },
+                    {
+                        area: "Revenue Cycle Ops",
+                        detail: "AI that audits coding and billing scripts to ensure maximum reimbursement and zero errors.",
+                        impact: "Reclaims 5-10% of lost revenue due to 'billing leaks'."
+                    },
+                    {
+                        area: "Clinic Ops",
+                        detail: "AI that monitors supply levels and automatically orders medical consumables based on patient volume.",
+                        impact: "Zero stock-outs and optimized inventory spend."
+                    },
+                    {
+                        area: "Compliance & Security",
+                        detail: "Autonomous HIPAA compliance monitor that flags potential data leaks or access anomalies in real-time.",
+                        impact: "Iron-clad security with 0 manual auditing."
+                    }
+                ]
+            },
+            custom: {
+                title: "The Wellness OS",
+                description: "Proprietary AI for high-scale health practices.",
+                features: [
+                    "Custom 'Patient Profile' predictive health models",
+                    "Automated multi-clinic resource orchestration",
+                    "Integrated patient engagement and loyalty hub",
+                    "Autonomous insurance and credentialing layer",
+                    "Integrated clinical research and data tagging AI"
+                ]
+            }
+        },
+        longFormContent: `
+      ## The Healthcare Crisis: The Administrative Burnout
+      
+      Healthcare was supposed to be about healing. But for most practitioners and owners today, it feels like a battle against a mountain of paperwork. Between EMR management, insurance verification, and complex billing cycles, the actual "Care" part of the business is being squeezed. We help you rebuild your practice on a foundation of AI, giving your practitioners their time—and their passion—back.
+
+      ### The Clinical Documentation Bottleneck
+      
+      The #1 cause of practitioner burnout is charting. Spending two hours at the end of every day typing up notes is a waste of a high-value medical brain. Our AI Charting Assistants listen to the session (with full security and consent) and prepare a clinical draft that is 90% accurate. The practitioner simply reviews, signs, and goes home on time.
+
+      #### 1. The Expert Triage Specialist
+      Not every patient needs an immediate appointment. Our AI intake agents understand the difference between a routine check-up and an urgent symptom. They qualify the patient path, gather the necessary history, and book them into the right slot with the right practitioner, ensuring your clinic operates at peak efficiency.
+
+      #### 2. The Revenue Cycle Machine: Plugging the Leaks
+      Billing errors cost clinics millions. Human coders make mistakes. Insurance companies reject claims for minor technicalities. Our AI Revenue engines audit every claim against the latest payer rules before it's sent. This isn't "speeding up billing"; it's ensuring you get paid for every minute of care you provide.
+
+      ### The Practice of the Future: Predictive and Personalized
+      
+      Success in healthcare today requires more than just reactive treatment. It requires a system that stays connected to the patient. We help you build the "Wellness OS"—the autonomous infrastructure that manages the clinical and administrative complexity so you can focus on the patient.
+    `,
+        faq: [
+            { q: "Is it HIPAA compliant?", a: "Yes. We use enterprise-grade, encrypted models that never use your patient data for training." },
+            { q: "Can it integrate with my EMR?", a: "We integrate with most major EMRs via API or secure automation layers." }
+        ],
+        layers: [
+            {
+                department: "Patient Care Ops",
+                roles: ["Charting assistant", "Intake coordinator", "Triage agent", "Post-care coach"],
+                tasks: ["Draft clinical notes", "Qualify urgency", "Gather patient history", "Send follow-up checks", "Update patient portal", "Flag compliance risks"]
+            },
+            {
+                department: "Revenue & Billing",
+                roles: ["Billing specialist assistant", "Insurance verifier", "Coding auditor", "Payments lead"],
+                tasks: ["Audit ICD codes", "Verify coverage", "Process payments", "Handle claim rejections", "Recover aged accounts", "Audit co-pay compliance"]
+            },
+            {
+                department: "Clinic Ops & HR",
+                roles: ["Inventory manager", "Staff scheduler", "Recruiter", "Credentialing lead"],
+                tasks: ["Automate supply orders", "Optimize shift blocks", "Screen candidates", "Maintain provider licenses", "Track clinic KPIs", "Predict patient volume"]
+            }
+        ]
+    },
+    {
+        slug: "legal-finance",
+        name: "Law & Accounting",
+        hook: "High-Value Wisdon, Not High-Volume Grunt Work.",
+        problem: "You're selling your expertise, but your juniors are drowning in document review, data entry, and manual reconciliations. Your margins are capped by billable hours and your talent is leaving because the work is boring.",
+        operatorProblem: "In Professional Firms, the 'Operator' is the one doing the first-pass review and the manual data entry. The 'Founder' builds an 'Expert AI Vault' that does the analysis and the prep, so the partner only shows up for the final wisdom and delivery.",
+        services: {
+            singleSystems: {
+                title: "Single System Installs",
+                description: "Reclaim billable focus with AI.",
+                examples: [
+                    {
+                        title: "The AI Document Reviewer",
+                        detail: "AI that scans thousands of pages of discovery or financial records to find high-impact anomalies.",
+                        roi: "Reduces first-pass review time by 80%."
+                    },
+                    {
+                        title: "Smart Case/file Intake",
+                        detail: "AI agent that interviews new clients and extracts all relevant dates, names, and facts into your CRM.",
+                        roi: "Saves 3+ hours of partner intake time per client."
+                    },
+                    {
+                        title: "Bespoke Report Drafter",
+                        detail: "AI that drafts the first version of advisory reports or legal briefs based on your firm's historic style.",
+                        roi: "Cuts report drafting time by 60%."
+                    },
+                    {
+                        title: "Trust Account Auditor",
+                        detail: "AI that monitors trust accounts and ledger entries in real-time to ensure absolute compliance with state bars/governing bodies.",
+                        roi: "Zero-risk audit compliance with 0 manual checking."
+                    },
+                    {
+                        title: "Authority Discovery Bot",
+                        detail: "AI that scans 10+ years of your firm's case history to find the most relevant successful precedent in seconds.",
+                        roi: "Institutionalizes the firm's wisdom."
+                    },
+                    {
+                        title: "Evidence Triage Agent",
+                        detail: "AI that organizes incoming evidence (photos, emails, bank statements) into a chronologically tagged database.",
+                        roi: "Eliminates manual 'discovery prep' weekends."
+                    }
+                ]
+            },
+            departments: {
+                title: "Department Automation",
+                description: "Total firm infrastructure automation.",
+                areas: [
+                    {
+                        area: "Practice Ops",
+                        detail: "AI that handles all client billing, trust accounting, and vendor management.",
+                        impact: "90% reduction in non-billable overhead."
+                    },
+                    {
+                        area: "Client Success & Loyalty",
+                        detail: "AI that keeps clients updated on their case/file status with regular personalized updates.",
+                        impact: "Deep client trust and 2x higher referral rates."
+                    },
+                    {
+                        area: "Growth & Rep",
+                        detail: "AI agents that manage your firm's reputation and automate the collection of professional accolades.",
+                        impact: "Dominates local prestige rankings with 0 effort."
+                    },
+                    {
+                        area: "Admin & Operations",
+                        detail: "AI that handles complex conflict checks and new client onboarding instantly.",
+                        impact: "Faster 'speed-to-lead' and zero onboarding friction."
+                    }
+                ]
+            },
+            custom: {
+                title: "The Expert OS",
+                description: "Proprietary AI for top-tier law and accounting firms.",
+                features: [
+                    "Custom 'Knowledge Brain' of your firm's past successes",
+                    "Automated document generation and verification layer",
+                    "Integrated multi-channel client and court communication hub",
+                    "Autonomous compliance and risk monitoring layer",
+                    "Integrated multi-firm collaborative AI nodes"
+                ]
+            }
+        },
+        longFormContent: `
+      ## The Professional Service Trap: Solving the Volume vs. Wisdom Problem
+      
+      In law and accounting, your time is your product. But the paradox of success is that as you grow, you spend more time managing the volume and less time delivering the wisdom. Your high-value associates are relegated to "First Pass" reviews, while your partners are tied up in administrative meetings. We help you flip the model, using AI to handle the volume so you can focus purely on the wisdom.
+
+      ### The First-Pass Revolution: AI as your Senior Associate
+      
+      The most expensive and error-prone part of any complex file is the initial document review. Scanning 5,000 emails or bank statements for a specific pattern is work that causes human brains to fatigue. Our AI Document Reviewers don't get tired. They scan for anomalies, flag high-risk clauses, and summarize complex findings in seconds, delivering a "High-Value Digest" to the professional.
+
+      #### 1. The Expert Intake Specialist
+      Every new client file starts with a friction point: gathering the facts. Our AI Intake agents interview the client, gather the necessary documents, and perform an initial "Fact Triage." This ensures that when the professional sits down for the first meeting, they aren't "gathering facts"—they are already providing strategy.
+
+      #### 2. Institutionalizing the Firm's Wisdom
+      In most firms, the best ideas are "siloed" in the heads of the senior partners. When a partner leaves, the wisdom leaves. We build a "Private Knowledge Vault" for your firm. Every brief, every successful outcome, and every strategy is indexed. You can ask the AI, "How did we handle the [Client Name] negotiation in 2021?" and get the exact strategy in seconds.
+
+      ### The Firm of the Future: Leveraged and Prestigious
+      
+      The transition from "Worker" to "Strategist" happens when you decouple your revenue from the manual labor of the file. By installing an AI layer for your firm's operations, you reclaim your freedom and your focus, providing a more prestigious service at a higher margin.
+    `,
+        faq: [
+            { q: "Is the data private?", a: "Yes. We use private, non-training models that ensure your client's data never leaves your environment." },
+            { q: "Can it draft legal/accounting docs?", a: "It can draft first versions for professional review, significantly speeding up the delivery cycle." }
+        ],
+        layers: [
+            {
+                department: "Fulfillment & Research",
+                roles: ["Document reviewer", "Legal researcher", "Audit assistant", "Knowledge Manager"],
+                tasks: ["Scan discovery files", "Summarize caselaw", "Verify ledgers", "Identify anomalies", "Tag institutional wisdom", "Draft first briefs"]
+            },
+            {
+                department: "Client Ops & Intake",
+                roles: ["Intake agent", "Status update scout", "Conflict check bot", "Success manager"],
+                tasks: ["Qualify files", "Gather initial facts", "Perform conflict checks", "Provide client updates", "Automate onboarding", "Manage client portal"]
+            },
+            {
+                department: "Firm Ops & Marketing",
+                roles: ["Billing assistant", "Practice manager assistant", "SDR", "Reputation lead"],
+                tasks: ["Reconcile trust accounts", "Draft invoices", "Scout target leads", "Automate referral outreach", "Monitor firm rankings", "Collect professional reviews"]
+            }
         ]
     }
-];
+]

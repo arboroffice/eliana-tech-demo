@@ -22,20 +22,20 @@ export function GlassmorphismNav() {
 
   const industries = [
     { name: "SaaS", slug: "saas" },
-    { name: "Course Creators", slug: "course-creators" },
-    { name: "Coaches", slug: "coaching" },
-    { name: "E-commerce", slug: "ecommerce" },
     { name: "Agencies", slug: "agencies" },
+    { name: "E-commerce", slug: "ecommerce" },
     { name: "Home Services", slug: "home-services" },
-    { name: "Healthcare", slug: "healthcare" },
-    { name: "Legal & Finance", slug: "legal-finance" },
     { name: "Real Estate", slug: "real-estate" },
-    { name: "Hospitality", slug: "hospitality" },
+    { name: "Healthcare", slug: "healthcare" },
+    { name: "Law / Accounting", slug: "legal-finance" },
     { name: "Construction", slug: "construction" },
     { name: "Manufacturing", slug: "manufacturing" },
+    { name: "Professional Services", slug: "professional-services" },
     { name: "Membership", slug: "membership" },
     { name: "Digital Products", slug: "digital-products" },
-    { name: "Professional Services", slug: "professional-services" },
+    { name: "Coaches", slug: "coaching" },
+    { name: "Course Creators", slug: "course-creators" },
+    { name: "Hospitality", slug: "hospitality" },
   ]
 
   const [isIndustriesOpen, setIsIndustriesOpen] = useState(false)
@@ -109,9 +109,6 @@ export function GlassmorphismNav() {
             <Link href="/blog" className="text-sm text-slate-300 hover:text-white transition-colors">
               Blog
             </Link>
-            <Link href="/webinar" className="text-sm text-white font-bold transition-colors">
-              Free Training
-            </Link>
             <Link
               href="/audit"
               className="px-6 py-2.5 rounded-full bg-white text-black text-sm font-semibold hover:bg-slate-200 transition-all duration-300 hover:scale-105"
@@ -167,9 +164,6 @@ export function GlassmorphismNav() {
               </Link>
               <Link href="/blog" className="block text-center text-lg text-slate-300 hover:text-white transition-colors py-2" onClick={() => setIsMobileMenuOpen(false)}>
                 Blog
-              </Link>
-              <Link href="/webinar" className="block text-center text-lg text-white font-bold transition-colors py-2" onClick={() => setIsMobileMenuOpen(false)}>
-                Free Training
               </Link>
               <Link
                 href="/audit"

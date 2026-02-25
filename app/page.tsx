@@ -6,425 +6,414 @@ import Aurora from "../components/Aurora"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { ScrollReveal, StaggerContainer, StaggerItem, Divider } from "../components/scroll-reveal"
+import { BrandLogos } from "../components/brand-logos"
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-black overflow-hidden">
+    <div className="min-h-screen bg-black overflow-hidden font-sans">
       <main className="min-h-screen relative overflow-hidden">
+        {/* Background */}
         <div className="fixed inset-0 w-full h-full">
-          <Aurora colorStops={["#334155", "#475569", "#334155"]} amplitude={1.0} blend={0.5} speed={0.6} />
+          <Aurora colorStops={["#1e293b", "#334155", "#1e293b"]} amplitude={1.2} blend={0.6} speed={0.4} />
         </div>
+
         <div className="relative z-10">
           <GlassmorphismNav />
 
           {/* HERO */}
-          <section className="min-h-screen flex items-center justify-center px-4 sm:px-6">
+          <section className="min-h-[85vh] sm:min-h-screen flex items-center justify-center px-4 sm:px-6 relative py-12 sm:py-0">
             <div className="max-w-4xl mx-auto text-center">
-              <motion.p
-                className="text-sm sm:text-base uppercase tracking-[0.2em] text-slate-400 mb-6"
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2, ease: [0.21, 0.47, 0.32, 0.98] }}
-              >
-                Your AI Wing / Chief AI Officer
-              </motion.p>
-              <motion.h1
-                className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight mb-8 uppercase"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.4, ease: [0.21, 0.47, 0.32, 0.98] }}
-              >
-                RECLAIM 20 HOURS A WEEK WITH YOUR{" "}
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-slate-200 to-slate-500">
-                  CUSTOM AI EMPLOYEE
-                </span>{" "}
-              </motion.h1>
-              <motion.p
-                className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto mb-12 leading-relaxed"
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.7, ease: [0.21, 0.47, 0.32, 0.98] }}
-              >
-                We architect, build, and install a custom AI system into your business in 30 days. No strategy sessions. No learning prompts. We build it - you get your time back. Guaranteed.
-              </motion.p>
               <motion.div
-                initial={{ opacity: 0, y: 15 }}
+                initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 1.2, ease: [0.21, 0.47, 0.32, 0.98] }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               >
-                <Link
-                  href="/audit"
-                  className="inline-block px-10 py-4 rounded-full bg-white text-black text-lg font-bold hover:bg-slate-200 transition-all duration-300 hover:scale-105"
-                >
-                  Get Your Free Automation Audit →
-                </Link>
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 mb-6">
+                  <span className="text-[10px] sm:text-sm uppercase tracking-[0.2em] sm:tracking-[0.4em] text-slate-500 font-bold whitespace-nowrap">Your AI Wing</span>
+                  <div className="hidden sm:block w-px h-6 bg-slate-800" />
+                  <span className="text-[10px] sm:text-sm uppercase tracking-[0.2em] sm:tracking-[0.4em] text-slate-500 font-bold whitespace-nowrap">Your Chief AI Officer</span>
+                </div>
+
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tighter mb-8 uppercase leading-[0.95] sm:leading-[0.9]">
+                  We Turn You Into An<br className="hidden sm:block" />
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-slate-500 block sm:inline">
+                    AI Native Company
+                  </span>
+                </h1>
+
+                <div className="space-y-4 text-base sm:text-lg text-slate-400 max-w-2xl mx-auto mb-10 font-medium leading-relaxed">
+                  <p>We identify the single process draining your time and profit.</p>
+                  <p>We design the system that replaces it.</p>
+                  <p>We install it inside your business in 30 days.</p>
+                </div>
+
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+                  <Link
+                    href="/audit"
+                    className="w-full sm:w-auto inline-block px-8 py-3.5 rounded-full bg-white text-black text-base font-black hover:bg-slate-200 transition-all duration-300 hover:scale-105 shadow-[0_0_30px_rgba(255,255,255,0.15)]"
+                  >
+                    Free Automation Audit →
+                  </Link>
+                  <Link
+                    href="#founders"
+                    className="w-full sm:w-auto inline-block px-8 py-3.5 rounded-full bg-white/5 border border-white/10 text-white text-base font-black hover:bg-white/10 transition-all duration-300"
+                  >
+                    Join Founders of the Future
+                  </Link>
+                </div>
+                <p className="mt-8 text-slate-500 font-bold text-xs uppercase tracking-widest italic">
+                  If it does not work, we stay until it does.
+                </p>
               </motion.div>
             </div>
           </section>
 
-          {/* THE FIX — LIGHT PATTERN INTERRUPT */}
-          <section className="py-24 sm:py-32 px-4 sm:px-6 bg-stone-50 relative">
-            <div className="max-w-3xl mx-auto text-center">
-              <ScrollReveal>
-                <p className="text-sm uppercase tracking-[0.2em] text-stone-400 mb-6">What we actually do</p>
-              </ScrollReveal>
-              <ScrollReveal delay={0.1}>
-                <h2 className="text-3xl sm:text-5xl font-black text-stone-900 tracking-tight mb-8">
-                  We Install AI Systems That Do the Work You Shouldn't Be Doing.
+
+
+
+        </div>
+
+        {/* WHAT WE ACTUALLY DO */}
+        <section className="py-16 sm:py-24 px-4 sm:px-6 bg-black text-white relative">
+          <div className="max-w-6xl mx-auto">
+            <ScrollReveal>
+              <div className="max-w-3xl mb-16">
+                <span className="text-sm uppercase tracking-[0.4em] text-slate-500 font-bold block mb-6">The Product</span>
+                <h2 className="text-2xl sm:text-4xl font-black uppercase tracking-tight mb-8 leading-[0.9]">
+                  We Install Systems That Do The Work You <span className="text-slate-500">Should Not Be Doing</span>
                 </h2>
-              </ScrollReveal>
+              </div>
+            </ScrollReveal>
 
-              <div className="flex justify-center my-8"><div className="w-16 h-px bg-stone-300" /></div>
-
-              <ScrollReveal delay={0.2}>
-                <p className="text-lg text-stone-600 leading-relaxed mb-6">
-                  We <span className="text-stone-900 font-semibold">architect, build, and install</span> the actual systems - integrated into the tools you already use - and we don't leave until they're running.
-                </p>
-              </ScrollReveal>
-
-              <div className="flex justify-center my-8"><div className="w-16 h-px bg-stone-300" /></div>
-
-              <ScrollReveal delay={0.3}>
-                <p className="text-lg text-stone-500 leading-relaxed">
-                  Think of us as your AI wing. We start by solving your single biggest bottleneck. As we prove it works, we grow deeper into your business - system by system, each one compounding on the last - until your operations run themselves.
-                </p>
-              </ScrollReveal>
-            </div>
-          </section>
-
-          {/* OFFER */}
-          <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5">
-            <div className="max-w-4xl mx-auto">
-              <div className="text-center mb-16">
-                <ScrollReveal>
-                  <p className="text-sm uppercase tracking-[0.2em] text-slate-500 mb-6">The offer</p>
-                </ScrollReveal>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+              <div className="lg:col-span-7 space-y-10">
                 <ScrollReveal delay={0.1}>
-                  <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-6">
-                    Here's Exactly What You Get
-                  </h2>
-                </ScrollReveal>
-                <ScrollReveal delay={0.15}>
-                  <p className="text-lg text-slate-400 max-w-2xl mx-auto">
-                    One setup fee. You own everything we build. No retainer unless you want us to stay on.
-                  </p>
-                </ScrollReveal>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                {/* The Build */}
-                <ScrollReveal direction="left" delay={0.1}>
-                  <div className="p-8 rounded-2xl border border-white/10 bg-white/5 h-full relative overflow-hidden">
-                    <div className="absolute top-0 right-0 bg-blue-600 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-widest">
-                      Most Popular
-                    </div>
-                    <div className="mb-6">
-                      <span className="text-sm uppercase tracking-wider text-slate-400">Step 1</span>
-                      <h3 className="text-2xl font-bold text-white mt-2">The 30-Day Efficiency Install</h3>
-                    </div>
-                    <p className="text-slate-400 leading-relaxed mb-8">
-                      We build, install, and test your system end-to-end. Fully integrated into your existing stack and ready to run.
-                    </p>
-                    <ul className="space-y-3 mb-8">
-                      {[
-                        "Custom architecture for your specific bottleneck",
-                        "Full integration with your existing tools",
-                        "30 days of build, install & optimization",
-                        "Team training - you're never dependent on us",
-                        "You own everything we build",
-                      ].map((item) => (
-                        <li key={item} className="flex items-start gap-3">
-                          <span className="text-white mt-0.5">&#x2022;</span>
-                          <span className="text-slate-300 text-sm">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-
-                    {/* Bonuses */}
-                    <div className="bg-blue-600/10 border border-blue-500/20 rounded-xl p-4 mb-8">
-                      <p className="text-blue-400 text-xs font-bold uppercase tracking-widest mb-3">Included Bonuses:</p>
-                      <ul className="space-y-2">
-                        <li className="flex items-center gap-2 text-white text-sm font-semibold italic">
-                          <span className="text-blue-400">+</span> The Founder&apos;s AI Blueprint ($1,500 Value)
-                        </li>
-                        <li className="flex items-center gap-2 text-white text-sm font-semibold italic">
-                          <span className="text-blue-400">+</span> Priority Support 30-Day Sprint ($2,000 Value)
-                        </li>
-                      </ul>
-                    </div>
-
-                    <div className="border-t border-white/10 pt-6 space-y-2">
-                      <div className="flex items-center justify-between">
-                        <span className="text-slate-400 text-sm">Single system</span>
-                        <span className="text-white font-bold text-sm">Starting at $5K</span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-slate-400 text-sm">Department</span>
-                        <span className="text-white font-bold text-sm">Starting at $20K</span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-slate-400 text-sm">Custom build</span>
-                        <span className="text-white font-bold text-sm">Starting at $50K</span>
-                      </div>
-                    </div>
-                  </div>
-                </ScrollReveal>
-
-                {/* Growth Infrastructure */}
-                <ScrollReveal direction="right" delay={0.2}>
-                  <div className="p-8 rounded-2xl border border-amber-500/30 bg-gradient-to-br from-amber-500/10 to-transparent relative h-full">
-                    <span className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider border border-amber-500/30 text-amber-400 bg-amber-500/10">Optional</span>
-                    <div className="mb-6">
-                      <span className="text-sm uppercase tracking-wider text-amber-400">Step 2 - Growth Infrastructure</span>
-                      <h3 className="text-2xl font-bold text-white mt-2">Revenue Partnership</h3>
-                    </div>
-                    <p className="text-slate-400 leading-relaxed mb-8">
-                      Once the system is live, we stay on as your growth infrastructure. We're not maintaining — we're building and compounding. New systems, new revenue channels, new automation layers. We earn a percentage of what the systems generate. If revenue doesn't grow, we don't get paid.
-                    </p>
-                    <ul className="space-y-3 mb-8">
-                      {[
-                        "Revenue share on system-attributed growth",
-                        "Continuous build — new systems added as you scale",
-                        "Growth strategy with Mia every quarter",
-                        "Priority support & system upgrades",
-                      ].map((item) => (
-                        <li key={item} className="flex items-start gap-3">
-                          <span className="text-amber-400 mt-0.5">&#x2022;</span>
-                          <span className="text-slate-300 text-sm">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <div className="border-t border-amber-500/20 pt-6">
-                      <p className="text-slate-400 text-sm">Percentage based on scope. Discussed after the audit.</p>
-                    </div>
-                  </div>
-                </ScrollReveal>
-              </div>
-
-              <ScrollReveal delay={0.3}>
-                <div className="p-6 rounded-2xl border border-white/10 bg-white/5 text-center">
-                  <p className="text-slate-300">
-                    Not sure which systems you need? <span className="text-white font-semibold">Start with the free audit.</span> We'll map your business, identify the highest-ROI automations, and scope it out. No commitment.
-                  </p>
-                </div>
-              </ScrollReveal>
-            </div>
-          </section>
-
-          {/* GUARANTEE — LIGHT PATTERN INTERRUPT */}
-          <section className="py-24 sm:py-32 px-4 sm:px-6 bg-stone-50 relative">
-            <div className="max-w-3xl mx-auto text-center">
-              <ScrollReveal>
-                <p className="text-sm uppercase tracking-[0.2em] text-stone-400 mb-6">Our guarantee</p>
-              </ScrollReveal>
-              <ScrollReveal delay={0.1}>
-                <h2 className="text-3xl sm:text-5xl font-black text-stone-900 tracking-tight mb-8">
-                  If It Doesn&apos;t Save You at Least 15 Hours a Week,<br />We Keep Working For Free.
-                </h2>
-              </ScrollReveal>
-
-              <div className="flex justify-center my-8"><div className="w-16 h-px bg-stone-300" /></div>
-
-              <ScrollReveal delay={0.2}>
-                <p className="text-lg text-stone-600 leading-relaxed mb-8">
-                  We don&apos;t call it done until the system is hitting the outcome we scoped. If it takes longer than 30 days to get your time back, we stay on it — <span className="text-stone-900 font-bold">at our expense</span> — until the job is done. Zero risk. All upside.
-                </p>
-              </ScrollReveal>
-
-              <div className="flex justify-center my-6"><div className="w-16 h-px bg-stone-300" /></div>
-
-              <ScrollReveal delay={0.3}>
-                <p className="text-stone-500 italic">
-                  &quot;Money-back guarantees are for people who aren&apos;t sure they can deliver. We&apos;re sure. We just keep working until you win.&quot;
-                </p>
-              </ScrollReveal>
-            </div>
-          </section>
-
-
-          {/* WHO IT'S FOR */}
-          <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5 bg-slate-900/10">
-            <div className="max-w-5xl mx-auto text-center">
-              <ScrollReveal>
-                <p className="text-sm uppercase tracking-[0.2em] text-slate-500 mb-6">Who this is for</p>
-              </ScrollReveal>
-              <ScrollReveal delay={0.1}>
-                <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-6">
-                  Built for Founders Who Are Done Being the Operator
-                </h2>
-              </ScrollReveal>
-              <ScrollReveal delay={0.15}>
-                <p className="text-lg text-slate-400 max-w-2xl mx-auto mb-12">
-                  Online, local, or enterprise - if you&apos;re a founder stuck running the machine instead of building the vision, we&apos;re built for you.
-                </p>
-              </ScrollReveal>
-              <StaggerContainer className="flex flex-wrap justify-center gap-3" staggerDelay={0.04}>
-                {[
-                  { name: "SaaS Founders", slug: "saas" },
-                  { name: "Course Creators", slug: "course-creators" },
-                  { name: "Coaches & Consultants", slug: "coaching" },
-                  { name: "E-commerce & Retail", slug: "ecommerce" },
-                  { name: "Agencies", slug: "agencies" },
-                  { name: "Home Services", slug: "home-services" },
-                  { name: "Healthcare & Dental", slug: "healthcare" },
-                  { name: "Law Firms & Accounting", slug: "legal-finance" },
-                  { name: "Real Estate", slug: "real-estate" },
-                  { name: "Restaurants & Hospitality", slug: "hospitality" },
-                  { name: "Construction & Trades", slug: "construction" },
-                  { name: "Manufacturing & Logistics", slug: "manufacturing" },
-                  { name: "Membership & Community", slug: "membership" },
-                  { name: "Digital Products", slug: "digital-products" },
-                  { name: "Professional Services", slug: "professional-services" },
-                ].map((industry) => (
-                  <StaggerItem key={industry.slug}>
-                    <Link
-                      href={`/industries/${industry.slug}`}
-                      className="inline-block px-5 py-2.5 rounded-full text-sm font-medium border border-white/10 text-slate-300 bg-white/5 hover:bg-white/10 hover:border-white/20 transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
-                    >
-                      {industry.name}
-                    </Link>
-                  </StaggerItem>
-                ))}
-              </StaggerContainer>
-            </div>
-          </section>
-          {/* FOUNDERS OF THE FUTURE SECTION */}
-          <section className="py-24 sm:py-32 px-4 sm:px-6 bg-black relative overflow-hidden border-t border-white/5">
-            {/* Ambient Background for this section */}
-            <div className="absolute inset-0 opacity-20 pointer-events-none">
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-slate-500/20 blur-[120px] rounded-full"></div>
-            </div>
-
-            <div className="max-w-6xl mx-auto relative z-10">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <ScrollReveal>
-                  <div>
-                    <span className="inline-block px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-bold uppercase tracking-widest text-slate-400 mb-8">
-                      The Ecosystem
-                    </span>
-                    <h2 className="text-4xl sm:text-6xl font-black text-white tracking-tight mb-8 uppercase leading-[1.1]">
-                      Founders of<br />the Future
-                    </h2>
-                    <p className="text-xl text-slate-400 leading-relaxed mb-10 italic">
-                      "A new way to build. A new way to live. No hustle. No burnout. Just smart systems, AI, and a life designed on purpose."
-                    </p>
-                    <div className="flex flex-wrap gap-4">
-                      <Link
-                        href="/fotf"
-                        className="px-8 py-4 rounded-full bg-white text-black font-bold hover:bg-slate-200 transition-all hover:scale-105"
-                      >
-                        Explore FOTF →
-                      </Link>
-                      <Link
-                        href="/fotf#plans"
-                        className="px-8 py-4 rounded-full bg-white/5 border border-white/10 text-white font-bold hover:bg-white/10 transition-all"
-                      >
-                        See All Plans
-                      </Link>
-                    </div>
+                  <div className="space-y-4 text-lg sm:text-2xl font-black uppercase tracking-tight text-slate-600">
+                    <p><span className="text-white">We do not</span> sell tools.</p>
+                    <p><span className="text-white">We do not</span> sell prompts.</p>
+                    <p><span className="text-white">We do not</span> send you tutorials.</p>
                   </div>
                 </ScrollReveal>
 
                 <ScrollReveal delay={0.2}>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {[
-                      { icon: "✉", title: "Newsletter", desc: "Two letters every week. Deep essays and short truths." },
-                      { icon: "🤝", title: "Community", desc: "Private room for founders who build the same way you do." },
-                      { icon: "🎓", title: "Boardroom", desc: "The complete system. 52 lessons. 30+ templates." },
-                      { icon: "🎙", title: "Podcast", desc: "The audio version of the waterfall. Deep dives with Mia." }
-                    ].map((item, idx) => (
-                      <div key={idx} className="p-8 rounded-3xl bg-white/5 border border-white/5 backdrop-blur-sm group hover:bg-white/10 transition-all">
-                        <span className="text-3xl mb-4 block">{item.icon}</span>
-                        <h4 className="text-white font-bold uppercase mb-2 tracking-tight">{item.title}</h4>
-                        <p className="text-slate-500 text-xs leading-relaxed">{item.desc}</p>
+                  <p className="text-base sm:text-lg text-slate-400 leading-relaxed max-w-xl">
+                    We architect, build, integrate, test, and deploy real AI systems inside your existing stack.
+                  </p>
+                </ScrollReveal>
+              </div>
+
+              <div className="lg:col-span-5">
+                <ScrollReveal delay={0.4}>
+                  <div className="p-6 sm:p-12 rounded-[2rem] sm:rounded-[2.5rem] bg-white text-black h-full flex flex-col justify-between">
+                    <div className="space-y-6">
+                      <p className="text-base sm:text-lg font-black uppercase leading-tight italic">
+                        "We start with your biggest operational leak. Once it proves itself, we expand."
+                      </p>
+                      <div className="space-y-3">
+                        <p className="text-sm sm:text-base font-bold text-slate-400 uppercase tracking-widest">System by system.</p>
+                        <p className="text-sm sm:text-base font-bold text-slate-600 uppercase tracking-widest underline decoration-2 underline-offset-4 decoration-stone-900">Layer by layer.</p>
+                        <p className="text-sm sm:text-base font-bold text-slate-900 uppercase tracking-widest">Until your operations run without you.</p>
                       </div>
-                    ))}
+                    </div>
+                    <div className="mt-8 sm:mt-12">
+                      <Link href="/audit" className="inline-block text-[10px] font-black uppercase tracking-[0.4em] border-b-2 border-black pb-1 hover:text-slate-500 hover:border-slate-500 transition-colors">
+                        Request Your Build →
+                      </Link>
+                    </div>
                   </div>
                 </ScrollReveal>
               </div>
             </div>
-          </section>
 
-          {/* FAQ */}
-          <section className="py-24 sm:py-32 px-4 sm:px-6 border-t border-white/5">
-            <div className="max-w-3xl mx-auto">
-              <ScrollReveal>
-                <p className="text-sm uppercase tracking-[0.2em] text-slate-500 mb-6 text-center">Objections</p>
-              </ScrollReveal>
+            {/* Full Width Logo Carousel */}
+            <ScrollReveal delay={0.3} direction="up" className="mt-20 pt-10 border-t border-white/10 overflow-hidden">
+              <div className="text-center mb-6">
+                <p className="text-slate-500 text-xs italic font-bold tracking-widest uppercase">If it connects, we build on top of it.</p>
+              </div>
+              <BrandLogos />
+            </ScrollReveal>
+          </div>
+        </section>
+
+        {/* THE OFFER */}
+        <section className="py-16 sm:py-24 px-4 sm:px-6 bg-stone-100 text-stone-900 border-y border-stone-200">
+          <div className="max-w-6xl mx-auto">
+            <ScrollReveal>
+              <div className="text-center mb-16">
+                <span className="text-sm uppercase tracking-[0.4em] text-stone-400 font-bold block mb-6">The Economics</span>
+                <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tighter mb-6">One Build Fee.<br /><span className="text-stone-400 italic">You Own Everything.</span></h2>
+                <div className="flex flex-wrap justify-center gap-6 mt-10">
+                  {["No forced retainers.", "No dependency traps.", "No locked platforms."].map((usp) => (
+                    <span key={usp} className="text-[10px] font-black uppercase tracking-[0.3em] px-5 py-2.5 bg-white border border-stone-200 rounded-full">{usp}</span>
+                  ))}
+                </div>
+              </div>
+            </ScrollReveal>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+              {/* Step 1: The Build */}
               <ScrollReveal delay={0.1}>
-                <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-12 text-center">
-                  Straight Answers
-                </h2>
-              </ScrollReveal>
-              <StaggerContainer className="space-y-6" staggerDelay={0.1}>
-                {[
-                  {
-                    q: "What if it doesn't work?",
-                    a: "Then we haven't done our job. Every system ships with 30 days of optimization. If it's not hitting the outcome we scoped, we keep working - no extra charge. We don't get paid to build things. We get paid to build things that work.",
-                  },
-                  {
-                    q: "Do I need to be technical?",
-                    a: "No. You tell us how your business works. We handle everything else - the architecture, the build, the integrations, the testing. You show up to see the demo.",
-                  },
-                  {
-                    q: "Will this work with my existing tools?",
-                    a: "Yes. Stripe, HubSpot, Salesforce, QuickBooks, ServiceTitan, Jobber, Shopify, Webflow, Zapier - if it has an API, we plug into it. We build around your stack, not against it.",
-                  },
-                  {
-                    q: "How long does this actually take?",
-                    a: "A single system takes 30 days - build, install, and optimization included. A full department build is 6–8 weeks. Enterprise is scoped individually.",
-                  },
-                  {
-                    q: "Why start with an audit instead of just quoting me?",
-                    a: "Because every business is different and we don't sell generic packages. The audit is how we find the one thing that will move the needle most for you specifically - so we're not guessing and neither are you.",
-                  },
-                ].map((item) => (
-                  <StaggerItem key={item.q}>
-                    <div className="p-6 rounded-2xl border border-white/10 bg-white/5">
-                      <h3 className="text-lg font-bold text-white mb-3">{item.q}</h3>
-                      <p className="text-slate-400 leading-relaxed">{item.a}</p>
+                <div className="p-6 sm:p-16 rounded-[2rem] sm:rounded-[3rem] bg-white border border-stone-200 flex flex-col h-full shadow-xl shadow-stone-200/50">
+                  <div className="mb-6 sm:mb-10 flex justify-between items-start">
+                    <div>
+                      <span className="text-stone-300 font-bold text-[9px] uppercase tracking-[0.3em] block mb-3">Phase One</span>
+                      <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight">The Build</h3>
                     </div>
-                  </StaggerItem>
-                ))}
-              </StaggerContainer>
-            </div>
-          </section>
+                    <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-xl bg-stone-50 flex items-center justify-center border border-stone-100">
+                      <span className="text-base sm:text-lg font-black">01</span>
+                    </div>
+                  </div>
 
-          {/* FINAL CTA */}
-          <section className="py-24 sm:py-32 px-4 sm:px-6">
-            <div className="max-w-3xl mx-auto text-center">
-              <ScrollReveal>
-                <p className="text-sm uppercase tracking-[0.2em] text-slate-500 mb-6">One step</p>
+                  <p className="text-sm sm:text-base text-stone-500 leading-relaxed mb-6 sm:mb-10 font-medium">
+                    We design and install a working AI system inside your business.
+                  </p>
+
+                  <div className="space-y-4 mb-16 flex-grow">
+                    <span className="text-[9px] font-black uppercase tracking-[0.3em] text-stone-300 block mb-6 px-3 py-1.5 border border-stone-100 rounded-full w-fit">What's Included</span>
+                    {[
+                      "Custom architecture built around your real bottleneck",
+                      "Full integration with your current tools",
+                      "End to end build and testing",
+                      "30 days of optimization",
+                      "Team training",
+                      "You own all assets and workflows"
+                    ].map((item) => (
+                      <div key={item} className="flex items-center gap-3 text-stone-900 font-bold uppercase tracking-tight text-xs">
+                        <span className="w-1.5 h-1.5 rounded-full bg-stone-900" />
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="pt-10 border-t border-stone-100 space-y-4">
+                    <div className="flex justify-between items-center group">
+                      <span className="text-xs font-bold text-stone-400 uppercase tracking-widest group-hover:text-stone-900 transition-colors">Single System</span>
+                      <span className="text-base font-black uppercase tracking-tight italic">Starting at 5K</span>
+                    </div>
+                    <div className="flex justify-between items-center group">
+                      <span className="text-xs font-bold text-stone-400 uppercase tracking-widest group-hover:text-stone-900 transition-colors">Department Build</span>
+                      <span className="text-base font-black uppercase tracking-tight italic">Starting at 20K</span>
+                    </div>
+                    <div className="flex justify-between items-center group">
+                      <span className="text-xs font-bold text-stone-400 uppercase tracking-widest group-hover:text-stone-900 transition-colors">Enterprise</span>
+                      <span className="text-base font-black uppercase tracking-tight italic">Starting at 50K</span>
+                    </div>
+                  </div>
+                </div>
               </ScrollReveal>
-              <ScrollReveal delay={0.1}>
-                <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-6">
-                  One System. 30 Days.<br />We Prove It Works.
-                </h2>
-              </ScrollReveal>
+
+              {/* Step 2: Revenue Partnership */}
               <ScrollReveal delay={0.2}>
-                <p className="text-lg text-slate-400 mb-4 max-w-2xl mx-auto">
-                  Start with the free audit. We'll find your biggest operational leak, tell you exactly what to build, and scope what it would cost to fix it.
-                </p>
-              </ScrollReveal>
-              <ScrollReveal delay={0.25}>
-                <p className="text-slate-500 mb-10">
-                  If it doesn't make sense for you, you walk away with a blueprint you can use anyway.
-                </p>
-              </ScrollReveal>
-              <ScrollReveal delay={0.3}>
-                <Link
-                  href="/audit"
-                  className="inline-block px-12 py-5 rounded-full bg-white text-black text-lg font-bold hover:bg-slate-200 transition-all duration-300 hover:scale-105"
-                >
-                  Get Your Free Audit →
-                </Link>
+                <div className="p-6 sm:p-16 rounded-[2rem] sm:rounded-[3rem] bg-stone-950 text-white flex flex-col h-full shadow-xl shadow-stone-950/20 relative overflow-hidden group">
+                  {/* Abstract background for dark card */}
+                  <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-br from-stone-800/10 to-transparent pointer-events-none" />
+
+                  <div className="mb-10 flex justify-between items-start relative z-10">
+                    <div>
+                      <span className="text-stone-600 font-bold text-[9px] uppercase tracking-[0.3em] block mb-3">Optional Step 02</span>
+                      <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight italic">Revenue<br />Partnership</h3>
+                    </div>
+                    <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-xl bg-white/5 flex items-center justify-center border border-white/5">
+                      <span className="text-base sm:text-lg font-black text-stone-500">∞</span>
+                    </div>
+                  </div>
+
+                  <p className="text-sm sm:text-base text-stone-400 leading-relaxed mb-6 sm:mb-10 font-medium relative z-10">
+                    Once the first system works, we expand. We do not maintain. We compound.
+                  </p>
+
+                  <div className="space-y-4 mb-16 flex-grow relative z-10">
+                    <span className="text-[9px] font-black uppercase tracking-[0.3em] text-stone-600 block mb-6 px-3 py-1.5 border border-white/5 rounded-full w-fit">The Long game</span>
+                    {[
+                      "New systems & automation layers",
+                      "New revenue channels",
+                      "Quarterly strategy with Mia",
+                      "Priority build queue",
+                      "Continuous infrastructure expansion"
+                    ].map((item) => (
+                      <div key={item} className="flex items-center gap-3 text-white font-bold uppercase tracking-tight text-xs">
+                        <span className="w-1.5 h-1.5 rounded-full bg-white opacity-20" />
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="pt-10 border-t border-white/10 relative z-10">
+                    <p className="text-lg font-black uppercase italic mb-6 tracking-tighter leading-none">
+                      "If revenue does not grow,<br /><span className="text-stone-600">we do not get paid."</span>
+                    </p>
+                    <p className="text-stone-500 text-[9px] font-black uppercase tracking-[0.2em] mb-1">Percentage scoped after audit.</p>
+                  </div>
+                </div>
               </ScrollReveal>
             </div>
-          </section>
+          </div>
+        </section>
 
-          <Footer />
-        </div>
+        {/* THE GUARANTEE & WHO THIS IS FOR */}
+        <section className="py-16 sm:py-24 px-4 sm:px-6 bg-black text-white relative border-b border-white/5">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+              {/* The Guarantee column */}
+              <div>
+                <ScrollReveal>
+                  <span className="text-sm uppercase tracking-[0.4em] text-slate-500 font-bold block mb-8">The Guarantee</span>
+                  <h2 className="text-2xl sm:text-4xl font-black uppercase tracking-tighter mb-8 leading-[0.9]">
+                    If It Does Not Save You Time, <span className="italic text-slate-500">We Are Not Done</span>
+                  </h2>
+                </ScrollReveal>
+
+                <div className="space-y-6 text-base sm:text-lg text-slate-400 font-medium leading-relaxed mb-10 italic border-l-2 border-white/10 pl-6">
+                  <ScrollReveal delay={0.1}>
+                    <p>"Every build includes 30 days of optimization."</p>
+                  </ScrollReveal>
+                  <ScrollReveal delay={0.2}>
+                    <p>"If the system is not hitting the agreed outcome, we keep working at no extra cost."</p>
+                  </ScrollReveal>
+                </div>
+
+                <div className="space-y-3">
+                  <ScrollReveal delay={0.3}>
+                    <p className="text-base font-black uppercase tracking-tight text-slate-500">We are not paid to install software.</p>
+                  </ScrollReveal>
+                  <ScrollReveal delay={0.35}>
+                    <p className="text-xl sm:text-3xl font-black uppercase tracking-tighter underline underline-offset-4 decoration-2">We are paid to remove bottlenecks.</p>
+                  </ScrollReveal>
+                </div>
+              </div>
+
+              {/* Who This Is For column */}
+              <div>
+                <ScrollReveal>
+                  <div className="text-center lg:text-left mb-10">
+                    <h2 className="text-2xl sm:text-4xl font-black uppercase tracking-tight mb-4">Who This Is For</h2>
+                    <p className="text-base text-slate-500 font-bold uppercase tracking-[0.2em] italic">Founders who are done operating.</p>
+                  </div>
+                </ScrollReveal>
+
+                <StaggerContainer className="flex flex-wrap justify-center lg:justify-start gap-3" staggerDelay={0.03}>
+                  {[
+                    { name: "SaaS", slug: "saas" },
+                    { name: "Agencies", slug: "agencies" },
+                    { name: "E-commerce", slug: "ecommerce" },
+                    { name: "Home Services", slug: "home-services" },
+                    { name: "Real Estate", slug: "real-estate" },
+                    { name: "Healthcare", slug: "healthcare" },
+                    { name: "Law / Accounting", slug: "legal-finance" },
+                    { name: "Construction", slug: "construction" },
+                    { name: "Manufacturing", slug: "manufacturing" },
+                    { name: "Professional Services", slug: "professional-services" },
+                    { name: "Membership", slug: "membership" },
+                    { name: "Digital Products", slug: "digital-products" },
+                    { name: "Coaches", slug: "coaching" },
+                    { name: "Course Creators", slug: "course-creators" },
+                    { name: "Hospitality", slug: "hospitality" }
+                  ].map((industry) => (
+                    <StaggerItem key={industry.slug}>
+                      <Link
+                        href={`/industries/${industry.slug}`}
+                        className="inline-block px-5 py-2.5 rounded-[1.2rem] bg-stone-900/50 border border-white/5 text-xs font-bold uppercase tracking-widest text-slate-400 hover:bg-white hover:text-black hover:border-white transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
+                      >
+                        {industry.name} →
+                      </Link>
+                    </StaggerItem>
+                  ))}
+                </StaggerContainer>
+
+                <ScrollReveal delay={0.4}>
+                  <div className="mt-12 text-center lg:text-left border-t border-white/5 pt-8">
+                    <p className="text-base sm:text-lg font-black uppercase italic tracking-tight mb-2">"If you are scaling and your time is the constraint, this is for you."</p>
+                  </div>
+                </ScrollReveal>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        {/* JOIN FOUNDERS OF THE FUTURE */}
+        <section id="founders" className="py-24 sm:py-40 px-4 sm:px-6 bg-white text-stone-900 relative overflow-hidden">
+          <div className="max-w-4xl mx-auto">
+            <ScrollReveal>
+              <div className="text-center mb-16">
+                <span className="text-sm uppercase tracking-[0.4em] text-stone-400 font-bold block mb-6">The Newsletter</span>
+                <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tighter mb-8 leading-[0.9]">
+                  Join Founders<br />
+                  <span className="italic text-stone-400">Of The Future</span>
+                </h2>
+                <p className="text-lg text-stone-600 max-w-2xl mx-auto font-medium leading-relaxed italic mb-12">
+                  "Two emails a week. Tactical playbooks on building systems that outlive you. No hustle. Just architecture."
+                </p>
+              </div>
+            </ScrollReveal>
+
+            <ScrollReveal delay={0.2}>
+              <div className="max-w-xl mx-auto p-6 sm:p-10 rounded-[2rem] sm:rounded-[2.5rem] bg-stone-50 border border-stone-200 shadow-2xl relative overflow-hidden">
+                <form
+                  action="https://miaelianaa.substack.com/subscribe"
+                  method="GET"
+                  target="_blank"
+                  className="space-y-4"
+                >
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Your email address"
+                    className="w-full px-5 py-3.5 sm:px-6 sm:py-4 rounded-xl sm:rounded-2xl border border-stone-200 bg-white text-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-900 text-base sm:text-lg"
+                    required
+                  />
+                  <button
+                    type="submit"
+                    className="w-full py-5 rounded-2xl bg-stone-900 text-white font-bold hover:bg-stone-800 transition-all uppercase tracking-widest text-sm shadow-xl"
+                  >
+                    Subscribe to FOTF
+                  </button>
+                  <p className="text-[10px] text-stone-400 text-center uppercase tracking-widest mt-4">
+                    Read by founders from Techstars, YC, and more. Unsubscribe anytime.
+                  </p>
+                </form>
+              </div>
+            </ScrollReveal>
+          </div>
+        </section>
+
+        {/* FINAL CTA: THE PROOF */}
+        <section className="py-16 sm:py-32 px-4 sm:px-6 bg-black text-white text-center">
+          <div className="max-w-4xl mx-auto">
+            <ScrollReveal>
+              <h2 className="text-3xl sm:text-6xl font-black uppercase tracking-tighter mb-10 leading-[0.9]">
+                Transform your company into an<br /><span className="text-slate-500 italic">AI native organization</span>
+              </h2>
+            </ScrollReveal>
+
+            <ScrollReveal delay={0.2}>
+              <div className="space-y-6 text-base sm:text-lg text-slate-400 font-medium leading-relaxed max-w-xl mx-auto mb-16 italic">
+                <p>"Start with the free audit. We map your business, identify the highest leverage automation, and show you exactly what to build."</p>
+                <p className="text-white font-bold uppercase not-italic text-sm sm:text-base">If it is not a fit, you leave with the blueprint.</p>
+              </div>
+            </ScrollReveal>
+
+            <ScrollReveal delay={0.3}>
+              <Link
+                href="/audit"
+                className="inline-block px-10 py-4 rounded-full bg-white text-black text-lg font-black hover:bg-slate-200 transition-all duration-300 hover:scale-110 shadow-[0_0_50px_rgba(255,255,255,0.2)]"
+              >
+                Get Your Free Audit →
+              </Link>
+            </ScrollReveal>
+
+          </div>
+        </section>
+
+        <Footer />
+
       </main>
-    </div>
+
+      <style jsx global>{`
+        h1, h2, h3, h4 {
+          line-height: 1;
+        }
+      `}</style>
+    </div >
   )
 }

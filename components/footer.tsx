@@ -25,6 +25,7 @@ export function Footer() {
         </AnimatedContainer>
 
         <AnimatedContainer delay={0.2} className="flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground">
+          <Link href="/faq" className="hover:text-foreground transition-colors">FAQ</Link>
           <Link href="/blog" className="hover:text-foreground transition-colors">Blog</Link>
           <Link href="/about" className="hover:text-foreground transition-colors">About</Link>
           <Link href="/privacy" className="hover:text-foreground transition-colors">Privacy Policy</Link>

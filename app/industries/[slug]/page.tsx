@@ -167,6 +167,72 @@ export default function IndustryPage() {
                         </div>
                     </section>
 
+                    {/* STRATEGIC LAYERS SECTION */}
+                    {industry.layers && (
+                        <section className="py-24 sm:py-32 px-4 sm:px-6 bg-stone-100 text-stone-900 overflow-hidden relative border-y border-stone-200">
+                            <div className="max-w-6xl mx-auto relative z-10">
+                                <ScrollReveal>
+                                    <div className="text-center mb-24">
+                                        <h2 className="text-sm uppercase tracking-[0.2em] text-stone-400 mb-6 font-bold">The Strategic Land Grab</h2>
+                                        <h3 className="text-4xl sm:text-7xl font-black uppercase tracking-tight mb-8">AI takes over <span className="italic">layers</span>, not just jobs.</h3>
+                                        <p className="text-xl text-stone-500 max-w-2xl mx-auto leading-relaxed">We identify the highest-leverage departments in your business and replace the manual layers with autonomous architecture.</p>
+                                    </div>
+                                </ScrollReveal>
+
+                                <div className="space-y-12">
+                                    {industry.layers.map((layer, lIdx) => (
+                                        <ScrollReveal key={lIdx} delay={lIdx * 0.1}>
+                                            <div className="p-10 sm:p-16 rounded-[3.5rem] bg-white border border-stone-200 shadow-xl shadow-stone-200/50 relative overflow-hidden group">
+                                                {/* Background accent */}
+                                                <div className="absolute top-0 right-0 w-96 h-96 bg-stone-50 rounded-full -translate-y-1/2 translate-x-1/2 -z-10 group-hover:scale-110 transition-transform duration-700 pointer-events-none" />
+
+                                                <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+                                                    <div className="lg:col-span-4">
+                                                        <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-300 block mb-6">Level {lIdx + 1} / Department</span>
+                                                        <h4 className="text-4xl font-black uppercase tracking-tight mb-8 leading-none">{layer.department}</h4>
+                                                        <div className="w-16 h-2 bg-stone-900" />
+                                                    </div>
+
+                                                    <div className="lg:col-span-4">
+                                                        <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-300 block mb-6 px-4 py-1.5 border border-stone-100 rounded-full w-fit">Roles AI Takes Over</span>
+                                                        <ul className="space-y-4">
+                                                            {layer.roles.map((role, rIdx) => (
+                                                                <li key={rIdx} className="flex items-center gap-4 text-stone-700 font-bold uppercase tracking-tight text-lg">
+                                                                    <span className="w-2 h-2 rounded-full bg-stone-900" />
+                                                                    {role}
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                    </div>
+
+                                                    <div className="lg:col-span-4">
+                                                        <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-300 block mb-6">Tasks AI Executes</span>
+                                                        <div className="flex flex-wrap gap-2">
+                                                            {layer.tasks.map((task, tIdx) => (
+                                                                <span key={tIdx} className="px-5 py-2.5 rounded-2xl bg-stone-100 border border-stone-200 text-[10px] font-black text-stone-500 uppercase tracking-widest hover:bg-stone-900 hover:text-white hover:border-stone-900 transition-colors duration-300">
+                                                                    {task}
+                                                                </span>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ScrollReveal>
+                                    ))}
+                                </div>
+
+                                <ScrollReveal delay={0.4}>
+                                    <div className="mt-24 flex justify-center">
+                                        <div className="p-10 rounded-[2.5rem] bg-stone-950 text-white text-center max-w-2xl border border-white/5 shadow-2xl">
+                                            <p className="text-2xl font-black uppercase italic mb-4 tracking-tight leading-tight">"First by industry.<br />Then by department.<br />Then by role.<br />Then by task."</p>
+                                            <p className="text-stone-500 text-sm font-medium">We don't build tools. We build the future of your company's hierarchy.</p>
+                                        </div>
+                                    </div>
+                                </ScrollReveal>
+                            </div>
+                        </section>
+                    )}
+
                     {/* LONG FORM CONTENT SECTION */}
                     <section className="py-24 sm:py-32 px-4 sm:px-6 bg-white text-stone-900">
                         <div className="max-w-3xl mx-auto prose prose-stone prose-lg dark:prose-invert">
