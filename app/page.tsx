@@ -134,7 +134,7 @@ export default function HomePage() {
         </section>
 
         {/* THE OFFER */}
-        <section className="py-16 sm:py-24 px-4 sm:px-6 bg-stone-100 text-stone-900 border-y border-stone-200">
+        <section className="py-16 sm:py-24 px-4 sm:px-6 bg-white text-stone-900 border-y border-stone-200">
           <div className="max-w-6xl mx-auto">
             <ScrollReveal>
               <div className="text-center mb-16">
@@ -202,26 +202,24 @@ export default function HomePage() {
 
               {/* Step 2: Revenue Partnership */}
               <ScrollReveal delay={0.2}>
-                <div className="p-6 sm:p-16 rounded-[2rem] sm:rounded-[3rem] bg-stone-950 text-white flex flex-col h-full shadow-xl shadow-stone-950/20 relative overflow-hidden group">
-                  {/* Abstract background for dark card */}
-                  <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-br from-stone-800/10 to-transparent pointer-events-none" />
+                <div className="p-6 sm:p-16 rounded-[2rem] sm:rounded-[3rem] bg-white text-stone-900 border border-stone-200 flex flex-col h-full shadow-xl shadow-stone-200/50 relative overflow-hidden group">
 
                   <div className="mb-10 flex justify-between items-start relative z-10">
                     <div>
-                      <span className="text-stone-600 font-bold text-[9px] uppercase tracking-[0.3em] block mb-3">Optional Step 02</span>
+                      <span className="text-stone-300 font-bold text-[9px] uppercase tracking-[0.3em] block mb-3">Optional Step 02</span>
                       <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight italic">Revenue<br />Partnership</h3>
                     </div>
-                    <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-xl bg-white/5 flex items-center justify-center border border-white/5">
-                      <span className="text-base sm:text-lg font-black text-stone-500">∞</span>
+                    <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-xl bg-stone-50 flex items-center justify-center border border-stone-100">
+                      <span className="text-base sm:text-lg font-black text-stone-900">∞</span>
                     </div>
                   </div>
 
-                  <p className="text-sm sm:text-base text-stone-400 leading-relaxed mb-6 sm:mb-10 font-medium relative z-10">
+                  <p className="text-sm sm:text-base text-stone-500 leading-relaxed mb-6 sm:mb-10 font-medium relative z-10">
                     Once the first system works, we expand. We do not maintain. We compound.
                   </p>
 
                   <div className="space-y-4 mb-16 flex-grow relative z-10">
-                    <span className="text-[9px] font-black uppercase tracking-[0.3em] text-stone-600 block mb-6 px-3 py-1.5 border border-white/5 rounded-full w-fit">The Long game</span>
+                    <span className="text-[9px] font-black uppercase tracking-[0.3em] text-stone-300 block mb-6 px-3 py-1.5 border border-stone-100 rounded-full w-fit">The Long game</span>
                     {[
                       "New systems & automation layers",
                       "New revenue channels",
@@ -229,18 +227,18 @@ export default function HomePage() {
                       "Priority build queue",
                       "Continuous infrastructure expansion"
                     ].map((item) => (
-                      <div key={item} className="flex items-center gap-3 text-white font-bold uppercase tracking-tight text-xs">
-                        <span className="w-1.5 h-1.5 rounded-full bg-white opacity-20" />
+                      <div key={item} className="flex items-center gap-3 text-stone-900 font-bold uppercase tracking-tight text-xs">
+                        <span className="w-1.5 h-1.5 rounded-full bg-stone-900" />
                         {item}
                       </div>
                     ))}
                   </div>
 
-                  <div className="pt-10 border-t border-white/10 relative z-10">
+                  <div className="pt-10 border-t border-stone-100 relative z-10">
                     <p className="text-lg font-black uppercase italic mb-6 tracking-tighter leading-none">
-                      "If revenue does not grow,<br /><span className="text-stone-600">we do not get paid."</span>
+                      "If revenue does not grow,<br /><span className="text-stone-400">we do not get paid."</span>
                     </p>
-                    <p className="text-stone-500 text-[9px] font-black uppercase tracking-[0.2em] mb-1">Percentage scoped after audit.</p>
+                    <p className="text-stone-400 text-[9px] font-black uppercase tracking-[0.2em] mb-1">Percentage scoped after audit.</p>
                   </div>
                 </div>
               </ScrollReveal>
@@ -376,25 +374,25 @@ export default function HomePage() {
         </section>
 
         {/* FINAL CTA: THE PROOF */}
-        <section className="py-16 sm:py-32 px-4 sm:px-6 bg-black text-white text-center">
+        <section className="py-16 sm:py-32 px-4 sm:px-6 bg-white text-stone-900 text-center border-t border-stone-200">
           <div className="max-w-4xl mx-auto">
             <ScrollReveal>
               <h2 className="text-3xl sm:text-6xl font-black uppercase tracking-tighter mb-10 leading-[0.9]">
-                Transform your company into an<br /><span className="text-slate-500 italic">AI native organization</span>
+                Transform your company into an<br /><span className="text-stone-400 italic">AI native organization</span>
               </h2>
             </ScrollReveal>
 
             <ScrollReveal delay={0.2}>
-              <div className="space-y-6 text-base sm:text-lg text-slate-400 font-medium leading-relaxed max-w-xl mx-auto mb-16 italic">
+              <div className="space-y-6 text-base sm:text-lg text-stone-500 font-medium leading-relaxed max-w-xl mx-auto mb-16 italic">
                 <p>"Start with the free audit. We map your business, identify the highest leverage automation, and show you exactly what to build."</p>
-                <p className="text-white font-bold uppercase not-italic text-sm sm:text-base">If it is not a fit, you leave with the blueprint.</p>
+                <p className="text-stone-900 font-bold uppercase not-italic text-sm sm:text-base">If it is not a fit, you leave with the blueprint.</p>
               </div>
             </ScrollReveal>
 
             <ScrollReveal delay={0.3}>
               <Link
                 href="/audit"
-                className="inline-block px-10 py-4 rounded-full bg-white text-black text-lg font-black hover:bg-slate-200 transition-all duration-300 hover:scale-110 shadow-[0_0_50px_rgba(255,255,255,0.2)]"
+                className="inline-block px-10 py-4 rounded-full bg-stone-900 text-white text-lg font-black hover:bg-stone-800 transition-all duration-300 hover:scale-110 shadow-xl"
               >
                 Get Your Free Audit →
               </Link>
