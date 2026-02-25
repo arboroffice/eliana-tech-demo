@@ -24,7 +24,7 @@ const chapters = [
   {
     emoji: "\u{1F333}",
     title: "Scaling My Dad\u2019s Tree Service at 16",
-    body: "At 16, I took over my dad\u2019s tree service. I built systems for everything \ -  sales, scheduling, hiring, customer calls, operations. We scaled to multiple seven figures. I cut my dad\u2019s hours from 70 to 40 per week. But I was still buried in the day-to-day.\n\nI took all my skills and turned them into repeatable systems. I wanted to hire someone to replace myself. My dad said no. So I built AI systems to replace myself instead.",
+    body: "At 16, I took over my dad\u2019s tree service. I built systems for everything \ -  sales, scheduling, hiring, customer calls, operations. We scaled to multiple seven figures. I cut my dad\u2019s hours from 90 to 10 per week. But I was still buried in the day-to-day.\n\nI took all my skills and turned them into repeatable systems. I wanted to hire someone to replace myself. My dad said no. So I built AI systems to replace myself instead.",
   },
   {
     emoji: "\u{1F4A1}",
