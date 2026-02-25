@@ -136,112 +136,106 @@ export default function HomePage() {
         {/* THE OFFER */}
         <section className="py-16 sm:py-24 px-4 sm:px-6 bg-white text-stone-900 border-y border-stone-200">
           <div className="max-w-6xl mx-auto">
-            <ScrollReveal>
-              <div className="text-center mb-16">
-                <span className="text-sm uppercase tracking-[0.4em] text-stone-400 font-bold block mb-6">The Economics</span>
-                <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tighter mb-6">One Build Fee.<br /><span className="text-stone-400 italic">You Own Everything.</span></h2>
-                <div className="flex flex-wrap justify-center gap-6 mt-10">
-                  {["No forced retainers.", "No dependency traps.", "No locked platforms."].map((usp) => (
-                    <span key={usp} className="text-[10px] font-black uppercase tracking-[0.3em] px-5 py-2.5 bg-white border border-stone-200 rounded-full">{usp}</span>
-                  ))}
-                </div>
+            <div className="text-center mb-16">
+              <span className="text-sm uppercase tracking-[0.4em] text-stone-400 font-bold block mb-6">The Economics</span>
+              <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tighter mb-6">One Build Fee.<br /><span className="text-stone-400 italic">You Own Everything.</span></h2>
+              <div className="flex flex-wrap justify-center gap-6 mt-10">
+                {["No forced retainers.", "No dependency traps.", "No locked platforms."].map((usp) => (
+                  <span key={usp} className="text-[10px] font-black uppercase tracking-[0.3em] px-5 py-2.5 bg-white border border-stone-200 rounded-full">{usp}</span>
+                ))}
               </div>
-            </ScrollReveal>
+            </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
               {/* Step 1: The Build */}
-              <ScrollReveal delay={0.1}>
-                <div className="p-6 sm:p-16 rounded-[2rem] sm:rounded-[3rem] bg-white border border-stone-200 flex flex-col h-full shadow-xl shadow-stone-200/50">
-                  <div className="mb-6 sm:mb-10 flex justify-between items-start">
-                    <div>
-                      <span className="text-stone-300 font-bold text-[9px] uppercase tracking-[0.3em] block mb-3">Phase One</span>
-                      <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight">The Build</h3>
-                    </div>
-                    <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-xl bg-stone-50 flex items-center justify-center border border-stone-100">
-                      <span className="text-base sm:text-lg font-black">01</span>
-                    </div>
+              <div className="p-6 sm:p-16 rounded-[2rem] sm:rounded-[3rem] bg-white border border-stone-200 flex flex-col h-full shadow-xl shadow-stone-200/50">
+                <div className="mb-6 sm:mb-10 flex justify-between items-start">
+                  <div>
+                    <span className="text-stone-300 font-bold text-[9px] uppercase tracking-[0.3em] block mb-3">Phase One</span>
+                    <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight">The Build</h3>
                   </div>
-
-                  <p className="text-sm sm:text-base text-stone-500 leading-relaxed mb-6 sm:mb-10 font-medium">
-                    We design and install a working AI system inside your business.
-                  </p>
-
-                  <div className="space-y-4 mb-16 flex-grow">
-                    <span className="text-[9px] font-black uppercase tracking-[0.3em] text-stone-300 block mb-6 px-3 py-1.5 border border-stone-100 rounded-full w-fit">What's Included</span>
-                    {[
-                      "Custom architecture built around your real bottleneck",
-                      "Full integration with your current tools",
-                      "End to end build and testing",
-                      "30 days of optimization",
-                      "Team training",
-                      "You own all assets and workflows"
-                    ].map((item) => (
-                      <div key={item} className="flex items-center gap-3 text-stone-900 font-bold uppercase tracking-tight text-xs">
-                        <span className="w-1.5 h-1.5 rounded-full bg-stone-900" />
-                        {item}
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="pt-10 border-t border-stone-100 space-y-4">
-                    <div className="flex justify-between items-center group">
-                      <span className="text-xs font-bold text-stone-400 uppercase tracking-widest group-hover:text-stone-900 transition-colors">Single System</span>
-                      <span className="text-base font-black uppercase tracking-tight italic">Starting at 5K</span>
-                    </div>
-                    <div className="flex justify-between items-center group">
-                      <span className="text-xs font-bold text-stone-400 uppercase tracking-widest group-hover:text-stone-900 transition-colors">Department Build</span>
-                      <span className="text-base font-black uppercase tracking-tight italic">Starting at 20K</span>
-                    </div>
-                    <div className="flex justify-between items-center group">
-                      <span className="text-xs font-bold text-stone-400 uppercase tracking-widest group-hover:text-stone-900 transition-colors">Enterprise</span>
-                      <span className="text-base font-black uppercase tracking-tight italic">Starting at 50K</span>
-                    </div>
+                  <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-xl bg-stone-50 flex items-center justify-center border border-stone-100">
+                    <span className="text-base sm:text-lg font-black">01</span>
                   </div>
                 </div>
-              </ScrollReveal>
+
+                <p className="text-sm sm:text-base text-stone-500 leading-relaxed mb-6 sm:mb-10 font-medium">
+                  We design and install a working AI system inside your business.
+                </p>
+
+                <div className="space-y-4 mb-16 flex-grow">
+                  <span className="text-[9px] font-black uppercase tracking-[0.3em] text-stone-300 block mb-6 px-3 py-1.5 border border-stone-100 rounded-full w-fit">What's Included</span>
+                  {[
+                    "Custom architecture built around your real bottleneck",
+                    "Full integration with your current tools",
+                    "End to end build and testing",
+                    "30 days of optimization",
+                    "Team training",
+                    "You own all assets and workflows"
+                  ].map((item) => (
+                    <div key={item} className="flex items-center gap-3 text-stone-900 font-bold uppercase tracking-tight text-xs">
+                      <span className="w-1.5 h-1.5 rounded-full bg-stone-900" />
+                      {item}
+                    </div>
+                  ))}
+                </div>
+
+                <div className="pt-10 border-t border-stone-100 space-y-4">
+                  <div className="flex justify-between items-center group">
+                    <span className="text-xs font-bold text-stone-400 uppercase tracking-widest group-hover:text-stone-900 transition-colors">Single System</span>
+                    <span className="text-base font-black uppercase tracking-tight italic">Starting at 5K</span>
+                  </div>
+                  <div className="flex justify-between items-center group">
+                    <span className="text-xs font-bold text-stone-400 uppercase tracking-widest group-hover:text-stone-900 transition-colors">Department Build</span>
+                    <span className="text-base font-black uppercase tracking-tight italic">Starting at 20K</span>
+                  </div>
+                  <div className="flex justify-between items-center group">
+                    <span className="text-xs font-bold text-stone-400 uppercase tracking-widest group-hover:text-stone-900 transition-colors">Enterprise</span>
+                    <span className="text-base font-black uppercase tracking-tight italic">Starting at 50K</span>
+                  </div>
+                </div>
+              </div>
 
               {/* Step 2: Revenue Partnership */}
-              <ScrollReveal delay={0.2}>
-                <div className="p-6 sm:p-16 rounded-[2rem] sm:rounded-[3rem] bg-white text-stone-900 border border-stone-200 flex flex-col h-full shadow-xl shadow-stone-200/50 relative overflow-hidden group">
+              <div className="p-6 sm:p-16 rounded-[2rem] sm:rounded-[3rem] bg-white text-stone-900 border border-stone-200 flex flex-col h-full shadow-xl shadow-stone-200/50 relative overflow-hidden group">
 
-                  <div className="mb-10 flex justify-between items-start relative z-10">
-                    <div>
-                      <span className="text-stone-300 font-bold text-[9px] uppercase tracking-[0.3em] block mb-3">Optional Step 02</span>
-                      <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight italic">Revenue<br />Partnership</h3>
-                    </div>
-                    <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-xl bg-stone-50 flex items-center justify-center border border-stone-100">
-                      <span className="text-base sm:text-lg font-black text-stone-900">∞</span>
-                    </div>
+                <div className="mb-10 flex justify-between items-start relative z-10">
+                  <div>
+                    <span className="text-stone-300 font-bold text-[9px] uppercase tracking-[0.3em] block mb-3">Optional Step 02</span>
+                    <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight italic">Revenue<br />Partnership</h3>
                   </div>
-
-                  <p className="text-sm sm:text-base text-stone-500 leading-relaxed mb-6 sm:mb-10 font-medium relative z-10">
-                    Once the first system works, we expand. We do not maintain. We compound.
-                  </p>
-
-                  <div className="space-y-4 mb-16 flex-grow relative z-10">
-                    <span className="text-[9px] font-black uppercase tracking-[0.3em] text-stone-300 block mb-6 px-3 py-1.5 border border-stone-100 rounded-full w-fit">The Long game</span>
-                    {[
-                      "New systems & automation layers",
-                      "New revenue channels",
-                      "Quarterly strategy with Mia",
-                      "Priority build queue",
-                      "Continuous infrastructure expansion"
-                    ].map((item) => (
-                      <div key={item} className="flex items-center gap-3 text-stone-900 font-bold uppercase tracking-tight text-xs">
-                        <span className="w-1.5 h-1.5 rounded-full bg-stone-900" />
-                        {item}
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="pt-10 border-t border-stone-100 relative z-10">
-                    <p className="text-lg font-black uppercase italic mb-6 tracking-tighter leading-none">
-                      "If revenue does not grow,<br /><span className="text-stone-400">we do not get paid."</span>
-                    </p>
-                    <p className="text-stone-400 text-[9px] font-black uppercase tracking-[0.2em] mb-1">Percentage scoped after audit.</p>
+                  <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-xl bg-stone-50 flex items-center justify-center border border-stone-100">
+                    <span className="text-base sm:text-lg font-black text-stone-900">∞</span>
                   </div>
                 </div>
-              </ScrollReveal>
+
+                <p className="text-sm sm:text-base text-stone-500 leading-relaxed mb-6 sm:mb-10 font-medium relative z-10">
+                  Once the first system works, we expand. We do not maintain. We compound.
+                </p>
+
+                <div className="space-y-4 mb-16 flex-grow relative z-10">
+                  <span className="text-[9px] font-black uppercase tracking-[0.3em] text-stone-300 block mb-6 px-3 py-1.5 border border-stone-100 rounded-full w-fit">The Long game</span>
+                  {[
+                    "New systems & automation layers",
+                    "New revenue channels",
+                    "Quarterly strategy with Mia",
+                    "Priority build queue",
+                    "Continuous infrastructure expansion"
+                  ].map((item) => (
+                    <div key={item} className="flex items-center gap-3 text-stone-900 font-bold uppercase tracking-tight text-xs">
+                      <span className="w-1.5 h-1.5 rounded-full bg-stone-900" />
+                      {item}
+                    </div>
+                  ))}
+                </div>
+
+                <div className="pt-10 border-t border-stone-100 relative z-10">
+                  <p className="text-lg font-black uppercase italic mb-6 tracking-tighter leading-none">
+                    "If revenue does not grow,<br /><span className="text-stone-400">we do not get paid."</span>
+                  </p>
+                  <p className="text-stone-400 text-[9px] font-black uppercase tracking-[0.2em] mb-1">Percentage scoped after audit.</p>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -376,28 +370,21 @@ export default function HomePage() {
         {/* FINAL CTA: THE PROOF */}
         <section className="py-16 sm:py-32 px-4 sm:px-6 bg-white text-stone-900 text-center border-t border-stone-200">
           <div className="max-w-4xl mx-auto">
-            <ScrollReveal>
-              <h2 className="text-3xl sm:text-6xl font-black uppercase tracking-tighter mb-10 leading-[0.9]">
-                Transform your company into an<br /><span className="text-stone-400 italic">AI native organization</span>
-              </h2>
-            </ScrollReveal>
+            <h2 className="text-3xl sm:text-6xl font-black uppercase tracking-tighter mb-10 leading-[0.9]">
+              Transform your company into an<br /><span className="text-stone-400 italic">AI native organization</span>
+            </h2>
 
-            <ScrollReveal delay={0.2}>
-              <div className="space-y-6 text-base sm:text-lg text-stone-500 font-medium leading-relaxed max-w-xl mx-auto mb-16 italic">
-                <p>"Start with the free audit. We map your business, identify the highest leverage automation, and show you exactly what to build."</p>
-                <p className="text-stone-900 font-bold uppercase not-italic text-sm sm:text-base">If it is not a fit, you leave with the blueprint.</p>
-              </div>
-            </ScrollReveal>
+            <div className="space-y-6 text-base sm:text-lg text-stone-500 font-medium leading-relaxed max-w-xl mx-auto mb-16 italic">
+              <p>"Start with the free audit. We map your business, identify the highest leverage automation, and show you exactly what to build."</p>
+              <p className="text-stone-900 font-bold uppercase not-italic text-sm sm:text-base">If it is not a fit, you leave with the blueprint.</p>
+            </div>
 
-            <ScrollReveal delay={0.3}>
-              <Link
-                href="/audit"
-                className="inline-block px-10 py-4 rounded-full bg-stone-900 text-white text-lg font-black hover:bg-stone-800 transition-all duration-300 hover:scale-110 shadow-xl"
-              >
-                Get Your Free Audit →
-              </Link>
-            </ScrollReveal>
-
+            <Link
+              href="/audit"
+              className="inline-block px-10 py-4 rounded-full bg-stone-900 text-white text-lg font-black hover:bg-stone-800 transition-all duration-300 hover:scale-110 shadow-xl"
+            >
+              Get Your Free Audit →
+            </Link>
           </div>
         </section>
 
