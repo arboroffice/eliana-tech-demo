@@ -41,10 +41,8 @@ export default function HomePage() {
                   </span>
                 </h1>
 
-                <div className="space-y-4 text-base sm:text-lg text-slate-400 max-w-2xl mx-auto mb-10 font-medium leading-relaxed">
-                  <p>We identify the single process draining your time and profit.</p>
-                  <p>We design the system that replaces it.</p>
-                  <p>We install it inside your business in 30 days.</p>
+                <div className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto mb-10 font-medium leading-relaxed">
+                  <p>We identify the single process draining your time and profit, design the system that replaces it, and install it inside your business in 30 days.</p>
                 </div>
 
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
