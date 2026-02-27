@@ -410,7 +410,7 @@ export default function HomePage() {
               <ScrollReveal direction="right">
                 <div className="p-8 sm:p-14 rounded-[2.5rem] bg-stone-900 border border-white/5 flex flex-col text-white hover:-translate-y-1 hover:shadow-[0_0_60px_rgba(0,0,0,0.3)] hover:border-white/10 transition-all duration-300 h-full">
                   <div className="mb-6 flex justify-between items-start">
-                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 px-3 py-1.5 border border-white/10 rounded-full">Ongoing</span>
+                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 px-3 py-1.5 border border-white/10 rounded-full">Optional</span>
                   </div>
                   <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight mb-2">The Partnership</h3>
                   <p className="text-base font-black text-slate-400 uppercase tracking-widest mb-8">30% of setup fee/month</p>
