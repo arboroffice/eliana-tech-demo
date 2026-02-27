@@ -20,8 +20,10 @@ export function Footer() {
 
       <div className="w-full flex flex-col md:flex-row items-center justify-between gap-8">
         <AnimatedContainer className="flex items-center gap-4">
-          <Image src="/placeholder-logo.png" alt="Elianatech Logo" width={48} height={48} className="size-12 rounded-lg" />
-          <span className="font-bold text-2xl text-white">ELIANATECH</span>
+          <div className="relative w-12 h-12 overflow-hidden rounded-lg">
+            <Image src="/icon.png" alt="Elianatech Logo" fill className="object-cover" />
+          </div>
+          <span className="font-bold text-2xl text-white uppercase tracking-tight">ELIANATECH</span>
         </AnimatedContainer>
 
         <AnimatedContainer delay={0.2} className="flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground">

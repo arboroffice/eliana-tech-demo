@@ -4,6 +4,7 @@ export interface IndustryContent {
     hook: string;
     problem: string;
     operatorProblem: string;
+    result?: string;
     services: {
         singleSystems: {
             title: string;
@@ -34,9 +35,10 @@ export const industries: IndustryContent[] = [
     {
         slug: "saas",
         name: "SaaS Founders",
-        hook: "The 'Founder-Led' Growth Trap: Why Your SaaS Is Stuck in Single-Digit Growth.",
-        problem: "You built the product. You landed the first 100 customers. But now, you're the bottleneck. You're handling support tickets, chasing trial expirations, and managing dev sprints. Your MRR has plateaued because you're too busy operating the business to actually grow it.",
-        operatorProblem: "In a SaaS, the 'Operator' is the one who manualizes growth. If churn follows your personal bandwidth, you don't have a company; you have a high-stress job. Successful SaaS scale because their systems handle the lifecycle from 'Visitor' to 'Advocate' without human intervention.",
+        hook: "Your SaaS Is Stuck Because You Are the Bottleneck.",
+        problem: "You built the product. You landed the first 100 customers. But now you are the bottleneck. You are handling support tickets, chasing trial expirations, and managing dev sprints. Your MRR has plateaued because you are too busy operating the business to grow it.",
+        operatorProblem: "Churn is following your personal bandwidth. That is not a company — that is a high-stress job. Every manual task in your lifecycle is a bottleneck. We remove it so your systems handle the journey from visitor to advocate without you in the loop.",
+        result: "The founder stops spending half their day on support tickets. Users onboard themselves. Churn drops because the system catches problems before people leave.",
         services: {
             singleSystems: {
                 title: "Single System Installs",
@@ -179,9 +181,10 @@ export const industries: IndustryContent[] = [
     {
         slug: "course-creators",
         name: "Course Creators",
-        hook: "Stop Trading Your Life for 'Passive' Income.",
-        problem: "You sold the dream of freedom, but you're trapped in the DMs. You're answering the same 20 questions, chasing payments, and trying to keep students engaged. Your revenue is tied to your next big launch because you don't have a system that sells and serves while you're offline.",
-        operatorProblem: "A course is supposed to be a leverage asset. But if you have to be 'on' to deliver the value or make the sale, it's not leveraged. The AI should be the one coaching, the one selling, and the one handling the student journey.",
+        hook: "Stop Trading Your Life for Passive Income.",
+        problem: "You sold the dream of freedom, but you are trapped in the DMs. You are answering the same 20 questions, chasing payments, and trying to keep students engaged. Your revenue is tied to your next launch because you do not have a system that sells and serves while you are offline.",
+        operatorProblem: "A course is a leverage asset — but only if it runs without you. Right now, the delivery, the sales, and the student journey all bottleneck through you. We remove you from that loop and install an AI department that handles it instead.",
+        result: "The course creator stops launching and starts selling on autopilot. Students onboard themselves. Revenue keeps coming in without the next live launch.",
         services: {
             singleSystems: {
                 title: "Single System Installs",
@@ -320,9 +323,10 @@ export const industries: IndustryContent[] = [
     {
         slug: "coaching",
         name: "Coaches & Consultants",
-        hook: "You're Not a Coach. You're a Customer Service Rep for Your Own Biz.",
-        problem: "Your day is a blur of Zoom calls, DM follow-ups, and calendar tetris. You can't scale because every new client requires more of your personal time. You've hit your 'time ceiling' and trying to push past it is burning you out.",
-        operatorProblem: "The 'Operator' coach is the person who does the qualifying, the chasing, and the initial knowledge transfer. The 'Founder' coach builds a system where the AI qualifies the client, handles the onboarding, and provides 80% of the baseline support so the coach only shows up for high-value transformation.",
+        hook: "You Are Not a Coach. You Are a Customer Service Rep for Your Own Business.",
+        problem: "Your day is a blur of Zoom calls, DM follow-ups, and calendar chaos. You cannot scale because every new client requires more of your personal time. You have hit your time ceiling and pushing past it is burning you out.",
+        operatorProblem: "Every qualifying call, every onboarding email, every basic how-to question — these are bottlenecks in your coaching business. We install an AI department that handles the intake, the onboarding, and 80% of baseline support. You only show up for the high-value transformation.",
+        result: "The coach stops launching and starts selling on autopilot. Clients onboard themselves. The business runs without the founder answering every question.",
         services: {
             singleSystems: {
                 title: "Single System Installs",
@@ -454,9 +458,10 @@ export const industries: IndustryContent[] = [
     {
         slug: "ecommerce",
         name: "E-commerce & Retail",
-        hook: "Your Store is Open 24/7. Is Your Team?",
-        problem: "You're losing sales because a customer had a question about sizing at 2 AM and nobody was there. You're drowning in 'Where is my order?' emails. Your ROAS is dropping because you can't follow up with abandoned carts fast enough.",
-        operatorProblem: "In E-com, the 'Operator' is the one manually handling support and basic marketing tasks. The 'Founder' builds an autonomous store where AI handles the support, personalized upsells, and inventory alerts without human input.",
+        hook: "Your Store is Open 24/7. Your Team is Not.",
+        problem: "You are losing sales because a customer had a question about sizing at 2 AM and nobody was there. You are drowning in 'Where is my order?' emails. Your ROAS is dropping because you cannot follow up with abandoned carts fast enough.",
+        operatorProblem: "Manual support and manual marketing are the bottlenecks eating your margins. Every unanswered question and every unworked cart is lost revenue. We build an AI department that handles support, personalized upsells, and inventory alerts — no human input required.",
+        result: "The store recovers lost revenue from abandoned carts, turns one-time buyers into loyal customers, and handles support without hiring more people.",
         services: {
             singleSystems: {
                 title: "Single System Installs",
@@ -591,9 +596,10 @@ export const industries: IndustryContent[] = [
     {
         slug: "agencies",
         name: "Agencies",
-        hook: "The Agency Death Spiral: Why Hiring More People Isn't the Answer.",
-        problem: "Your margins are shrinking. Every time you sign a new client, you have to hire more staff. Quality is slipping because you can't oversee everything. You're trapped in meetings and project management instead of high-level strategy.",
-        operatorProblem: "The 'Operator' agency owner is the bottleneck for all deliverables and client communication. The 'Founder' agency builds an AI-powered delivery machine where the AI handles the research, the first drafts, and the status updates.",
+        hook: "The Agency Death Spiral: Hiring More People is Not the Answer.",
+        problem: "Your margins are shrinking. Every time you sign a new client, you have to hire more staff. Quality is slipping because you cannot oversee everything. You are trapped in meetings and project management instead of high-level strategy.",
+        operatorProblem: "Deliverables and client communication bottleneck through you. Every research task, every first draft, every status update is human work priced at human rates. We build an AI department that handles all three — so your team ships faster and your margins recover.",
+        result: "The agency owner stops being the project manager. Clients get onboarded in minutes, not weeks. Reports happen automatically. The team focuses on creative work, not admin.",
         services: {
             singleSystems: {
                 title: "Single System Installs",
@@ -722,8 +728,9 @@ export const industries: IndustryContent[] = [
         slug: "home-services",
         name: "Home Services",
         hook: "Stop Losing Jobs to Slow Follow-Ups.",
-        problem: "You're in the field, but the phone is ringing. By the time you call them back, they've already booked with someone else. Your office manager is overwhelmed with scheduling and rescheduling. You have no idea which of your ads are actually turning into profit.",
-        operatorProblem: "In Home Services, the 'Operator' is the one answering the phones and doing the basic triage. The 'Founder' builds a system where the AI answers 100% of calls/texts, qualifies the lead, and books the estimate based on your optimal route.",
+        problem: "You are in the field, but the phone is ringing. By the time you call them back, they have already booked with someone else. Your office manager is overwhelmed with scheduling and rescheduling. You have no idea which of your ads are actually turning into profit.",
+        operatorProblem: "Every missed call and every slow follow-up is a bottleneck that costs you jobs. We remove it. Our AI department answers 100% of calls and texts, qualifies the lead, and books the estimate into your schedule — while you stay on the job site.",
+        result: "The owner stops answering the phone, stops chasing invoices, and stops losing leads. The business runs whether the owner is on a job site or on vacation.",
         services: {
             singleSystems: {
                 title: "Single System Installs",
@@ -852,8 +859,9 @@ export const industries: IndustryContent[] = [
         slug: "healthcare",
         name: "Healthcare & Dental",
         hook: "Your Patients Deserve Better Than a Voicemail.",
-        problem: "Your front desk is the bottleneck. They're handling insurance, check-ins, and phone calls all at once. Patients are waiting on hold, leads are falling through the cracks, and your staff is burnt out by repetitive administrative tasks.",
-        operatorProblem: "In Healthcare, the 'Operator' is the staff member manually doing the intake and follow-up. The 'Founder' builds a HIPAA-compliant AI layer that handles scheduling, insurance verification prep, and patient education before they ever step foot in the office.",
+        problem: "Your front desk is the bottleneck. They are handling insurance, check-ins, and phone calls all at once. Patients are waiting on hold, leads are falling through the cracks, and your staff is burnt out by repetitive administrative tasks.",
+        operatorProblem: "Manual intake and manual follow-up are the bottlenecks that drain your staff and lose patients. We install a HIPAA-compliant AI department that handles scheduling, insurance verification, and patient education — before they ever step foot in the office.",
+        result: "The front desk stops being a bottleneck. No-shows drop. Reviews go up. Patients feel taken care of even when nobody is manually reaching out.",
         services: {
             singleSystems: {
                 title: "Single System Installs",
@@ -981,9 +989,10 @@ export const industries: IndustryContent[] = [
     {
         slug: "legal-finance",
         name: "Law Firms & Accounting",
-        hook: "Billable Hours Shouldn't Be Wasted on Data Entry.",
+        hook: "Billable Hours Should Not Be Wasted on Data Entry.",
         problem: "Your high-value experts are bogged down in document review, lead qualification, and chasing client signatures. Your margins are being eaten alive by administrative overhead that could be automated.",
-        operatorProblem: "The 'Operator' partner is the one reviewing every single piece of intake information. The 'Founder' partner builds an AI-powered 'Junior Associate' that does the research, the intake, and the document prep, leaving the partner to only do the high-level strategy.",
+        operatorProblem: "Every intake review, every research task, every document prep cycle is a bottleneck that pulls your partners away from billable strategy. We build an AI department that does the grunt work. The partner shows up for the final call, not the first draft.",
+        result: "The partner stops doing intake and document prep by hand. Billing happens automatically. Past clients keep coming back because the system keeps the relationship warm.",
         services: {
             singleSystems: {
                 title: "Single System Installs",
@@ -1122,8 +1131,9 @@ export const industries: IndustryContent[] = [
         slug: "real-estate",
         name: "Real Estate",
         hook: "Be the First to the Lead, Every Single Time.",
-        problem: "Real estate is a speed game. If you don't respond to a Zillow or Web lead within 2 minutes, you've lost them. But you're in the middle of a showing or a closing. You can't be available 24/7, but your systems can.",
-        operatorProblem: "The 'Founder' agent has an AI assistant that engages the lead, qualifies their budget and location, and books the showing in 30 seconds.",
+        problem: "Real estate is a speed game. If you do not respond to a Zillow or web lead within 2 minutes, you have lost them. But you are in the middle of a showing or a closing. You cannot be available 24/7. Your AI operating system can.",
+        operatorProblem: "Slow lead response is the bottleneck that kills your pipeline. Every minute you wait is a lead going to a competitor. We install an AI department that engages the lead, qualifies their budget and location, and books the showing in 30 seconds — automatically.",
+        result: "The agent never loses a lead to slow response time again. Past clients stay in the pipeline forever. Transactions run smoother with less stress.",
         services: {
             singleSystems: {
                 title: "Single System Installs",
@@ -1272,8 +1282,9 @@ export const industries: IndustryContent[] = [
         slug: "hospitality",
         name: "Restaurants & Hospitality",
         hook: "Your Staff Should Be Serving Guests, Not Answering the Phone.",
-        problem: "On Friday night, your phone is ringing off the hook for reservations, directions, and hours. Your host is distracted, your guests are ignored, and you're losing missed calls to competitors. You need a way to handle the volume without adding more payroll.",
-        operatorProblem: "The 'Operator' owner builds a system where the AI handles the reservations, the group bookings, and the FAQ, so the team can focus on the guest experience.",
+        problem: "On Friday night, your phone is ringing off the hook for reservations, directions, and hours. Your host is distracted, your guests are ignored, and you are losing missed calls to competitors. You need a way to handle the volume without adding more payroll.",
+        operatorProblem: "Reservations, group bookings, and repeat FAQ calls are pure bottlenecks. They pull your team away from the guest standing in front of them. We remove those bottlenecks and install an AI department that handles the phone so your team handles the room.",
+        result: "The host stops answering the phone all night. Reservations book themselves. The team stays focused on the guest experience, not the inbox.",
         services: {
             singleSystems: {
                 title: "Single System Installs",
@@ -1410,9 +1421,10 @@ export const industries: IndustryContent[] = [
     {
         slug: "construction",
         name: "Construction & Trades",
-        hook: "The AI Foreman: How Construction & Trades Scale Beyond the Job Site.",
-        problem: "You're on a job site. The saw is running, the crew has questions, and your phone won't stop vibrating in your pocket. It's a potential lead calling for a $50k kitchen remodel. You can't answer. By the time you call them back, they've already booked with someone else.",
-        operatorProblem: "The 'Operator' in the trades is the founder who is still on the job site answering phones. The 'Founder' builds an 'AI Foreman' that triages leads, qualifies budgets, schedules site visits, and keeps clients updated on project progress without the founder ever touching their phone.",
+        hook: "The AI Foreman: How Construction and Trades Scale Beyond the Job Site.",
+        problem: "You are on a job site. The saw is running, the crew has questions, and your phone will not stop vibrating. It is a potential lead calling for a $50k remodel. You cannot answer. By the time you call them back, they have already booked with someone else.",
+        operatorProblem: "Answering phones and triaging leads from a job site is a bottleneck. It costs you jobs and splits your focus. We install an AI foreman that qualifies leads, schedules site visits, and keeps clients updated — without you touching your phone.",
+        result: "The owner stops losing leads while on site. Estimates go out fast. Clients stay updated without a single manual check-in.",
         services: {
             singleSystems: {
                 title: "Single System Installs",
@@ -1535,8 +1547,9 @@ export const industries: IndustryContent[] = [
         slug: "manufacturing",
         name: "Manufacturing & Logistics",
         hook: "Supply Chain Precision at AI Speed.",
-        problem: "You're managing a hundred moving parts with spreadsheets and email. One delay in a component ripples through your entire delivery schedule. Your team is spending half their time on status updates instead of production.",
-        operatorProblem: "The 'Operator' in manufacturing is the one manualizing the coordination. The 'Founder' builds an AI-driven 'Supply Chain Brain' that predicts delays, automates vendor follow-ups, and provides real-time logistics transparency.",
+        problem: "You are managing a hundred moving parts with spreadsheets and email. One delay in a single component ripples through your entire delivery schedule. Your team is spending half their time on status updates instead of production.",
+        operatorProblem: "Manual coordination is the bottleneck slowing your production floor. Every vendor follow-up and every status update is human work at human rates. We install an AI supply chain operating system that predicts delays, chases vendors, and gives your team real-time visibility — automatically.",
+        result: "The team stops managing supply chains by spreadsheet. Delays get flagged before they become problems. The owner gets visibility without building a data team.",
         services: {
             singleSystems: {
                 title: "Single System Installs",
@@ -1678,9 +1691,10 @@ export const industries: IndustryContent[] = [
     {
         slug: "membership",
         name: "Membership & Community",
-        hook: "High-Touch Support without the High-Cost Team.",
-        problem: "Your community is growing, but engagement is dropping because you can't be everywhere at once. Your churn is creeping up because members don't feel 'seen.' You're stuck in the day-to-day moderation instead of the high-level strategy.",
-        operatorProblem: "The 'Operator' founder is the one answering basic questions in the forum. The 'Founder' builds an AI community manager that answers questions, welcomes new members, and identifies churn risks based on activity levels.",
+        hook: "High-Touch Support Without the High-Cost Team.",
+        problem: "Your community is growing, but engagement is dropping because you cannot be everywhere at once. Churn is creeping up because members do not feel seen. You are stuck in day-to-day moderation instead of high-level strategy.",
+        operatorProblem: "Answering forum questions and manually welcoming members are bottlenecks that consume your time without moving the needle. We install an AI community department that handles the questions, flags the churn risks, and identifies members who need attention — before they leave.",
+        result: "The community runs without the founder in the forum. Members feel seen. Churn drops because the system catches disengagement before people leave.",
         services: {
             singleSystems: {
                 title: "Single System Installs",
@@ -1833,8 +1847,9 @@ export const industries: IndustryContent[] = [
         slug: "digital-products",
         name: "Digital Products",
         hook: "Scale Your Sales, Not Your Tickets.",
-        problem: "You have a great product, but your inbox is a nightmare. 'How do I download?', 'Where is my login?', 'Can I get a refund?'. You're so busy with low-level support that you haven't released a new product in six months.",
-        operatorProblem: "In Digital Products, the 'Operator' is the one manualizing the delivery and support. The 'Founder' builds an 'Autonomous Storefront' where the AI handles the sales, the support, and the cross-sells on autopilot.",
+        problem: "You have a great product, but your inbox is a nightmare. 'How do I download?', 'Where is my login?', 'Can I get a refund?'. You are so busy with low-level support that you have not released a new product in six months.",
+        operatorProblem: "Manual delivery and manual support are the bottlenecks killing your margins on every low-ticket sale. We build an AI storefront operating system that handles the sales conversations, resolves the support tickets, and executes the cross-sells — on autopilot.",
+        result: "The store runs 24/7. Support tickets clear themselves. The creator stops playing customer service rep and starts building the next product.",
         services: {
             singleSystems: {
                 title: "Single System Installs",
@@ -1977,8 +1992,9 @@ export const industries: IndustryContent[] = [
         slug: "professional-services",
         name: "Professional Services",
         hook: "High-Ticket Service, Zero-Friction Delivery.",
-        problem: "You're selling high-value expertise, but you're spending your time on scheduling, research, and follow-ups. You can't scale your 'Elite' service because it depends entirely on your personal bandwidth.",
-        operatorProblem: "The 'Operator' professional is the one doing the grunt work of the service. The 'Founder' builds an 'Expert AI Layer' that does the analysis and the prep, so the professional only shows up for the final high-value delivery.",
+        problem: "You are selling high-value expertise, but you are spending your time on scheduling, research, and follow-ups. You cannot scale your service because it depends entirely on your personal bandwidth.",
+        operatorProblem: "Analysis, prep work, and scheduling are bottlenecks that pull you away from the work that actually bills. We build an AI department that does all of it. You show up for the final high-value delivery. Nothing else.",
+        result: "The firm stops losing leads to slow response times. Billing happens automatically. Past clients keep coming back because the system keeps the relationship warm.",
         services: {
             singleSystems: {
                 title: "Single System Installs",
@@ -2116,8 +2132,9 @@ export const industries: IndustryContent[] = [
         slug: "healthcare",
         name: "Healthcare & Wellness",
         hook: "Care for Patients, Not Paperwork.",
-        problem: "Your practitioners are burnt out by administrative drag. Charting, billing, and scheduling are eating 40% of their clinical time. You're losing potential patients because your intake process is slow and your follow-ups are manual.",
-        operatorProblem: "In Healthcare, the 'Operator' is the one managing the intake and the follow-up. The 'Founder' builds an 'Autonomous Clinic' where AI handles the patient journey from discovery to post-care check-in.",
+        problem: "Your practitioners are burnt out by administrative drag. Charting, billing, and scheduling are eating 40% of their clinical time. You are losing potential patients because your intake process is slow and your follow-ups are manual.",
+        operatorProblem: "Manual intake and manual follow-up are the bottlenecks burning out your practitioners and losing patients. We install an AI clinic operating system that manages the patient journey from first contact to post-care check-in — without your team doing the repetitive work.",
+        result: "Practitioners stop spending 40% of their time on admin. Intake happens before the patient walks in. The practice grows without adding front desk staff.",
         services: {
             singleSystems: {
                 title: "Single System Installs",
@@ -2237,9 +2254,10 @@ export const industries: IndustryContent[] = [
     {
         slug: "legal-finance",
         name: "Law & Accounting",
-        hook: "High-Value Wisdon, Not High-Volume Grunt Work.",
-        problem: "You're selling your expertise, but your juniors are drowning in document review, data entry, and manual reconciliations. Your margins are capped by billable hours and your talent is leaving because the work is boring.",
-        operatorProblem: "In Professional Firms, the 'Operator' is the one doing the first-pass review and the manual data entry. The 'Founder' builds an 'Expert AI Vault' that does the analysis and the prep, so the partner only shows up for the final wisdom and delivery.",
+        hook: "High-Value Wisdom, Not High-Volume Grunt Work.",
+        problem: "You are selling your expertise, but your juniors are drowning in document review, data entry, and manual reconciliations. Your margins are capped by billable hours and your talent is leaving because the work is boring.",
+        operatorProblem: "First-pass review and manual data entry are bottlenecks that cap your margins and burn out your best people. We build an AI vault that does the analysis and the prep. The partner shows up for the final wisdom and delivery. That is all.",
+        result: "The firm stops losing senior hours to grunt work. Junior AI handles the first pass. Partners show up only for the high-value delivery.",
         services: {
             singleSystems: {
                 title: "Single System Installs",

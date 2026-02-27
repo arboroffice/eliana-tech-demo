@@ -3,6 +3,7 @@ import Aurora from "../../components/Aurora"
 import { Footer } from "../../components/footer"
 import { getAllBlogPosts } from "../../lib/blog"
 import BlogFilter from "./BlogFilter"
+import { BlogNewsletterForm } from "../../components/blog-newsletter-form"
 
 export default function BlogPage() {
     const posts = getAllBlogPosts()
@@ -22,19 +23,9 @@ export default function BlogPage() {
                         Insights on the future of work, AI automation, and scaling your business without scaling headcount.
                     </p>
 
-                    {/* Substack Newsletter CTA */}
+                    {/* Newsletter CTA */}
                     <div className="flex justify-center mb-16 px-4">
-                        <div className="bg-white p-1 rounded-xl shadow-2xl overflow-hidden max-w-full">
-                            <iframe
-                                src="https://miaelianaa.substack.com/embed"
-                                width="480"
-                                height="320"
-                                style={{ border: 'none', background: 'white' }}
-                                frameBorder="0"
-                                scrolling="no"
-                                className="max-w-full"
-                            ></iframe>
-                        </div>
+                        <BlogNewsletterForm />
                     </div>
                 </div>
 

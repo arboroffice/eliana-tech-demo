@@ -34,8 +34,8 @@ export function BrandLogos() {
                 >
                     {doubled.map((name, idx) => (
                         <div key={`${name}-${idx}`} className="flex items-center gap-4 group whitespace-nowrap">
-                            <span className="w-1 h-1 rounded-full bg-white/20 group-hover:bg-white/60 transition-colors duration-300" />
-                            <span className="text-[11px] sm:text-xs font-black uppercase tracking-[0.35em] text-white/30 group-hover:text-white/70 transition-colors duration-300">
+                            <span className="w-1 h-1 rounded-full bg-stone-200 group-hover:bg-stone-400 transition-colors duration-300" />
+                            <span className="text-[11px] sm:text-xs font-black uppercase tracking-[0.35em] text-stone-300 group-hover:text-stone-900 transition-colors duration-300">
                                 {name}
                             </span>
                         </div>
@@ -44,8 +44,8 @@ export function BrandLogos() {
             </div>
 
             {/* Gradient fade edges */}
-            <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
-            <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
+            <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+            <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
         </div>
     )
 }

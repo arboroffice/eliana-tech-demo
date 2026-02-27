@@ -1,13 +1,15 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { useState, useMemo } from "react"
+import { useState, useMemo, useEffect } from "react"
+import ReactMarkdown from 'react-markdown'
 import {
   TrendingUp, AlertCircle, CheckCircle2, Target, Lightbulb,
   Rocket, DollarSign, Clock, Users, BarChart3, ArrowRight,
   Download, Calendar, Zap, Brain, Mail,
   ShieldCheck, Settings, MessageSquare, FileText, Calculator,
-  RefreshCw, Headphones, LayoutDashboard, Layers, Building2
+  RefreshCw, Headphones, LayoutDashboard, Layers, Building2,
+  Loader2, Sparkles, ChevronDown, ChevronUp
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -870,6 +872,39 @@ function FadeUp({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
 export function AuditResults({ formData, auditScore }: AuditResultsProps) {
   const [showROI, setShowROI] = useState(false)
   const [showChecklist, setShowChecklist] = useState(false)
+  const [proposalMarkdown, setProposalMarkdown] = useState<string | null>(null)
+  const [proposalLoading, setProposalLoading] = useState(true)
+  const [proposalError, setProposalError] = useState(false)
+  const [proposalExpanded, setProposalExpanded] = useState(true)
+  const [proposalPricing, setProposalPricing] = useState<any>(null)
+
+  // Fire the proposal agent on mount
+  useEffect(() => {
+    let cancelled = false
+    async function fetchProposal() {
+      try {
+        const res = await fetch('/api/audit/generate-proposal', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        })
+        if (cancelled) return
+        const data = await res.json()
+        if (data.success && data.proposal) {
+          setProposalMarkdown(data.proposal)
+          setProposalPricing(data.pricing)
+        } else {
+          setProposalError(true)
+        }
+      } catch {
+        if (!cancelled) setProposalError(true)
+      } finally {
+        if (!cancelled) setProposalLoading(false)
+      }
+    }
+    fetchProposal()
+    return () => { cancelled = true }
+  }, [formData])
 
   const sub = useMemo(() => calcSubScores(formData), [formData])
   const opps = useMemo(() => topOpportunities(formData), [formData])
@@ -1724,6 +1759,102 @@ export function AuditResults({ formData, auditScore }: AuditResultsProps) {
             The companies that win aren&apos;t working harder. They&apos;re building smarter infrastructure.
           </p>
         </Card>
+      </FadeUp>
+
+      {/* ── 10b. Your Custom Proposal (AI-Generated) ───── */}
+      <FadeUp delay={0.32}>
+        <div className="border border-purple-500/30 rounded-2xl overflow-hidden bg-gradient-to-br from-purple-900/20 to-indigo-900/20 backdrop-blur-xl">
+          <div
+            className="px-8 py-5 border-b border-white/10 flex items-center justify-between cursor-pointer hover:bg-white/[0.02] transition-colors"
+            onClick={() => setProposalExpanded(!proposalExpanded)}
+          >
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-lg bg-purple-500/10">
+                <Sparkles className="w-5 h-5 text-purple-400" />
+              </div>
+              <div>
+                <h2 className="text-white font-bold text-xl">Your Custom Growth Proposal</h2>
+                <p className="text-slate-500 text-sm">
+                  {proposalLoading
+                    ? 'AI is researching your company and building your proposal...'
+                    : proposalError
+                      ? 'Proposal will be sent to your email'
+                      : `Personalized for ${formData.companyName || formData.fullName || 'your business'}${proposalPricing ? ` — ${proposalPricing.tierLabel}` : ''}`}
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              {proposalPricing && !proposalLoading && (
+                <span className="text-purple-400 font-bold text-lg hidden sm:block">
+                  {proposalPricing.priceRange}
+                </span>
+              )}
+              {proposalExpanded
+                ? <ChevronUp className="w-5 h-5 text-slate-400" />
+                : <ChevronDown className="w-5 h-5 text-slate-400" />}
+            </div>
+          </div>
+
+          {proposalExpanded && (
+            <div className="p-8">
+              {proposalLoading && (
+                <div className="flex flex-col items-center justify-center py-16 space-y-6">
+                  <div className="relative">
+                    <Loader2 className="w-12 h-12 text-purple-400 animate-spin" />
+                    <Sparkles className="w-5 h-5 text-purple-300 absolute -top-1 -right-1 animate-pulse" />
+                  </div>
+                  <div className="text-center space-y-2">
+                    <p className="text-white font-semibold">Building your proposal...</p>
+                    <p className="text-slate-400 text-sm max-w-md">
+                      Our AI agent is researching {formData.websiteUrl ? new URL(formData.websiteUrl.startsWith('http') ? formData.websiteUrl : 'https://' + formData.websiteUrl).hostname : 'your business'},
+                      analyzing your audit data, running the pricing algorithm, and writing a personalized growth proposal.
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-8 text-xs text-slate-500">
+                    <span className="flex items-center gap-2">
+                      <CheckCircle2 className="w-3 h-3 text-green-500" /> Audit analyzed
+                    </span>
+                    <span className="flex items-center gap-2">
+                      <Loader2 className="w-3 h-3 text-blue-400 animate-spin" /> Researching company
+                    </span>
+                    <span className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full border border-slate-600" /> Writing proposal
+                    </span>
+                  </div>
+                </div>
+              )}
+
+              {proposalError && !proposalLoading && (
+                <div className="text-center py-12 space-y-4">
+                  <p className="text-slate-400">
+                    We&apos;re preparing your detailed proposal — it will be sent to <span className="text-white font-medium">{formData.email}</span> shortly.
+                  </p>
+                  <p className="text-slate-500 text-sm">
+                    In the meantime, book a call to discuss your results and get your proposal in real-time.
+                  </p>
+                </div>
+              )}
+
+              {proposalMarkdown && !proposalLoading && (
+                <div className="prose prose-invert prose-sm max-w-none
+                  prose-headings:text-white prose-headings:font-bold
+                  prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h2:pb-2 prose-h2:border-b prose-h2:border-white/10
+                  prose-h3:text-lg prose-h3:mt-6 prose-h3:mb-3
+                  prose-p:text-slate-300 prose-p:leading-relaxed
+                  prose-strong:text-white
+                  prose-li:text-slate-300
+                  prose-table:border-collapse
+                  prose-th:text-left prose-th:text-slate-400 prose-th:text-xs prose-th:uppercase prose-th:tracking-wider prose-th:p-3 prose-th:border-b prose-th:border-white/10
+                  prose-td:p-3 prose-td:text-slate-300 prose-td:border-b prose-td:border-white/5 prose-td:text-sm
+                  prose-a:text-purple-400 prose-a:no-underline hover:prose-a:text-purple-300
+                  prose-hr:border-white/10
+                ">
+                  <ReactMarkdown>{proposalMarkdown}</ReactMarkdown>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
       </FadeUp>
 
       {/* ── 11. CTA ─────────────────────────────────────── */}

@@ -51,7 +51,7 @@ export async function POST(request: Request) {
             auditId
         })
 
-        // Subscribe to Founder of the Future newsletter on Substack
+        // Subscribe to newsletter on Substack
         if (formData.newsletterOptIn && formData.email) {
             try {
                 await fetch('https://miaelianaa.substack.com/api/v1/free?nojs=true', {
@@ -67,7 +67,7 @@ export async function POST(request: Request) {
                         current_referrer: 'https://elianatech.com',
                     }).toString(),
                 })
-                console.log(`[SUBSTACK] Subscribed ${formData.email} to Founder of the Future`)
+                console.log(`[SUBSTACK] Subscribed ${formData.email} to newsletter`)
             } catch (substackError) {
                 console.error('[SUBSTACK ERROR]', substackError)
             }

@@ -100,6 +100,9 @@ export function GlassmorphismNav() {
               </AnimatePresence>
             </div>
 
+            <Link href="/systems" className="text-sm text-slate-300 hover:text-white transition-colors">
+              Systems
+            </Link>
             <Link href="/about" className="text-sm text-slate-300 hover:text-white transition-colors">
               About
             </Link>
@@ -156,6 +159,9 @@ export function GlassmorphismNav() {
 
               <div className="h-px bg-white/5 my-4" />
 
+              <Link href="/systems" className="block text-center text-lg text-slate-300 hover:text-white transition-colors py-2" onClick={() => setIsMobileMenuOpen(false)}>
+                Systems
+              </Link>
               <Link href="/about" className="block text-center text-lg text-slate-300 hover:text-white transition-colors py-2" onClick={() => setIsMobileMenuOpen(false)}>
                 About
               </Link>
