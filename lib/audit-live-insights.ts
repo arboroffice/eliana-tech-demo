@@ -14,11 +14,17 @@ export function getLiveInsights(formData: any): LiveInsight[] {
 
     // URL Insight
     if (formData.websiteUrl && formData.websiteUrl.length > 5) {
-        insights.push({
-            type: 'discovery',
-            message: `Scanned ${new URL(formData.websiteUrl).hostname}. Identifying tech stack components...`,
-            icon: '🌐'
-        });
+        try {
+            const urlStr = formData.websiteUrl.startsWith('http') ? formData.websiteUrl : `https://${formData.websiteUrl}`
+            const hostname = new URL(urlStr).hostname
+            insights.push({
+                type: 'discovery',
+                message: `Scanned ${hostname}. Identifying tech stack components...`,
+                icon: '🌐'
+            });
+        } catch {
+            // Invalid URL, skip this insight
+        }
     }
 
     // Team Size Insight

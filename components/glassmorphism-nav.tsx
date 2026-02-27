@@ -134,50 +134,85 @@ export function GlassmorphismNav() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-black/95 backdrop-blur-xl border-b border-white/10 overflow-hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="md:hidden fixed inset-0 top-0 bg-black z-40 overflow-y-auto"
           >
-            <div className="px-4 py-8 space-y-4 max-h-[80vh] overflow-y-auto">
-              {/* Industries Mobile Expandable */}
-              <div className="space-y-2">
-                <p className="text-xs uppercase tracking-widest text-slate-500 font-bold mb-4 px-2">Industries</p>
-                <div className="grid grid-cols-2 gap-2">
-                  {industries.map((ind) => (
-                    <Link
-                      key={ind.slug}
-                      href={`/industries/${ind.slug}`}
-                      className="block text-sm text-slate-300 hover:text-white transition-colors py-2 px-2 rounded-lg bg-white/5"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      {ind.name}
-                    </Link>
-                  ))}
+            <div className="flex items-center justify-between px-4 py-6 sm:px-6">
+              <Link href="/" className="flex items-center gap-2" onClick={() => setIsMobileMenuOpen(false)}>
+                <div className="relative w-10 h-10 overflow-hidden rounded-xl">
+                  <Image src="/icon.png" alt="Elianatech Logo" fill className="object-cover" />
                 </div>
+                <span className="text-xl font-bold text-white">ELIANATECH</span>
+              </Link>
+              <button className="text-white p-2" onClick={() => setIsMobileMenuOpen(false)}>
+                <X />
+              </button>
+            </div>
+
+            <div className="px-6 pb-10 space-y-1">
+              {[
+                { href: "/systems", label: "Systems" },
+                { href: "/about", label: "About" },
+                { href: "/founder", label: "Founder" },
+                { href: "/blog", label: "Blog" },
+              ].map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="block text-2xl font-bold text-white py-3 border-b border-white/5"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              ))}
+
+              {/* Industries - collapsible */}
+              <div>
+                <button
+                  onClick={() => setIsIndustriesOpen(!isIndustriesOpen)}
+                  className="flex items-center justify-between w-full text-2xl font-bold text-white py-3 border-b border-white/5"
+                >
+                  Industries
+                  <motion.span animate={{ rotate: isIndustriesOpen ? 180 : 0 }} className="text-xs text-slate-500">
+                    ▼
+                  </motion.span>
+                </button>
+                <AnimatePresence>
+                  {isIndustriesOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="grid grid-cols-2 gap-x-4 gap-y-1 pt-3 pb-4">
+                        {industries.map((ind) => (
+                          <Link
+                            key={ind.slug}
+                            href={`/industries/${ind.slug}`}
+                            className="text-sm text-slate-400 hover:text-white py-2 transition-colors"
+                            onClick={() => setIsMobileMenuOpen(false)}
+                          >
+                            {ind.name}
+                          </Link>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
 
-              <div className="h-px bg-white/5 my-4" />
-
-              <Link href="/systems" className="block text-center text-lg text-slate-300 hover:text-white transition-colors py-2" onClick={() => setIsMobileMenuOpen(false)}>
-                Systems
-              </Link>
-              <Link href="/about" className="block text-center text-lg text-slate-300 hover:text-white transition-colors py-2" onClick={() => setIsMobileMenuOpen(false)}>
-                About
-              </Link>
-              <Link href="/founder" className="block text-center text-lg text-slate-300 hover:text-white transition-colors py-2" onClick={() => setIsMobileMenuOpen(false)}>
-                Founder
-              </Link>
-              <Link href="/blog" className="block text-center text-lg text-slate-300 hover:text-white transition-colors py-2" onClick={() => setIsMobileMenuOpen(false)}>
-                Blog
-              </Link>
-              <Link
-                href="/audit"
-                className="block w-full text-center px-6 py-4 rounded-full bg-white text-black text-lg font-bold hover:bg-slate-200 transition-all"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Free Automation Audit
-              </Link>
+              <div className="pt-6">
+                <Link
+                  href="/audit"
+                  className="block w-full text-center px-6 py-4 rounded-full bg-white text-black text-base font-black uppercase tracking-wider hover:bg-slate-200 transition-all"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Free Automation Audit
+                </Link>
+              </div>
             </div>
           </motion.div>
         )}
