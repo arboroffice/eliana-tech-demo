@@ -110,7 +110,7 @@ export function AuditReportPrint({ formData, auditScore }: PrintReportProps) {
         {/* Print button */}
         <div className="no-print mb-6 flex gap-3">
           <button onClick={() => window.print()}
-            className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700">
+            className="bg-red-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-red-700">
             Print / Save as PDF
           </button>
           <button onClick={() => window.close()}
@@ -120,8 +120,8 @@ export function AuditReportPrint({ formData, auditScore }: PrintReportProps) {
         </div>
 
         {/* Header */}
-        <div className="border-b-2 border-blue-600 pb-6 mb-8">
-          <h1 className="text-3xl font-bold text-blue-600 mb-1">ElianaTech</h1>
+        <div className="border-b-2 border-red-600 pb-6 mb-8">
+          <h1 className="text-3xl font-bold text-red-600 mb-1">ElianaTech</h1>
           <h2 className="text-xl text-gray-600">Automation Audit Report</h2>
           <p className="text-gray-500 mt-2">
             Prepared for <strong>{formData.companyName || formData.fullName}</strong> · {today}
@@ -130,7 +130,7 @@ export function AuditReportPrint({ formData, auditScore }: PrintReportProps) {
 
         {/* Overall Score */}
         <div className="bg-gray-50 rounded-xl p-8 text-center mb-8 border">
-          <div className="text-6xl font-bold text-blue-600 mb-2">{auditScore}<span className="text-2xl text-gray-400">/100</span></div>
+          <div className="text-6xl font-bold text-red-600 mb-2">{auditScore}<span className="text-2xl text-gray-400">/100</span></div>
           <p className="text-lg text-gray-600">
             {auditScore < 40 ? "Significant untapped automation potential identified." : auditScore < 70 ? "Strong foundation with clear optimization opportunities." : "Above average — ready for advanced automation systems."}
           </p>
@@ -145,7 +145,7 @@ export function AuditReportPrint({ formData, auditScore }: PrintReportProps) {
               <div className="flex-1 h-4 bg-gray-100 rounded-full overflow-hidden">
                 <div className="h-full rounded-full" style={{
                   width: `${score}%`,
-                  backgroundColor: score >= 70 ? '#10b981' : score >= 40 ? '#f59e0b' : '#ef4444'
+                  backgroundColor: score >= 70 ? '#fca5a5' : score >= 40 ? '#dc2626' : '#7f1d1d'
                 }} />
               </div>
               <span className="w-10 text-right font-bold">{score}</span>
@@ -158,30 +158,30 @@ export function AuditReportPrint({ formData, auditScore }: PrintReportProps) {
         <div className="space-y-4 mb-8">
           {(formData.onboardingAutomated === 'No' || formData.onboardingAutomated === 'Partially') && (
             <div className="border rounded-lg p-4">
-              <h4 className="font-bold text-blue-600">Automated Onboarding</h4>
+              <h4 className="font-bold text-red-600">Automated Onboarding</h4>
               <p className="text-sm text-gray-600 mt-1">Manual onboarding creates bottlenecks and inconsistent experiences. AI-driven sequences can activate users 3x faster.</p>
-              <p className="text-sm text-emerald-600 mt-1">Potential impact: 3x faster activation · Timeline: 2-3 weeks</p>
+              <p className="text-sm text-red-600 mt-1">Potential impact: 3x faster activation · Timeline: 2-3 weeks</p>
             </div>
           )}
           {(formData.churnRate === '20+' || formData.churnRate === '10-20') && (
             <div className="border rounded-lg p-4">
-              <h4 className="font-bold text-blue-600">Churn Prevention Engine</h4>
+              <h4 className="font-bold text-red-600">Churn Prevention Engine</h4>
               <p className="text-sm text-gray-600 mt-1">Your {formData.churnRate}% churn rate is costing an estimated <strong>{fmt$(churnLossAnnual)}/year</strong>. Automated health scoring and re-engagement can cut churn by 30-50%.</p>
-              <p className="text-sm text-emerald-600 mt-1">Potential impact: {fmt$(churnLossAnnual * 0.3)}/year saved · Timeline: 3-4 weeks</p>
+              <p className="text-sm text-red-600 mt-1">Potential impact: {fmt$(churnLossAnnual * 0.3)}/year saved · Timeline: 3-4 weeks</p>
             </div>
           )}
           {(formData.supportHoursPerWeek === '10+' || formData.supportHoursPerWeek === '5-10') && (
             <div className="border rounded-lg p-4">
-              <h4 className="font-bold text-blue-600">AI-Powered Support</h4>
+              <h4 className="font-bold text-red-600">AI-Powered Support</h4>
               <p className="text-sm text-gray-600 mt-1">Spending {formData.supportHoursPerWeek} hrs/week on support. An AI assistant can handle 80% of questions instantly.</p>
-              <p className="text-sm text-emerald-600 mt-1">Potential impact: {Math.round(supportHrs * 0.8 * 4)} hrs/month freed · Timeline: 2-3 weeks</p>
+              <p className="text-sm text-red-600 mt-1">Potential impact: {Math.round(supportHrs * 0.8 * 4)} hrs/month freed · Timeline: 2-3 weeks</p>
             </div>
           )}
           {(formData.percentAutomated === 'none' || formData.percentAutomated === 'under-30') && (
             <div className="border rounded-lg p-4">
-              <h4 className="font-bold text-blue-600">Workflow Automation Hub</h4>
+              <h4 className="font-bold text-red-600">Workflow Automation Hub</h4>
               <p className="text-sm text-gray-600 mt-1">With most processes still manual, 15-20 hrs/week can be recovered through connected workflows.</p>
-              <p className="text-sm text-emerald-600 mt-1">Potential impact: 15-20 hrs/week saved · Timeline: 3-4 weeks</p>
+              <p className="text-sm text-red-600 mt-1">Potential impact: 15-20 hrs/week saved · Timeline: 3-4 weeks</p>
             </div>
           )}
         </div>
@@ -211,8 +211,8 @@ export function AuditReportPrint({ formData, auditScore }: PrintReportProps) {
         </ol>
 
         {/* CTA */}
-        <div className="border-t-2 border-blue-600 pt-6 mt-8 text-center">
-          <p className="text-lg font-bold text-blue-600 mb-2">Ready to implement? Let&apos;s talk.</p>
+        <div className="border-t-2 border-red-600 pt-6 mt-8 text-center">
+          <p className="text-lg font-bold text-red-600 mb-2">Ready to implement? Let&apos;s talk.</p>
           <p className="text-gray-600">Book your free strategy call at <strong>elianatech.com/audit</strong></p>
           <p className="text-gray-400 text-sm mt-4">&copy; {new Date().getFullYear()} ElianaTech &middot; elianatech.com</p>
         </div>

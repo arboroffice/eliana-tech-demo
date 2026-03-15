@@ -7,7 +7,7 @@ export interface LeadScore {
   score: number
   reasons: string[]
   recommendedActions: string[]
-  nurturSequence: 'A' | 'B' | 'C'
+  nurturSequence: 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H'
 }
 
 export function scoreAndRouteLead(formData: any, auditScore: number): LeadScore {

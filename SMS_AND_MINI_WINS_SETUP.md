@@ -77,7 +77,7 @@ You should receive:
 ```
 Hey [Name], it's Mia from Eliana. Just reviewed your audit for [Company].
 You mentioned "[pain point]" - I've seen this exact issue before and have
-a quick solution. Got 5 min to chat? Book here: https://cal.com/mia-louviere-a4n2hk/30min
+a quick solution. Got 5 min to chat? Book here: https://cal.com/elianatech/30min
 ```
 
 ### Team Notification (Sent to your phone)

@@ -22,7 +22,7 @@ export default function ProposalPage() {
         <div className="text-center">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">No Audit Data Found</h2>
           <p className="text-gray-600 mb-6">Please complete the AI audit first to generate your proposal.</p>
-          <a href="/audit" className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700">
+          <a href="/audit" className="inline-block bg-red-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-700">
             Take the Audit →
           </a>
         </div>
@@ -36,13 +36,13 @@ export default function ProposalPage() {
       <div className="print:hidden fixed top-4 right-4 z-50 flex gap-3">
         <button
           onClick={() => window.print()}
-          className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 shadow-lg"
+          className="bg-red-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-700 shadow-lg"
         >
           🖨️ Print / Save PDF
         </button>
         <a
-          href="https://cal.com/mia-louviere-a4n2hk/30min"
-          className="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 shadow-lg"
+          href="https://cal.com/elianatech/30min"
+          className="bg-red-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-700 shadow-lg"
         >
           📞 Book a Call
         </a>
@@ -51,13 +51,13 @@ export default function ProposalPage() {
       {/* Header */}
       <div className="bg-slate-800 text-white py-16 px-8">
         <div className="max-w-3xl mx-auto">
-          <p className="text-blue-300 font-semibold mb-2">CUSTOM PROPOSAL</p>
+          <p className="text-red-300 font-semibold mb-2">CUSTOM PROPOSAL</p>
           <h1 className="text-4xl font-bold mb-4">
             AI Automation Proposal for {proposal.companyName}
           </h1>
           <div className="flex flex-wrap gap-6 text-slate-300 text-sm mt-6">
             <span>Prepared for: <strong className="text-white">{proposal.clientName}</strong></span>
-            <span>Industry: <strong className="text-white">{proposal.industry}</strong></span>
+            <span>Business: <strong className="text-white">{proposal.businessType}</strong></span>
             <span>Date: <strong className="text-white">{proposal.date}</strong></span>
           </div>
         </div>
@@ -81,14 +81,16 @@ export default function ProposalPage() {
         {/* Recommended Package */}
         <section>
           <h2 className="text-2xl font-bold text-slate-800 mb-4">Recommended Solution</h2>
-          <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
-            <h3 className="text-xl font-bold text-blue-800 mb-2">
-              {proposal.recommendedPackage === 'ai-coo' ? '🤖 AI COO Package' : '🏗️ Full Infrastructure Package'}
+          <div className="bg-red-50 border border-red-200 rounded-xl p-6">
+            <h3 className="text-xl font-bold text-red-800 mb-2">
+              {proposal.recommendedPackage === 'single-system' ? '🎯 Single System' : proposal.recommendedPackage === 'multi-system' ? '🤖 Multi-System Build' : '🏗️ Full Infrastructure Package'}
             </h3>
-            <p className="text-blue-700">
-              {proposal.recommendedPackage === 'ai-coo'
-                ? 'A complete AI operations officer that manages leads, follow-ups, reviews, and reporting — 24/7.'
-                : 'End-to-end digital infrastructure: website, CRM, content strategy, AI automation, and ongoing management.'}
+            <p className="text-red-700">
+              {proposal.recommendedPackage === 'single-system'
+                ? 'A laser-focused AI solution to fix your biggest bottleneck.'
+                : proposal.recommendedPackage === 'multi-system'
+                  ? 'A complete AI operations officer that manages leads, follow-ups, reviews, and reporting — 24/7.'
+                  : 'End-to-end digital infrastructure: website, CRM, content strategy, AI automation, and ongoing management.'}
             </p>
           </div>
         </section>
@@ -104,43 +106,24 @@ export default function ProposalPage() {
                     <h4 className="font-bold text-slate-800">{system.name}</h4>
                     <p className="text-gray-600 text-sm mt-1">{system.description}</p>
                   </div>
-                  <span className="text-green-600 text-sm font-semibold whitespace-nowrap ml-4">{system.value}</span>
+                  <span className="text-red-600 text-sm font-semibold whitespace-nowrap ml-4">{system.value}</span>
                 </div>
               </div>
             ))}
           </div>
         </section>
 
-        {/* Timeline */}
-        <section>
-          <h2 className="text-2xl font-bold text-slate-800 mb-4">Implementation Timeline</h2>
-          <div className="space-y-6">
-            {proposal.timeline.map((phase, i) => (
-              <div key={i} className="border-l-4 border-blue-500 pl-6">
-                <h4 className="font-bold text-slate-800">{phase.phase}</h4>
-                <p className="text-blue-600 text-sm font-medium mb-2">{phase.weeks}</p>
-                <ul className="space-y-1">
-                  {phase.deliverables.map((d, j) => (
-                    <li key={j} className="text-gray-600 text-sm flex items-center gap-2">
-                      <span className="text-green-500">✓</span> {d}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </section>
 
         {/* ROI */}
         <section>
           <h2 className="text-2xl font-bold text-slate-800 mb-4">Expected ROI</h2>
-          <div className="bg-green-50 border border-green-200 rounded-xl overflow-hidden">
+          <div className="bg-red-50 border border-red-200 rounded-xl overflow-hidden">
             <table className="w-full text-sm">
               <tbody>
                 {proposal.roi.map((item, i) => (
-                  <tr key={i} className={i % 2 === 0 ? 'bg-green-50' : 'bg-white'}>
+                  <tr key={i} className={i % 2 === 0 ? 'bg-red-50' : 'bg-white'}>
                     <td className="px-6 py-3 font-medium text-gray-700">{item.metric}</td>
-                    <td className="px-6 py-3 text-right font-bold text-green-700">{item.value}</td>
+                    <td className="px-6 py-3 text-right font-bold text-red-700">{item.value}</td>
                   </tr>
                 ))}
               </tbody>
@@ -163,8 +146,8 @@ export default function ProposalPage() {
           <h2 className="text-2xl font-bold text-slate-800 mb-4">Ready to Get Started?</h2>
           <p className="text-gray-600 mb-6">Book a call to discuss this proposal and get your questions answered.</p>
           <a
-            href="https://cal.com/mia-louviere-a4n2hk/30min"
-            className="inline-block bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-700"
+            href="https://cal.com/elianatech/30min"
+            className="inline-block bg-red-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-red-700"
           >
             Book Your Strategy Call →
           </a>
@@ -173,7 +156,7 @@ export default function ProposalPage() {
 
       {/* Print Footer */}
       <div className="hidden print:block border-t border-gray-200 py-8 px-8 text-center text-gray-500 text-sm">
-        <p>ElianaTech &middot; elianatech.com &middot; Book a call: cal.com/mia-louviere-a4n2hk/30min</p>
+        <p>ElianaTech &middot; elianatech.com &middot; Book a call: cal.com/elianatech/30min</p>
       </div>
     </div>
   )

@@ -13,8 +13,8 @@ export function RealEstateHeroHeader() {
     return (
         <div className="relative z-10 flex flex-col items-center">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 backdrop-blur-md mb-6 animate-fade-in-up">
-                <Home className="w-4 h-4 text-emerald-400" />
-                <span className="text-sm font-medium text-emerald-100">AI For Real Estate</span>
+                <Home className="w-4 h-4 text-red-400" />
+                <span className="text-sm font-medium text-red-100">AI For Real Estate</span>
             </div>
 
             <p className="text-base sm:text-lg text-white/90 mb-4 font-medium animate-fade-in-up">
@@ -22,7 +22,7 @@ export function RealEstateHeroHeader() {
             </p>
 
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight animate-fade-in-up animation-delay-100 text-balance">
-                Sell Homes <span className="text-emerald-500">Faster</span>, Sleep <span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">More</span>
+                Sell Homes <span className="text-red-500">Faster</span>, Sleep <span className="bg-gradient-to-r from-red-400 to-red-400 bg-clip-text text-transparent">More</span>
             </h1>
 
             <p className="text-lg md:text-xl text-slate-300 max-w-2xl mb-10 leading-relaxed animate-fade-in-up animation-delay-200 text-balance">

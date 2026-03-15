@@ -8,7 +8,7 @@ export interface OnboardingSequence {
   tasks: { day: number; task: string; description: string }[]
 }
 
-const CAL_LINK = 'https://cal.com/mia-louviere-a4n2hk/30min'
+const CAL_LINK = 'https://cal.com/elianatech/30min'
 
 function wrapEmail(body: string): string {
   return `<!DOCTYPE html>
@@ -26,7 +26,7 @@ function wrapEmail(body: string): string {
 ${body}
 </td></tr>
 <tr><td style="background:#f8fafc;padding:24px 32px;text-align:center;border-top:1px solid #e2e8f0;">
-<p style="margin:0;color:#64748b;font-size:13px;">ElianaTech &middot; <a href="https://elianatech.com" style="color:#2563eb;text-decoration:none;">elianatech.com</a></p>
+<p style="margin:0;color:#64748b;font-size:13px;">ElianaTech &middot; <a href="https://elianatech.com" style="color:#dc2626;text-decoration:none;">elianatech.com</a></p>
 </td></tr>
 </table></td></tr></table></body></html>`
 }
@@ -41,9 +41,9 @@ const aiCooOnboarding: OnboardingSequence = {
       bodyHtml: wrapEmail(`
 <p>Hey {name}!</p>
 <p><strong>Welcome to ElianaTech!</strong> We're thrilled to have {companyName} on board.</p>
-<div style="background:#f0fdf4;border-left:4px solid #22c55e;padding:16px 20px;border-radius:4px;margin:20px 0;">
-<h3 style="margin:0 0 8px;color:#166534;">Your AI COO build has started! 🚀</h3>
-<p style="margin:0;color:#15803d;">Our team is configuring your systems right now.</p>
+<div style="background:#fef2f2;border-left:4px solid #dc2626;padding:16px 20px;border-radius:4px;margin:20px 0;">
+<h3 style="margin:0 0 8px;color:#7f1d1d;">Your AI COO build has started! 🚀</h3>
+<p style="margin:0;color:#991b1b;">Our team is configuring your systems right now.</p>
 </div>
 <p><strong>Here's what happens next:</strong></p>
 <ol style="padding-left:20px;">
@@ -55,7 +55,7 @@ const aiCooOnboarding: OnboardingSequence = {
 </ol>
 <p>Please complete our onboarding form so we can hit the ground running:</p>
 <div style="text-align:center;margin:24px 0;">
-<a href="https://elianatech.com/onboarding" style="display:inline-block;background:#2563eb;color:#fff;padding:14px 32px;border-radius:6px;text-decoration:none;font-weight:600;">Complete Onboarding Form →</a>
+<a href="https://elianatech.com/onboarding" style="display:inline-block;background:#dc2626;color:#fff;padding:14px 32px;border-radius:6px;text-decoration:none;font-weight:600;">Complete Onboarding Form →</a>
 </div>
 <p>Questions? Reply to this email anytime.</p>
 <p>— The ElianaTech Team</p>`)
@@ -66,8 +66,8 @@ const aiCooOnboarding: OnboardingSequence = {
       bodyHtml: wrapEmail(`
 <p>Hey {name},</p>
 <p>Your kickoff call is coming up! Here's a quick prep checklist to make it productive:</p>
-<div style="background:#eff6ff;padding:20px;border-radius:6px;margin:20px 0;">
-<h3 style="margin:0 0 12px;color:#1e40af;">📋 Kickoff Prep Checklist</h3>
+<div style="background:#fef2f2;padding:20px;border-radius:6px;margin:20px 0;">
+<h3 style="margin:0 0 12px;color:#991b1b;">📋 Kickoff Prep Checklist</h3>
 <ul style="padding-left:20px;margin:0;">
 <li style="margin-bottom:8px;">☐ Complete the onboarding form (if you haven't yet)</li>
 <li style="margin-bottom:8px;">☐ Gather logins: email provider, phone system, calendar tool</li>
@@ -78,7 +78,7 @@ const aiCooOnboarding: OnboardingSequence = {
 </div>
 <p>If you haven't booked your kickoff call yet:</p>
 <div style="text-align:center;margin:24px 0;">
-<a href="${CAL_LINK}" style="display:inline-block;background:#2563eb;color:#fff;padding:14px 32px;border-radius:6px;text-decoration:none;font-weight:600;">Book Kickoff Call →</a>
+<a href="${CAL_LINK}" style="display:inline-block;background:#dc2626;color:#fff;padding:14px 32px;border-radius:6px;text-decoration:none;font-weight:600;">Book Kickoff Call →</a>
 </div>
 <p>Mia</p>`)
     },
@@ -141,8 +141,8 @@ const aiCooOnboarding: OnboardingSequence = {
 <li>✅ Review Generation — builds your reputation on autopilot</li>
 <li>✅ Operations Dashboard — everything in one place</li>
 </ul>
-<div style="background:#eff6ff;padding:20px;border-radius:6px;margin:20px 0;">
-<h3 style="margin:0 0 8px;color:#1e40af;">📘 How to Use Your AI COO</h3>
+<div style="background:#fef2f2;padding:20px;border-radius:6px;margin:20px 0;">
+<h3 style="margin:0 0 8px;color:#991b1b;">📘 How to Use Your AI COO</h3>
 <ul style="padding-left:20px;margin:0;">
 <li>Check your dashboard daily (takes 5 min)</li>
 <li>Review and approve AI-drafted responses weekly</li>
@@ -183,8 +183,8 @@ const fullInfraOnboarding: OnboardingSequence = {
       bodyHtml: wrapEmail(`
 <p>Hey {name},</p>
 <p><strong>Welcome to ElianaTech!</strong> We're building the complete digital infrastructure for {companyName}.</p>
-<div style="background:#f0fdf4;border-left:4px solid #22c55e;padding:16px 20px;border-radius:4px;margin:20px 0;">
-<h3 style="margin:0 0 8px;color:#166534;">Your Full Infrastructure build has started! 🏗️</h3>
+<div style="background:#fef2f2;border-left:4px solid #dc2626;padding:16px 20px;border-radius:4px;margin:20px 0;">
+<h3 style="margin:0 0 8px;color:#7f1d1d;">Your Full Infrastructure build has started! 🏗️</h3>
 </div>
 <p><strong>Your 30-day roadmap:</strong></p>
 <ol style="padding-left:20px;">
@@ -195,7 +195,7 @@ const fullInfraOnboarding: OnboardingSequence = {
 </ol>
 <p>First step — book your kickoff call:</p>
 <div style="text-align:center;margin:24px 0;">
-<a href="${CAL_LINK}" style="display:inline-block;background:#2563eb;color:#fff;padding:14px 32px;border-radius:6px;text-decoration:none;font-weight:600;">Book Kickoff Call →</a>
+<a href="${CAL_LINK}" style="display:inline-block;background:#dc2626;color:#fff;padding:14px 32px;border-radius:6px;text-decoration:none;font-weight:600;">Book Kickoff Call →</a>
 </div>
 <p>Mia & the ElianaTech Team</p>`)
     },
@@ -206,7 +206,7 @@ const fullInfraOnboarding: OnboardingSequence = {
 <p>Hey {name},</p>
 <p>We need your input to make {companyName}'s brand shine! Please complete these two forms:</p>
 <div style="text-align:center;margin:24px 0;">
-<a href="https://elianatech.com/brand-questionnaire" style="display:inline-block;background:#2563eb;color:#fff;padding:14px 32px;border-radius:6px;text-decoration:none;font-weight:600;margin:4px;">Brand Questionnaire →</a>
+<a href="https://elianatech.com/brand-questionnaire" style="display:inline-block;background:#dc2626;color:#fff;padding:14px 32px;border-radius:6px;text-decoration:none;font-weight:600;margin:4px;">Brand Questionnaire →</a>
 <br><br>
 <a href="https://elianatech.com/content-intake" style="display:inline-block;background:#1e293b;color:#fff;padding:14px 32px;border-radius:6px;text-decoration:none;font-weight:600;margin:4px;">Content Intake Form →</a>
 </div>
@@ -266,8 +266,8 @@ const fullInfraOnboarding: OnboardingSequence = {
       bodyHtml: wrapEmail(`
 <p>Hey {name},</p>
 <p><strong>{companyName}'s complete digital infrastructure is LIVE!</strong> 🎉🚀</p>
-<div style="background:#f0fdf4;padding:20px;border-radius:6px;margin:20px 0;text-align:center;">
-<p style="font-size:24px;font-weight:700;color:#166534;margin:0;">You're officially automated.</p>
+<div style="background:#fef2f2;padding:20px;border-radius:6px;margin:20px 0;text-align:center;">
+<p style="font-size:24px;font-weight:700;color:#7f1d1d;margin:0;">You're officially automated.</p>
 </div>
 <p><strong>What's running:</strong></p>
 <ul style="padding-left:20px;">

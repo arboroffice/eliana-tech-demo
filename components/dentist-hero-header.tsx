@@ -13,8 +13,8 @@ export function DentistHeroHeader() {
     return (
         <div className="relative z-10 flex flex-col items-center">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 backdrop-blur-md mb-6 animate-fade-in-up">
-                <Sparkles className="w-4 h-4 text-blue-400" />
-                <span className="text-sm font-medium text-blue-100">AI For Dental Practices</span>
+                <Sparkles className="w-4 h-4 text-red-400" />
+                <span className="text-sm font-medium text-red-100">AI For Dental Practices</span>
             </div>
 
             <p className="text-base sm:text-lg text-white/90 mb-4 font-medium animate-fade-in-up">
@@ -22,8 +22,8 @@ export function DentistHeroHeader() {
             </p>
 
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight animate-fade-in-up animation-delay-100 text-balance">
-                Focus on <span className="text-blue-500">Patients</span>, Not{" "}
-                <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                Focus on <span className="text-red-500">Patients</span>, Not{" "}
+                <span className="bg-gradient-to-r from-red-400 to-red-400 bg-clip-text text-transparent">
                     Phone Calls
                 </span>
             </h1>

@@ -28,13 +28,13 @@ export function RealEstateSplitScreen() {
                     </div>
 
                     <div className={`transition-all duration-1000 ease-out delay-200 ${sectionInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-emerald-100 to-teal-100 border border-emerald-200 mb-4">
-                            <span className="text-emerald-600 font-semibold text-sm uppercase tracking-wide">CoFounder by Elianatech</span>
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-red-100 to-red-100 border border-red-200 mb-4">
+                            <span className="text-red-600 font-semibold text-sm uppercase tracking-wide">CoFounder by Elianatech</span>
                         </div>
 
                         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 lg:mb-12 text-balance">
                             <span className="text-slate-900">Always Open</span>{" "}
-                            <span className="bg-gradient-to-r from-emerald-600 via-teal-500 to-cyan-500 bg-clip-text text-transparent">
+                            <span className="bg-gradient-to-r from-red-600 via-red-500 to-red-500 bg-clip-text text-transparent">
                                 For Viewing
                             </span>
                         </h2>
@@ -63,13 +63,13 @@ export function RealEstateSplitScreen() {
                             <div className="bg-gray-800 p-3 rounded-lg rounded-tl-none mr-8">
                                 <p className="text-white text-sm">Is 123 Oak Street still available?</p>
                             </div>
-                            <div className="bg-emerald-700 p-3 rounded-lg rounded-tr-none ml-8">
+                            <div className="bg-red-700 p-3 rounded-lg rounded-tr-none ml-8">
                                 <p className="text-white text-sm">Yes it is! It's currently on the market. It has 4 beds and 2 baths. Would you like to schedule a viewing?</p>
                             </div>
                             <div className="bg-gray-800 p-3 rounded-lg rounded-tl-none mr-8">
                                 <p className="text-white text-sm">Yes please, for tomorrow.</p>
                             </div>
-                            <div className="bg-emerald-700 p-3 rounded-lg rounded-tr-none ml-8">
+                            <div className="bg-red-700 p-3 rounded-lg rounded-tr-none ml-8">
                                 <p className="text-white text-sm">Great. Just a quick question first - do you have mortgage approval in principle?</p>
                             </div>
                         </div>

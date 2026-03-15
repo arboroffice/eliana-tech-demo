@@ -110,6 +110,6 @@ We install the robots so your team can finally do the human work you hired them 
 
 We build custom AI infrastructure for SaaS companies doing $2M+ in revenue. We don't sell "subscriptions." We install **assets.**
 
-Once the system is in, you own it. No dependency, no fluff, just operations.
+Once the system is in, you own it. No dependency, just operations.
 
 **Get Your Free Automation Audit →** [elianatech.com/audit](https://elianatech.com/audit)

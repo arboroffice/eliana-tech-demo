@@ -72,7 +72,7 @@ const AnimatedChatDemo = ({ isActive }: { isActive: boolean }) => {
   return (
     <div className="bg-slate-50 rounded-lg p-4 h-32 overflow-hidden relative">
       <div className="absolute top-2 right-2 flex items-center gap-1">
-        <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+        <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse"></div>
         <span className="text-xs text-slate-500 font-medium">24/7</span>
       </div>
       <div className="space-y-2">
@@ -83,7 +83,7 @@ const AnimatedChatDemo = ({ isActive }: { isActive: boolean }) => {
               }`}
           >
             <div
-              className={`max-w-[80%] px-3 py-1.5 rounded-full text-xs ${msg.isBot ? "bg-slate-200 text-slate-700" : "bg-blue-500 text-white"
+              className={`max-w-[80%] px-3 py-1.5 rounded-full text-xs ${msg.isBot ? "bg-slate-200 text-slate-700" : "bg-red-500 text-white"
                 }`}
             >
               {msg.text}
@@ -138,8 +138,8 @@ const AnimatedPhoneDemo = ({ isActive }: { isActive: boolean }) => {
       <div className="absolute top-2 right-2 text-xs text-slate-500 font-medium">Calls: {callCount + 1}</div>
       <div className="relative">
         <div
-          className={`w-16 h-16 rounded-full bg-green-500 flex items-center justify-center transition-all duration-500 ${callState === "ringing" ? "animate-pulse scale-110" : ""
-            } ${callState === "answered" ? "bg-blue-500" : ""}`}
+          className={`w-16 h-16 rounded-full bg-red-500 flex items-center justify-center transition-all duration-500 ${callState === "ringing" ? "animate-pulse scale-110" : ""
+            } ${callState === "answered" ? "bg-red-500" : ""}`}
         >
           <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
             <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
@@ -147,13 +147,13 @@ const AnimatedPhoneDemo = ({ isActive }: { isActive: boolean }) => {
         </div>
         {callState === "ringing" && (
           <>
-            <div className="absolute inset-0 rounded-full border-2 border-green-400 animate-ping"></div>
-            <div className="absolute inset-0 rounded-full border-2 border-green-400 animate-ping animation-delay-75"></div>
+            <div className="absolute inset-0 rounded-full border-2 border-red-400 animate-ping"></div>
+            <div className="absolute inset-0 rounded-full border-2 border-red-400 animate-ping animation-delay-75"></div>
           </>
         )}
         {callState === "answered" && (
           <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2">
-            <div className="bg-blue-100 px-2 py-1 rounded text-xs text-blue-700 whitespace-nowrap">Call answered</div>
+            <div className="bg-red-100 px-2 py-1 rounded text-xs text-red-700 whitespace-nowrap">Call answered</div>
           </div>
         )}
       </div>
@@ -184,8 +184,8 @@ const AnimatedCalendarDemo = ({ isActive }: { isActive: boolean }) => {
             key={day}
             className={`w-4 h-4 flex items-center justify-center rounded transition-all duration-300 ${day === selectedDate
               ? booked
-                ? "bg-green-500 text-white scale-110"
-                : "bg-blue-500 text-white scale-110"
+                ? "bg-red-500 text-white scale-110"
+                : "bg-red-500 text-white scale-110"
               : day % 7 === 0 || day % 6 === 0
                 ? "bg-slate-200 text-slate-400"
                 : "bg-white text-slate-600 hover:bg-slate-100"
@@ -196,7 +196,7 @@ const AnimatedCalendarDemo = ({ isActive }: { isActive: boolean }) => {
         ))}
       </div>
       {booked && (
-        <div className="mt-2 text-xs text-green-600 font-medium animate-fade-in">✓ Appointment booked for the 15th</div>
+        <div className="mt-2 text-xs text-red-600 font-medium animate-fade-in">✓ Appointment booked for the 15th</div>
       )}
     </div>
   )
@@ -228,13 +228,13 @@ const AnimatedEmailDemo = ({ isActive }: { isActive: boolean }) => {
         {emails.map((email, i) => (
           <div
             key={i}
-            className={`flex items-center gap-2 p-2 rounded transition-all duration-500 ${email.status === "replied" ? "bg-green-100" : "bg-white"
+            className={`flex items-center gap-2 p-2 rounded transition-all duration-500 ${email.status === "replied" ? "bg-red-100" : "bg-white"
               }`}
           >
-            <div className={`w-2 h-2 rounded-full ${email.status === "replied" ? "bg-green-500" : "bg-blue-500"}`} />
+            <div className={`w-2 h-2 rounded-full ${email.status === "replied" ? "bg-red-500" : "bg-red-500"}`} />
             <span className="text-xs text-slate-700 flex-1">{email.subject}</span>
             {email.status === "replied" && (
-              <svg className="w-3 h-3 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+              <svg className="w-3 h-3 text-red-500" fill="currentColor" viewBox="0 0 20 20">
                 <path
                   fillRule="evenodd"
                   d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
@@ -291,13 +291,13 @@ const AnimatedLeadsDemo = ({ isActive }: { isActive: boolean }) => {
             <span className="text-xs text-slate-700 w-12">{lead.name}</span>
             <div className="flex-1 bg-slate-200 rounded-full h-2">
               <div
-                className={`h-2 rounded-full transition-all duration-500 ${lead.qualified ? "bg-green-500" : "bg-blue-500"
+                className={`h-2 rounded-full transition-all duration-500 ${lead.qualified ? "bg-red-500" : "bg-red-500"
                   }`}
                 style={{ width: `${lead.score}%` }}
               />
             </div>
             <span className="text-xs font-medium w-8">{lead.score}%</span>
-            {lead.qualified && <span className="text-xs text-green-600">✓</span>}
+            {lead.qualified && <span className="text-xs text-red-600">✓</span>}
           </div>
         ))}
       </div>
@@ -332,11 +332,11 @@ const AnimatedIntegrationsDemo = ({ isActive }: { isActive: boolean }) => {
         {connections.map((conn, i) => (
           <div
             key={i}
-            className={`flex items-center gap-2 p-2 rounded transition-all duration-500 ${conn.connected ? "bg-green-100" : "bg-white"
+            className={`flex items-center gap-2 p-2 rounded transition-all duration-500 ${conn.connected ? "bg-red-100" : "bg-white"
               }`}
           >
             <div
-              className={`w-2 h-2 rounded-full transition-colors duration-500 ${conn.connected ? "bg-green-500" : "bg-slate-300"
+              className={`w-2 h-2 rounded-full transition-colors duration-500 ${conn.connected ? "bg-red-500" : "bg-slate-300"
                 }`}
             />
             <span className="text-xs text-slate-700">{conn.name}</span>
@@ -396,9 +396,9 @@ const AnimatedRecruitingDemo = ({ isActive }: { isActive: boolean }) => {
             <div className="text-[10px] text-slate-500">{c.role}</div>
           </div>
           {c.status === "screening" && <div className="w-12 h-2 bg-slate-100 rounded animate-pulse" />}
-          {c.status === "analyzing" && <div className="text-[10px] text-blue-500 animate-pulse">Analyzing...</div>}
+          {c.status === "analyzing" && <div className="text-[10px] text-red-500 animate-pulse">Analyzing...</div>}
           {c.status === "scored" && (
-            <div className={`text-xs font-bold ${c.score > 90 ? "text-green-600" : "text-slate-600"}`}>
+            <div className={`text-xs font-bold ${c.score > 90 ? "text-red-600" : "text-slate-600"}`}>
               {c.score}% Match
             </div>
           )}
@@ -437,10 +437,10 @@ const AnimatedKnowledgeDemo = ({ isActive }: { isActive: boolean }) => {
       </div>
 
       {result && (
-        <div className="bg-white p-2 rounded border border-blue-100 shadow-sm animate-fade-in-up">
+        <div className="bg-white p-2 rounded border border-red-100 shadow-sm animate-fade-in-up">
           <div className="text-[10px] text-slate-400 mb-1">Source: Policy v2.pdf</div>
           <div className="text-xs text-slate-700 leading-snug">
-            Refunds are processed within <span className="bg-yellow-100">3-5 business days</span> to the original payment method.
+            Refunds are processed within <span className="bg-red-100">3-5 business days</span> to the original payment method.
           </div>
         </div>
       )}
@@ -464,12 +464,12 @@ const AnimatedCommandDemo = ({ isActive }: { isActive: boolean }) => {
 
   return (
     <div className="bg-slate-50 rounded-lg p-4 h-32 flex flex-col gap-2">
-      <div className="bg-blue-50 p-2 rounded-lg self-end max-w-[90%]">
-        <div className="text-[10px] text-blue-800">"Plan marketing sprint"</div>
+      <div className="bg-red-50 p-2 rounded-lg self-end max-w-[90%]">
+        <div className="text-[10px] text-red-800">"Plan marketing sprint"</div>
       </div>
       {steps.map((step, i) => (
         <div key={i} className="flex items-center gap-2 animate-fade-in-up">
-          <div className="w-4 h-4 rounded-full bg-green-100 flex items-center justify-center border border-green-200 text-[10px] text-green-700">✓</div>
+          <div className="w-4 h-4 rounded-full bg-red-100 flex items-center justify-center border border-red-200 text-[10px] text-red-700">✓</div>
           <div className="text-xs text-slate-600">{step}</div>
         </div>
       ))}
@@ -607,17 +607,16 @@ export function FeaturesSection() {
               <svg className="w-4 h-4 mr-2 text-slate-600" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1H5C3.89 1 3 1.89 3 3V7H1V9H3V15H1V17H3V21C3 22.11 3.89 23 5 23H19C20.11 23 21 22.11 21 21V17H23V15H21V9H23ZM19 9V15H5V9H19ZM7.5 11.5C7.5 10.67 8.17 10 9 10S10.5 10.67 10.5 11.5 9.83 13 9 13 7.5 12.33 7.5 11.5ZM13.5 11.5C13.5 10.67 14.17 10 15 10S16.5 10.67 16.5 11.5 15.83 13 15 13 13.5 12.33 13.5 11.5ZM12 16C13.11 16 14.08 16.59 14.71 17.5H9.29C9.92 16.59 10.89 16 12 16Z" />
               </svg>
-              AI Working 24/7 - Never Miss a Lead
+              Your AI Department — Always Running
             </div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 text-balance mb-4 sm:mb-6">
-              Your AI Team{" "}
+              Your AI Wing{" "}
               <span className="bg-gradient-to-r from-slate-600 to-slate-400 bg-clip-text text-transparent">
-                Never Sleeps
+                In Action
               </span>
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-3xl mx-auto font-light leading-relaxed">
-              Watch our AI handle real customer interactions around the clock, automatically qualifying leads and
-              booking appointments while you focus on growing your business.
+              This is what your AI Growth Infrastructure looks like once it's built — agents handling communication, content, support, and operations while you focus on strategy.
             </p>
           </div>
 

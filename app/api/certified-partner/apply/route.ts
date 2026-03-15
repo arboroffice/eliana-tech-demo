@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
 
         // Send notification email
         await resend.emails.send({
-            from: 'Eliana <noreply@eliana.tech>',
+            from: 'ElianaTech <noreply@elianatech.com>',
             to: 'elianatech@yahoo.com',
             subject: `New Certified Partner Application: ${fullName}`,
             html: `
@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
                     <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold">Source</td><td style="padding:8px;border:1px solid #ddd">${source || 'N/A'}</td></tr>
                 </table>
             `,
-            replyTo: 'mia@eliana.tech'
+            replyTo: 'hello@elianatech.com'
         })
 
         // Send WhatsApp notification

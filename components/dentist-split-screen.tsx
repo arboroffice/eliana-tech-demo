@@ -106,13 +106,13 @@ export function DentistSplitScreen() {
                             className={`transition-all duration-1000 ease-out delay-200 ${sectionInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                                 }`}
                         >
-                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-100 to-cyan-100 border border-blue-200 mb-4">
-                                <span className="text-blue-600 font-semibold text-sm uppercase tracking-wide">CoFounder by Elianatech</span>
+                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-red-100 to-red-100 border border-red-200 mb-4">
+                                <span className="text-red-600 font-semibold text-sm uppercase tracking-wide">CoFounder by Elianatech</span>
                             </div>
 
                             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 lg:mb-12 text-balance">
                                 <span className="text-slate-900">Fill your chair with</span>{" "}
-                                <span className="bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 bg-clip-text text-transparent">
+                                <span className="bg-gradient-to-r from-red-600 via-red-500 to-red-500 bg-clip-text text-transparent">
                                     Automated Triage
                                 </span>
                             </h2>
@@ -155,13 +155,13 @@ export function DentistSplitScreen() {
                                 className={`transition-all duration-1000 ease-out ${whatsappInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                                     }`}
                             >
-                                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-green-100 to-emerald-100 border border-green-200 mb-4">
-                                    <span className="text-green-600 font-semibold text-sm uppercase tracking-wide">Patient Messaging</span>
+                                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-red-100 to-red-100 border border-red-200 mb-4">
+                                    <span className="text-red-600 font-semibold text-sm uppercase tracking-wide">Patient Messaging</span>
                                 </div>
 
                                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-balance">
                                     <span className="text-slate-900">Reduce Anxiety with</span>{" "}
-                                    <span className="bg-gradient-to-r from-green-600 via-green-500 to-emerald-500 bg-clip-text text-transparent">
+                                    <span className="bg-gradient-to-r from-red-600 via-red-500 to-red-500 bg-clip-text text-transparent">
                                         Instant Answers
                                     </span>
                                 </h2>

@@ -113,6 +113,6 @@ This document outlines 15 Facebook ad concepts categorized by Eugene Schwartz's 
 
 ### Ad 15: Direct Invitation
 **Headline:** Ready to become AI-Native?
-**Body Copy:** If you're generating $1M+ and feel the drag of manual ops, let's talk. We'll show you how to automate 50% of your workload and 10x your capacity. No fluff, just code.
+**Body Copy:** If you're generating $1M+ and feel the drag of manual ops, let's talk. We'll show you how to automate 50% of your workload and 10x your capacity. Just code.
 **Creative:** Founder (Mia) speaking directly to camera / professional shot.
 **CTA:** Schedule Call

@@ -275,7 +275,7 @@ Your investment in this proposal pays for itself in approximately {{paybackPerio
 
 ### To Move Forward
 
-1. Reply to this email or book a call: **cal.com/mia-louviere-a4n2hk/30min**
+1. Reply to this email or book a call: **cal.com/elianatech/30min**
 2. We finalize scope, timeline, and payment structure
 3. Kickoff within 48 hours of agreement
 

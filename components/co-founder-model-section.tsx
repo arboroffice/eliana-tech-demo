@@ -18,48 +18,47 @@ export function CoFounderModelSection() {
                 <div className="max-w-5xl mx-auto relative">
                     <div className="text-center mb-16">
                         <div className="inline-flex items-center px-4 py-2 rounded-full bg-slate-100 border border-slate-200 text-slate-600 text-sm font-medium mb-6">
-                            95% of AI implementations fail
+                            Why everything else failed you
                         </div>
                         <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
-                            Most AI is Static.
+                            Information Doesn't Build Systems.
                             <br />
                             <span className="bg-gradient-to-r from-slate-600 to-slate-400 bg-clip-text text-transparent">
-                                Yours Must Be Alive.
+                                Building Builds Systems.
                             </span>
                         </h2>
                         <p className="text-lg text-slate-600 max-w-2xl mx-auto font-light">
-                            Static prompts decay. Outdated context creates errors. That's why we built something different.
+                            Every course you watched, coach you talked to, community you joined — none of it changed how your business actually runs day to day.
                         </p>
                     </div>
 
                     <div className="bg-slate-50 rounded-2xl p-8 md:p-12 border border-slate-200 mb-16">
                         <p className="text-xl md:text-2xl text-slate-700 font-light leading-relaxed text-center">
-                            "It's not enough to just 'install AI'. If it doesn't learn from your daily operations,
-                            it's just a fancy answering machine that will eventually break."
+                            "Most founders don't have a revenue problem. They have a freedom problem disguised as a revenue problem. They keep chasing the next milestone thinking that's when it gets easier. It never does. Because the business is built wrong from the start."
                         </p>
                     </div>
 
                     <div className="text-center mb-12">
-                        <h3 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">The Co-Founder Model</h3>
-                        <p className="text-slate-600">AI that evolves with your business, not against it.</p>
+                        <h3 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">Your AI Growth Infrastructure</h3>
+                        <p className="text-slate-600">We don't teach you how to build. We build your AI Department alongside you.</p>
                     </div>
 
                     <div className="grid md:grid-cols-3 gap-6">
                         {[
                             {
                                 num: "01",
-                                title: "Business DNA",
-                                text: "Trained on your actual operations, not generic internet data. It knows how you uniquely work."
+                                title: "Your AI, Your Voice",
+                                text: "LLMs trained on your actual business, your voice, and your offers. Not generic. Yours."
                             },
                             {
                                 num: "02",
-                                title: "Context Loop",
-                                text: "Learns from every correction, every interaction, every day. It gets smarter while you sleep."
+                                title: "Content Waterfall",
+                                text: "100+ pieces a week from one pillar. Your content engine runs itself. You create once, it distributes everywhere."
                             },
                             {
                                 num: "03",
-                                title: "Hands-Free",
-                                text: "Gets smarter without adding to your workload. This isn't a tool you babysit. It's a partner."
+                                title: "Agent Infrastructure",
+                                text: "Content, support, and ops agents built into your business. Systems that run without you being the bottleneck."
                             }
                         ].map((pillar, idx) => (
                             <div

@@ -17,7 +17,7 @@ const anthropic = new Anthropic({
 
 // ─── Company Research ──────────────────────────────────────
 
-async function researchCompany(websiteUrl: string): Promise<string> {
+export async function researchCompany(websiteUrl: string): Promise<string> {
   if (!websiteUrl || websiteUrl.length < 5) {
     return 'No website provided. Unable to research company online presence.'
   }
@@ -227,7 +227,7 @@ Monthly Support Cost: $${revenue.supportCostMonthly.toLocaleString()}/month
 3. If you found relevant info from their website research, weave it naturally into the proposal (reference their actual products, services, brand, etc.)
 4. The recommended tier is ${pricing.tierLabel} at $${pricing.finalPrice.toLocaleString()}
 5. Show specific ROI math: what they're losing now vs. what they save after implementation
-6. End with clear next steps and a CTA to book a call at cal.com/mia-louviere-a4n2hk/30min
+6. End with clear next steps and a CTA to book a call at cal.com/elianatech/30min
 7. Make it feel like this proposal was hand-written for them — because it essentially was, using their data
 8. Payment options: Pay in full (5-10% off), 2 payments (50/50), or 3 monthly payments`
 }

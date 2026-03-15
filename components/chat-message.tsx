@@ -21,7 +21,7 @@ export function ChatMessage({
 }: ChatMessageProps) {
   const alignment = isUser ? "justify-end" : "justify-start"
   const bgColor = isUser ? "bg-[#DCF8C6]" : "bg-white"
-  const borderClass = highlight ? "border-2 border-green-200" : ""
+  const borderClass = highlight ? "border-2 border-red-200" : ""
 
   return (
     <div className={`flex ${alignment}`}>
@@ -29,12 +29,12 @@ export function ChatMessage({
         <p className="text-sm text-slate-800">{text}</p>
         <div className={`flex items-center ${isUser ? "justify-end" : "justify-start"} gap-1 mt-1`}>
           {isAI ? (
-            <span className="text-xs text-green-600 font-semibold">Elianatech • {time}</span>
+            <span className="text-xs text-red-600 font-semibold">Elianatech • {time}</span>
           ) : (
             <>
               <span className="text-xs text-slate-500">{time}</span>
               {hasCheck && <Check className="w-3.5 h-3.5 text-slate-400" />}
-              {hasDoubleCheck && <CheckCheck className="w-3.5 h-3.5 text-blue-500" />}
+              {hasDoubleCheck && <CheckCheck className="w-3.5 h-3.5 text-red-500" />}
             </>
           )}
         </div>

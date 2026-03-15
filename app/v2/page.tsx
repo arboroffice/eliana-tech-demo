@@ -247,10 +247,10 @@ export default function HomeV2() {
                 </div>
 
                 {/* Ongoing Partnership */}
-                <div className="p-8 rounded-2xl border border-amber-500/30 bg-gradient-to-br from-amber-500/10 to-transparent relative">
-                  <span className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider border border-amber-500/30 text-amber-400 bg-amber-500/10">Optional</span>
+                <div className="p-8 rounded-2xl border border-red-500/30 bg-gradient-to-br from-red-500/10 to-transparent relative">
+                  <span className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider border border-red-500/30 text-red-400 bg-red-500/10">Optional</span>
                   <div className="mb-6">
-                    <span className="text-sm uppercase tracking-wider text-amber-400">Step 2 — If You Want Us to Stay</span>
+                    <span className="text-sm uppercase tracking-wider text-red-400">Step 2 — If You Want Us to Stay</span>
                     <h3 className="text-2xl font-bold text-white mt-2">The Partnership</h3>
                   </div>
                   <p className="text-slate-400 leading-relaxed mb-8">
@@ -264,13 +264,13 @@ export default function HomeV2() {
                       "Quarterly strategy reviews with Mia",
                     ].map((item) => (
                       <li key={item} className="flex items-start gap-3">
-                        <span className="text-amber-400 mt-0.5">&#x2022;</span>
+                        <span className="text-red-400 mt-0.5">&#x2022;</span>
                         <span className="text-slate-300 text-sm">{item}</span>
                       </li>
                     ))}
                   </ul>
-                  <div className="border-t border-amber-500/20 pt-6">
-                    <p className="text-slate-400 text-sm">Percentage based on scope. <span className="text-amber-400 font-bold">We only eat when you eat.</span></p>
+                  <div className="border-t border-red-500/20 pt-6">
+                    <p className="text-slate-400 text-sm">Percentage based on scope. <span className="text-red-400 font-bold">We only eat when you eat.</span></p>
                   </div>
                 </div>
               </div>

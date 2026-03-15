@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { sendAuditResultEmail, scheduleFollowUpEmails } from '@/lib/email-service'
+import { sendAuditResultEmail, scheduleFollowUpEmails, cancelPendingEmails } from '@/lib/email-service'
 import { generateFreebies } from '@/lib/freebie-generator'
 import { calculateAuditScore, analyzeIntent } from '@/lib/audit-analyzer'
 import { db } from '@/lib/firebase'
@@ -8,10 +8,16 @@ import { sendHighIntentSMS, notifyTeamOfHotLead, scheduleSMSFollowUp, isValidPho
 import { scoreAndRouteLead } from '@/lib/lead-router'
 import { getSequence, personalizeEmail } from '@/lib/nurture-sequences'
 import { getBusinessCategory } from '@/lib/audit-industry-config'
+import { pushLeadToGHL } from '@/lib/ghl'
 
 export async function POST(request: Request) {
     try {
         const formData = await request.json()
+        
+        // Cancel any pending abandonment emails (Sequence F)
+        if (formData.email) {
+            await cancelPendingEmails(formData.email, 'SEQUENCE_F')
+        }
 
         // Calculate scores and intent
         const auditScore = calculateAuditScore(formData)
@@ -24,8 +30,26 @@ export async function POST(request: Request) {
             auditScore,
             intentLevel,
             opportunities,
+            accountType: 'audit',
             submittedAt: new Date().toISOString()
         })
+
+        // Push lead to GoHighLevel CRM
+        try {
+            const ghlResult = await pushLeadToGHL({ ...formData, auditScore, intentLevel, opportunities }, auditScore)
+            console.log(`[GHL] Lead synced: ${formData.fullName} -> Contact ${ghlResult.contactId}`)
+            // Update Firestore with GHL IDs
+            if (auditId && ghlResult.contactId) {
+                const { doc: fbDoc, updateDoc: fbUpdate } = await import('firebase/firestore')
+                await fbUpdate(fbDoc(db, 'audits', auditId), {
+                    ghlContactId: ghlResult.contactId,
+                    ghlOpportunityId: ghlResult.opportunityId || null,
+                    ghlSyncedAt: new Date().toISOString(),
+                })
+            }
+        } catch (ghlError) {
+            console.error('[GHL SYNC ERROR]', ghlError)
+        }
 
         // Generate personalized freebies
         const freebies = await generateFreebies(formData, auditScore, opportunities)
@@ -51,8 +75,8 @@ export async function POST(request: Request) {
             auditId
         })
 
-        // Subscribe to newsletter on Substack
-        if (formData.newsletterOptIn && formData.email) {
+        // Always subscribe to FOTF on Substack
+        if (formData.email) {
             try {
                 await fetch('https://miaelianaa.substack.com/api/v1/free?nojs=true', {
                     method: 'POST',
@@ -137,7 +161,7 @@ export async function POST(request: Request) {
         const firstEmail = personalizeEmail(sequence.emails[0], {
             ...formData,
             auditScore,
-            calLink: 'https://cal.com/mia-louviere-a4n2hk/30min'
+            calLink: 'https://cal.com/elianatech/30min'
         })
 
         // TODO: Send personalized nurture email when Resend is configured

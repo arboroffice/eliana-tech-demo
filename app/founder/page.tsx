@@ -1,19 +1,8 @@
 ﻿"use client"
 
 import { GlassmorphismNav } from "@/components/glassmorphism-nav"
-import Aurora from "@/components/Aurora"
 import { Footer } from "@/components/footer"
 import { motion } from "framer-motion"
-import Link from "next/link"
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.15, duration: 0.6, ease: "easeOut" },
-  }),
-}
 
 const chapters = [
   {
@@ -24,7 +13,7 @@ const chapters = [
   {
     emoji: "\u{1F333}",
     title: "Scaling My Dad\u2019s Tree Service at 16",
-    body: "At 16, I took over my dad\u2019s tree service. I built systems for everything \ -  sales, scheduling, hiring, customer calls, operations. We scaled to multiple seven figures. I cut my dad\u2019s hours from 90 to 10 per week. But I was still buried in the day-to-day.\n\nI took all my skills and turned them into repeatable systems. I wanted to hire someone to replace myself. My dad said no. So I built AI systems to replace myself instead.",
+    body: "At 16, I took over my dad\u2019s tree service. I built systems for everything \ -  sales, scheduling, hiring, customer calls, operations. We scaled to multiple seven figures. I cut my dad\u2019s hours from 90 to 10 per week. But I was still buried in the day-to-day. I took all my skills and turned them into repeatable systems. I wanted to hire someone to replace myself. My dad said no. So I built AI systems to replace myself instead.",
   },
   {
     emoji: "\u{1F4A1}",
@@ -34,134 +23,129 @@ const chapters = [
   {
     emoji: "\u{1F680}",
     title: "Building ElianaTech",
-    body: "That\u2019s why ElianaTech was born. Most businesses run on manual work that AI could do better, faster, and cheaper. We\u2019re not a software company. We\u2019re an AI operations company. We put smart systems into businesses that cut busywork, catch every opportunity, and scale without burning out the founder.\n\nThe mission? Help 1 million businesses install AI operations.\nThe vision? Build a $100M company that changes how the world works.",
+    body: "That\u2019s why Elianatech was born. Most businesses run on manual work that AI could do better, faster, and cheaper. We\u2019re not a software company. We\u2019re an AI operations company. We put smart systems into businesses that cut busywork, catch every opportunity, and scale without burning out the founder.",
   },
-  {
-    emoji: "\u{1F30A}",
-    title: "Flow Over Force",
-    body: "I used to believe in grinding harder than everyone else. Wake up earlier. Stay later. Outwork the competition. But I learned the hard way that force has a ceiling. Systems don\u2019t. The businesses that win aren\u2019t the ones working the hardest \ -  they\u2019re the ones with the best systems. Flow over force means building things that work while you sleep, scale without you, and grow over time.",
-  },
-]
-
-const beliefs = [
-  "Systems beat hustle. Every time.",
-  "The best businesses run themselves.",
-  "AI isn\u2019t replacing humans \ -  it\u2019s freeing them.",
-  "Revenue is a lagging indicator. Systems are the lead.",
-  "If you\u2019re the bottleneck, you don\u2019t have a business \ -  you have a job.",
-  "The founders who win the next decade will be the ones who adopt AI first.",
-  "Flow over force. Always.",
 ]
 
 export default function FounderPage() {
   return (
-    <div className="min-h-screen bg-black overflow-hidden font-sans">
+    <div className="min-h-screen bg-[#FAFAF8] text-[#0C0C0C] font-mono">
       <GlassmorphismNav />
-      <div className="fixed inset-0 w-full h-full">
-        <Aurora colorStops={["#475569", "#64748b", "#475569"]} amplitude={1.2} blend={0.6} speed={0.8} />
-      </div>
 
-      <main className="relative z-10 pt-32 pb-20 px-6 max-w-4xl mx-auto text-white">
-        {/* Hero */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          className="text-center mb-24"
-        >
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-4">Mia</h1>
-          <p className="text-xl md:text-2xl text-slate-400 font-medium">Founder &amp; CEO, ElianaTech</p>
-        </motion.div>
+      <main className="pt-32 pb-20 px-6 max-w-7xl mx-auto">
+        <section className="mb-24">
+          <div className="eyebrow">The Founder</div>
+          <h1 className="s-title mb-12">
+            Meet <br />
+            <span className="r">Mia</span>
+          </h1>
 
-        {/* Timeline */}
-        <div className="relative">
-          {/* Vertical line */}
-          <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-slate-700 via-slate-600 to-transparent hidden md:block" />
+          <div className="story-layout mb-24">
+            <div className="story-content">
+              <p className="story-pull">
+                "Flow over force. Always. I built Elianatech to give founders their lives back through systems that work while they sleep."
+              </p>
+            </div>
+          </div>
 
-          {chapters.map((ch, i) => {
-            const isLeft = i % 2 === 0
-            return (
-              <motion.div
-                key={i}
-                custom={i}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-80px" }}
-                variants={fadeUp}
-                className={`relative mb-20 md:w-[45%] ${isLeft ? "md:mr-auto md:pr-12" : "md:ml-auto md:pl-12"}`}
-              >
-                {/* Timeline dot */}
-                <div className="hidden md:flex absolute top-2 w-12 h-12 items-center justify-center rounded-full bg-slate-800 border border-slate-600 text-2xl"
-                  style={{ [isLeft ? "right" : "left"]: "-1.5rem", transform: isLeft ? "translateX(50%)" : "translateX(-50%)" }}
-                >
-                  {ch.emoji}
-                </div>
-
-                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8">
-                  <span className="text-3xl md:hidden mb-3 block">{ch.emoji}</span>
-                  <h2 className="text-2xl md:text-3xl font-bold mb-4 text-white">{ch.title}</h2>
-                  {ch.body.split("\n\n").map((p, j) => (
-                    <p key={j} className="text-slate-300 leading-relaxed text-lg mb-4 last:mb-0 whitespace-pre-line">
-                      {p}
-                    </p>
-                  ))}
-                </div>
-              </motion.div>
-            )
-          })}
-        </div>
-
-        {/* What I Believe */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-          variants={fadeUp}
-          custom={0}
-          className="mt-32 mb-24"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">What I Believe</h2>
-          <div className="space-y-6 max-w-2xl mx-auto">
-            {beliefs.map((b, i) => (
-              <motion.p
-                key={i}
-                custom={i}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeUp}
-                className="text-xl md:text-2xl text-slate-200 font-medium border-l-2 border-slate-500 pl-6 py-1"
-              >
-                {b}
-              </motion.p>
+          <div className="chapters-grid">
+            {chapters.map((ch, i) => (
+              <div key={i} className="chapter-card">
+                <span className="chapter-emoji">{ch.emoji}</span>
+                <h2 className="chapter-title">{ch.title}</h2>
+                <p className="chapter-body">{ch.body}</p>
+              </div>
             ))}
           </div>
-        </motion.div>
-
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mt-20 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-12"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Let&apos;s Build Something Together</h2>
-          <p className="text-lg text-slate-300 mb-8 max-w-xl mx-auto">
-            If you&apos;re a business owner ready to stop grinding and start scaling with AI, I want to talk to you.
-          </p>
-          <Link
-            href="/audit"
-            className="inline-block px-8 py-4 bg-white text-black font-semibold rounded-full text-lg hover:bg-slate-200 transition-colors"
-          >
-            Work With Me &rarr;
-          </Link>
-        </motion.div>
+        </section>
       </main>
 
-      <div className="relative z-10">
-        <Footer />
-      </div>
+      <Footer />
+
+      <style jsx>{`
+        .eyebrow {
+          font-size: 10px;
+          letter-spacing: 0.4em;
+          text-transform: uppercase;
+          color: #D90019;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          margin-bottom: 24px;
+        }
+
+        .eyebrow::before {
+          content: "";
+          width: 24px;
+          height: 1px;
+          background: #D90019;
+        }
+
+        .s-title {
+          font-family: var(--font-bebas-neue), sans-serif;
+          font-size: clamp(44px, 6vw, 80px);
+          line-height: 0.9;
+          letter-spacing: 0.02em;
+          color: #0C0C0C;
+        }
+
+        .r {
+          color: #D90019;
+        }
+
+        .story-pull {
+          font-family: var(--font-syne), sans-serif;
+          font-size: clamp(18px, 2vw, 24px);
+          font-weight: 700;
+          color: #0C0C0C;
+          line-height: 1.45;
+          border-left: 2px solid #D90019;
+          padding-left: 24px;
+        }
+
+        .chapters-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 1px;
+          background: #CCCBC5;
+        }
+
+        .chapter-card {
+          background: #FAFAF8;
+          padding: 40px;
+          transition: background 0.2s;
+        }
+
+        .chapter-card:hover {
+          background: #F2F1ED;
+        }
+
+        .chapter-emoji {
+          font-size: 32px;
+          margin-bottom: 20px;
+          display: block;
+        }
+
+        .chapter-title {
+          font-family: var(--font-syne), sans-serif;
+          font-size: 18px;
+          font-weight: 700;
+          color: #0C0C0C;
+          margin-bottom: 16px;
+        }
+
+        .chapter-body {
+          font-size: 14px;
+          color: #555;
+          line-height: 1.8;
+        }
+
+        @media (max-width: 880px) {
+          .chapters-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+      `}</style>
     </div>
   )
 }

@@ -15,7 +15,7 @@ const AlertTriangle = () => (
 )
 
 const CheckCircle = () => (
-  <svg className="h-5 w-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <svg className="h-5 w-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
     <path
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -74,13 +74,13 @@ export function ProblemSolutionSection() {
         >
           <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm font-medium mb-6">
             <span className="w-2 h-2 bg-red-400 rounded-full mr-2 animate-pulse"></span>
-            The Problem Every Business Faces
+            The Problem They Can't Name
           </div>
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white text-balance mb-4 sm:mb-6">
-            <span className="text-red-400">60-70%</span> of Your Leads Are Slipping Away
+            You Don't Have a <span className="text-red-400">Revenue</span> Problem
           </h2>
           <p className="text-base sm:text-lg md:text-xl text-white/70 max-w-3xl mx-auto font-light leading-relaxed">
-            While you're busy serving customers, your online inquiries are going unanswered. Here's how we fix it.
+            You have a freedom problem disguised as a revenue problem. You keep chasing the next milestone thinking that's when it gets easier. It never does.
           </p>
         </div>
 
@@ -96,14 +96,14 @@ export function ProblemSolutionSection() {
                 <div className="p-2 rounded-lg bg-red-500/20">
                   <AlertTriangle />
                 </div>
-                <h3 className="text-xl sm:text-2xl font-bold text-red-400">The Reality</h3>
+                <h3 className="text-xl sm:text-2xl font-bold text-red-400">What You've Tried</h3>
               </div>
 
               {/* Key Stat */}
               <div className="bg-red-500/10 backdrop-blur-sm border border-red-500/20 rounded-xl p-4 sm:p-6 mb-6">
-                <div className="text-3xl sm:text-4xl font-bold text-red-400 mb-2">4+ Hours</div>
+                <div className="text-3xl sm:text-4xl font-bold text-red-400 mb-2">Information</div>
                 <p className="text-white/80 text-sm sm:text-base">
-                  Average response time, but 78% of customers choose the first business to respond
+                  Without installation. Knowledge that never changed how your business actually runs.
                 </p>
               </div>
 
@@ -112,18 +112,18 @@ export function ProblemSolutionSection() {
                 <div className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-red-400 rounded-full mt-2 flex-shrink-0"></div>
                   <p className="text-white/70 text-sm sm:text-base">
-                    Staff miss inquiries during off-hours and weekends
+                    Courses you watched but never implemented
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-red-400 rounded-full mt-2 flex-shrink-0"></div>
                   <p className="text-white/70 text-sm sm:text-base">
-                    Busy serving customers while online leads go cold
+                    Coaches who gave advice but didn't build with you
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-red-400 rounded-full mt-2 flex-shrink-0"></div>
-                  <p className="text-white/70 text-sm sm:text-base">Marketing spend wasted on unresponded inquiries</p>
+                  <p className="text-white/70 text-sm sm:text-base">Communities that felt good but changed nothing</p>
                 </div>
               </div>
             </div>
@@ -131,19 +131,19 @@ export function ProblemSolutionSection() {
 
           {/* Solution Card */}
           <div className="group">
-            <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 sm:p-8 h-full hover:bg-white/10 transition-all duration-500 hover:border-green-400/30">
+            <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 sm:p-8 h-full hover:bg-white/10 transition-all duration-500 hover:border-red-400/30">
               <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 rounded-lg bg-green-500/20">
+                <div className="p-2 rounded-lg bg-red-500/20">
                   <CheckCircle />
                 </div>
-                <h3 className="text-xl sm:text-2xl font-bold text-green-400">Our Solution</h3>
+                <h3 className="text-xl sm:text-2xl font-bold text-red-400">What We Do Instead</h3>
               </div>
 
               {/* Key Stat */}
-              <div className="bg-green-500/10 backdrop-blur-sm border border-green-500/20 rounded-xl p-4 sm:p-6 mb-6">
-                <div className="text-3xl sm:text-4xl font-bold text-green-400 mb-2">24/7</div>
+              <div className="bg-red-500/10 backdrop-blur-sm border border-red-500/20 rounded-xl p-4 sm:p-6 mb-6">
+                <div className="text-3xl sm:text-4xl font-bold text-red-400 mb-2">Infrastructure</div>
                 <p className="text-white/80 text-sm sm:text-base">
-                  AI assistant responds within seconds, books appointments while you sleep
+                  Built alongside you. Systems, agents, and workflows that run your business.
                 </p>
               </div>
 
@@ -151,15 +151,15 @@ export function ProblemSolutionSection() {
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
                   <CheckCircle />
-                  <p className="text-white/70 text-sm sm:text-base">Instantly qualifies leads and books appointments</p>
+                  <p className="text-white/70 text-sm sm:text-base">LLMs trained on your business, voice, and offers</p>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle />
-                  <p className="text-white/70 text-sm sm:text-base">Integrates with your CRM and calendar system</p>
+                  <p className="text-white/70 text-sm sm:text-base">Content waterfall — 100+ pieces a week from one pillar</p>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle />
-                  <p className="text-white/70 text-sm sm:text-base">Works across website, WhatsApp, email, and phone</p>
+                  <p className="text-white/70 text-sm sm:text-base">Agent infrastructure that runs without you</p>
                 </div>
               </div>
             </div>
@@ -172,16 +172,16 @@ export function ProblemSolutionSection() {
             }`}
         >
           <div className="text-center bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-4 sm:p-6 hover:bg-white/10 transition-all duration-300">
-            <div className="text-2xl sm:text-3xl font-bold text-white mb-2">High Value</div>
-            <p className="text-white/70 text-xs sm:text-sm">Average value per lost lead</p>
+            <div className="text-2xl sm:text-3xl font-bold text-white mb-2">30 Days</div>
+            <p className="text-white/70 text-xs sm:text-sm">From application to running business</p>
           </div>
           <div className="text-center bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-4 sm:p-6 hover:bg-white/10 transition-all duration-300">
-            <div className="text-2xl sm:text-3xl font-bold text-white mb-2">78%</div>
-            <p className="text-white/70 text-xs sm:text-sm">Choose first responder</p>
+            <div className="text-2xl sm:text-3xl font-bold text-white mb-2">$10,000</div>
+            <p className="text-white/70 text-xs sm:text-sm">Infrastructure investment, not a course fee</p>
           </div>
           <div className="text-center bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-4 sm:p-6 hover:bg-white/10 transition-all duration-300">
-            <div className="text-2xl sm:text-3xl font-bold text-white mb-2">24/7</div>
-            <p className="text-white/70 text-xs sm:text-sm">Our AI never sleeps</p>
+            <div className="text-2xl sm:text-3xl font-bold text-white mb-2">100+</div>
+            <p className="text-white/70 text-xs sm:text-sm">Content pieces per week from one pillar</p>
           </div>
         </div>
 
@@ -191,17 +191,20 @@ export function ProblemSolutionSection() {
             }`}
         >
           <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 sm:mb-4 text-balance">
-            Stop Losing Customers Today
+            Ready to Stop Learning and Start Building?
           </h3>
           <p className="text-sm sm:text-base md:text-lg text-white/70 mb-6 sm:mb-8 max-w-2xl mx-auto font-light leading-relaxed">
-            Get a free response time audit and see exactly how many leads you're missing right now.
+            Three questions. We review every application.
           </p>
           <Button
             size="lg"
             className="bg-white text-black rounded-full px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-medium transition-all duration-300 hover:bg-gray-50 hover:scale-105 hover:shadow-lg group cursor-pointer"
+            asChild
           >
-            Get Free Response Audit
-            <ArrowRight />
+            <a href="/apply">
+              Apply to the Build Program
+              <ArrowRight />
+            </a>
           </Button>
         </div>
       </div>

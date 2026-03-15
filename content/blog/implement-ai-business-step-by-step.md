@@ -11,7 +11,7 @@ You've decided AI is worth pursuing. Maybe you've read the case studies, crunche
 
 Not in theory. Not "someday." Right now, in your actual business, with your actual team and tools.
 
-This is the playbook. The same step-by-step process we use at ElianaTech to take businesses from "interested in AI" to "AI is running our operations." No fluff, no filler — just the steps.
+This is the playbook. The same step-by-step process we use at ElianaTech to take businesses from "interested in AI" to "AI is running our operations." No filler — just the steps.
 
 ## Before You Start: The Implementation Mindset
 

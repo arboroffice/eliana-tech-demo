@@ -1,89 +1,364 @@
 "use client"
 
-import { GlassmorphismNav } from "../../components/glassmorphism-nav"
-import Aurora from "../../components/Aurora"
-import { Footer } from "../../components/footer"
-import { motion } from "framer-motion"
-import { ScrollReveal } from "../../components/scroll-reveal"
+import { useEffect, useRef } from "react"
 import Link from "next/link"
+import { GlassmorphismNav } from "@/components/glassmorphism-nav"
 
 export default function AboutPage() {
-    return (
-        <div className="min-h-screen bg-black overflow-hidden font-sans">
-            <GlassmorphismNav />
-            <div className="fixed inset-0 w-full h-full">
-                <Aurora colorStops={["#475569", "#64748b", "#475569"]} amplitude={1.2} blend={0.6} speed={0.8} />
-            </div>
-            <main className="relative z-10 pt-32 pb-20 px-6 max-w-4xl mx-auto text-white">
-                <ScrollReveal>
-                    <h1 className="text-4xl md:text-7xl font-black mb-8 text-center uppercase tracking-tighter">The End of Busywork</h1>
-                </ScrollReveal>
+  const revealRefs = useRef<(HTMLDivElement | null)[]>([])
 
-                <div className="prose prose-invert prose-lg max-w-none space-y-12 mb-20">
-                    <ScrollReveal delay={0.1}>
-                        <p className="text-xl md:text-3xl text-slate-300 leading-tight font-medium text-center mb-12 italic border-l-4 border-white/20 pl-8 py-4">
-                            "We build AI infrastructure that frees founders from their businesses, so they can scale without scaling headcount."
-                        </p>
-                    </ScrollReveal>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-                        <ScrollReveal delay={0.2}>
-                            <div className="space-y-4">
-                                <h2 className="text-2xl font-black uppercase tracking-tight text-white mb-4">The Growth Trap</h2>
-                                <p className="text-slate-400">
-                                    Most growing companies hit the same wall: revenue goes up, but so does the operational chaos. More users means more support tickets. More customers means more onboarding. More growth means more busywork that pulls founders away from the thing that actually matters—building great products and serving their audience.
-                                </p>
-                            </div>
-                        </ScrollReveal>
-                        <ScrollReveal delay={0.3}>
-                            <div className="space-y-4">
-                                <h2 className="text-2xl font-black uppercase tracking-tight text-white mb-4">The Solution</h2>
-                                <p className="text-slate-400">
-                                    Eliana Tech exists to solve that. We build automated systems—onboarding flows, churn prevention engines, AI-powered support, content pipelines, revenue intelligence—that handle the operational grind so you don't have to. We don't just "implement AI"—we architect freedom.
-                                </p>
-                            </div>
-                        </ScrollReveal>
-                    </div>
-
-                    <ScrollReveal delay={0.4}>
-                        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-10 mt-16">
-                            <h2 className="text-3xl font-black uppercase tracking-tighter mb-6">Building Real Infrastructure</h2>
-                            <div className="space-y-6 text-slate-300">
-                                <p>
-                                    We're not consultants who hand you a PDF and leave. We're not an agency renting you hours. We build real infrastructure that becomes part of your company, compounds in value over time, and lets lean teams operate like organizations 10x their size.
-                                </p>
-                                <p>
-                                    Our philosophy is simple: if a human is doing it more than twice, a system should be doing it forever. We look for the "leaks" in your business—the places where time, energy, and profit are escaping—and we plug them with autonomous code.
-                                </p>
-                            </div>
-                        </div>
-                    </ScrollReveal>
-                </div>
-
-                {/* Meet the Founder CTA */}
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                    className="mt-16 text-center bg-gradient-to-br from-white/5 to-transparent backdrop-blur-sm border border-white/10 rounded-[2.5rem] p-12"
-                >
-                    <span className="text-xs font-black uppercase tracking-[0.4em] text-slate-500 mb-6 block">The Visionary</span>
-                    <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight mb-6">Meet the Founder</h2>
-                    <p className="text-lg text-slate-400 mb-10 max-w-xl mx-auto italic">
-                        "From running a car dealership at 14 to building an AI infrastructure company — meet Mia, the force behind Eliana Tech."
-                    </p>
-                    <Link
-                        href="/founder"
-                        className="inline-block px-10 py-5 bg-white text-black font-black uppercase tracking-widest rounded-full text-sm hover:bg-slate-200 transition-all duration-300 hover:scale-105 shadow-[0_0_40px_rgba(255,255,255,0.1)]"
-                    >
-                        Read Mia&apos;s Story →
-                    </Link>
-                </motion.div>
-            </main>
-            <div className="relative z-10">
-                <Footer />
-            </div>
-        </div>
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in")
+          }
+        })
+      },
+      { threshold: 0.08, rootMargin: "0px 0px -24px 0px" },
     )
+
+    revealRefs.current.forEach((el) => {
+      if (el) observer.observe(el)
+    })
+
+    return () => observer.disconnect()
+  }, [])
+
+  const addToReveal = (el: HTMLDivElement | null) => {
+    if (el && !revealRefs.current.includes(el)) {
+      revealRefs.current.push(el)
+    }
+  }
+
+  return (
+    <div className="elianatech-about">
+      <GlassmorphismNav />
+
+      <main>
+        <section className="about-hero">
+          <div className="hero-bg-word">STORY</div>
+          <div className="hero-tag">Built By Operators</div>
+          <h1 className="hero-h1">SYSTEMS MEETS <span className="r">BRAND.</span></h1>
+          <div className="hero-divider"></div>
+        </section>
+
+        <section className="s">
+          <div className="about-layout r-anim" ref={addToReveal}>
+            <div className="about-content">
+              <div className="big-pull">The backend companies wish they had.</div>
+
+              <div className="story-rich">
+                <p>
+                  <strong>We are natural systems thinkers.</strong> While most companies look at their problems as isolated "issues," we look at the entire engine.
+                  We don't see a "marketing problem" or an "operations problem"—we see a design flaw in the business's architecture.
+                </p>
+
+                <p>
+                  Mia dropped out at 14 to scale her family’s seven‑figure business. She spent her life deep in the backend, learning how to build systems that allow a company to survive its own growth.
+                  She learned that <strong>flow beats force</strong> every single time.
+                </p>
+
+                <p>
+                  In 2023, she met Tyler. Tyler was an elite business owner who had scaled and sold multiple companies through world‑class brand and marketing—but like every successful founder, she hit a wall.
+                  The backend couldn't keep up with her creativity. The admin was a bottleneck to her vision.
+                </p>
+
+                <p>
+                  They realized they were two halves of the same whole: <strong>Systems meets Brand.</strong> When you combine high‑level operations with high‑level marketing, the business stops being a weight you carry and starts being an engine you drive.
+                </p>
+
+                <p>
+                  Other founders saw the results and began asking, <em>“I wish I had someone like you for my business.”</em> They didn't just need a consultant; they needed a <strong>Living Backend</strong>.
+                  So we built Elianatech to give founders the invisible, AI‑Native infrastructure they’ve always wanted—the backend companies wish they had from day one.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="cta-wrap">
+          <div className="cta-bg">READY</div>
+          <div className="cta-inner">
+            <div className="r-anim" ref={addToReveal}>
+              <div className="cta-eyebrow">Direct</div>
+              <div className="cta-title">
+                BUILD YOUR
+                <br />
+                BACKEND
+                <br />
+                <span style={{ color: "var(--red)" }}>TODAY.</span>
+              </div>
+            </div>
+            <div className="cta-right r-anim d2" ref={addToReveal}>
+              <div className="cta-card">
+                <span className="cta-card-label">Free · No Commitment</span>
+                <div className="cta-card-title">Backend Audit</div>
+                <p className="cta-card-body">
+                  We review your business and show you exactly what your new infrastructure would look like.
+                </p>
+                <Link href="/audit" className="btn-red">
+                  Get Started
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <Link href="/" className="footer-logo">
+          ELIANA<em>TECH</em>
+        </Link>
+        <ul className="footer-links">
+          <li>
+            <Link href="/#what-we-do">What We Do</Link>
+          </li>
+          <li>
+            <Link href="/#how-it-works">How It Works</Link>
+          </li>
+          <li>
+            <Link href="/about">About</Link>
+          </li>
+          <li>
+            <a href="mailto:elianatech@yahoo.com">Contact</a>
+          </li>
+        </ul>
+        <span className="footer-copy">© 2026 ELIANATECH</span>
+      </footer>
+
+      <style jsx>{`
+        .elianatech-about {
+          --red: #D90019;
+          --black: #0C0C0C;
+          --white: #FAFAF8;
+          --off: #F2F1ED;
+          --dim: #888;
+          --mid: #555;
+          --border: #E4E3DE;
+          background: var(--white);
+          color: var(--black);
+          font-family: var(--font-dm-mono), monospace;
+          overflow-x: hidden;
+        }
+
+
+
+        .about-hero {
+          padding: 180px 52px 80px;
+          text-align: center;
+          position: relative;
+          border-bottom: 1px solid var(--border);
+          overflow: hidden;
+        }
+
+        .hero-bg-word {
+          font-family: var(--font-bebas-neue), sans-serif;
+          font-size: 25vw;
+          color: rgba(0, 0, 0, 0.02);
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .hero-tag {
+          font-size: 10px;
+          letter-spacing: 0.4em;
+          text-transform: uppercase;
+          color: var(--red);
+          margin-bottom: 24px;
+          position: relative;
+        }
+
+        .hero-h1 {
+          font-family: var(--font-bebas-neue), sans-serif;
+          font-size: clamp(52px, 8vw, 120px);
+          line-height: 0.9;
+          position: relative;
+        }
+
+        .hero-h1 .r { color: var(--red); }
+
+        .hero-divider {
+          width: 50px;
+          height: 1px;
+          background: var(--red);
+          margin: 40px auto 0;
+        }
+
+        .s { padding: 96px 52px; }
+
+        .about-layout {
+          max-width: 800px;
+          margin: 0 auto;
+        }
+
+        .big-pull {
+          font-family: var(--font-syne), sans-serif;
+          font-size: clamp(24px, 3vw, 36px);
+          font-weight: 700;
+          line-height: 1.2;
+          margin-bottom: 48px;
+          border-left: 2px solid var(--red);
+          padding-left: 32px;
+        }
+
+        .story-rich {
+          display: flex;
+          flex-direction: column;
+          gap: 24px;
+          font-size: 16px;
+          line-height: 1.8;
+          color: var(--mid);
+        }
+
+        .story-rich strong { color: var(--black); }
+
+        /* CTA */
+        .cta-wrap {
+          background: var(--black);
+          padding: 100px 52px;
+          position: relative;
+          color: var(--white);
+        }
+
+        .cta-bg {
+          font-family: var(--font-bebas-neue), sans-serif;
+          font-size: 20vw;
+          color: rgba(255, 255, 255, 0.02);
+          position: absolute;
+          bottom: -20px;
+          left: 20px;
+          pointer-events: none;
+        }
+
+        .cta-inner {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 80px;
+          position: relative;
+          z-index: 1;
+        }
+
+        .cta-eyebrow {
+          font-size: 10px;
+          letter-spacing: 0.4em;
+          text-transform: uppercase;
+          color: var(--red);
+          margin-bottom: 24px;
+        }
+
+        .cta-title {
+          font-family: var(--font-bebas-neue), sans-serif;
+          font-size: clamp(48px, 6vw, 88px);
+          line-height: 0.9;
+        }
+
+        .cta-card {
+          background: rgba(255, 255, 255, 0.03);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          padding: 40px;
+        }
+
+        .cta-card-label {
+          font-size: 9px;
+          letter-spacing: 0.3em;
+          text-transform: uppercase;
+          color: var(--red);
+          display: block;
+          margin-bottom: 12px;
+        }
+
+        .cta-card-title {
+          font-family: var(--font-syne), sans-serif;
+          font-size: 20px;
+          font-weight: 700;
+          margin-bottom: 8px;
+        }
+
+        .cta-card-body {
+          font-size: 13px;
+          color: rgba(255, 255, 255, 0.4);
+          line-height: 1.6;
+          margin-bottom: 24px;
+        }
+
+        .btn-red {
+          display: inline-block;
+          font-size: 11px;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          background: var(--red);
+          color: var(--white) !important;
+          padding: 16px 32px;
+          text-decoration: none;
+        }
+
+        footer {
+          padding: 44px 52px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          border-top: 1px solid var(--border);
+        }
+
+        .footer-logo {
+          font-family: var(--font-bebas-neue), sans-serif;
+          font-size: 22px;
+          letter-spacing: 0.2em;
+          text-decoration: none;
+          color: var(--black);
+        }
+
+        .footer-logo em { color: var(--red); }
+
+        .footer-links {
+          list-style: none;
+          display: flex;
+          gap: 24px;
+        }
+
+        .footer-links a {
+          font-size: 10px;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: var(--dim);
+          text-decoration: none;
+        }
+
+        .footer-copy {
+          font-size: 10px;
+          color: var(--dim);
+          letter-spacing: 0.1em;
+        }
+
+        :global(.r-anim) {
+          opacity: 0;
+          transform: translateY(20px);
+          transition: all 0.6s ease;
+        }
+
+        :global(.r-anim.in) {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        @keyframes up {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 880px) {
+          .cta-inner { grid-template-columns: 1fr; }
+          .about-hero { padding: 140px 24px 60px; }
+          .s { padding: 64px 24px; }
+          footer { flex-direction: column; gap: 24px; text-align: center; }
+        }
+      `}</style>
+    </div>
+  )
 }

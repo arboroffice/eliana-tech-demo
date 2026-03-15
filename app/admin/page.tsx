@@ -8,7 +8,10 @@ import {
     Mail, Phone, Building2, Globe, Clock, DollarSign, Filter,
     Download, Star, Settings, Target, BarChart3, AlertTriangle,
     Briefcase, Calendar, Flame, Thermometer, Snowflake,
-    AlertCircle, CheckCircle2, ArrowRight
+    AlertCircle, CheckCircle2, ArrowRight, Plus, Loader2,
+    Send, Sparkles, RotateCcw, Copy, Check,
+    FileText, MessageSquare, StickyNote, GripVertical,
+    PhoneCall, Award, XCircle, CircleDot
 } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
@@ -64,6 +67,12 @@ interface Submission {
     growthBudget?: string
     decisionMaker?: string
     newsletterOptIn?: boolean
+    // Build Program application fields
+    whatBuilding?: string
+    whatTried?: string
+    whyNow?: string
+    source?: string
+    accountType?: 'apply' | 'audit' | 'admin_manual'
     // Legacy fields (backward compat)
     industryCategory?: string
     specificIndustry?: string
@@ -100,6 +109,34 @@ interface Submission {
     opportunities?: Array<{ title: string; impact: string; description: string; category: string }>
     createdAt?: string
     submittedAt?: string
+    // Pipeline fields
+    stage?: string
+    stageUpdatedAt?: string
+    notes?: Array<{ text: string; type: string; createdAt: string }>
+    proposalSentAt?: string
+    dealValue?: string
+    // GHL fields
+    ghlContactId?: string
+    ghlOpportunityId?: string
+    ghlSyncedAt?: string
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// PIPELINE STAGES
+// ═══════════════════════════════════════════════════════════════════════════
+
+const PIPELINE_STAGES = [
+    { id: 'new', label: 'New', icon: CircleDot, color: 'text-blue-400 bg-blue-400/10 border-blue-400/20' },
+    { id: 'contacted', label: 'Contacted', icon: Mail, color: 'text-yellow-400 bg-yellow-400/10 border-yellow-400/20' },
+    { id: 'call-booked', label: 'Call Booked', icon: PhoneCall, color: 'text-orange-400 bg-orange-400/10 border-orange-400/20' },
+    { id: 'proposal-sent', label: 'Proposal Sent', icon: FileText, color: 'text-purple-400 bg-purple-400/10 border-purple-400/20' },
+    { id: 'negotiating', label: 'Negotiating', icon: MessageSquare, color: 'text-red-400 bg-red-400/10 border-red-400/20' },
+    { id: 'won', label: 'Won', icon: Award, color: 'text-green-400 bg-green-400/10 border-green-400/20' },
+    { id: 'lost', label: 'Lost', icon: XCircle, color: 'text-slate-400 bg-slate-400/10 border-slate-400/20' },
+] as const
+
+function getStageInfo(stageId: string) {
+    return PIPELINE_STAGES.find(s => s.id === stageId) || PIPELINE_STAGES[0]
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -261,8 +298,18 @@ function fmt$(n: number) {
     return `$${Math.round(n)}`
 }
 
-function scoreColor(s: number) { return s >= 70 ? "text-emerald-400" : s >= 40 ? "text-yellow-400" : "text-red-400" }
-function scoreBg(s: number) { return s >= 70 ? "bg-emerald-500" : s >= 40 ? "bg-yellow-500" : "bg-red-500" }
+function getSubmissionType(s: Submission): 'application' | 'audit' | 'manual' {
+    if (s.source === 'build_program_application') return 'application'
+    if (s.source === 'admin_manual_entry') return 'manual'
+    return 'audit'
+}
+
+function isApplicationOnly(s: Submission): boolean {
+    return s.source === 'build_program_application' && !s.auditScore && !s.businessType
+}
+
+function scoreColor(s: number) { return s >= 70 ? "text-red-400" : s >= 40 ? "text-red-400" : "text-red-400" }
+function scoreBg(s: number) { return s >= 70 ? "bg-red-500" : s >= 40 ? "bg-red-500" : "bg-red-500" }
 
 // ═══════════════════════════════════════════════════════════════════════════
 // SMALL REUSABLE COMPONENTS
@@ -342,7 +389,7 @@ function SliderBar({ label, value, max = 10 }: { label: string; value: number; m
     const safeVal = typeof value === 'number' && !isNaN(value) ? value : 0
     const safeMax = typeof max === 'number' && !isNaN(max) && max > 0 ? max : 10
     const pct = (safeVal / safeMax) * 100
-    const color = safeVal >= 7 ? "from-red-500 to-red-400" : safeVal >= 4 ? "from-yellow-500 to-yellow-400" : "from-green-500 to-green-400"
+    const color = safeVal >= 7 ? "from-red-500 to-red-400" : safeVal >= 4 ? "from-red-500 to-red-400" : "from-red-500 to-red-400"
     return (<div><div className="flex items-center justify-between mb-1"><span className="text-xs text-slate-500">{label}</span><span className="text-white text-sm font-medium">{safeVal}/{safeMax}</span></div><div className="h-2 bg-white/10 rounded-full overflow-hidden"><div className={`h-full bg-gradient-to-r ${color} rounded-full`} style={{ width: `${pct}%` }} /></div></div>)
 }
 
@@ -369,13 +416,410 @@ class DetailErrorBoundary extends React.Component<{ children: React.ReactNode; o
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
+// QUICK ADD BUSINESS
+// ═══════════════════════════════════════════════════════════════════════════
+
+function AddBusinessModal({ isOpen, onClose, onAdd, token }: { isOpen: boolean; onClose: () => void; onAdd: (s: Submission) => void; token: string }) {
+    const [mode, setMode] = useState<'scan' | 'manual'>('scan')
+    const [url, setUrl] = useState("")
+    const [scanning, setScanning] = useState(false)
+    const [saving, setSaving] = useState(false)
+    const [error, setError] = useState("")
+
+    const [formData, setFormData] = useState<Partial<Submission>>({
+        fullName: "",
+        companyName: "",
+        email: "",
+        phoneNumber: "",
+        websiteUrl: "",
+        businessType: ""
+    })
+
+    if (!isOpen) return null
+
+    const handleScan = async () => {
+        if (!url) return
+        setScanning(true)
+        setError("")
+        try {
+            const res = await fetch("/api/admin/scan", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify({ url })
+            })
+            const result = await res.json()
+            if (result.success) {
+                setFormData(prev => ({ ...prev, ...result.data }))
+                setMode('manual')
+            } else {
+                setError(result.error || "Failed to scan website")
+            }
+        } catch {
+            setError("Error connecting to scan service")
+        } finally {
+            setScanning(false)
+        }
+    }
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault()
+        setSaving(true)
+        setError("")
+        try {
+            const res = await fetch("/api/admin/submissions", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify(formData)
+            })
+            const result = await res.json()
+            if (result.success) {
+                onAdd(result.submission)
+                onClose()
+                // Reset form
+                setFormData({ fullName: "", companyName: "", email: "", phoneNumber: "", websiteUrl: "", businessType: "" })
+                setUrl("")
+                setMode('scan')
+            } else {
+                setError(result.error || "Failed to save business")
+            }
+        } catch {
+            setError("Error saving business")
+        } finally {
+            setSaving(false)
+        }
+    }
+
+    return (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+            <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="bg-slate-900 border border-white/10 rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl"
+            >
+                <div className="p-6 border-b border-white/10 flex justify-between items-center">
+                    <h2 className="text-xl font-bold text-white">Quick Add Business</h2>
+                    <button onClick={onClose} className="text-slate-400 hover:text-white transition-colors">
+                        <ArrowRight className="w-5 h-5 rotate-45" />
+                    </button>
+                </div>
+
+                <div className="p-6">
+                    <div className="flex gap-2 mb-6">
+                        <button
+                            onClick={() => setMode('scan')}
+                            className={`flex-1 py-2 rounded-xl text-sm font-medium transition-all ${mode === 'scan' ? 'bg-white text-black' : 'bg-white/5 text-slate-400 border border-white/10'}`}
+                        >
+                            Scan Website
+                        </button>
+                        <button
+                            onClick={() => setMode('manual')}
+                            className={`flex-1 py-2 rounded-xl text-sm font-medium transition-all ${mode === 'manual' ? 'bg-white text-black' : 'bg-white/5 text-slate-400 border border-white/10'}`}
+                        >
+                            Manual Entry
+                        </button>
+                    </div>
+
+                    {mode === 'scan' ? (
+                        <div className="space-y-4">
+                            <p className="text-slate-400 text-sm">Enter a website URL and we'll use AI to extract the business details for you.</p>
+                            <div className="relative">
+                                <Globe className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                                <input
+                                    type="url"
+                                    placeholder="https://example.com"
+                                    value={url}
+                                    onChange={(e) => setUrl(e.target.value)}
+                                    className="w-full pl-11 pr-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:border-white/30"
+                                />
+                            </div>
+                            <button
+                                onClick={handleScan}
+                                disabled={scanning || !url}
+                                className="w-full py-3 rounded-xl bg-white text-black font-semibold hover:bg-slate-200 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+                            >
+                                {scanning ? <><Loader2 className="w-4 h-4 animate-spin" /> Analyzing Site...</> : "Scan Website"}
+                            </button>
+                        </div>
+                    ) : (
+                        <form onSubmit={handleSubmit} className="space-y-4">
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label className="text-xs text-slate-500 mb-1 block">Business Name</label>
+                                    <input
+                                        required
+                                        value={formData.companyName}
+                                        onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
+                                        className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-white/30"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="text-xs text-slate-500 mb-1 block">Full Name</label>
+                                    <input
+                                        required
+                                        value={formData.fullName}
+                                        onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                                        className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-white/30"
+                                    />
+                                </div>
+                            </div>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label className="text-xs text-slate-500 mb-1 block">Email</label>
+                                    <input
+                                        type="email"
+                                        required
+                                        value={formData.email}
+                                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                        className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-white/30"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="text-xs text-slate-500 mb-1 block">Phone</label>
+                                    <input
+                                        value={formData.phoneNumber}
+                                        onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
+                                        className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-white/30"
+                                    />
+                                </div>
+                            </div>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label className="text-xs text-slate-500 mb-1 block">Website</label>
+                                    <input
+                                        value={formData.websiteUrl}
+                                        onChange={(e) => setFormData({ ...formData, websiteUrl: e.target.value })}
+                                        className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-white/30"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="text-xs text-slate-500 mb-1 block">Business Type</label>
+                                    <input
+                                        value={formData.businessType}
+                                        onChange={(e) => setFormData({ ...formData, businessType: e.target.value })}
+                                        className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-white/30"
+                                    />
+                                </div>
+                            </div>
+                            <button
+                                type="submit"
+                                disabled={saving}
+                                className="w-full py-3 rounded-xl bg-white text-black font-semibold hover:bg-slate-200 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+                            >
+                                {saving ? <><Loader2 className="w-4 h-4 animate-spin" /> Saving...</> : "Save Business"}
+                            </button>
+                        </form>
+                    )}
+
+                    {error && <p className="text-red-400 text-sm mt-4 text-center">{error}</p>}
+                </div>
+            </motion.div>
+        </div>
+    )
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
 // SUBMISSION DETAIL (full answers + audit results + lead score + ROI)
 // ═══════════════════════════════════════════════════════════════════════════
 
-function SubmissionDetail({ submission: s, onBack, onDelete }: { submission: Submission; onBack: () => void; onDelete: (id: string) => void }) {
-    const [activeTab, setActiveTab] = useState<'results' | 'answers'>('results')
+function SubmissionDetail({ submission: s, onBack, onDelete, token, onUpdate }: { submission: Submission; onBack: () => void; onDelete: (id: string) => void; token: string; onUpdate: (updated: Partial<Submission>) => void }) {
+    const [activeTab, setActiveTab] = useState<'results' | 'answers' | 'followup' | 'notes'>('results')
 
-    const intentColor = { high: "text-green-400 bg-green-400/10 border-green-400/20", medium: "text-yellow-400 bg-yellow-400/10 border-yellow-400/20", low: "text-slate-400 bg-slate-400/10 border-slate-400/20" }[s.intentLevel || "low"] || "text-slate-400 bg-slate-400/10 border-slate-400/20"
+    // Stage state
+    const [changingStage, setChangingStage] = useState(false)
+
+    // Notes state
+    const [noteText, setNoteText] = useState('')
+    const [noteType, setNoteType] = useState<string>('note')
+    const [addingNote, setAddingNote] = useState(false)
+
+    // Proposal state
+    const [generatingProposal, setGeneratingProposal] = useState(false)
+    const [proposalData, setProposalData] = useState<any>(null)
+
+    // GHL state
+    const [syncingGHL, setSyncingGHL] = useState(false)
+
+    // Audit invite state
+    const [sendingAuditInvite, setSendingAuditInvite] = useState(false)
+    const [auditInviteStatus, setAuditInviteStatus] = useState<'idle' | 'sent' | 'error'>('idle')
+    const [auditInviteMethod, setAuditInviteMethod] = useState<'email' | 'sms'>('email')
+
+    // Follow-up state
+    const [emailType, setEmailType] = useState<string>('warm-nudge')
+    const [customContext, setCustomContext] = useState('')
+    const [generatedEmail, setGeneratedEmail] = useState<{ subject: string; body: string } | null>(null)
+    const [generating, setGenerating] = useState(false)
+    const [sending, setSending] = useState(false)
+    const [followupStatus, setFollowupStatus] = useState<'idle' | 'previewing' | 'sent' | 'error'>('idle')
+    const [followupError, setFollowupError] = useState('')
+    const [copiedField, setCopiedField] = useState<string | null>(null)
+
+    const handleGeneratePreview = async () => {
+        setGenerating(true)
+        setFollowupError('')
+        setFollowupStatus('idle')
+        try {
+            const res = await fetch('/api/admin/followup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                body: JSON.stringify({ lead: s, emailType, customContext: emailType === 'custom' ? customContext : undefined, previewOnly: true }),
+            })
+            const data = await res.json()
+            if (data.success) {
+                setGeneratedEmail(data.email)
+                setFollowupStatus('previewing')
+            } else {
+                setFollowupError(data.error || 'Failed to generate email')
+                setFollowupStatus('error')
+            }
+        } catch (err: any) {
+            setFollowupError(err.message || 'Connection error')
+            setFollowupStatus('error')
+        } finally {
+            setGenerating(false)
+        }
+    }
+
+    const handleSendEmail = async () => {
+        if (!generatedEmail) return
+        setSending(true)
+        setFollowupError('')
+        try {
+            const res = await fetch('/api/admin/followup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                body: JSON.stringify({ lead: s, emailType, customContext: emailType === 'custom' ? customContext : undefined }),
+            })
+            const data = await res.json()
+            if (data.success && data.sent) {
+                setFollowupStatus('sent')
+                const note = { 
+                    text: `Email Sent: ${generatedEmail.subject}`, 
+                    type: 'system', 
+                    createdAt: new Date().toISOString() 
+                }
+                onUpdate({ notes: [...(s.notes || []), note] })
+            } else {
+                setFollowupError(data.error || 'Failed to send email')
+                setFollowupStatus('error')
+            }
+        } catch (err: any) {
+            setFollowupError(err.message || 'Connection error')
+            setFollowupStatus('error')
+        } finally {
+            setSending(false)
+        }
+    }
+
+    const handleCopy = (field: string, text: string) => {
+        navigator.clipboard.writeText(text)
+        setCopiedField(field)
+        setTimeout(() => setCopiedField(null), 2000)
+    }
+
+    const handleStageChange = async (newStage: string) => {
+        setChangingStage(true)
+        try {
+            const res = await fetch('/api/admin/submissions', {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                body: JSON.stringify({ id: s.id, action: 'update-stage', stage: newStage }),
+            })
+            const data = await res.json()
+            if (data.success) {
+                const note = { text: `Stage changed to "${newStage}"`, type: 'system', createdAt: new Date().toISOString() }
+                onUpdate({ stage: newStage, stageUpdatedAt: new Date().toISOString(), notes: [...(s.notes || []), note] })
+            }
+        } catch { /* ignore */ } finally { setChangingStage(false) }
+    }
+
+    const handleAddNote = async () => {
+        if (!noteText.trim()) return
+        setAddingNote(true)
+        try {
+            const res = await fetch('/api/admin/submissions', {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                body: JSON.stringify({ id: s.id, action: 'add-note', text: noteText, type: noteType }),
+            })
+            const data = await res.json()
+            if (data.success) {
+                onUpdate({ notes: [...(s.notes || []), data.note] })
+                setNoteText('')
+            }
+        } catch { /* ignore */ } finally { setAddingNote(false) }
+    }
+
+    const handleGenerateProposal = async () => {
+        setGeneratingProposal(true)
+        try {
+            const res = await fetch('/api/admin/followup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                body: JSON.stringify({ lead: s, emailType: 'custom', customContext: `Generate a business proposal email for ${s.companyName}. Include: their pain points, recommended systems based on their audit (score: ${s.auditScore}/100), timeline (90-day installation), investment range, and ROI projections. Make it professional but warm. Reference their specific bottleneck: "${s.bottleneck || s.keepsUpAtNight || 'scaling operations'}". End with a clear CTA to book a strategy call.`, previewOnly: true }),
+            })
+            const data = await res.json()
+            if (data.success) {
+                setProposalData(data.email)
+                setActiveTab('followup')
+                setEmailType('custom')
+                setGeneratedEmail(data.email)
+                setFollowupStatus('previewing')
+            }
+        } catch { /* ignore */ } finally { setGeneratingProposal(false) }
+    }
+
+    const handleSyncToGHL = async () => {
+        setSyncingGHL(true)
+        try {
+            const res = await fetch('/api/admin/ghl', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                body: JSON.stringify({ action: 'push-lead', lead: s }),
+            })
+            const data = await res.json()
+            if (data.success) {
+                onUpdate({ ghlContactId: data.contactId, ghlOpportunityId: data.opportunityId, ghlSyncedAt: new Date().toISOString() })
+            }
+        } catch { /* ignore */ } finally { setSyncingGHL(false) }
+    }
+
+    const handleSendAuditInvite = async (method: 'email' | 'sms') => {
+        setSendingAuditInvite(true)
+        setAuditInviteStatus('idle')
+        try {
+            const res = await fetch('/api/admin/followup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                body: JSON.stringify({
+                    lead: s,
+                    emailType: 'custom',
+                    customContext: `Send a short, friendly ${method === 'sms' ? 'text message' : 'email'} inviting ${s.fullName?.split(' ')[0] || 'them'} to complete their free AI audit. They already applied to the Build Program. Now we want them to take the full audit so we can give them personalized recommendations. Include the link: https://elianatech.com/audit — keep it brief and warm. ${method === 'sms' ? 'Keep it under 160 characters.' : ''}`,
+                    previewOnly: false,
+                }),
+            })
+            const data = await res.json()
+            if (data.success) {
+                setAuditInviteStatus('sent')
+                const note = { text: `Audit invite sent via ${method} to ${method === 'sms' ? s.phoneNumber : s.email}`, type: 'system', createdAt: new Date().toISOString() }
+                onUpdate({ notes: [...(s.notes || []), note] })
+            } else {
+                setAuditInviteStatus('error')
+            }
+        } catch {
+            setAuditInviteStatus('error')
+        } finally {
+            setSendingAuditInvite(false)
+        }
+    }
+
+    const intentColor = { high: "text-red-400 bg-red-400/10 border-red-400/20", medium: "text-red-400 bg-red-400/10 border-red-400/20", low: "text-slate-400 bg-slate-400/10 border-slate-400/20" }[s.intentLevel || "low"] || "text-slate-400 bg-slate-400/10 border-slate-400/20"
 
     const date = s.createdAt || s.submittedAt
     const formattedDate = date ? new Date(date).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit" }) : "Unknown"
@@ -389,7 +833,7 @@ function SubmissionDetail({ submission: s, onBack, onDelete }: { submission: Sub
     const catLabel = { online: 'Online', local: 'Local Services', professional: 'Professional', product: 'Product / E-com' }[businessCat]
 
     const leadTempIcon = lead.level === 'hot' ? Flame : lead.level === 'warm' ? Thermometer : Snowflake
-    const leadTempColor = lead.level === 'hot' ? 'text-red-400 bg-red-400/10 border-red-400/20' : lead.level === 'warm' ? 'text-orange-400 bg-orange-400/10 border-orange-400/20' : 'text-blue-400 bg-blue-400/10 border-blue-400/20'
+    const leadTempColor = lead.level === 'hot' ? 'text-red-400 bg-red-400/10 border-red-400/20' : lead.level === 'warm' ? 'text-red-400 bg-red-400/10 border-red-400/20' : 'text-red-400 bg-red-400/10 border-red-400/20'
 
     return (
         <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
@@ -403,8 +847,13 @@ function SubmissionDetail({ submission: s, onBack, onDelete }: { submission: Sub
             <div className="bg-white/5 border border-white/10 rounded-2xl p-6 mb-6">
                 <div className="flex flex-wrap items-start justify-between gap-4">
                     <div>
-                        <h2 className="text-2xl font-bold text-white">{s.fullName}</h2>
-                        <p className="text-slate-400 mt-1">{s.companyName} <span className="ml-2 px-2 py-0.5 rounded-full text-xs font-medium bg-white/5 border border-white/10 text-slate-400">{catLabel}</span></p>
+                        <div className="flex items-center gap-3">
+                            <h2 className="text-2xl font-bold text-white">{s.fullName}</h2>
+                            <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${isApplicationOnly(s) ? 'bg-purple-500/20 text-purple-400 border border-purple-500/30' : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'}`}>
+                                {isApplicationOnly(s) ? 'APPLICATION' : 'AUDIT'}
+                            </span>
+                        </div>
+                        <p className="text-slate-400 mt-1">{s.companyName} {catLabel && <span className="ml-2 px-2 py-0.5 rounded-full text-xs font-medium bg-white/5 border border-white/10 text-slate-400">{catLabel}</span>}</p>
                         <div className="flex items-center gap-3 mt-2 text-sm text-slate-500">
                             <span>{formattedDate}</span>
                             {s.email && <span>| {s.email}</span>}
@@ -412,20 +861,71 @@ function SubmissionDetail({ submission: s, onBack, onDelete }: { submission: Sub
                         </div>
                     </div>
                     <div className="flex items-center gap-3 flex-wrap">
-                        {auditScore > 0 && (
-                            <div className="text-center px-4 py-2 rounded-xl bg-white/5 border border-white/10">
-                                <p className={`text-2xl font-bold ${scoreColor(auditScore)}`}>{auditScore}</p>
-                                <p className="text-xs text-slate-500">AI Score</p>
-                            </div>
+                        {isApplicationOnly(s) ? (
+                            <span className="px-3 py-1.5 rounded-full text-xs font-bold bg-purple-500/20 text-purple-400 border border-purple-500/30">
+                                PENDING AUDIT
+                            </span>
+                        ) : (
+                            <>
+                                {auditScore > 0 && (
+                                    <div className="text-center px-4 py-2 rounded-xl bg-white/5 border border-white/10">
+                                        <p className={`text-2xl font-bold ${scoreColor(auditScore)}`}>{auditScore}</p>
+                                        <p className="text-xs text-slate-500">AI Score</p>
+                                    </div>
+                                )}
+                                <div className="text-center px-4 py-2 rounded-xl bg-white/5 border border-white/10">
+                                    <p className="text-2xl font-bold text-white">{lead.score}</p>
+                                    <p className="text-xs text-slate-500">Lead Score</p>
+                                </div>
+                                <span className={`px-3 py-1.5 rounded-full text-xs font-medium border ${intentColor}`}>{(s.intentLevel || "unknown").toUpperCase()} INTENT</span>
+                                <span className={`px-3 py-1.5 rounded-full text-xs font-medium border flex items-center gap-1 ${leadTempColor}`}>
+                                    {React.createElement(leadTempIcon, { className: "w-3 h-3" })} {lead.level.toUpperCase()}
+                                </span>
+                            </>
                         )}
-                        <div className="text-center px-4 py-2 rounded-xl bg-white/5 border border-white/10">
-                            <p className="text-2xl font-bold text-white">{lead.score}</p>
-                            <p className="text-xs text-slate-500">Lead Score</p>
-                        </div>
-                        <span className={`px-3 py-1.5 rounded-full text-xs font-medium border ${intentColor}`}>{(s.intentLevel || "unknown").toUpperCase()} INTENT</span>
-                        <span className={`px-3 py-1.5 rounded-full text-xs font-medium border flex items-center gap-1 ${leadTempColor}`}>
-                            {React.createElement(leadTempIcon, { className: "w-3 h-3" })} {lead.level.toUpperCase()}
-                        </span>
+                    </div>
+                </div>
+            </div>
+
+            {/* ── Pipeline Stage + Quick Actions ── */}
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-4 mb-6">
+                <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+                    {/* Stage Selector */}
+                    <div className="flex items-center gap-2 flex-wrap">
+                        <span className="text-xs text-slate-500 mr-1">Stage:</span>
+                        {PIPELINE_STAGES.map((stage) => {
+                            const current = (s.stage || 'new') === stage.id
+                            return (
+                                <button
+                                    key={stage.id}
+                                    onClick={() => !current && handleStageChange(stage.id)}
+                                    disabled={changingStage}
+                                    className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-all flex items-center gap-1.5 ${current ? stage.color + ' ring-1 ring-current' : 'bg-white/[0.02] border-white/5 text-slate-600 hover:text-slate-300 hover:border-white/10'}`}
+                                >
+                                    {React.createElement(stage.icon, { className: "w-3 h-3" })}
+                                    {stage.label}
+                                </button>
+                            )
+                        })}
+                    </div>
+                    {/* Quick Actions */}
+                    <div className="flex gap-2">
+                        <button
+                            onClick={handleGenerateProposal}
+                            disabled={generatingProposal}
+                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-medium hover:bg-red-500/20 transition-all disabled:opacity-50"
+                        >
+                            {generatingProposal ? <Loader2 className="w-3 h-3 animate-spin" /> : <FileText className="w-3 h-3" />}
+                            Send Proposal
+                        </button>
+                        <button
+                            onClick={handleSyncToGHL}
+                            disabled={syncingGHL}
+                            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-medium transition-all disabled:opacity-50 ${s.ghlContactId ? 'bg-green-500/10 border-green-500/20 text-green-400 hover:bg-green-500/20' : 'bg-white/5 border-white/10 text-slate-400 hover:bg-white/10'}`}
+                        >
+                            {syncingGHL ? <Loader2 className="w-3 h-3 animate-spin" /> : <RefreshCw className="w-3 h-3" />}
+                            {s.ghlContactId ? 'Synced to GHL' : 'Push to GHL'}
+                        </button>
                     </div>
                 </div>
             </div>
@@ -433,112 +933,224 @@ function SubmissionDetail({ submission: s, onBack, onDelete }: { submission: Sub
             {/* ── Tab Switcher ── */}
             <div className="flex gap-2 mb-6">
                 <button onClick={() => setActiveTab('results')} className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${activeTab === 'results' ? 'bg-white text-black' : 'bg-white/5 text-slate-400 hover:text-white border border-white/10'}`}>
-                    Audit Results
+                    {isApplicationOnly(s) ? 'Application' : 'Audit Results'}
                 </button>
                 <button onClick={() => setActiveTab('answers')} className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${activeTab === 'answers' ? 'bg-white text-black' : 'bg-white/5 text-slate-400 hover:text-white border border-white/10'}`}>
                     All Answers
                 </button>
+                <button onClick={() => setActiveTab('notes')} className={`px-4 py-2 rounded-xl text-sm font-medium transition-all flex items-center gap-2 ${activeTab === 'notes' ? 'bg-white text-black' : 'bg-white/5 text-slate-400 hover:text-white border border-white/10'}`}>
+                    <StickyNote className="w-3.5 h-3.5" /> Notes {(s.notes || []).length > 0 && <span className={`px-1.5 py-0.5 rounded-full text-[10px] ${activeTab === 'notes' ? 'bg-black/10' : 'bg-white/10'}`}>{(s.notes || []).length}</span>}
+                </button>
+                <button onClick={() => setActiveTab('followup')} className={`px-4 py-2 rounded-xl text-sm font-medium transition-all flex items-center gap-2 ${activeTab === 'followup' ? 'bg-white text-black' : 'bg-white/5 text-slate-400 hover:text-white border border-white/10'}`}>
+                    <Mail className="w-3.5 h-3.5" /> Follow Up
+                </button>
             </div>
 
-            {activeTab === 'results' ? (
+            {activeTab === 'results' && (
                 <>
+                    {/* ════ APPLICATION INFO (for apply-only accounts) ════ */}
+                    {isApplicationOnly(s) && (
+                        <>
+                            {/* Contact Info */}
+                            <DetailSection title="Contact Information" icon={Users} iconColor="text-purple-400">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                                    <DetailField label="Full Name" value={s.fullName} />
+                                    <DetailField label="Email" value={s.email} />
+                                    <DetailField label="Phone" value={s.phoneNumber} />
+                                    <DetailField label="Company" value={s.companyName} />
+                                </div>
+                            </DetailSection>
+
+                            {/* Application Answers */}
+                            <DetailSection title="Application Answers" icon={FileText} iconColor="text-purple-400">
+                                <div className="space-y-3">
+                                    <div className="bg-white/[0.03] rounded-xl p-4 border border-white/5">
+                                        <span className="text-xs text-purple-400 font-medium">What are you building?</span>
+                                        <p className="text-slate-300 text-sm mt-1.5 leading-relaxed whitespace-pre-wrap">{s.whatBuilding}</p>
+                                    </div>
+                                    <div className="bg-white/[0.03] rounded-xl p-4 border border-white/5">
+                                        <span className="text-xs text-purple-400 font-medium">What have you already tried?</span>
+                                        <p className="text-slate-300 text-sm mt-1.5 leading-relaxed whitespace-pre-wrap">{s.whatTried}</p>
+                                    </div>
+                                    <div className="bg-white/[0.03] rounded-xl p-4 border border-white/5">
+                                        <span className="text-xs text-purple-400 font-medium">Why now?</span>
+                                        <p className="text-slate-300 text-sm mt-1.5 leading-relaxed whitespace-pre-wrap">{s.whyNow}</p>
+                                    </div>
+                                </div>
+                            </DetailSection>
+
+                            {/* Send Audit Invite */}
+                            <DetailSection title="Convert to Audit Account" icon={Sparkles} iconColor="text-purple-400">
+                                <p className="text-slate-400 text-sm mb-4">This is an application-only account. Send them an invite to complete the full AI audit to get personalized recommendations and convert this to an audit account.</p>
+                                <div className="flex gap-3 mb-4">
+                                    <button
+                                        onClick={() => handleSendAuditInvite('email')}
+                                        disabled={sendingAuditInvite || !s.email}
+                                        className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-purple-500/10 border border-purple-500/30 text-purple-400 font-medium hover:bg-purple-500/20 transition-all disabled:opacity-50"
+                                    >
+                                        {sendingAuditInvite && auditInviteMethod === 'email' ? <Loader2 className="w-4 h-4 animate-spin" /> : <Mail className="w-4 h-4" />}
+                                        Send Audit Invite via Email
+                                    </button>
+                                    <button
+                                        onClick={() => handleSendAuditInvite('sms')}
+                                        disabled={sendingAuditInvite || !s.phoneNumber}
+                                        className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-purple-500/10 border border-purple-500/30 text-purple-400 font-medium hover:bg-purple-500/20 transition-all disabled:opacity-50"
+                                    >
+                                        {sendingAuditInvite && auditInviteMethod === 'sms' ? <Loader2 className="w-4 h-4 animate-spin" /> : <Phone className="w-4 h-4" />}
+                                        Send Audit Invite via SMS
+                                    </button>
+                                </div>
+                                {auditInviteStatus === 'sent' && (
+                                    <div className="bg-green-500/10 border border-green-500/20 rounded-xl p-4 text-center">
+                                        <CheckCircle2 className="w-6 h-6 text-green-400 mx-auto mb-2" />
+                                        <p className="text-green-400 text-sm font-medium">Audit invite sent successfully</p>
+                                    </div>
+                                )}
+                                {auditInviteStatus === 'error' && (
+                                    <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4 text-center">
+                                        <AlertTriangle className="w-6 h-6 text-red-400 mx-auto mb-2" />
+                                        <p className="text-red-400 text-sm font-medium">Failed to send audit invite</p>
+                                    </div>
+                                )}
+                                {!s.phoneNumber && <p className="text-slate-600 text-xs mt-2">SMS unavailable — no phone number on file</p>}
+                            </DetailSection>
+                        </>
+                    )}
+
                     {/* ════ AUDIT RESULTS TAB ════ */}
 
-                    {/* Score Breakdown */}
-                    <DetailSection title="Score Breakdown" icon={BarChart3} iconColor="text-blue-400">
-                        <div className="space-y-4">
-                            <ScoreBar label="Revenue & Growth" value={sub.revenue} />
-                            <ScoreBar label="Automation & Tech" value={sub.automation} />
-                            <ScoreBar label="Acquisition & Conversion" value={sub.acquisition} />
-                            <ScoreBar label="Retention & Engagement" value={sub.retention} />
-                            <ScoreBar label="Time & Operations" value={sub.time} />
-                        </div>
-                        <div className="mt-4 pt-4 border-t border-white/5 grid grid-cols-5 gap-2 text-center">
-                            {[
-                                { label: "Revenue", val: sub.revenue },
-                                { label: "Automation", val: sub.automation },
-                                { label: "Acquisition", val: sub.acquisition },
-                                { label: "Retention", val: sub.retention },
-                                { label: "Time", val: sub.time },
-                            ].map(({ label, val }) => (
-                                <div key={label}>
-                                    <p className={`text-lg font-bold ${scoreColor(val)}`}>{val}</p>
-                                    <p className="text-xs text-slate-500">{label}</p>
-                                </div>
-                            ))}
-                        </div>
-                    </DetailSection>
-
-                    {/* Lead Score & Routing */}
-                    <DetailSection title="Lead Score & Routing" icon={Target} iconColor="text-orange-400">
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                            <div className={`rounded-xl p-4 border text-center ${leadTempColor}`}>
-                                {React.createElement(leadTempIcon, { className: "w-8 h-8 mx-auto mb-2" })}
-                                <p className="text-lg font-bold">{lead.level.toUpperCase()} LEAD</p>
-                                <p className="text-xs opacity-70">Score: {lead.score}/100</p>
+                    {/* Score Breakdown — only show if they have audit data */}
+                    {!isApplicationOnly(s) && (
+                        <DetailSection title="Score Breakdown" icon={BarChart3} iconColor="text-red-400">
+                            <div className="space-y-4">
+                                <ScoreBar label="Revenue & Growth" value={sub.revenue} />
+                                <ScoreBar label="Automation & Tech" value={sub.automation} />
+                                <ScoreBar label="Acquisition & Conversion" value={sub.acquisition} />
+                                <ScoreBar label="Retention & Engagement" value={sub.retention} />
+                                <ScoreBar label="Time & Operations" value={sub.time} />
                             </div>
-                            <div className="bg-white/[0.03] rounded-xl p-4 border border-white/5">
-                                <p className="text-xs text-slate-500 mb-2">Nurture Sequence</p>
-                                <p className="text-white font-bold text-lg">Sequence {lead.sequence}</p>
-                                <p className="text-slate-400 text-xs mt-1">{lead.sequence === 'A' ? 'Aggressive (high-touch)' : lead.sequence === 'B' ? 'Standard nurture' : 'Low-touch drip'}</p>
-                            </div>
-                            <div className="bg-white/[0.03] rounded-xl p-4 border border-white/5">
-                                <p className="text-xs text-slate-500 mb-2">Recommended Package</p>
-                                <p className="text-white font-bold text-lg">{roi.pkg}</p>
-                                <p className="text-slate-400 text-xs mt-1">{roi.pkg === 'Single System' ? 'One core system' : roi.pkg === 'Multi-System' ? 'Multiple systems' : 'Full build-out'}</p>
-                            </div>
-                        </div>
-
-                        {lead.reasons.length > 0 && (
-                            <div className="mb-4">
-                                <p className="text-xs text-slate-500 mb-2">Scoring Reasons</p>
-                                <div className="flex flex-wrap gap-2">
-                                    {lead.reasons.map((r, i) => (
-                                        <span key={i} className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-300 text-xs">{r}</span>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
-
-                        <div>
-                            <p className="text-xs text-slate-500 mb-2">Recommended Actions</p>
-                            <div className="space-y-2">
-                                {lead.actions.map((a, i) => (
-                                    <div key={i} className="flex items-center gap-2 text-sm">
-                                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                                        <span className="text-slate-300">{a}</span>
+                            <div className="mt-4 pt-4 border-t border-white/5 grid grid-cols-5 gap-2 text-center">
+                                {[
+                                    { label: "Revenue", val: sub.revenue },
+                                    { label: "Automation", val: sub.automation },
+                                    { label: "Acquisition", val: sub.acquisition },
+                                    { label: "Retention", val: sub.retention },
+                                    { label: "Time", val: sub.time },
+                                ].map(({ label, val }) => (
+                                    <div key={label}>
+                                        <p className={`text-lg font-bold ${scoreColor(val)}`}>{val}</p>
+                                        <p className="text-xs text-slate-500">{label}</p>
                                     </div>
                                 ))}
                             </div>
-                        </div>
-                    </DetailSection>
+                        </DetailSection>
+                    )}
+
+                    {/* Lead Score & Routing */}
+                    {!isApplicationOnly(s) && (
+                        <DetailSection title="Lead Score & Routing" icon={Target} iconColor="text-red-400">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                                <div className={`rounded-xl p-4 border text-center ${leadTempColor}`}>
+                                    {React.createElement(leadTempIcon, { className: "w-8 h-8 mx-auto mb-2" })}
+                                    <p className="text-lg font-bold">{lead.level.toUpperCase()} LEAD</p>
+                                    <p className="text-xs opacity-70">Score: {lead.score}/100</p>
+                                </div>
+                                <div className="bg-white/[0.03] rounded-xl p-4 border border-white/5">
+                                    <p className="text-xs text-slate-500 mb-2">Nurture Sequence</p>
+                                    <p className="text-white font-bold text-lg">Sequence {lead.sequence}</p>
+                                    <p className="text-slate-400 text-xs mt-1">{lead.sequence === 'A' ? 'Aggressive (high-touch)' : lead.sequence === 'B' ? 'Standard nurture' : 'Low-touch drip'}</p>
+                                </div>
+                                <div className="bg-white/[0.03] rounded-xl p-4 border border-white/5">
+                                    <p className="text-xs text-slate-500 mb-2">Recommended Package</p>
+                                    <p className="text-white font-bold text-lg">{roi.pkg}</p>
+                                    <p className="text-slate-400 text-xs mt-1">{roi.pkg === 'Single System' ? 'One core system' : roi.pkg === 'Multi-System' ? 'Multiple systems' : 'Full build-out'}</p>
+                                </div>
+                            </div>
+
+                            {lead.reasons.length > 0 && (
+                                <div className="mb-4">
+                                    <p className="text-xs text-slate-500 mb-2">Scoring Reasons</p>
+                                    <div className="flex flex-wrap gap-2">
+                                        {lead.reasons.map((r, i) => (
+                                            <span key={i} className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-300 text-xs">{r}</span>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+
+                            <div>
+                                <p className="text-xs text-slate-500 mb-2">Recommended Actions</p>
+                                <div className="space-y-2">
+                                    {lead.actions.map((a, i) => (
+                                        <div key={i} className="flex items-center gap-2 text-sm">
+                                            <CheckCircle2 className="w-4 h-4 text-red-400 shrink-0" />
+                                            <span className="text-slate-300">{a}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </DetailSection>
+                    )}
 
                     {/* Revenue Opportunity / Cost of Doing Nothing */}
-                    <DetailSection title="Revenue Opportunity" icon={DollarSign} iconColor="text-emerald-400">
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
-                            <div className="bg-red-500/5 border border-red-500/20 rounded-xl p-4 text-center">
-                                <p className="text-red-400 font-bold text-2xl">{fmt$(roi.lostAnnual)}</p>
-                                <p className="text-slate-400 text-xs mt-1">Lost revenue/year from churn</p>
+                    {!isApplicationOnly(s) && (
+                        <DetailSection title="Revenue Opportunity" icon={DollarSign} iconColor="text-red-400">
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+                                <div className="bg-red-500/5 border border-red-500/20 rounded-xl p-4 text-center">
+                                    <p className="text-red-400 font-bold text-2xl">{fmt$(roi.lostAnnual)}</p>
+                                    <p className="text-slate-400 text-xs mt-1">Lost revenue/year from churn</p>
+                                </div>
+                                <div className="bg-red-500/5 border border-red-500/20 rounded-xl p-4 text-center">
+                                    <p className="text-red-400 font-bold text-2xl">{roi.wastedHours} hrs</p>
+                                    <p className="text-slate-400 text-xs mt-1">Spent on tasks automation could handle/year</p>
+                                </div>
+                                <div className="bg-red-500/5 border border-red-500/20 rounded-xl p-4 text-center">
+                                    <p className="text-red-400 font-bold text-2xl">{roi.vacationDays} days</p>
+                                    <p className="text-slate-400 text-xs mt-1">They can take off without crisis</p>
+                                </div>
                             </div>
-                            <div className="bg-red-500/5 border border-red-500/20 rounded-xl p-4 text-center">
-                                <p className="text-red-400 font-bold text-2xl">{roi.wastedHours} hrs</p>
-                                <p className="text-slate-400 text-xs mt-1">Spent on tasks automation could handle/year</p>
+                            <div className="bg-red-500/5 border border-red-500/20 rounded-xl p-4">
+                                <p className="text-red-400 font-semibold mb-2">If we close this lead:</p>
+                                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+                                    <div><p className="text-white font-bold">{fmt$(roi.lostMonthly)}</p><p className="text-xs text-slate-500">Monthly churn cost</p></div>
+                                    <div><p className="text-white font-bold">{Math.round(roi.churnPct * 100)}%</p><p className="text-xs text-slate-500">Churn rate</p></div>
+                                    <div><p className="text-white font-bold">{fmt$(roi.price)}</p><p className="text-xs text-slate-500">Avg product price</p></div>
+                                    <div><p className="text-white font-bold">{roi.supportHrs} hrs/wk</p><p className="text-xs text-slate-500">Support hours</p></div>
+                                </div>
                             </div>
-                            <div className="bg-red-500/5 border border-red-500/20 rounded-xl p-4 text-center">
-                                <p className="text-red-400 font-bold text-2xl">{roi.vacationDays} days</p>
-                                <p className="text-slate-400 text-xs mt-1">They can take off without crisis</p>
+                        </DetailSection>
+                    )}
+
+                    {/* Build Program Application — shown on audit accounts that also have application data */}
+                    {(s.whatBuilding || s.whatTried || s.whyNow) && (
+                        <DetailSection title="Build Program Application" icon={Sparkles} iconColor="text-red-400">
+                            <div className="space-y-3">
+                                {s.source === 'build_program_application' && (
+                                    <div className="inline-flex items-center px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-red-300 text-xs font-medium mb-2">
+                                        FOTF Build Program Applicant
+                                    </div>
+                                )}
+                                {s.whatBuilding && (
+                                    <div className="bg-white/[0.03] rounded-xl p-4 border border-white/5">
+                                        <span className="text-xs text-slate-500">What are you building?</span>
+                                        <p className="text-slate-300 text-sm mt-1 leading-relaxed whitespace-pre-wrap">{s.whatBuilding}</p>
+                                    </div>
+                                )}
+                                {s.whatTried && (
+                                    <div className="bg-white/[0.03] rounded-xl p-4 border border-white/5">
+                                        <span className="text-xs text-slate-500">What have you already tried?</span>
+                                        <p className="text-slate-300 text-sm mt-1 leading-relaxed whitespace-pre-wrap">{s.whatTried}</p>
+                                    </div>
+                                )}
+                                {s.whyNow && (
+                                    <div className="bg-white/[0.03] rounded-xl p-4 border border-white/5">
+                                        <span className="text-xs text-slate-500">Why now?</span>
+                                        <p className="text-slate-300 text-sm mt-1 leading-relaxed whitespace-pre-wrap">{s.whyNow}</p>
+                                    </div>
+                                )}
                             </div>
-                        </div>
-                        <div className="bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-4">
-                            <p className="text-emerald-400 font-semibold mb-2">If we close this lead:</p>
-                            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
-                                <div><p className="text-white font-bold">{fmt$(roi.lostMonthly)}</p><p className="text-xs text-slate-500">Monthly churn cost</p></div>
-                                <div><p className="text-white font-bold">{Math.round(roi.churnPct * 100)}%</p><p className="text-xs text-slate-500">Churn rate</p></div>
-                                <div><p className="text-white font-bold">{fmt$(roi.price)}</p><p className="text-xs text-slate-500">Avg product price</p></div>
-                                <div><p className="text-white font-bold">{roi.supportHrs} hrs/wk</p><p className="text-xs text-slate-500">Support hours</p></div>
-                            </div>
-                        </div>
-                    </DetailSection>
+                        </DetailSection>
+                    )}
 
                     {/* Pain Points Summary */}
                     {(s.keepsUpAtNight || s.bottleneck || s.holdingBack || (s.problems && s.problems.length > 0)) && (
@@ -555,13 +1167,13 @@ function SubmissionDetail({ submission: s, onBack, onDelete }: { submission: Sub
 
                     {/* Identified Opportunities */}
                     {safeArray(s.opportunities).length > 0 && (
-                        <DetailSection title="Identified Opportunities" icon={Zap} iconColor="text-purple-400">
+                        <DetailSection title="Identified Opportunities" icon={Zap} iconColor="text-red-400">
                             <div className="space-y-3">
                                 {safeArray(s.opportunities).map((opp: any, i: number) => (
                                     <div key={i} className="bg-white/[0.03] rounded-xl p-4 border border-white/5">
                                         <div className="flex items-center justify-between mb-1">
                                             <span className="text-white text-sm font-medium">{opp?.title || 'Opportunity'}</span>
-                                            <span className={`text-xs px-2 py-0.5 rounded-full ${opp?.impact === "Critical" ? "text-red-400 bg-red-400/10" : opp?.impact === "High" ? "text-orange-400 bg-orange-400/10" : "text-blue-400 bg-blue-400/10"}`}>{opp?.impact || 'Medium'}</span>
+                                            <span className={`text-xs px-2 py-0.5 rounded-full ${opp?.impact === "Critical" ? "text-red-400 bg-red-400/10" : opp?.impact === "High" ? "text-red-400 bg-red-400/10" : "text-red-400 bg-red-400/10"}`}>{opp?.impact || 'Medium'}</span>
                                         </div>
                                         <p className="text-slate-400 text-xs">{opp?.description || ''}</p>
                                     </div>
@@ -570,26 +1182,30 @@ function SubmissionDetail({ submission: s, onBack, onDelete }: { submission: Sub
                         </DetailSection>
                     )}
 
-                    {/* Quick key facts */}
-                    <DetailSection title="Key Facts at a Glance" icon={Eye} iconColor="text-cyan-400">
-                        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-                            <DetailField label="Business Type" value={s.businessType || s.specificIndustry || s.industryCategory} />
-                            <DetailField label="Category" value={catLabel} />
-                            <DetailField label="Revenue" value={s.currentRevenue} />
-                            <DetailField label="Team Size" value={s.teamSize} />
-                            <DetailField label={config.step2.platform.label || "Platform"} value={s.platform} />
-                            <DetailField label="Growth Budget" value={s.growthBudget} />
-                            <DetailField label="Wants to Start" value={s.startDate} />
-                            <DetailField label="Excitement" value={s.excitementLevel} />
-                            <DetailField label={config.step4.churnRate.label || "Churn Rate"} value={s.churnRate} />
-                        </div>
-                    </DetailSection>
+                    {/* Quick key facts — only for audit accounts */}
+                    {!isApplicationOnly(s) && (
+                        <DetailSection title="Key Facts at a Glance" icon={Eye} iconColor="text-red-400">
+                            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                                <DetailField label="Business Type" value={s.businessType || s.specificIndustry || s.industryCategory} />
+                                <DetailField label="Category" value={catLabel} />
+                                <DetailField label="Revenue" value={s.currentRevenue} />
+                                <DetailField label="Team Size" value={s.teamSize} />
+                                <DetailField label={config.step2.platform.label || "Platform"} value={s.platform} />
+                                <DetailField label="Growth Budget" value={s.growthBudget} />
+                                <DetailField label="Wants to Start" value={s.startDate} />
+                                <DetailField label="Excitement" value={s.excitementLevel} />
+                                <DetailField label={config.step4.churnRate.label || "Churn Rate"} value={s.churnRate} />
+                            </div>
+                        </DetailSection>
+                    )}
                 </>
-            ) : (
+            )}
+
+            {activeTab === 'answers' && (
                 <>
                     {/* ════ ALL ANSWERS TAB ════ */}
 
-                    <DetailSection title="About You" icon={Users} iconColor="text-blue-400">
+                    <DetailSection title="About You" icon={Users} iconColor="text-red-400">
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                             <DetailField label="Full Name" value={s.fullName} /><DetailField label="Company Name" value={s.companyName} /><DetailField label="Email" value={s.email} />
                             <DetailField label="Phone Number" value={s.phoneNumber} /><DetailField label="Website URL" value={s.websiteUrl} />
@@ -599,7 +1215,7 @@ function SubmissionDetail({ submission: s, onBack, onDelete }: { submission: Sub
                         </div>
                     </DetailSection>
 
-                    <DetailSection title={config.stepLabels[1]} icon={Briefcase} iconColor="text-purple-400">
+                    <DetailSection title={config.stepLabels[1]} icon={Briefcase} iconColor="text-red-400">
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                             <DetailField label={config.step2.productDescription.label || "Description"} value={s.productDescription} />
                             <DetailField label={config.step2.productPricePoint.label || "Price Point"} value={s.productPricePoint} /><DetailField label={config.step2.numberOfProducts.label || "# of Products"} value={s.numberOfProducts} />
@@ -607,14 +1223,14 @@ function SubmissionDetail({ submission: s, onBack, onDelete }: { submission: Sub
                         </div>
                     </DetailSection>
 
-                    <DetailSection title="Revenue & Growth" icon={DollarSign} iconColor="text-green-400">
+                    <DetailSection title="Revenue & Growth" icon={DollarSign} iconColor="text-red-400">
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                             <DetailField label="Current Revenue" value={s.currentRevenue} /><DetailField label="Revenue Trend" value={s.revenueTrend} /><DetailField label="Profit Margin" value={s.profitMargin} />
                             <DetailField label="Revenue Goal" value={s.revenueGoal} /><DetailField label="Biggest Bottleneck" value={s.bottleneck} /><DetailField label="Team Size" value={s.teamSize} />
                         </div>
                     </DetailSection>
 
-                    <DetailSection title={config.stepLabels[3]} icon={Target} iconColor="text-orange-400">
+                    <DetailSection title={config.stepLabels[3]} icon={Target} iconColor="text-red-400">
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                             <DetailField label={config.step4.listSize.label || "List Size"} value={s.listSize} /><DetailField label={config.step4.trafficSource.label || "Traffic Source"} value={s.trafficSource} /><DetailField label={config.step4.conversionRate.label || "Conversion Rate"} value={s.conversionRate} />
                             <DetailField label={config.step4.launchesPerYear.label || "Launches Per Year"} value={s.launchesPerYear} /><DetailField label={config.step4.churnRate.label || "Churn Rate"} value={s.churnRate} /><DetailField label={config.step4.contentCreationHours.label || "Content Hrs/Wk"} value={s.contentCreationHours} />
@@ -623,7 +1239,7 @@ function SubmissionDetail({ submission: s, onBack, onDelete }: { submission: Sub
                         </div>
                     </DetailSection>
 
-                    <DetailSection title={config.stepLabels[4]} icon={Clock} iconColor="text-cyan-400">
+                    <DetailSection title={config.stepLabels[4]} icon={Clock} iconColor="text-red-400">
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-4">
                             <DetailField label="Hours Worked/Week" value={s.hoursPerWeek} /><DetailField label={config.step5.supportHoursPerWeek.label || "Support Hrs/Week"} value={s.supportHoursPerWeek} />
                             <DetailField label="% High-Value Work" value={s.highValueWork} /><DetailField label={config.step5.onboardingAutomated.label || "Onboarding Automated?"} value={s.onboardingAutomated} />
@@ -633,18 +1249,244 @@ function SubmissionDetail({ submission: s, onBack, onDelete }: { submission: Sub
                         {s.keepsUpAtNight && <div className="bg-white/[0.03] rounded-xl p-4 border border-white/5"><span className="text-xs text-slate-500 block mb-1">What keeps them up at night</span><p className="text-slate-300 text-sm leading-relaxed">{s.keepsUpAtNight}</p></div>}
                     </DetailSection>
 
-                    <DetailSection title={config.stepLabels[5]} icon={Settings} iconColor="text-indigo-400">
-                        {safeArray<string>(s.tools).length > 0 && <div className="mb-4"><span className="text-xs text-slate-500 block mb-2">Current Tools</span><div className="flex flex-wrap gap-2">{safeArray<string>(s.tools).map((t, i) => <span key={i} className="px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs">{t}</span>)}</div></div>}
+                    <DetailSection title={config.stepLabels[5]} icon={Settings} iconColor="text-red-400">
+                        {safeArray<string>(s.tools).length > 0 && <div className="mb-4"><span className="text-xs text-slate-500 block mb-2">Current Tools</span><div className="flex flex-wrap gap-2">{safeArray<string>(s.tools).map((t, i) => <span key={i} className="px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-red-300 text-xs">{t}</span>)}</div></div>}
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-4">
                             <DetailField label="% Automated" value={s.percentAutomated} /><DetailField label="#1 Goal (12 Mo)" value={s.next12MonthsGoal} /><DetailField label="Holding Back" value={s.holdingBack} />
                         </div>
                         {safeArray<string>(s.problems).length > 0 && <div><span className="text-xs text-slate-500 block mb-2">Problems</span><div className="flex flex-wrap gap-2">{safeArray<string>(s.problems).map((p, i) => <span key={i} className="px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-red-300 text-xs">{p}</span>)}</div></div>}
                     </DetailSection>
 
-                    <DetailSection title="Readiness & Intent" icon={Zap} iconColor="text-emerald-400">
+                    <DetailSection title="Readiness & Intent" icon={Zap} iconColor="text-red-400">
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                             <DetailField label="Excitement Level" value={s.excitementLevel} /><DetailField label="When Start?" value={s.startDate} /><DetailField label="Investment Tolerance" value={s.growthBudget} />
                             <DetailField label="Decision Maker?" value={s.decisionMaker} /><DetailField label="Newsletter Opt-In" value={s.newsletterOptIn} />
+                        </div>
+                    </DetailSection>
+                </>
+            )}
+
+            {activeTab === 'notes' && (
+                <>
+                    {/* ════ NOTES & ACTIVITY TAB ════ */}
+                    <DetailSection title="Add Note" icon={StickyNote} iconColor="text-red-400">
+                        <div className="space-y-3">
+                            <div className="flex gap-2">
+                                {[
+                                    { id: 'note', label: 'Note', icon: StickyNote },
+                                    { id: 'call', label: 'Call', icon: PhoneCall },
+                                    { id: 'email', label: 'Email', icon: Mail },
+                                    { id: 'meeting', label: 'Meeting', icon: Calendar },
+                                ].map((t) => (
+                                    <button
+                                        key={t.id}
+                                        onClick={() => setNoteType(t.id)}
+                                        className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-all flex items-center gap-1.5 ${noteType === t.id ? 'bg-white/10 border-white/20 text-white' : 'bg-white/[0.02] border-white/5 text-slate-500 hover:text-slate-300'}`}
+                                    >
+                                        {React.createElement(t.icon, { className: "w-3 h-3" })} {t.label}
+                                    </button>
+                                ))}
+                            </div>
+                            <textarea
+                                value={noteText}
+                                onChange={(e) => setNoteText(e.target.value)}
+                                placeholder="Add a note about this lead... (call outcome, next steps, objections, etc.)"
+                                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-slate-600 focus:outline-none focus:border-white/30 text-sm resize-none"
+                                rows={3}
+                            />
+                            <button
+                                onClick={handleAddNote}
+                                disabled={addingNote || !noteText.trim()}
+                                className="px-4 py-2 rounded-xl bg-white text-black text-sm font-semibold hover:bg-slate-200 transition-all disabled:opacity-50 flex items-center gap-2"
+                            >
+                                {addingNote ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Plus className="w-3.5 h-3.5" />} Add Note
+                            </button>
+                        </div>
+                    </DetailSection>
+
+                    <DetailSection title="Activity Timeline" icon={Clock} iconColor="text-red-400">
+                        {(!s.notes || s.notes.length === 0) ? (
+                            <div className="text-center py-8">
+                                <StickyNote className="w-8 h-8 text-slate-600 mx-auto mb-2" />
+                                <p className="text-slate-500 text-sm">No notes yet. Add your first note above.</p>
+                            </div>
+                        ) : (
+                            <div className="space-y-1">
+                                {[...(s.notes || [])].reverse().map((note, i) => {
+                                    const noteIcon = note.type === 'call' ? PhoneCall : note.type === 'email' ? Mail : note.type === 'meeting' ? Calendar : note.type === 'system' ? Settings : StickyNote
+                                    const noteColor = note.type === 'system' ? 'text-slate-500' : note.type === 'call' ? 'text-green-400' : note.type === 'email' ? 'text-blue-400' : note.type === 'meeting' ? 'text-purple-400' : 'text-slate-300'
+                                    const fmtTime = new Date(note.createdAt).toLocaleDateString("en-US", { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })
+                                    return (
+                                        <div key={i} className="flex gap-3 py-3 border-b border-white/5 last:border-0">
+                                            <div className={`mt-0.5 ${noteColor}`}>
+                                                {React.createElement(noteIcon, { className: "w-4 h-4" })}
+                                            </div>
+                                            <div className="flex-1 min-w-0">
+                                                <p className={`text-sm leading-relaxed ${note.type === 'system' ? 'text-slate-500 italic' : 'text-slate-300'}`}>{note.text}</p>
+                                                <div className="flex items-center gap-2 mt-1">
+                                                    <span className="text-xs text-slate-600">{fmtTime}</span>
+                                                    <span className="text-xs text-slate-700 capitalize">{note.type}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        )}
+                    </DetailSection>
+                </>
+            )}
+
+            {activeTab === 'followup' && (
+                <>
+                    {/* ════ FOLLOW UP TAB ════ */}
+                    <DetailSection title={`Follow Up with ${(s.fullName || '').split(' ')[0]}`} icon={Mail} iconColor="text-red-400">
+                        <div className="space-y-4">
+                            {/* Email Type Selector */}
+                            <div>
+                                <label className="text-xs text-slate-500 block mb-2">Email Type</label>
+                                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                                    {[
+                                        { id: 'warm-nudge', label: 'Warm Nudge', desc: 'Casual check-in' },
+                                        { id: 'value-drop', label: 'Value Drop', desc: 'Quick win from audit' },
+                                        { id: 'pain-agitate', label: 'Pain + Solution', desc: 'Address their pain' },
+                                        { id: 'case-study', label: 'Case Study', desc: 'Relevant success story' },
+                                        { id: 'breakup', label: 'Breakup Email', desc: 'Final follow-up' },
+                                        { id: 'custom', label: 'Custom', desc: 'Your own context' },
+                                    ].map((type) => (
+                                        <button
+                                            key={type.id}
+                                            onClick={() => { setEmailType(type.id); setGeneratedEmail(null); setFollowupStatus('idle') }}
+                                            className={`text-left p-3 rounded-xl border transition-all ${emailType === type.id ? 'bg-red-500/10 border-red-500/30 text-white' : 'bg-white/[0.03] border-white/10 text-slate-400 hover:border-white/20 hover:text-white'}`}
+                                        >
+                                            <p className="text-sm font-medium">{type.label}</p>
+                                            <p className="text-xs opacity-60 mt-0.5">{type.desc}</p>
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Custom Context Input */}
+                            {emailType === 'custom' && (
+                                <div>
+                                    <label className="text-xs text-slate-500 block mb-2">Custom Context</label>
+                                    <textarea
+                                        value={customContext}
+                                        onChange={(e) => setCustomContext(e.target.value)}
+                                        placeholder="E.g., They mentioned on the call they're interested in chatbot automation but worried about cost..."
+                                        className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-slate-600 focus:outline-none focus:border-white/30 text-sm resize-none"
+                                        rows={3}
+                                    />
+                                </div>
+                            )}
+
+                            {/* Lead Context Summary */}
+                            <div className="bg-white/[0.03] rounded-xl p-4 border border-white/5">
+                                <p className="text-xs text-slate-500 mb-2">Claude will use this context to personalize the email</p>
+                                <div className="flex flex-wrap gap-2">
+                                    {s.intentLevel && <span className="px-2 py-1 rounded-full bg-white/5 border border-white/10 text-slate-400 text-xs">{s.intentLevel} intent</span>}
+                                    {s.auditScore && <span className="px-2 py-1 rounded-full bg-white/5 border border-white/10 text-slate-400 text-xs">Score: {s.auditScore}</span>}
+                                    {s.businessType && <span className="px-2 py-1 rounded-full bg-white/5 border border-white/10 text-slate-400 text-xs">{s.businessType}</span>}
+                                    {s.keepsUpAtNight && <span className="px-2 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-red-300 text-xs truncate max-w-[200px]">{s.keepsUpAtNight}</span>}
+                                    {s.bottleneck && <span className="px-2 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-red-300 text-xs truncate max-w-[200px]">{s.bottleneck}</span>}
+                                    {s.currentRevenue && <span className="px-2 py-1 rounded-full bg-white/5 border border-white/10 text-slate-400 text-xs">{s.currentRevenue}</span>}
+                                    {s.growthBudget && <span className="px-2 py-1 rounded-full bg-white/5 border border-white/10 text-slate-400 text-xs">Budget: {s.growthBudget}</span>}
+                                </div>
+                            </div>
+
+                            {/* Generate Button */}
+                            <button
+                                onClick={handleGeneratePreview}
+                                disabled={generating || (emailType === 'custom' && !customContext.trim())}
+                                className="w-full py-3 rounded-xl bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+                            >
+                                {generating ? (
+                                    <><Loader2 className="w-4 h-4 animate-spin" /> Claude is writing...</>
+                                ) : (
+                                    <><Sparkles className="w-4 h-4" /> Generate Email Preview</>
+                                )}
+                            </button>
+
+                            {/* Error */}
+                            {followupStatus === 'error' && (
+                                <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4 text-red-400 text-sm flex items-center gap-2">
+                                    <AlertTriangle className="w-4 h-4 shrink-0" /> {followupError}
+                                </div>
+                            )}
+
+                            {/* Email Preview */}
+                            {generatedEmail && followupStatus === 'previewing' && (
+                                <div className="bg-white/[0.03] rounded-xl border border-white/10 overflow-hidden">
+                                    <div className="px-5 py-3 border-b border-white/10 flex items-center justify-between">
+                                        <p className="text-xs text-slate-500">Email Preview</p>
+                                        <button onClick={handleGeneratePreview} disabled={generating} className="text-xs text-slate-500 hover:text-white transition-colors flex items-center gap-1">
+                                            <RotateCcw className="w-3 h-3" /> Regenerate
+                                        </button>
+                                    </div>
+                                    <div className="p-5 space-y-3">
+                                        <div>
+                                            <div className="flex items-center justify-between mb-1">
+                                                <span className="text-xs text-slate-500">To</span>
+                                            </div>
+                                            <p className="text-slate-300 text-sm">{s.email}</p>
+                                        </div>
+                                        <div>
+                                            <div className="flex items-center justify-between mb-1">
+                                                <span className="text-xs text-slate-500">Subject</span>
+                                                <button onClick={() => handleCopy('subject', generatedEmail.subject)} className="text-xs text-slate-500 hover:text-white transition-colors flex items-center gap-1">
+                                                    {copiedField === 'subject' ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
+                                                </button>
+                                            </div>
+                                            <p className="text-white text-sm font-medium">{generatedEmail.subject}</p>
+                                        </div>
+                                        <div>
+                                            <div className="flex items-center justify-between mb-1">
+                                                <span className="text-xs text-slate-500">Body</span>
+                                                <button onClick={() => handleCopy('body', generatedEmail.body)} className="text-xs text-slate-500 hover:text-white transition-colors flex items-center gap-1">
+                                                    {copiedField === 'body' ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
+                                                </button>
+                                            </div>
+                                            <div className="bg-white/[0.03] rounded-lg p-4 border border-white/5">
+                                                <p className="text-slate-300 text-sm whitespace-pre-wrap leading-relaxed">{generatedEmail.body}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="px-5 py-4 border-t border-white/10 flex gap-3">
+                                        <button
+                                            onClick={handleSendEmail}
+                                            disabled={sending}
+                                            className="flex-1 py-3 rounded-xl bg-red-500 text-white font-semibold hover:bg-red-600 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+                                        >
+                                            {sending ? (
+                                                <><Loader2 className="w-4 h-4 animate-spin" /> Sending via Loops...</>
+                                            ) : (
+                                                <><Send className="w-4 h-4" /> Send to {(s.fullName || '').split(' ')[0]}</>
+                                            )}
+                                        </button>
+                                        <button
+                                            onClick={() => { setGeneratedEmail(null); setFollowupStatus('idle') }}
+                                            className="px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-slate-400 hover:text-white transition-all"
+                                        >
+                                            Cancel
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* Sent Confirmation */}
+                            {followupStatus === 'sent' && (
+                                <div className="bg-green-500/10 border border-green-500/20 rounded-xl p-6 text-center">
+                                    <CheckCircle2 className="w-10 h-10 text-green-400 mx-auto mb-3" />
+                                    <p className="text-green-400 font-semibold mb-1">Email Sent Successfully</p>
+                                    <p className="text-slate-400 text-sm">Sent to {s.email} via Loops</p>
+                                    <button
+                                        onClick={() => { setGeneratedEmail(null); setFollowupStatus('idle') }}
+                                        className="mt-4 px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-slate-300 text-sm hover:bg-white/10 transition-all"
+                                    >
+                                        Send Another
+                                    </button>
+                                </div>
+                            )}
                         </div>
                     </DetailSection>
                 </>
@@ -658,11 +1500,11 @@ function SubmissionDetail({ submission: s, onBack, onDelete }: { submission: Sub
 // ═══════════════════════════════════════════════════════════════════════════
 
 function exportToCSV(submissions: Submission[]) {
-    const headers = ["Date","Full Name","Company","Email","Phone","Website","Business Type","Business Category","Product Description","Price Point","# Products","Platform","Delivery Method","Revenue Stage","Revenue Trend","Profit Margin","Revenue Goal","Bottleneck","Team Size","List Size","Traffic Source","Conversion Rate","Launches/Year","Churn Rate","Content Creation Hrs","Support Hrs/Week","Onboarding Automated","Hours/Week","High-Value Work %","2 Weeks Off?","Pain Level","Keeps Up at Night","Biggest Time Waste","Tools","% Automated","12-Mo Goal","Holding Back","Problems","Excitement","Start Date","Growth Budget","Decision Maker","Newsletter Opt-In","Audit Score","Intent Level","Lead Temperature","Lead Score","Opportunities"]
+    const headers = ["Date", "Full Name", "Company", "Email", "Phone", "Website", "Business Type", "Business Category", "Product Description", "Price Point", "# Products", "Platform", "Delivery Method", "Revenue Stage", "Revenue Trend", "Profit Margin", "Revenue Goal", "Bottleneck", "Team Size", "List Size", "Traffic Source", "Conversion Rate", "Launches/Year", "Churn Rate", "Content Creation Hrs", "Support Hrs/Week", "Onboarding Automated", "Hours/Week", "High-Value Work %", "2 Weeks Off?", "Pain Level", "Keeps Up at Night", "Biggest Time Waste", "Tools", "% Automated", "12-Mo Goal", "Holding Back", "Problems", "Excitement", "Start Date", "Growth Budget", "Decision Maker", "Newsletter Opt-In", "Audit Score", "Intent Level", "Lead Temperature", "Lead Score", "Opportunities"]
     const rows = submissions.map(s => {
         const lead = calcLeadScore(s, s.auditScore ?? 0)
         const cat = s.businessType ? getBusinessCategory(s.businessType) : ''
-        return [s.createdAt||s.submittedAt||"",s.fullName,s.companyName,s.email,s.phoneNumber||"",s.websiteUrl||"",s.businessType||s.industryCategory||"",cat,s.productDescription||"",s.productPricePoint||"",s.numberOfProducts||"",s.platform||"",s.deliveryMethod||"",s.currentRevenue||"",s.revenueTrend||"",s.profitMargin||"",s.revenueGoal||"",s.bottleneck||"",s.teamSize||"",s.listSize||"",s.trafficSource||"",s.conversionRate||"",s.launchesPerYear||"",s.churnRate||"",s.contentCreationHours||"",s.supportHoursPerWeek||"",s.onboardingAutomated||"",s.hoursPerWeek||"",s.highValueWork||"",s.twoWeeksOff||"",safeNumFromSlider(s.painLevel).toString(),s.keepsUpAtNight||"",s.biggestTimeWaste||"",safeArray<string>(s.tools).join("; "),s.percentAutomated||"",s.next12MonthsGoal||"",s.holdingBack||"",safeArray<string>(s.problems).join("; "),s.excitementLevel||"",s.startDate||"",s.growthBudget||"",s.decisionMaker||"",s.newsletterOptIn?"Yes":"No",s.auditScore?.toString()||"",s.intentLevel||"",lead.level,lead.score.toString(),safeArray(s.opportunities).map((o:any)=>`${o?.title||''} (${o?.impact||''})`).join("; ")]
+        return [s.createdAt || s.submittedAt || "", s.fullName, s.companyName, s.email, s.phoneNumber || "", s.websiteUrl || "", s.businessType || s.industryCategory || "", cat, s.productDescription || "", s.productPricePoint || "", s.numberOfProducts || "", s.platform || "", s.deliveryMethod || "", s.currentRevenue || "", s.revenueTrend || "", s.profitMargin || "", s.revenueGoal || "", s.bottleneck || "", s.teamSize || "", s.listSize || "", s.trafficSource || "", s.conversionRate || "", s.launchesPerYear || "", s.churnRate || "", s.contentCreationHours || "", s.supportHoursPerWeek || "", s.onboardingAutomated || "", s.hoursPerWeek || "", s.highValueWork || "", s.twoWeeksOff || "", safeNumFromSlider(s.painLevel).toString(), s.keepsUpAtNight || "", s.biggestTimeWaste || "", safeArray<string>(s.tools).join("; "), s.percentAutomated || "", s.next12MonthsGoal || "", s.holdingBack || "", safeArray<string>(s.problems).join("; "), s.excitementLevel || "", s.startDate || "", s.growthBudget || "", s.decisionMaker || "", s.newsletterOptIn ? "Yes" : "No", s.auditScore?.toString() || "", s.intentLevel || "", lead.level, lead.score.toString(), safeArray(s.opportunities).map((o: any) => `${o?.title || ''} (${o?.impact || ''})`).join("; ")]
     })
     const esc = (v: string) => `"${v.replace(/"/g, '""')}"`
     const csv = [headers.map(esc).join(","), ...rows.map(r => r.map(esc).join(","))].join("\n")
@@ -681,9 +1523,45 @@ function Dashboard({ token, onLogout }: { token: string; onLogout: () => void })
     const [error, setError] = useState("")
     const [search, setSearch] = useState("")
     const [intentFilter, setIntentFilter] = useState<string>("all")
+    const [typeFilter, setTypeFilter] = useState<string>("all")
     const [sortAsc, setSortAsc] = useState(false)
     const [selectedSubmission, setSelectedSubmission] = useState<Submission | null>(null)
-    const [dashTab, setDashTab] = useState<'leads' | 'schedule'>('leads')
+    const [dashTab, setDashTab] = useState<'pipeline' | 'leads' | 'schedule'>('pipeline')
+    const [isAddModalOpen, setIsAddModalOpen] = useState(false)
+
+    // GHL state
+    const [ghlConnected, setGhlConnected] = useState<boolean | null>(null)
+    const [bulkSyncing, setBulkSyncing] = useState(false)
+    const [bulkSyncResult, setBulkSyncResult] = useState<{ synced: number; failed: number } | null>(null)
+
+    // Test GHL connection on mount
+    useEffect(() => {
+        fetch('/api/admin/ghl', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+            body: JSON.stringify({ action: 'test-connection' }),
+        }).then(r => r.json()).then(d => setGhlConnected(d.ok === true)).catch(() => setGhlConnected(false))
+    }, [token])
+
+    const handleBulkSyncGHL = async () => {
+        const unsynced = submissions.filter(s => !s.ghlContactId)
+        if (unsynced.length === 0) { alert('All leads are already synced to GHL'); return }
+        if (!confirm(`Push ${unsynced.length} unsynced leads to GoHighLevel?`)) return
+        setBulkSyncing(true)
+        setBulkSyncResult(null)
+        try {
+            const res = await fetch('/api/admin/ghl', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                body: JSON.stringify({ action: 'bulk-push', leads: unsynced }),
+            })
+            const data = await res.json()
+            if (data.success) {
+                setBulkSyncResult({ synced: data.synced, failed: data.failed })
+                fetchSubmissions() // Refresh to get GHL IDs
+            }
+        } catch { /* ignore */ } finally { setBulkSyncing(false) }
+    }
 
     const fetchSubmissions = useCallback(async () => {
         setLoading(true); setError("")
@@ -712,7 +1590,8 @@ function Dashboard({ token, onLogout }: { token: string; onLogout: () => void })
             const q = search.toLowerCase()
             const matchesSearch = !search || s.fullName?.toLowerCase().includes(q) || s.companyName?.toLowerCase().includes(q) || s.email?.toLowerCase().includes(q) || s.businessType?.toLowerCase().includes(q) || s.platform?.toLowerCase().includes(q) || s.phoneNumber?.includes(search)
             const matchesIntent = intentFilter === "all" || s.intentLevel === intentFilter
-            return matchesSearch && matchesIntent
+            const matchesType = typeFilter === "all" || getSubmissionType(s) === typeFilter
+            return matchesSearch && matchesIntent && matchesType
         })
         .sort((a, b) => {
             const dateA = new Date(a.createdAt || a.submittedAt || 0).getTime()
@@ -721,6 +1600,8 @@ function Dashboard({ token, onLogout }: { token: string; onLogout: () => void })
         })
 
     const totalLeads = submissions.length
+    const auditCount = submissions.filter(s => getSubmissionType(s) === 'audit').length
+    const applicationCount = submissions.filter(s => getSubmissionType(s) === 'application').length
     const highIntent = submissions.filter((s) => s.intentLevel === "high").length
     const avgScore = submissions.length ? Math.round(submissions.reduce((sum, s) => sum + (s.auditScore || 0), 0) / submissions.length) : 0
     const thisWeek = submissions.filter((s) => { const d = new Date(s.createdAt || s.submittedAt || 0); return d >= new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) }).length
@@ -744,7 +1625,17 @@ function Dashboard({ token, onLogout }: { token: string; onLogout: () => void })
                 </div>
                 <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
                     <DetailErrorBoundary onBack={() => setSelectedSubmission(null)}>
-                        <SubmissionDetail submission={selectedSubmission} onBack={() => setSelectedSubmission(null)} onDelete={handleDelete} />
+                        <SubmissionDetail
+                            submission={selectedSubmission}
+                            onBack={() => setSelectedSubmission(null)}
+                            onDelete={handleDelete}
+                            token={token}
+                            onUpdate={(updated) => {
+                                const merged = { ...selectedSubmission, ...updated }
+                                setSelectedSubmission(merged)
+                                setSubmissions(prev => prev.map(sub => sub.id === merged.id ? merged : sub))
+                            }}
+                        />
                     </DetailErrorBoundary>
                 </div>
             </div>
@@ -765,11 +1656,19 @@ function Dashboard({ token, onLogout }: { token: string; onLogout: () => void })
                         <span className="text-slate-300 text-sm font-medium">Admin</span>
                     </div>
                     <div className="flex items-center gap-3">
+                        <button onClick={() => setIsAddModalOpen(true)} className="flex items-center gap-2 bg-white text-black hover:bg-slate-200 transition-colors text-sm font-semibold px-4 py-1.5 rounded-lg">
+                            <Plus className="w-4 h-4" /><span>Add Business</span>
+                        </button>
                         {submissions.length > 0 && (
                             <button onClick={() => exportToCSV(filtered)} className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-sm px-3 py-1.5 rounded-lg hover:bg-white/5">
                                 <Download className="w-4 h-4" /><span className="hidden sm:inline">Export CSV</span>
                             </button>
                         )}
+                        {/* GHL Status */}
+                        <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium ${ghlConnected === true ? 'bg-green-500/10 text-green-400' : ghlConnected === false ? 'bg-red-500/10 text-red-400' : 'bg-white/5 text-slate-500'}`}>
+                            <span className={`w-1.5 h-1.5 rounded-full ${ghlConnected === true ? 'bg-green-400' : ghlConnected === false ? 'bg-red-400' : 'bg-slate-500'}`} />
+                            <span className="hidden sm:inline">GHL</span>
+                        </div>
                         <button onClick={onLogout} className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-sm"><LogOut className="w-4 h-4" /><span className="hidden sm:inline">Sign Out</span></button>
                     </div>
                 </div>
@@ -778,54 +1677,204 @@ function Dashboard({ token, onLogout }: { token: string; onLogout: () => void })
             <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
                 {/* Dashboard Tabs */}
                 <div className="flex gap-2 mb-8">
+                    <button onClick={() => setDashTab('pipeline')} className={`px-5 py-2.5 rounded-xl text-sm font-medium transition-all flex items-center gap-2 ${dashTab === 'pipeline' ? 'bg-white text-black' : 'bg-white/5 text-slate-400 hover:text-white border border-white/10'}`}>
+                        <Target className="w-4 h-4" /> Pipeline
+                        {submissions.filter(s => !['won', 'lost'].includes(s.stage || 'new')).length > 0 && <span className={`px-2 py-0.5 rounded-full text-xs ${dashTab === 'pipeline' ? 'bg-black/10' : 'bg-white/10'}`}>{submissions.filter(s => !['won', 'lost'].includes(s.stage || 'new')).length}</span>}
+                    </button>
                     <button onClick={() => setDashTab('leads')} className={`px-5 py-2.5 rounded-xl text-sm font-medium transition-all flex items-center gap-2 ${dashTab === 'leads' ? 'bg-white text-black' : 'bg-white/5 text-slate-400 hover:text-white border border-white/10'}`}>
-                        <Users className="w-4 h-4" /> Leads
+                        <Users className="w-4 h-4" /> All Leads
                         {totalLeads > 0 && <span className={`px-2 py-0.5 rounded-full text-xs ${dashTab === 'leads' ? 'bg-black/10' : 'bg-white/10'}`}>{totalLeads}</span>}
                     </button>
                     <button onClick={() => setDashTab('schedule')} className={`px-5 py-2.5 rounded-xl text-sm font-medium transition-all flex items-center gap-2 ${dashTab === 'schedule' ? 'bg-white text-black' : 'bg-white/5 text-slate-400 hover:text-white border border-white/10'}`}>
-                        <Calendar className="w-4 h-4" /> My Schedule
+                        <Calendar className="w-4 h-4" /> Schedule
                     </button>
                 </div>
 
-                {dashTab === 'schedule' ? (
+                {dashTab === 'pipeline' && (
+                    /* ════ PIPELINE TAB ════ */
+                    <div>
+                        {/* GHL Sync Bar */}
+                        {ghlConnected && (
+                            <div className="flex items-center justify-between bg-white/[0.03] border border-white/5 rounded-xl px-4 py-3 mb-6">
+                                <div className="flex items-center gap-3">
+                                    <div className="flex items-center gap-1.5">
+                                        <span className="w-2 h-2 rounded-full bg-green-400" />
+                                        <span className="text-xs text-green-400 font-medium">GHL Connected</span>
+                                    </div>
+                                    <span className="text-xs text-slate-600">|</span>
+                                    <span className="text-xs text-slate-500">{submissions.filter(s => s.ghlContactId).length}/{submissions.length} synced</span>
+                                    {bulkSyncResult && (
+                                        <span className="text-xs text-slate-400">Last sync: {bulkSyncResult.synced} pushed, {bulkSyncResult.failed} failed</span>
+                                    )}
+                                </div>
+                                <button
+                                    onClick={handleBulkSyncGHL}
+                                    disabled={bulkSyncing}
+                                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-slate-300 text-xs font-medium hover:bg-white/10 transition-all disabled:opacity-50"
+                                >
+                                    {bulkSyncing ? <Loader2 className="w-3 h-3 animate-spin" /> : <RefreshCw className="w-3 h-3" />}
+                                    Sync All to GHL
+                                </button>
+                            </div>
+                        )}
+
+                        {/* Pipeline Stats */}
+                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                            <StatCard icon={CircleDot} label="Active Deals" value={submissions.filter(s => !['won', 'lost'].includes(s.stage || 'new')).length} color="bg-blue-500/10 text-blue-400" />
+                            <StatCard icon={Award} label="Won" value={submissions.filter(s => s.stage === 'won').length} color="bg-green-500/10 text-green-400" />
+                            <StatCard icon={XCircle} label="Lost" value={submissions.filter(s => s.stage === 'lost').length} color="bg-slate-500/10 text-slate-400" />
+                            <StatCard icon={Flame} label="Hot Leads" value={hotLeads} color="bg-red-500/10 text-red-400" />
+                        </div>
+
+                        {/* Pipeline Columns */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+                            {PIPELINE_STAGES.filter(st => !['won', 'lost'].includes(st.id)).map((stage) => {
+                                const stageLeads = submissions.filter(s => (s.stage || 'new') === stage.id)
+                                    .sort((a, b) => {
+                                        const la = calcLeadScore(a, a.auditScore ?? 0)
+                                        const lb = calcLeadScore(b, b.auditScore ?? 0)
+                                        return lb.score - la.score
+                                    })
+                                return (
+                                    <div key={stage.id} className="bg-white/[0.02] border border-white/5 rounded-2xl overflow-hidden">
+                                        <div className="px-4 py-3 border-b border-white/5 flex items-center justify-between">
+                                            <div className="flex items-center gap-2">
+                                                <span className={`${stage.color.split(' ')[0]}`}>{React.createElement(stage.icon, { className: "w-4 h-4" })}</span>
+                                                <span className="text-sm font-medium text-white">{stage.label}</span>
+                                            </div>
+                                            <span className="text-xs text-slate-500 bg-white/5 px-2 py-0.5 rounded-full">{stageLeads.length}</span>
+                                        </div>
+                                        <div className="p-2 space-y-2 max-h-[500px] overflow-y-auto">
+                                            {stageLeads.length === 0 && (
+                                                <p className="text-slate-600 text-xs text-center py-6">No leads</p>
+                                            )}
+                                            {stageLeads.map((sub) => {
+                                                const lead = calcLeadScore(sub, sub.auditScore ?? 0)
+                                                const tempColor = lead.level === 'hot' ? 'text-red-400' : lead.level === 'warm' ? 'text-orange-400' : 'text-slate-500'
+                                                return (
+                                                    <div
+                                                        key={sub.id}
+                                                        onClick={() => setSelectedSubmission(sub)}
+                                                        className="bg-white/[0.03] border border-white/5 rounded-xl p-3 cursor-pointer hover:border-white/15 transition-all group"
+                                                    >
+                                                        <div className="flex items-start justify-between gap-2">
+                                                            <div className="min-w-0">
+                                                                <div className="flex items-center gap-1.5">
+                                                                    <p className="text-white text-sm font-medium truncate">{sub.fullName}</p>
+                                                                    <span className={`px-1 py-0.5 rounded text-[9px] font-bold shrink-0 ${getSubmissionType(sub) === 'application' ? 'bg-purple-500/20 text-purple-400 border border-purple-500/30' : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'}`}>
+                                                                        {getSubmissionType(sub) === 'application' ? 'APPLY' : 'AUDIT'}
+                                                                    </span>
+                                                                </div>
+                                                                <p className="text-slate-500 text-xs truncate">{sub.companyName}</p>
+                                                            </div>
+                                                            <span className={`text-xs font-medium ${tempColor} shrink-0`}>{lead.level.toUpperCase()}</span>
+                                                        </div>
+                                                        <div className="flex items-center gap-2 mt-2">
+                                                            {sub.auditScore && <span className="text-xs text-slate-500">{sub.auditScore}/100</span>}
+                                                            {sub.growthBudget && <span className="text-xs text-slate-600">{sub.growthBudget}</span>}
+                                                            {(sub.notes || []).length > 0 && <span className="text-xs text-slate-600 flex items-center gap-0.5"><StickyNote className="w-2.5 h-2.5" />{(sub.notes || []).length}</span>}
+                                                        </div>
+                                                    </div>
+                                                )
+                                            })}
+                                        </div>
+                                    </div>
+                                )
+                            })}
+                        </div>
+
+                        {/* Won & Lost Summary */}
+                        {(submissions.some(s => s.stage === 'won') || submissions.some(s => s.stage === 'lost')) && (
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                                {/* Won */}
+                                <div className="bg-green-500/5 border border-green-500/10 rounded-2xl p-4">
+                                    <h3 className="text-green-400 font-semibold text-sm mb-3 flex items-center gap-2"><Award className="w-4 h-4" /> Won ({submissions.filter(s => s.stage === 'won').length})</h3>
+                                    <div className="space-y-2">
+                                        {submissions.filter(s => s.stage === 'won').map(sub => (
+                                            <div key={sub.id} onClick={() => setSelectedSubmission(sub)} className="flex items-center justify-between py-2 px-3 rounded-lg bg-white/[0.03] cursor-pointer hover:bg-white/[0.05] transition-all">
+                                                <div><p className="text-white text-sm">{sub.fullName}</p><p className="text-slate-500 text-xs">{sub.companyName}</p></div>
+                                                <span className="text-green-400 text-xs font-medium">{sub.dealValue || ''}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                                {/* Lost */}
+                                <div className="bg-slate-500/5 border border-slate-500/10 rounded-2xl p-4">
+                                    <h3 className="text-slate-400 font-semibold text-sm mb-3 flex items-center gap-2"><XCircle className="w-4 h-4" /> Lost ({submissions.filter(s => s.stage === 'lost').length})</h3>
+                                    <div className="space-y-2">
+                                        {submissions.filter(s => s.stage === 'lost').map(sub => (
+                                            <div key={sub.id} onClick={() => setSelectedSubmission(sub)} className="flex items-center justify-between py-2 px-3 rounded-lg bg-white/[0.03] cursor-pointer hover:bg-white/[0.05] transition-all">
+                                                <div><p className="text-white text-sm">{sub.fullName}</p><p className="text-slate-500 text-xs">{sub.companyName}</p></div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                )}
+
+                {dashTab === 'schedule' && (
                     /* ════ SCHEDULE TAB ════ */
                     <div>
+                        {/* Quick Actions */}
+                        <div className="flex flex-wrap gap-3 mb-6">
+                            <a href="https://app.cal.com/bookings/upcoming" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-5 py-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm font-medium hover:bg-red-500/20 transition-all">
+                                <Calendar className="w-4 h-4" /> Upcoming Bookings <ArrowRight className="w-3 h-3" />
+                            </a>
+                            <a href="https://app.cal.com/bookings/past" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-5 py-3 rounded-xl bg-white/5 border border-white/10 text-slate-300 text-sm font-medium hover:bg-white/10 transition-all">
+                                <Clock className="w-4 h-4" /> Past Bookings <ArrowRight className="w-3 h-3" />
+                            </a>
+                            <a href="https://app.cal.com/event-types" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-5 py-3 rounded-xl bg-white/5 border border-white/10 text-slate-300 text-sm font-medium hover:bg-white/10 transition-all">
+                                <Settings className="w-4 h-4" /> Event Types <ArrowRight className="w-3 h-3" />
+                            </a>
+                        </div>
+
+                        {/* Cal.com Bookings Embed */}
                         <div className="bg-white/5 border border-white/10 rounded-2xl p-6 mb-6">
-                            <h2 className="text-white font-semibold mb-2 flex items-center gap-2"><Calendar className="w-5 h-5 text-blue-400" /> Your Cal.com Schedule</h2>
-                            <p className="text-slate-400 text-sm mb-4">View and manage your upcoming bookings. Leads who book after the audit will appear here.</p>
+                            <h2 className="text-white font-semibold mb-2 flex items-center gap-2"><Calendar className="w-5 h-5 text-red-400" /> Your Schedule</h2>
+                            <p className="text-slate-400 text-sm mb-4">Your real Cal.com bookings. Click &quot;Upcoming Bookings&quot; above for the full management view.</p>
                             <div className="rounded-xl overflow-hidden border border-white/10" style={{ minHeight: 700 }}>
                                 <iframe
-                                    src="https://cal.com/mia-louviere-a4n2hk?embed=true&theme=dark"
+                                    src="https://app.cal.com/bookings/upcoming"
                                     width="100%"
                                     height="700"
+                                    frameBorder="0"
+                                    style={{ border: 'none', background: '#0a0a0a' }}
+                                    allow="payment"
+                                />
+                            </div>
+                        </div>
+
+                        {/* Booking Page Preview */}
+                        <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+                            <h3 className="text-white font-semibold mb-2 flex items-center gap-2"><Eye className="w-4 h-4 text-slate-400" /> Your Public Booking Page</h3>
+                            <p className="text-slate-400 text-sm mb-4">This is what leads see when they book a call with you.</p>
+                            <div className="rounded-xl overflow-hidden border border-white/10" style={{ minHeight: 500 }}>
+                                <iframe
+                                    src="https://cal.com/elianatech/30min?embed=true&theme=dark"
+                                    width="100%"
+                                    height="500"
                                     frameBorder="0"
                                     style={{ border: 'none', background: 'transparent' }}
                                     allow="payment"
                                 />
                             </div>
                         </div>
-                        <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
-                            <h3 className="text-white font-semibold mb-3">Quick Links</h3>
-                            <div className="flex flex-wrap gap-3">
-                                <a href="https://app.cal.com/bookings/upcoming" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm hover:bg-blue-500/20 transition-all">
-                                    <Calendar className="w-4 h-4" /> View All Bookings <ArrowRight className="w-3 h-3" />
-                                </a>
-                                <a href="https://app.cal.com/event-types" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-slate-300 text-sm hover:bg-white/10 transition-all">
-                                    <Settings className="w-4 h-4" /> Manage Event Types <ArrowRight className="w-3 h-3" />
-                                </a>
-                            </div>
-                        </div>
                     </div>
-                ) : (
+                )}
+
+                {dashTab === 'leads' && (
                     /* ════ LEADS TAB ════ */
                     <>
                         {/* Stats */}
-                        <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
-                            <StatCard icon={Users} label="Total Leads" value={totalLeads} color="bg-blue-500/10 text-blue-400" />
+                        <div className="grid grid-cols-2 lg:grid-cols-6 gap-4 mb-8">
+                            <StatCard icon={Users} label="Total Leads" value={totalLeads} color="bg-red-500/10 text-red-400" />
+                            <StatCard icon={BarChart3} label="Audits" value={auditCount} color="bg-emerald-500/10 text-emerald-400" />
+                            <StatCard icon={FileText} label="Applications" value={applicationCount} color="bg-purple-500/10 text-purple-400" />
                             <StatCard icon={Flame} label="Hot Leads" value={hotLeads} color="bg-red-500/10 text-red-400" />
-                            <StatCard icon={Zap} label="High Intent" value={highIntent} color="bg-green-500/10 text-green-400" />
-                            <StatCard icon={TrendingUp} label="Avg Score" value={avgScore} color="bg-purple-500/10 text-purple-400" />
-                            <StatCard icon={Clock} label="This Week" value={thisWeek} color="bg-orange-500/10 text-orange-400" />
+                            <StatCard icon={TrendingUp} label="Avg Score" value={avgScore} color="bg-red-500/10 text-red-400" />
+                            <StatCard icon={Clock} label="This Week" value={thisWeek} color="bg-red-500/10 text-red-400" />
                         </div>
 
                         {/* Controls */}
@@ -836,6 +1885,9 @@ function Dashboard({ token, onLogout }: { token: string; onLogout: () => void })
                                     className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:border-white/30 text-sm transition-all" />
                             </div>
                             <div className="flex gap-2">
+                                <select value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)} className="px-3 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-white/30 appearance-none cursor-pointer transition-all">
+                                    <option value="all">All Types</option><option value="audit">Audits</option><option value="application">Applications</option>
+                                </select>
                                 <div className="relative">
                                     <Filter className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
                                     <select value={intentFilter} onChange={(e) => setIntentFilter(e.target.value)} className="pl-10 pr-8 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-white/30 appearance-none cursor-pointer transition-all">
@@ -865,17 +1917,21 @@ function Dashboard({ token, onLogout }: { token: string; onLogout: () => void })
                                 {filtered.map((sub) => {
                                     const d = sub.createdAt || sub.submittedAt
                                     const fmtDate = d ? new Date(d).toLocaleDateString("en-US", { month: "short", day: "numeric" }) : "--"
-                                    const intentBadge = { high: "text-green-400 bg-green-400/10", medium: "text-yellow-400 bg-yellow-400/10", low: "text-slate-400 bg-slate-400/10" }[sub.intentLevel || "low"] || "text-slate-400 bg-slate-400/10"
+                                    const intentBadge = { high: "text-red-400 bg-red-400/10", medium: "text-red-400 bg-red-400/10", low: "text-slate-400 bg-slate-400/10" }[sub.intentLevel || "low"] || "text-slate-400 bg-slate-400/10"
                                     const painRaw = safeNumFromSlider(sub.painLevel)
                                     const painVal = painRaw > 0 ? painRaw : null
-                                    const painColor = painVal != null && painVal >= 7 ? "text-red-400" : painVal != null && painVal >= 4 ? "text-yellow-400" : "text-slate-400"
+                                    const painColor = painVal != null && painVal >= 7 ? "text-red-400" : painVal != null && painVal >= 4 ? "text-red-400" : "text-slate-400"
                                     const lead = calcLeadScore(sub, sub.auditScore ?? 0)
-                                    const tempBadge = lead.level === 'hot' ? 'text-red-400 bg-red-400/10' : lead.level === 'warm' ? 'text-orange-400 bg-orange-400/10' : 'text-blue-400 bg-blue-400/10'
+                                    const tempBadge = lead.level === 'hot' ? 'text-red-400 bg-red-400/10' : lead.level === 'warm' ? 'text-red-400 bg-red-400/10' : 'text-red-400 bg-red-400/10'
 
                                     return (
                                         <div key={sub.id} className="grid grid-cols-1 lg:grid-cols-12 gap-2 lg:gap-4 px-6 py-4 border-b border-white/5 hover:bg-white/[0.02] transition-colors cursor-pointer group" onClick={() => setSelectedSubmission(sub)}>
                                             <div className="lg:col-span-3">
-                                                <p className="text-white text-sm font-medium">{sub.fullName}</p>
+                                                <div className="flex items-center gap-2">
+                                                    <p className="text-white text-sm font-medium">{sub.fullName}</p>
+                                                    {(() => { const st = getStageInfo(sub.stage || 'new'); return <span className={`px-1.5 py-0.5 rounded text-[10px] font-medium border ${st.color}`}>{st.label}</span> })()}
+                                                    <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${getSubmissionType(sub) === 'application' ? 'bg-purple-500/20 text-purple-400 border border-purple-500/30' : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'}`}>{getSubmissionType(sub) === 'application' ? 'APPLICATION' : 'AUDIT'}</span>
+                                                </div>
                                                 <p className="text-slate-500 text-xs truncate">{sub.email}</p>
                                             </div>
                                             <div className="lg:col-span-2 flex items-center gap-2"><p className="text-slate-300 text-sm truncate">{sub.companyName}</p>{sub.businessType && <span className="hidden lg:inline px-1.5 py-0.5 rounded text-[10px] font-medium bg-white/5 text-slate-500 shrink-0">{{ online: 'Online', local: 'Local', professional: 'Prof', product: 'Product' }[getBusinessCategory(sub.businessType)]}</span>}</div>

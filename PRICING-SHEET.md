@@ -133,7 +133,7 @@ If price is over the ceiling: lower it OR break into phases so Phase 1 is under 
 
 | Score | Tier | Low | Mid | High | Timeline |
 |-------|------|-----|-----|------|----------|
-| 60-100 | Multi-System | $7,500 | $10,000 | $15,000 | 2-4 weeks |
+| 60-100 | Multi-System | $7,500 | $10,000 | $15,000 | 30 days |
 | 35-59 | Full Build | $15,000 | $25,000 | $40,000 | 4-8 weeks |
 | Under 35 | AI-Native Ops | $40,000 | $60,000 | $100K+ | 8-16 weeks |
 

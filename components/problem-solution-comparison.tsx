@@ -82,7 +82,7 @@ export function ProblemSolutionComparison() {
 
         <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4">
           Stop Losing{" "}
-          <span className="bg-gradient-to-r from-red-400 via-orange-400 to-red-500 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-red-400 via-red-400 to-red-500 bg-clip-text text-transparent">
             Significant
           </span>{" "}
           Revenue
@@ -111,8 +111,8 @@ export function ProblemSolutionComparison() {
                       </div>
                     </th>
                     <th className="text-left py-6 px-6">
-                      <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-green-50 border-l-4 border-green-500">
-                        <span className="text-green-600 font-semibold">With Elianatech</span>
+                      <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-red-50 border-l-4 border-red-500">
+                        <span className="text-red-600 font-semibold">With Elianatech</span>
                       </div>
                     </th>
                   </tr>
@@ -136,7 +136,7 @@ export function ProblemSolutionComparison() {
                       </td>
                       <td className="py-5 px-6">
                         <div className="flex items-start gap-2">
-                          <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                          <Check className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
                           <span className="text-slate-700 text-sm">{item.solution}</span>
                         </div>
                       </td>
@@ -187,7 +187,7 @@ export function ProblemSolutionComparison() {
                     </td>
                     <td className="py-10 px-12">
                       <div className="relative inline-block">
-                        <div className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-green-500 to-emerald-500 bg-clip-text text-transparent">
+                        <div className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-red-500 to-red-500 bg-clip-text text-transparent">
                           Revenue Recovered
                         </div>
                         {showCircle && (
@@ -216,8 +216,8 @@ export function ProblemSolutionComparison() {
                             />
                             <defs>
                               <linearGradient id="greenGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                <stop offset="0%" stopColor="#22c55e" stopOpacity="0.8" />
-                                <stop offset="100%" stopColor="#10b981" stopOpacity="0.8" />
+                                <stop offset="0%" stopColor="#dc2626" stopOpacity="0.8" />
+                                <stop offset="100%" stopColor="#991b1b" stopOpacity="0.8" />
                               </linearGradient>
                             </defs>
                           </svg>
@@ -252,9 +252,9 @@ export function ProblemSolutionComparison() {
                     </div>
                   </div>
 
-                  <div className="p-4 bg-green-50/50">
+                  <div className="p-4 bg-red-50/50">
                     <div className="flex items-start gap-2">
-                      <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                      <Check className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
                       <span className="text-xs text-slate-700 leading-relaxed">{item.solution}</span>
                     </div>
                   </div>
@@ -306,9 +306,9 @@ export function ProblemSolutionComparison() {
                     )}
                   </div>
                 </div>
-                <div className="p-4 py-8 bg-green-50/50 flex items-center justify-center">
+                <div className="p-4 py-8 bg-red-50/50 flex items-center justify-center">
                   <div className="relative inline-block">
-                    <div className="text-lg font-bold bg-gradient-to-r from-green-500 to-emerald-500 bg-clip-text text-transparent whitespace-nowrap">
+                    <div className="text-lg font-bold bg-gradient-to-r from-red-500 to-red-500 bg-clip-text text-transparent whitespace-nowrap">
                       Revenue Recovered
                     </div>
                     {showCircle && (
@@ -337,8 +337,8 @@ export function ProblemSolutionComparison() {
                         />
                         <defs>
                           <linearGradient id="greenGradientMobile" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" stopColor="#22c55e" stopOpacity="0.8" />
-                            <stop offset="100%" stopColor="#10b981" stopOpacity="0.8" />
+                            <stop offset="0%" stopColor="#dc2626" stopOpacity="0.8" />
+                            <stop offset="100%" stopColor="#991b1b" stopOpacity="0.8" />
                           </linearGradient>
                         </defs>
                       </svg>

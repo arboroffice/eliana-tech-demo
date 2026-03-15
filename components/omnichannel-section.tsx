@@ -10,25 +10,25 @@ export function OmnichannelSection() {
     {
       icon: MessageSquare,
       name: "WhatsApp",
-      color: "from-green-500 to-green-600",
+      color: "from-red-400 to-red-500",
       description: "Direct messaging",
     },
     {
       icon: Globe,
       name: "Website Chatbot",
-      color: "from-blue-500 to-blue-600",
+      color: "from-red-600 to-red-700",
       description: "Custom widget",
     },
     {
       icon: MessageSquare,
       name: "Messenger",
-      color: "from-blue-600 to-blue-700",
+      color: "from-red-500 to-red-600",
       description: "Facebook integration",
     },
     {
       icon: Share2,
       name: "Instagram",
-      color: "from-purple-500 via-pink-500 to-orange-500",
+      color: "from-red-700 via-red-600 to-red-500",
       description: "DM automation",
     },
     {
@@ -40,7 +40,7 @@ export function OmnichannelSection() {
     {
       icon: Phone,
       name: "Phone",
-      color: "from-orange-500 to-red-500",
+      color: "from-red-800 to-red-700",
       description: "Voice receptionist",
     },
   ]

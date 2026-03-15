@@ -6,7 +6,7 @@ import ReactMarkdown from 'react-markdown'
 import {
   TrendingUp, AlertCircle, CheckCircle2, Target, Lightbulb,
   Rocket, DollarSign, Clock, Users, BarChart3, ArrowRight,
-  Download, Calendar, Zap, Brain, Mail,
+  Download, Calendar, Zap, Brain, Mail, Search,
   ShieldCheck, Settings, MessageSquare, FileText, Calculator,
   RefreshCw, Headphones, LayoutDashboard, Layers, Building2,
   Loader2, Sparkles, ChevronDown, ChevronUp
@@ -16,10 +16,18 @@ import { Card } from "@/components/ui/card"
 import Link from "next/link"
 import { generateIndustryPlaybook } from "@/lib/freebie-generator"
 import { getBusinessCategory, type BusinessCategory } from "@/lib/audit-industry-config"
+import { industries } from "@/lib/industry-data"
 
 interface AuditResultsProps {
   formData: any
   auditScore: number
+  researchFindings?: {
+    websiteFindings?: string[]
+    operationalIssues?: string[]
+    opportunities?: { opportunity: string; roi: string }[]
+    aiScores?: any
+    websiteContent?: string
+  } | null
 }
 
 // ─── Helpers (industry-aware number parsing) ─────────────
@@ -76,14 +84,14 @@ function fmt$(n: number): string {
 }
 
 function scoreColor(s: number) {
-  if (s >= 70) return "text-emerald-400"
-  if (s >= 40) return "text-yellow-400"
-  return "text-red-400"
+  if (s >= 70) return "text-[#D90019]"
+  if (s >= 40) return "text-[#888]"
+  return "text-black"
 }
 function scoreBg(s: number) {
-  if (s >= 70) return "stroke-emerald-400"
-  if (s >= 40) return "stroke-yellow-400"
-  return "stroke-red-400"
+  if (s >= 70) return "stroke-[#D90019]"
+  if (s >= 40) return "stroke-[#888]"
+  return "stroke-black"
 }
 
 // ─── Sub-score calculator (mirrors lib/audit-analyzer.ts) ─
@@ -274,6 +282,20 @@ function topOpportunities(fd: any) {
   const opps: { icon: any; title: string; desc: string; roi: string; timeline: string; priority: number }[] = []
   const cat = getBusinessCategory(fd.businessType || '')
   const growth = getGrowthLevel(fd)
+  const industryData = industries.find(i => i.slug === fd.businessType)
+
+  if (industryData?.services?.singleSystems?.examples) {
+    industryData.services.singleSystems.examples.slice(0, 2).forEach(ex => {
+      opps.push({
+        icon: Sparkles,
+        title: ex.title,
+        desc: ex.detail,
+        roi: ex.roi,
+        timeline: "1-2 weeks",
+        priority: 90
+      })
+    })
+  }
 
   if (fd.onboardingAutomated === 'No' || fd.onboardingAutomated === 'Partially') {
     const titles: Record<BusinessCategory, string> = {
@@ -547,9 +569,9 @@ function roadmap(fd: any) {
   }
 
   return [
-    { label: "Days 1-14", title: "Install & Configure", items: phase1[cat], color: "border-blue-500/40 bg-blue-500/5" },
-    { label: "Days 15-30", title: "Optimize & Tune", items: phase2[cat], color: "border-yellow-500/40 bg-yellow-500/5" },
-    { label: "Days 31-90", title: "Scale & Grow", items: [...phase3Shared, phase3Final[cat]], color: "border-emerald-500/40 bg-emerald-500/5" },
+    { label: "Days 1-14", title: "Install & Configure", items: phase1[cat], color: "border-red-500/40 bg-red-500/5" },
+    { label: "Days 15-30", title: "Optimize & Tune", items: phase2[cat], color: "border-red-500/40 bg-red-500/5" },
+    { label: "Days 31-90", title: "Scale & Grow", items: [...phase3Shared, phase3Final[cat]], color: "border-red-500/40 bg-red-500/5" },
   ]
 }
 
@@ -674,10 +696,10 @@ function getIndustryBenchmarks(fd: any) {
   const cat = getBusinessCategory(fd.businessType || '')
 
   const targets: Record<BusinessCategory, { automation: number; churn: number; conversion: number; hoursPerWeek: string }> = {
-    online:       { automation: 65, churn: 5,  conversion: 5,  hoursPerWeek: '20-40' },
-    local:        { automation: 55, churn: 12, conversion: 45, hoursPerWeek: '40-60' },
-    professional: { automation: 60, churn: 8,  conversion: 40, hoursPerWeek: '40-60' },
-    product:      { automation: 70, churn: 8,  conversion: 4,  hoursPerWeek: '40-60' },
+    online: { automation: 65, churn: 5, conversion: 5, hoursPerWeek: '20-40' },
+    local: { automation: 55, churn: 12, conversion: 45, hoursPerWeek: '40-60' },
+    professional: { automation: 60, churn: 8, conversion: 40, hoursPerWeek: '40-60' },
+    product: { automation: 70, churn: 8, conversion: 4, hoursPerWeek: '40-60' },
   }
   const t = targets[cat]
   const autoPct = fd.percentAutomated === '60+' ? 70 : fd.percentAutomated === '30-60' ? 45 : fd.percentAutomated === 'under-30' ? 20 : 5
@@ -788,7 +810,7 @@ function ScoreGauge({ score }: { score: number }) {
   const r = 80, c = 2 * Math.PI * r, offset = c - (score / 100) * c
   return (
     <svg width="200" height="200" viewBox="0 0 200 200" className="mx-auto">
-      <circle cx="100" cy="100" r={r} fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="12" />
+      <circle cx="100" cy="100" r={r} fill="none" stroke="rgba(0,0,0,0.05)" strokeWidth="12" />
       <circle cx="100" cy="100" r={r} fill="none" className={scoreBg(score)} strokeWidth="12"
         strokeDasharray={c} strokeDashoffset={offset} strokeLinecap="round"
         transform="rotate(-90 100 100)" style={{ transition: 'stroke-dashoffset 1.5s ease-out' }} />
@@ -820,22 +842,22 @@ function ROICalculator({ fd }: { fd: any }) {
     <div className="space-y-6">
       <div className="grid md:grid-cols-2 gap-6">
         <div>
-          <label className="text-slate-400 text-sm mb-2 block">Hours saved per week: <span className="text-white font-bold">{hours}</span></label>
+          <label className="text-[#555] text-sm mb-2 block">Hours saved per week: <span className="text-white font-bold">{hours}</span></label>
           <input type="range" min={1} max={40} value={hours} onChange={e => setHours(+e.target.value)}
-            className="w-full accent-emerald-500" />
+            className="w-full accent-red-500" />
         </div>
         <div>
-          <label className="text-slate-400 text-sm mb-2 block">Hourly rate of saved time</label>
+          <label className="text-[#555] text-sm mb-2 block">Hourly rate of saved time</label>
           <input type="number" value={rate} onChange={e => setRate(+e.target.value)}
             className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-white" />
         </div>
         <div>
-          <label className="text-slate-400 text-sm mb-2 block">Customers saved from churn/month: <span className="text-white font-bold">{churnReduced}</span></label>
+          <label className="text-[#555] text-sm mb-2 block">Customers saved from churn/month: <span className="text-white font-bold">{churnReduced}</span></label>
           <input type="range" min={0} max={500} value={churnReduced} onChange={e => setChurnReduced(+e.target.value)}
-            className="w-full accent-emerald-500" />
+            className="w-full accent-red-500" />
         </div>
         <div>
-          <label className="text-slate-400 text-sm mb-2 block">Average customer value</label>
+          <label className="text-[#555] text-sm mb-2 block">Average customer value</label>
           <input type="number" value={avgPrice} onChange={e => setAvgPrice(+e.target.value)}
             className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-white" />
         </div>
@@ -847,8 +869,8 @@ function ROICalculator({ fd }: { fd: any }) {
           { label: "ROI on $10K", val: `${roiPct}%` },
         ].map((item, i) => (
           <div key={i} className="bg-white/5 rounded-xl p-4 text-center border border-white/10">
-            <div className="text-slate-400 text-xs mb-1">{item.label}</div>
-            <div className="text-2xl font-bold text-emerald-400">{item.val}</div>
+            <div className="text-[#555] text-xs mb-1">{item.label}</div>
+            <div className="text-2xl font-bold text-red-400">{item.val}</div>
           </div>
         ))}
       </div>
@@ -869,7 +891,7 @@ function FadeUp({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
 // ═══════════════════════════════════════════════════════════
 // Main Component
 // ═══════════════════════════════════════════════════════════
-export function AuditResults({ formData, auditScore }: AuditResultsProps) {
+export function AuditResults({ formData, auditScore, researchFindings }: AuditResultsProps) {
   const [showROI, setShowROI] = useState(false)
   const [showChecklist, setShowChecklist] = useState(false)
   const [proposalMarkdown, setProposalMarkdown] = useState<string | null>(null)
@@ -929,95 +951,185 @@ export function AuditResults({ formData, auditScore }: AuditResultsProps) {
 
   return (
     <div className="max-w-5xl mx-auto space-y-20 pb-24">
+      {/* ── Top Booking CTA ───────────────────────────── */}
+      <div className="flex justify-between items-center px-4">
+        <p className="text-[#888] text-[10px] font-mono uppercase tracking-[0.2em]">Audit Complete</p>
+        <button
+          onClick={() => {
+            const el = document.getElementById('booking-section');
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+          }}
+          className="btn-red !py-3 !px-6 text-xs"
+        >
+          Book a Call
+        </button>
+      </div>
+
+      {/* ── Industry Hook ───────────────────────────── */}
+      {industries.find(i => i.slug === formData.businessType)?.hook && (
+        <FadeUp>
+          <div className="text-center">
+            <p className="text-[#D90019] text-[10px] font-mono font-bold uppercase tracking-[0.4em] mb-4">Tactical Industry Objective</p>
+            <h3 className="text-2xl md:text-4xl font-black text-black uppercase font-bebas-neue tracking-widest max-w-3xl mx-auto italic leading-tight px-4">
+              &ldquo;{industries.find(i => i.slug === formData.businessType)?.hook}&rdquo;
+            </h3>
+            <div className="w-16 h-1 bg-[#D90019] mx-auto mt-8" />
+          </div>
+        </FadeUp>
+      )}
 
       {/* ── 0. Executive Intelligence Report ───────────── */}
       <FadeUp>
-        <div className="border border-white/10 rounded-2xl overflow-hidden">
-          <div className="bg-white/5 px-8 py-5 border-b border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="border border-[#E4E3DE] rounded-2xl overflow-hidden bg-white shadow-2xl">
+          <div className="bg-[#FAFAF8] px-8 py-6 border-b border-[#E4E3DE] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
             <div>
-              <p className="text-slate-500 text-xs uppercase tracking-widest mb-1">Confidential — Business Intelligence Report</p>
-              <h2 className="text-white font-bold text-xl">{formData.companyName || (formData.fullName ? formData.fullName + "'s Business" : 'Your Business')}</h2>
-              <p className="text-slate-500 text-sm">{playbook.industryName} &middot; {growthLevel.label} &middot; {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+              <p className="text-[#D90019] text-[10px] font-mono uppercase tracking-[0.2em] mb-2 font-bold">Confidential Business Audit</p>
+              <h2 className="text-black font-black text-3xl uppercase tracking-tighter leading-none">{formData.companyName || (formData.fullName ? formData.fullName + "'s Business" : 'Your Business')}</h2>
+              <p className="text-[#888] text-xs font-mono uppercase tracking-widest mt-2">{playbook.industryName} | {growthLevel.label} | {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
             </div>
-            <div className="text-left sm:text-right">
-              <p className="text-slate-500 text-xs uppercase tracking-widest mb-1">Overall Health Score</p>
-              <p className={`text-4xl font-black ${scoreColor(auditScore)}`}>{auditScore}<span className="text-slate-500 text-xl">/100</span></p>
+            <div className="text-left sm:text-right border-l sm:border-l-0 sm:border-r border-[#E4E3DE] pl-6 sm:pl-0 sm:pr-6 h-full flex flex-col justify-center">
+              <p className="text-[#888] text-[10px] font-mono uppercase tracking-widest mb-1">Health Score</p>
+              <p className={`text-6xl font-black leading-none ${scoreColor(auditScore)}`}>{auditScore}<span className="text-[#888] text-xl font-mono">/100</span></p>
             </div>
           </div>
-          <div className="p-8">
-            <p className="text-slate-400 text-sm mb-6 leading-relaxed">
-              This report identifies your highest-leverage automation opportunities based on your business profile, revenue stage, and operational data. The findings below represent the gaps between where your business operates today and what businesses at your stage with optimized AI infrastructure achieve.
+          <div className="p-10">
+            <p className="text-[#555] text-sm mb-10 leading-relaxed font-mono uppercase tracking-tight max-w-2xl">
+              This intelligence brief identifies high-leverage automation gaps between your current operational state and optimized AI-native infrastructure.
             </p>
-            <h3 className="text-white font-bold mb-4 text-sm uppercase tracking-wider">Critical Findings</h3>
-            <div className="space-y-3">
+            <h3 className="text-black font-bold mb-6 text-xs uppercase tracking-[0.2em] flex items-center gap-2">
+              <div className="w-6 h-[1px] bg-black"></div> Critical Audit Findings
+            </h3>
+            <div className="grid gap-4">
               {execReport.findings.map((f, i) => (
-                <div key={i} className={`flex items-start gap-4 p-4 rounded-xl border ${
-                  f.type === 'critical' ? 'border-red-500/20 bg-red-500/5' :
-                  f.type === 'warning' ? 'border-yellow-500/20 bg-yellow-500/5' :
-                  'border-emerald-500/20 bg-emerald-500/5'
-                }`}>
-                  <div className={`w-2 h-2 rounded-full mt-2 shrink-0 ${
-                    f.type === 'critical' ? 'bg-red-400' : f.type === 'warning' ? 'bg-yellow-400' : 'bg-emerald-400'
-                  }`} />
+                <div key={i} className={`flex items-start gap-6 p-6 rounded-none border-l-4 ${f.type === 'critical' ? 'border-[#D90019] bg-[#FAFAF8]' :
+                  f.type === 'warning' ? 'border-orange-500 bg-[#FAFAF8]' :
+                    'border-[#888] bg-[#FAFAF8]'
+                  }`}>
                   <div className="flex-1">
-                    <div className="flex items-start justify-between gap-4 mb-1">
-                      <span className="text-white font-semibold text-sm">{f.label}</span>
-                      <span className={`text-xs font-mono font-bold shrink-0 ${
-                        f.type === 'critical' ? 'text-red-400' : f.type === 'warning' ? 'text-yellow-400' : 'text-emerald-400'
-                      }`}>{f.value}</span>
+                    <div className="flex items-start justify-between gap-4 mb-2">
+                      <span className="text-black font-black text-sm uppercase tracking-tight">{f.label}</span>
+                      <span className={`text-xs font-mono font-black shrink-0 ${f.type === 'critical' ? 'text-[#D90019]' : f.type === 'warning' ? 'text-orange-600' : 'text-[#888]'
+                        }`}>{f.value}</span>
                     </div>
-                    <p className="text-slate-400 text-sm leading-relaxed">{f.detail}</p>
+                    <p className="text-[#555] text-sm leading-relaxed">{f.detail}</p>
                   </div>
                 </div>
               ))}
             </div>
             {execReport.totalAtStake > 5000 && (
-              <div className="mt-6 p-4 rounded-xl bg-white/5 border border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-                <div>
-                  <p className="text-slate-500 text-xs uppercase tracking-wider mb-1">Estimated Total Value at Stake</p>
-                  <p className="text-white text-sm">Revenue + capacity loss if current gaps persist 12 months</p>
+              <div className="mt-10 p-8 bg-black text-white flex flex-col sm:flex-row items-center justify-between gap-6">
+                <div className="text-center sm:text-left">
+                  <p className="text-[#888] text-[10px] font-mono uppercase tracking-[0.3em] mb-2 font-bold">Annual Capital At Risk</p>
+                  <p className="text-white text-sm font-mono opacity-60">Estimated revenue loss + overhead waste (12 month horizon)</p>
                 </div>
-                <p className="text-red-400 font-black text-3xl shrink-0">{fmt$(execReport.totalAtStake)}</p>
+                <p className="text-[#D90019] font-black text-5xl tracking-tighter">{fmt$(execReport.totalAtStake)}</p>
               </div>
             )}
           </div>
         </div>
       </FadeUp>
 
+      {/* ── 0b. AI Research Findings ─────────────────────── */}
+      {researchFindings && (researchFindings.websiteFindings?.length || researchFindings.operationalIssues?.length || researchFindings.opportunities?.length) ? (
+        <FadeUp delay={0.05}>
+          <div className="border border-[#E4E3DE] rounded-2xl overflow-hidden bg-white shadow-xl">
+            <div className="bg-[#FAFAF8] px-8 py-5 border-b border-[#E4E3DE] flex items-center gap-3">
+              <Brain className="w-5 h-5 text-[#D90019]" />
+              <div>
+                <h2 className="text-black font-bold text-lg uppercase tracking-tight">AI Agent Intelligence Briefing</h2>
+                <p className="text-[#888] text-xs font-mono uppercase">Extracted from {formData.websiteUrl || 'Business Data'}</p>
+              </div>
+            </div>
+            <div className="p-8 space-y-8">
+              {researchFindings.websiteFindings && researchFindings.websiteFindings.length > 0 && (
+                <div>
+                  <h3 className="text-[#888] text-[10px] uppercase tracking-widest font-bold mb-4 flex items-center gap-2">
+                    <Search className="w-3 h-3" /> External Presentation Analysis
+                  </h3>
+                  <div className="grid gap-3">
+                    {researchFindings.websiteFindings.map((f: string, i: number) => (
+                      <div key={i} className="flex items-start gap-4 p-4 rounded-xl bg-[#FAFAF8] border border-[#E4E3DE]">
+                        <span className="text-[#D90019] mt-0.5 shrink-0 text-xs font-mono font-bold">0{i + 1}</span>
+                        <p className="text-[#555] text-sm leading-relaxed font-medium">{f}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {researchFindings.operationalIssues && researchFindings.operationalIssues.length > 0 && (
+                <div>
+                  <h3 className="text-[#888] text-[10px] uppercase tracking-widest font-bold mb-4 flex items-center gap-2">
+                    <Settings className="w-3 h-3" /> Operational Frictions Identified
+                  </h3>
+                  <div className="grid gap-3">
+                    {researchFindings.operationalIssues.map((f: string, i: number) => (
+                      <div key={i} className="flex items-start gap-4 p-4 rounded-xl bg-orange-50 border border-orange-200">
+                        <AlertCircle className="w-4 h-4 text-orange-600 mt-0.5 shrink-0" />
+                        <p className="text-orange-900 text-sm leading-relaxed font-medium">{f}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {researchFindings.opportunities && researchFindings.opportunities.length > 0 && (
+                <div>
+                  <h3 className="text-[#888] text-[10px] uppercase tracking-widest font-bold mb-4 flex items-center gap-2">
+                    <Lightbulb className="w-3 h-3" /> Priority AI Implementations
+                  </h3>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    {researchFindings.opportunities.map((o: { opportunity: string; roi: string }, i: number) => (
+                      <div key={i} className="flex items-start gap-4 p-5 rounded-xl bg-[#D90019]/5 border border-[#D90019]/10">
+                        <Zap className="w-5 h-5 text-[#D90019] mt-0.5 shrink-0" />
+                        <div className="flex-1">
+                          <p className="text-black text-sm font-bold uppercase tracking-tight">{o.opportunity}</p>
+                          <p className="text-[#D90019] text-xs font-mono font-bold mt-2 uppercase">{o.roi}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </FadeUp>
+      ) : null}
+
       {/* ── 1. Hero Score ───────────────────────────────── */}
       <FadeUp>
-        <div className="text-center space-y-6">
+        <div className="text-center space-y-8 py-10">
           <ScoreGauge score={auditScore} />
-          <h1 className="text-4xl md:text-5xl font-bold text-white">
-            Your Automation Score: <span className={scoreColor(auditScore)}>{auditScore}</span>/100
-          </h1>
-          <p className="text-xl text-slate-400 max-w-xl mx-auto">{tagline}</p>
+          <div className="space-y-4">
+            <h1 className="text-5xl md:text-7xl font-bold text-black uppercase font-bebas-neue tracking-tight">
+              Efficiency <span className={scoreColor(auditScore)}>{auditScore}</span>/100
+            </h1>
+            <p className="text-xl text-[#555] max-w-xl mx-auto font-mono uppercase tracking-tight">{tagline}</p>
+          </div>
         </div>
       </FadeUp>
 
       {/* ── 2. Score Breakdown ──────────────────────────── */}
       <FadeUp delay={0.1}>
-        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-          <BarChart3 className="w-6 h-6 text-blue-400" /> Score Breakdown
+        <h2 className="text-2xl font-bold text-black mb-6 flex items-center gap-3 uppercase font-bebas-neue tracking-widest">
+          <BarChart3 className="w-6 h-6 text-[#D90019]" /> Efficiency Breakdown
         </h2>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {(["Revenue", "Automation", "Acquisition", "Retention", "Time"] as const).map((cat) => {
             const key = cat.toLowerCase() as keyof typeof sub
             const s = sub[key]
             const Icon = catIcons[cat]
             return (
-              <Card key={cat} className="bg-white/[0.03] backdrop-blur-md border-white/10 p-5 hover:border-blue-500/30 transition-all">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className={`p-2 rounded-lg bg-white/5 ${scoreColor(s)}`}><Icon className="w-5 h-5" /></div>
-                  <span className="text-white font-semibold">{cat}</span>
-                  <span className={`ml-auto text-lg font-bold ${scoreColor(s)}`}>{s}</span>
+              <Card key={cat} className="bg-white border-[#E4E3DE] p-6 hover:border-[#D90019]/30 transition-all shadow-sm">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className={`p-2 rounded-lg bg-[#FAFAF8] ${scoreColor(s)}`}><Icon className="w-5 h-5" /></div>
+                  <span className="text-black font-bold text-sm uppercase tracking-tight">{cat}</span>
+                  <span className={`ml-auto text-lg font-bold font-mono ${scoreColor(s)}`}>{s}%</span>
                 </div>
-                <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden mb-3">
+                <div className="w-full h-1.5 bg-[#F2F1ED] rounded-full overflow-hidden mb-4">
                   <motion.div initial={{ width: 0 }} whileInView={{ width: `${s}%` }}
                     viewport={{ once: true }} transition={{ duration: 1, delay: 0.3 }}
-                    className={`h-full rounded-full ${s >= 70 ? 'bg-emerald-500' : s >= 40 ? 'bg-yellow-500' : 'bg-red-500'}`} />
+                    className={`h-full rounded-full ${s >= 70 ? 'bg-[#D90019]' : s >= 40 ? 'bg-orange-500' : 'bg-red-800'}`} />
                 </div>
-                <p className="text-slate-400 text-sm leading-relaxed">{categoryInsight(cat, formData)}</p>
+                <p className="text-[#555] text-xs leading-relaxed font-mono">{categoryInsight(cat, formData)}</p>
               </Card>
             )
           })}
@@ -1026,70 +1138,108 @@ export function AuditResults({ formData, auditScore }: AuditResultsProps) {
 
       {/* ── 2b. Your Growth Stage ─────────────────────────── */}
       <FadeUp delay={0.12}>
-        <Card className="bg-white/[0.03] backdrop-blur-md border-white/10 p-6">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="p-2 rounded-lg bg-amber-500/10 text-amber-400"><TrendingUp className="w-5 h-5" /></div>
+        <Card className="bg-white border-[#E4E3DE] p-8 shadow-sm">
+          <div className="flex items-center gap-4 mb-6">
+            <div className="p-3 rounded-lg bg-[#D90019]/10 text-[#D90019]"><TrendingUp className="w-6 h-6" /></div>
             <div>
-              <h3 className="text-white font-bold">Your Growth Stage: {growthLevel.label}</h3>
-              <p className="text-slate-500 text-sm">{playbook.industryName}</p>
+              <h3 className="text-black font-bold text-xl uppercase tracking-tight">Stage: {growthLevel.label}</h3>
+              <p className="text-[#888] text-xs font-mono uppercase tracking-widest">{playbook.industryName} Sector</p>
             </div>
           </div>
-          <p className="text-slate-300 text-sm leading-relaxed">{growthLevel.insight}</p>
+          <p className="text-[#555] text-sm leading-relaxed border-l-2 border-[#D90019] pl-6 py-1">{growthLevel.insight}</p>
         </Card>
       </FadeUp>
 
       {/* ── 2c. Industry Playbook ─────────────────────────── */}
       <FadeUp delay={0.13}>
-        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-          <ShieldCheck className="w-6 h-6 text-emerald-400" /> Your {playbook.industryName} Playbook
-        </h2>
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-bold text-black flex items-center gap-3 uppercase font-bebas-neue tracking-widest">
+            <ShieldCheck className="w-6 h-6 text-[#D90019]" /> {playbook.industryName} Playbook
+          </h2>
+          {industries.find(i => i.slug === formData.businessType)?.subNiches && (
+            <p className="text-[#888] text-[10px] font-mono uppercase hidden sm:block">Coverage: {industries.find(i => i.slug === formData.businessType)?.subNiches?.slice(0, 3).join(', ')}</p>
+          )}
+        </div>
         <div className="space-y-3 mb-8">
           {playbook.aiSolutions.map((s, i) => (
-            <Card key={i} className="bg-white/[0.03] backdrop-blur-md border-white/10 p-5 hover:border-emerald-500/20 transition-all">
+            <Card key={i} className="bg-white border-[#E4E3DE] p-6 hover:border-[#D90019]/20 transition-all shadow-sm">
               <div className="flex items-start gap-4">
-                <span className="text-emerald-400 font-bold text-sm mt-0.5 shrink-0">0{i + 1}</span>
+                <span className="text-[#D90019] font-bold text-sm mt-0.5 shrink-0">0{i + 1}</span>
                 <div className="flex-1">
-                  <h4 className="text-white font-semibold mb-1">{s.challenge}</h4>
-                  <p className="text-slate-400 text-sm leading-relaxed mb-2">{s.solution}</p>
-                  <span className="text-emerald-400 text-xs bg-emerald-500/10 px-2 py-1 rounded-full">{s.roi}</span>
+                  <h4 className="text-black font-bold mb-1 uppercase tracking-tight">{s.challenge}</h4>
+                  <p className="text-[#555] text-sm leading-relaxed mb-3">{s.solution}</p>
+                  <span className="text-[#D90019] text-[10px] font-mono font-bold bg-[#D90019]/5 px-2 py-1 uppercase tracking-widest">{s.roi}</span>
                 </div>
               </div>
             </Card>
           ))}
         </div>
-        <Card className="bg-gradient-to-r from-emerald-500/5 to-transparent border-emerald-500/20 p-5">
-          <h4 className="text-white font-semibold text-sm mb-2">Industry Benchmark</h4>
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <p className="text-red-400 text-xs font-mono mb-1">BEFORE</p>
-              <p className="text-slate-400 text-sm">{playbook.caseStudy.before}</p>
+        <Card className="bg-[#FAFAF8] border-[#E4E3DE] p-6 shadow-sm">
+          <h4 className="text-black font-bold text-xs uppercase tracking-widest mb-4">Strategic Transformation</h4>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="space-y-2">
+              <p className="text-[#888] text-[10px] font-mono tracking-widest uppercase">Traditional Operations</p>
+              <p className="text-[#555] text-sm leading-relaxed italic">&ldquo;{industries.find(i => i.slug === formData.businessType)?.operatorProblem || playbook.caseStudy.before}&rdquo;</p>
             </div>
-            <div>
-              <p className="text-emerald-400 text-xs font-mono mb-1">AFTER</p>
-              <p className="text-slate-300 text-sm">{playbook.caseStudy.after}</p>
+            <div className="space-y-2 border-l border-[#E4E3DE] pl-8">
+              <p className="text-[#D90019] text-[10px] font-mono tracking-widest uppercase font-bold">AI-Native Future</p>
+              <p className="text-black text-sm leading-relaxed font-bold">&ldquo;{industries.find(i => i.slug === formData.businessType)?.result || playbook.caseStudy.after}&rdquo;</p>
             </div>
           </div>
         </Card>
       </FadeUp>
 
+      {/* ── 2d. AI Workforce Analysis ─────────────────────── */}
+      {industries.find(i => i.slug === formData.businessType)?.layers && (
+        <FadeUp delay={0.14}>
+          <h2 className="text-2xl font-bold text-black mb-6 flex items-center gap-3 uppercase font-bebas-neue tracking-widest">
+            <Users className="w-6 h-6 text-[#D90019]" /> AI Workforce Analysis
+          </h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            {industries.find(i => i.slug === formData.businessType)?.layers?.map((layer, i) => (
+              <Card key={i} className="bg-white border-[#E4E3DE] p-6 shadow-sm">
+                <p className="text-[#D90019] text-[10px] font-mono uppercase tracking-widest mb-2 font-bold">{layer.department}</p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {layer.roles.map((role, j) => (
+                    <span key={j} className="bg-[#FAFAF8] text-[#555] text-[10px] font-mono px-2 py-0.5 border border-[#E4E3DE] uppercase">
+                      {role}
+                    </span>
+                  ))}
+                </div>
+                <div className="space-y-2">
+                  <p className="text-black font-bold text-xs uppercase tracking-tight">Manual Tasks Replaced by AI:</p>
+                  <ul className="space-y-1">
+                    {layer.tasks.slice(0, 4).map((task, k) => (
+                      <li key={k} className="text-[#555] text-xs flex items-center gap-2">
+                        <div className="w-1 h-1 bg-[#D90019]" /> {task}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </FadeUp>
+      )}
+
       {/* ── 3. Top AI Opportunities ──────────────────────── */}
       <FadeUp delay={0.15}>
-        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-          <Lightbulb className="w-6 h-6 text-purple-400" /> Top Automation Opportunities
+        <h2 className="text-2xl font-bold text-black mb-6 flex items-center gap-3">
+          <Lightbulb className="w-6 h-6 text-[#D90019]" /> Top Automation Opportunities
         </h2>
         <div className="space-y-4">
           {opps.map((o, i) => (
-            <Card key={i} className="bg-white/[0.03] backdrop-blur-md border-white/10 p-6 hover:border-purple-500/30 transition-all">
+            <Card key={i} className="bg-white border-[#E4E3DE] p-6 hover:border-[#D90019]/30 transition-all shadow-sm">
               <div className="flex items-start gap-5">
-                <div className="p-3 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400 shrink-0">
+                <div className="p-3 rounded-xl bg-[#FAFAF8] border border-[#E4E3DE] text-[#D90019] shrink-0">
                   <o.icon className="w-6 h-6" />
                 </div>
                 <div className="flex-1 space-y-2">
-                  <h3 className="text-white font-bold text-lg">{o.title}</h3>
-                  <p className="text-slate-400 text-sm leading-relaxed">{o.desc}</p>
-                  <div className="flex flex-wrap gap-4 pt-2 text-sm">
-                    <span className="text-emerald-400 flex items-center gap-1"><DollarSign className="w-4 h-4" /> {o.roi}</span>
-                    <span className="text-blue-400 flex items-center gap-1"><Clock className="w-4 h-4" /> {o.timeline}</span>
+                  <h3 className="text-black font-bold text-lg uppercase tracking-tight">{o.title}</h3>
+                  <p className="text-[#555] text-sm leading-relaxed">{o.desc}</p>
+                  <div className="flex flex-wrap gap-4 pt-2 text-xs font-mono">
+                    <span className="text-[#D90019] flex items-center gap-1 font-bold">ROI: {o.roi}</span>
+                    <span className="text-[#888] flex items-center gap-1">TIMELINE: {o.timeline}</span>
                   </div>
                 </div>
               </div>
@@ -1100,17 +1250,17 @@ export function AuditResults({ formData, auditScore }: AuditResultsProps) {
 
       {/* ── 3b. Full System Architecture ────────────────── */}
       <FadeUp delay={0.18}>
-        <h2 className="text-2xl font-bold text-white mb-2 flex items-center gap-3">
-          <Layers className="w-6 h-6 text-cyan-400" /> Your Full System Architecture
+        <h2 className="text-2xl font-bold text-black mb-2 flex items-center gap-3">
+          <Layers className="w-6 h-6 text-[#D90019]" /> Your Full System Architecture
         </h2>
-        <p className="text-slate-400 mb-8">Every system we would build for you, sequenced by impact and implementation phase.</p>
+        <p className="text-[#555] mb-8">Every system we would build for you, sequenced by impact and implementation phase.</p>
         <div className="space-y-8">
           {([1, 2, 3] as const).map((phase) => {
             const phaseSystems = systems.filter(s => s.phase === phase)
             const phaseConfig = {
-              1: { label: 'Phase 1 — Foundation (Month 1)', color: 'text-blue-400', bar: 'bg-blue-500/20', card: 'bg-blue-500/5 border-blue-500/20' },
-              2: { label: 'Phase 2 — Optimization (Months 2-3)', color: 'text-yellow-400', bar: 'bg-yellow-500/20', card: 'bg-yellow-500/5 border-yellow-500/20' },
-              3: { label: 'Phase 3 — Scale (Months 3-6)', color: 'text-emerald-400', bar: 'bg-emerald-500/20', card: 'bg-emerald-500/5 border-emerald-500/20' },
+              1: { label: 'Phase 1 — Foundation (Month 1)', color: 'text-[#D90019]', bar: 'bg-[#D90019]/20', card: 'bg-white border-[#E4E3DE]' },
+              2: { label: 'Phase 2 — Optimization (Months 2-3)', color: 'text-[#D90019]', bar: 'bg-[#D90019]/20', card: 'bg-white border-[#E4E3DE]' },
+              3: { label: 'Phase 3 — Scale (Months 3-6)', color: 'text-[#D90019]', bar: 'bg-[#D90019]/20', card: 'bg-white border-[#E4E3DE]' },
             }[phase]!
             return (
               <div key={phase}>
@@ -1121,22 +1271,21 @@ export function AuditResults({ formData, auditScore }: AuditResultsProps) {
                 </div>
                 <div className="space-y-2">
                   {phaseSystems.map((s, i) => (
-                    <Card key={i} className={`border p-5 backdrop-blur-md ${phaseConfig.card}`}>
+                    <Card key={i} className={`border p-6 shadow-sm ${phaseConfig.card}`}>
                       <div className="flex items-center justify-between gap-4 flex-wrap">
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-1 flex-wrap">
-                            <span className={`text-xs font-bold px-2 py-0.5 rounded shrink-0 ${
-                              s.priority === 'critical' ? 'bg-red-500/20 text-red-400' :
-                              s.priority === 'high' ? 'bg-orange-500/20 text-orange-400' :
-                              'bg-slate-500/20 text-slate-400'
-                            }`}>{s.priority.toUpperCase()}</span>
-                            <h4 className="text-white font-bold text-sm">{s.name}</h4>
+                            <span className={`text-xs font-bold px-2 py-0.5 rounded shrink-0 ${s.priority === 'critical' ? 'bg-[#D90019]/10 text-[#D90019]' :
+                              s.priority === 'high' ? 'bg-orange-500/10 text-orange-600' :
+                                'bg-[#888]/10 text-[#888]'
+                              }`}>{s.priority.toUpperCase()}</span>
+                            <h4 className="text-black font-bold text-sm uppercase">{s.name}</h4>
                           </div>
-                          <p className="text-slate-400 text-sm">Solves: {s.problem}</p>
+                          <p className="text-[#555] text-sm font-mono">PROBLEM: {s.problem}</p>
                         </div>
                         <div className="text-right shrink-0">
-                          <p className="text-emerald-400 text-sm font-bold">{s.value}</p>
-                          <p className="text-slate-500 text-xs">{s.timeline}</p>
+                          <p className="text-[#D90019] text-sm font-bold uppercase tracking-tight">{s.value}</p>
+                          <p className="text-[#888] text-xs">{s.timeline}</p>
                         </div>
                       </div>
                     </Card>
@@ -1151,7 +1300,7 @@ export function AuditResults({ formData, auditScore }: AuditResultsProps) {
       {/* ── 4. 90-Day Roadmap ──────────────────────────── */}
       <FadeUp delay={0.2}>
         <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-          <Rocket className="w-6 h-6 text-orange-400" /> Your Custom Automation Roadmap
+          <Rocket className="w-6 h-6 text-red-400" /> Your Custom Automation Roadmap
         </h2>
         <div className="grid md:grid-cols-3 gap-4">
           {phases.map((p, i) => (
@@ -1161,7 +1310,7 @@ export function AuditResults({ formData, auditScore }: AuditResultsProps) {
               <ul className="space-y-2">
                 {p.items.map((item, j) => (
                   <li key={j} className="text-slate-300 text-sm flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400 mt-0.5 shrink-0" /> {item}
+                    <CheckCircle2 className="w-4 h-4 text-red-400 mt-0.5 shrink-0" /> {item}
                   </li>
                 ))}
               </ul>
@@ -1172,39 +1321,37 @@ export function AuditResults({ formData, auditScore }: AuditResultsProps) {
 
       {/* ── 4b. Industry Benchmarks ──────────────────────── */}
       <FadeUp delay={0.22}>
-        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-          <Building2 className="w-6 h-6 text-indigo-400" /> Where You Stand vs. Your Industry
+        <h2 className="text-2xl font-bold text-black mb-6 flex items-center gap-3">
+          <Building2 className="w-6 h-6 text-[#D90019]" /> Where You Stand vs. Your Industry
         </h2>
-        <Card className="bg-white/[0.03] backdrop-blur-md border-white/10 overflow-hidden">
+        <Card className="bg-white border-[#E4E3DE] overflow-hidden shadow-sm">
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-white/10">
-                  <th className="text-left p-4 text-slate-500 text-xs uppercase tracking-wider font-medium">Metric</th>
-                  <th className="text-center p-4 text-slate-500 text-xs uppercase tracking-wider font-medium">Your Business</th>
-                  <th className="text-center p-4 text-slate-500 text-xs uppercase tracking-wider font-medium">Industry Target</th>
-                  <th className="text-center p-4 text-slate-500 text-xs uppercase tracking-wider font-medium">Status</th>
+                <tr className="border-b border-[#E4E3DE] bg-[#FAFAF8]">
+                  <th className="text-left p-4 text-[#888] text-xs uppercase tracking-wider font-medium">Metric</th>
+                  <th className="text-center p-4 text-[#888] text-xs uppercase tracking-wider font-medium">Your Business</th>
+                  <th className="text-center p-4 text-[#888] text-xs uppercase tracking-wider font-medium">Industry Target</th>
+                  <th className="text-center p-4 text-[#888] text-xs uppercase tracking-wider font-medium">Status</th>
                 </tr>
               </thead>
               <tbody>
                 {benchmarks.map((b, i) => (
-                  <tr key={i} className={`border-b border-white/5 ${i % 2 === 0 ? '' : 'bg-white/[0.01]'}`}>
-                    <td className="p-4 text-white text-sm font-medium">{b.metric}</td>
+                  <tr key={i} className={`border-b border-[#E4E3DE]/50 ${i % 2 === 0 ? '' : 'bg-[#FAFAF8]/50'}`}>
+                    <td className="p-4 text-black text-sm font-medium">{b.metric}</td>
                     <td className="p-4 text-center">
-                      <span className={`text-sm font-mono font-bold ${
-                        b.status === 'good' ? 'text-emerald-400' : b.status === 'warning' ? 'text-yellow-400' : 'text-red-400'
-                      }`}>{b.yours}</span>
+                      <span className={`text-sm font-mono font-bold ${b.status === 'good' ? 'text-red-600' : b.status === 'warning' ? 'text-orange-600' : 'text-red-800'
+                        }`}>{b.yours}</span>
                     </td>
                     <td className="p-4 text-center">
-                      <span className="text-slate-400 text-sm">{b.benchmark}</span>
+                      <span className="text-[#555] text-sm">{b.benchmark}</span>
                     </td>
                     <td className="p-4 text-center">
                       {b.gap ? (
-                        <span className={`text-xs px-2 py-1 rounded-full font-medium ${
-                          b.status === 'warning' ? 'bg-yellow-500/10 text-yellow-400' : 'bg-red-500/10 text-red-400'
-                        }`}>{b.gap}</span>
+                        <span className={`text-xs px-2 py-1 rounded-full font-medium ${b.status === 'warning' ? 'bg-orange-500/10 text-orange-600' : 'bg-red-700/10 text-red-700'
+                          }`}>{b.gap}</span>
                       ) : (
-                        <span className="text-xs px-2 py-1 rounded-full bg-emerald-500/10 text-emerald-400 font-medium">On Track</span>
+                        <span className="text-xs px-2 py-1 rounded-full bg-green-500/10 text-green-700 font-medium">On Track</span>
                       )}
                     </td>
                   </tr>
@@ -1217,25 +1364,25 @@ export function AuditResults({ formData, auditScore }: AuditResultsProps) {
 
       {/* ── 5. Lead Magnets ────────────────────────────── */}
       <FadeUp delay={0.25}>
-        <h2 className="text-2xl font-bold text-white mb-6">Your Resources</h2>
+        <h2 className="text-2xl font-bold text-black mb-6">Your Resources</h2>
         <div className="grid md:grid-cols-3 gap-4">
-          <Card className="bg-white/[0.03] backdrop-blur-md border-white/10 p-6 text-center hover:border-emerald-500/30 transition-all cursor-pointer"
+          <Card className="bg-white border-[#E4E3DE] p-6 text-center hover:border-[#D90019]/30 transition-all cursor-pointer shadow-sm"
             onClick={handleDownloadPDF}>
-            <FileText className="w-8 h-8 text-emerald-400 mx-auto mb-3" />
-            <h3 className="text-white font-bold mb-1">Download Full Report</h3>
-            <p className="text-slate-400 text-sm">PDF with all scores, opportunities & roadmap</p>
+            <FileText className="w-8 h-8 text-[#D90019] mx-auto mb-3" />
+            <h3 className="text-black font-bold mb-1">Download Full Report</h3>
+            <p className="text-[#888] text-sm">PDF with all scores, opportunities & roadmap</p>
           </Card>
-          <Card className="bg-white/[0.03] backdrop-blur-md border-white/10 p-6 text-center hover:border-blue-500/30 transition-all cursor-pointer"
+          <Card className="bg-white border-[#E4E3DE] p-6 text-center hover:border-[#D90019]/30 transition-all cursor-pointer shadow-sm"
             onClick={() => setShowROI(!showROI)}>
-            <Calculator className="w-8 h-8 text-blue-400 mx-auto mb-3" />
-            <h3 className="text-white font-bold mb-1">Calculate Your ROI</h3>
-            <p className="text-slate-400 text-sm">Interactive calculator pre-filled with your data</p>
+            <Calculator className="w-8 h-8 text-[#D90019] mx-auto mb-3" />
+            <h3 className="text-black font-bold mb-1">Calculate Your ROI</h3>
+            <p className="text-[#888] text-sm">Interactive calculator pre-filled with your data</p>
           </Card>
-          <Card className="bg-white/[0.03] backdrop-blur-md border-white/10 p-6 text-center hover:border-yellow-500/30 transition-all cursor-pointer"
+          <Card className="bg-white border-[#E4E3DE] p-6 text-center hover:border-[#D90019]/30 transition-all cursor-pointer shadow-sm"
             onClick={() => setShowChecklist(!showChecklist)}>
-            <CheckCircle2 className="w-8 h-8 text-yellow-400 mx-auto mb-3" />
-            <h3 className="text-white font-bold mb-1">Quick Wins Checklist</h3>
-            <p className="text-slate-400 text-sm">5 things you can do THIS WEEK</p>
+            <CheckCircle2 className="w-8 h-8 text-[#D90019] mx-auto mb-3" />
+            <h3 className="text-black font-bold mb-1">Quick Wins Checklist</h3>
+            <p className="text-[#888] text-sm">5 things you can do THIS WEEK</p>
           </Card>
         </div>
       </FadeUp>
@@ -1243,9 +1390,9 @@ export function AuditResults({ formData, auditScore }: AuditResultsProps) {
       {/* ── 6. Inline ROI Calculator ───────────────────── */}
       {showROI && (
         <FadeUp>
-          <Card className="bg-white/[0.03] backdrop-blur-md border-white/10 p-8">
-            <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-              <Calculator className="w-5 h-5 text-blue-400" /> ROI Calculator
+          <Card className="bg-white border-[#E4E3DE] p-8 shadow-sm">
+            <h3 className="text-xl font-bold text-black mb-6 flex items-center gap-2">
+              <Calculator className="w-5 h-5 text-[#D90019]" /> ROI Calculator
             </h3>
             <ROICalculator fd={formData} />
           </Card>
@@ -1255,13 +1402,13 @@ export function AuditResults({ formData, auditScore }: AuditResultsProps) {
       {/* ── 7. Quick Wins Checklist ────────────────────── */}
       {showChecklist && (
         <FadeUp>
-          <Card className="bg-white/[0.03] backdrop-blur-md border-white/10 p-8">
-            <h3 className="text-xl font-bold text-white mb-6">This Week&apos;s Quick Wins</h3>
+          <Card className="bg-white border-[#E4E3DE] p-8 shadow-sm">
+            <h3 className="text-xl font-bold text-black mb-6">This Week&apos;s Quick Wins</h3>
             <div className="space-y-4">
               {wins.map((w, i) => (
-                <div key={i} className="flex items-start gap-3 p-3 rounded-lg bg-white/5 border border-white/5">
+                <div key={i} className="flex items-start gap-3 p-4 rounded-lg bg-[#FAFAF8] border border-[#E4E3DE]">
                   <span className="text-2xl">{w.icon}</span>
-                  <p className="text-slate-300 text-sm leading-relaxed">{w.text}</p>
+                  <p className="text-[#555] text-sm leading-relaxed">{w.text}</p>
                 </div>
               ))}
             </div>
@@ -1271,390 +1418,58 @@ export function AuditResults({ formData, auditScore }: AuditResultsProps) {
 
       {/* ── 8. DIY Action Plan ─────────────────────────── */}
       <FadeUp delay={0.28}>
-        <h2 className="text-2xl font-bold text-white mb-2 flex items-center gap-3">
-          <Rocket className="w-6 h-6 text-amber-400" /> DIY Action Plan — Start Today
-        </h2>
-        <p className="text-slate-400 mb-6">Don&apos;t want to wait? Here are things you can implement yourself right now.</p>
-        <div className="space-y-4">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+          <div>
+            <h2 className="text-3xl font-black text-black uppercase font-bebas-neue tracking-widest">Growth Sprint Action Plan</h2>
+            <p className="text-[#888] font-mono text-[10px] uppercase mt-1 tracking-widest leading-none">High-Impact Self-Implementation Steps</p>
+          </div>
+          <div className="h-[1px] bg-[#E4E3DE] flex-1 hidden md:block mx-8 mb-4" />
+          <Target className="w-10 h-10 text-[#D90019] opacity-20" />
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6">
           {(() => {
             const cat = getBusinessCategory(formData.businessType || '')
-
             const onboardingDIY: Record<BusinessCategory, { title: string; steps: string[] }> = {
-              online: {
-                title: "Set Up Automated Onboarding Emails",
-                steps: [
-                  "Map your ideal customer journey from purchase to 'aha moment'",
-                  "Create a 5-email welcome sequence in your email platform",
-                  "Include: welcome + access → quick win tutorial → community invite → success story → next step CTA",
-                  "Set up triggers so they fire automatically on purchase/signup"
-                ]
-              },
-              local: {
-                title: "Set Up Automated Booking & Pre-Visit Sequence",
-                steps: [
-                  "Set up instant booking confirmation via email/text with job details",
-                  "Send a 'what to expect' message 24 hours before the appointment",
-                  "Include directions, prep instructions, and technician info",
-                  "Add a same-day reminder text to reduce no-shows by 40%+"
-                ]
-              },
-              professional: {
-                title: "Set Up Automated Client Welcome Sequence",
-                steps: [
-                  "Create a welcome email with engagement letter and intake questionnaire",
-                  "Send a 'meet the team' email with your process overview and timeline",
-                  "Include a scheduling link for the kickoff call",
-                  "Set up an automated document collection workflow"
-                ]
-              },
-              product: {
-                title: "Set Up Post-Purchase Email Sequence",
-                steps: [
-                  "Create an order confirmation email with estimated delivery",
-                  "Send a shipping notification with tracking link",
-                  "Follow up 3 days after delivery with care/usage tips",
-                  "Send a review request 7 days after delivery"
-                ]
-              },
+              online: { title: "Set Up Automated Onboarding Emails", steps: ["Map your ideal customer journey from purchase-to-aha moment", "Create a 5-email welcome sequence in your email platform", "Include: welcome + access → tutorial → community → success story → next step CTA", "Set up triggers so they fire automatically on purchase/signup"] },
+              local: { title: "Set Up Automated Booking & Pre-Visit Sequence", steps: ["Set up instant booking confirmation via email/text with job details", "Send a 'what to expect' message 24 hours before the appointment", "Include directions, prep instructions, and technician info", "Add a same-day reminder text to reduce no-shows by 40%+"] },
+              professional: { title: "Set Up Automated Client Welcome Sequence", steps: ["Create a welcome email with engagement letter and intake questionnaire", "Send a 'meet the team' email with your process overview and timeline", "Include a scheduling link for the kickoff call", "Set up an automated document collection workflow"] },
+              product: { title: "Set Up Post-Purchase Email Sequence", steps: ["Create an order confirmation email with estimated delivery", "Send a shipping notification with tracking link", "Follow up 3 days after delivery with care/usage tips", "Send a review request 7 days after delivery"] }
             }
-
             const churnDIY: Record<BusinessCategory, { title: string; steps: string[] }> = {
-              online: {
-                title: "Launch a Churn Win-Back Campaign",
-                steps: [
-                  "Export a list of churned/refunded customers from the last 6 months",
-                  "Segment by reason (if known): price, usage, support, alternative",
-                  "Send a 3-email re-engagement sequence: 'We miss you' → new feature/value → special offer",
-                  "Track open rates and replies — respond personally to engaged leads"
-                ]
-              },
-              local: {
-                title: "Reactivate Past Customers",
-                steps: [
-                  "Pull a list of customers who haven't booked in 6+ months",
-                  "Send a 'we miss you' email/text with a special return offer",
-                  "Include seasonal maintenance reminders relevant to their last service",
-                  "Follow up with a phone call to the top 20% by past spend"
-                ]
-              },
-              professional: {
-                title: "Reactivate Dormant Client Relationships",
-                steps: [
-                  "Identify clients who haven't engaged in 6+ months",
-                  "Send a personalized 'checking in' email with a relevant industry update",
-                  "Offer a complimentary review or assessment of their current situation",
-                  "Schedule catch-up calls with the top 10 by past revenue"
-                ]
-              },
-              product: {
-                title: "Launch a Win-Back Campaign for Lapsed Buyers",
-                steps: [
-                  "Export customers who haven't purchased in 90+ days",
-                  "Send a personalized 'new arrivals' email based on their past purchases",
-                  "Include a time-limited discount or free shipping offer",
-                  "Set up an automated reorder reminder sequence for consumable products"
-                ]
-              },
+              online: { title: "Launch a Churn Win-Back Campaign", steps: ["Export a list of churned/refunded customers from the last 6 months", "Segment by reason (if known): price, usage, support, alternative", "Send a 3-email re-engagement sequence: 'We miss you' → new value → special offer", "Track open rates and replies — respond personally to engaged leads"] },
+              local: { title: "Reactivate Past Customers", steps: ["Pull a list of customers who haven't booked in 6+ months", "Send a 'we miss you' email/text with a special return offer", "Include seasonal maintenance reminders relevant to their last service", "Follow up with a phone call to the top 20% by past spend"] },
+              professional: { title: "Reactivate Dormant Client Relationships", steps: ["Identify clients who haven't engaged in 6+ months", "Send a personalized 'checking in' email with a relevant industry update", "Offer a complimentary review or assessment of their current situation", "Schedule catch-up calls with the top 10 by past revenue"] },
+              product: { title: "Launch a Win-Back Campaign for Lapsed Buyers", steps: ["Export customers who haven't purchased in 90+ days", "Send a personalized 'new arrivals' email based on their past purchases", "Include a time-limited discount or free shipping offer", "Set up an automated reorder reminder sequence for consumable products"] }
             }
-
             const automationDIY: Record<BusinessCategory, { title: string; steps: string[] }> = {
-              online: {
-                title: "Connect Your Tools with Zapier/Make",
-                steps: [
-                  "Sign up for Zapier or Make (both have free tiers)",
-                  "Connect your payment tool → email platform for auto-tagging new buyers",
-                  "Connect your community platform → CRM for engagement tracking",
-                  "Set up notifications for new purchases and cancellations",
-                  "Start with 3-5 automations and expand from there"
-                ]
-              },
-              local: {
-                title: "Connect Your Booking, Invoicing & Review Tools",
-                steps: [
-                  "Sign up for Zapier or Make (both have free tiers)",
-                  "Connect your booking system → invoicing tool for automatic billing",
-                  "Set up automatic review requests after completed jobs",
-                  "Add new leads to your CRM automatically from web forms and calls",
-                  "Set up text/email notifications for new bookings and cancellations"
-                ]
-              },
-              professional: {
-                title: "Connect Your CRM, Calendar & Billing",
-                steps: [
-                  "Sign up for Zapier or Make (both have free tiers)",
-                  "Connect your CRM → calendar for automatic meeting scheduling",
-                  "Set up automatic invoice generation when projects hit milestones",
-                  "Connect intake forms → CRM for automatic lead creation",
-                  "Set up notifications for new leads, won deals, and overdue invoices"
-                ]
-              },
-              product: {
-                title: "Connect Your Store, Inventory & Shipping",
-                steps: [
-                  "Sign up for Zapier or Make (both have free tiers)",
-                  "Connect your store → shipping tool for automatic label generation",
-                  "Set up low-inventory alerts to prevent stockouts",
-                  "Connect orders → accounting software for automatic bookkeeping",
-                  "Set up notifications for returns, refunds, and high-value orders"
-                ]
-              },
+              online: { title: "Connect Your Tools with Zapier/Make", steps: ["Sign up for Zapier or Make (both have free tiers)", "Connect your payment tool → email platform for auto-tagging new buyers", "Connect your community platform → CRM for engagement tracking", "Set up notifications for new purchases and cancellations", "Start with 3-5 automations and expand from there"] },
+              local: { title: "Connect Your Booking, Invoicing & Review Tools", steps: ["Sign up for Zapier or Make (both have free tiers)", "Connect your booking system → invoicing tool for automatic billing", "Set up automatic review requests after completed jobs", "Add new leads to your CRM automatically from web forms and calls", "Set up text/email notifications for new bookings and cancellations"] },
+              professional: { title: "Connect Your CRM, Calendar & Billing", steps: ["Sign up for Zapier or Make (both have free tiers)", "Connect your CRM → calendar for automatic meeting scheduling", "Set up automatic invoice generation when projects hit milestones", "Connect intake forms → CRM for automatic lead creation", "Set up notifications for new leads, won deals, and overdue invoices"] },
+              product: { title: "Connect Your Store, Inventory & Shipping", steps: ["Sign up for Zapier or Make (both have free tiers)", "Connect your store → shipping tool for automatic label generation", "Set up low-inventory alerts to prevent stockouts", "Connect orders → accounting software for automatic bookkeeping", "Set up notifications for returns, refunds, and high-value orders"] }
             }
-
-            const supportDIY: Record<BusinessCategory, { title: string; steps: string[] }> = {
-              online: {
-                title: "Build an AI Support Bot",
-                steps: [
-                  "Gather your top 50 FAQs from support tickets, DMs, and emails",
-                  "Sign up for a chatbot tool (Intercom, Crisp, or Tidio — free tiers available)",
-                  "Upload your FAQ content and let the AI train on it",
-                  "Install the widget on your website and community",
-                  "Review weekly transcripts to improve accuracy"
-                ]
-              },
-              local: {
-                title: "Set Up an AI Receptionist / Website Chatbot",
-                steps: [
-                  "Gather your top 30 customer questions (pricing, hours, service areas, etc.)",
-                  "Sign up for a chatbot tool (Tidio or Crisp — free tiers available)",
-                  "Train it on your services, pricing, and booking process",
-                  "Install on your website with a 'Book Now' button for instant scheduling",
-                  "Set up after-hours auto-responses with a booking link"
-                ]
-              },
-              professional: {
-                title: "Build an AI Client Intake & FAQ Bot",
-                steps: [
-                  "Gather your top 30 prospect questions (services, process, pricing, timeline)",
-                  "Sign up for a chatbot tool (Intercom or Crisp — free tiers available)",
-                  "Train it to qualify leads and collect intake information",
-                  "Install on your website with a 'Schedule a Consultation' CTA",
-                  "Review weekly to improve lead qualification accuracy"
-                ]
-              },
-              product: {
-                title: "Build an AI Customer Service Bot",
-                steps: [
-                  "Gather your top 50 customer questions (order status, returns, sizing, etc.)",
-                  "Sign up for a chatbot tool (Tidio or Gorgias — free tiers available)",
-                  "Connect it to your order system for real-time tracking lookups",
-                  "Install on your website and post-purchase emails",
-                  "Review weekly transcripts and add new FAQs"
-                ]
-              },
-            }
-
-            const contentDIY: Record<BusinessCategory, { title: string; steps: string[] }> = {
-              online: {
-                title: "Set Up AI Content Repurposing",
-                steps: [
-                  "Take your best-performing long-form content (podcast, video, blog)",
-                  "Use Claude or ChatGPT to extract key insights and quotes",
-                  "Create templates: 1 long-form → 5 social posts + 3 email snippets + 1 thread",
-                  "Schedule distribution across platforms with Buffer or Hypefury",
-                  "Track engagement and double down on what resonates"
-                ]
-              },
-              local: {
-                title: "Build an Automated Review & Social Proof Engine",
-                steps: [
-                  "Set up automated review request texts/emails after every completed job",
-                  "Use AI to turn your best reviews into social media posts",
-                  "Create before/after photo templates for Instagram and Facebook",
-                  "Respond to every review (positive and negative) within 24 hours",
-                  "Share customer testimonials in your email marketing"
-                ]
-              },
-              professional: {
-                title: "Build a Thought Leadership Content Engine",
-                steps: [
-                  "Use AI to turn client wins and case studies into LinkedIn posts",
-                  "Create a monthly email newsletter with industry insights (AI-assisted)",
-                  "Record a 10-minute Loom video → use AI to create a blog post + social clips",
-                  "Repurpose your best content into lead magnets and email sequences",
-                  "Track engagement and double down on topics that resonate"
-                ]
-              },
-              product: {
-                title: "Set Up AI Product Content Pipeline",
-                steps: [
-                  "Use AI to generate product descriptions from your photos and specs",
-                  "Create social media templates for new arrivals and bestsellers",
-                  "Set up automated email campaigns for product launches",
-                  "Use AI to create UGC-style content from customer reviews and photos",
-                  "Track which content drives sales and iterate"
-                ]
-              },
-            }
-
-            const conversionDIY: Record<BusinessCategory, { title: string; steps: string[] }> = {
-              online: {
-                title: "Optimize Your Sales Funnel",
-                steps: [
-                  "Map every step: ad/traffic → landing page → opt-in → nurture → offer → purchase",
-                  "Identify the biggest drop-off point (use analytics or gut feel)",
-                  "A/B test headlines and CTAs on your landing page",
-                  "Add urgency or social proof to your offer page",
-                  "Set up an abandoned cart/checkout email sequence"
-                ]
-              },
-              local: {
-                title: "Speed Up Your Lead Response Time",
-                steps: [
-                  "Set up instant auto-response (text + email) for every new lead",
-                  "Include your booking link, service area, and next available slots",
-                  "Follow up with a phone call within 30 minutes during business hours",
-                  "Send a 'still need help?' follow-up after 24 hours if no booking",
-                  "Track response time and close rate to see improvement"
-                ]
-              },
-              professional: {
-                title: "Optimize Your Proposal & Close Process",
-                steps: [
-                  "Create proposal templates so you can send within 24 hours of consultation",
-                  "Add case studies and testimonials to your proposal package",
-                  "Set up an automated 3-email follow-up sequence after sending proposals",
-                  "Include a clear CTA and deadline in every proposal",
-                  "Track win rate by proposal type and adjust"
-                ]
-              },
-              product: {
-                title: "Optimize Your Store Conversion Rate",
-                steps: [
-                  "Add customer reviews and photos to product pages",
-                  "Simplify your checkout flow (fewer steps = higher conversion)",
-                  "Add urgency triggers (low stock, limited time)",
-                  "Set up abandoned cart email recovery (3-email sequence)",
-                  "A/B test product page headlines, images, and CTAs"
-                ]
-              },
-            }
-
-            const timeBlockDIY: Record<BusinessCategory, { title: string; steps: string[] }> = {
-              online: {
-                title: "Reclaim 10 Hours/Week with Time Blocking",
-                steps: [
-                  "Audit your last week — where did every hour go?",
-                  "Identify your top 3 time-wasters (usually: support, content creation, admin)",
-                  "Block 2-hour 'deep work' slots on your calendar (no meetings allowed)",
-                  "Batch similar tasks: all content in one block, all support in another",
-                  "Delegate or automate anything that doesn't require YOUR expertise"
-                ]
-              },
-              local: {
-                title: "Get Out of the Day-to-Day Grind",
-                steps: [
-                  "Audit your last week — how much time was on the phone, dispatching, and admin?",
-                  "Identify the top 3 tasks someone else (or a tool) could handle",
-                  "Block mornings for high-value work (estimates, client meetings, growth)",
-                  "Batch admin tasks: invoicing in one slot, callbacks in another",
-                  "Delegate or automate everything that doesn't require you personally"
-                ]
-              },
-              professional: {
-                title: "Reclaim Billable Hours from Admin",
-                steps: [
-                  "Track your time for one week — separate billable from non-billable",
-                  "Identify the top 3 non-billable time sinks (proposals, scheduling, follow-up)",
-                  "Block focused client work time on your calendar (no admin allowed)",
-                  "Batch similar admin tasks: all proposals Monday, all billing Friday",
-                  "Delegate or automate everything that isn't client-facing or strategic"
-                ]
-              },
-              product: {
-                title: "Reclaim 10 Hours/Week from Operations",
-                steps: [
-                  "Audit your last week — how much time was on orders, shipping, and customer emails?",
-                  "Identify the top 3 repetitive tasks that could be automated or delegated",
-                  "Block time for strategic work (product development, marketing, partnerships)",
-                  "Batch operational tasks: all shipping in one slot, all customer service in another",
-                  "Delegate or automate everything that doesn't drive growth"
-                ]
-              },
-            }
-
-            const dashboardDIY: Record<BusinessCategory, { title: string; steps: string[]; metrics: string }> = {
-              online: {
-                title: "Create a Real-Time KPI Dashboard",
-                steps: [
-                  "Choose a tool: Google Sheets, Notion, or a dashboard tool like Databox",
-                  "Track 5 key metrics: MRR, churn rate, new signups, support tickets, engagement",
-                  "Set up weekly auto-reports sent to your email",
-                  "Review weekly and look for trends before they become problems",
-                  "Share with your team so everyone is aligned on what matters"
-                ],
-                metrics: "MRR, churn rate, new signups, support tickets, engagement"
-              },
-              local: {
-                title: "Create a Business Health Dashboard",
-                steps: [
-                  "Choose a tool: Google Sheets or a simple dashboard like Databox",
-                  "Track 5 key metrics: new leads, booked jobs, revenue, reviews, and response time",
-                  "Set up weekly auto-reports sent to your email",
-                  "Review weekly and look for trends before they cost you",
-                  "Share with your team so everyone knows what matters"
-                ],
-                metrics: "new leads, booked jobs, revenue, reviews, response time"
-              },
-              professional: {
-                title: "Create a Pipeline & Performance Dashboard",
-                steps: [
-                  "Choose a tool: your CRM dashboard, Google Sheets, or Databox",
-                  "Track 5 key metrics: pipeline value, proposals sent, close rate, utilization, and revenue",
-                  "Set up weekly auto-reports sent to your email",
-                  "Review weekly and identify pipeline gaps before they impact revenue",
-                  "Share with your team so everyone is aligned on targets"
-                ],
-                metrics: "pipeline value, proposals sent, close rate, utilization, revenue"
-              },
-              product: {
-                title: "Create a Sales & Operations Dashboard",
-                steps: [
-                  "Choose a tool: Shopify analytics, Google Sheets, or Triple Whale",
-                  "Track 5 key metrics: orders, revenue, conversion rate, return rate, and ad ROAS",
-                  "Set up weekly auto-reports sent to your email",
-                  "Review weekly and spot trends before they become problems",
-                  "Share with your team so everyone is aligned"
-                ],
-                metrics: "orders, revenue, conversion rate, return rate, ad ROAS"
-              },
-            }
-
-            const ob = onboardingDIY[cat]
-            const ch = churnDIY[cat]
-            const au = automationDIY[cat]
-            const su = supportDIY[cat]
-            const co = contentDIY[cat]
-            const cv = conversionDIY[cat]
-            const tb = timeBlockDIY[cat]
-            const db = dashboardDIY[cat]
-
-            const diy: { title: string; steps: string[]; time: string; impact: string; emoji: string; show: boolean }[] = [
-              { ...ob, time: "2-3 hours", impact: cat === 'local' ? "40%+ fewer no-shows" : "Reduce early churn by 30%+", emoji: "🚀", show: formData.onboardingAutomated !== 'Yes' },
+            const ob = onboardingDIY[cat], ch = churnDIY[cat], au = automationDIY[cat]
+            const diy = [
+              { ...ob, time: "2-3 hours", impact: "Reduce early churn by 30%+", emoji: "🚀", show: formData.onboardingAutomated !== 'Yes' },
               { ...ch, time: "2-3 hours", impact: "Recover 10-20% of lost revenue", emoji: "🔄", show: formData.churnRate === '20+' || formData.churnRate === '10-20' },
               { ...au, time: "1-2 hours", impact: "Eliminate 80% of manual workflows", emoji: "⚡", show: formData.percentAutomated === 'none' || formData.percentAutomated === 'under-30' },
-              { ...su, time: "2-3 hours", impact: "Handle 80% of inquiries automatically", emoji: "💬", show: formData.supportHoursPerWeek === '10+' || formData.supportHoursPerWeek === '5-10' },
-              { ...co, time: "1-2 hours", impact: cat === 'local' ? "3x more reviews on autopilot" : "10-15 hrs/week saved", emoji: "📝", show: formData.contentCreationHours === '20+' || formData.contentCreationHours === '10-20' },
-              { ...cv, time: "3-4 hours", impact: "2-3x your conversion rate over 30 days", emoji: "🎯", show: formData.conversionRate === 'under-1' || formData.conversionRate === '1-3' },
-              { ...tb, time: "1 hour to plan", impact: "10+ hours reclaimed per week", emoji: "⏰", show: formData.hoursPerWeek === '60+' || formData.highValueWork === 'under-20' },
-              { ...db, time: "2-3 hours", impact: "Spot problems before they become crises", emoji: "📊", show: true },
             ]
-            return diy.filter(d => d.show).slice(0, 5).map((d, i) => (
-              <Card key={i} className="bg-white/[0.03] backdrop-blur-md border-white/10 p-6 hover:border-amber-500/20 transition-all">
-                <div className="flex items-start gap-4">
-                  <span className="text-3xl">{d.emoji}</span>
+            return diy.filter(d => d.show).map((d, i) => (
+              <Card key={i} className="bg-white border-[#E4E3DE] p-8 shadow-sm group hover:border-[#D90019]/30 transition-all">
+                <div className="flex items-start gap-6">
+                  <span className="text-4xl grayscale group-hover:grayscale-0 transition-all">{d.emoji}</span>
                   <div className="flex-1">
-                    <div className="flex items-center justify-between mb-3">
-                      <h3 className="text-white font-bold text-lg">{d.title}</h3>
-                      <div className="flex gap-3 text-xs">
-                        <span className="text-blue-400 bg-blue-500/10 px-2 py-1 rounded-full">{d.time}</span>
-                        <span className="text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded-full hidden sm:block">{d.impact}</span>
+                    <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
+                      <h3 className="text-black font-black text-xl uppercase tracking-tighter leading-tight">{d.title}</h3>
+                      <div className="flex gap-2 text-[10px] font-mono">
+                        <span className="text-[#D90019] bg-[#D90019]/5 px-2 py-1 font-bold">TIME: {d.time}</span>
+                        <span className="text-[#888] bg-[#FAFAF8] px-2 py-1 font-bold tracking-tight">IMPACT: {d.impact}</span>
                       </div>
                     </div>
-                    <p className="text-emerald-400 text-sm mb-3 sm:hidden">{d.impact}</p>
-                    <ol className="space-y-2">
+                    <ol className="space-y-4">
                       {d.steps.map((step, j) => (
-                        <li key={j} className="text-slate-300 text-sm flex items-start gap-2">
-                          <span className="text-amber-400 font-bold text-xs mt-0.5 shrink-0">{j + 1}.</span>
+                        <li key={j} className="text-[#555] text-sm flex items-start gap-3 leading-snug">
+                          <span className="text-[#D90019] font-black text-xs mt-0.5 shrink-0">{j + 1}.</span>
                           {step}
                         </li>
                       ))}
@@ -1667,218 +1482,116 @@ export function AuditResults({ formData, auditScore }: AuditResultsProps) {
         </div>
       </FadeUp>
 
-      {/* ── 9. Free Tools & Resources ──────────────────── */}
+      {/* ── 9. Free Tools We Recommend ────────────────── */}
       <FadeUp delay={0.29}>
-        <h2 className="text-2xl font-bold text-white mb-2 flex items-center gap-3">
-          <Zap className="w-6 h-6 text-blue-400" /> Free Tools We Recommend
+        <h2 className="text-2xl font-bold text-black mb-6 flex items-center gap-3 uppercase font-bebas-neue tracking-widest">
+          <Zap className="w-6 h-6 text-[#D90019]" /> Recommended AI Stack
         </h2>
-        <p className="text-slate-400 mb-6">No budget? No problem. These free tools can get you started today.</p>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {((): { name: string; use: string; emoji: string; cat: string }[] => {
             const bCat = getBusinessCategory(formData.businessType || '')
             const shared = [
-              { name: "Zapier", use: "Connect apps & automate workflows", emoji: "⚡", cat: "Automation" },
-              { name: "Cal.com", use: "Open-source scheduling for calls & bookings", emoji: "📅", cat: "Scheduling" },
-              { name: "Canva", use: "Design marketing assets & social posts", emoji: "🎨", cat: "Design" },
-              { name: "Claude", use: "AI assistant for content, strategy & automation", emoji: "🤖", cat: "AI" },
+              { name: "Zapier", use: "Workflow Automation", emoji: "⚡", cat: "Infrastructure" },
+              { name: "Cal.com", use: "High-Performance Scheduling", emoji: "📅", cat: "Acquisition" },
+              { name: "Claude", use: "Advanced AI reasoning", emoji: "🤖", cat: "Intelligence" },
+              { name: "Notion", use: "Operating System Docs", emoji: "📝", cat: "Ops" },
             ]
             const byIndustry: Record<BusinessCategory, { name: string; use: string; emoji: string; cat: string }[]> = {
-              online: [
-                { name: "ConvertKit", use: "Email marketing built for creators (free to 1K subs)", emoji: "📧", cat: "Email" },
-                { name: "Notion", use: "Document processes, SOPs & manage projects", emoji: "📝", cat: "Docs" },
-                { name: "Stripe", use: "Payment processing & subscription management", emoji: "💳", cat: "Payments" },
-                { name: "Loom", use: "Record tutorials, SOPs & async video", emoji: "🎥", cat: "Video" },
-                { name: "Crisp", use: "Live chat + AI chatbot for support", emoji: "💬", cat: "Support" },
-              ],
-              local: [
-                { name: "Jobber", use: "Scheduling, invoicing & client management for service businesses", emoji: "🔧", cat: "Operations" },
-                { name: "Google Business", use: "Free listing — get found in local search & collect reviews", emoji: "📍", cat: "Marketing" },
-                { name: "Mailchimp", use: "Email marketing for customer follow-up (free tier)", emoji: "📧", cat: "Email" },
-                { name: "Wave", use: "Free invoicing and accounting for small businesses", emoji: "💳", cat: "Payments" },
-                { name: "Tidio", use: "Website chatbot for booking & FAQs (free tier)", emoji: "💬", cat: "Support" },
-              ],
-              professional: [
-                { name: "HubSpot CRM", use: "Free CRM for pipeline, contacts & deals", emoji: "📊", cat: "CRM" },
-                { name: "Notion", use: "Document processes, proposals & client portals", emoji: "📝", cat: "Docs" },
-                { name: "Loom", use: "Record client updates & async video proposals", emoji: "🎥", cat: "Video" },
-                { name: "FreshBooks", use: "Simple invoicing & time tracking (free trial)", emoji: "💳", cat: "Billing" },
-                { name: "Crisp", use: "Website chat for lead qualification & intake", emoji: "💬", cat: "Support" },
-              ],
-              product: [
-                { name: "Klaviyo", use: "Email marketing built for e-commerce (free to 250 contacts)", emoji: "📧", cat: "Email" },
-                { name: "Shopify", use: "E-commerce platform with built-in analytics", emoji: "🛒", cat: "Store" },
-                { name: "ShipStation", use: "Shipping & order fulfillment automation", emoji: "📦", cat: "Shipping" },
-                { name: "Triple Whale", use: "E-commerce analytics & attribution", emoji: "📊", cat: "Analytics" },
-                { name: "Tidio", use: "AI chatbot for order status & customer service", emoji: "💬", cat: "Support" },
-              ],
+              online: [{ name: "ConvertKit", use: "Email Scale", emoji: "📧", cat: "CRM" }, { name: "Stripe", use: "Capital flow", emoji: "💳", cat: "Finance" }],
+              local: [{ name: "Jobber", use: "Service Scheduling", emoji: "🔧", cat: "Ops" }, { name: "Google", use: "Local SEO", emoji: "📍", cat: "Growth" }],
+              professional: [{ name: "HubSpot", use: "Pipeline CRM", emoji: "📊", cat: "Sales" }, { name: "Loom", use: "Async Comms", emoji: "🎥", cat: "Productivity" }],
+              product: [{ name: "Shopify", use: "Direct Commerce", emoji: "🛒", cat: "Store" }, { name: "Klaviyo", use: "Flow Marketing", emoji: "📧", cat: "CRM" }],
             }
-            return [...byIndustry[bCat], ...shared]
+            return [...byIndustry[bCat], ...shared].slice(0, 4)
           })().map((tool, i) => (
-            <div key={i} className="bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-xl p-4 hover:border-blue-500/20 transition-all">
-              <div className="flex items-center gap-3 mb-2">
-                <span className="text-2xl">{tool.emoji}</span>
-                <div>
-                  <h4 className="text-white font-semibold text-sm">{tool.name}</h4>
-                  <p className="text-slate-500 text-xs">{tool.cat}</p>
-                </div>
-              </div>
-              <p className="text-slate-400 text-sm">{tool.use}</p>
-            </div>
+            <Card key={i} className="bg-white border-[#E4E3DE] p-6 hover:border-[#D90019]/30 transition-all text-center shadow-sm">
+              <span className="text-3xl mb-4 block">{tool.emoji}</span>
+              <h4 className="text-black font-black text-sm uppercase tracking-tighter mb-1">{tool.name}</h4>
+              <p className="text-[#888] text-[9px] font-mono uppercase tracking-[0.1em] mb-3">{tool.cat}</p>
+              <p className="text-[#555] text-xs leading-tight">{tool.use}</p>
+            </Card>
           ))}
         </div>
       </FadeUp>
 
-      {/* ── 10. "What Happens If You Don't Act" ────────── */}
+      {/* ── 10. The Cost of Doing Nothing ─────────── */}
       <FadeUp delay={0.3}>
-        <Card className="bg-red-500/5 backdrop-blur-md border-red-500/20 p-8">
-          <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
-            <AlertCircle className="w-6 h-6 text-red-400" /> The Cost of Doing Nothing
-          </h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="space-y-2">
-              <p className="text-red-400 font-bold text-3xl">
-                {fmt$(parseListSize(formData.listSize, getBusinessCategory(formData.businessType || '')) * parseChurnPct(formData.churnRate) * parseProductPrice(formData.productPricePoint, getBusinessCategory(formData.businessType || '')))}
-              </p>
-              <p className="text-slate-400 text-sm">Lost revenue per year from churn alone</p>
-            </div>
-            <div className="space-y-2">
-              <p className="text-red-400 font-bold text-3xl">
-                {formData.hoursPerWeek === '60+' ? '1,040+' : formData.hoursPerWeek === '40-60' ? '520+' : '260+'} hrs
-              </p>
-              <p className="text-slate-400 text-sm">Spent on tasks automation could handle this year</p>
-            </div>
-            <div className="space-y-2">
-              <p className="text-red-400 font-bold text-3xl">
-                {formData.twoWeeksOff === 'No' ? '0 days' : formData.twoWeeksOff === 'Maybe' ? '~5 days' : '14+ days'}
-              </p>
-              <p className="text-slate-400 text-sm">You can take off without the business breaking</p>
-            </div>
+        <Card className="bg-black border border-[#E4E3DE] p-12 relative overflow-hidden shadow-2xl">
+          <div className="absolute top-0 right-0 p-12 opacity-5 scale-150 rotate-12">
+            <AlertCircle className="w-64 h-64 text-red-500" />
           </div>
-          <p className="text-slate-300 mt-6 text-sm">
-            Every week without systems is another week of lost revenue, preventable churn, and missed growth.
-            The companies that win aren&apos;t working harder. They&apos;re building smarter infrastructure.
-          </p>
+          <div className="relative z-10">
+            <h2 className="text-white font-black text-4xl uppercase tracking-[0.1em] mb-12 flex items-center gap-4">
+              <div className="w-12 h-1 bg-[#D90019]" /> Capital Opportunity Loss
+            </h2>
+            <div className="grid md:grid-cols-3 gap-12">
+              <div className="space-y-4">
+                <p className="text-[#D90019] font-black text-5xl tracking-tighter">
+                  {fmt$(parseListSize(formData.listSize, getBusinessCategory(formData.businessType || '')) * parseChurnPct(formData.churnRate) * parseProductPrice(formData.productPricePoint, getBusinessCategory(formData.businessType || '')))}
+                </p>
+                <div className="h-[1px] bg-white/10 w-20" />
+                <p className="text-slate-400 text-[10px] font-mono uppercase tracking-[0.2em] leading-relaxed">Annual leakage from persistent customer churn</p>
+              </div>
+              <div className="space-y-4">
+                <p className="text-white font-black text-5xl tracking-tighter">
+                  {formData.hoursPerWeek === '60+' ? '1,040+' : formData.hoursPerWeek === '40-60' ? '520+' : '260+'}h
+                </p>
+                <div className="h-[1px] bg-white/10 w-20" />
+                <p className="text-slate-400 text-[10px] font-mono uppercase tracking-[0.2em] leading-relaxed">Human capacity locked in manual workflows</p>
+              </div>
+              <div className="space-y-4">
+                <p className="text-white font-black text-5xl tracking-tighter">
+                  {formData.twoWeeksOff === 'No' ? '0' : formData.twoWeeksOff === 'Maybe' ? '5' : '14'}+d
+                </p>
+                <div className="h-[1px] bg-white/10 w-20" />
+                <p className="text-slate-400 text-[10px] font-mono uppercase tracking-[0.2em] leading-relaxed">Freedom index: owner dependency threshold</p>
+              </div>
+            </div>
+            <p className="text-slate-500 mt-12 text-xs font-mono max-w-2xl leading-relaxed italic border-l border-[#D90019] pl-6">
+              "Every week without systems is a deliberate decision to reject scale. The companies that dominate the next decade aren't working harder; they're deploying more efficient code."
+            </p>
+          </div>
         </Card>
       </FadeUp>
 
-      {/* ── 10b. Your Custom Proposal (AI-Generated) ───── */}
+      {/* ── 11. Strategy Session Booking ───────────────────── */}
       <FadeUp delay={0.32}>
-        <div className="border border-purple-500/30 rounded-2xl overflow-hidden bg-gradient-to-br from-purple-900/20 to-indigo-900/20 backdrop-blur-xl">
-          <div
-            className="px-8 py-5 border-b border-white/10 flex items-center justify-between cursor-pointer hover:bg-white/[0.02] transition-colors"
-            onClick={() => setProposalExpanded(!proposalExpanded)}
-          >
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-purple-500/10">
-                <Sparkles className="w-5 h-5 text-purple-400" />
-              </div>
-              <div>
-                <h2 className="text-white font-bold text-xl">Your Custom Growth Proposal</h2>
-                <p className="text-slate-500 text-sm">
-                  {proposalLoading
-                    ? 'AI is researching your company and building your proposal...'
-                    : proposalError
-                      ? 'Proposal will be sent to your email'
-                      : `Personalized for ${formData.companyName || formData.fullName || 'your business'}${proposalPricing ? ` — ${proposalPricing.tierLabel}` : ''}`}
-                </p>
-              </div>
+        <div id="booking-section" className="flex flex-col items-center justify-center p-8 md:p-16 bg-white border border-[#E4E3DE] shadow-2xl relative overflow-hidden text-center mt-20">
+          <div className="absolute top-0 left-0 w-full h-[3px] bg-[#D90019]" />
+          <div className="relative z-10 space-y-8 w-full max-w-5xl">
+            <div className="space-y-4 text-center">
+              <p className="text-[#D90019] font-mono text-xs font-bold uppercase tracking-[0.3em]">Next Step</p>
+              <h2 className="text-4xl md:text-5xl font-black text-black uppercase tracking-tighter leading-tight">
+                Book Your <span className="italic">Strategy Session</span>
+              </h2>
+              <p className="text-[#555] max-w-2xl mx-auto text-sm leading-relaxed font-mono uppercase tracking-tight">
+                In the meantime, book a call to discuss your results and get your proposal in real-time.
+              </p>
             </div>
-            <div className="flex items-center gap-3">
-              {proposalPricing && !proposalLoading && (
-                <span className="text-purple-400 font-bold text-lg hidden sm:block">
-                  {proposalPricing.priceRange}
-                </span>
-              )}
-              {proposalExpanded
-                ? <ChevronUp className="w-5 h-5 text-slate-400" />
-                : <ChevronDown className="w-5 h-5 text-slate-400" />}
-            </div>
-          </div>
 
-          {proposalExpanded && (
-            <div className="p-8">
-              {proposalLoading && (
-                <div className="flex flex-col items-center justify-center py-16 space-y-6">
-                  <div className="relative">
-                    <Loader2 className="w-12 h-12 text-purple-400 animate-spin" />
-                    <Sparkles className="w-5 h-5 text-purple-300 absolute -top-1 -right-1 animate-pulse" />
-                  </div>
-                  <div className="text-center space-y-2">
-                    <p className="text-white font-semibold">Building your proposal...</p>
-                    <p className="text-slate-400 text-sm max-w-md">
-                      Our AI agent is researching {formData.websiteUrl ? new URL(formData.websiteUrl.startsWith('http') ? formData.websiteUrl : 'https://' + formData.websiteUrl).hostname : 'your business'},
-                      analyzing your audit data, running the pricing algorithm, and writing a personalized growth proposal.
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-8 text-xs text-slate-500">
-                    <span className="flex items-center gap-2">
-                      <CheckCircle2 className="w-3 h-3 text-green-500" /> Audit analyzed
-                    </span>
-                    <span className="flex items-center gap-2">
-                      <Loader2 className="w-3 h-3 text-blue-400 animate-spin" /> Researching company
-                    </span>
-                    <span className="flex items-center gap-2">
-                      <div className="w-3 h-3 rounded-full border border-slate-600" /> Writing proposal
-                    </span>
-                  </div>
-                </div>
-              )}
-
-              {proposalError && !proposalLoading && (
-                <div className="text-center py-12 space-y-4">
-                  <p className="text-slate-400">
-                    We&apos;re preparing your detailed proposal — it will be sent to <span className="text-white font-medium">{formData.email}</span> shortly.
-                  </p>
-                  <p className="text-slate-500 text-sm">
-                    In the meantime, book a call to discuss your results and get your proposal in real-time.
-                  </p>
-                </div>
-              )}
-
-              {proposalMarkdown && !proposalLoading && (
-                <div className="prose prose-invert prose-sm max-w-none
-                  prose-headings:text-white prose-headings:font-bold
-                  prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h2:pb-2 prose-h2:border-b prose-h2:border-white/10
-                  prose-h3:text-lg prose-h3:mt-6 prose-h3:mb-3
-                  prose-p:text-slate-300 prose-p:leading-relaxed
-                  prose-strong:text-white
-                  prose-li:text-slate-300
-                  prose-table:border-collapse
-                  prose-th:text-left prose-th:text-slate-400 prose-th:text-xs prose-th:uppercase prose-th:tracking-wider prose-th:p-3 prose-th:border-b prose-th:border-white/10
-                  prose-td:p-3 prose-td:text-slate-300 prose-td:border-b prose-td:border-white/5 prose-td:text-sm
-                  prose-a:text-purple-400 prose-a:no-underline hover:prose-a:text-purple-300
-                  prose-hr:border-white/10
-                ">
-                  <ReactMarkdown>{proposalMarkdown}</ReactMarkdown>
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-      </FadeUp>
-
-      {/* ── 11. CTA ─────────────────────────────────────── */}
-      <FadeUp delay={0.3}>
-        <Card className="bg-gradient-to-br from-indigo-900/50 to-purple-900/50 border-white/10 p-12 text-center backdrop-blur-xl relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.15),transparent)]" />
-          <div className="relative z-10 space-y-6">
-            <h2 className="text-3xl md:text-4xl font-bold text-white">Ready to install these systems?</h2>
-            <p className="text-lg text-slate-300 max-w-xl mx-auto">
-              Let&apos;s map out the exact automation stack your business needs — in a free 30-minute strategy call.
-            </p>
-            <div className="w-full rounded-xl overflow-hidden border border-white/10 my-4" style={{ minHeight: 500 }}>
+            <div className="w-full min-h-[700px] border border-[#E4E3DE] bg-[#FAFAF8] rounded-2xl overflow-hidden shadow-inner mt-8">
               <iframe
-                src="https://cal.com/mia-louviere-a4n2hk/30min?embed=true&theme=dark"
-                width="100%"
-                height="500"
-                frameBorder="0"
-                style={{ border: 'none', background: 'transparent' }}
-                allow="payment"
+                src="https://cal.com/elianatech/30min?embed=true"
+                style={{ width: '100%', height: '700px', border: 'none' }}
+                title="Strategy Session Booking"
+                className="w-full"
               />
             </div>
-            <p className="text-slate-500 text-sm pt-4">Your results have been saved. Check your email for your full report.</p>
+
+            <div className="pt-12 border-t border-[#E4E3DE] w-full">
+              <div className="flex flex-col items-center gap-6">
+                <div className="flex gap-8 mt-4">
+                  <Link href="/audit" className="text-[#888] text-[10px] font-mono uppercase tracking-widest hover:text-black transition-colors">
+                    Reset Audit Data
+                  </Link>
+                  <a href="mailto:elianatech@yahoo.com" className="text-[#888] text-[10px] font-mono uppercase tracking-widest hover:text-[#D90019] transition-colors">
+                    elianatech@yahoo.com
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
-        </Card>
+        </div>
       </FadeUp>
     </div>
   )

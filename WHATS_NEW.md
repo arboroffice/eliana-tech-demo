@@ -76,7 +76,7 @@ Continues nurturing until they book call
 
 - **✅ Firestore**: Already connected (your existing setup)
 - **✅ Resend**: Installed and configured
-- **✅ Cal.com**: https://cal.com/mia-louviere-a4n2hk/30min
+- **✅ Cal.com**: https://cal.com/elianatech/30min
 - **✅ Vercel Cron**: Auto-processes scheduled emails
 
 ## 📦 New Files Created

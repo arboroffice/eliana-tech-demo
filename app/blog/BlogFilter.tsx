@@ -1,9 +1,9 @@
 "use client"
 
 import Link from "next/link"
-import { ArrowRight, Calendar, User } from "lucide-react"
+import { ArrowRight, Calendar } from "lucide-react"
 import { useState } from "react"
-import type { BlogPost } from "../../lib/blog"
+import type { BlogPost } from "@/lib/blog"
 
 const CATEGORY_ORDER = [
   "All",
@@ -29,67 +29,135 @@ export default function BlogFilter({ posts }: { posts: BlogPost[] }) {
 
   return (
     <>
-      {/* Category Filter */}
       <div className="flex flex-wrap justify-center gap-2 mb-12">
         {categories.map((cat) => (
           <button
             key={cat}
             onClick={() => setActive(cat)}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 border ${
-              active === cat
-                ? "bg-white text-black border-white"
-                : "bg-white/5 text-slate-300 border-white/10 hover:bg-white/10 hover:border-white/20"
-            }`}
+            className={`filter-btn ${active === cat ? "active" : ""}`}
           >
             {cat}
           </button>
         ))}
       </div>
 
-      {/* Blog Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+      <div className="blog-grid">
         {filtered.map((post) => (
-          <Link
-            key={post.slug}
-            href={`/blog/${post.slug}`}
-            className="group block bg-white/5 border border-white/10 rounded-2xl overflow-hidden backdrop-blur-sm hover:bg-white/10 transition-all duration-300 flex flex-col h-full"
-          >
-            <div className="h-48 bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center border-b border-white/5 group-hover:scale-105 transition-transform duration-500 relative overflow-hidden">
-              <div className="absolute inset-0 bg-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <span className="text-4xl opacity-50">📝</span>
+          <Link key={post.slug} href={`/blog/${post.slug}`} className="blog-card">
+            <div className="card-top">
+              <span className="card-category">{post.category}</span>
+              <span className="card-date">
+                <Calendar size={12} className="inline mr-1" /> {post.date}
+              </span>
             </div>
-
-            <div className="p-8 flex flex-col flex-grow">
-              <div className="flex items-center justify-between mb-4">
-                <div className="text-xs font-semibold text-blue-400 uppercase tracking-wider">{post.category}</div>
-                <div className="text-xs text-slate-500 flex items-center gap-1">
-                  <Calendar className="w-3 h-3" /> {post.date}
-                </div>
-              </div>
-
-              <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-blue-300 transition-colors leading-tight">
-                {post.title}
-              </h3>
-
-              <p className="text-slate-400 mb-6 text-sm line-clamp-3 leading-relaxed flex-grow">
-                {post.excerpt}
-              </p>
-
-              <div className="pt-6 border-t border-white/5 flex items-center justify-between mt-auto">
-                <div className="flex items-center gap-2 text-xs text-slate-400">
-                  <div className="w-6 h-6 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400 font-bold border border-indigo-500/30">
-                    <User className="w-3 h-3" />
-                  </div>
-                  {post.author}
-                </div>
-                <span className="text-blue-400 font-medium group-hover:text-white transition-colors flex items-center gap-2 text-sm">
-                  Read <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </span>
-              </div>
+            <h3 className="card-title">{post.title}</h3>
+            <p className="card-excerpt">{post.excerpt}</p>
+            <div className="card-footer">
+              <span className="read-more">
+                Read Article <ArrowRight size={14} className="inline ml-1" />
+              </span>
             </div>
           </Link>
         ))}
       </div>
+
+      <style jsx>{`
+        .filter-btn {
+          font-family: var(--font-dm-mono), monospace;
+          font-size: 10px;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          padding: 8px 20px;
+          background: #F2F1ED;
+          color: #888;
+          border: 1px solid #E4E3DE;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+          background: #0C0C0C;
+          color: #FAFAF8;
+          border-color: #0C0C0C;
+        }
+
+        .blog-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+          gap: 1px;
+          background: #CCCBC5;
+          border: 1px solid #CCCBC5;
+        }
+
+        .blog-card {
+          background: #FAFAF8;
+          padding: 40px;
+          text-decoration: none;
+          display: flex;
+          flex-direction: column;
+          transition: background 0.2s;
+        }
+
+        .blog-card:hover {
+          background: #F2F1ED;
+        }
+
+        .card-top {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 24px;
+        }
+
+        .card-category {
+          font-size: 9px;
+          letter-spacing: 0.3em;
+          text-transform: uppercase;
+          color: #D90019;
+          font-weight: 700;
+        }
+
+        .card-date {
+          font-size: 10px;
+          color: #888;
+        }
+
+        .card-title {
+          font-family: var(--font-syne), sans-serif;
+          font-size: 20px;
+          font-weight: 700;
+          color: #0C0C0C;
+          line-height: 1.25;
+          margin-bottom: 16px;
+        }
+
+        .card-excerpt {
+          font-size: 13px;
+          color: #555;
+          line-height: 1.8;
+          margin-bottom: 24px;
+          flex-grow: 1;
+        }
+
+        .card-footer {
+          padding-top: 24px;
+          border-top: 1px solid #E4E3DE;
+        }
+
+        .read-more {
+          font-size: 10px;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          color: #0C0C0C;
+          font-weight: 700;
+        }
+
+        @media (max-width: 640px) {
+          .blog-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+      `}</style>
     </>
   )
 }

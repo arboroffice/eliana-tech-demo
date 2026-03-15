@@ -5,10 +5,10 @@
 
 import { Resend } from 'resend'
 import { db } from './firebase'
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
+import { collection, addDoc, serverTimestamp, query, where, getDocs, updateDoc, doc, limit, arrayUnion } from 'firebase/firestore'
 
 const resend = new Resend(process.env.RESEND_API_KEY || 're_123456789')
-const CALENDAR_LINK = 'https://cal.com/mia-louviere-a4n2hk/30min'
+const CALENDAR_LINK = 'https://cal.com/elianatech/30min'
 
 interface EmailParams {
     to: string
@@ -50,7 +50,12 @@ export async function sendAuditResultEmail(params: EmailParams) {
     }
 
     // Send email using your preferred service
-    await sendEmail({ to, subject, html: htmlContent })
+    await sendEmail({ 
+        to, 
+        subject, 
+        html: htmlContent, 
+        template: `INITIAL_AUDIT_${intentLevel.toUpperCase()}` 
+    })
 }
 
 export async function scheduleFollowUpEmails(params: FollowUpParams) {
@@ -58,22 +63,22 @@ export async function scheduleFollowUpEmails(params: FollowUpParams) {
 
     const firstName = name.split(' ')[0]
 
-    // Define follow-up sequences based on intent
+    // Define follow-up sequences based on intent using AI Agent Generation
     const sequences = {
         high: [
-            { delay: 1, subject: "Haven't booked yet? Here's why I'm following up...", template: 'high_day1' },
-            { delay: 3, subject: `Free Resource: ${companyName} Quick Wins`, template: 'high_day3' },
-            { delay: 7, subject: "Last follow-up (I promise)", template: 'high_week1' }
+            { delay: 1, subject: "AI_GENERATED", template: 'ai_day1' },
+            { delay: 3, subject: "AI_GENERATED", template: 'ai_day3' },
+            { delay: 5, subject: "AI_GENERATED", template: 'ai_day5' }
         ],
         medium: [
-            { delay: 3, subject: "Free Checklist: Quick Automation Wins", template: 'medium_day3' },
-            { delay: 7, subject: `Case Study: How a ${formData.specificIndustry} business automated in 60 days`, template: 'medium_week1' },
-            { delay: 14, subject: "Still exploring? Here's your next step...", template: 'medium_week2' }
+            { delay: 2, subject: "AI_GENERATED", template: 'ai_day1' },
+            { delay: 5, subject: "AI_GENERATED", template: 'ai_day3' },
+            { delay: 9, subject: "AI_GENERATED", template: 'ai_day5' }
         ],
         low: [
-            { delay: 7, subject: "Weekly Automation Tip #1: Start Here", template: 'low_week1' },
-            { delay: 14, subject: "Weekly Automation Tip #2: Review Engine", template: 'low_week2' },
-            { delay: 30, subject: "Still on my radar", template: 'low_month1' }
+            { delay: 3, subject: "AI_GENERATED", template: 'ai_day1' },
+            { delay: 7, subject: "AI_GENERATED", template: 'ai_day3' },
+            { delay: 14, subject: "AI_GENERATED", template: 'ai_day5' }
         ]
     }
 
@@ -92,16 +97,19 @@ export async function scheduleFollowUpEmails(params: FollowUpParams) {
 }
 
 // Email sending function using Resend
-async function sendEmail({ to, subject, html }: { to: string, subject: string, html: string }) {
+async function sendEmail({ to, subject, html, template = 'direct_email' }: { to: string, subject: string, html: string, template?: string }) {
     try {
         await resend.emails.send({
-            from: 'Eliana <noreply@eliana.tech>',
+            from: 'ElianaTech <noreply@elianatech.com>',
             to,
             subject,
             html,
-            replyTo: 'mia@eliana.tech'
+            replyTo: 'elianatech@yahoo.com'
         })
         console.log(`[EMAIL SENT] To: ${to}, Subject: ${subject}`)
+        
+        // Log to Admin Timeline
+        await logEmailActivity(to, subject, template)
     } catch (error) {
         console.error('[EMAIL ERROR]', error)
         throw error
@@ -127,10 +135,68 @@ async function scheduleEmail(params: any) {
     }
 }
 
+export async function cancelPendingEmails(email: string, templatePrefix?: string) {
+    try {
+        const scheduledEmailsRef = collection(db, 'scheduled_emails')
+        const q = query(
+            scheduledEmailsRef,
+            where('to', '==', email),
+            where('status', '==', 'pending')
+        )
+        
+        const snapshot = await getDocs(q)
+        for (const emailDoc of snapshot.docs) {
+            const data = emailDoc.data()
+            if (!templatePrefix || (data.template && data.template.startsWith(templatePrefix))) {
+                 await updateDoc(doc(db, 'scheduled_emails', emailDoc.id), {
+                    status: 'cancelled',
+                    cancelledAt: serverTimestamp()
+                })
+                console.log(`[CANCELLED] ${data.template} for ${email}`)
+            }
+        }
+    } catch (error) {
+        console.error('[CANCEL ERROR]', error)
+    }
+}
+
+export async function logEmailActivity(email: string, subject: string, template: string) {
+    try {
+        // 1. Log to the audit record notes (for Admin Timeline)
+        const auditsRef = collection(db, 'audits')
+        const q = query(auditsRef, where('email', '==', email), limit(1))
+        const snapshot = await getDocs(q)
+        
+        const logEntry = {
+            to: email,
+            subject,
+            template,
+            sentAt: serverTimestamp()
+        }
+
+        // 2. Also log to a dedicated email_logs collection
+        await addDoc(collection(db, 'email_logs'), logEntry)
+
+        if (!snapshot.empty) {
+            const auditDoc = snapshot.docs[0]
+            await updateDoc(doc(db, 'audits', auditDoc.id), {
+                notes: arrayUnion({
+                    text: `Email Sent: ${subject} (${template})`,
+                    type: 'system',
+                    createdAt: new Date().toISOString()
+                })
+            })
+        }
+        console.log(`[LOGGED EMAIL] to ${email}: ${subject}`)
+    } catch (error) {
+        console.error('[LOG ERROR]', error)
+    }
+}
+
 // Email Templates
 function getHighIntentEmail({ firstName, companyName, auditScore, opportunities, freebies }: any) {
     const opportunitiesList = opportunities.map((opp: any) =>
-        `<li><strong>${opp.title}</strong> - ${opp.description}</li>`
+        `<li style="margin-bottom: 12px;"><strong>${opp.title}</strong> — ${opp.description}</li>`
     ).join('')
 
     return `
@@ -138,56 +204,50 @@ function getHighIntentEmail({ firstName, companyName, auditScore, opportunities,
 <html>
 <head>
     <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
-        .content { background: #f9fafb; padding: 30px; border-radius: 0 0 10px 10px; }
-        .highlight { background: #fef3c7; padding: 20px; border-radius: 8px; margin: 20px 0; }
-        .cta-button { display: inline-block; background: #8b5cf6; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold; margin: 20px 0; }
-        .opportunities { background: white; padding: 20px; border-radius: 8px; margin: 20px 0; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
     </style>
 </head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>🚀 Your AI Roadmap is Ready, ${firstName}!</h1>
-        </div>
-        <div class="content">
-            <p>Hi ${firstName},</p>
+<body style="margin: 0; padding: 0; background-color: #ffffff; font-family: 'Inter', sans-serif; color: #000000;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #ffffff; padding: 40px 0;">
+        <tr>
+            <td align="center">
+                <table width="600" cellpadding="0" cellspacing="0" style="width: 100%; max-width: 600px; border: 1px solid #000000;">
+                    <tr>
+                        <td style="padding: 40px; background-color: #000000;">
+                            <h1 style="margin: 0; color: #ffffff; font-size: 24px; font-weight: 700; text-transform: uppercase; letter-spacing: -0.02em;">AUDIT READY: ${firstName}</h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 40px;">
+                            <p style="font-size: 16px; margin-bottom: 24px;">Thank you for completing the AI readiness audit for <strong>${companyName}</strong>.</p>
 
-            <p>Thank you for completing your AI readiness audit for <strong>${companyName}</strong>.</p>
+                            <div style="background-color: #000000; color: #ffffff; padding: 30px; margin-bottom: 32px;">
+                                <h2 style="margin: 0; font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; color: #a1a1aa;">CRITICAL FINDING</h2>
+                                <p style="margin: 12px 0 0; font-size: 32px; font-weight: 700;">Score: ${auditScore}/100</p>
+                                <p style="margin: 8px 0 0; color: #a1a1aa; font-size: 14px;">Significant revenue leakage identified in current workflows.</p>
+                            </div>
 
-            <div class="highlight">
-                <h2 style="margin-top: 0;">⚠️ Critical Finding</h2>
-                <p>Based on your responses, you're currently leaving significant revenue on the table.</p>
-                <p style="font-size: 24px; font-weight: bold; color: #059669; margin: 10px 0;">Your AI Readiness Score: ${auditScore}/100</p>
-            </div>
+                            <h3 style="font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px; border-bottom: 1px solid #000000; padding-bottom: 8px;">Key Opportunities</h3>
+                            <ul style="padding-left: 20px; font-size: 15px;">
+                                ${opportunitiesList}
+                            </ul>
 
-            <div class="opportunities">
-                <h3>Here's what stood out:</h3>
-                <ul>
-                    ${opportunitiesList}
-                </ul>
-            </div>
+                            <p style="margin-top: 32px; font-weight: 600;">Next Step:</p>
+                            <p style="margin-top: 8px;">We have reserved a strategy session for you tomorrow to map your exact roadmap.</p>
 
-            <p><strong>Next Step:</strong> I've blocked off time tomorrow at 2 PM and 4 PM EST for strategy calls.</p>
+                            <div style="margin: 32px 0;">
+                                <a href="${CALENDAR_LINK}" style="display: inline-block; background-color: #000000; color: #ffffff; padding: 16px 32px; text-decoration: none; font-weight: 700; font-size: 14px; text-transform: uppercase;">Book Strategy Call →</a>
+                            </div>
 
-            <div style="text-align: center;">
-                <a href="${CALENDAR_LINK}" class="cta-button">Book Your Strategy Call</a>
-            </div>
-
-            <p>This isn't a sales pitch. It's a working session where we'll map out your exact automation roadmap.</p>
-
-            <p>Looking forward to it,<br>
-            The Eliana Team</p>
-
-            <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 30px 0;">
-
-            <p style="font-size: 14px; color: #6b7280;">
-                <strong>P.S.</strong> Even if we don't end up working together, you'll leave the call with a clear action plan.
-            </p>
-        </div>
-    </div>
+                            <p style="font-size: 14px; color: #71717a; margin-top: 40px;">
+                                <strong>P.S.</strong> This is a working session with the Eliana team. You'll leave with a clear action plan.
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>
     `
@@ -195,7 +255,7 @@ function getHighIntentEmail({ firstName, companyName, auditScore, opportunities,
 
 function getMediumIntentEmail({ firstName, companyName, auditScore, opportunities, freebies }: any) {
     const top3Opportunities = opportunities.slice(0, 3).map((opp: any, idx: number) =>
-        `<li><strong>${idx + 1}. ${opp.title}</strong> - ${opp.impact} Impact</li>`
+        `<li style="margin-bottom: 8px;"><strong>${opp.title}</strong> — ${opp.impact} Impact</li>`
     ).join('')
 
     return `
@@ -203,45 +263,47 @@ function getMediumIntentEmail({ firstName, companyName, auditScore, opportunitie
 <html>
 <head>
     <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-        .header { background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
-        .content { background: #f9fafb; padding: 30px; border-radius: 0 0 10px 10px; }
-        .score-box { background: white; padding: 20px; border-radius: 8px; text-align: center; margin: 20px 0; }
-        .cta-button { display: inline-block; background: #3b82f6; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: bold; margin: 10px 5px; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
     </style>
 </head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>Your ${companyName} AI Audit Results</h1>
-        </div>
-        <div class="content">
-            <p>Hi ${firstName},</p>
+<body style="margin: 0; padding: 0; background-color: #ffffff; font-family: 'Inter', sans-serif; color: #000000;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #ffffff; padding: 40px 0;">
+        <tr>
+            <td align="center">
+                <table width="600" cellpadding="0" cellspacing="0" style="width: 100%; max-width: 600px; border: 1px solid #000000;">
+                    <tr>
+                        <td style="padding: 40px; background-color: #000000;">
+                            <h1 style="margin: 0; color: #ffffff; font-size: 20px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">${companyName} Audit Results</h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 40px;">
+                            <p>Hi ${firstName}, your detailed audit is ready for review.</p>
 
-            <p>Your detailed audit is ready! Here are the key findings:</p>
+                            <div style="border: 2px solid #000000; padding: 30px; text-align: center; margin: 32px 0;">
+                                <h2 style="margin: 0; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em;">AI Readiness Score</h2>
+                                <p style="margin: 10px 0 0; font-size: 48px; font-weight: 800;">${auditScore}/100</p>
+                            </div>
 
-            <div class="score-box">
-                <h2 style="margin: 0; color: #8b5cf6;">Overall AI Readiness Score</h2>
-                <p style="font-size: 48px; font-weight: bold; margin: 10px 0;">${auditScore}/100</p>
-            </div>
+                            <h3 style="font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px;">Immediate Opportunities</h3>
+                            <ul style="padding-left: 20px; margin-bottom: 32px;">
+                                ${top3Opportunities}
+                            </ul>
 
-            <h3>Top 3 Opportunities:</h3>
-            <ul>
-                ${top3Opportunities}
-            </ul>
+                            <div style="margin: 32px 0; display: table; width: 100%;">
+                                <div style="display: table-cell; vertical-align: middle;">
+                                    <a href="https://elianatech.com/audit/results" style="display: inline-block; background-color: #eeeeee; color: #000000; padding: 14px 24px; text-decoration: none; font-weight: 600; font-size: 13px; text-transform: uppercase; margin-right: 12px;">View Full Report</a>
+                                    <a href="${CALENDAR_LINK}" style="display: inline-block; background-color: #000000; color: #ffffff; padding: 14px 24px; text-decoration: none; font-weight: 600; font-size: 13px; text-transform: uppercase;">Book Strategy Call</a>
+                                </div>
+                            </div>
 
-            <p>I've also included a DIY roadmap if you want to tackle this yourself.</p>
-
-            <div style="text-align: center; margin: 30px 0;">
-                <a href="https://eliana.tech/audit/results" class="cta-button">View Full Report</a>
-                <a href="${CALENDAR_LINK}" class="cta-button">Book Strategy Call</a>
-            </div>
-
-            <p>Best regards,<br>
-            The Eliana Team</p>
-        </div>
-    </div>
+                            <p style="margin-top: 32px; font-size: 14px; color: #71717a;">Best regards,<br>The Eliana Team</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>
     `
@@ -253,41 +315,44 @@ function getLowIntentEmail({ firstName, companyName, auditScore, freebies }: any
 <html>
 <head>
     <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-        .header { background: #1f2937; color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
-        .content { background: #f9fafb; padding: 30px; border-radius: 0 0 10px 10px; }
-        .resources { background: white; padding: 20px; border-radius: 8px; margin: 20px 0; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
     </style>
 </head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>Your Audit Results + Free Resources</h1>
-        </div>
-        <div class="content">
-            <p>Hi ${firstName},</p>
+<body style="margin: 0; padding: 0; background-color: #ffffff; font-family: 'Inter', sans-serif; color: #000000;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #ffffff; padding: 40px 0;">
+        <tr>
+            <td align="center">
+                <table width="600" cellpadding="0" cellspacing="0" style="width: 100%; max-width: 600px; border: 1px solid #000000;">
+                    <tr>
+                        <td style="padding: 30px; border-bottom: 1px solid #000000;">
+                            <h1 style="margin: 0; color: #000000; font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;">Audit Assessment Complete</h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 40px;">
+                            <p>Hi ${firstName}, thanks for completing the audit for <strong>${companyName}</strong>.</p>
 
-            <p>Thanks for completing the audit for <strong>${companyName}</strong>.</p>
+                            <p>Your results are ready (Score: <strong>${auditScore}/100</strong>). We've included a set of resources below to help you get started.</p>
 
-            <p>Your results are ready (Score: <strong>${auditScore}/100</strong>). No pressure to act on them right now.</p>
+                            <div style="background-color: #fafafa; border: 1px solid #eeeeee; padding: 24px; margin: 32px 0;">
+                                <h3 style="margin: 0 0 16px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em;">Free Resources Included:</h3>
+                                <ul style="margin: 0; padding-left: 20px; font-size: 14px;">
+                                    <li style="margin-bottom: 8px;">Full AI Readiness Report</li>
+                                    <li style="margin-bottom: 8px;">DIY Implementation Roadmap</li>
+                                    <li style="margin-bottom: 8px;">Tool Recommendations</li>
+                                    <li>ROI Calculator</li>
+                                </ul>
+                            </div>
 
-            <div class="resources">
-                <h3>📦 Free Resources Included:</h3>
-                <ul>
-                    <li>✓ Full AI Readiness Report</li>
-                    <li>✓ DIY Implementation Roadmap</li>
-                    <li>✓ Tool Recommendations</li>
-                    <li>✓ ROI Calculator</li>
-                </ul>
-            </div>
-
-            <p>Explore these at your own pace. If you ever want to chat, I'm here.</p>
-
-            <p>Best,<br>
-            The Eliana Team</p>
-        </div>
-    </div>
+                            <p style="font-size: 14px; color: #71717a;">View these at your convenience. If you have any questions, we are here.</p>
+                            
+                            <p style="margin-top: 32px; font-size: 14px; color: #000000; font-weight: 600;">The Eliana Team</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>
     `

@@ -28,13 +28,13 @@ export function RestaurantSplitScreen() {
                     </div>
 
                     <div className={`transition-all duration-1000 ease-out delay-200 ${sectionInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-orange-100 to-amber-100 border border-orange-200 mb-4">
-                            <span className="text-orange-600 font-semibold text-sm uppercase tracking-wide">CoFounder by Elianatech</span>
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-red-100 to-red-100 border border-red-200 mb-4">
+                            <span className="text-red-600 font-semibold text-sm uppercase tracking-wide">CoFounder by Elianatech</span>
                         </div>
 
                         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 lg:mb-12 text-balance">
                             <span className="text-slate-900">More Covers,</span>{" "}
-                            <span className="bg-gradient-to-r from-orange-600 via-amber-500 to-yellow-500 bg-clip-text text-transparent">
+                            <span className="bg-gradient-to-r from-red-600 via-red-500 to-red-500 bg-clip-text text-transparent">
                                 Less Chaos
                             </span>
                         </h2>
@@ -63,7 +63,7 @@ export function RestaurantSplitScreen() {
                             <div className="bg-gray-800 p-3 rounded-lg rounded-tl-none mr-8">
                                 <p className="text-white text-sm">Table for 4 tonight at 8?</p>
                             </div>
-                            <div className="bg-orange-700 p-3 rounded-lg rounded-tr-none ml-8">
+                            <div className="bg-red-700 p-3 rounded-lg rounded-tr-none ml-8">
                                 <p className="text-white text-sm">We are fully booked at 8pm, but I have a table available at 6:30pm or 9pm. Would either of those work?</p>
                             </div>
                         </div>

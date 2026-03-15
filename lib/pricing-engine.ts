@@ -158,7 +158,7 @@ export function runPricingEngine(fd: any): PricingResult {
         discounts: [],
         intentLevel,
         reasoning: ['Revenue under $100K — disqualified.'],
-        timeline: '2-4 weeks',
+        timeline: '30 days',
       }
     }
     reasoning.push('Revenue under $100K but pain is 7+ — reframing value.')
@@ -179,7 +179,7 @@ export function runPricingEngine(fd: any): PricingResult {
       discounts: [],
       intentLevel,
       reasoning: ['Budget under $5K + low pain + low excitement — disqualified.'],
-      timeline: '2-4 weeks',
+      timeline: '30 days',
     }
   }
 
@@ -279,8 +279,8 @@ export function runPricingEngine(fd: any): PricingResult {
 
   // Tier labels and ranges
   const tierConfig = {
-    'multi-system': { label: 'Multi-System Build', range: '$7,500 – $15,000', timeline: '2-4 weeks' },
-    'full-build': { label: 'Full Build', range: '$15,000 – $40,000', timeline: '4-8 weeks' },
+    'multi-system': { label: 'Multi-System Build', range: '$7,500 – $15,000', timeline: '30 days' },
+    'full-build': { label: 'Full Build', range: '$15,000 – $40,000', timeline: '6-10 weeks' },
     'ai-native': { label: 'AI-Native Operations', range: '$40,000+', timeline: '8-16 weeks' },
   }
 

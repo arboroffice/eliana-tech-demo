@@ -36,7 +36,7 @@ export function BlogNewsletterForm() {
         <div className="bg-black border border-white/10 rounded-2xl p-6 sm:p-8 max-w-md mx-auto">
             <h3 className="text-white font-bold text-lg text-center mb-1">Join the Newsletter</h3>
             <p className="text-slate-400 text-sm text-center mb-5">
-                AI playbooks for business owners. No fluff.
+                AI playbooks for business owners.
             </p>
             <form onSubmit={handleSubmit} className="space-y-3">
                 <input
@@ -45,7 +45,7 @@ export function BlogNewsletterForm() {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="your@email.com"
                     required
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-500 transition-colors text-sm"
+                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:border-red-500 transition-colors text-sm"
                 />
                 <button
                     type="submit"

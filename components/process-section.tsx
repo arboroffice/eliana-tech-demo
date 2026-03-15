@@ -3,23 +3,23 @@
 const steps = [
   {
     number: "01",
-    title: "Apply for Your AI Audit",
-    description: "Free. Takes 5 minutes. Tell us about your business and where you're stuck.",
+    title: "Apply",
+    description: "Three questions: What are you building? What have you already tried? Why now? Application only.",
   },
   {
     number: "02",
-    title: "We Diagnose Your Business",
-    description: "We find the leaks, map the opportunities, and show you what's possible with AI.",
+    title: "We Review",
+    description: "We filter for founders who are serious. If you're ready, we reach out within 48 hours.",
   },
   {
     number: "03",
-    title: "Choose Your Path",
-    description: "The Container (learn with Mia) or Done-For-You (we handle everything). Your call.",
+    title: "We Build Together",
+    description: "30 days. We build your systems, content, agents, and infrastructure alongside you. Not coaching — building.",
   },
   {
     number: "04",
-    title: "Transform",
-    description: "Systems installed. Operations automated. Freedom unlocked.",
+    title: "You're Running",
+    description: "LLMs trained. Content waterfall live. Agents working. Business running without you as the bottleneck.",
   },
 ]
 
@@ -29,13 +29,13 @@ export function ProcessSection() {
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-16">
           <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 border border-white/20 text-slate-300 text-sm font-medium mb-6">
-            Simple. Intentional. Effective.
+            Application Only. Scarcity Is Real.
           </div>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
             How It Works
           </h2>
           <p className="text-lg text-slate-400 max-w-2xl mx-auto font-light">
-            Four steps from overwhelmed to operating in flow.
+            The application does the selling.
           </p>
         </div>
 

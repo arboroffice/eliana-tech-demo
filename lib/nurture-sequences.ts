@@ -11,46 +11,73 @@ export interface NurtureEmail {
 }
 
 export interface NurtureSequence {
-  id: 'A' | 'B' | 'C'
+  id: 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H'
   name: string
   emails: NurtureEmail[]
 }
 
-const CAL_LINK = 'https://cal.com/mia-louviere-a4n2hk/30min'
+const CAL_LINK = 'https://cal.com/elianatech/30min'
 
 // ─── HTML Email Wrapper ──────────────────────────────────────────────
 function wrapEmail(bodyContent: string): string {
   return `<!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
-<body style="margin:0;padding:0;background:#f1f5f9;font-family:Arial,Helvetica,sans-serif;">
-<table width="100%" cellpadding="0" cellspacing="0" style="background:#f1f5f9;padding:20px 0;">
-<tr><td align="center">
-<table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#ffffff;border-radius:8px;overflow:hidden;">
-<!-- Header -->
-<tr><td style="background:#1e293b;padding:28px 32px;text-align:center;">
-<h1 style="margin:0;color:#ffffff;font-size:22px;font-weight:700;letter-spacing:0.5px;">ElianaTech</h1>
-<p style="margin:4px 0 0;color:#94a3b8;font-size:13px;">AI-Powered Business Automation</p>
-</td></tr>
-<!-- Body -->
-<tr><td style="padding:32px;color:#334155;font-size:15px;line-height:1.7;">
-${bodyContent}
-</td></tr>
-<!-- Footer -->
-<tr><td style="background:#f8fafc;padding:24px 32px;text-align:center;border-top:1px solid #e2e8f0;">
-<p style="margin:0 0 8px;color:#64748b;font-size:13px;">ElianaTech &middot; <a href="https://elianatech.com" style="color:#2563eb;text-decoration:none;">elianatech.com</a></p>
-<p style="margin:0;color:#94a3b8;font-size:11px;"><a href="{unsubscribeLink}" style="color:#94a3b8;text-decoration:underline;">Unsubscribe</a></p>
-</td></tr>
-</table>
-</td></tr>
-</table>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+    </style>
+</head>
+<body style="margin: 0; padding: 0; background-color: #ffffff; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; -webkit-font-smoothing: antialiased; color: #000000;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #ffffff;">
+        <tr>
+            <td align="center" style="padding: 40px 0;">
+                <table width="600" cellpadding="0" cellspacing="0" style="width: 100%; max-width: 600px; background-color: #ffffff; border: 1px solid #000000;">
+                    <!-- Header -->
+                    <tr>
+                        <td style="padding: 40px 40px 30px 40px; text-align: left; background-color: #000000;">
+                            <h1 style="margin: 0; color: #ffffff; font-size: 24px; font-weight: 700; letter-spacing: -0.02em; text-transform: uppercase;">ELIANATECH</h1>
+                        </td>
+                    </tr>
+                    <!-- Body -->
+                    <tr>
+                        <td style="padding: 50px 40px; color: #000000; font-size: 16px; line-height: 1.6; letter-spacing: -0.01em;">
+                            ${bodyContent}
+                        </td>
+                    </tr>
+                    <!-- Footer -->
+                    <tr>
+                        <td style="padding: 40px; border-top: 1px solid #f4f4f5; background-color: #ffffff; text-align: left;">
+                            <table width="100%" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td>
+                                        <p style="margin: 0; color: #000000; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">ElianaTech OS</p>
+                                        <p style="margin: 4px 0 0; color: #71717a; font-size: 11px;">The leading infrastructure for decentralized intelligence.</p>
+                                    </td>
+                                    <td align="right" style="vertical-align: bottom;">
+                                        <a href="https://elianatech.com" style="color: #000000; text-decoration: none; font-size: 11px; font-weight: 600; border-bottom: 1px solid #000000;">WEBSITE</a>
+                                        <span style="margin: 0 8px; color: #d4d4d8;">|</span>
+                                        <a href="{unsubscribeLink}" style="color: #71717a; text-decoration: none; font-size: 11px;">UNSUBSCRIBE</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <p style="margin-top: 24px; color: #a1a1aa; font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em;">© 2026 ELIANA TECHNOLOGIES CORP.</p>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>`
 }
 
 function ctaButton(text: string, link: string = CAL_LINK): string {
-  return `<div style="text-align:center;margin:28px 0;">
-<a href="${link}" style="display:inline-block;background:#2563eb;color:#ffffff;padding:14px 32px;border-radius:6px;text-decoration:none;font-weight:600;font-size:15px;">${text}</a>
+  return `<div style="margin: 32px 0;">
+    <a href="${link}" style="display: inline-block; background-color: #000000; color: #ffffff; padding: 16px 32px; border: 1px solid #000000; text-decoration: none; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em; transition: all 0.2s ease;">
+        ${text}
+    </a>
 </div>`
 }
 
@@ -61,13 +88,13 @@ const sequenceA: NurtureSequence = {
   emails: [
     {
       day: 0,
-      subject: '{name}, your AI audit results are ready',
+      subject: '[Priority] Your {companyName} AI Readiness Report',
       bodyHtml: wrapEmail(`
 <p>Hey {name},</p>
 <p>I just reviewed your audit personally — and I have to say, <strong>{companyName}</strong> has serious potential for AI automation.</p>
-<div style="background:#f0fdf4;border-left:4px solid #22c55e;padding:16px 20px;border-radius:4px;margin:20px 0;">
-<p style="margin:0 0 4px;font-size:20px;font-weight:700;color:#166534;">Your AI Readiness Score: {auditScore}/100</p>
-<p style="margin:0;color:#15803d;font-size:14px;">This means massive room for automation wins.</p>
+<div style="background:#fef2f2;border-left:4px solid #dc2626;padding:16px 20px;border-radius:4px;margin:20px 0;">
+<p style="margin:0 0 4px;font-size:20px;font-weight:700;color:#7f1d1d;">Your AI Readiness Score: {auditScore}/100</p>
+<p style="margin:0;color:#991b1b;font-size:14px;">This means massive room for automation wins.</p>
 </div>
 <p><strong>Here's what stands out — your top 3 opportunities:</strong></p>
 <ol style="padding-left:20px;">
@@ -84,16 +111,16 @@ ${ctaButton('Book Your Strategy Call →')}
     },
     {
       day: 1,
-      subject: 'How a {industry} business saved 20+ hrs/week with AI',
+      subject: '20+ hours/week deleted (AI results for {industry})',
       bodyHtml: wrapEmail(`
 <p>Hey {name},</p>
 <p>Yesterday I sent your audit results. Today I want to show you what's <em>possible</em>.</p>
-<div style="background:#eff6ff;padding:20px;border-radius:6px;margin:20px 0;">
-<h3 style="margin:0 0 12px;color:#1e40af;">Case Study: {industry} Business Transformation</h3>
+<div style="background:#fef2f2;padding:20px;border-radius:6px;margin:20px 0;">
+<h3 style="margin:0 0 12px;color:#991b1b;">Case Study: {industry} Business Transformation</h3>
 <table width="100%" cellpadding="8" style="font-size:14px;">
 <tr><td style="color:#dc2626;font-weight:600;">Before:</td><td>60+ hr weeks, manual onboarding, support backlog, high churn</td></tr>
-<tr><td style="color:#16a34a;font-weight:600;">After:</td><td>25 hr weeks, automated onboarding, AI support handling 80% of tickets, churn cut in half</td></tr>
-<tr><td style="color:#2563eb;font-weight:600;">Results:</td><td>+$15K/mo ARR, 20+ hrs/week saved, 45% churn reduction</td></tr>
+<tr><td style="color:#dc2626;font-weight:600;">After:</td><td>25 hr weeks, automated onboarding, AI support handling 80% of tickets, churn cut in half</td></tr>
+<tr><td style="color:#dc2626;font-weight:600;">Results:</td><td>+$15K/mo ARR, 20+ hrs/week saved, 45% churn reduction</td></tr>
 </table>
 </div>
 <p><strong>This is exactly what we'd build for {companyName}.</strong></p>
@@ -104,7 +131,7 @@ ${ctaButton('See How We\'d Do This For You →')}
     },
     {
       day: 2,
-      subject: 'Here\'s what we\'d install for {companyName}',
+      subject: 'The {companyName} Automated Installation Map',
       bodyHtml: wrapEmail(`
 <p>Hey {name},</p>
 <p>I mapped out your first 90 days with ElianaTech. Here's a preview of what we'd build for <strong>{companyName}</strong>:</p>
@@ -124,16 +151,16 @@ ${ctaButton('Let\'s Talk — Get the Full Proposal →')}
     },
     {
       day: 4,
-      subject: 'The math on AI for {companyName}',
+      subject: 'The $11k/mo logic (Math for {companyName})',
       bodyHtml: wrapEmail(`
 <p>Hey {name},</p>
 <p>Let's talk numbers. Based on your audit, here's what AI could do for <strong>{companyName}</strong>:</p>
 <table width="100%" cellpadding="12" style="border-collapse:collapse;margin:20px 0;font-size:14px;">
-<tr style="background:#f8fafc;"><td style="border:1px solid #e2e8f0;font-weight:600;">Churn reduction</td><td style="border:1px solid #e2e8f0;">30-50% fewer cancellations → <strong style="color:#16a34a;">$5,000-$15,000/mo saved</strong></td></tr>
-<tr><td style="border:1px solid #e2e8f0;font-weight:600;">Hours saved weekly</td><td style="border:1px solid #e2e8f0;">15-20 hrs → <strong style="color:#16a34a;">$2,500-$4,000/mo value</strong></td></tr>
-<tr style="background:#f8fafc;"><td style="border:1px solid #e2e8f0;font-weight:600;">Conversion rate improvement</td><td style="border:1px solid #e2e8f0;">+30-50% → <strong style="color:#16a34a;">$5,000-$15,000/mo</strong></td></tr>
-<tr><td style="border:1px solid #e2e8f0;font-weight:600;">Support automation</td><td style="border:1px solid #e2e8f0;">80% ticket deflection → <strong style="color:#16a34a;">Faster response, happier users</strong></td></tr>
-<tr style="background:#eff6ff;"><td style="border:1px solid #2563eb;font-weight:700;color:#1e40af;">Total estimated impact</td><td style="border:1px solid #2563eb;font-weight:700;color:#1e40af;font-size:18px;">$11,500-$31,000/mo</td></tr>
+<tr style="background:#f8fafc;"><td style="border:1px solid #e2e8f0;font-weight:600;">Churn reduction</td><td style="border:1px solid #e2e8f0;">30-50% fewer cancellations → <strong style="color:#dc2626;">$5,000-$15,000/mo saved</strong></td></tr>
+<tr><td style="border:1px solid #e2e8f0;font-weight:600;">Hours saved weekly</td><td style="border:1px solid #e2e8f0;">15-20 hrs → <strong style="color:#dc2626;">$2,500-$4,000/mo value</strong></td></tr>
+<tr style="background:#f8fafc;"><td style="border:1px solid #e2e8f0;font-weight:600;">Conversion rate improvement</td><td style="border:1px solid #e2e8f0;">+30-50% → <strong style="color:#dc2626;">$5,000-$15,000/mo</strong></td></tr>
+<tr><td style="border:1px solid #e2e8f0;font-weight:600;">Support automation</td><td style="border:1px solid #e2e8f0;">80% ticket deflection → <strong style="color:#dc2626;">Faster response, happier users</strong></td></tr>
+<tr style="background:#fef2f2;"><td style="border:1px solid #dc2626;font-weight:700;color:#991b1b;">Total estimated impact</td><td style="border:1px solid #dc2626;font-weight:700;color:#991b1b;font-size:18px;">$11,500-$31,000/mo</td></tr>
 </table>
 <p>vs. hiring a full-time operations person ($5,000-$8,000/mo who still can't work 24/7).</p>
 <p><strong>The ROI isn't even close.</strong></p>
@@ -143,7 +170,7 @@ ${ctaButton('Book a Call — Let\'s Build This →')}
     },
     {
       day: 7,
-      subject: 'Last {spotsLeft} spots this month',
+      subject: '[URGENT] Final {spotsLeft} installation spots remain',
       bodyHtml: wrapEmail(`
 <p>Hey {name},</p>
 <p>Quick update — we only take <strong>5 new installations per month</strong> to ensure every client gets our full attention.</p>
@@ -176,13 +203,13 @@ const sequenceB: NurtureSequence = {
   emails: [
     {
       day: 0,
-      subject: '{name}, your AI audit results + quick wins',
+      subject: 'Your {companyName} AI Score: {auditScore}/100',
       bodyHtml: wrapEmail(`
 <p>Hey {name},</p>
 <p>Thanks for completing your AI readiness audit for <strong>{companyName}</strong>! Here are your results:</p>
-<div style="background:#eff6ff;padding:20px;border-radius:6px;text-align:center;margin:20px 0;">
+<div style="background:#fef2f2;padding:20px;border-radius:6px;text-align:center;margin:20px 0;">
 <p style="margin:0;font-size:14px;color:#64748b;">Your AI Readiness Score</p>
-<p style="margin:8px 0;font-size:42px;font-weight:700;color:#2563eb;">{auditScore}/100</p>
+<p style="margin:8px 0;font-size:42px;font-weight:700;color:#dc2626;">{auditScore}/100</p>
 </div>
 <p><strong>3 Quick Wins You Can Implement This Week:</strong></p>
 <ol style="padding-left:20px;">
@@ -197,7 +224,7 @@ ${ctaButton('View Full Report →', 'https://elianatech.com/audit/results')}
     },
     {
       day: 3,
-      subject: 'What AI actually does for a {industry} business',
+      subject: 'AI vs. Reality (for {industry} founders)',
       bodyHtml: wrapEmail(`
 <p>Hey {name},</p>
 <p>There's a lot of hype around AI. Let me cut through it and show you what it <em>actually</em> looks like for a <strong>{industry}</strong> business like {companyName}.</p>
@@ -222,7 +249,7 @@ ${ctaButton('View Full Report →', 'https://elianatech.com/audit/results')}
     },
     {
       day: 7,
-      subject: 'How {industry} owners are winning with AI (real results)',
+      subject: '45% Churn Reduction (Real results in {industry})',
       bodyHtml: wrapEmail(`
 <p>Hey {name},</p>
 <p>Wanted to share some results from business owners like you:</p>
@@ -245,7 +272,7 @@ ${ctaButton('Let\'s Find Out →')}
     },
     {
       day: 10,
-      subject: 'Free {industry} AI playbook (yours to keep)',
+      subject: 'Gift: The {industry} AI Operational Playbook',
       bodyHtml: wrapEmail(`
 <p>Hey {name},</p>
 <p>I put together a quick playbook for <strong>{industry}</strong> business owners who want to start using AI — even without hiring us.</p>
@@ -266,7 +293,7 @@ ${ctaButton('Download Your Free Playbook →', 'https://elianatech.com/playbook'
     },
     {
       day: 14,
-      subject: 'Business owners like you are saving 20+ hrs/week',
+      subject: 'Where will you spend your extra 20 hours?',
       bodyHtml: wrapEmail(`
 <p>Hey {name},</p>
 <p>Quick thought: what would you do with 20 extra hours per week?</p>
@@ -330,16 +357,16 @@ const sequenceC: NurtureSequence = {
   emails: [
     {
       day: 0,
-      subject: 'Thanks for your interest, {name}!',
+      subject: 'Audit Received: {companyName} ({auditScore}/100)',
       bodyHtml: wrapEmail(`
 <p>Hey {name},</p>
 <p>Thanks for completing the AI readiness audit for <strong>{companyName}</strong>!</p>
-<div style="background:#eff6ff;padding:20px;border-radius:6px;text-align:center;margin:20px 0;">
+<div style="background:#fef2f2;padding:20px;border-radius:6px;text-align:center;margin:20px 0;">
 <p style="margin:0;font-size:14px;color:#64748b;">Your Score</p>
-<p style="margin:8px 0;font-size:36px;font-weight:700;color:#2563eb;">{auditScore}/100</p>
+<p style="margin:8px 0;font-size:36px;font-weight:700;color:#dc2626;">{auditScore}/100</p>
 </div>
 <p><strong>Here's 1 quick win you can do today:</strong></p>
-<div style="background:#f0fdf4;padding:16px 20px;border-radius:6px;margin:16px 0;">
+<div style="background:#fef2f2;padding:16px 20px;border-radius:6px;margin:16px 0;">
 <p style="margin:0;"><strong>Set up a simple welcome email sequence</strong> in your email tool. Even 3 emails (welcome, quick win, next steps) reduces new user drop-off by 30%. Takes 15 minutes.</p>
 </div>
 <p>I'll send you more tips and resources over the coming weeks. No spam — just useful stuff.</p>
@@ -348,7 +375,7 @@ const sequenceC: NurtureSequence = {
     },
     {
       day: 7,
-      subject: '3 AI tools every small business should use (free)',
+      subject: '3 "Zero-Cost" AI tools for {companyName}',
       bodyHtml: wrapEmail(`
 <p>Hey {name},</p>
 <p>Here are 3 free AI tools you can start using right now:</p>
@@ -365,7 +392,7 @@ ${ctaButton('Read the Full Guide →', 'https://elianatech.com/blog')}
     },
     {
       day: 14,
-      subject: 'From 60-hour weeks to 35 (a real story)',
+      subject: 'The "60-Hour Trap" (and how to escape it)',
       bodyHtml: wrapEmail(`
 <p>Hey {name},</p>
 <p>Quick story I thought you'd appreciate:</p>
@@ -406,11 +433,241 @@ ${ctaButton('Book Your Free Call →')}
   ]
 }
 
+
+// ─── SEQUENCE D: No-Show Recovery (3 emails, 7 days) ────────────────
+const sequenceD: NurtureSequence = {
+  id: 'D',
+  name: 'No-Show Recovery',
+  emails: [
+    {
+      day: 0,
+      subject: 'Rough day? (regarding our call)',
+      bodyHtml: wrapEmail(`
+<p>Hey {firstName},</p>
+<p>I was looking forward to our strategy session today, but it looks like we couldn't connect.</p>
+<p>I know how unpredictable things can get when you're running <strong>{companyName}</strong>. No worries at all.</p>
+<p>I've left the reschedule window open for you here:</p>
+${ctaButton('Reschedule Your Session →')}
+<p>Talk soon,<br>Mia</p>
+      `)
+    },
+    {
+      day: 2,
+      subject: '[Roadmap] Your custom audit data is attached',
+      bodyHtml: wrapEmail(`
+<p>Hey {firstName},</p>
+<p>Still wanted to make sure you got the custom audit data I prepared for our call.</p>
+<p>Even if we don't reschedule immediately, I'd love to send over the 3-step automation roadmap I mapped out for you. Should I shoot that over via email instead?</p>
+<p>If you'd rather walk through it live, you can grab a new time here:</p>
+${ctaButton('Pick a New Time →')}
+<p>Best,<br>Mia</p>
+      `)
+    },
+    {
+      day: 7,
+      subject: 'Should I close this file?',
+      bodyHtml: wrapEmail(`
+<p>Hey {firstName},</p>
+<p>I haven't heard back, so I'm assuming AI infrastructure isn't a priority for {companyName} right now.</p>
+<p>I'll go ahead and move your audit results to our "inactive" folder for now to keep things clean. If you ever want to revisit this in the future, just reach out.</p>
+<p>Rooting for your success either way!</p>
+<p>Mia</p>
+      `)
+    }
+  ]
+}
+
+// ─── SEQUENCE E: Webinar Follow-up (3 emails, 5 days) ───────────────
+const sequenceE: NurtureSequence = {
+  id: 'E',
+  name: 'Webinar Follow-up',
+  emails: [
+    {
+      day: 0,
+      subject: 'The {industry} AI Replay is live',
+      bodyHtml: wrapEmail(`
+<p>Hey {firstName},</p>
+<p>Thanks for joining the session today! We covered a lot of ground regarding how <strong>{industry}</strong> companies are using neural layers to scale without hiring.</p>
+<p>In case you missed any part of it, here is the full replay:</p>
+${ctaButton('Watch the Replay →', 'https://elianatech.com/webinar/replay')}
+<p><strong>One major takeaway:</strong> The bridge between where {companyName} is now and full automation is shorter than you think.</p>
+<p>Talk soon,<br>Mia</p>
+      `)
+    },
+    {
+      day: 2,
+      subject: 'The "Founder Infrastructure" Offer',
+      bodyHtml: wrapEmail(`
+<p>Hey {firstName},</p>
+<p>On the webinar, I mentioned a limited installation offer for founders who are ready to stop being the "manual labor" in their own systems.</p>
+<p>We are opening <strong>3 spots</strong> for our Full Buildout program this month. This includes:</p>
+<ul style="padding-left:20px;">
+<li>Custom Neural Onboarding Layer</li>
+<li>Automated Operations Dashboard</li>
+<li>24/7 AI Support Agent Installation</li>
+</ul>
+<p>Want to see if {companyName} is a fit for one of these spots?</p>
+${ctaButton('Apply for Installation →')}
+<p>Mia</p>
+      `)
+    },
+    {
+      day: 5,
+      subject: 'Last call on webinar bonuses',
+      bodyHtml: wrapEmail(`
+<p>Hey {firstName},</p>
+<p>Just a heads up that the webinar bonuses (including the free ROI audit) expire tonight.</p>
+<p>If you've been thinking about building a more resilient infrastructure for {companyName}, this is the time to start.</p>
+${ctaButton('Claim Your Bonus Session →')}
+<p>See you on the other side,<br>Mia</p>
+      `)
+    }
+  ]
+}
+
+// ─── SEQUENCE F: Abandoned Audit Nudge (2 emails, 2 days) ───────────
+const sequenceF: NurtureSequence = {
+  id: 'F',
+  name: 'Abandoned Audit Nudge',
+  emails: [
+    {
+      day: 0,
+      subject: 'Your {companyName} report is 70% complete',
+      bodyHtml: wrapEmail(`
+<p>Hey {firstName},</p>
+<p>I noticed you started the AI Readiness Audit for <strong>{companyName}</strong> but didn't quite finish.</p>
+<p>You were only a few questions away from seeing your score. Most people in the <strong>{industry}</strong> space are surprised by their results—it usually highlights exact revenue leaks you aren't seeing yet.</p>
+<p>Want to finish it up? It'll take about 60 seconds.</p>
+${ctaButton('Finish Your Audit →', 'https://elianatech.com/audit')}
+<p>Talk soon,<br>Mia</p>
+      `)
+    },
+    {
+      day: 1,
+      subject: 'Quick nudge: Your {companyName} results',
+      bodyHtml: wrapEmail(`
+<p>Hey {firstName},</p>
+<p>Just checking in one last time on that audit. I'd hate for you to miss the specific automation roadmap we generate at the end.</p>
+<p>Here's the link to pick up where you left off:</p>
+${ctaButton('See My Score →', 'https://elianatech.com/audit')}
+<p>Mia</p>
+      `)
+    }
+  ]
+}
+
+// ─── SEQUENCE G: Client Onboarding (4 emails, 30 days) ──────────────
+const sequenceG: NurtureSequence = {
+  id: 'G',
+  name: 'Client Onboarding',
+  emails: [
+    {
+      day: 0,
+      subject: '[Welcome] {companyName} Onboarding Active',
+      bodyHtml: wrapEmail(`
+<p>Hey {firstName},</p>
+<p>Welcome to ElianaTech. We are thrilled to be building the neural infrastructure for <strong>{companyName}</strong>.</p>
+<p>Our team is already preparing your workspace. To get started, please complete your Technical Prerequisites form here:</p>
+${ctaButton('Technical Onboarding →', 'https://elianatech.com/onboarding/portal')}
+<p>This will allow us to connect your data layers and start the audit of your current SOPs.</p>
+<p>To your success,<br>Mia</p>
+      `)
+    },
+    {
+      day: 3,
+      subject: 'Week 1: Connecting the Dots',
+      bodyHtml: wrapEmail(`
+<p>Hey {firstName},</p>
+<p>Quick update: your core data infrastructure is being mapped. In the next few days, you'll see the first "Draft Agent" appear in your dashboard.</p>
+<p><strong>What to expect this week:</strong> We'll be focusing on identifying the highest-leverage automation point for {companyName}.</p>
+<p>No action needed from you right now—just wanted to keep you in the loop.</p>
+<p>Best,<br>Mia</p>
+      `)
+    },
+    {
+      day: 14,
+      subject: 'Your First Victory',
+      bodyHtml: wrapEmail(`
+<p>Hey {firstName},</p>
+<p>Two weeks in! By now, you should be seeing the first automated flows running for {companyName}.</p>
+<p>How does it feel to have those hours back? Check your performance dashboard here to see the live ROI data:</p>
+${ctaButton('View Performance Dashboard →')}
+<p>Mia</p>
+      `)
+    },
+    {
+      day: 30,
+      subject: 'Month 1 Review + Next Steps',
+      bodyHtml: wrapEmail(`
+<p>Hey {firstName},</p>
+<p>We've officially completed Phase 1 of your installation.</p>
+<p>We've reclaimed approximately {hoursSaved} hours for your team this month. Now, it's time to talk about Phase 2: **Scale**.</p>
+<p>Let's hop on a 15-minute sync to review the results and plan the next layer.</p>
+${ctaButton('Book Monthly Review →')}
+<p>Talk soon,<br>Mia</p>
+      `)
+    }
+  ]
+}
+
+// ─── SEQUENCE H: Cold Re-engagement (3 emails, 90 days) ─────────────
+const sequenceH: NurtureSequence = {
+  id: 'H',
+  name: 'Long-term Re-engagement',
+  emails: [
+    {
+      day: 0,
+      subject: 'Re: AI Infrastructure for {companyName}',
+      bodyHtml: wrapEmail(`
+<p>Hey {firstName},</p>
+<p>It's been a while since we looked at the AI infrastructure for <strong>{companyName}</strong>.</p>
+<p>A lot has changed in the neural space over the last few months. Specifically, we've launched a new "Autonomous Support" layer that has been cutting client support costs by 70%.</p>
+<p>Curious if your automation goals have shifted since we last spoke?</p>
+${ctaButton('Update My Goals →')}
+<p>Mia</p>
+      `)
+    },
+    {
+      day: 30,
+      subject: 'New Case Study: 4.5x ROI in {industry}',
+      bodyHtml: wrapEmail(`
+<p>Hey {firstName},</p>
+<p>Thought you'd find this interesting. We just finished a build for a <strong>{industry}</strong> founder who was in a similar position to you.</p>
+<p>They went from manual lead gen to a fully autonomous outreach engine in 45 days. The ROI was 4.5x in the first quarter.</p>
+<p>Want to see the breakdown of how we built it?</p>
+${ctaButton('Read the Case Study →', 'https://elianatech.com/blog/case-study')}
+<p>Best,<br>Mia</p>
+      `)
+    },
+    {
+      day: 60,
+      subject: 'Quarterly Update regarding {companyName}',
+      bodyHtml: wrapEmail(`
+<p>Hey {firstName},</p>
+<p>Just a quick personal note. I'm doing some planning for next quarter's installation slots.</p>
+<p>If you're planning on building out AI operations for <strong>{companyName}</strong> this year, let's have a 5-minute chat so I can reserve a priority spot for you.</p>
+<p>No pressure, just want to make sure you're taken care of when you're ready.</p>
+${ctaButton('Book a 5-Minute Sync →')}
+<p>Mia</p>
+      `)
+    }
+  ]
+}
+
 // ─── Exports ─────────────────────────────────────────────────────────
 
-const sequences: Record<string, NurtureSequence> = { A: sequenceA, B: sequenceB, C: sequenceC }
+const sequences: Record<string, NurtureSequence> = { 
+  A: sequenceA, 
+  B: sequenceB, 
+  C: sequenceC,
+  D: sequenceD,
+  E: sequenceE,
+  F: sequenceF,
+  G: sequenceG,
+  H: sequenceH
+}
 
-export function getSequence(id: 'A' | 'B' | 'C'): NurtureSequence {
+export function getSequence(id: string): NurtureSequence {
   return sequences[id]
 }
 

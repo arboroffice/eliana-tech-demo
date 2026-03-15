@@ -33,7 +33,7 @@ export function PhoneMockup({
             </div>
             <div className="flex-1">
               <div className="text-white font-semibold text-sm sm:text-base">{headerTitle}</div>
-              <div className="text-green-200 text-xs sm:text-sm">{headerSubtitle}</div>
+              <div className="text-red-200 text-xs sm:text-sm">{headerSubtitle}</div>
             </div>
             {headerIcon || <MessageCircle className="w-5 sm:w-6 h-5 sm:h-6 text-white/80" />}
           </div>

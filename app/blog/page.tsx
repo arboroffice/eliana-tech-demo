@@ -1,43 +1,35 @@
-import { GlassmorphismNav } from "../../components/glassmorphism-nav"
-import Aurora from "../../components/Aurora"
-import { Footer } from "../../components/footer"
-import { getAllBlogPosts } from "../../lib/blog"
+import { GlassmorphismNav } from "@/components/glassmorphism-nav"
+import { Footer } from "@/components/footer"
+import { getAllBlogPosts } from "@/lib/blog"
 import BlogFilter from "./BlogFilter"
-import { BlogNewsletterForm } from "../../components/blog-newsletter-form"
 
 export default function BlogPage() {
-    const posts = getAllBlogPosts()
+  const posts = getAllBlogPosts()
 
-    return (
-        <div className="min-h-screen bg-black overflow-hidden font-sans">
-            <GlassmorphismNav />
-            <div className="fixed inset-0 w-full h-full">
-                <Aurora colorStops={["#475569", "#64748b", "#475569"]} amplitude={1.2} blend={0.6} speed={0.8} />
-            </div>
+  return (
+    <div className="min-h-screen bg-[#FAFAF8] text-[#0C0C0C] font-mono antialiased">
+      <GlassmorphismNav />
 
-            <main className="relative z-10 pt-24 pb-20">
-                {/* Hero */}
-                <div className="px-6 max-w-7xl mx-auto mb-12 text-center">
-                    <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">Insights</h1>
-                    <p className="text-xl text-slate-300 max-w-2xl mx-auto mb-8">
-                        Insights on the future of work, AI automation, and scaling your business without scaling headcount.
-                    </p>
+      <main className="pt-32 pb-20 px-6 max-w-7xl mx-auto">
+        <section className="mb-16 text-center">
+          <div className="text-[10px] tracking-[0.4em] uppercase text-[#D90019] flex items-center justify-center gap-3 mb-6
+                        before:content-[''] before:w-6 before:h-[1px] before:bg-[#D90019]">
+            Insights
+          </div>
+          <h1 className="font-bebas-neue text-[clamp(44px,6vw,80px)] leading-[0.9] tracking-[0.02em] text-[#0C0C0C] mb-6">
+            Own Your <span className="text-[#D90019]">Intelligence</span>
+          </h1>
+          <p className="text-sm text-[#555] max-w-2xl mx-auto leading-relaxed">
+            Insights on the future of work, AI automation, and scaling your business without scaling headcount.
+          </p>
+        </section>
 
-                    {/* Newsletter CTA */}
-                    <div className="flex justify-center mb-16 px-4">
-                        <BlogNewsletterForm />
-                    </div>
-                </div>
+        <section className="mb-24">
+          <BlogFilter posts={posts} />
+        </section>
+      </main>
 
-                {/* Filtered Blog Grid */}
-                <div className="px-6 max-w-7xl mx-auto">
-                    <BlogFilter posts={posts} />
-                </div>
-            </main>
-
-            <div className="relative z-10">
-                <Footer />
-            </div>
-        </div>
-    )
+      <Footer />
+    </div>
+  )
 }

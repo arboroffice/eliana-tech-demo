@@ -7,13 +7,13 @@ import twilio from 'twilio'
 import { db } from './firebase'
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 
-const twilioClient = twilio(
-    process.env.TWILIO_ACCOUNT_SID,
-    process.env.TWILIO_AUTH_TOKEN
+export const twilioClient = twilio(
+    process.env.TWILIO_ACCOUNT_SID || '',
+    process.env.TWILIO_AUTH_TOKEN || ''
 )
 
-const TWILIO_PHONE = process.env.TWILIO_PHONE_NUMBER // Your Twilio number
-const YOUR_PHONE = process.env.YOUR_PHONE_NUMBER // Mia's phone for notifications
+export const TWILIO_PHONE = process.env.TWILIO_PHONE_NUMBER || ''
+const YOUR_PHONE = process.env.YOUR_PHONE_NUMBER || ''
 
 interface SMSParams {
     to: string
@@ -39,7 +39,7 @@ export async function sendHighIntentSMS(params: SMSParams) {
         }
 
         // Message to the lead
-        const message = `Hey ${firstName}, it's Mia from Eliana. Just reviewed your audit for ${companyName}. You mentioned "${painPoint}" - I've seen this exact issue before and have a quick solution. Got 5 min to chat? Book here: https://cal.com/mia-louviere-a4n2hk/30min`
+        const message = `Hey ${firstName}, it's Mia from Eliana. Just reviewed your audit for ${companyName}. You mentioned "${painPoint}" - I've seen this exact issue before and have a quick solution. Got 5 min to chat? Book here: https://cal.com/elianatech/30min`
 
         const result = await twilioClient.messages.create({
             body: message,
@@ -130,7 +130,7 @@ export async function scheduleSMSFollowUp(params: SMSParams & { delay: number, t
  */
 export function getSMSTemplate(template: string, data: any): string {
     const { firstName, companyName, painPoint } = data
-    const calLink = 'https://cal.com/mia-louviere-a4n2hk/30min'
+    const calLink = 'https://cal.com/elianatech/30min'
 
     const templates: { [key: string]: string } = {
         immediate: `Hey ${firstName}, it's Mia from Eliana. Just reviewed your audit for ${companyName}. You mentioned "${painPoint}" - I've seen this exact issue before and have a quick solution. Got 5 min to chat? ${calLink}`,
@@ -190,20 +190,20 @@ export function formatPhoneNumber(phone: string): string {
 // ─── Nurture SMS Templates ───────────────────────────────────────────
 
 export const smsTemplates = {
-  hot_day0: "Hey {firstName}! Just reviewed your AI audit — impressive business. I have some specific ideas for {companyName}. Mind if I call you in the next hour? - Mia, ElianaTech",
-  warm_day2: "Hey {firstName}, did you get a chance to review your AI audit results? Happy to walk through them on a quick call: {calLink} - Mia",
-  warm_day5: "{firstName}, quick question — what's the #1 thing you'd automate if you could? I see a big opportunity for {companyName}. - Mia",
-  cold_day14: "No worries if timing isn't right {firstName}. Your audit results are saved whenever you're ready: elianatech.com/audit - Mia",
-  team_hot_alert: "🔥 HOT LEAD: {name} from {companyName} ({industry}). Score: {auditScore}. Pain: {painLevel}/10. Budget: {budget}. CALL NOW: {phone}",
-  team_warm_alert: "📊 New audit: {name} from {companyName}. Score: {auditScore}. Intent: {intentLevel}. Nurture sequence {sequence} started."
+    hot_day0: "Hey {firstName}! Just reviewed your AI audit — impressive business. I have some specific ideas for {companyName}. Mind if I call you in the next hour? - Mia, ElianaTech",
+    warm_day2: "Hey {firstName}, did you get a chance to review your AI audit results? Happy to walk through them on a quick call: {calLink} - Mia",
+    warm_day5: "{firstName}, quick question — what's the #1 thing you'd automate if you could? I see a big opportunity for {companyName}. - Mia",
+    cold_day14: "No worries if timing isn't right {firstName}. Your audit results are saved whenever you're ready: elianatech.com/audit - Mia",
+    team_hot_alert: "🔥 HOT LEAD: {name} from {companyName} ({industry}). Score: {auditScore}. Pain: {painLevel}/10. Budget: {budget}. CALL NOW: {phone}",
+    team_warm_alert: "📊 New audit: {name} from {companyName}. Score: {auditScore}. Intent: {intentLevel}. Nurture sequence {sequence} started."
 }
 
 export function personalizeSMS(template: string, data: Record<string, string>): string {
-  let result = template
-  for (const [key, value] of Object.entries(data)) {
-    result = result.replaceAll(`{${key}}`, value)
-  }
-  return result
+    let result = template
+    for (const [key, value] of Object.entries(data)) {
+        result = result.replaceAll(`{${key}}`, value)
+    }
+    return result
 }
 
 /**

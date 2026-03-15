@@ -112,7 +112,7 @@ const fadeUp = {
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.1, duration: 0.6, ease: "easeOut" }
+    transition: { delay: i * 0.1, duration: 0.6 }
   })
 }
 
@@ -136,12 +136,12 @@ export function ResultsShowcase() {
           >
             <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
               <div>
-                <div className="text-blue-400 text-sm font-semibold uppercase tracking-wider mb-2">Case Study #{i + 1}</div>
+                <div className="text-red-400 text-sm font-semibold uppercase tracking-wider mb-2">Case Study #{i + 1}</div>
                 <h3 className="text-2xl md:text-3xl font-bold text-white">{study.type}</h3>
                 <p className="text-slate-400 mt-1">Starting Revenue: {study.revenue}</p>
               </div>
-              <div className="mt-4 md:mt-0 bg-blue-500/20 border border-blue-500/30 rounded-xl px-6 py-3 text-center">
-                <div className="text-2xl font-bold text-blue-400">{study.roi}</div>
+              <div className="mt-4 md:mt-0 bg-red-500/20 border border-red-500/30 rounded-xl px-6 py-3 text-center">
+                <div className="text-2xl font-bold text-red-400">{study.roi}</div>
                 <div className="text-xs text-slate-400">First Year</div>
               </div>
             </div>
@@ -152,15 +152,15 @@ export function ResultsShowcase() {
             </div>
 
             <div className="mb-8">
-              <h4 className="text-lg font-semibold text-blue-400 mb-2">⚡ What We Installed</h4>
+              <h4 className="text-lg font-semibold text-red-400 mb-2">⚡ What We Installed</h4>
               <p className="text-slate-300">{study.installed}</p>
             </div>
 
             <div className="mb-8">
-              <h4 className="text-lg font-semibold text-green-400 mb-3">✅ Results</h4>
+              <h4 className="text-lg font-semibold text-red-400 mb-3">✅ Results</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {study.results.map((result, j) => (
-                  <div key={j} className="bg-green-500/10 border border-green-500/20 rounded-xl px-4 py-3 text-slate-200">
+                  <div key={j} className="bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-3 text-slate-200">
                     {result}
                   </div>
                 ))}
@@ -178,19 +178,19 @@ export function ResultsShowcase() {
                   ))}
                 </ul>
               </div>
-              <div className="bg-green-500/10 border border-green-500/20 rounded-2xl p-6">
-                <h4 className="text-lg font-semibold text-green-400 mb-4">✅ After</h4>
+              <div className="bg-red-500/10 border border-red-500/20 rounded-2xl p-6">
+                <h4 className="text-lg font-semibold text-red-400 mb-4">✅ After</h4>
                 <ul className="space-y-2">
                   {study.after.map((item, j) => (
                     <li key={j} className="text-slate-300 flex items-start gap-2">
-                      <span className="text-green-400 mt-1">•</span> {item}
+                      <span className="text-red-400 mt-1">•</span> {item}
                     </li>
                   ))}
                 </ul>
               </div>
             </div>
 
-            <div className="text-sm text-slate-500">⏱ Timeline: {study.timeline}</div>
+
           </motion.div>
         ))}
       </div>

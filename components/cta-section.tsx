@@ -18,15 +18,15 @@ export function CTASection() {
 
         <div className="max-w-2xl mx-auto text-center relative">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
-            Every Transformation Starts With an Audit
+            Are You Serious About Building?
           </h2>
 
           <p className="text-lg text-slate-600 mb-4 font-light">
-            Apply for yours. It's free. In 5 minutes, we'll understand your business. Then we'll show you exactly where AI can give you your time back.
+            The founders who hesitate at $10,000 are the ones still thinking like employees — trading money for information. The founders who move are the ones who understand that $10,000 of infrastructure that runs forever is worth more than $10,000 of anything else.
           </p>
 
           <p className="text-slate-500 mb-10">
-            No pitch. No pressure. Just clarity.
+            Three questions. No pitch. Application only.
           </p>
 
           <Button
@@ -34,8 +34,8 @@ export function CTASection() {
             className="bg-slate-900 hover:bg-slate-800 text-white rounded-full px-10 py-6 text-lg font-medium"
             asChild
           >
-            <a href="/audit">
-              Apply for Your Free Audit
+            <a href="/apply">
+              Apply to the Build Program
             </a>
           </Button>
         </div>

@@ -23,10 +23,10 @@ export function ProposalVisualizer({ currentStep, totalSteps, formData }: Propos
     ]
 
     return (
-        <div className="bg-slate-900/80 border border-white/10 rounded-2xl p-6 backdrop-blur-xl sticky top-24">
+        <div className="bg-white border border-[#E4E3DE] p-6 sticky top-24 font-mono shadow-none rounded-none">
             <div className="flex items-center gap-2 mb-6">
-                <Sparkles className="w-4 h-4 text-purple-400" />
-                <h3 className="text-white font-black uppercase tracking-tighter text-sm">Real-time Proposal Build</h3>
+                <Sparkles className="w-4 h-4 text-[#D90019]" />
+                <h3 className="text-black font-black uppercase tracking-tighter text-sm">Real-time Proposal Build</h3>
             </div>
 
             <div className="space-y-4">
@@ -39,28 +39,28 @@ export function ProposalVisualizer({ currentStep, totalSteps, formData }: Propos
                             <div className="mt-1">
                                 {isComplete ? (
                                     <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
-                                        <CheckCircle2 className="w-4 h-4 text-green-500" />
+                                        <CheckCircle2 className="w-4 h-4 text-[#D90019]" />
                                     </motion.div>
                                 ) : isCurrent ? (
-                                    <Loader2 className="w-4 h-4 text-blue-400 animate-spin" />
+                                    <Loader2 className="w-4 h-4 text-[#D90019] animate-spin" />
                                 ) : (
-                                    <div className="w-4 h-4 rounded-full border border-slate-700" />
+                                    <div className="w-4 h-4 rounded-full border border-[#E4E3DE]" />
                                 )}
                             </div>
                             <div className="flex-1">
-                                <p className={`text-[10px] font-black uppercase tracking-widest ${isComplete ? 'text-white' : isCurrent ? 'text-blue-400' : 'text-slate-600'}`}>
+                                <p className={`text-[10px] font-black uppercase tracking-widest ${isComplete ? 'text-black' : isCurrent ? 'text-[#D90019]' : 'text-[#888]'}`}>
                                     {section.label}
                                 </p>
                                 {isCurrent && (
                                     <motion.div
                                         initial={{ width: 0 }}
                                         animate={{ width: '100%' }}
-                                        className="h-0.5 bg-blue-500/30 mt-1 rounded-full overflow-hidden"
+                                        className="h-0.5 bg-[#D90019]/10 mt-1 rounded-full overflow-hidden"
                                     >
                                         <motion.div
                                             animate={{ x: ['-100%', '100%'] }}
                                             transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
-                                            className="h-full w-1/2 bg-blue-500"
+                                            className="h-full w-1/2 bg-[#D90019]"
                                         />
                                     </motion.div>
                                 )}
@@ -70,21 +70,21 @@ export function ProposalVisualizer({ currentStep, totalSteps, formData }: Propos
                 })}
             </div>
 
-            <div className="mt-8 pt-6 border-t border-white/5">
-                <div className="bg-black/50 rounded-lg p-3 border border-white/5">
+            <div className="mt-8 pt-6 border-t border-[#E4E3DE]">
+                <div className="bg-[#F2F1ED] p-3 border border-[#E4E3DE]">
                     <div className="flex items-center gap-2 mb-2">
-                        <FileText className="w-3 h-3 text-slate-500" />
-                        <span className="text-[9px] text-slate-500 font-bold uppercase">Live Compiled Context</span>
+                        <FileText className="w-3 h-3 text-[#555]" />
+                        <span className="text-[9px] text-[#555] font-bold uppercase">Live Compiled Context</span>
                     </div>
                     <div className="space-y-1">
-                        <p className="text-[10px] text-slate-300 font-medium truncate">
+                        <p className="text-[10px] text-[#0C0C0C] font-medium truncate">
                             {formData.fullName ? `IDENTITY: ${formData.fullName}` : 'WAITING FOR NAME...'}
                         </p>
-                        <p className="text-[10px] text-slate-400 font-medium truncate">
+                        <p className="text-[10px] text-[#555] font-medium truncate">
                             {formData.businessType ? `SECTOR: ${formData.businessType}` : 'WAITING FOR SECTOR...'}
                         </p>
                         {currentStep > 1 && (
-                            <p className="text-[10px] text-blue-400 font-bold animate-pulse">
+                            <p className="text-[10px] text-[#D90019] font-bold animate-pulse">
                                 SYSTEM ARCHITECTURE DETECTED
                             </p>
                         )}

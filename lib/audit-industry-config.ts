@@ -41,10 +41,20 @@ export interface IndustryConfig {
   }
 }
 
+type DeepPartial<T> = {
+  [P in keyof T]?: T[P] extends (infer U)[]
+  ? DeepPartial<U>[]
+  : T[P] extends object
+  ? DeepPartial<T[P]>
+  : T[P];
+};
+
+type IndustryOverride = DeepPartial<IndustryConfig>;
+
 export function getBusinessCategory(businessType: string): BusinessCategory {
-  const online = ['course-creator', 'coaching', 'membership', 'saas', 'digital-products', 'newsletter', 'cohort']
-  const local = ['home-services', 'healthcare', 'construction', 'restaurant-hospitality']
-  const professional = ['agency', 'professional-services', 'real-estate']
+  const online = ['course-creators', 'coaching', 'membership', 'saas', 'digital-products', 'newsletter', 'cohort']
+  const local = ['home-services', 'healthcare', 'construction', 'hospitality']
+  const professional = ['agencies', 'professional-services', 'real-estate', 'legal-finance']
   const product = ['ecommerce', 'manufacturing']
 
   if (online.includes(businessType)) return 'online'
@@ -55,7 +65,402 @@ export function getBusinessCategory(businessType: string): BusinessCategory {
 }
 
 export function getIndustryConfig(businessType: string): IndustryConfig {
-  return CONFIGS[getBusinessCategory(businessType)]
+  const category = getBusinessCategory(businessType)
+  const baseConfig = JSON.parse(JSON.stringify(CONFIGS[category])) as IndustryConfig
+
+  const overrides = INDUSTRY_OVERRIDES[businessType]
+  if (!overrides) return baseConfig
+
+  // Safe manual merge to maintain type safety and avoid lint errors
+  if (overrides.stepLabels) baseConfig.stepLabels = overrides.stepLabels as string[]
+  if (overrides.encouragements) baseConfig.encouragements = overrides.encouragements as string[]
+
+  if (overrides.step2) {
+    const s2 = overrides.step2
+    if (s2.productDescription) baseConfig.step2.productDescription = { ...baseConfig.step2.productDescription, ...s2.productDescription }
+    if (s2.productPricePoint) baseConfig.step2.productPricePoint = { ...baseConfig.step2.productPricePoint, ...s2.productPricePoint }
+    if (s2.numberOfProducts) baseConfig.step2.numberOfProducts = { ...baseConfig.step2.numberOfProducts, ...s2.numberOfProducts }
+    if (s2.platform) baseConfig.step2.platform = { ...baseConfig.step2.platform, ...s2.platform }
+    if (s2.deliveryMethod) baseConfig.step2.deliveryMethod = { ...baseConfig.step2.deliveryMethod, ...s2.deliveryMethod }
+  }
+
+  if (overrides.step3) {
+    const s3 = overrides.step3
+    if (s3.bottleneck) baseConfig.step3.bottleneck = { ...baseConfig.step3.bottleneck, ...s3.bottleneck }
+  }
+
+  if (overrides.step4) {
+    const s4 = overrides.step4
+    if (s4.listSize) baseConfig.step4.listSize = { ...baseConfig.step4.listSize, ...s4.listSize }
+    if (s4.trafficSource) baseConfig.step4.trafficSource = { ...baseConfig.step4.trafficSource, ...s4.trafficSource }
+    if (s4.conversionRate) baseConfig.step4.conversionRate = { ...baseConfig.step4.conversionRate, ...s4.conversionRate }
+    if (s4.launchesPerYear) baseConfig.step4.launchesPerYear = { ...baseConfig.step4.launchesPerYear, ...s4.launchesPerYear }
+    if (s4.churnRate) baseConfig.step4.churnRate = { ...baseConfig.step4.churnRate, ...s4.churnRate }
+    if (s4.contentCreationHours) baseConfig.step4.contentCreationHours = { ...baseConfig.step4.contentCreationHours, ...s4.contentCreationHours }
+  }
+
+  if (overrides.step5) {
+    const s5 = overrides.step5
+    if (s5.supportHoursPerWeek) baseConfig.step5.supportHoursPerWeek = { ...baseConfig.step5.supportHoursPerWeek, ...s5.supportHoursPerWeek }
+    if (s5.onboardingAutomated) baseConfig.step5.onboardingAutomated = { ...baseConfig.step5.onboardingAutomated, ...s5.onboardingAutomated }
+  }
+
+  if (overrides.step6) {
+    const s6 = overrides.step6
+    if (s6.tools) baseConfig.step6.tools = s6.tools as string[]
+    if (s6.problems) baseConfig.step6.problems = s6.problems as string[]
+    if (s6.biggestTimeWaste) baseConfig.step6.biggestTimeWaste = { ...baseConfig.step6.biggestTimeWaste, ...s6.biggestTimeWaste }
+    if (s6.next12MonthsGoal) baseConfig.step6.next12MonthsGoal = { ...baseConfig.step6.next12MonthsGoal, ...s6.next12MonthsGoal }
+  }
+
+  return baseConfig
+}
+
+const INDUSTRY_OVERRIDES: Record<string, IndustryOverride> = {
+  'saas': {
+    step2: {
+      productDescription: { label: "What does your SaaS do?", placeholder: "e.g. AI-powered CRM for real estate agents..." },
+      productPricePoint: {
+        label: "Average Revenue Per User (ARPU)", options: [
+          { value: "free", label: "Free / Freemium" },
+          { value: "under-20", label: "Under $20/mo" },
+          { value: "20-50", label: "$20 - $50/mo" },
+          { value: "50-200", label: "$50 - $200/mo" },
+          { value: "200+", label: "$200+/mo (High ACV)" },
+        ]
+      },
+      platform: {
+        label: "Tech Stack / Infrastructure", options: [
+          { value: "nextjs", label: "Next.js / Vercel" },
+          { value: "react-node", label: "React / Node.js" },
+          { value: "python-django", label: "Python / Django" },
+          { value: "php-laravel", label: "PHP / Laravel" },
+          { value: "no-code", label: "Bubble / No-code" },
+          { value: "other", label: "Other" },
+        ]
+      }
+    },
+    step4: {
+      listSize: { label: "Total Active Users / Subscriptions" },
+      churnRate: { label: "Monthly Revenue Churn Rate" },
+      launchesPerYear: { label: "Major Feature Releases Per Year" }
+    }
+  },
+  'agencies': {
+    step2: {
+      productDescription: { label: "Describe your agency niche", placeholder: "e.g. Performance marketing for e-commerce brands..." },
+      productPricePoint: { label: "Average Monthly Retainer" },
+      deliveryMethod: {
+        label: "How do you fulfill?", options: [
+          { value: "human", label: "Pure human talent" },
+          { value: "tech-enabled", label: "Tech-enabled service" },
+          { value: "productized", label: "Productized service" },
+        ]
+      }
+    },
+    step4: {
+      listSize: { label: "Active Clients & Leads in Pipeline" },
+      churnRate: { label: "Client Churn Rate (Annual)" }
+    },
+    step6: {
+      problems: [
+        "Hiring / talent bottlenecks",
+        "Margins shrinking",
+        "Scope creep",
+        "Client reporting take too long",
+        "Pipeline feast or famine",
+        "Standardizing delivery",
+      ]
+    }
+  },
+  'healthcare': {
+    step2: {
+      productDescription: { label: "Describe your practice", placeholder: "e.g. Multi-location dental practice specializing in orthodontics..." },
+      productPricePoint: { label: "Average Patient Lifetime Value (LTV)" },
+      platform: {
+        label: "EMR / Practice Management Software", options: [
+          { value: "nexhealth", label: "NexHealth" },
+          { value: "opendental", label: "OpenDental" },
+          { value: "dentrix", label: "Dentrix" },
+          { value: "jane", label: "Jane" },
+          { value: "other", label: "Other" },
+        ]
+      }
+    },
+    step4: {
+      listSize: { label: "Active Patient Records" },
+      trafficSource: { label: "Primary Referral / Lead Source" },
+      churnRate: { label: "Patient No-Show / Churn Rate" }
+    },
+    step5: {
+      supportHoursPerWeek: { label: "Hours / Week on Front-Desk & Insurance Admin" }
+    }
+  },
+  'legal-finance': {
+    step2: {
+      productDescription: { label: "Describe your firm's focus", placeholder: "e.g. Estate planning and probate law for high-net-worth individuals..." },
+      productPricePoint: { label: "Average Case / Client Value" },
+      platform: {
+        label: "Practice Management System", options: [
+          { value: "clio", label: "Clio" },
+          { value: "mycase", label: "MyCase" },
+          { value: "quickbooks", label: "QuickBooks" },
+          { value: "notion", label: "Notion / Custom" },
+          { value: "other", label: "Other" },
+        ]
+      }
+    },
+    step4: {
+      listSize: { label: "Total Client Files" },
+      conversionRate: { label: "Consultation to Retained Client Rate" }
+    },
+    step6: {
+      tools: ["Clio", "MyCase", "PracticePanther", "QuickBooks", "Xero", "Zapier", "Dropbox / Drive"],
+      problems: ["Non-billable admin time", "Compliance risk", "Lead qualification", "Document prep speed", "Billing & collections"]
+    }
+  },
+  'ecommerce': {
+    step2: {
+      productDescription: { label: "What do you sell?", placeholder: "e.g. Organic pet supplements sold via Shopify..." },
+      productPricePoint: { label: "Average Order Value (AOV)" },
+      platform: {
+        label: "E-commerce Platform", options: [
+          { value: "shopify", label: "Shopify" },
+          { value: "amazon", label: "Amazon" },
+          { value: "woocommerce", label: "WooCommerce" },
+          { value: "ebay-etsy", label: "eBay / Etsy" },
+          { value: "other", label: "Other" },
+        ]
+      }
+    },
+    step4: {
+      listSize: { label: "Email / SMS List Size" },
+      churnRate: { label: "Return / Refund Rate" },
+      conversionRate: { label: "Store Conversion Rate (CVR)" }
+    }
+  },
+  'home-services': {
+    step2: {
+      productDescription: { label: "Describe your services", placeholder: "e.g. HVAC maintenance and emergency repair for residential clients..." },
+      productPricePoint: { label: "Average Ticket / Job Value" },
+      platform: {
+        label: "Field Management Software", options: [
+          { value: "jobber", label: "Jobber" },
+          { value: "servicetitan", label: "ServiceTitan" },
+          { value: "housecall-pro", label: "Housecall Pro" },
+          { value: "other", label: "Other" },
+        ]
+      }
+    },
+    step4: {
+      listSize: { label: "Total Customer Database" },
+      trafficSource: { label: "Primary Lead Channel (LSA, SEO, Referrals)" }
+    },
+    step5: {
+      supportHoursPerWeek: { label: "Hours / Week on Dispatch & Scheduling" }
+    }
+  },
+  'real-estate': {
+    step2: {
+      productDescription: { label: "Focus area", placeholder: "e.g. Residential luxury listings in South Florida..." },
+      productPricePoint: { label: "Average Commission / GCI per Deal" },
+      platform: {
+        label: "CRM / Pipeline Tool", options: [
+          { value: "followupboss", label: "Follow Up Boss" },
+          { value: "kvcore", label: "kvCore" },
+          { value: "liondesk", label: "LionDesk" },
+          { value: "notion-sheets", label: "Notion / Sheets" },
+          { value: "other", label: "Other" },
+        ]
+      }
+    },
+    step4: {
+      listSize: { label: "Leads in Database" },
+      trafficSource: { label: "Primary Deal Source (Zillow, Referrals, Paid)" },
+      conversionRate: { label: "Lead to Closing Rate" }
+    }
+  },
+  'course-creators': {
+    step2: {
+      productDescription: { label: "What is your main course about?", placeholder: "e.g. 8-week bootcamp for freelance designers..." },
+      productPricePoint: { label: "Main Course Price" },
+      platform: {
+        label: "Learning Management System (LMS)", options: [
+          { value: "kajabi", label: "Kajabi" },
+          { value: "teachable", label: "Teachable" },
+          { value: "skool", label: "Skool" },
+          { value: "thinkific", label: "Thinkific" },
+          { value: "other", label: "Other" },
+        ]
+      }
+    },
+    step4: {
+      listSize: { label: "Student & Lead List Size" },
+      launchesPerYear: { label: "Live Launches Per Year" }
+    }
+  },
+  'coaching': {
+    step2: {
+      productDescription: { label: "Who do you coach?", placeholder: "e.g. Executive coaching for Fortune 500 VPs..." },
+      productPricePoint: { label: "Average Package / Monthly Fee" },
+      deliveryMethod: {
+        label: "Coaching Delivery", options: [
+          { value: "1-on-1", label: "1-on-1 calls" },
+          { value: "group", label: "Group coaching" },
+          { value: "hybrid", label: "Hybrid (1-on-1 + modules)" },
+          { value: "mastermind", label: "High-ticket mastermind" },
+        ]
+      }
+    },
+    step5: {
+      supportHoursPerWeek: { label: "Hours / Week on Scheduling & Client Management" }
+    }
+  },
+  'membership': {
+    step2: {
+      productDescription: { label: "Describe your community", placeholder: "e.g. Private network for real estate investors..." },
+      productPricePoint: { label: "Monthly / Annual Membership Fee" },
+      platform: {
+        label: "Community Platform", options: [
+          { value: "circle", label: "Circle" },
+          { value: "skool", label: "Skool" },
+          { value: "mighty-networks", label: "Mighty Networks" },
+          { value: "discord-slack", label: "Discord / Slack" },
+          { value: "other", label: "Other" },
+        ]
+      }
+    },
+    step4: {
+      listSize: { label: "Total Active Members" },
+      churnRate: { label: "Monthly Member Churn Rate" }
+    }
+  },
+  'digital-products': {
+    step2: {
+      productDescription: { label: "What kind of products do you sell?", placeholder: "e.g. Notion templates, stock footage, Lightroom presets..." },
+      numberOfProducts: { label: "Total Asset / Product Count" },
+      platform: {
+        label: "Sales Platform", options: [
+          { value: "gumroad", label: "Gumroad" },
+          { value: "shopify", label: "Shopify" },
+          { value: "lemon-squeezy", label: "Lemon Squeezy" },
+          { value: "etsy", label: "Etsy" },
+          { value: "other", label: "Other" },
+        ]
+      }
+    }
+  },
+  'hospitality': {
+    step2: {
+      productDescription: { label: "Describe your hospitality business", placeholder: "e.g. Multi-location fast-casual restaurant chain..." },
+      platform: {
+        label: "POS / Booking System", options: [
+          { value: "toast", label: "Toast" },
+          { value: "square", label: "Square" },
+          { value: "opentable", label: "OpenTable" },
+          { value: "resy", label: "Resy" },
+          { value: "other", label: "Other" },
+        ]
+      }
+    },
+    step4: {
+      listSize: { label: "Active Guest / Loyalty Database" },
+      trafficSource: { label: "Primary Booking Channel (Direct, Yelp, Google)" }
+    },
+    step5: {
+      supportHoursPerWeek: { label: "Hours / Week on Reservations & Guest Inquiries" }
+    }
+  },
+  'construction': {
+    step2: {
+      productDescription: { label: "Specialty / Focus", placeholder: "e.g. High-end residential remodeling and design-build..." },
+      productPricePoint: { label: "Average Project Value" },
+      platform: {
+        label: "Project Management Tool", options: [
+          { value: "buildertrend", label: "Buildertrend" },
+          { value: "procore", label: "Procore" },
+          { value: "coconstruct", label: "CoConstruct" },
+          { value: "manual", label: "Sheets / Spreadsheets" },
+          { value: "other", label: "Other" },
+        ]
+      }
+    },
+    step4: {
+      listSize: { label: "Active Project & Lead Database" },
+      conversionRate: { label: "Bid to Contract Win Rate" }
+    },
+    step5: {
+      supportHoursPerWeek: { label: "Hours / Week on Bidding & Sub-Contractor Management" }
+    }
+  },
+  'manufacturing': {
+    step2: {
+      productDescription: { label: "What do you produce?", placeholder: "e.g. Custom CNC-machined parts for automotive suppliers..." },
+      platform: {
+        label: "ERP / Inventory Management", options: [
+          { value: "netsuite", label: "NetSuite" },
+          { value: "fishbowl", label: "Fishbowl" },
+          { value: "custom", label: "Proprietary / Custom" },
+          { value: "other", label: "Other" },
+        ]
+      }
+    },
+    step4: {
+      listSize: { label: "Active Vendor & Client Count" },
+      churnRate: { label: "Order Error / Refund Rate" }
+    }
+  },
+  'professional-services': {
+    step2: {
+      productDescription: { label: "Describe your consulting/service focus", placeholder: "e.g. Fractional CFO services for scaling e-commerce brands..." },
+      productPricePoint: { label: "Average Retainer / Project Fee" },
+      deliveryMethod: {
+        label: "Service Model", options: [
+          { value: "consulting", label: "Advisory / Consulting" },
+          { value: "managed", label: "Managed Services (MSP)" },
+          { value: "staffing", label: "Staffing / Recruiting" },
+          { value: "other", label: "Other" },
+        ]
+      }
+    },
+    step4: {
+      listSize: { label: "Total Client Records" },
+      conversionRate: { label: "Consultation to Signed Contract Rate" }
+    }
+  },
+  'newsletter': {
+    step2: {
+      productDescription: { label: "Newsletter Topic / Niche", placeholder: "e.g. Daily AI news for tech-forward marketing agencies..." },
+      productPricePoint: { label: "Ad Slot / Sponsorship Rate (CPM)" },
+      platform: {
+        label: "Newsletter Platform", options: [
+          { value: "beehiiv", label: "beehiiv" },
+          { value: "substack", label: "Substack" },
+          { value: "convertkit", label: "ConvertKit" },
+          { value: "other", label: "Other" },
+        ]
+      }
+    },
+    step4: {
+      listSize: { label: "Total Active Subscribers" },
+      churnRate: { label: "Monthly Unsubscribe Rate" },
+      contentCreationHours: { label: "Hours / Week on Ghostwriting & Research" }
+    }
+  },
+  'cohort': {
+    step2: {
+      productDescription: { label: "What is the cohort topic?", placeholder: "e.g. 4-week intensive on building a personal brand on LinkedIn..." },
+      productPricePoint: { label: "Price per Seat / Enrollment" }
+    },
+    step4: {
+      listSize: { label: "Total Waitlist / Alumni Size" },
+      conversionRate: { label: "Waitlist to Enrolled Conversion Rate" },
+      launchesPerYear: { label: "Cohorts Per Year" }
+    },
+    step5: {
+      supportHoursPerWeek: { label: "Hours / Week on Live Moderation & Student DMs" }
+    }
+  }
 }
 
 // ─── Configs ──────────────────────────────────────────────────

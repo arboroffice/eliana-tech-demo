@@ -1,3 +1,7 @@
+import { niches1 } from "./niches-1";
+import { niches2 } from "./niches-2";
+import { niches3 } from "./niches-3";
+
 export interface IndustryContent {
     slug: string;
     name: string;
@@ -22,8 +26,9 @@ export interface IndustryContent {
             features: string[];
         };
     };
-    longFormContent: string; // This will hold the "5k words" section
     faq: { q: string; a: string }[];
+    subNiches?: string[];
+    geoKeywords?: string[];
     layers?: {
         department: string;
         roles: string[];
@@ -39,6 +44,8 @@ export const industries: IndustryContent[] = [
         problem: "You built the product. You landed the first 100 customers. But now you are the bottleneck. You are handling support tickets, chasing trial expirations, and managing dev sprints. Your MRR has plateaued because you are too busy operating the business to grow it.",
         operatorProblem: "Churn is following your personal bandwidth. That is not a company — that is a high-stress job. Every manual task in your lifecycle is a bottleneck. We remove it so your systems handle the journey from visitor to advocate without you in the loop.",
         result: "The founder stops spending half their day on support tickets. Users onboard themselves. Churn drops because the system catches problems before people leave.",
+        subNiches: ["B2B Enterprise SaaS", "B2C Subscription Apps", "Product-Led Growth (PLG)", "API-First Platforms", "Vertical SaaS", "No-Code / Low-Code Tools", "Fintech & Payments", "HR Tech & People Ops", "MarTech & AdTech", "EdTech Platforms", "HealthTech & Telehealth SaaS", "PropTech & Real Estate Software", "DevTools & Developer Platforms", "Cybersecurity SaaS", "AI-Native Software Companies", "Workflow Automation Platforms", "Data & Analytics SaaS", "Supply Chain Software"],
+        geoKeywords: ["San Francisco", "New York City", "Austin", "Miami", "Los Angeles", "Chicago", "Seattle", "Denver", "Boston", "Atlanta", "Dallas", "Houston", "Phoenix", "Nashville", "Charlotte", "San Diego", "Portland", "Minneapolis", "Tampa", "Raleigh", "Salt Lake City", "Washington DC", "Philadelphia", "Detroit", "Orlando", "Las Vegas", "Remote-First", "USA Nationwide"],
         services: {
             singleSystems: {
                 title: "Single System Installs",
@@ -121,39 +128,18 @@ export const industries: IndustryContent[] = [
                 ]
             }
         },
-        longFormContent: `
-      ## The SaaS Scaling Crisis: Why Product-Market Fit Isn't Enough
-      
-      You've achieved what 99% of startups fail to do: people actually want your software. You've found that elusive "Product-Market Fit." You've handled the early hurdles of finding your first 10, 100, and perhaps even 1,000 customers. But now, you're facing a new, quieter, and far more dangerous enemy: **Operational Drag.**
-
-      Operational drag is the silent killer of mature SaaS companies. It's the phenomenon where ogni nuovo cliente adds a linear amount of work to your team's plate. More tickets. More churn risks. More feedback to process. If your head count is growing as fast as your revenue, you're not a software company anymore—you're a service agency in disguise, and your profit margins are dying.
-
-      ### The Founder as the 'Chief Firefighter'
-
-      In the early days, your direct involvement was your greatest superpower. You knew every customer's name. You handled every edge case. You personally responded to critical support tickets. But at the $1M+ ARR mark, that superpower becomes your biggest liability. 
-
-      When the founder is the one triaging bugs, answering enterprise security questionnaires, or manualy chasing down churned accounts, the vision stops. The roadmap stalls. The competition, unburdened by these manual processes, begins to catch up.
-
-      ### The Solution: The Autonomous SaaS Engine
-
-      At Eliana Tech, we don't just 'install tools' like Zapier and call it a day. We build **Autonomous Departments.**
-
-      #### 1. The Autonomous Customer Success Layer
-      Traditional support teams are reactive. They wait for a ticket, search a knowledge base, and paste a response. An Autonomous Success layer is proactive. Using Retrieval-Augmented Generation (RAG) on your documentation, past Slack conversations, and even your codebase structure, we build an agent that doesn't just "answer" questions—it performs actions. It can verify a user's subscription status, reset a project, or even explain a complex API error by looking at the user's specific logs.
-
-      #### 2. The Churn Sentinel: Predicting the Future
-      Most SaaS companies handle churn when the cancellation request arrives. By then, it's too late. Our AI systems monitor usage patterns—identifying "Red Flag" behaviors like dropping log-in frequency or unconfigured features—and intervene with personalized, hyper-relevant offers or walkthroughs *before* the customer ever clicks "Cancel."
-
-      #### 3. Scaling Sales with AI SDRs
-      In most SaaS companies, SDRs spend 80% of their time researching and 20% of their time selling. We reverse that. Our AI agents perform deep-dive research on prospects—scanning their recent LinkedIn posts, quarterly earnings reports, and technical stack—to craft outreach that feels like it was written by a peer, not a bot. This isn't "spamming at scale"; it's "relevance at scale."
-
-      ### The Future of SaaS: Systemic Leverage
-      
-      Success in 2026 isn't about having the most features; it's about having the most leverage. The startups that win will be those that can scale to $10M ARR with a team of 10, not 100. They will be companies built on **AI Infrastructure.** 
-    `,
         faq: [
             { q: "Can the AI handle technical API questions?", a: "Yes, by indexing your documentation and even your codebase structure, the AI can provide accurate, up-to-date technical support." },
-            { q: "Is this just 'ChatGPT for my site'?", a: "No. This is a sequence of autonomous agents that interact with your database, CRM, and Stripe to execute real business workflows." }
+            { q: "Is this just 'ChatGPT for my site'?", a: "No. This is a sequence of autonomous agents that interact with your database, CRM, and Stripe to execute real business workflows." },
+            { q: "How does it reduce churn?", a: "The AI monitors usage patterns, identifies at-risk accounts before they cancel, triggers re-engagement campaigns, and alerts your CS team to intervene at the right moment." },
+            { q: "Can it handle onboarding new users?", a: "Yes. It walks users through setup, sends personalized tips based on their use case, answers questions in real-time, and ensures they hit their first 'aha moment' fast." },
+            { q: "Does it integrate with my existing tech stack?", a: "We connect with Stripe, HubSpot, Intercom, Segment, Slack, and most tools in the modern SaaS stack via APIs and webhooks." },
+            { q: "How does it help with trial-to-paid conversion?", a: "The AI nurtures trial users with personalized sequences, removes friction from the upgrade path, handles billing objections, and triggers human outreach for high-value accounts." },
+            { q: "Can it manage support tickets?", a: "Yes. It resolves 70-80% of tickets instantly — billing questions, feature requests, bug reports, how-to queries — and routes complex issues to the right team member." },
+            { q: "How does it help with expansion revenue?", a: "The AI identifies upsell opportunities based on usage data, presents upgrade offers at the perfect moment, and automates the entire expansion sales process." },
+            { q: "Can it automate our sales pipeline?", a: "Absolutely. It qualifies inbound leads, enriches company data, books demos, sends follow-ups, and keeps your CRM updated — so your sales team focuses on closing." },
+            { q: "What about dunning and failed payments?", a: "The AI retries failed charges, sends personalized payment recovery emails, and escalates at-risk accounts — recovering 20-40% of otherwise lost revenue." },
+            { q: "How quickly can we get started?", a: "Most SaaS companies are live within 2-4 weeks. We start with your highest-impact workflow — usually onboarding or support — and expand from there." }
         ],
         layers: [
             {
@@ -185,6 +171,8 @@ export const industries: IndustryContent[] = [
         problem: "You sold the dream of freedom, but you are trapped in the DMs. You are answering the same 20 questions, chasing payments, and trying to keep students engaged. Your revenue is tied to your next launch because you do not have a system that sells and serves while you are offline.",
         operatorProblem: "A course is a leverage asset — but only if it runs without you. Right now, the delivery, the sales, and the student journey all bottleneck through you. We remove you from that loop and install an AI department that handles it instead.",
         result: "The course creator stops launching and starts selling on autopilot. Students onboard themselves. Revenue keeps coming in without the next live launch.",
+        subNiches: ["Masterclass Creators", "Certification Programs", "Cohort-Based Courses", "High-Ticket Coaching Programs", "Hobby & Skill Training", "Digital Product Suites", "Corporate Training", "Online Academies", "Membership Course Platforms", "YouTube Educators", "Teachable / Kajabi Creators", "Workshop Facilitators", "Language Learning Creators", "Fitness & Nutrition Courses", "Real Estate Investing Courses", "Trading & Finance Educators", "Coding Bootcamp Creators", "Music & Creative Arts Courses"],
+        geoKeywords: ["San Francisco", "New York City", "Austin", "Miami", "Los Angeles", "Chicago", "Seattle", "Denver", "Boston", "Atlanta", "Dallas", "Houston", "Phoenix", "Nashville", "Charlotte", "San Diego", "Portland", "Minneapolis", "Tampa", "Raleigh", "Salt Lake City", "Washington DC", "Philadelphia", "Detroit", "Orlando", "Las Vegas", "Remote-First", "USA Nationwide"],
         services: {
             singleSystems: {
                 title: "Single System Installs",
@@ -272,30 +260,18 @@ export const industries: IndustryContent[] = [
                 ]
             }
         },
-        longFormContent: `
-      ## The Creator Paradox: Why 'Passive' Income Feels Like a Full-Time Job
-      
-      You started this because you wanted freedom. You had a message, a skill, and a transformation you wanted to share with the world. You built a course, maybe even a membership, and it worked. People are paying you. But now, you find yourself trapped in a new kind of prison: **The High-Maintenance Digital Empire.**
-
-      You were promised "passive income," but your reality is anything but passive. You spend your mornings in the DMs answering the same 20 technical questions. Your afternoons are lost to manual lead follow-ups. Your evenings are spent worrying about churn and student completion rates. You're so busy "maintaining" your current students that you don't have the time or energy to create your *next* masterpiece.
-
-      ### The student success gap
-      
-      The biggest tragedy in the digital education space is the Completion Rate. Most courses have a 5-10% completion rate. That's not a success; that's a failure of systems. When a student disappears in Week 3, a traditional creator doesn't even know it happened. An AI-powered creator has a "Student Success Agent" that notices the stall, identifies the roadblock, and reaches out with a personalized encouragement or resource to get them back on track.
-
-      #### 1. The 24/7 Academic Brain
-      What if your students could get "Office Hours" level support at 3 AM? We take your entire body of work—your videos, your transcripts, your old community posts—and build a proprietary "Tutor" that knows your methodology better than you do. It doesn't just "talk"; it teaches.
-
-      #### 2. The Content Repurposing Machine
-      Creators are often on a "Content Treadmill." You documentary one high-value video, and then you have to manually turn it into tweets, LinkedIn posts, emails, and short-form clips. We automate that entire cycle. Our AI understands your "voice" and "frameworks," ensuring that every piece of content it generates sounds exactly like you, but requires zero minutes of your time.
-
-      ### From Course Creator to Education Founder
-      
-      The transition from "Operator" to "Founder" happens when you decouple your personal bandwidth from your student's results. By installing an AI layer between you and the technical operations, you reclaim your role as the Visionary. You create the transformation; the AI manages the delivery.
-    `,
         faq: [
             { q: "Will the AI sound like me?", a: "Yes. We feed the AI your past courses, emails, and videos to clone your unique 'voice' and teaching style." },
-            { q: "Can it help with high-ticket sales?", a: "Absolutely. It can qualify leads, handle initial objections, and only book calls for people who are 100% ready to buy." }
+            { q: "Can it help with high-ticket sales?", a: "Absolutely. It can qualify leads, handle initial objections, and only book calls for people who are 100% ready to buy." },
+            { q: "How does it handle student support?", a: "The AI answers course questions, troubleshoots login issues, guides students through lessons, and escalates complex problems to your team — 24/7." },
+            { q: "Can it reduce course refunds?", a: "Yes. It monitors student engagement, identifies struggling learners early, and triggers personalized interventions — reducing refund rates by 30-50%." },
+            { q: "Does it integrate with my course platform?", a: "We connect with Kajabi, Teachable, Thinkific, Podia, Circle, Skool, and most major course and community platforms." },
+            { q: "How does it help with launches?", a: "It automates your entire launch sequence — waitlist nurturing, cart open/close emails, urgency triggers, FAQ handling, and post-launch follow-up." },
+            { q: "Can it manage my affiliate program?", a: "Yes. It tracks affiliate sales, sends performance updates, manages commission payouts, and even recruits new affiliates from your student base." },
+            { q: "How does it handle community management?", a: "The AI moderates discussions, answers repetitive questions, highlights member wins, sparks engagement, and flags issues for your attention." },
+            { q: "Can it repurpose my content?", a: "Absolutely. It turns long-form videos into clips, blog posts, social media content, email newsletters, and even new mini-courses — multiplying your content output." },
+            { q: "What about email marketing?", a: "It segments your list, writes personalized sequences, A/B tests subject lines, and runs automated flows — from welcome series to win-back campaigns." },
+            { q: "How quickly can I get started?", a: "Most course creators are live within 2-3 weeks. We start with student support and sales automation, then expand to launches and content repurposing." }
         ],
         layers: [
             {
@@ -327,6 +303,8 @@ export const industries: IndustryContent[] = [
         problem: "Your day is a blur of Zoom calls, DM follow-ups, and calendar chaos. You cannot scale because every new client requires more of your personal time. You have hit your time ceiling and pushing past it is burning you out.",
         operatorProblem: "Every qualifying call, every onboarding email, every basic how-to question — these are bottlenecks in your coaching business. We install an AI department that handles the intake, the onboarding, and 80% of baseline support. You only show up for the high-value transformation.",
         result: "The coach stops launching and starts selling on autopilot. Clients onboard themselves. The business runs without the founder answering every question.",
+        subNiches: ["Business & Executive Coaching", "Health & Wellness Coaches", "Life & Mindset Coaches", "Financial Advisors & Planners", "Sales & Performance Trainers", "Niche Skill Coaches", "Group Coaching Programs", "Career & Leadership Coaches", "Relationship & Dating Coaches", "Fitness & Body Transformation Coaches", "Spiritual & Energy Coaches", "ADHD & Neurodivergent Coaches", "Parenting Coaches", "Public Speaking Coaches", "Accountability & Productivity Coaches", "Wealth & Legacy Coaches", "Therapists Transitioning to Coaching", "Corporate Team Coaches"],
+        geoKeywords: ["San Francisco", "New York City", "Austin", "Miami", "Los Angeles", "Chicago", "Seattle", "Denver", "Boston", "Atlanta", "Dallas", "Houston", "Phoenix", "Nashville", "Charlotte", "San Diego", "Portland", "Minneapolis", "Tampa", "Raleigh", "Salt Lake City", "Washington DC", "Philadelphia", "Detroit", "Orlando", "Las Vegas", "Remote-First", "USA Nationwide"],
         services: {
             singleSystems: {
                 title: "Single System Installs",
@@ -407,30 +385,18 @@ export const industries: IndustryContent[] = [
                 ]
             }
         },
-        longFormContent: `
-      ## The Coaching Trap: Why Success Feels Like a Prison
-      
-      You're good at what you do. That's why people pay you. But your greatest asset—your expertise—is currently your greatest liability. Why? Because it's trapped inside your head. Every time a client needs an answer, a breakthrough, or a strategy, they need *you*.
-
-      This is the "Time Ceiling." You can only charge so much per hour, and you only have so many hours in a week. To grow, most coaches try to hire more people, but that just leads to a new problem: managing a team. Now, instead of coaching, you're a manager. You're still not actually free.
-
-      ### Extracting the Genius: The Methodology Clone
-      
-      The breakthrough comes when you formalize your methodology and build it into an AI infrastructure. Most coaches treat AI like a "chat bot." We treat it like an **Expertise Repository.**
-
-      #### 1. The High-Ticket Qualifier
-      In high-ticket coaching, sales is everything. But spending 30 minutes on a "discovery call" with someone who can't afford you or isn't ready for your work is a tragedy. Our AI qualifiers don't just "ask questions"; they build rapport. They understand the nuance of a prospect's pain and only book onto your calendar when the prospect is pre-sold on your specific solution.
-
-      #### 2. The Support Coach: 24/7 Transformation
-      Between your weekly or monthly sessions, your clients are actually doing the work. This is when they get stuck. If they have to wait 4 days to talk to you, they lose momentum. An AI Support Coach, trained on your frameworks, gives them the instant breakthrough they need to keep moving. Your sessions then become about high-level strategy, not answering "How do I do X?"
-
-      ### Scaling the Unscalable
-      
-      Real scale in consulting isn't about working more; it's about building systems that work for you. We help you build a "Digital Twin" of your coaching methodology, allowing you to serve 500 clients with the same personal effort it currently takes to serve 5.
-    `,
         faq: [
             { q: "Will clients be mad they are talking to an AI?", a: "Actually, clients love getting instant answers at 11 PM instead of waiting 3 days for an email." },
-            { q: "Can it handle my specific framework?", a: "Yes. We train the AI on your specific intellectual property so it answers exactly how you would." }
+            { q: "Can it handle my specific framework?", a: "Yes. We train the AI on your specific intellectual property so it answers exactly how you would." },
+            { q: "How does it help me book more discovery calls?", a: "The AI qualifies leads in real-time, handles initial objections, and only books calls with people who match your ideal client profile — so you stop wasting time on tire-kickers." },
+            { q: "Can it manage my group programs?", a: "Yes. It handles enrollment, sends session reminders, distributes materials, tracks attendance, collects homework, and follows up with disengaged participants." },
+            { q: "Does it integrate with my calendar and booking tools?", a: "We connect with Calendly, Acuity, Cal.com, and most scheduling platforms — plus your CRM, email, and payment systems." },
+            { q: "How does it handle client onboarding?", a: "From the moment someone pays, the AI sends welcome sequences, collects intake forms, schedules the first session, and delivers pre-work — all automatically." },
+            { q: "Can it help with content creation?", a: "Yes. It repurposes your coaching calls into social posts, email newsletters, blog articles, and short-form video scripts — extending your reach without extra work." },
+            { q: "How does it manage renewals and upsells?", a: "The AI tracks client progress, identifies upgrade opportunities, sends renewal reminders, and presents next-level offers at the perfect moment in their journey." },
+            { q: "What about client accountability?", a: "It sends check-in messages, tracks goal completion, celebrates wins, and flags clients who are falling behind — so you can intervene before they disengage." },
+            { q: "Can it run webinars and live event follow-up?", a: "Absolutely. It handles registration, reminders, attendance tracking, replay distribution, and post-event sales sequences — turning events into revenue." },
+            { q: "How quickly can I get started?", a: "Most coaching businesses are live within 2-3 weeks. We start with lead qualification and booking, then expand to client delivery and retention." }
         ],
         layers: [
             {
@@ -462,6 +428,8 @@ export const industries: IndustryContent[] = [
         problem: "You are losing sales because a customer had a question about sizing at 2 AM and nobody was there. You are drowning in 'Where is my order?' emails. Your ROAS is dropping because you cannot follow up with abandoned carts fast enough.",
         operatorProblem: "Manual support and manual marketing are the bottlenecks eating your margins. Every unanswered question and every unworked cart is lost revenue. We build an AI department that handles support, personalized upsells, and inventory alerts — no human input required.",
         result: "The store recovers lost revenue from abandoned carts, turns one-time buyers into loyal customers, and handles support without hiring more people.",
+        subNiches: ["DTC Lifestyle Brands", "Omnichannel Retailers", "Subscription Box Companies", "High-Ticket Specialty Goods", "CPG Brands", "Amazon & Marketplace Sellers", "Dropshipping Operations", "Shopify Stores", "WooCommerce Merchants", "Fashion & Apparel Brands", "Beauty & Skincare DTC", "Pet Product Brands", "Health Supplement Companies", "Home & Garden Ecommerce", "Jewelry & Accessories", "Outdoor & Sporting Goods", "Electronics & Gadget Stores", "Food & Beverage DTC"],
+        geoKeywords: ["San Francisco", "New York City", "Austin", "Miami", "Los Angeles", "Chicago", "Seattle", "Denver", "Boston", "Atlanta", "Dallas", "Houston", "Phoenix", "Nashville", "Charlotte", "San Diego", "Portland", "Minneapolis", "Tampa", "Raleigh", "Salt Lake City", "Washington DC", "Philadelphia", "Detroit", "Orlando", "Las Vegas", "Remote-First", "USA Nationwide"],
         services: {
             singleSystems: {
                 title: "Single System Installs",
@@ -547,33 +515,18 @@ export const industries: IndustryContent[] = [
                 ]
             }
         },
-        longFormContent: `
-      ## The E-commerce Squeeze: Why Scaling Costs So Much
-      
-      You've built a store. You've found a product that people love. You've navigated the complex world of Facebook ads, TikTok trends, and Pinterest boards to get eyes on your site. But as you grow, you're hitting a wall that every e-commerce founder knows: **The Margin Squeeze.**
-
-      As your order volume grows, your support team usually grows at the same linear rate. More orders mean more "Where is my order?" (WISMO) tickets. More returns. More sizing questions. Pretty soon, your customer support payroll is eating up the very profit margins that were supposed to make you wealthy. To win in 2026, you need a store that scales without adding headcount.
-
-      ### The 2 AM Sales Gap
-      
-      E-commerce is global. Your store is open 24/7. But your team probably isn't. When a potential customer in London has a question about the material of your jacket at 2 AM New York time, they aren't going to wait 12 hours for an email response. They're going to click away and buy from your competitor.
-
-      #### 1. The Sales-Closing Bot: Real-Time Conversion
-      We don't just build "FAQ bots." We build sales agents that live on your product pages. They understand the nuance of your products—sizing charts, shipping policies, material specifications. They answer questions in real-time, handling objections right at the point of purchase. The result is typically a 12-18% lift in on-site conversion—pure profit that goes straight to your bottom line.
-
-      #### 2. The Intelligent WISMO Solver
-      The #1 support ticket in e-commerce is "Where is my order?". It's a low-value, repetitive task that drains your team's energy. Our AI agents integrate directly with your shipping providers (AfterShip, Route, 17track) and your Shopify backend. They provide instant, accurate tracking updates to your customers via Web, SMS, or Email, reducing support tickets by up to 60% in the first 30 days.
-
-      #### 3. Behavioral Marketing That Actually Sells
-      Most "Abandoned Cart" emails are generic and ignored. Our systems use AI to analyze *why* the cart was abandoned. Did they stall at the shipping cost? The AI sends a discount code specifically for shipping. Did they stall on a sizing question? The AI reaches out with a personalized sizing recommendation. This is hyper-personalized marketing that converts at 3x the industry average.
-
-      ### Scaling to 8-Figures and Beyond
-      
-      The difference between a store that plateaus at $1M and one that hits $10M+ is the quality of its infrastructure. We help you build the "Commerce OS"—the autonomous brain of your retail empire—so you can focus on product development and brand strategy, while the AI handles the friction.
-    `,
         faq: [
             { q: "Does it work with Shopify?", a: "Yes. We integrate directly with Shopify, Klaviyo, and your shipping providers." },
-            { q: "Can it handle returns?", a: "It can qualify a return based on your policy and even generate the label automatically." }
+            { q: "Can it handle returns?", a: "It can qualify a return based on your policy and even generate the label automatically." },
+            { q: "How does it reduce cart abandonment?", a: "The AI sends personalized recovery sequences via email, SMS, and even web push — with dynamic discount offers based on cart value and customer history." },
+            { q: "Can it handle customer service at scale?", a: "Yes. It resolves 80-90% of support tickets instantly — order tracking, shipping questions, product info, exchanges — and escalates complex issues to your team." },
+            { q: "Does it work with WooCommerce and other platforms?", a: "We integrate with Shopify, WooCommerce, BigCommerce, Magento, and most major e-commerce platforms and their ecosystems." },
+            { q: "How does it help with inventory management?", a: "The AI predicts stockouts, suggests reorder quantities, tracks supplier lead times, and alerts you before bestsellers go out of stock." },
+            { q: "Can it personalize the shopping experience?", a: "Absolutely. It recommends products based on browsing behavior, purchase history, and customer segments — increasing average order value by 15-30%." },
+            { q: "How does it handle product reviews?", a: "It sends review requests post-purchase, responds to reviews, highlights UGC for social proof, and flags negative feedback for immediate attention." },
+            { q: "Can it manage email and SMS marketing?", a: "Yes. It segments your list, writes personalized campaigns, optimizes send times, and runs automated flows — welcome series, win-back, VIP, and more." },
+            { q: "What about fraud detection?", a: "The AI flags suspicious orders based on patterns — unusual quantities, mismatched addresses, repeated failed payments — so you can review before shipping." },
+            { q: "How quickly can we get started?", a: "Most e-commerce stores are live within 2-3 weeks. We start with customer support and cart recovery, then expand to marketing automation and operations." }
         ],
         layers: [
             {
@@ -600,6 +553,8 @@ export const industries: IndustryContent[] = [
         problem: "Your margins are shrinking. Every time you sign a new client, you have to hire more staff. Quality is slipping because you cannot oversee everything. You are trapped in meetings and project management instead of high-level strategy.",
         operatorProblem: "Deliverables and client communication bottleneck through you. Every research task, every first draft, every status update is human work priced at human rates. We build an AI department that handles all three — so your team ships faster and your margins recover.",
         result: "The agency owner stops being the project manager. Clients get onboarded in minutes, not weeks. Reports happen automatically. The team focuses on creative work, not admin.",
+        subNiches: ["Digital Marketing Agencies", "SEO & Content Agencies", "Social Media Management", "PPC & Paid Media Agencies", "Web Design & Development Shops", "Branding & Creative Studios", "PR & Communications Agencies", "Video Production Houses", "Influencer Marketing Agencies", "Email Marketing Agencies", "CRO & Growth Agencies", "HubSpot & CRM Agencies", "Shopify & Ecommerce Agencies", "Full-Service Ad Agencies", "Performance Marketing Agencies", "Lead Generation Agencies", "White-Label Service Providers", "Fractional CMO Firms"],
+        geoKeywords: ["San Francisco", "New York City", "Austin", "Miami", "Los Angeles", "Chicago", "Seattle", "Denver", "Boston", "Atlanta", "Dallas", "Houston", "Phoenix", "Nashville", "Charlotte", "San Diego", "Portland", "Minneapolis", "Tampa", "Raleigh", "Salt Lake City", "Washington DC", "Philadelphia", "Detroit", "Orlando", "Las Vegas", "Remote-First", "USA Nationwide"],
         services: {
             singleSystems: {
                 title: "Single System Installs",
@@ -675,31 +630,18 @@ export const industries: IndustryContent[] = [
                 ]
             }
         },
-        longFormContent: `
-      ## Breakthrough the Agency Ceiling
-      
-      If your growth is capped by how many people you can hire and manage, you don't scale—you just get bigger. Real scale comes from decoupling revenue from headcount. Every agency owner eventually hits "The Ceiling"—that point where the complexity of managing the team and the clients becomes so high that you stop growing and start just trying to survive the day.
-
-      ### The Agency Death Spiral: Why Hiring More People Isn't the Answer
-      
-      The traditional agency model is fundamentally broken. To grow, you hire more account managers and more specialists. But more people means more project management overhead. More meetings. More internal communication errors. Pretty soon, your margins are shrinking, and your quality is slipping because you can't be in every room. You're trapped in the day-to-day operations instead of high-level strategy.
-
-      #### 1. The Automated Researcher: Reclaiming the Kickoff
-      The most expensive part of any agency project is the initial research and brief generation. Our AI systems automate the "Heavy Lifting." By scanning competitor sites, reviews, and market trends, the AI produces a deep-dive research report and a project brief that is 90% finished before your team ever touches it. We've seen this cut project kickoff time from 3 days to 3 hours.
-
-      #### 2. The Client Portal Agent: Zero-Latency Account Management
-      Clients don't leave agencies because of bad work; they leave because of bad communication. "How is my project going?" is the question that kills account managers' productivity. Our AI agents live in your Slack or client portal, pulling real-time data from your project management tools (ClickUp, Asana, Monday) to give clients instant, accurate status updates. No more phone tag. No more "I'll check with the team and get back to you."
-
-      #### 3. AI-Assisted Fulfillment: The Force Multiplier
-      We build specific "AI Worker" nodes for your niche. If you're a content agency, we build an agent that drafts content in your specific "Agency Style Guide." If you're an SEO firm, we build an agent that handles the manual outreach and backlink research. This doesn't replace your team; it gives them a "Superpower," allowing one specialist to handle the workload of five.
-
-      ### The Leveraged Agency Model
-      
-      The agencies that win in the next decade will be "Systems-Led." They will charge based on the value they deliver, not the hours they bill. We provide the infrastructure that makes that possible.
-    `,
         faq: [
             { q: "Will clients know we use AI?", a: "We focus on 'Human-in-the-loop' systems where AI does the heavy lifting and humans do the final polish. The result is just faster, better work." },
-            { q: "Can it integrate with ClickUp/Asana?", a: "Yes. We plug into your project management tools to keep everything synced." }
+            { q: "Can it integrate with ClickUp/Asana?", a: "Yes. We plug into your project management tools to keep everything synced." },
+            { q: "How does it help us scale without hiring?", a: "The AI handles the repetitive 80% — client reporting, content drafts, data analysis, scheduling — so your team focuses on strategy and creative work. Most agencies double output without adding headcount." },
+            { q: "Can it white-label for our clients?", a: "Yes. Everything we build can be branded as your agency's own technology, so your clients see it as part of your premium service offering." },
+            { q: "How does it handle client onboarding?", a: "It automates asset collection, sends welcome sequences, creates project workspaces, schedules kickoff calls, and gathers all the info your team needs — before day one." },
+            { q: "Can it help with client reporting?", a: "Absolutely. It pulls data from all platforms, generates branded reports with insights and recommendations, and can even schedule automatic delivery to clients." },
+            { q: "Does it handle social media management?", a: "Yes. It drafts posts, schedules content across platforms, monitors engagement, responds to comments, and generates performance reports — across all client accounts." },
+            { q: "How does it manage multiple clients?", a: "Each client gets their own AI workspace with separate data, workflows, and brand voice settings. Your team manages everything from a single dashboard." },
+            { q: "Can it help win new business?", a: "The AI automates outbound prospecting, drafts proposals, creates case study summaries, and follows up with warm leads — so your pipeline never dries up." },
+            { q: "What about quality control?", a: "Every AI output goes through your approval workflow. The AI learns from your edits over time, getting closer to your agency's standards with each iteration." },
+            { q: "How quickly can our agency get started?", a: "Most agencies are live within 2-3 weeks. We start with the workflows eating the most time — usually reporting and content production — then expand." }
         ],
         layers: [
             {
@@ -731,6 +673,8 @@ export const industries: IndustryContent[] = [
         problem: "You are in the field, but the phone is ringing. By the time you call them back, they have already booked with someone else. Your office manager is overwhelmed with scheduling and rescheduling. You have no idea which of your ads are actually turning into profit.",
         operatorProblem: "Every missed call and every slow follow-up is a bottleneck that costs you jobs. We remove it. Our AI department answers 100% of calls and texts, qualifies the lead, and books the estimate into your schedule — while you stay on the job site.",
         result: "The owner stops answering the phone, stops chasing invoices, and stops losing leads. The business runs whether the owner is on a job site or on vacation.",
+        subNiches: ["HVAC & Climate Control", "Plumbing & Rooter Services", "Electrical Contractors", "Roofing & Siding", "Landscaping & Lawn Care", "Cleaning & Janitorial", "Pest Control", "Painting Companies", "Fencing Contractors", "Garage Door Repair", "Flooring Installers", "Pressure Washing", "Tree Service & Removal", "Handyman Services", "Appliance Repair", "Pool Service & Maintenance", "Locksmith Services", "Window Cleaning", "Gutter Installation & Repair", "Moving Companies", "Water Damage Restoration", "Carpet Cleaning", "Solar Installation", "General Contractors"],
+        geoKeywords: ["San Francisco", "New York City", "Austin", "Miami", "Los Angeles", "Chicago", "Seattle", "Denver", "Boston", "Atlanta", "Dallas", "Houston", "Phoenix", "Nashville", "Charlotte", "San Diego", "Portland", "Minneapolis", "Tampa", "Raleigh", "Salt Lake City", "Washington DC", "Philadelphia", "Detroit", "Orlando", "Las Vegas", "San Antonio", "Jacksonville", "Columbus", "Indianapolis", "Fort Worth", "Sacramento", "USA Nationwide"],
         services: {
             singleSystems: {
                 title: "Single System Installs",
@@ -811,31 +755,18 @@ export const industries: IndustryContent[] = [
                 ]
             }
         },
-        longFormContent: `
-      ## The 'Trucks and Tech' Revolution
-      
-      The best home service businesses in the next 5 years won't just have the best technicians—they'll have the best systems. In the local service world, **Speed to Lead** is the only metric that matters. If you can answer the phone faster and follow up better than your competitor, you win the job. Period.
-
-      ### Stop Losing Jobs to Slow Follow-Ups
-      
-      You're in the field. You're on a roof, in a crawlspace, or behind the wheel. The phone rings. It's a potential client—a "Hot Lead" ready to book a $10,000 project. You miss the call. By the time you pull over and call them back 30 minutes later, they've already called two other companies and booked with the one that answered. You just lost $10k because you were doing your job.
-
-      #### 1. The 24/7 AI Receptionist: The "No-Missed-Lead" Policy
-      We implement AI voice and text agents that answer every single call and message instantly. They don't just "take a message"; they qualify the lead. They ask about the project size, the location, and the urgency. They can even provide ballpark pricing based on your rules and book the estimate directly into your CRM (ServiceTitan, Jobber, Housecall Pro) while you're still in the field.
-
-      #### 2. The Review Multiplier: Boosting Local SEO
-      In Home Services, reviews are your currency. But technicians often forget to ask, and customers often forget to leave them. Our system automates the "Close-Out." The moment a job is marked "Done," the system sends a personalized SMS asking for a review. If they're happy, it guides them to Google. If they have concerns, it flags them to you privately so you can fix it before it becomes a 1-star review.
-
-      #### 3. Estimating from Photos: Removing the Drive Time
-      Imagine eliminating 50% of your "Driving for Quotes" time. Our AI systems allow customers to upload photos of their project via a secure link. The AI analyzes the photos, applies your pricing logic, and gives you a pre-drafted estimate to review. You only drive to the jobs that are actually worth your time.
-
-      ### Building a Service Legacy
-      
-      The goal isn't just to work; it's to build a business that works *without* you. By installing an AI "Office Layer," you free yourself to focus on training your crew and growing your brand.
-    `,
         faq: [
             { q: "Can it work with ServiceTitan or Jobber?", a: "Yes, we build custom bridges to your existing field management software." },
-            { q: "Does it work over the phone?", a: "Yes, we can implement AI voice agents that sound incredibly human and handle full booking flows." }
+            { q: "Does it work over the phone?", a: "Yes, we can implement AI voice agents that sound incredibly human and handle full booking flows." },
+            { q: "How does it handle emergency service calls?", a: "The AI triages urgency, collects essential details (address, issue, photos), and dispatches your nearest available crew — all within minutes, even at 3 AM." },
+            { q: "Can it send estimates automatically?", a: "Yes. Based on the job type, photos, and details collected, it generates preliminary estimates and sends them to the homeowner for approval." },
+            { q: "How does it help with follow-up?", a: "It follows up 7-15 times across text, email, and phone until the lead books or opts out. Most home service businesses lose 60% of leads to slow follow-up — we fix that." },
+            { q: "Does it handle review generation?", a: "After every completed job, the AI sends a satisfaction check and routes happy customers to leave Google reviews. It also flags unhappy customers for immediate service recovery." },
+            { q: "Can it manage my technician schedules?", a: "Yes. It optimizes routes, assigns jobs based on skills and location, handles rescheduling, and sends customers real-time ETA updates." },
+            { q: "How does it handle seasonal demand?", a: "The AI forecasts demand based on weather, seasonality, and local trends, then adjusts your marketing spend and staffing recommendations accordingly." },
+            { q: "Can it sell maintenance plans?", a: "Absolutely. It identifies customers who are good candidates for recurring service plans and presents offers at the perfect time — like right after a repair." },
+            { q: "What about missed calls?", a: "Every missed call gets an instant text-back within seconds. The AI captures the lead, qualifies them, and books the appointment — even if your phones are ringing off the hook." },
+            { q: "How quickly can we get started?", a: "Most home service companies are live within 2-3 weeks. We start with lead capture and booking, then expand to dispatch, reviews, and retention." }
         ],
         layers: [
             {
@@ -860,8 +791,10 @@ export const industries: IndustryContent[] = [
         name: "Healthcare & Dental",
         hook: "Your Patients Deserve Better Than a Voicemail.",
         problem: "Your front desk is the bottleneck. They are handling insurance, check-ins, and phone calls all at once. Patients are waiting on hold, leads are falling through the cracks, and your staff is burnt out by repetitive administrative tasks.",
-        operatorProblem: "Manual intake and manual follow-up are the bottlenecks that drain your staff and lose patients. We install a HIPAA-compliant AI department that handles scheduling, insurance verification, and patient education — before they ever step foot in the office.",
-        result: "The front desk stops being a bottleneck. No-shows drop. Reviews go up. Patients feel taken care of even when nobody is manually reaching out.",
+        operatorProblem: "Manual intake and manual follow-up are the bottlenecks burning out your practitioners and losing patients. We install an AI clinic operating system that manages the patient journey from first contact to post-care check-in — without your team doing the repetitive work.",
+        result: "Practitioners stop spending 40% of their time on admin. Intake happens before the patient walks in. The practice grows without adding front desk staff.",
+        subNiches: ["Dental Practices", "Physical Therapy Clinics", "MedSpas & Aesthetics", "Psychology & Behavioral Health", "Specialty Medical Groups", "Veterinary Hospitals", "Concierge Medicine", "Chiropractic Offices", "Optometry & Vision Centers", "Dermatology Clinics", "Pediatric Practices", "OB/GYN Practices", "Orthopedic Clinics", "Urgent Care Centers", "Home Health Agencies", "Mental Health Practices", "Plastic Surgery Centers", "Fertility Clinics", "Functional Medicine Practices", "Telehealth Providers"],
+        geoKeywords: ["San Francisco", "New York City", "Austin", "Miami", "Los Angeles", "Chicago", "Seattle", "Denver", "Boston", "Atlanta", "Dallas", "Houston", "Phoenix", "Nashville", "Charlotte", "San Diego", "Portland", "Minneapolis", "Tampa", "Raleigh", "Salt Lake City", "Washington DC", "Philadelphia", "Detroit", "Orlando", "Las Vegas", "San Antonio", "Jacksonville", "Columbus", "Indianapolis", "USA Nationwide"],
         services: {
             singleSystems: {
                 title: "Single System Installs",
@@ -942,31 +875,18 @@ export const industries: IndustryContent[] = [
                 ]
             }
         },
-        longFormContent: `
-      ## The Healthcare Efficiency Crisis: Beyond the EMR
-      
-      Patient expectations have fundamentally changed. In an era of instant gratification, patients want the convenience of Uber for their dental check-ups and medical appointments. They don't want to wait on hold for 15 minutes to book a cleaning. They don't want to fill out the same clipboard of paperwork every time they visit. We help you deliver a "Modern Patient Experience" without hiring more administrative staff.
-
-      ### The HIPAA-Compliant AI Advantage
-      
-      The biggest barrier to AI in healthcare is security and compliance. At Eliana Tech, we don't use public, data-scraping models for patient data. We build private, encrypted AI layers that sit on top of your existing Practice Management Software (PMS) or Electronic Medical Records (EMR). Your data stays yours, and your patient confidentiality is 100% protected.
-
-      #### 1. The 24/7 Virtual Patient Coordinator: The Front Desk's Best Friend
-      Your front desk team is the heartbeat of your practice, but they're often overwhelmed. They're handling in-person check-ins, insurance verification, and phone calls all at once. Our AI "Virtual Coordinator" handles the repetitive phone burden. It answers common questions ("Do I need to fast?", "What's my co-pay?", "Are you in-network?"), books appointments directly into your schedule (OpenDental, Dentrix, NexHealth), and even follows up with no-shows to reschedule.
-
-      #### 2. Automated Referral Management: Closing the 60-Second Loop
-      Referrals are the lifeblood of specialized practices, but they are often lost in "Fax Limbo." Our AI scans incoming referral faxes/emails, extracts the patient data, and reaches out to the patient via SMS within 60 seconds of receipt. By the time your competitor even sees the referral, your patient is already scheduled. This "Speed to Lead" typically doubles referral conversion rates.
-
-      #### 3. Post-Op Care and Patient Longevity
-      Patient care shouldn't stop when they leave the building. Our AI "Care Continuity" agents follow up with patients after procedures to check on their recovery, answer post-op questions in your voice, and ensure they book their follow-up. This increases patient satisfaction and minimizes the risk of complications that lead to emergency calls.
-
-      ### Future-Proofing Your Practice
-      
-      The practices that will dominate their local markets in 2030 are those that leverage technology to augment human care. We provide the "Health OS" that makes that possible, allowing you to focus on clinical excellence while the AI handles the logistics.
-    `,
         faq: [
             { q: "Is this HIPAA compliant?", a: "Yes. We use enterprise-grade, encrypted AI models and ensure all data handling meets strict compliance standards." },
-            { q: "Can it integrate with my EMR/PMS?", a: "Yes, we integrate with major platforms like OpenDental, Curve, NexHealth, and others via APIs." }
+            { q: "Can it integrate with my EMR/PMS?", a: "Yes, we integrate with major platforms like OpenDental, Dentrix, NexHealth, and others via APIs." },
+            { q: "How does the AI handle patient scheduling?", a: "It manages bookings, cancellations, waitlists, and rescheduling across phone, web, and text. It fills last-minute openings and reduces no-shows with smart reminders." },
+            { q: "Can it verify insurance benefits?", a: "Yes. The AI checks eligibility, verifies coverage details, and presents patients with accurate cost estimates before their appointment." },
+            { q: "Does it handle after-hours calls?", a: "Absolutely. The AI answers patient inquiries 24/7, triages urgent symptoms, schedules appointments, and escalates emergencies to on-call staff." },
+            { q: "How does it help with patient retention?", a: "It tracks overdue appointments, sends personalized recall sequences, follows up on incomplete treatment plans, and re-engages patients who have gone dormant." },
+            { q: "Can it manage online reviews?", a: "Yes. It sends review requests to happy patients, monitors your online reputation across Google and Healthgrades, and drafts responses for your approval." },
+            { q: "What about patient intake forms?", a: "The AI sends digital intake forms before appointments, pre-fills returning patient data, and flags incomplete or inconsistent information for staff review." },
+            { q: "How does it handle billing and collections?", a: "It generates statements, sends payment reminders, processes payments, and follows up on outstanding balances — all while maintaining a professional, empathetic tone." },
+            { q: "Can it support multiple locations?", a: "Yes. We build centralized systems that manage scheduling, communications, and operations across all your locations with location-specific routing." },
+            { q: "How quickly can we get started?", a: "Most healthcare practices are live within 3-4 weeks. We start with patient communications and scheduling, then expand to intake, billing, and clinical support." }
         ],
         layers: [
             {
@@ -993,6 +913,8 @@ export const industries: IndustryContent[] = [
         problem: "Your high-value experts are bogged down in document review, lead qualification, and chasing client signatures. Your margins are being eaten alive by administrative overhead that could be automated.",
         operatorProblem: "Every intake review, every research task, every document prep cycle is a bottleneck that pulls your partners away from billable strategy. We build an AI department that does the grunt work. The partner shows up for the final call, not the first draft.",
         result: "The partner stops doing intake and document prep by hand. Billing happens automatically. Past clients keep coming back because the system keeps the relationship warm.",
+        subNiches: ["Personal Injury Law", "Boutique Accounting Firms", "Family & Estate Law", "Tax & Audit Practices", "Corporate & M&A Firms", "Real Estate Law", "Fractional CFO Services", "Criminal Defense Attorneys", "Immigration Law Firms", "Bankruptcy Attorneys", "Employment & Labor Law", "Intellectual Property Law", "Bookkeeping Services", "CPA Firms", "Financial Planning Practices", "Wealth Management Firms", "Insurance Agencies", "Trust & Probate Attorneys", "Small Business Tax Specialists", "Forensic Accounting"],
+        geoKeywords: ["San Francisco", "New York City", "Austin", "Miami", "Los Angeles", "Chicago", "Seattle", "Denver", "Boston", "Atlanta", "Dallas", "Houston", "Phoenix", "Nashville", "Charlotte", "San Diego", "Portland", "Minneapolis", "Tampa", "Raleigh", "Salt Lake City", "Washington DC", "Philadelphia", "Detroit", "Orlando", "Las Vegas", "USA Nationwide"],
         services: {
             singleSystems: {
                 title: "Single System Installs",
@@ -1075,39 +997,27 @@ export const industries: IndustryContent[] = [
                 title: "The Professional OS",
                 description: "Custom AI proprietary to your firm's methodology.",
                 features: [
-                    "Custom vector store of all past successful cases/filings for internal search",
-                    "Automated compliance and risk-monitoring AI",
-                    "Dynamic pricing and billing optimization engine",
-                    "Autonomous Conflict of Interest check system",
-                    "Integrated multi-channel client stewardship machine"
+                    "Proprietary 'AI Worker' nodes for your specific niche",
+                    "Automated client reporting and ROI tracking dashboards",
+                    "Dynamic resource and talent allocation AI",
+                    "Autonomous HR & specialized freelancer sourcing",
+                    "Integrated multi-channel client communication hub"
                 ]
             }
         },
-        longFormContent: `
-      ## The Future of the Billable Hour: AI in Professional Services
-      
-      AI is fundamentally changing the economics of law firms and accounting practices. The days of billing $300/hour for junior associates to perform manual document review are coming to an end. Clients are demanding faster results and more transparent value. Firms that embrace AI now will win on margin, speed, and client satisfaction.
-
-      ### Moving from "Operator Partner" to "Founder Partner"
-      
-      Most partners in boutique firms are "Operators." They are involved in every single piece of intake, every document review, and every client update. This limits the firm's growth to the partner's personal bandwidth. We help you build an "AI Associate" layer that performs 90% of the prep work, allowing the partner to focus entirely on high-level strategy and client relationships.
-
-      #### 1. The AI discovery Assistant: Finding the Needle in the Haystack
-      Document discovery and research consume thousands of billable hours that are often written off or questioned by clients. Our AI "Discovery Agent" can scan thousands of pages, contracts, or tax filings in seconds. It doesn't just "search for keywords"; it understands legal and financial concepts. It flags anomalies, identifies key clauses, and prepares a research summary that is 90% ready for partner review.
-
-      #### 2. Precision Intake and Lead Qualification
-      Not every potential client is a good fit. Spending partner time on "Discovery Calls" with unqualified leads is a massive drain on resources. Our AI "Intake Specialist" interviews potential clients on your site or via SMS. It asks the specific questions your firm needs to know (e.g., "Conflict of interest?", "Budget?", "Case specifics?") and only books a meeting when the lead meets 100% of your criteria.
-
-      #### 3. Automated Document Drafting and Version Control
-      Drafting the first version of a complex contract or tax strategy is a manual, error-prone process. Our systems use your firm's past successful templates and "Style Guide" to draft the first version of documents based on the intake data. This reduces turnaround time from days to minutes and ensures 100% consistency across the firm.
-
-      ### Security and Confidentiality: Non-Negotiables
-      
-      We understand that for Law and Finance, data privacy is everything. We deploy private, non-training models. Your firm's intellectual property and your clients' sensitive information never leave your secure environment. This is "Private AI" for the elite professional.
-    `,
         faq: [
             { q: "Is my data secure?", a: "We use private, non-training models so your firm's proprietary data and client confidentiality are 100% protected." },
-            { q: "Can it write actual legal/accounting advice?", a: "We focus on 'support' and 'prep' AI. The machine does the heavy lifting, but the final sign-off is always by the licensed professional." }
+            { q: "Can it write actual legal/accounting advice?", a: "We focus on 'support' and 'prep' AI. The machine does the heavy lifting, but the final sign-off is always by the licensed professional." },
+            { q: "How does it handle client intake?", a: "The AI pre-screens leads, collects initial documents, checks for conflicts of interest, and books consultations — so your team only speaks with qualified prospects." },
+            { q: "Can it help with document review?", a: "Yes. It summarizes contracts, flags key clauses, compares versions, and highlights risks — cutting document review time by 60-80%." },
+            { q: "Does it integrate with practice management software?", a: "We connect with Clio, MyCase, PracticePanther, QuickBooks, Xero, and most major legal and financial practice management tools." },
+            { q: "How does it help with compliance?", a: "The AI monitors regulatory updates, tracks filing deadlines, generates compliance checklists, and alerts your team before anything falls through the cracks." },
+            { q: "Can it handle billing and collections?", a: "Yes. It generates invoices, tracks billable hours, sends payment reminders, and follows up on overdue accounts — automatically and professionally." },
+            { q: "What about research and case preparation?", a: "The AI can research statutes, summarize case law, draft initial briefs, and prepare discovery documents — giving your team a massive head start." },
+            { q: "How does it manage client communications?", a: "It sends case updates, appointment reminders, document requests, and status reports — keeping clients informed without consuming attorney time." },
+            { q: "Can it support multiple practice areas?", a: "Absolutely. We build separate workflows for each practice area — family law, corporate, tax, litigation — each with their own intake and delivery logic." },
+            { q: "What ROI should our firm expect?", a: "Most firms recover 10-20 hours per attorney per week, reduce client intake time by 70%, and see measurable revenue growth within the first quarter." },
+            { q: "How long does implementation take?", a: "Most legal and finance firms are fully operational within 4-6 weeks. We start with intake automation and document management, then expand to full practice support." }
         ],
         layers: [
             {
@@ -1132,8 +1042,10 @@ export const industries: IndustryContent[] = [
         name: "Real Estate",
         hook: "Be the First to the Lead, Every Single Time.",
         problem: "Real estate is a speed game. If you do not respond to a Zillow or web lead within 2 minutes, you have lost them. But you are in the middle of a showing or a closing. You cannot be available 24/7. Your AI operating system can.",
-        operatorProblem: "Slow lead response is the bottleneck that kills your pipeline. Every minute you wait is a lead going to a competitor. We install an AI department that engages the lead, qualifies their budget and location, and books the showing in 30 seconds — automatically.",
-        result: "The agent never loses a lead to slow response time again. Past clients stay in the pipeline forever. Transactions run smoother with less stress.",
+        operatorProblem: "Lead follow-up is the graveyard of real estate commissions. If your response time isn't under 5 minutes, you've lost the deal. We install an AI department that responds instantly, qualifies the buyer/seller, and only hands you the high-value closings.",
+        result: "The agent stops chasing Zillow leads and starts closing listing presentations. The CRM fills with qualified appointments, not just dead names.",
+        subNiches: ["Residential Luxury Teams", "Commercial Brokerages", "Real Estate Investors & Wholesalers", "Property Management Companies", "Short-Term Rental & Airbnb Ops", "Mortgage & Lending Teams", "Relocation Services", "New Construction Sales", "Land & Lot Sales", "Real Estate Developers", "Multifamily Investment Groups", "REITs & Syndications", "Title & Escrow Companies", "Real Estate Auction Houses", "Senior Living Communities", "Student Housing Management", "Industrial & Warehouse Leasing", "Vacation Rental Management"],
+        geoKeywords: ["San Francisco", "New York City", "Austin", "Miami", "Los Angeles", "Chicago", "Seattle", "Denver", "Boston", "Atlanta", "Dallas", "Houston", "Phoenix", "Nashville", "Charlotte", "San Diego", "Portland", "Minneapolis", "Tampa", "Raleigh", "Salt Lake City", "Washington DC", "Philadelphia", "Detroit", "Orlando", "Las Vegas", "San Antonio", "Jacksonville", "Columbus", "Indianapolis", "Scottsdale", "Boca Raton", "USA Nationwide"],
         services: {
             singleSystems: {
                 title: "Single System Installs",
@@ -1234,31 +1146,18 @@ export const industries: IndustryContent[] = [
                 ]
             }
         },
-        longFormContent: `
-      ## Real estate at the Speed of AI: Winning the local market
-      
-      Real estate is, and always will be, a relationship business. But in 2026, the relationship only happens if you Win the Lead. In a market where Zillow, Realtor.com, and social media leads are distributed to dozens of agents simultaneously, the agent with the best tech—not the best smile—wins the listing.
-
-      ### The "Speed to Lead" Problem
-      
-      Studies show that if you don't respond to a real estate lead within 2 minutes, the conversion rate drops by 80%. But you're an agent. You're in the middle of a showing, at a closing, or driving to a listing appointment. You can't be on your phone 24/7. But your AI can.
-
-      #### 1. The 24/7 AI-ISA (Inside Sales Agent)
-      Most agents try to hire human ISAs to manage their leads. They are expensive, require management, and sleep. Our "AI-ISA" never sleeps. It engagesEvery lead on SMS, Web, or Facebook Messenger within 5 seconds. It qualifies them based on 15+ data points (location, budget, motivation, timeline) and books the appointment directly on your calendar. By the time you check your phone, the appointment is set and the lead is pre-qualified.
-
-      #### 2. Property FAQ Agent: The Digital Listing Assistant
-      Every listing has a set of common questions. "What are the taxes?", "Is there a HOA?", "What's the age of the roof?". Instead of answering these dozen times a day, we build an AI listing assistant for every property. It knows every detail, can provide the floor plan, book a private tour, and even handle initial offer inquiries. This keeps buyers engaged on *your* site, not Zillow's.
-
-      #### 3. Lifecycle Nurture: The "Stay Top of Mind" Machine
-      The real money in real estate is in the long-term follow-up. Most agents lose touch with 90% of their "not yet" leads after 30 days. Our AI "Nurture Agent" stays in touch with past clients and cold prospects for months or years. It sends personalized, value-driven updates (e.g., "A house just sold in your neighborhood for $X," "Here's a report on local interest rates") in your personal brand voice, ensuring you're the first person they call when they're finally ready.
-
-      ### Building a Tech-Enabled Brokerage
-      
-      Whether you're a solo agent or a team lead with 50 agents, your systems are your scale. We help you build the "Real Estate OS" that allows you to handle 5x the volume with 0x the extra stress.
-    `,
         faq: [
             { q: "Does it work with my CRM (Follow Up Boss, LionDesk)?", a: "Yes, we integrate with most major real estate CRMs." },
-            { q: "Can it qualify sellers?", a: "Yes, it can ask about the address, motivation, mortgage balance, and condition to give you a pre-qualified seller lead." }
+            { q: "Can it qualify sellers?", a: "Yes, it can ask about the address, motivation, mortgage balance, and condition to give you a pre-qualified seller lead." },
+            { q: "How fast does it respond to new leads?", a: "Under 60 seconds. Speed-to-lead is everything in real estate — our AI ensures no inquiry sits unanswered, even at 2 AM on a Sunday." },
+            { q: "Can it handle buyer and seller leads differently?", a: "Yes. The AI runs separate qualification flows for buyers and sellers, asking the right questions and routing them to the appropriate agent or workflow." },
+            { q: "Does it work with Zillow, Realtor.com, and portal leads?", a: "Absolutely. It captures leads from all major portals, IDX sites, social media ads, and your website — then qualifies and nurtures them automatically." },
+            { q: "Can it help with listing marketing?", a: "Yes. It generates property descriptions, creates social media posts, schedules open house promotions, and follows up with attendees after showings." },
+            { q: "How does it handle transaction coordination?", a: "The AI tracks deadlines, monitors document status, communicates with title companies and lenders, and keeps all parties updated throughout the closing process." },
+            { q: "Will my clients know they are talking to AI?", a: "The AI is designed to feel like a helpful assistant, not a robot. Most leads cannot tell the difference — and they appreciate getting instant, helpful responses." },
+            { q: "Can it nurture long-term leads?", a: "Yes. It runs drip campaigns for leads who are 6-12 months out, sends market updates, and re-engages them when buying signals appear." },
+            { q: "What about team lead distribution?", a: "The AI can route leads based on geography, price range, property type, agent availability, or round-robin — whatever rules your team needs." },
+            { q: "How quickly can my team be up and running?", a: "Most real estate teams are fully operational within 2-3 weeks. We start with lead response and qualification, then layer in transaction coordination and marketing." }
         ],
         layers: [
             {
@@ -1283,8 +1182,10 @@ export const industries: IndustryContent[] = [
         name: "Restaurants & Hospitality",
         hook: "Your Staff Should Be Serving Guests, Not Answering the Phone.",
         problem: "On Friday night, your phone is ringing off the hook for reservations, directions, and hours. Your host is distracted, your guests are ignored, and you are losing missed calls to competitors. You need a way to handle the volume without adding more payroll.",
-        operatorProblem: "Reservations, group bookings, and repeat FAQ calls are pure bottlenecks. They pull your team away from the guest standing in front of them. We remove those bottlenecks and install an AI department that handles the phone so your team handles the room.",
-        result: "The host stops answering the phone all night. Reservations book themselves. The team stays focused on the guest experience, not the inbox.",
+        operatorProblem: "Reservations and staffing are the two biggest leaks in your P&L. We build a 'Guest OS' that handles the bookings, the FAQs, and the staffing shifts — so your team can focus on the food and the hospitality.",
+        result: "The restaurant stops losing reservations to busy phone lines. Labor costs drop via automated shift optimization. Guest loyalty increases via automated nurture.",
+        subNiches: ["Multi-Unit Restaurant Groups", "Boutique Hotel Chains", "Ghost Kitchens & Catering", "Event & Wedding Venues", "Luxury Resorts", "Fast-Casual Franchises", "Specialty Bars & Nightclubs", "Coffee Shops & Cafes", "Food Trucks & Mobile Vendors", "Bakeries & Dessert Shops", "Fine Dining Restaurants", "Pizza & Quick Service", "Brewery & Winery Tasting Rooms", "Bed & Breakfasts", "Coworking Spaces & Lounges", "Country Clubs & Golf Courses", "Spa & Wellness Retreats", "Catering Companies"],
+        geoKeywords: ["San Francisco", "New York City", "Austin", "Miami", "Los Angeles", "Chicago", "Seattle", "Denver", "Boston", "Atlanta", "Dallas", "Houston", "Phoenix", "Nashville", "Charlotte", "San Diego", "Portland", "Minneapolis", "Tampa", "Raleigh", "Salt Lake City", "Washington DC", "Philadelphia", "Detroit", "Orlando", "Las Vegas", "New Orleans", "Honolulu", "Savannah", "Charleston", "USA Nationwide"],
         services: {
             singleSystems: {
                 title: "Single System Installs",
@@ -1375,30 +1276,18 @@ export const industries: IndustryContent[] = [
                 ]
             }
         },
-        longFormContent: `
-      ## Serving the Future: Hospitality in the Age of AI
-      
-      Hospitality is fundamentally about human connection. It's about the "Wow" factor when a guest walks in. It's about the service that makes someone feel like a regular on their first visit. But the administrative burden of running a restaurant or a hotel group often gets in the way of that connection. We help you automate the logistics so your team can focus on the guest.
-
-      ### The Friday Night Bottleneck
-      
-      It's 8 PM on a Friday. Your host is juggling a line of people at the door, a ringing phone for reservations, and a "walk-in" party of 12. In the chaos, phones go unanswered. Potential guests call your competitor because they couldn't get through to you. You're losing high-margin reservations simply because you don't have enough ears to answer the phones.
-
-      #### 1. The AI Hostess: Seamless Reservation Flow
-      We implement AI voice and text agents that handle 100% of your reservation volume. They don't just "take a name"; they integrate with your booking system (OpenTable, Resy, SevenRooms). They can handle complex requests ("Can we get a quiet table?", "Do you have high chairs?", "Is there a corkage fee?") and confirm the booking instantly. This frees your host to focus entirely on the guests standing in front of them.
-
-      #### 2. Group Booking & Event Concierge
-      Private events and large group bookings are your most profitable segments, but they require the most "back-and-forth." Our AI concierge handles the initial inquiry, gathers the requirements, shares the menu options, and even collects the deposit. It only brings you or your manager in to finalize the specific details, reducing the "sales cycle" from days to minutes.
-
-      #### 3. Predictive Inventory and Labor Forecasting
-      Most restaurants struggle with labor costs and food waste. Our AI systems analyze your POS data and historic trends (weather, local events, holidays) to predict exactly how many staff you'll need and how much of each ingredient you should order. This typically reduces labor costs and food waste by 10-15%, often representing a 2-3x increase in net profit.
-
-      ### Connecting with Your Guests Beyond the Table
-      
-      Hospitality doesn't end when the check is paid. Our AI loyalty agents reach out to guests on their birthdays or anniversaries with personalized offers based on their past orders. This turns "One-Time Diners" into "Lifer Regulars" without you ever lifting a finger. 
-    `,
         faq: [
-            { q: "Can it take orders?", a: "We focus on reservations and FAQs, but we can build custom ordering flows for takeout and delivery." }
+            { q: "Can it take orders?", a: "We focus on reservations and FAQs, but we can build custom ordering flows for takeout and delivery." },
+            { q: "Does it integrate with my POS system?", a: "Yes. We connect with Toast, Square, Lightspeed, Revel, and most major hospitality POS systems." },
+            { q: "How does it handle reservations?", a: "The AI manages bookings across phone, web, and social channels. It handles modifications, cancellations, waitlists, and sends confirmation reminders automatically." },
+            { q: "Can it manage online reviews?", a: "Absolutely. It monitors Google, Yelp, and TripAdvisor in real-time, drafts personalized responses for your approval, and flags negative reviews for immediate attention." },
+            { q: "How does it help with staffing?", a: "The AI forecasts busy periods based on historical data, events, and weather — then suggests optimal staffing levels and can even coordinate shift swaps." },
+            { q: "Can it handle guest complaints?", a: "It triages complaints by severity, offers immediate solutions for common issues, and escalates serious matters to management with full context — all in real-time." },
+            { q: "What about inventory and ordering?", a: "The AI tracks consumption patterns, predicts supply needs, generates purchase orders, and alerts you before you run out of key items." },
+            { q: "Does it work for hotels and restaurants?", a: "Yes. We build tailored solutions for hotels, restaurants, bars, cafes, event venues, and any hospitality business that serves guests." },
+            { q: "How does it improve guest experience?", a: "Instant responses to inquiries, personalized recommendations, seamless booking, and proactive communication — your guests feel taken care of 24/7." },
+            { q: "What ROI should we expect?", a: "Most hospitality businesses see 30-50% reduction in no-shows, 2-3x faster response times, and significant labor savings within the first month." },
+            { q: "How quickly can we get started?", a: "Most hospitality businesses are live within 2-3 weeks. We start with reservations and guest communications, then expand to operations and marketing." }
         ],
         layers: [
             {
@@ -1423,8 +1312,10 @@ export const industries: IndustryContent[] = [
         name: "Construction & Trades",
         hook: "The AI Foreman: How Construction and Trades Scale Beyond the Job Site.",
         problem: "You are on a job site. The saw is running, the crew has questions, and your phone will not stop vibrating. It is a potential lead calling for a $50k remodel. You cannot answer. By the time you call them back, they have already booked with someone else.",
-        operatorProblem: "Answering phones and triaging leads from a job site is a bottleneck. It costs you jobs and splits your focus. We install an AI foreman that qualifies leads, schedules site visits, and keeps clients updated — without you touching your phone.",
-        result: "The owner stops losing leads while on site. Estimates go out fast. Clients stay updated without a single manual check-in.",
+        operatorProblem: "Change orders and slow bidding are the bottlenecks killing your profitability. We build an AI system that automates the estimate and tracks the project timeline — so you can stop being the administrator and start being the builder.",
+        result: "Bidding time drops by 60%. Material costs are tracked in real-time. Project delays are flagged before they become expensive problems.",
+        subNiches: ["General Contractors", "Commercial Build Teams", "Residential Remodelers", "Specialty Trade Subcontractors", "Civil Infrastructure Firms", "Industrial Construction", "Architecture & Design-Build", "Kitchen & Bath Remodelers", "Concrete & Foundation Contractors", "Steel & Structural Contractors", "Demolition Companies", "Excavation & Grading", "Home Builders & Developers", "Tenant Improvement Contractors", "Green & Sustainable Building", "Fire & Flood Restoration", "Elevator & Escalator Companies", "Drywall & Insulation Contractors"],
+        geoKeywords: ["San Francisco", "New York City", "Austin", "Miami", "Los Angeles", "Chicago", "Seattle", "Denver", "Boston", "Atlanta", "Dallas", "Houston", "Phoenix", "Nashville", "Charlotte", "San Diego", "Portland", "Minneapolis", "Tampa", "Raleigh", "Salt Lake City", "Washington DC", "Philadelphia", "Detroit", "Orlando", "Las Vegas", "San Antonio", "Jacksonville", "Columbus", "Indianapolis", "USA Nationwide"],
         services: {
             singleSystems: {
                 title: "Single System Installs",
@@ -1500,30 +1391,18 @@ export const industries: IndustryContent[] = [
                 ]
             }
         },
-        longFormContent: `
-      ## The AI Foreman: Building the Future of Trades
-      
-      In the construction and trades world, your reputation is your scale. If you do good work, you get more work. But the "Management" of that work—the leads, the scheduling, the client updates—often becomes the bottleneck that stops you from growing your crew. We build the "AI Foreman" that manages the office while you manage the site.
-
-      ### The "Operator" Tradesman Trap
-      
-      You're on a job site. You're focused on the build. But your phone is vibrating. If you answer, you're distracted. If you don't, you might have just missed a $50,000 lead. Most trades-founders stay stuck in the "Self-Employed" phase because they can't bridge the gap between "Doing the Work" and "Growing the Business."
-
-      #### 1. The 24/7 AI Intake Engine: Quality Over Volume
-      Not all leads are created equal. Spending time driving to a quote only to find out the customer has a $500 budget for a $5,000 job is a waste of your life. Our AI intake agent interviews leads via text or web. It asks for project photos, dimensions, and budget. It qualifies them based on your rules and only books a site visit when the lead is "A-Grade."
-
-      #### 2. Automated Project Communication: The Professional Edge
-      The #1 complaint about contractors is "Poor Communication." Our AI system manages the client lifecycle. It sends daily "Site Progress" updates, notifies the client when the crew is on-site (with technician bios/photos), and handles the "Next Steps" after the job is done. This level of professionalism allows you to charge premium rates and dominates your local market.
-
-      #### 3. Referral and Review Automation
-      The moment a job is marked "Complete" in your field software (Jobber, ServiceTitan), the system triggers a "Review Request" via SMS. If the customer hasn't responded in 48 hours, it sends a gentle, personalized nudge. This consistent loop ensures your Google Business Profile stays at the top of the local search results.
-
-      ### Scaling Your Fleet and Your Freedom
-      
-      The goal isn't just to have more trucks; it's to have a business that runs itself. By installing an AI Foreman, you reclaim your role as the Founder and Visionary. You focus on the big-picture strategy; the AI handles the day-to-day coordination.
-    `,
         faq: [
-            { q: "How do I see the photos students/leads send?", a: "The AI collects them and puts them directly into your CRM or a shared folder for your review." }
+            { q: "How do I see the photos students/leads send?", a: "The AI collects them and puts them directly into your CRM or a shared folder for your review." },
+            { q: "Can the AI handle bid management?", a: "Yes. It monitors bid boards, summarizes project specs, tracks deadlines, coordinates sub-contractor quotes, and drafts proposals — so you never miss a profitable job." },
+            { q: "Does it integrate with construction management software?", a: "We connect with Procore, Buildertrend, CoConstruct, PlanGrid, and most major construction management platforms." },
+            { q: "How does it help with scheduling and dispatch?", a: "The AI optimizes crew assignments based on skills, location, and availability. It sends daily schedules, handles weather delays, and keeps clients updated automatically." },
+            { q: "Can it manage subcontractor communications?", a: "Absolutely. It sends RFQs, collects quotes, tracks insurance certificates, manages change orders, and follows up on outstanding invoices — all automatically." },
+            { q: "What about safety compliance?", a: "The AI tracks certifications, schedules safety training, generates toolbox talk documents, monitors incident reports, and keeps you OSHA-ready." },
+            { q: "How does it handle client communications?", a: "It sends project updates, shares progress photos, handles scheduling questions, and manages change request approvals — keeping clients informed without eating your day." },
+            { q: "Can it help with estimating?", a: "Yes. It pulls material costs, calculates labor hours based on historical data, and generates detailed estimates that you review and adjust before sending." },
+            { q: "What about material tracking?", a: "The AI monitors material deliveries, flags delays, tracks usage against estimates, and alerts you when costs are trending over budget." },
+            { q: "How quickly can we get started?", a: "Most construction companies are live within 3-4 weeks. We typically start with lead management and estimating, then expand to project management and dispatch." },
+            { q: "Does it work in the field?", a: "Yes. Everything is mobile-optimized so your crews and project managers can interact with the system from job sites via phone or tablet." }
         ],
         layers: [
             {
@@ -1538,7 +1417,7 @@ export const industries: IndustryContent[] = [
             },
             {
                 department: "Operations & Admin",
-                roles: ["Billing specialist", "Lien manager", "Permit coordinator", "Margin Watchdog"],
+                roles: ["Billing assistant", "Lien manager", "Permit coordinator", "Margin Watchdog"],
                 tasks: ["Generate invoices", "Track lien waivers", "Submit permit apps", "Verify job costs", "Manage vendor payouts", "Monitor project P&L", "Audit labor hours vs bid"]
             }
         ]
@@ -1548,8 +1427,10 @@ export const industries: IndustryContent[] = [
         name: "Manufacturing & Logistics",
         hook: "Supply Chain Precision at AI Speed.",
         problem: "You are managing a hundred moving parts with spreadsheets and email. One delay in a single component ripples through your entire delivery schedule. Your team is spending half their time on status updates instead of production.",
-        operatorProblem: "Manual coordination is the bottleneck slowing your production floor. Every vendor follow-up and every status update is human work at human rates. We install an AI supply chain operating system that predicts delays, chases vendors, and gives your team real-time visibility — automatically.",
-        result: "The team stops managing supply chains by spreadsheet. Delays get flagged before they become problems. The owner gets visibility without building a data team.",
+        operatorProblem: "Inventory leaks and supply chain opaque-ness are the two biggest leaks in your manufacturing P&L. We build an AI 'Factory Brain' that handles the logistics, the quality checks, and the vendor shifts — so your team can focus on the production.",
+        result: "Inventory cycles optimize by 30%. Sourcing errors drop by 80%. Production downtime is predicted and prevented.",
+        subNiches: ["Custom Fabrication Shops", "Consumer Goods (CPG) Producers", "Apparel & Textile Manufacturers", "Industrial Equipment OEM", "Food & Beverage Manufacturing", "Electronics Assembly", "Chemical & Materials Processing", "Metal & CNC Machine Shops", "Plastics & Injection Molding", "Packaging Companies", "Aerospace & Defense Parts", "Automotive Parts Suppliers", "Medical Device Manufacturing", "3D Printing & Additive Manufacturing", "Contract Manufacturing (CMO)", "Wood & Furniture Manufacturing", "Pharmaceutical Manufacturing", "Print & Label Manufacturers"],
+        geoKeywords: ["San Francisco", "New York City", "Austin", "Miami", "Los Angeles", "Chicago", "Seattle", "Denver", "Boston", "Atlanta", "Dallas", "Houston", "Phoenix", "Nashville", "Charlotte", "San Diego", "Portland", "Minneapolis", "Tampa", "Raleigh", "Salt Lake City", "Washington DC", "Philadelphia", "Detroit", "Orlando", "Las Vegas", "Cleveland", "Milwaukee", "Cincinnati", "Pittsburgh", "USA Nationwide"],
         services: {
             singleSystems: {
                 title: "Single System Installs",
@@ -1645,30 +1526,18 @@ export const industries: IndustryContent[] = [
                 ]
             }
         },
-        longFormContent: `
-      ## The Future of the Factory Floor: Industry 4.0 and Beyond
-      
-      The global manufacturing landscape is shifting. To compete in 2026, efficiency isn't just a goal—it's a requirement for survival. We help you move beyond "Status Update Emails" and "Spreadsheet Management" to a fully autonomous logistics and production brain.
-
-      ### The Visibility Gap in Logistics
-      
-      Most manufacturers lose time and money in the "Gaps" between processes. One vendor delay in a single component can ripple through your entire production schedule, causing missed deadlines and frustrated customers. Our AI systems provide "End-to-End Transparency."
-
-      #### 1. The AI Vendor Chaser: Proactive Supply Chain Management
-      Instead of waiting for a shipment to be late, our AI "Vendor Agent" reaches out 3 days prior to every deadline. It confirms the status, handles basic delay responses, and immediately flags potential bottlenecks to your production team if a delay is confirmed. This proactive approach typically reduces production delays by 30%.
-
-      #### 2. Real-Time Customer Logistics Agent
-      Your customers don't want to call you to find out where their order is. They want the transparency of Amazon for their manufacturing orders. Our AI tracking agents provide real-time updates via a secure portal or automated emails, answering "What's the status?" questions 24/7 with zero human intervention.
-
-      #### 3. Production Bottleneck Analysis
-      By analyzing shift logs, machine uptime data, and material flow, our AI identifies "Invisible Bottlenecks"—the small delays that add up to days of lost production over a month. We provide actionable insights that allow you to optimize your shop floor without expensive new machinery.
-
-      ### Security and IP Protection
-      
-      In manufacturing, your "Secret Sauce" is everything. We deploy our AI systems on private, secure cloud instances. Your production data, vendor lists, and proprietary processes are never used to train public AI models. Your business intelligence remains 100% private.
-    `,
         faq: [
-            { q: "What about data privacy?", a: "We deploy on private cloud instances where your production data is never used for training public models." }
+            { q: "What about data privacy?", a: "We deploy on private cloud instances where your production data is never used for training public models." },
+            { q: "Can it integrate with our ERP system?", a: "Yes. We connect with SAP, Oracle, NetSuite, Epicor, and most major ERP platforms used in manufacturing." },
+            { q: "How does it help with quality control?", a: "The AI monitors production data in real-time, flags defects before they become batch issues, tracks quality metrics, and generates compliance reports automatically." },
+            { q: "Can it predict equipment failures?", a: "Yes. By analyzing sensor data, maintenance logs, and usage patterns, it predicts breakdowns before they happen — reducing unplanned downtime by up to 40%." },
+            { q: "How does it handle supply chain disruptions?", a: "It monitors supplier lead times, flags potential delays, suggests alternative vendors, and automatically adjusts production schedules when disruptions occur." },
+            { q: "Does it work on the shop floor?", a: "Absolutely. We deploy interfaces that work on tablets and shop floor terminals so operators can interact with the AI without leaving their stations." },
+            { q: "Can it help with regulatory compliance?", a: "The AI maintains audit trails, generates compliance documentation, tracks certifications, and alerts you before deadlines — keeping you inspection-ready at all times." },
+            { q: "What about inventory optimization?", a: "It forecasts demand, calculates optimal reorder points, reduces carrying costs, and prevents both stockouts and overstock situations." },
+            { q: "How long does deployment take?", a: "Most manufacturing operations are live within 6-8 weeks. We start with your biggest bottleneck — usually production scheduling or quality monitoring — and expand from there." },
+            { q: "What ROI can we expect?", a: "Manufacturers typically see 15-30% reduction in unplanned downtime, 20% improvement in on-time delivery, and significant labor savings within the first quarter." },
+            { q: "Do we need to change our existing processes?", a: "No. We build around your current workflows and systems. The AI enhances what you already do — it does not force you to adopt a new way of working." }
         ],
         layers: [
             {
@@ -1693,8 +1562,10 @@ export const industries: IndustryContent[] = [
         name: "Membership & Community",
         hook: "High-Touch Support Without the High-Cost Team.",
         problem: "Your community is growing, but engagement is dropping because you cannot be everywhere at once. Churn is creeping up because members do not feel seen. You are stuck in day-to-day moderation instead of high-level strategy.",
-        operatorProblem: "Answering forum questions and manually welcoming members are bottlenecks that consume your time without moving the needle. We install an AI community department that handles the questions, flags the churn risks, and identifies members who need attention — before they leave.",
-        result: "The community runs without the founder in the forum. Members feel seen. Churn drops because the system catches disengagement before people leave.",
+        operatorProblem: "Churn is following your personal bandwidth. If yours is a high-touch community, you can't scale without burning out. We install an AI department that monitors member health, automates the onboarding, and only flags the high-value breakthroughs for you.",
+        result: "The founder stops moderating every thread. Members onboard themselves. Retention increases via automated personalized engagement.",
+        subNiches: ["Paid Masterminds", "B2B Professional Networks", "Fan & Creator Communities", "Hyper-Local Groups", "Alumni & Professional Guilds", "High-Ticket Impact Groups", "Niche Hobbyist Communities", "Private Investor Groups", "Fitness & Wellness Communities", "SaaS User Communities", "Nonprofit Member Organizations", "Trade Associations", "Religious & Faith Communities", "Coworking & Entrepreneur Networks", "Parenting & Family Groups", "Industry Peer Groups (Vistage/EO)", "Subscription Media Communities", "Discord & Slack Communities"],
+        geoKeywords: ["San Francisco", "New York City", "Austin", "Miami", "Los Angeles", "Chicago", "Seattle", "Denver", "Boston", "Atlanta", "Dallas", "Houston", "Phoenix", "Nashville", "Charlotte", "San Diego", "Portland", "Minneapolis", "Tampa", "Raleigh", "Salt Lake City", "Washington DC", "Philadelphia", "Detroit", "Orlando", "Las Vegas", "Remote-First", "USA Nationwide"],
         services: {
             singleSystems: {
                 title: "Single System Installs",
@@ -1800,30 +1671,18 @@ export const industries: IndustryContent[] = [
                 ]
             }
         },
-        longFormContent: `
-      ## The Community Lifecycle: Beyond the "Join" Button
-      
-      Building a community is easy; sustaining one is hard. Most community founders fall into the "Engagement Trap"—they spend 100% of their time answering repetitive questions, moderating basic disputes, and manually welcoming new members. This leaves zero time for the strategic work that makes a community valuable: curated networking and high-level content. We help you build an "Autonomous Community" where the AI handles the friction and you handle the connection.
-
-      ### The Churn Paradox in Memberships
-      
-      Members don't leave because of the price; they leave because they feel "Lost" or "Overwhelmed." In a large community, it's impossible for a human founder to notice every member who has stopped logging in or hasn't introduced themselves. Our AI "Community Success" layer monitors member sentiment and activity levels in real-time.
-
-      #### 1. The 24/7 Knowledge Concierge
-      Your community is a goldmine of information, but it's often buried in thousands of old threads and Discord messages. We build a "Searchable Brain" for your community. Members can ask the AI complex questions ("Where did we talk about X?", "What was the takeaway from the May workshop?") and get instant, accurate answers that link directly to the source. This reduces redundant questions by 70%.
-
-      #### 2. Automated Onboarding & Engagement
-      The first 7 days are critical for member retention. Our AI agents guide every new member through a personalized onboarding flow based on their goals. It introduces them to the right people, suggests the most relevant content, and follows up if they haven't completed their profile. This creates a "Sticky" experience that human moderators simply can't replicate at scale.
-
-      #### 3. Sentiment Analysis and Content Ideation
-      What does your community *actually* want? Our AI scans community conversations (in a privacy-respecting way) to identify emerging trends, common pain points, and topics of interest. We provide you with a weekly report of what your members are talking about, allowing you to create content and events that are guaranteed to hit the mark.
-
-      ### Scaling Your Collective Impact
-      
-      Success for a membership founder isn't about working more; it's about building a system that becomes more valuable the more people join. We provide the AI infrastructure that turns your community into a self-sustaining ecosystem.
-    `,
         faq: [
-            { q: "Can it moderate content?", a: "Yes, it can flag inappropriate content or spam based on your community guidelines." }
+            { q: "Can it moderate content?", a: "Yes, it can flag inappropriate content or spam based on your community guidelines." },
+            { q: "How does it reduce member churn?", a: "The AI monitors engagement patterns, identifies at-risk members before they cancel, and triggers personalized re-engagement campaigns — win-back emails, exclusive content drops, or personal check-ins." },
+            { q: "Can it onboard new members automatically?", a: "Yes. From welcome sequences to guided tutorials, community introductions, and goal-setting workflows — every new member gets a personalized onboarding experience." },
+            { q: "Does it integrate with my membership platform?", a: "We connect with Circle, Skool, Mighty Networks, Kajabi, Memberful, and most major membership platforms." },
+            { q: "How does it handle member questions?", a: "The AI is trained on your content library and community knowledge base. It answers repetitive questions instantly so your team focuses on high-value interactions." },
+            { q: "Can it help grow my membership?", a: "Absolutely. It automates referral programs, tracks affiliate performance, nurtures trial users, and identifies your best members to turn into advocates." },
+            { q: "What about community engagement?", a: "The AI sparks discussions, highlights member wins, suggests connections between members with shared interests, and keeps conversations flowing during quiet periods." },
+            { q: "How does billing automation work?", a: "It handles failed payment recovery, sends upgrade prompts based on usage, manages plan changes, and provides revenue forecasting dashboards." },
+            { q: "Can it personalize the member experience?", a: "Yes. Based on each member's goals, activity, and preferences, it recommends content, events, and connections — making every member feel like the community was built for them." },
+            { q: "How long until I see results?", a: "Most membership sites see measurable churn reduction within 30 days and significant time savings within the first week of deployment." },
+            { q: "What metrics does it track?", a: "Member lifetime value, engagement scores, churn probability, content consumption patterns, community health metrics, and revenue per member — all in real-time dashboards." }
         ],
         layers: [
             {
@@ -1848,8 +1707,10 @@ export const industries: IndustryContent[] = [
         name: "Digital Products",
         hook: "Scale Your Sales, Not Your Tickets.",
         problem: "You have a great product, but your inbox is a nightmare. 'How do I download?', 'Where is my login?', 'Can I get a refund?'. You are so busy with low-level support that you have not released a new product in six months.",
-        operatorProblem: "Manual delivery and manual support are the bottlenecks killing your margins on every low-ticket sale. We build an AI storefront operating system that handles the sales conversations, resolves the support tickets, and executes the cross-sells — on autopilot.",
-        result: "The store runs 24/7. Support tickets clear themselves. The creator stops playing customer service rep and starts building the next product.",
+        operatorProblem: "Product delivery and support are the bottlenecks pulling you away from the next creation. We remove those bottlenecks and install an AI department that handles the delivery, the sales, and the student journey for you.",
+        result: "The creator stops answering the same 20 DMs. Products sell 24/7. Reputation builds on autopilot via automated asset collection.",
+        subNiches: ["SaaS Starter Kits", "Digital Design Assets", "E-Book & Template Suites", "Niche Software Plugins", "Educational Assets", "Stock & Media Platforms", "Creator Tools & Presets", "Notion & Airtable Templates", "Figma & Canva Template Shops", "WordPress Themes & Plugins", "Shopify App Developers", "Chrome Extensions", "Mobile App Indie Developers", "AI Prompt Libraries", "Music Beats & Sound Packs", "Photography Presets & LUTs", "Spreadsheet & Dashboard Templates", "API & Data Products", "Font & Typography Sellers"],
+        geoKeywords: ["San Francisco", "New York City", "Austin", "Miami", "Los Angeles", "Chicago", "Seattle", "Denver", "Boston", "Atlanta", "Dallas", "Houston", "Phoenix", "Nashville", "Charlotte", "San Diego", "Portland", "Minneapolis", "Tampa", "Raleigh", "Salt Lake City", "Washington DC", "Philadelphia", "Detroit", "Orlando", "Las Vegas", "Remote-First", "USA Nationwide"],
         services: {
             singleSystems: {
                 title: "Single System Installs",
@@ -1945,30 +1806,18 @@ export const industries: IndustryContent[] = [
                 ]
             }
         },
-        longFormContent: `
-      ## Scaling Digital Products: The Zero-Marginal-Cost Dream
-      
-      Digital products were supposed to be the "Ultimate Leverage." You build it once, and you sell it a million times. But at scale, "Zero Marginal Cost" becomes a myth. Every sale adds a potential support ticket. Every update requires manual communication. Every customer has a slightly different setup or question. We help you return to the "Passive Income" dream by automating the operations of your digital product business.
-
-      ### The "Low-Ticket" Support Nightmare
-      
-      If you sell a $47 digital product and it costs you $10 in human labor to answer their support question, your business model is leaking. To win in 2026, you need a support system that costs pennies, not dollars, to resolve an issue. 
-
-      #### 1. The Dynamic Product Guide: Interactive Troubleshooting
-      Most digital products come with a static PDF or a basic video portal. We build an interactive AI "Product Guide" that lives inside your member area. It knows your product inside and out. It can walk a user through a specific setup, troubleshoot an installation error, and even suggest advanced ways to use the product based on the user's goals.
-
-      #### 2. Upsell and Cross-sell Automation
-      The easiest way to grow a digital product business is to sell more to your existing customers. Our systems analyze customer behavior and purchase history to provide "Hyper-Relevant" upsell offers at exactly the moment they are most likely to buy (e.g., immediately after they complete a specific module or hit a milestone).
-
-      #### 3. Content Protection and Piracy Monitoring
-      Digital products are prone to piracy. Our AI systems monitor for unauthorized leaks and sharing patterns. If the system detects suspicious login behavior or "Share" activity, it triggers a automated verification flow or a "Cease and Desist" sequence, protecting your intellectual property without you needing a legal team on retainer.
-
-      ### From Side-Hustle to Scalable Business
-      
-      The transition happens when you stop managing downloads and start managing the vision. We help you build the "Product OS" that allows you to sell to 100,000 people with the same overhead it took to sell to 100.
-    `,
         faq: [
-            { q: "Can it handle piracy issues?", a: "We can build AI agents that scan for unauthorized sharing and take action automatically." }
+            { q: "Can it handle piracy issues?", a: "We can build AI agents that scan for unauthorized sharing and take action automatically." },
+            { q: "How does the AI help with product launches?", a: "It automates the entire launch sequence — email countdowns, social posts, affiliate notifications, cart open/close logic, and real-time sales tracking." },
+            { q: "Can it handle customer support for digital products?", a: "Yes. It answers login issues, download problems, license questions, and refund requests instantly — handling 80-90% of tickets without human involvement." },
+            { q: "Does it work with my payment platform?", a: "We integrate with Stripe, Gumroad, Teachable, Thinkific, Kajabi, Podia, and most major digital product platforms." },
+            { q: "How does it manage affiliates?", a: "The AI tracks affiliate sales, verifies legitimate conversions, automates commission payouts, and even recruits new affiliates by identifying fans with large audiences." },
+            { q: "Can it create upsell and cross-sell flows?", a: "Absolutely. Based on purchase history and behavior, it recommends complementary products, triggers bundle offers, and personalizes the post-purchase journey." },
+            { q: "What about email marketing automation?", a: "It segments your list based on purchase behavior, writes personalized sequences, A/B tests subject lines, and optimizes send times for maximum open rates." },
+            { q: "How does it handle refunds?", a: "It evaluates refund requests against your policy, processes approved refunds automatically, and flags edge cases for your review — all within minutes." },
+            { q: "Can it help me create new products?", a: "The AI analyzes your audience data, identifies content gaps, suggests product ideas based on demand signals, and can even draft outlines for new courses or templates." },
+            { q: "How quickly can I get started?", a: "Most digital product businesses are live within 2-3 weeks. We prioritize your sales funnel and support automation first for immediate ROI." },
+            { q: "What kind of analytics does it provide?", a: "Real-time dashboards showing revenue by product, funnel conversion rates, customer lifetime value, churn predictions, and content engagement metrics." }
         ],
         layers: [
             {
@@ -1993,8 +1842,10 @@ export const industries: IndustryContent[] = [
         name: "Professional Services",
         hook: "High-Ticket Service, Zero-Friction Delivery.",
         problem: "You are selling high-value expertise, but you are spending your time on scheduling, research, and follow-ups. You cannot scale your service because it depends entirely on your personal bandwidth.",
-        operatorProblem: "Analysis, prep work, and scheduling are bottlenecks that pull you away from the work that actually bills. We build an AI department that does all of it. You show up for the final high-value delivery. Nothing else.",
-        result: "The firm stops losing leads to slow response times. Billing happens automatically. Past clients keep coming back because the system keeps the relationship warm.",
+        operatorProblem: "First-pass review and manual data entry are bottlenecks that cap your margins and burn out your best people. We build an AI vault that does the analysis and the prep. The professional shows up for the final wisdom and delivery. That is all.",
+        result: "The firm stops losing senior hours to grunt work. Junior AI handles the first pass. Strategists show up only for high-value delivery.",
+        subNiches: ["Management Consulting", "Architectural Firms", "Engineering Consultants", "HR & Talent Acquisition", "Public Relations Firms", "Specialty Advisory Services", "Fractional Leadership Shops", "IT Consulting & MSPs", "Environmental Consulting", "Staffing & Recruiting Agencies", "Translation & Localization Services", "Market Research Firms", "Business Valuation Firms", "Training & Development Consultants", "Supply Chain Consulting", "Safety & Compliance Consultants", "Grant Writing Services", "Notary & Legal Support Services", "Event Planning & Production"],
+        geoKeywords: ["San Francisco", "New York City", "Austin", "Miami", "Los Angeles", "Chicago", "Seattle", "Denver", "Boston", "Atlanta", "Dallas", "Houston", "Phoenix", "Nashville", "Charlotte", "San Diego", "Portland", "Minneapolis", "Tampa", "Raleigh", "Salt Lake City", "Washington DC", "Philadelphia", "Detroit", "Orlando", "Las Vegas", "Remote-First", "USA Nationwide"],
         services: {
             singleSystems: {
                 title: "Single System Installs",
@@ -2085,30 +1936,18 @@ export const industries: IndustryContent[] = [
                 ]
             }
         },
-        longFormContent: `
-      ## The New Professional: Systems Over Staff
-      
-      In professional services—whether you're an architect, an HR consultant, or a specialized advisor—your time is your product. But too much of your time is spent on "Non-Productive" tasks: drafting proposals, chasing lead details, and managing basic inquiries. We help you automate the "Professional Overhead" so you can spend more time on the work that actually bills.
-
-      ### The Proposal Bottleneck: Reclaiming Your Afternoons
-      
-      For most professionals, the weekend is when you catch up on "The Admin." You spend Saturday morning drafting 5 proposals for leads you talked to during the week. This is manual, repetitive work that doesn't actually bill. Our AI "Proposal Agent" takes your notes, your pricing structure, and your past successful contracts to generate a professional, bespoke proposal in seconds.
-
-      #### 1. The Expert Intake Specialist
-      Most leads are "tire-kickers." Our AI agent interviews every lead that lands on your site. It understands the nuance of your service and asks the high-level questions that a professional would ask. It qualifies the lead, gathers the initial scope, and only presents you with the "Grade A" opportunities.
-
-      #### 2. Knowledge Asset Management: Your Proprietary Brain
-      As a professional, your "Intellectual Property" is scattered across 10 years of emails, reports, and spreadsheets. We build a "Private IP Repository" for your firm. You can ask it to find past strategies, similar case studies, or even draft a new report based on your historic "Voice." This turns your past work into a compounding asset.
-
-      #### 3. Client Loyalty and Referral Loops
-      In professional services, your best business comes from past clients. But staying "Top of Mind" is difficult. Our AI "Nurture Agent" reaches out to past clients at the exact right intervals with personalized, professional updates. It's not "Spam"; it's "Professional Stewardship."
-
-      ### The Professional of the Future: Leveraged and Free
-      
-      We help you transition from an "Employee of your own firm" to a "Systems Strategist." By installing an AI layer for your professional operations, you reclaim your freedom and your focus.
-    `,
         faq: [
-            { q: "Is it secure for sensitive client data?", a: "Absolute. We use non-training, encrypted models to ensure your firm's data remains private." }
+            { q: "Is it secure for sensitive client data?", a: "Absolute. We use non-training, encrypted models to ensure your firm's data remains private." },
+            { q: "How long does implementation take for a professional services firm?", a: "Most firms are fully operational within 4-6 weeks. We start with your highest-impact workflow — usually client intake or report generation — and expand from there." },
+            { q: "Will the AI replace our consultants or analysts?", a: "No. The AI handles repetitive prep work — data gathering, formatting, scheduling — so your professionals can focus on high-value strategy and client relationships." },
+            { q: "Can it integrate with our existing project management tools?", a: "Yes. We connect with Monday.com, Asana, Jira, Basecamp, and most PM platforms your firm already uses." },
+            { q: "How does it handle billable time tracking?", a: "The AI can automatically log time against client codes based on activity, draft timesheets for review, and flag unbilled hours before they slip through the cracks." },
+            { q: "Can it help with proposal writing?", a: "Yes. It can draft proposals based on your past winning submissions, tailor them to the prospect's industry, and even suggest pricing based on project scope." },
+            { q: "What about client-facing reports?", a: "The AI drafts initial reports from your data, applies your firm's templates and branding, and routes them for human review before delivery." },
+            { q: "How does onboarding new clients work with AI?", a: "The system automates document collection, sends welcome sequences, schedules kickoff calls, and creates the project workspace — all triggered when a contract is signed." },
+            { q: "Can it handle multiple service lines?", a: "Absolutely. We build separate workflows for each service line — consulting, advisory, audit, etc. — each with their own intake logic and delivery processes." },
+            { q: "What ROI should we expect?", a: "Most professional services firms see 15-25 hours per week recovered per team member within the first month, plus faster client turnaround and fewer dropped balls." },
+            { q: "Do you offer a pilot program?", a: "Yes. We start with a free audit to identify your biggest bottlenecks, then deploy a focused pilot on one workflow so you can see results before committing to a full rollout." }
         ],
         layers: [
             {
@@ -2128,250 +1967,7 @@ export const industries: IndustryContent[] = [
             }
         ]
     },
-    {
-        slug: "healthcare",
-        name: "Healthcare & Wellness",
-        hook: "Care for Patients, Not Paperwork.",
-        problem: "Your practitioners are burnt out by administrative drag. Charting, billing, and scheduling are eating 40% of their clinical time. You are losing potential patients because your intake process is slow and your follow-ups are manual.",
-        operatorProblem: "Manual intake and manual follow-up are the bottlenecks burning out your practitioners and losing patients. We install an AI clinic operating system that manages the patient journey from first contact to post-care check-in — without your team doing the repetitive work.",
-        result: "Practitioners stop spending 40% of their time on admin. Intake happens before the patient walks in. The practice grows without adding front desk staff.",
-        services: {
-            singleSystems: {
-                title: "Single System Installs",
-                description: "Reclaim clinical time with AI.",
-                examples: [
-                    {
-                        title: "The AI Charting Assistant",
-                        detail: "AI that listens to patient sessions and generates first-draft clinical notes for the practitioner to review.",
-                        roi: "Saves 2+ hours of charting per practitioner daily."
-                    },
-                    {
-                        title: "Smart Intake & Triage",
-                        detail: "AI agent that qualifies patient urgency and ensures all insurance/forms are completed before they arrive.",
-                        roi: "Eliminates 'empty' appointment slots due to missing paperwork."
-                    },
-                    {
-                        title: "Post-Care Nurture Agent",
-                        detail: "AI that checks in with patients 48 hours after their visit to answer questions and ensure compliance.",
-                        roi: "Typical 25% increase in patient satisfaction scores."
-                    },
-                    {
-                        title: "Insurance Verification Bot",
-                        detail: "AI that automatically verifies patient insurance coverage and flags co-pays before the visit.",
-                        roi: "Reduces billing disputes and front-desk friction."
-                    },
-                    {
-                        title: "Treatment Plan Tracker",
-                        detail: "AI that monitors patient compliance with at-home exercises or prescriptions and sends gentle reminders.",
-                        roi: "Increases patient outcome success rates by 30%."
-                    },
-                    {
-                        title: "Practitioner Scheduling Genius",
-                        detail: "AI that optimizes the clinic calendar based on procedure complexity and practitioner energy levels.",
-                        roi: "Increases weekly patient capacity by 15% without adding staff."
-                    }
-                ]
-            },
-            departments: {
-                title: "Department Automation",
-                description: "Total clinic infrastructure automation.",
-                areas: [
-                    {
-                        area: "Patient Experience",
-                        detail: "AI that handles all scheduling, rescheduling, and basic medical FAQs 24/7.",
-                        impact: "90% reduction in front-desk call volume."
-                    },
-                    {
-                        area: "Revenue Cycle Ops",
-                        detail: "AI that audits coding and billing scripts to ensure maximum reimbursement and zero errors.",
-                        impact: "Reclaims 5-10% of lost revenue due to 'billing leaks'."
-                    },
-                    {
-                        area: "Clinic Ops",
-                        detail: "AI that monitors supply levels and automatically orders medical consumables based on patient volume.",
-                        impact: "Zero stock-outs and optimized inventory spend."
-                    },
-                    {
-                        area: "Compliance & Security",
-                        detail: "Autonomous HIPAA compliance monitor that flags potential data leaks or access anomalies in real-time.",
-                        impact: "Iron-clad security with 0 manual auditing."
-                    }
-                ]
-            },
-            custom: {
-                title: "The Wellness OS",
-                description: "Proprietary AI for high-scale health practices.",
-                features: [
-                    "Custom 'Patient Profile' predictive health models",
-                    "Automated multi-clinic resource orchestration",
-                    "Integrated patient engagement and loyalty hub",
-                    "Autonomous insurance and credentialing layer",
-                    "Integrated clinical research and data tagging AI"
-                ]
-            }
-        },
-        longFormContent: `
-      ## The Healthcare Crisis: The Administrative Burnout
-      
-      Healthcare was supposed to be about healing. But for most practitioners and owners today, it feels like a battle against a mountain of paperwork. Between EMR management, insurance verification, and complex billing cycles, the actual "Care" part of the business is being squeezed. We help you rebuild your practice on a foundation of AI, giving your practitioners their time—and their passion—back.
-
-      ### The Clinical Documentation Bottleneck
-      
-      The #1 cause of practitioner burnout is charting. Spending two hours at the end of every day typing up notes is a waste of a high-value medical brain. Our AI Charting Assistants listen to the session (with full security and consent) and prepare a clinical draft that is 90% accurate. The practitioner simply reviews, signs, and goes home on time.
-
-      #### 1. The Expert Triage Specialist
-      Not every patient needs an immediate appointment. Our AI intake agents understand the difference between a routine check-up and an urgent symptom. They qualify the patient path, gather the necessary history, and book them into the right slot with the right practitioner, ensuring your clinic operates at peak efficiency.
-
-      #### 2. The Revenue Cycle Machine: Plugging the Leaks
-      Billing errors cost clinics millions. Human coders make mistakes. Insurance companies reject claims for minor technicalities. Our AI Revenue engines audit every claim against the latest payer rules before it's sent. This isn't "speeding up billing"; it's ensuring you get paid for every minute of care you provide.
-
-      ### The Practice of the Future: Predictive and Personalized
-      
-      Success in healthcare today requires more than just reactive treatment. It requires a system that stays connected to the patient. We help you build the "Wellness OS"—the autonomous infrastructure that manages the clinical and administrative complexity so you can focus on the patient.
-    `,
-        faq: [
-            { q: "Is it HIPAA compliant?", a: "Yes. We use enterprise-grade, encrypted models that never use your patient data for training." },
-            { q: "Can it integrate with my EMR?", a: "We integrate with most major EMRs via API or secure automation layers." }
-        ],
-        layers: [
-            {
-                department: "Patient Care Ops",
-                roles: ["Charting assistant", "Intake coordinator", "Triage agent", "Post-care coach"],
-                tasks: ["Draft clinical notes", "Qualify urgency", "Gather patient history", "Send follow-up checks", "Update patient portal", "Flag compliance risks"]
-            },
-            {
-                department: "Revenue & Billing",
-                roles: ["Billing specialist assistant", "Insurance verifier", "Coding auditor", "Payments lead"],
-                tasks: ["Audit ICD codes", "Verify coverage", "Process payments", "Handle claim rejections", "Recover aged accounts", "Audit co-pay compliance"]
-            },
-            {
-                department: "Clinic Ops & HR",
-                roles: ["Inventory manager", "Staff scheduler", "Recruiter", "Credentialing lead"],
-                tasks: ["Automate supply orders", "Optimize shift blocks", "Screen candidates", "Maintain provider licenses", "Track clinic KPIs", "Predict patient volume"]
-            }
-        ]
-    },
-    {
-        slug: "legal-finance",
-        name: "Law & Accounting",
-        hook: "High-Value Wisdom, Not High-Volume Grunt Work.",
-        problem: "You are selling your expertise, but your juniors are drowning in document review, data entry, and manual reconciliations. Your margins are capped by billable hours and your talent is leaving because the work is boring.",
-        operatorProblem: "First-pass review and manual data entry are bottlenecks that cap your margins and burn out your best people. We build an AI vault that does the analysis and the prep. The partner shows up for the final wisdom and delivery. That is all.",
-        result: "The firm stops losing senior hours to grunt work. Junior AI handles the first pass. Partners show up only for the high-value delivery.",
-        services: {
-            singleSystems: {
-                title: "Single System Installs",
-                description: "Reclaim billable focus with AI.",
-                examples: [
-                    {
-                        title: "The AI Document Reviewer",
-                        detail: "AI that scans thousands of pages of discovery or financial records to find high-impact anomalies.",
-                        roi: "Reduces first-pass review time by 80%."
-                    },
-                    {
-                        title: "Smart Case/file Intake",
-                        detail: "AI agent that interviews new clients and extracts all relevant dates, names, and facts into your CRM.",
-                        roi: "Saves 3+ hours of partner intake time per client."
-                    },
-                    {
-                        title: "Bespoke Report Drafter",
-                        detail: "AI that drafts the first version of advisory reports or legal briefs based on your firm's historic style.",
-                        roi: "Cuts report drafting time by 60%."
-                    },
-                    {
-                        title: "Trust Account Auditor",
-                        detail: "AI that monitors trust accounts and ledger entries in real-time to ensure absolute compliance with state bars/governing bodies.",
-                        roi: "Zero-risk audit compliance with 0 manual checking."
-                    },
-                    {
-                        title: "Authority Discovery Bot",
-                        detail: "AI that scans 10+ years of your firm's case history to find the most relevant successful precedent in seconds.",
-                        roi: "Institutionalizes the firm's wisdom."
-                    },
-                    {
-                        title: "Evidence Triage Agent",
-                        detail: "AI that organizes incoming evidence (photos, emails, bank statements) into a chronologically tagged database.",
-                        roi: "Eliminates manual 'discovery prep' weekends."
-                    }
-                ]
-            },
-            departments: {
-                title: "Department Automation",
-                description: "Total firm infrastructure automation.",
-                areas: [
-                    {
-                        area: "Practice Ops",
-                        detail: "AI that handles all client billing, trust accounting, and vendor management.",
-                        impact: "90% reduction in non-billable overhead."
-                    },
-                    {
-                        area: "Client Success & Loyalty",
-                        detail: "AI that keeps clients updated on their case/file status with regular personalized updates.",
-                        impact: "Deep client trust and 2x higher referral rates."
-                    },
-                    {
-                        area: "Growth & Rep",
-                        detail: "AI agents that manage your firm's reputation and automate the collection of professional accolades.",
-                        impact: "Dominates local prestige rankings with 0 effort."
-                    },
-                    {
-                        area: "Admin & Operations",
-                        detail: "AI that handles complex conflict checks and new client onboarding instantly.",
-                        impact: "Faster 'speed-to-lead' and zero onboarding friction."
-                    }
-                ]
-            },
-            custom: {
-                title: "The Expert OS",
-                description: "Proprietary AI for top-tier law and accounting firms.",
-                features: [
-                    "Custom 'Knowledge Brain' of your firm's past successes",
-                    "Automated document generation and verification layer",
-                    "Integrated multi-channel client and court communication hub",
-                    "Autonomous compliance and risk monitoring layer",
-                    "Integrated multi-firm collaborative AI nodes"
-                ]
-            }
-        },
-        longFormContent: `
-      ## The Professional Service Trap: Solving the Volume vs. Wisdom Problem
-      
-      In law and accounting, your time is your product. But the paradox of success is that as you grow, you spend more time managing the volume and less time delivering the wisdom. Your high-value associates are relegated to "First Pass" reviews, while your partners are tied up in administrative meetings. We help you flip the model, using AI to handle the volume so you can focus purely on the wisdom.
-
-      ### The First-Pass Revolution: AI as your Senior Associate
-      
-      The most expensive and error-prone part of any complex file is the initial document review. Scanning 5,000 emails or bank statements for a specific pattern is work that causes human brains to fatigue. Our AI Document Reviewers don't get tired. They scan for anomalies, flag high-risk clauses, and summarize complex findings in seconds, delivering a "High-Value Digest" to the professional.
-
-      #### 1. The Expert Intake Specialist
-      Every new client file starts with a friction point: gathering the facts. Our AI Intake agents interview the client, gather the necessary documents, and perform an initial "Fact Triage." This ensures that when the professional sits down for the first meeting, they aren't "gathering facts"—they are already providing strategy.
-
-      #### 2. Institutionalizing the Firm's Wisdom
-      In most firms, the best ideas are "siloed" in the heads of the senior partners. When a partner leaves, the wisdom leaves. We build a "Private Knowledge Vault" for your firm. Every brief, every successful outcome, and every strategy is indexed. You can ask the AI, "How did we handle the [Client Name] negotiation in 2021?" and get the exact strategy in seconds.
-
-      ### The Firm of the Future: Leveraged and Prestigious
-      
-      The transition from "Worker" to "Strategist" happens when you decouple your revenue from the manual labor of the file. By installing an AI layer for your firm's operations, you reclaim your freedom and your focus, providing a more prestigious service at a higher margin.
-    `,
-        faq: [
-            { q: "Is the data private?", a: "Yes. We use private, non-training models that ensure your client's data never leaves your environment." },
-            { q: "Can it draft legal/accounting docs?", a: "It can draft first versions for professional review, significantly speeding up the delivery cycle." }
-        ],
-        layers: [
-            {
-                department: "Fulfillment & Research",
-                roles: ["Document reviewer", "Legal researcher", "Audit assistant", "Knowledge Manager"],
-                tasks: ["Scan discovery files", "Summarize caselaw", "Verify ledgers", "Identify anomalies", "Tag institutional wisdom", "Draft first briefs"]
-            },
-            {
-                department: "Client Ops & Intake",
-                roles: ["Intake agent", "Status update scout", "Conflict check bot", "Success manager"],
-                tasks: ["Qualify files", "Gather initial facts", "Perform conflict checks", "Provide client updates", "Automate onboarding", "Manage client portal"]
-            },
-            {
-                department: "Firm Ops & Marketing",
-                roles: ["Billing assistant", "Practice manager assistant", "SDR", "Reputation lead"],
-                tasks: ["Reconcile trust accounts", "Draft invoices", "Scout target leads", "Automate referral outreach", "Monitor firm rankings", "Collect professional reviews"]
-            }
-        ]
-    }
-]
+    ...niches1,
+    ...niches2,
+    ...niches3
+];

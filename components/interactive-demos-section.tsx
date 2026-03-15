@@ -73,14 +73,14 @@ const LeadGenPlanDemo = ({ isActive }: { isActive: boolean }) => {
             {/* Terminal Header */}
             <div className="flex items-center gap-2 mb-4 pb-3 border-b border-slate-700">
                 <div className="w-3 h-3 rounded-full bg-red-500" />
-                <div className="w-3 h-3 rounded-full bg-yellow-500" />
-                <div className="w-3 h-3 rounded-full bg-green-500" />
+                <div className="w-3 h-3 rounded-full bg-red-500" />
+                <div className="w-3 h-3 rounded-full bg-red-500" />
                 <span className="text-slate-500 text-xs ml-2">nexus-ai-terminal</span>
             </div>
 
             {/* Input Line */}
             <div className="flex items-start gap-2 mb-4">
-                <span className="text-green-400">→</span>
+                <span className="text-red-400">→</span>
                 <span className="text-white">{typedText}</span>
                 {phase === "typing" && <span className="text-white animate-pulse">|</span>}
             </div>
@@ -111,12 +111,12 @@ const LeadGenPlanDemo = ({ isActive }: { isActive: boolean }) => {
                                 <div className="flex items-center justify-between mb-1">
                                     <span className="text-slate-300 text-xs">{step.name}</span>
                                     {stepProgress[idx] === 100 && (
-                                        <span className="text-green-400 text-xs">✓ Done</span>
+                                        <span className="text-red-400 text-xs">✓ Done</span>
                                     )}
                                 </div>
                                 <div className="h-1 bg-slate-700 rounded-full overflow-hidden">
                                     <div
-                                        className="h-full bg-green-500 transition-all duration-100"
+                                        className="h-full bg-red-500 transition-all duration-100"
                                         style={{ width: `${stepProgress[idx]}%` }}
                                     />
                                 </div>
@@ -180,11 +180,11 @@ const CustomerSupportDemo = ({ isActive }: { isActive: boolean }) => {
             {/* Chat Header */}
             <div className="px-4 py-3 border-b border-slate-200 flex items-center justify-between bg-slate-50">
                 <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                    <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
                     <span className="text-sm font-medium text-slate-700">AI Support Agent</span>
                 </div>
                 {resolved && (
-                    <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Resolved</span>
+                    <span className="text-xs bg-red-100 text-red-700 px-2 py-1 rounded-full">Resolved</span>
                 )}
             </div>
 
@@ -279,7 +279,7 @@ const LeadQualificationDemo = ({ isActive }: { isActive: boolean }) => {
                             </div>
                             {lead.status === "done" && (
                                 <span className={`text-xs px-2 py-1 rounded-full font-medium ${lead.qualified
-                                    ? "bg-green-100 text-green-700"
+                                    ? "bg-red-100 text-red-700"
                                     : "bg-slate-100 text-slate-600"
                                     }`}>
                                     {lead.qualified ? "Hot Lead 🔥" : "Nurture"}
@@ -290,7 +290,7 @@ const LeadQualificationDemo = ({ isActive }: { isActive: boolean }) => {
                         <div className="flex items-center gap-3">
                             <div className="flex-1 h-2 bg-slate-200 rounded-full overflow-hidden">
                                 <div
-                                    className={`h-full transition-all duration-100 ${lead.score >= 80 ? "bg-green-500" : lead.score >= 50 ? "bg-yellow-500" : "bg-slate-400"
+                                    className={`h-full transition-all duration-100 ${lead.score >= 80 ? "bg-red-500" : lead.score >= 50 ? "bg-red-500" : "bg-slate-400"
                                         }`}
                                     style={{ width: `${lead.score}%` }}
                                 />
@@ -337,7 +337,7 @@ const AppointmentDemo = ({ isActive }: { isActive: boolean }) => {
         <div className="bg-white rounded-2xl border border-slate-200 h-80 overflow-hidden">
             <div className="px-4 py-3 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
                 <span className="text-sm font-medium text-slate-700">Smart Booking</span>
-                {booked && <span className="text-xs text-green-600">✓ Confirmed</span>}
+                {booked && <span className="text-xs text-red-600">✓ Confirmed</span>}
             </div>
 
             <div className="p-4">
@@ -380,10 +380,10 @@ const AppointmentDemo = ({ isActive }: { isActive: boolean }) => {
                 )}
 
                 {booked && (
-                    <div className="bg-green-50 border border-green-200 rounded-xl p-4 text-center">
-                        <p className="text-green-800 font-medium">Appointment Booked!</p>
-                        <p className="text-green-600 text-sm">Jan 17 at 2:00 PM</p>
-                        <p className="text-green-600 text-xs mt-1">Confirmation sent via SMS & Email</p>
+                    <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-center">
+                        <p className="text-red-800 font-medium">Appointment Booked!</p>
+                        <p className="text-red-600 text-sm">Jan 17 at 2:00 PM</p>
+                        <p className="text-red-600 text-xs mt-1">Confirmation sent via SMS & Email</p>
                     </div>
                 )}
             </div>
@@ -450,10 +450,10 @@ const SMSCampaignDemo = ({ isActive }: { isActive: boolean }) => {
             <div className="px-4 py-3 border-b border-slate-800 flex items-center justify-between">
                 <span className="text-sm font-medium text-slate-300">SMS Campaign Blast</span>
                 {phase === "sending" && (
-                    <span className="text-xs text-green-400 animate-pulse">● Sending...</span>
+                    <span className="text-xs text-red-400 animate-pulse">● Sending...</span>
                 )}
                 {phase === "done" && (
-                    <span className="text-xs text-green-400">● Complete</span>
+                    <span className="text-xs text-red-400">● Complete</span>
                 )}
             </div>
 
@@ -464,11 +464,11 @@ const SMSCampaignDemo = ({ isActive }: { isActive: boolean }) => {
                         <p className="text-xs text-slate-500">Sent</p>
                     </div>
                     <div className="text-center">
-                        <p className="text-3xl font-bold text-green-400">{delivered}</p>
+                        <p className="text-3xl font-bold text-red-400">{delivered}</p>
                         <p className="text-xs text-slate-500">Delivered</p>
                     </div>
                     <div className="text-center">
-                        <p className="text-3xl font-bold text-blue-400">{responses}</p>
+                        <p className="text-3xl font-bold text-red-400">{responses}</p>
                         <p className="text-xs text-slate-500">Responses</p>
                     </div>
                 </div>
@@ -483,9 +483,9 @@ const SMSCampaignDemo = ({ isActive }: { isActive: boolean }) => {
                         <div className="bg-slate-800 rounded-lg p-3">
                             <p className="text-slate-400 text-xs mb-2">Recent Responses:</p>
                             <div className="space-y-1 text-sm">
-                                <p className="text-green-400">+1 (555) 0123: "YES please!"</p>
-                                <p className="text-green-400">+1 (555) 0456: "Yes, tomorrow?"</p>
-                                <p className="text-green-400">+1 (555) 0789: "YES"</p>
+                                <p className="text-red-400">+1 (555) 0123: "YES please!"</p>
+                                <p className="text-red-400">+1 (555) 0456: "Yes, tomorrow?"</p>
+                                <p className="text-red-400">+1 (555) 0789: "YES"</p>
                             </div>
                         </div>
                     )}
@@ -516,18 +516,18 @@ const MissedCallDemo = ({ isActive }: { isActive: boolean }) => {
         <div className="bg-slate-900 rounded-2xl h-80 overflow-hidden">
             <div className="px-4 py-3 border-b border-slate-800 flex items-center justify-between">
                 <span className="text-sm font-medium text-slate-300">Missed Call Recovery</span>
-                {phase === "response" && <span className="text-xs text-green-400">Lead Captured!</span>}
+                {phase === "response" && <span className="text-xs text-red-400">Lead Captured!</span>}
             </div>
 
             <div className="p-4 space-y-4">
                 {/* Phone Call UI */}
-                <div className={`bg-slate-800 rounded-xl p-4 transition-all ${phase === "ringing" ? "ring-2 ring-green-500 animate-pulse" : ""}`}>
+                <div className={`bg-slate-800 rounded-xl p-4 transition-all ${phase === "ringing" ? "ring-2 ring-red-500 animate-pulse" : ""}`}>
                     <div className="flex items-center justify-between">
                         <div>
                             <p className="text-white font-medium">+1 (555) 867-5309</p>
                             <p className="text-slate-500 text-xs">Unknown Caller</p>
                         </div>
-                        <div className={`w-10 h-10 rounded-full flex items-center justify-center ${phase === "ringing" ? "bg-green-500 animate-pulse" : phase === "missed" ? "bg-red-500" : "bg-slate-700"
+                        <div className={`w-10 h-10 rounded-full flex items-center justify-center ${phase === "ringing" ? "bg-red-500 animate-pulse" : phase === "missed" ? "bg-red-500" : "bg-slate-700"
                             }`}>
                             {phase === "ringing" && <span className="text-white">📞</span>}
                             {phase !== "ringing" && phase !== "idle" && <span className="text-white text-xs">✕</span>}
@@ -542,10 +542,10 @@ const MissedCallDemo = ({ isActive }: { isActive: boolean }) => {
                 {(phase === "texting" || phase === "sent" || phase === "response") && (
                     <div className="bg-slate-800 rounded-xl p-4">
                         <p className="text-slate-400 text-xs mb-2">Auto-reply sent:</p>
-                        <div className="bg-blue-600 rounded-lg p-3 text-white text-sm">
+                        <div className="bg-red-600 rounded-lg p-3 text-white text-sm">
                             "Hi! Sorry we missed your call. How can we help you today? Reply here or we'll call you back within 5 minutes."
                         </div>
-                        {phase === "sent" && <p className="text-green-400 text-xs mt-2">✓ Delivered</p>}
+                        {phase === "sent" && <p className="text-red-400 text-xs mt-2">✓ Delivered</p>}
                     </div>
                 )}
 
@@ -556,7 +556,7 @@ const MissedCallDemo = ({ isActive }: { isActive: boolean }) => {
                         <div className="bg-slate-700 rounded-lg p-3 text-white text-sm">
                             "Hi! I'm interested in your growth plan. We're a SaaS doing about $40K MRR."
                         </div>
-                        <p className="text-green-400 text-xs mt-2">→ Lead added to CRM</p>
+                        <p className="text-red-400 text-xs mt-2">→ Lead added to CRM</p>
                     </div>
                 )}
             </div>
@@ -600,7 +600,7 @@ const ReviewResponseDemo = ({ isActive }: { isActive: boolean }) => {
         <div className="bg-white rounded-2xl border border-slate-200 h-80 overflow-hidden">
             <div className="px-4 py-3 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
                 <span className="text-sm font-medium text-slate-700">Review Management</span>
-                {phase === "posted" && <span className="text-xs text-green-600">✓ Published</span>}
+                {phase === "posted" && <span className="text-xs text-red-600">✓ Published</span>}
             </div>
 
             <div className="p-4 space-y-3">
@@ -610,9 +610,9 @@ const ReviewResponseDemo = ({ isActive }: { isActive: boolean }) => {
                         <div className="w-8 h-8 bg-slate-300 rounded-full flex items-center justify-center text-xs">SM</div>
                         <div>
                             <p className="text-sm font-medium text-slate-800">Sarah M.</p>
-                            <div className="flex text-yellow-400 text-xs">★★★★★</div>
+                            <div className="flex text-red-400 text-xs">★★★★★</div>
                         </div>
-                        {phase === "new" && <span className="ml-auto text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded">New</span>}
+                        {phase === "new" && <span className="ml-auto text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded">New</span>}
                     </div>
                     <p className="text-slate-600 text-sm">"Amazing results! Our onboarding went from 3 hours manual to fully automated. Churn dropped 40% in the first month. Highly recommend!"</p>
                 </div>
@@ -622,8 +622,8 @@ const ReviewResponseDemo = ({ isActive }: { isActive: boolean }) => {
                     <div className="border border-slate-200 rounded-xl p-4">
                         <div className="flex items-center gap-2 mb-2">
                             <span className="text-xs text-slate-500">AI Response:</span>
-                            {phase === "analyzing" && <span className="text-xs text-blue-500">Analyzing sentiment...</span>}
-                            {phase === "drafting" && <span className="text-xs text-blue-500">Drafting reply...</span>}
+                            {phase === "analyzing" && <span className="text-xs text-red-500">Analyzing sentiment...</span>}
+                            {phase === "drafting" && <span className="text-xs text-red-500">Drafting reply...</span>}
                         </div>
                         {responseText && (
                             <p className="text-slate-700 text-sm">{responseText}<span className={phase !== "posted" ? "animate-pulse" : "hidden"}>|</span></p>
@@ -677,7 +677,7 @@ const InvoiceCollectionDemo = ({ isActive }: { isActive: boolean }) => {
                 {invoices.map((inv, idx) => (
                     <div
                         key={idx}
-                        className={`p-4 rounded-xl border transition-all ${currentAction === idx ? "border-blue-300 bg-blue-50" : "border-slate-200"
+                        className={`p-4 rounded-xl border transition-all ${currentAction === idx ? "border-red-300 bg-red-50" : "border-slate-200"
                             }`}
                     >
                         <div className="flex items-center justify-between mb-2">
@@ -689,9 +689,9 @@ const InvoiceCollectionDemo = ({ isActive }: { isActive: boolean }) => {
                         </div>
                         <div className="flex items-center justify-between">
                             <span className={`text-xs px-2 py-1 rounded-full ${inv.status === "overdue" ? "bg-red-100 text-red-700" :
-                                inv.status === "due" ? "bg-yellow-100 text-yellow-700" :
-                                    inv.status === "sending" ? "bg-blue-100 text-blue-700" :
-                                        "bg-green-100 text-green-700"
+                                inv.status === "due" ? "bg-red-100 text-red-700" :
+                                    inv.status === "sending" ? "bg-red-100 text-red-700" :
+                                        "bg-red-100 text-red-700"
                                 }`}>
                                 {inv.status === "sending" ? "Sending reminder..." :
                                     inv.status === "sent" ? "✓ Reminder sent" :
@@ -758,7 +758,7 @@ const DailyReportDemo = ({ isActive }: { isActive: boolean }) => {
 
                 {phase === "analyzing" && (
                     <div className="text-center py-8">
-                        <div className="animate-pulse w-8 h-8 bg-blue-500 rounded-lg mx-auto mb-3" />
+                        <div className="animate-pulse w-8 h-8 bg-red-500 rounded-lg mx-auto mb-3" />
                         <p className="text-slate-400 text-sm">Analyzing performance...</p>
                     </div>
                 )}
@@ -771,11 +771,11 @@ const DailyReportDemo = ({ isActive }: { isActive: boolean }) => {
                                 <p className="text-xs text-slate-500">Total Calls</p>
                             </div>
                             <div className="bg-slate-800 rounded-lg p-3 text-center">
-                                <p className="text-2xl font-bold text-blue-400">{stats.leads}</p>
+                                <p className="text-2xl font-bold text-red-400">{stats.leads}</p>
                                 <p className="text-xs text-slate-500">New Leads</p>
                             </div>
                             <div className="bg-slate-800 rounded-lg p-3 text-center">
-                                <p className="text-2xl font-bold text-green-400">{stats.booked}</p>
+                                <p className="text-2xl font-bold text-red-400">{stats.booked}</p>
                                 <p className="text-xs text-slate-500">Demos Booked</p>
                             </div>
                             <div className="bg-slate-800 rounded-lg p-3 text-center">
@@ -786,7 +786,7 @@ const DailyReportDemo = ({ isActive }: { isActive: boolean }) => {
 
                         {phase === "complete" && (
                             <div className="bg-slate-800 rounded-lg p-3">
-                                <p className="text-green-400 text-sm">📈 +23% vs last Tuesday</p>
+                                <p className="text-red-400 text-sm">📈 +23% vs last Tuesday</p>
                                 <p className="text-slate-400 text-xs mt-1">Report sent to your inbox at 6:00 PM</p>
                             </div>
                         )}
@@ -824,7 +824,7 @@ const SocialPostDemo = ({ isActive }: { isActive: boolean }) => {
         <div className="bg-white rounded-2xl border border-slate-200 h-80 overflow-hidden">
             <div className="px-4 py-3 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
                 <span className="text-sm font-medium text-slate-700">Social Media Automation</span>
-                {phase === "done" && <span className="text-xs text-green-600">✓ Scheduled</span>}
+                {phase === "done" && <span className="text-xs text-red-600">✓ Scheduled</span>}
             </div>
 
             <div className="p-4">
@@ -854,7 +854,7 @@ const SocialPostDemo = ({ isActive }: { isActive: boolean }) => {
                                     <div
                                         key={platform}
                                         className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium transition-all ${platforms[idx]
-                                            ? "bg-green-500 text-white"
+                                            ? "bg-red-500 text-white"
                                             : "bg-slate-200 text-slate-400"
                                             }`}
                                     >
@@ -865,8 +865,8 @@ const SocialPostDemo = ({ isActive }: { isActive: boolean }) => {
                         </div>
 
                         {phase === "done" && (
-                            <div className="bg-green-50 border border-green-200 rounded-lg p-3 text-center">
-                                <p className="text-green-700 text-sm">Scheduled for tomorrow at 10:00 AM</p>
+                            <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-center">
+                                <p className="text-red-700 text-sm">Scheduled for tomorrow at 10:00 AM</p>
                             </div>
                         )}
                     </div>
@@ -913,7 +913,7 @@ const QuoteGeneratorDemo = ({ isActive }: { isActive: boolean }) => {
         <div className="bg-white rounded-2xl border border-slate-200 h-80 overflow-hidden">
             <div className="px-4 py-3 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
                 <span className="text-sm font-medium text-slate-700">Instant Quote Generator</span>
-                {phase === "ready" && <span className="text-xs text-green-600">Ready to send</span>}
+                {phase === "ready" && <span className="text-xs text-red-600">Ready to send</span>}
             </div>
 
             <div className="p-4">
@@ -947,8 +947,8 @@ const QuoteGeneratorDemo = ({ isActive }: { isActive: boolean }) => {
                         )}
 
                         {phase === "ready" && (
-                            <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-center mt-3">
-                                <p className="text-blue-700 text-sm">Quote ready! Send via SMS or Email?</p>
+                            <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-center mt-3">
+                                <p className="text-red-700 text-sm">Quote ready! Send via SMS or Email?</p>
                             </div>
                         )}
                     </div>
@@ -1003,9 +1003,9 @@ const WinBackDemo = ({ isActive }: { isActive: boolean }) => {
                                 <p className="font-medium text-slate-800 text-sm">{c.name}</p>
                                 <p className="text-xs text-slate-500">{c.lastVisit}</p>
                             </div>
-                            <span className={`text-xs px-2 py-1 rounded-full ${c.status === "booked" ? "bg-green-100 text-green-700" :
-                                c.status === "sent" ? "bg-blue-100 text-blue-700" :
-                                    c.status === "sending" ? "bg-yellow-100 text-yellow-700" :
+                            <span className={`text-xs px-2 py-1 rounded-full ${c.status === "booked" ? "bg-red-100 text-red-700" :
+                                c.status === "sent" ? "bg-red-100 text-red-700" :
+                                    c.status === "sending" ? "bg-red-100 text-red-700" :
                                         "bg-slate-100 text-slate-500"
                                 }`}>
                                 {c.status === "booked" ? "🎉 Booked!" :
@@ -1054,7 +1054,7 @@ const VoicemailDemo = ({ isActive }: { isActive: boolean }) => {
         <div className="bg-slate-900 rounded-2xl h-80 overflow-hidden">
             <div className="px-4 py-3 border-b border-slate-800 flex items-center justify-between">
                 <span className="text-sm font-medium text-slate-300">Voicemail AI</span>
-                {phase === "done" && <span className="text-xs text-green-400">Transcribed & Tagged</span>}
+                {phase === "done" && <span className="text-xs text-red-400">Transcribed & Tagged</span>}
             </div>
             <div className="p-4 space-y-4">
                 <div className="bg-slate-800 rounded-lg p-4">
@@ -1070,7 +1070,7 @@ const VoicemailDemo = ({ isActive }: { isActive: boolean }) => {
                     {phase === "playing" && (
                         <div className="flex items-center gap-1">
                             {[...Array(20)].map((_, i) => (
-                                <div key={i} className="w-1 bg-blue-500 rounded animate-pulse" style={{ height: `${Math.random() * 20 + 5}px`, animationDelay: `${i * 50}ms` }} />
+                                <div key={i} className="w-1 bg-red-500 rounded animate-pulse" style={{ height: `${Math.random() * 20 + 5}px`, animationDelay: `${i * 50}ms` }} />
                             ))}
                         </div>
                     )}
@@ -1082,8 +1082,8 @@ const VoicemailDemo = ({ isActive }: { isActive: boolean }) => {
                         <p className="text-white text-sm">{transcript}<span className={phase !== "done" ? "animate-pulse" : "hidden"}>|</span></p>
                         {phase === "done" && (
                             <div className="mt-3 flex gap-2">
-                                <span className="text-xs bg-blue-500/20 text-blue-400 px-2 py-1 rounded">Emergency</span>
-                                <span className="text-xs bg-green-500/20 text-green-400 px-2 py-1 rounded">New Lead</span>
+                                <span className="text-xs bg-red-500/20 text-red-400 px-2 py-1 rounded">Emergency</span>
+                                <span className="text-xs bg-red-500/20 text-red-400 px-2 py-1 rounded">New Lead</span>
                             </div>
                         )}
                     </div>
@@ -1125,20 +1125,20 @@ const SchedulingDemo = ({ isActive }: { isActive: boolean }) => {
         <div className="bg-white rounded-2xl border border-slate-200 h-80 overflow-hidden">
             <div className="px-4 py-3 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
                 <span className="text-sm font-medium text-slate-700">Shift Management AI</span>
-                {resolved && <span className="text-xs text-green-600">✓ Shift Covered</span>}
+                {resolved && <span className="text-xs text-red-600">✓ Shift Covered</span>}
             </div>
             <div className="p-4 space-y-3">
                 {messages.map((msg, idx) => (
                     <div key={idx} className={`flex ${msg.from === "AI" ? "justify-start" : "justify-end"}`}>
-                        <div className={`max-w-[85%] rounded-2xl px-4 py-2 ${msg.from === "AI" ? "bg-slate-100" : "bg-blue-500 text-white"}`}>
+                        <div className={`max-w-[85%] rounded-2xl px-4 py-2 ${msg.from === "AI" ? "bg-slate-100" : "bg-red-500 text-white"}`}>
                             <p className="text-xs text-slate-500 mb-1">{msg.from} • {msg.time}</p>
                             <p className="text-sm">{msg.text}</p>
                         </div>
                     </div>
                 ))}
                 {resolved && (
-                    <div className="bg-green-50 border border-green-200 rounded-lg p-3 text-center">
-                        <p className="text-green-700 text-sm">Schedule updated. Both employees notified.</p>
+                    <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-center">
+                        <p className="text-red-700 text-sm">Schedule updated. Both employees notified.</p>
                     </div>
                 )}
             </div>
@@ -1190,7 +1190,7 @@ const FeedbackDemo = ({ isActive }: { isActive: boolean }) => {
                         <p className="text-sm text-slate-600 mb-3">Customer response:</p>
                         <div className="flex justify-center gap-1 mb-3">
                             {[1, 2, 3, 4, 5].map((star) => (
-                                <span key={star} className={`text-2xl transition-all ${star <= rating ? "text-yellow-400 scale-110" : "text-slate-300"}`}>
+                                <span key={star} className={`text-2xl transition-all ${star <= rating ? "text-red-400 scale-110" : "text-slate-300"}`}>
                                     ★
                                 </span>
                             ))}
@@ -1203,11 +1203,11 @@ const FeedbackDemo = ({ isActive }: { isActive: boolean }) => {
 
                 {phase === "analyzing" && (
                     <div className="space-y-2">
-                        <div className="bg-green-50 border border-green-200 rounded-lg p-3">
-                            <p className="text-green-700 text-sm">✓ 5-star review request sent</p>
+                        <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+                            <p className="text-red-700 text-sm">✓ 5-star review request sent</p>
                         </div>
-                        <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
-                            <p className="text-blue-700 text-sm">✓ Added to testimonials queue</p>
+                        <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+                            <p className="text-red-700 text-sm">✓ Added to testimonials queue</p>
                         </div>
                     </div>
                 )}
@@ -1264,7 +1264,7 @@ const CompetitorDemo = ({ isActive }: { isActive: boolean }) => {
                                 <>
                                     <span className="text-white font-bold">${c.price}</span>
                                     {c.change && (
-                                        <span className={`text-xs ml-2 ${c.change.includes("↓") ? "text-red-400" : "text-green-400"}`}>
+                                        <span className={`text-xs ml-2 ${c.change.includes("↓") ? "text-red-400" : "text-red-400"}`}>
                                             {c.change}
                                         </span>
                                     )}
@@ -1277,8 +1277,8 @@ const CompetitorDemo = ({ isActive }: { isActive: boolean }) => {
                 ))}
 
                 {alert && (
-                    <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-3">
-                        <p className="text-yellow-400 text-sm">⚠️ GrowthStack AI dropped prices. Consider promotional offer?</p>
+                    <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-3">
+                        <p className="text-red-400 text-sm">⚠️ GrowthStack AI dropped prices. Consider promotional offer?</p>
                     </div>
                 )}
             </div>
@@ -1308,9 +1308,9 @@ const ReferralDemo = ({ isActive }: { isActive: boolean }) => {
             </div>
             <div className="p-4 space-y-4">
                 {phase !== "idle" && (
-                    <div className="bg-green-50 border border-green-200 rounded-lg p-3">
-                        <p className="text-green-700 text-xs mb-1">Trigger detected:</p>
-                        <p className="text-green-800 text-sm">Sarah M. left a 5-star review</p>
+                    <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+                        <p className="text-red-700 text-xs mb-1">Trigger detected:</p>
+                        <p className="text-red-800 text-sm">Sarah M. left a 5-star review</p>
                     </div>
                 )}
 
@@ -1327,8 +1327,8 @@ const ReferralDemo = ({ isActive }: { isActive: boolean }) => {
                             <p className="text-slate-500 text-xs mb-1">Sarah replied:</p>
                             <p className="text-slate-800 text-sm">"Yes! My friend John runs a SaaS and needs automation help. His number is 555-0199"</p>
                         </div>
-                        <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
-                            <p className="text-blue-700 text-sm">✓ New lead created: John (Referral from Sarah M.)</p>
+                        <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+                            <p className="text-red-700 text-sm">✓ New lead created: John (Referral from Sarah M.)</p>
                         </div>
                     </div>
                 )}

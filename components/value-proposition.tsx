@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Eye, Users, TrendingUp, Clock, Shield, Zap } from "lucide-react"
+import { Building2, Cpu, Users, ArrowRight } from "lucide-react"
 
 export function ValueProposition() {
     return (
@@ -44,14 +44,14 @@ export function ValueProposition() {
                         className="text-center mb-12 sm:mb-16"
                     >
                         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 text-balance mb-4 sm:mb-6">
-                            We're Not Just Your AI Team -
+                            Think of Us as a
                             <br />
                             <span className="bg-gradient-to-r from-slate-600 to-slate-400 bg-clip-text text-transparent">
-                                We're Your Growth Co-Founders
+                                Digital Operations Firm
                             </span>
                         </h2>
                         <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-3xl mx-auto font-light leading-relaxed">
-                            We come in as your <strong className="font-semibold text-slate-700">AI implementation arm</strong>, your <strong className="font-semibold text-slate-700">strategic growth partner</strong> - the co-founder who sees the revenue leaks and bottlenecks that you're too close to spot.
+                            We build <strong className="font-semibold text-slate-700">AI agents, workflows, and systems</strong>. We handle <strong className="font-semibold text-slate-700">delivery, monitoring, and improvement</strong>. Clients pay for results. We own the stack.
                         </p>
                     </motion.div>
 
@@ -74,13 +74,13 @@ export function ValueProposition() {
                         </div>
                         <div className="relative z-10">
                             <p className="text-slate-400 text-sm sm:text-base uppercase tracking-wider mb-4 font-semibold">
-                                Our Evolution
+                                The Model
                             </p>
                             <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-6 text-balance">
-                                We've Evolved Beyond AI Implementation
+                                A Service Business Powered by AI
                             </h3>
                             <p className="text-lg sm:text-xl text-slate-200 max-w-3xl mx-auto leading-relaxed">
-                                We don't just apply AI as a feature. We <strong className="font-bold text-white">equip companies to become AI-native at their core</strong> - transforming how you operate, compete, and scale from the inside out.
+                                Selling installs is a one-time event. Selling outcomes is recurring. Clients don't want to run it. <strong className="font-bold text-white">They want it done.</strong> That gives you leverage. Recurring cash. Long relationships. Higher value.
                             </p>
                         </div>
                     </motion.div>
@@ -95,11 +95,11 @@ export function ValueProposition() {
                             className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-slate-200 hover:border-slate-300"
                         >
                             <div className="w-12 h-12 rounded-lg bg-slate-100 flex items-center justify-center mb-4">
-                                <Eye className="w-6 h-6 text-slate-600" />
+                                <Cpu className="w-6 h-6 text-slate-600" />
                             </div>
-                            <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-4">Business Expertise First</h3>
+                            <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-4">AI Does the Bulk</h3>
                             <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-                                Our background is in <strong className="font-semibold text-slate-700">growing companies</strong>, not just building tech. We understand revenue, retention, and real-world operations.
+                                Client communication, task execution, reporting, monitoring, data processing, content, scheduling — <strong className="font-semibold text-slate-700">agents handle it all.</strong>
                             </p>
                         </motion.div>
 
@@ -111,11 +111,11 @@ export function ValueProposition() {
                             className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-slate-200 hover:border-slate-300"
                         >
                             <div className="w-12 h-12 rounded-lg bg-slate-100 flex items-center justify-center mb-4">
-                                <Zap className="w-6 h-6 text-slate-600" />
+                                <Users className="w-6 h-6 text-slate-600" />
                             </div>
-                            <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-4">AI as Leverage</h3>
+                            <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-4">Humans Steer</h3>
                             <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-                                We use AI as a <strong className="font-semibold text-slate-700">force multiplier</strong> - automating the repetitive so your team can focus on what actually moves the needle.
+                                Strategy, oversight, sales, product design, quality control — <strong className="font-semibold text-slate-700">the human layer guides everything.</strong> Margin comes from automation.
                             </p>
                         </motion.div>
 
@@ -127,42 +127,41 @@ export function ValueProposition() {
                             className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-slate-200 hover:border-slate-300"
                         >
                             <div className="w-12 h-12 rounded-lg bg-slate-100 flex items-center justify-center mb-4">
-                                <Shield className="w-6 h-6 text-slate-600" />
+                                <Building2 className="w-6 h-6 text-slate-600" />
                             </div>
-                            <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-4">Humanity Where It Matters</h3>
+                            <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-4">Moat That Compounds</h3>
                             <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-                                We automate tasks, not relationships. Your team stays <strong className="font-semibold text-slate-700">human where it counts</strong>, free from soul-crushing busywork.
+                                Proprietary workflows, trained agents, operational data, continuous improvement. <strong className="font-semibold text-slate-700">Competitors can copy tools. They can't copy your delivery.</strong>
                             </p>
                         </motion.div>
                     </div>
 
-                    {/* Bottom CTA */}
+                    {/* Revenue Ladder */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6, delay: 0.4 }}
-                        className="bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-8 text-center"
+                        className="bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-8"
                     >
-                        <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-4 flex-wrap">
-                            <div className="flex items-center gap-2">
-                                <Clock className="w-5 h-5 text-slate-500" />
-                                <span className="text-slate-900 font-semibold">More Freedom for You</span>
-                            </div>
-                            <div className="hidden md:block text-slate-300">•</div>
-                            <div className="flex items-center gap-2">
-                                <Users className="w-5 h-5 text-slate-500" />
-                                <span className="text-slate-900 font-semibold">Less Repetition for Your Team</span>
-                            </div>
-                            <div className="hidden md:block text-slate-300">•</div>
-                            <div className="flex items-center gap-2">
-                                <TrendingUp className="w-5 h-5 text-slate-500" />
-                                <span className="text-slate-900 font-semibold">Time & Money Saved</span>
-                            </div>
+                        <p className="text-center text-xs uppercase tracking-widest text-slate-400 font-semibold mb-6">The Path</p>
+                        <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-2">
+                            {[
+                                { label: "Build Program", sub: "$10K" },
+                                { label: "Full Buildout", sub: "$25K–$75K" },
+                                { label: "AI Wing Retainer", sub: "$5–10K/mo" },
+                                { label: "Revenue Share", sub: "For the ones we believe in" },
+                            ].map((step, i) => (
+                                <div key={i} className="flex items-center gap-2 md:gap-2">
+                                    <div className="text-center px-3 py-2">
+                                        <span className="text-slate-900 font-semibold text-sm block">{step.label}</span>
+                                        <span className="text-slate-500 text-xs">{step.sub}</span>
+                                    </div>
+                                    {i < 3 && <ArrowRight className="w-4 h-4 text-slate-300 hidden md:block" />}
+                                    {i < 3 && <div className="w-px h-4 bg-slate-300 md:hidden" />}
+                                </div>
+                            ))}
                         </div>
-                        <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
-                            The outcome? You reclaim your time. Your team escapes the grind. Your business scales without burning out.
-                        </p>
                     </motion.div>
                 </div>
             </div>

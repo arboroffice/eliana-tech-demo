@@ -11,7 +11,7 @@ Every business owner hits the same wall. You've grown past the scrappy startup p
 
 You know there's a better way. You've heard **you can automate business processes with AI**. But the gap between hearing that and actually doing it? That's where most people get stuck.
 
-This guide closes that gap. No theory. No fluff. Just the practical steps to identify, prioritize, and automate the processes that are eating your time.
+This guide closes that gap. No theory. Just the practical steps to identify, prioritize, and automate the processes that are eating your time.
 
 ## Why AI Automation Is Different From Traditional Automation
 

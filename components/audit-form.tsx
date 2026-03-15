@@ -1,8 +1,8 @@
 "use client"
 
-import { useState, useEffect, useMemo } from "react"
+import { useState, useEffect, useMemo, useRef, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { ArrowLeft, ArrowRight, Send, X, Loader2, Sparkles } from "lucide-react"
+import { ArrowLeft, ArrowRight, Send, X, Loader2, Sparkles, CheckCircle2, Brain, Search, Settings, Lightbulb, FileText } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -16,6 +16,7 @@ import { getIndustryConfig } from "@/lib/audit-industry-config"
 import { calculateAuditScore } from "@/lib/audit-analyzer"
 import { getLiveInsights, LiveInsight } from "@/lib/audit-live-insights"
 import { ProposalVisualizer } from "@/components/proposal-visualizer"
+import type { ResearchInsight } from "@/lib/audit-research"
 
 const STORAGE_KEY = "elianatech-audit-progress"
 
@@ -121,6 +122,21 @@ export function AuditForm() {
     const [isScanning, setIsScanning] = useState(false)
     const [liveInsights, setLiveInsights] = useState<LiveInsight[]>([])
 
+    // AI Research state
+    const [aiInsights, setAiInsights] = useState<ResearchInsight[]>([])
+    const [cachedWebsiteContent, setCachedWebsiteContent] = useState("")
+    const researchFiredUrlRef = useRef("")
+
+    // Deep analysis state (post-submit)
+    const [isAnalyzing, setIsAnalyzing] = useState(false)
+    const [analysisStages, setAnalysisStages] = useState<{ stage: number; label: string; status: string; findings: string[] }[]>([
+        { stage: 1, label: "Scanning website...", status: "pending", findings: [] },
+        { stage: 2, label: "Analyzing operations...", status: "pending", findings: [] },
+        { stage: 3, label: "Identifying opportunities...", status: "pending", findings: [] },
+        { stage: 4, label: "Building your report...", status: "pending", findings: [] },
+    ])
+    const [researchFindings, setResearchFindings] = useState<any>(null)
+
     const [formData, setFormData] = useState<FormData>(DEFAULT_FORM_DATA)
 
     const config = useMemo(() => getIndustryConfig(formData.businessType), [formData.businessType])
@@ -162,6 +178,29 @@ export function AuditForm() {
         setLiveInsights(getLiveInsights(formData))
     }, [formData])
 
+    // Fire background research when user has a URL and moves past step 0
+    const triggerBackgroundResearch = useCallback(async (url: string) => {
+        const normalized = url.trim().toLowerCase()
+        if (researchFiredUrlRef.current === normalized || !url || url.length < 5) return
+        researchFiredUrlRef.current = normalized
+        try {
+            const res = await fetch('/api/audit/research', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ websiteUrl: url }),
+            })
+            const data = await res.json()
+            if (data.success && data.insights?.length > 0) {
+                setAiInsights(data.insights)
+            }
+            if (data.websiteContent) {
+                setCachedWebsiteContent(data.websiteContent)
+            }
+        } catch {
+            // Silently fail — fallback insights remain
+        }
+    }, [])
+
     const updateField = (field: keyof FormData, value: any) => {
         setFormData((prev) => ({ ...prev, [field]: value }))
     }
@@ -179,6 +218,10 @@ export function AuditForm() {
 
     const handleNext = () => {
         if (currentStep < STEPS.length - 1) {
+            // Fire background research when leaving step 0
+            if (currentStep === 0 && formData.websiteUrl) {
+                triggerBackgroundResearch(formData.websiteUrl)
+            }
             setIsScanning(true)
             setTimeout(() => {
                 setIsScanning(false)
@@ -201,35 +244,68 @@ export function AuditForm() {
 
     const handleSubmit = async () => {
         setIsSubmitting(true)
+        setIsAnalyzing(true)
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+
+        // Fire-and-forget: existing submit for email/SMS/Firebase
+        fetch("/api/audit/submit", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData),
+        }).catch(() => { })
+
+        // Run deep analysis via SSE
         try {
-            const response = await fetch("/api/audit/submit", {
+            const res = await fetch("/api/audit/deep-analysis", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formData),
+                body: JSON.stringify({ formData, cachedWebsiteContent }),
             })
 
-            const data = await response.json()
+            if (!res.ok || !res.body) throw new Error('Deep analysis failed')
 
-            if (response.ok && data.success) {
-                setIsSuccess(true)
-                setShowResults(true)
-                try { localStorage.removeItem(STORAGE_KEY) } catch { }
-                window.scrollTo({ top: 0, behavior: 'smooth' })
-            } else {
-                setIsSuccess(true)
-                setShowResults(true)
-                try { localStorage.removeItem(STORAGE_KEY) } catch { }
-                window.scrollTo({ top: 0, behavior: 'smooth' })
+            const reader = res.body.getReader()
+            const decoder = new TextDecoder()
+            let buffer = ''
+
+            while (true) {
+                const { done, value } = await reader.read()
+                if (done) break
+
+                buffer += decoder.decode(value, { stream: true })
+                const lines = buffer.split('\n')
+                buffer = lines.pop() || ''
+
+                let currentEvent = ''
+                for (const line of lines) {
+                    if (line.startsWith('event: ')) {
+                        currentEvent = line.slice(7)
+                    } else if (line.startsWith('data: ') && currentEvent) {
+                        try {
+                            const data = JSON.parse(line.slice(6))
+                            if (currentEvent === 'stage') {
+                                setAnalysisStages(prev => prev.map(s =>
+                                    s.stage === data.stage ? { ...s, ...data } : s
+                                ))
+                            } else if (currentEvent === 'complete') {
+                                setResearchFindings(data)
+                            }
+                        } catch { }
+                        currentEvent = ''
+                    }
+                }
             }
         } catch (error) {
-            console.error("Submission error:", error)
-            setIsSuccess(true)
-            setShowResults(true)
-            try { localStorage.removeItem(STORAGE_KEY) } catch { }
-            window.scrollTo({ top: 0, behavior: 'smooth' })
-        } finally {
-            setIsSubmitting(false)
+            console.error("Deep analysis error:", error)
+            // Fallback: proceed without AI findings
         }
+
+        // Show results regardless
+        try { localStorage.removeItem(STORAGE_KEY) } catch { }
+        setIsAnalyzing(false)
+        setIsSubmitting(false)
+        setIsSuccess(true)
+        setShowResults(true)
     }
 
     const handleSaveProgress = async () => {
@@ -248,18 +324,110 @@ export function AuditForm() {
     }
 
     if (isSuccess && showResults) {
-        return <AuditResults formData={formData} auditScore={calculateAuditScore(formData)} />
+        return <AuditResults formData={formData} auditScore={calculateAuditScore(formData)} researchFindings={researchFindings} />
+    }
+
+    // Deep analysis UI — shown after submit while AI works
+    if (isAnalyzing) {
+        const stageIcons = [Search, Settings, Lightbulb, FileText]
+        return (
+            <div className="max-w-2xl mx-auto px-4 py-12">
+                <div className="text-center mb-12">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-sm font-medium mb-6">
+                        <Brain className="w-4 h-4 animate-pulse" />
+                        AI Agent Researching Your Business
+                    </div>
+                    <h2 className="text-3xl font-bold text-white mb-3">
+                        Analyzing {formData.companyName || 'Your Business'}
+                    </h2>
+                    <p className="text-slate-400 text-sm">
+                        Our AI is researching your business and building a personalized report. This takes about 15-20 seconds.
+                    </p>
+                </div>
+
+                <div className="space-y-4">
+                    {analysisStages.map((stage, idx) => {
+                        const Icon = stageIcons[idx]
+                        return (
+                            <motion.div
+                                key={stage.stage}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: idx * 0.1 }}
+                            >
+                                <Card className={`border p-5 transition-all ${stage.status === 'complete' ? 'bg-red-300/5 border-red-300/20' :
+                                    stage.status === 'running' ? 'bg-red-500/5 border-red-500/30' :
+                                        'bg-white/[0.02] border-white/10'
+                                    }`}>
+                                    <div className="flex items-center gap-4">
+                                        <div className={`p-2 rounded-lg shrink-0 ${stage.status === 'complete' ? 'bg-red-300/10 text-red-300' :
+                                            stage.status === 'running' ? 'bg-red-500/10 text-red-400' :
+                                                'bg-white/5 text-slate-500'
+                                            }`}>
+                                            {stage.status === 'complete' ? (
+                                                <CheckCircle2 className="w-5 h-5" />
+                                            ) : stage.status === 'running' ? (
+                                                <Loader2 className="w-5 h-5 animate-spin" />
+                                            ) : (
+                                                <Icon className="w-5 h-5" />
+                                            )}
+                                        </div>
+                                        <div className="flex-1 min-w-0">
+                                            <p className={`font-semibold text-sm ${stage.status === 'complete' ? 'text-red-400' :
+                                                stage.status === 'running' ? 'text-white' :
+                                                    'text-slate-500'
+                                                }`}>
+                                                {stage.label}
+                                            </p>
+                                            <AnimatePresence>
+                                                {stage.status === 'complete' && stage.findings.length > 0 && (
+                                                    <motion.div
+                                                        initial={{ opacity: 0, height: 0 }}
+                                                        animate={{ opacity: 1, height: 'auto' }}
+                                                        className="mt-2 space-y-1"
+                                                    >
+                                                        {stage.findings.map((f, i) => (
+                                                            <p key={i} className="text-slate-400 text-xs leading-relaxed flex items-start gap-2">
+                                                                <span className="text-red-500 mt-0.5 shrink-0">-</span>
+                                                                {f}
+                                                            </p>
+                                                        ))}
+                                                    </motion.div>
+                                                )}
+                                            </AnimatePresence>
+                                        </div>
+                                    </div>
+                                </Card>
+                            </motion.div>
+                        )
+                    })}
+                </div>
+
+                <div className="mt-8 text-center">
+                    <div className="h-1 bg-slate-800 rounded-full overflow-hidden max-w-xs mx-auto">
+                        <motion.div
+                            className="h-full bg-gradient-to-r from-red-600 to-red-400"
+                            initial={{ width: '5%' }}
+                            animate={{
+                                width: `${Math.max(5, analysisStages.filter(s => s.status === 'complete').length * 25)}%`
+                            }}
+                            transition={{ duration: 0.5 }}
+                        />
+                    </div>
+                </div>
+            </div>
+        )
     }
 
     return (
-        <div className="max-w-6xl mx-auto px-4">
+        <div className="max-w-6xl mx-auto px-4 font-mono">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                 {/* Main Form Area */}
                 <div className="lg:col-span-8">
                     <AnimatePresence>
                         {restoredProgress && (
                             <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}
-                                className="mb-4 p-3 rounded-lg bg-blue-600/20 border border-blue-500/30 text-blue-300 text-sm text-center">
+                                className="mb-4 p-3 rounded-lg bg-[#D90019]/10 border border-[#D90019]/30 text-[#D90019] text-sm text-center">
                                 Welcome back! We saved your progress.
                             </motion.div>
                         )}
@@ -268,19 +436,19 @@ export function AuditForm() {
                     <AnimatePresence>
                         {encouragement && (
                             <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}
-                                transition={{ duration: 0.3 }} className="mb-2 text-center text-sm text-purple-300 font-medium">
+                                transition={{ duration: 0.3 }} className="mb-2 text-center text-sm text-[#D90019] font-medium">
                                 {encouragement}
                             </motion.div>
                         )}
                     </AnimatePresence>
 
                     <div className="mb-8">
-                        <div className="flex justify-between text-sm text-slate-400 mb-2">
+                        <div className="flex justify-between text-sm text-[#888] mb-2">
                             <span>Step {currentStep + 1} of {STEPS.length}</span>
                             <span>{Math.round(((currentStep + 1) / STEPS.length) * 100)}%</span>
                         </div>
-                        <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
-                            <motion.div className="h-full bg-gradient-to-r from-blue-500 to-purple-500"
+                        <div className="h-2 bg-[#E4E3DE] rounded-full overflow-hidden">
+                            <motion.div className="h-full bg-[#D90019]"
                                 initial={{ width: 0 }} animate={{ width: `${((currentStep + 1) / STEPS.length) * 100}%` }}
                                 transition={{ duration: 0.3 }} />
                         </div>
@@ -291,11 +459,11 @@ export function AuditForm() {
                                     initial={{ opacity: 0, y: 10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: -10 }}
-                                    className="text-white font-black text-xl uppercase tracking-tight"
+                                    className="text-black font-black text-xl uppercase tracking-tight"
                                 >
                                     {isScanning ? (
                                         <span className="flex items-center justify-center gap-2">
-                                            <Loader2 className="w-5 h-5 animate-spin text-blue-500" />
+                                            <Loader2 className="w-5 h-5 animate-spin text-[#D90019]" />
                                             Analyzing {STEPS[currentStep].split(' ').pop()}...
                                         </span>
                                     ) : (
@@ -306,13 +474,13 @@ export function AuditForm() {
                         </div>
                     </div>
 
-                    <Card className="bg-slate-900/50 border-slate-800 backdrop-blur-md p-6 md:p-8 relative overflow-hidden">
+                    <Card className="bg-white border-[#E4E3DE] p-6 md:p-8 relative overflow-hidden rounded-none shadow-none">
                         {isScanning && (
                             <motion.div
                                 initial={{ top: '-100%' }}
                                 animate={{ top: '200%' }}
                                 transition={{ duration: 1.2, ease: "linear", repeat: Infinity }}
-                                className="absolute left-0 right-0 h-20 bg-gradient-to-b from-transparent via-blue-500/10 to-transparent z-20 pointer-events-none"
+                                className="absolute left-0 right-0 h-20 bg-gradient-to-b from-transparent via-red-500/10 to-transparent z-20 pointer-events-none"
                             />
                         )}
 
@@ -326,48 +494,49 @@ export function AuditForm() {
                                         <div className="grid md:grid-cols-2 gap-4">
                                             <div className="space-y-2">
                                                 <Label>Full Name</Label>
-                                                <Input value={formData.fullName} onChange={(e) => updateField("fullName", e.target.value)} placeholder="Jane Smith" className="bg-slate-800 border-slate-700" />
+                                                <Input value={formData.fullName} onChange={(e) => updateField("fullName", e.target.value)} placeholder="Jane Smith" className="bg-white border-[#E4E3DE]" />
                                             </div>
                                             <div className="space-y-2">
                                                 <Label>Company / Brand Name</Label>
-                                                <Input value={formData.companyName} onChange={(e) => updateField("companyName", e.target.value)} placeholder="Your Brand" className="bg-slate-800 border-slate-700" />
+                                                <Input value={formData.companyName} onChange={(e) => updateField("companyName", e.target.value)} placeholder="Your Brand" className="bg-white border-[#E4E3DE]" />
                                             </div>
                                         </div>
                                         <div className="grid md:grid-cols-2 gap-4">
                                             <div className="space-y-2">
                                                 <Label>Email Address</Label>
-                                                <Input type="email" value={formData.email} onChange={(e) => updateField("email", e.target.value)} placeholder="jane@example.com" className="bg-slate-800 border-slate-700" />
+                                                <Input type="email" value={formData.email} onChange={(e) => updateField("email", e.target.value)} placeholder="jane@example.com" className="bg-white border-[#E4E3DE]" />
                                             </div>
                                             <div className="space-y-2">
                                                 <Label>Phone Number</Label>
-                                                <Input type="tel" value={formData.phoneNumber} onChange={(e) => updateField("phoneNumber", e.target.value)} placeholder="+1 (555) 000-0000" className="bg-slate-800 border-slate-700" />
+                                                <Input type="tel" value={formData.phoneNumber} onChange={(e) => updateField("phoneNumber", e.target.value)} placeholder="+1 (555) 000-0000" className="bg-white border-[#E4E3DE]" />
                                             </div>
                                         </div>
                                         <div className="space-y-2">
                                             <Label>Website URL</Label>
-                                            <Input value={formData.websiteUrl} onChange={(e) => updateField("websiteUrl", e.target.value)} placeholder="https://..." className="bg-slate-800 border-slate-700" />
+                                            <Input value={formData.websiteUrl} onChange={(e) => updateField("websiteUrl", e.target.value)} placeholder="https://..." className="bg-white border-[#E4E3DE]" />
                                         </div>
                                         <div className="space-y-2">
                                             <Label>What type of business do you run?</Label>
                                             <Select value={formData.businessType} onValueChange={(val: string) => updateField("businessType", val)}>
-                                                <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                                <SelectTrigger className="bg-white border-[#E4E3DE]"><SelectValue placeholder="Select..." /></SelectTrigger>
                                                 <SelectContent>
-                                                    <SelectItem value="course-creator">Course Creator</SelectItem>
+                                                    <SelectItem value="saas">SaaS / Software</SelectItem>
+                                                    <SelectItem value="course-creators">Course Creator</SelectItem>
                                                     <SelectItem value="coaching">Coaching / Consulting</SelectItem>
                                                     <SelectItem value="membership">Membership / Community</SelectItem>
-                                                    <SelectItem value="saas">SaaS / Software</SelectItem>
                                                     <SelectItem value="digital-products">Digital Products (templates, tools, etc.)</SelectItem>
-                                                    <SelectItem value="newsletter">Newsletter / Media</SelectItem>
-                                                    <SelectItem value="cohort">Cohort-Based Program</SelectItem>
-                                                    <SelectItem value="agency">Agency (Marketing, Creative, Dev)</SelectItem>
+                                                    <SelectItem value="agencies">Agency (Marketing, Creative, Dev)</SelectItem>
                                                     <SelectItem value="ecommerce">E-commerce / Retail</SelectItem>
                                                     <SelectItem value="home-services">Home Services (HVAC, Plumbing, Electrical, etc.)</SelectItem>
                                                     <SelectItem value="healthcare">Healthcare / Dental / Wellness</SelectItem>
-                                                    <SelectItem value="professional-services">Professional Services (Law, Accounting, Finance)</SelectItem>
+                                                    <SelectItem value="legal-finance">Professional Services (Law, Accounting, Finance)</SelectItem>
                                                     <SelectItem value="construction">Construction / Trades</SelectItem>
-                                                    <SelectItem value="restaurant-hospitality">Restaurant / Hospitality</SelectItem>
+                                                    <SelectItem value="hospitality">Restaurant / Hospitality</SelectItem>
                                                     <SelectItem value="real-estate">Real Estate</SelectItem>
                                                     <SelectItem value="manufacturing">Manufacturing / Logistics</SelectItem>
+                                                    <SelectItem value="newsletter">Newsletter / Media</SelectItem>
+                                                    <SelectItem value="cohort">Cohort-Based Program</SelectItem>
+                                                    <SelectItem value="professional-services">Other Professional Services</SelectItem>
                                                     <SelectItem value="other">Other</SelectItem>
                                                 </SelectContent>
                                             </Select>
@@ -375,7 +544,7 @@ export function AuditForm() {
                                         {formData.businessType === "other" && (
                                             <div className="space-y-2">
                                                 <Label>Describe your business</Label>
-                                                <Input value={formData.businessTypeOther} onChange={(e) => updateField("businessTypeOther", e.target.value)} placeholder="e.g. Agency, Service business..." className="bg-slate-800 border-slate-700" />
+                                                <Input value={formData.businessTypeOther} onChange={(e) => updateField("businessTypeOther", e.target.value)} placeholder="e.g. Agency, Service business..." className="bg-white border-[#E4E3DE]" />
                                             </div>
                                         )}
                                     </div>
@@ -387,13 +556,13 @@ export function AuditForm() {
                                         <div className="space-y-2">
                                             <Label>{config.step2.productDescription.label}</Label>
                                             <Textarea value={formData.productDescription} onChange={(e) => updateField("productDescription", e.target.value)}
-                                                className="bg-slate-800 border-slate-700 h-20" placeholder={config.step2.productDescription.placeholder} />
+                                                className="bg-white border-[#E4E3DE] h-20" placeholder={config.step2.productDescription.placeholder} />
                                         </div>
                                         <div className="grid md:grid-cols-2 gap-4">
                                             <div className="space-y-2">
                                                 <Label>{config.step2.productPricePoint.label}</Label>
                                                 <Select value={formData.productPricePoint} onValueChange={(val: string) => updateField("productPricePoint", val)}>
-                                                    <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                                    <SelectTrigger className="bg-white border-[#E4E3DE]"><SelectValue placeholder="Select..." /></SelectTrigger>
                                                     <SelectContent>
                                                         {config.step2.productPricePoint.options?.map(opt => (
                                                             <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
@@ -404,7 +573,7 @@ export function AuditForm() {
                                             <div className="space-y-2">
                                                 <Label>{config.step2.numberOfProducts.label}</Label>
                                                 <Select value={formData.numberOfProducts} onValueChange={(val: string) => updateField("numberOfProducts", val)}>
-                                                    <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                                    <SelectTrigger className="bg-white border-[#E4E3DE]"><SelectValue placeholder="Select..." /></SelectTrigger>
                                                     <SelectContent>
                                                         {config.step2.numberOfProducts.options?.map(opt => (
                                                             <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
@@ -417,7 +586,7 @@ export function AuditForm() {
                                             <div className="space-y-2">
                                                 <Label>{config.step2.platform.label}</Label>
                                                 <Select value={formData.platform} onValueChange={(val: string) => updateField("platform", val)}>
-                                                    <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                                    <SelectTrigger className="bg-white border-[#E4E3DE]"><SelectValue placeholder="Select..." /></SelectTrigger>
                                                     <SelectContent>
                                                         {config.step2.platform.options?.map(opt => (
                                                             <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
@@ -428,7 +597,7 @@ export function AuditForm() {
                                             <div className="space-y-2">
                                                 <Label>{config.step2.deliveryMethod.label}</Label>
                                                 <Select value={formData.deliveryMethod} onValueChange={(val: string) => updateField("deliveryMethod", val)}>
-                                                    <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                                    <SelectTrigger className="bg-white border-[#E4E3DE]"><SelectValue placeholder="Select..." /></SelectTrigger>
                                                     <SelectContent>
                                                         {config.step2.deliveryMethod.options?.map(opt => (
                                                             <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
@@ -446,7 +615,7 @@ export function AuditForm() {
                                         <div className="space-y-2">
                                             <Label>Current Annual Revenue</Label>
                                             <Select value={formData.currentRevenue} onValueChange={(val: string) => updateField("currentRevenue", val)}>
-                                                <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                                <SelectTrigger className="bg-white border-[#E4E3DE]"><SelectValue placeholder="Select..." /></SelectTrigger>
                                                 <SelectContent>
                                                     <SelectItem value="pre-revenue">Pre-revenue / Just starting</SelectItem>
                                                     <SelectItem value="under-100k">Under $100K</SelectItem>
@@ -464,7 +633,7 @@ export function AuditForm() {
                                                 {["Growing", "Flat", "Declining"].map(opt => (
                                                     <Button key={opt} type="button" variant={formData.revenueTrend === opt ? "default" : "outline"}
                                                         onClick={() => updateField("revenueTrend", opt)}
-                                                        className={formData.revenueTrend === opt ? "bg-blue-600 hover:bg-blue-700" : "bg-transparent border-slate-700 hover:bg-slate-800"}>
+                                                        className={formData.revenueTrend === opt ? "bg-[#D90019] hover:opacity-80" : "bg-transparent border-slate-700 hover:bg-slate-800"}>
                                                         {opt}
                                                     </Button>
                                                 ))}
@@ -473,7 +642,7 @@ export function AuditForm() {
                                         <div className="space-y-2">
                                             <Label>Profit Margin Estimate</Label>
                                             <Select value={formData.profitMargin} onValueChange={(val: string) => updateField("profitMargin", val)}>
-                                                <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                                <SelectTrigger className="bg-white border-[#E4E3DE]"><SelectValue placeholder="Select..." /></SelectTrigger>
                                                 <SelectContent>
                                                     <SelectItem value="negative">Negative (losing money)</SelectItem>
                                                     <SelectItem value="under-20">Under 20%</SelectItem>
@@ -486,7 +655,7 @@ export function AuditForm() {
                                         <div className="space-y-2">
                                             <Label>12-Month Goal</Label>
                                             <Select value={formData.revenueGoal} onValueChange={(val: string) => updateField("revenueGoal", val)}>
-                                                <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                                <SelectTrigger className="bg-white border-[#E4E3DE]"><SelectValue placeholder="Select..." /></SelectTrigger>
                                                 <SelectContent>
                                                     <SelectItem value="double">Double revenue</SelectItem>
                                                     <SelectItem value="scale">Scale to 7 figures</SelectItem>
@@ -499,7 +668,7 @@ export function AuditForm() {
                                         <div className="space-y-2">
                                             <Label>Biggest Bottleneck Right Now</Label>
                                             <Select value={formData.bottleneck} onValueChange={(val: string) => updateField("bottleneck", val)}>
-                                                <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                                <SelectTrigger className="bg-white border-[#E4E3DE]"><SelectValue placeholder="Select..." /></SelectTrigger>
                                                 <SelectContent>
                                                     {config.step3.bottleneck.options?.map(opt => (
                                                         <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
@@ -510,7 +679,7 @@ export function AuditForm() {
                                         <div className="space-y-2">
                                             <Label>Team Size</Label>
                                             <Select value={formData.teamSize} onValueChange={(val: string) => updateField("teamSize", val)}>
-                                                <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                                <SelectTrigger className="bg-white border-[#E4E3DE]"><SelectValue placeholder="Select..." /></SelectTrigger>
                                                 <SelectContent>
                                                     <SelectItem value="solo">Just me</SelectItem>
                                                     <SelectItem value="2-3">2 - 3 people</SelectItem>
@@ -528,7 +697,7 @@ export function AuditForm() {
                                         <div className="space-y-2">
                                             <Label>{config.step4.listSize.label}</Label>
                                             <Select value={formData.listSize} onValueChange={(val: string) => updateField("listSize", val)}>
-                                                <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                                <SelectTrigger className="bg-white border-[#E4E3DE]"><SelectValue placeholder="Select..." /></SelectTrigger>
                                                 <SelectContent>
                                                     {config.step4.listSize.options?.map(opt => (
                                                         <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
@@ -539,7 +708,7 @@ export function AuditForm() {
                                         <div className="space-y-2">
                                             <Label>{config.step4.trafficSource.label}</Label>
                                             <Select value={formData.trafficSource} onValueChange={(val: string) => updateField("trafficSource", val)}>
-                                                <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                                <SelectTrigger className="bg-white border-[#E4E3DE]"><SelectValue placeholder="Select..." /></SelectTrigger>
                                                 <SelectContent>
                                                     {config.step4.trafficSource.options?.map(opt => (
                                                         <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
@@ -551,7 +720,7 @@ export function AuditForm() {
                                             <div className="space-y-2">
                                                 <Label>{config.step4.conversionRate.label}</Label>
                                                 <Select value={formData.conversionRate} onValueChange={(val: string) => updateField("conversionRate", val)}>
-                                                    <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                                    <SelectTrigger className="bg-white border-[#E4E3DE]"><SelectValue placeholder="Select..." /></SelectTrigger>
                                                     <SelectContent>
                                                         {config.step4.conversionRate.options?.map(opt => (
                                                             <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
@@ -562,7 +731,7 @@ export function AuditForm() {
                                             <div className="space-y-2">
                                                 <Label>{config.step4.launchesPerYear.label}</Label>
                                                 <Select value={formData.launchesPerYear} onValueChange={(val: string) => updateField("launchesPerYear", val)}>
-                                                    <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                                    <SelectTrigger className="bg-white border-[#E4E3DE]"><SelectValue placeholder="Select..." /></SelectTrigger>
                                                     <SelectContent>
                                                         {config.step4.launchesPerYear.options?.map(opt => (
                                                             <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
@@ -575,7 +744,7 @@ export function AuditForm() {
                                             <div className="space-y-2">
                                                 <Label>{config.step4.churnRate.label}</Label>
                                                 <Select value={formData.churnRate} onValueChange={(val: string) => updateField("churnRate", val)}>
-                                                    <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                                    <SelectTrigger className="bg-white border-[#E4E3DE]"><SelectValue placeholder="Select..." /></SelectTrigger>
                                                     <SelectContent>
                                                         {config.step4.churnRate.options?.map(opt => (
                                                             <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
@@ -586,7 +755,7 @@ export function AuditForm() {
                                             <div className="space-y-2">
                                                 <Label>{config.step4.contentCreationHours.label}</Label>
                                                 <Select value={formData.contentCreationHours} onValueChange={(val: string) => updateField("contentCreationHours", val)}>
-                                                    <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                                    <SelectTrigger className="bg-white border-[#E4E3DE]"><SelectValue placeholder="Select..." /></SelectTrigger>
                                                     <SelectContent>
                                                         {config.step4.contentCreationHours.options?.map(opt => (
                                                             <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
@@ -605,7 +774,7 @@ export function AuditForm() {
                                             <div className="space-y-2">
                                                 <Label>Total Hours Worked Per Week</Label>
                                                 <Select value={formData.hoursPerWeek} onValueChange={(val: string) => updateField("hoursPerWeek", val)}>
-                                                    <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                                    <SelectTrigger className="bg-white border-[#E4E3DE]"><SelectValue placeholder="Select..." /></SelectTrigger>
                                                     <SelectContent>
                                                         <SelectItem value="under-20">Under 20</SelectItem>
                                                         <SelectItem value="20-40">20 - 40 hours</SelectItem>
@@ -617,7 +786,7 @@ export function AuditForm() {
                                             <div className="space-y-2">
                                                 <Label>{config.step5.supportHoursPerWeek.label}</Label>
                                                 <Select value={formData.supportHoursPerWeek} onValueChange={(val: string) => updateField("supportHoursPerWeek", val)}>
-                                                    <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                                    <SelectTrigger className="bg-white border-[#E4E3DE]"><SelectValue placeholder="Select..." /></SelectTrigger>
                                                     <SelectContent>
                                                         <SelectItem value="0-2">0 - 2 hours</SelectItem>
                                                         <SelectItem value="2-5">2 - 5 hours</SelectItem>
@@ -630,7 +799,7 @@ export function AuditForm() {
                                         <div className="space-y-2">
                                             <Label>% Time on High-Value Work (creating, selling, strategy)</Label>
                                             <Select value={formData.highValueWork} onValueChange={(val: string) => updateField("highValueWork", val)}>
-                                                <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                                <SelectTrigger className="bg-white border-[#E4E3DE]"><SelectValue placeholder="Select..." /></SelectTrigger>
                                                 <SelectContent>
                                                     <SelectItem value="under-20">Under 20% (stuck in the weeds)</SelectItem>
                                                     <SelectItem value="20-40">20 - 40%</SelectItem>
@@ -645,7 +814,7 @@ export function AuditForm() {
                                                 {["Yes", "Partially", "No"].map(opt => (
                                                     <Button key={opt} type="button" variant={formData.onboardingAutomated === opt ? "default" : "outline"}
                                                         onClick={() => updateField("onboardingAutomated", opt)}
-                                                        className={formData.onboardingAutomated === opt ? "bg-blue-600 hover:bg-blue-700" : "bg-transparent border-slate-700 hover:bg-slate-800"}>
+                                                        className={formData.onboardingAutomated === opt ? "bg-[#D90019] hover:opacity-80" : "bg-transparent border-slate-700 hover:bg-slate-800"}>
                                                         {opt}
                                                     </Button>
                                                 ))}
@@ -657,7 +826,7 @@ export function AuditForm() {
                                                 {["Yes", "Maybe", "No"].map(opt => (
                                                     <Button key={opt} type="button" variant={formData.twoWeeksOff === opt ? "default" : "outline"}
                                                         onClick={() => updateField("twoWeeksOff", opt)}
-                                                        className={formData.twoWeeksOff === opt ? "bg-blue-600 hover:bg-blue-700" : "bg-transparent border-slate-700 hover:bg-slate-800"}>
+                                                        className={formData.twoWeeksOff === opt ? "bg-[#D90019] hover:opacity-80" : "bg-transparent border-slate-700 hover:bg-slate-800"}>
                                                         {opt}
                                                     </Button>
                                                 ))}
@@ -673,7 +842,7 @@ export function AuditForm() {
                                         <div className="space-y-2">
                                             <Label>What keeps you up at night about your business?</Label>
                                             <Textarea value={formData.keepsUpAtNight} onChange={(e) => updateField("keepsUpAtNight", e.target.value)}
-                                                className="bg-slate-800 border-slate-700 h-24" placeholder="Be specific..." />
+                                                className="bg-white border-[#E4E3DE] h-24" placeholder="Be specific..." />
                                         </div>
                                     </div>
                                 )}
@@ -686,7 +855,7 @@ export function AuditForm() {
                                             <div className="grid grid-cols-2 gap-2">
                                                 {config.step6.tools.map(tool => (
                                                     <div key={tool} className="flex items-center space-x-2">
-                                                        <Checkbox id={tool} checked={formData.tools.includes(tool)} onCheckedChange={() => toggleArrayItem("tools", tool)} className="border-slate-600 data-[state=checked]:bg-blue-600" />
+                                                        <Checkbox id={tool} checked={formData.tools.includes(tool)} onCheckedChange={() => toggleArrayItem("tools", tool)} className="border-slate-600 data-[state=checked]:bg-red-600" />
                                                         <label htmlFor={tool} className="text-sm text-slate-300 cursor-pointer">{tool}</label>
                                                     </div>
                                                 ))}
@@ -695,7 +864,7 @@ export function AuditForm() {
                                         <div className="space-y-2">
                                             <Label>% of Your Business That&apos;s Automated</Label>
                                             <Select value={formData.percentAutomated} onValueChange={(val: string) => updateField("percentAutomated", val)}>
-                                                <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                                <SelectTrigger className="bg-white border-[#E4E3DE]"><SelectValue placeholder="Select..." /></SelectTrigger>
                                                 <SelectContent>
                                                     <SelectItem value="none">Almost nothing (all manual)</SelectItem>
                                                     <SelectItem value="under-30">Under 30%</SelectItem>
@@ -707,12 +876,12 @@ export function AuditForm() {
                                         <div className="space-y-2">
                                             <Label>Biggest Time-Waster in Your Business</Label>
                                             <Input value={formData.biggestTimeWaste} onChange={(e) => updateField("biggestTimeWaste", e.target.value)}
-                                                placeholder={config.step6.biggestTimeWaste.placeholder} className="bg-slate-800 border-slate-700" />
+                                                placeholder={config.step6.biggestTimeWaste.placeholder} className="bg-white border-[#E4E3DE]" />
                                         </div>
                                         <div className="space-y-2">
                                             <Label>#1 Goal for Next 12 Months</Label>
                                             <Input value={formData.next12MonthsGoal} onChange={(e) => updateField("next12MonthsGoal", e.target.value)}
-                                                placeholder={config.step6.next12MonthsGoal.placeholder} className="bg-slate-800 border-slate-700" />
+                                                placeholder={config.step6.next12MonthsGoal.placeholder} className="bg-white border-[#E4E3DE]" />
                                         </div>
                                         <div className="space-y-3">
                                             <Label>What problems are you experiencing?</Label>
@@ -734,7 +903,7 @@ export function AuditForm() {
                                         <div className="space-y-2">
                                             <Label>How excited are you to fix this? (1-10)</Label>
                                             <Select value={formData.excitementLevel} onValueChange={(val: string) => updateField("excitementLevel", val)}>
-                                                <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                                <SelectTrigger className="bg-white border-[#E4E3DE]"><SelectValue placeholder="Select..." /></SelectTrigger>
                                                 <SelectContent>
                                                     <SelectItem value="10">10 - Ready to go NOW</SelectItem>
                                                     <SelectItem value="8-9">8-9 - Very interested</SelectItem>
@@ -746,7 +915,7 @@ export function AuditForm() {
                                         <div className="space-y-2">
                                             <Label>When do you want to start?</Label>
                                             <Select value={formData.startDate} onValueChange={(val: string) => updateField("startDate", val)}>
-                                                <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                                <SelectTrigger className="bg-white border-[#E4E3DE]"><SelectValue placeholder="Select..." /></SelectTrigger>
                                                 <SelectContent>
                                                     <SelectItem value="now">Right now</SelectItem>
                                                     <SelectItem value="this-month">This month</SelectItem>
@@ -758,7 +927,7 @@ export function AuditForm() {
                                         <div className="space-y-2">
                                             <Label>Investment Comfort Level</Label>
                                             <Select value={formData.growthBudget} onValueChange={(val: string) => updateField("growthBudget", val)}>
-                                                <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                                <SelectTrigger className="bg-white border-[#E4E3DE]"><SelectValue placeholder="Select..." /></SelectTrigger>
                                                 <SelectContent>
                                                     <SelectItem value="starter">Under $5K (single system)</SelectItem>
                                                     <SelectItem value="moderate">$5K - $15K (multiple systems)</SelectItem>
@@ -770,7 +939,7 @@ export function AuditForm() {
                                         <div className="space-y-2">
                                             <Label>Are you the decision maker?</Label>
                                             <Select value={formData.decisionMaker} onValueChange={(val: string) => updateField("decisionMaker", val)}>
-                                                <SelectTrigger className="bg-slate-800 border-slate-700"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                                <SelectTrigger className="bg-white border-[#E4E3DE]"><SelectValue placeholder="Select..." /></SelectTrigger>
                                                 <SelectContent>
                                                     <SelectItem value="me">Yes, just me</SelectItem>
                                                     <SelectItem value="partner">Me + business partner</SelectItem>
@@ -781,7 +950,7 @@ export function AuditForm() {
                                         </div>
                                         <div className="pt-4 border-t border-slate-800">
                                             <div className="flex items-start space-x-2">
-                                                <Checkbox id="optin" checked={formData.newsletterOptIn} onCheckedChange={(c: boolean) => updateField("newsletterOptIn", c === true)} className="mt-1 border-slate-600 data-[state=checked]:bg-blue-600" />
+                                                <Checkbox id="optin" checked={formData.newsletterOptIn} onCheckedChange={(c: boolean) => updateField("newsletterOptIn", c === true)} className="mt-1 border-slate-600 data-[state=checked]:bg-red-600" />
                                                 <label htmlFor="optin" className="text-sm text-slate-400">
                                                     I agree to receive my detailed audit results, occasional growth insights, and newsletter updates via email.
                                                 </label>
@@ -794,15 +963,15 @@ export function AuditForm() {
                         </AnimatePresence>
 
                         <div className="flex justify-between mt-8 pt-8 border-t border-slate-800">
-                            <Button variant="ghost" onClick={handleBack} disabled={currentStep === 0 || isScanning} className="text-slate-400 hover:text-white hover:bg-slate-800">
+                            <Button variant="ghost" onClick={handleBack} disabled={currentStep === 0 || isScanning} className="text-[#888] hover:text-black hover:bg-[#F2F1ED]">
                                 <ArrowLeft className="w-4 h-4 mr-2" /> Back
                             </Button>
                             {currentStep === STEPS.length - 1 ? (
-                                <Button onClick={handleSubmit} disabled={isSubmitting || !formData.newsletterOptIn} className="bg-green-600 hover:bg-green-700 text-white px-8">
+                                <Button onClick={handleSubmit} disabled={isSubmitting || !formData.newsletterOptIn} className="bg-red-600 hover:bg-red-700 text-white px-8">
                                     {isSubmitting ? "Submitting..." : (<>Submit Audit <Send className="w-4 h-4 ml-2" /></>)}
                                 </Button>
                             ) : (
-                                <Button onClick={handleNext} disabled={isScanning} className="bg-white text-black hover:bg-slate-200">
+                                <Button onClick={handleNext} disabled={isScanning} className="bg-black text-white hover:opacity-80">
                                     {isScanning ? "Processing..." : (<>Next Step <ArrowRight className="w-4 h-4 ml-2" /></>)}
                                 </Button>
                             )}
@@ -815,25 +984,48 @@ export function AuditForm() {
                     <ProposalVisualizer currentStep={currentStep} totalSteps={STEPS.length} formData={formData} />
 
                     <AnimatePresence>
-                        {liveInsights.length > 0 && (
+                        {(aiInsights.length > 0 || liveInsights.length > 0) && (
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 className="space-y-4"
                             >
                                 <div className="flex items-center gap-2 px-2">
-                                    <Sparkles className="w-3 h-3 text-blue-400" />
-                                    <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-widest">AI Discoveries</h4>
+                                    <Sparkles className="w-3 h-3 text-red-400" />
+                                    <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                                        {aiInsights.length > 0 ? 'AI Research' : 'AI Discoveries'}
+                                    </h4>
                                 </div>
-                                {liveInsights.slice(0, 3).map((insight, idx) => (
+                                {/* Show AI insights first (from real research), then fallback local insights */}
+                                {aiInsights.slice(0, 3).map((insight, idx) => (
                                     <motion.div
-                                        key={idx}
+                                        key={`ai-${idx}`}
+                                        initial={{ opacity: 0, x: 20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ delay: idx * 0.15 }}
+                                        className={`p-4 rounded-xl border ${insight.type === 'warning' ? 'bg-red-700/10 border-red-700/20 text-red-300' :
+                                            insight.type === 'opportunity' ? 'bg-red-400/10 border-red-400/20 text-red-200' :
+                                                'bg-red-500/10 border-red-500/20 text-red-200'
+                                            }`}
+                                    >
+                                        <div className="flex items-start gap-3">
+                                            <span className="text-lg">{insight.icon || '🔍'}</span>
+                                            <p className="text-[11px] font-bold leading-relaxed uppercase tracking-tight">
+                                                {insight.message}
+                                            </p>
+                                        </div>
+                                    </motion.div>
+                                ))}
+                                {/* Show local fallback insights if no AI insights yet */}
+                                {aiInsights.length === 0 && liveInsights.slice(0, 3).map((insight, idx) => (
+                                    <motion.div
+                                        key={`local-${idx}`}
                                         initial={{ opacity: 0, x: 20 }}
                                         animate={{ opacity: 1, x: 0 }}
                                         transition={{ delay: idx * 0.1 }}
-                                        className={`p-4 rounded-xl border ${insight.type === 'warning' ? 'bg-red-500/10 border-red-500/20 text-red-200' :
-                                            insight.type === 'opportunity' ? 'bg-green-500/10 border-green-500/20 text-green-200' :
-                                                'bg-blue-500/10 border-blue-500/20 text-blue-200'
+                                        className={`p-4 rounded-xl border ${insight.type === 'warning' ? 'bg-red-700/10 border-red-700/20 text-red-300' :
+                                            insight.type === 'opportunity' ? 'bg-red-400/10 border-red-400/20 text-red-200' :
+                                                'bg-red-500/10 border-red-500/20 text-red-200'
                                             }`}
                                     >
                                         <div className="flex items-start gap-3">
@@ -856,27 +1048,27 @@ export function AuditForm() {
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                         className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
                         <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }}>
-                            <Card className="bg-slate-900 border-slate-700 p-8 max-w-md mx-4 relative">
-                                <button onClick={() => setShowExitCapture(false)} className="absolute top-4 right-4 text-slate-400 hover:text-white">
+                            <Card className="bg-white border-[#E4E3DE] p-8 max-w-md mx-4 relative">
+                                <button onClick={() => setShowExitCapture(false)} className="absolute top-4 right-4 text-slate-400 hover:text-black">
                                     <X className="w-5 h-5" />
                                 </button>
                                 {exitEmailSent ? (
                                     <div className="text-center py-4">
-                                        <p className="text-white font-semibold text-lg">Check your inbox!</p>
-                                        <p className="text-slate-400 text-sm mt-1">We sent a link to finish your audit.</p>
+                                        <p className="text-black font-semibold text-lg">Check your inbox!</p>
+                                        <p className="text-slate-500 text-sm mt-1">We sent a link to finish your audit.</p>
                                     </div>
                                 ) : (
                                     <>
-                                        <h3 className="text-white text-xl font-bold mb-2">Don&apos;t lose your progress!</h3>
-                                        <p className="text-slate-400 text-sm mb-6">
+                                        <h3 className="text-black text-xl font-bold mb-2">Don&apos;t lose your progress!</h3>
+                                        <p className="text-slate-500 text-sm mb-6">
                                             We can send you a link to finish your audit later, or book a call and we&apos;ll walk you through it.
                                         </p>
                                         <div className="space-y-3">
-                                            <Button onClick={handleSaveProgress} className="w-full bg-blue-600 hover:bg-blue-700 text-white">
+                                            <Button onClick={handleSaveProgress} className="w-full bg-red-600 hover:bg-red-700 text-white">
                                                 Email Me a Link
                                             </Button>
                                             <Button asChild variant="outline" className="w-full border-slate-600 text-slate-300 hover:bg-slate-800">
-                                                <a href="https://cal.com/mia-louviere-a4n2hk/30min" target="_blank" rel="noopener noreferrer">
+                                                <a href="https://cal.com/elianatech/30min" target="_blank" rel="noopener noreferrer">
                                                     Book a Call Instead
                                                 </a>
                                             </Button>

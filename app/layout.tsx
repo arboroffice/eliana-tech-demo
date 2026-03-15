@@ -5,22 +5,30 @@ import "./globals.css"
 import { PageTransition } from "@/components/page-transition"
 import { NavigationTransition } from "@/components/navigation-transition"
 import { SpeedInsights } from "@vercel/speed-insights/next"
-import { Dancing_Script, Caveat } from "next/font/google"
+import { Bebas_Neue, DM_Mono, Syne } from "next/font/google"
 
-const dancingScript = Dancing_Script({
+const bebasNeue = Bebas_Neue({
+  weight: "400",
   subsets: ["latin"],
-  variable: "--font-dancing-script",
+  variable: "--font-bebas-neue",
   display: "swap",
 })
 
-const caveat = Caveat({
+const dmMono = DM_Mono({
+  weight: ["300", "400"],
   subsets: ["latin"],
-  variable: "--font-caveat",
+  variable: "--font-dm-mono",
+  display: "swap",
+})
+
+const syne = Syne({
+  subsets: ["latin"],
+  variable: "--font-syne",
   display: "swap",
 })
 
 export const metadata: Metadata = {
-  title: "ELIANATECH",
+  title: "Elianatech — Own Your Intelligence",
   description:
     "Transform your business with intelligent AI automation solutions. Empower your organization to operate at the speed of thought.",
   icons: {
@@ -38,8 +46,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body className={`font-sans antialiased ${dancingScript.variable} ${caveat.variable}`}>
+    <html lang="en">
+      <body className={`${bebasNeue.variable} ${dmMono.variable} ${syne.variable} font-mono antialiased`}>
         <Suspense fallback={null}>
           <NavigationTransition />
           <PageTransition>{children}</PageTransition>

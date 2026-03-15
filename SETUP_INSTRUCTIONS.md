@@ -5,7 +5,7 @@
 - ✅ Resend installed
 - ✅ Firebase installed
 - ✅ Firestore integration configured
-- ✅ Cal.com link integrated: https://cal.com/mia-louviere-a4n2hk/30min
+- ✅ Cal.com link integrated: https://cal.com/elianatech/30min
 - ✅ Email templates created
 - ✅ Cron job for scheduled emails
 - ✅ Complete audit system built
@@ -172,7 +172,7 @@ Edit templates in:
 
 ### Update Cal.com Link
 
-Already configured to: `https://cal.com/mia-louviere-a4n2hk/30min`
+Already configured to: `https://cal.com/elianatech/30min`
 
 To change, edit `CALENDAR_LINK` in:
 - `lib/email-service.ts`

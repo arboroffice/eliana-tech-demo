@@ -13,13 +13,13 @@ export function GrowthStages() {
     return (
         <section className="py-24 px-4 bg-black/50 relative overflow-hidden">
             {/* Background gradients */}
-            <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
-            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-[120px] pointer-events-none" />
+            <div className="absolute top-0 left-1/4 w-96 h-96 bg-red-600/10 rounded-full blur-[120px] pointer-events-none" />
+            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-red-600/10 rounded-full blur-[120px] pointer-events-none" />
 
             <div className="max-w-7xl mx-auto relative z-10">
                 <div className="text-center mb-16">
                     <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-                        Every Solution • Every Industry • <span className="text-blue-400">Every Stage</span>
+                        Every Solution • Every Industry • <span className="text-red-400">Every Stage</span>
                     </h2>
                     <p className="text-lg text-slate-300 max-w-3xl mx-auto">
                         Elianatech serves ALL industries. The difference is your growth stage, not your niche.
@@ -38,7 +38,7 @@ export function GrowthStages() {
                                 className={cn(
                                     "relative group p-6 rounded-2xl border text-left transition-all duration-300",
                                     isActive
-                                        ? "bg-white/10 border-blue-500/50 shadow-2xl shadow-blue-500/10"
+                                        ? "bg-white/10 border-red-500/50 shadow-2xl shadow-red-500/10"
                                         : "bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20"
                                 )}
                             >
@@ -46,7 +46,7 @@ export function GrowthStages() {
                                     <h3 className={cn("text-xl font-bold", isActive ? "text-white" : "text-slate-300")}>
                                         {stage.title.split(":")[1]}
                                     </h3>
-                                    {isActive && <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse" />}
+                                    {isActive && <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse" />}
                                 </div>
 
                                 <div className="space-y-2 text-sm text-slate-400 mb-4">
@@ -62,7 +62,7 @@ export function GrowthStages() {
 
                                 <div className={cn("h-1 w-full rounded-full overflow-hidden bg-slate-800", isActive && "bg-slate-700")}>
                                     <motion.div
-                                        className="h-full bg-gradient-to-r from-blue-500 to-purple-500"
+                                        className="h-full bg-gradient-to-r from-red-500 to-red-500"
                                         initial={{ width: "0%" }}
                                         animate={{ width: isActive ? "100%" : "0%" }}
                                         transition={{ duration: 0.5 }}
@@ -92,14 +92,14 @@ export function GrowthStages() {
                                     </div>
 
                                     <div className="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm">
-                                        <h4 className="flex items-center text-lg font-semibold text-blue-400 mb-4">
+                                        <h4 className="flex items-center text-lg font-semibold text-red-400 mb-4">
                                             <Zap className="w-5 h-5 mr-2" />
                                             Key AI Unlock
                                         </h4>
                                         <div className="space-y-3">
                                             {GROWTH_STAGES[activeStage].ai_automations.items.slice(0, 4).map((item, i) => (
                                                 <div key={i} className="flex items-start text-slate-300 text-sm">
-                                                    <Check className="w-4 h-4 mr-3 text-green-500 shrink-0 mt-0.5" />
+                                                    <Check className="w-4 h-4 mr-3 text-red-500 shrink-0 mt-0.5" />
                                                     {item}
                                                 </div>
                                             ))}
@@ -118,15 +118,15 @@ export function GrowthStages() {
 
                                 {/* Visual / Demo Area */}
                                 <div className="relative group">
-                                    <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+                                    <div className="absolute -inset-1 bg-gradient-to-r from-red-500 to-red-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
                                     <div className="relative bg-slate-900 border border-white/10 rounded-2xl overflow-hidden aspect-video shadow-2xl">
                                         {/* Mock Dashboard UI */}
                                         <div className="absolute inset-0 flex flex-col">
                                             {/* Header */}
                                             <div className="h-8 bg-slate-800 border-b border-white/5 flex items-center px-4 space-x-2">
                                                 <div className="w-2 h-2 rounded-full bg-red-500/50"></div>
-                                                <div className="w-2 h-2 rounded-full bg-yellow-500/50"></div>
-                                                <div className="w-2 h-2 rounded-full bg-green-500/50"></div>
+                                                <div className="w-2 h-2 rounded-full bg-red-500/50"></div>
+                                                <div className="w-2 h-2 rounded-full bg-red-500/50"></div>
                                             </div>
                                             {/* Body */}
                                             <div className="flex-1 p-6 relative">
@@ -138,9 +138,9 @@ export function GrowthStages() {
                                                             initial={{ height: 0 }}
                                                             animate={{ height: `${h}%` }}
                                                             transition={{ delay: i * 0.1, duration: 0.5 }}
-                                                            className="flex-1 bg-blue-500/20 rounded-t-sm relative group/bar"
+                                                            className="flex-1 bg-red-500/20 rounded-t-sm relative group/bar"
                                                         >
-                                                            <div className="absolute bottom-0 left-0 right-0 bg-blue-500 rounded-t-sm transition-all duration-500" style={{ height: activeStage > i % 3 ? '100%' : '30%' }}></div>
+                                                            <div className="absolute bottom-0 left-0 right-0 bg-red-500 rounded-t-sm transition-all duration-500" style={{ height: activeStage > i % 3 ? '100%' : '30%' }}></div>
                                                         </motion.div>
                                                     ))}
                                                 </div>
@@ -149,11 +149,11 @@ export function GrowthStages() {
                                                 <div className="grid grid-cols-2 gap-4">
                                                     <div className="bg-white/5 rounded-lg p-3">
                                                         <div className="text-xs text-slate-400 mb-1">Efficiency Gain</div>
-                                                        <div className="text-xl font-bold text-green-400">+127%</div>
+                                                        <div className="text-xl font-bold text-red-400">+127%</div>
                                                     </div>
                                                     <div className="bg-white/5 rounded-lg p-3">
                                                         <div className="text-xs text-slate-400 mb-1">Hours Saved</div>
-                                                        <div className="text-xl font-bold text-blue-400">42 hrs/wk</div>
+                                                        <div className="text-xl font-bold text-red-400">42 hrs/wk</div>
                                                     </div>
                                                 </div>
 
@@ -187,7 +187,7 @@ export function GrowthStages() {
                                                 </li>
                                             ))}
                                             {cat.items.length > 5 && (
-                                                <li className="text-xs text-blue-400 font-medium pl-3.5 pt-1">
+                                                <li className="text-xs text-red-400 font-medium pl-3.5 pt-1">
                                                     + {cat.items.length - 5} more...
                                                 </li>
                                             )}

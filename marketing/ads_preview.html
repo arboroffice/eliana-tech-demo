@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,7 @@
             padding: 40px;
             margin: 0;
         }
+
         h1 {
             text-align: center;
             margin-bottom: 40px;
@@ -19,6 +21,7 @@
             letter-spacing: 2px;
             color: #fff;
         }
+
         .stage-title {
             grid-column: 1 / -1;
             font-size: 1.5rem;
@@ -27,6 +30,7 @@
             border-bottom: 1px solid #333;
             padding-bottom: 10px;
         }
+
         .ads-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -34,20 +38,23 @@
             max-width: 1600px;
             margin: 0 auto;
         }
+
         .ad-card {
             background-color: #242526;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             border: 1px solid #333;
             display: flex;
             flex-direction: column;
         }
+
         .ad-header {
             padding: 12px 16px;
             display: flex;
             align-items: center;
         }
+
         .ad-avatar {
             width: 40px;
             height: 40px;
@@ -61,16 +68,19 @@
             font-size: 10px;
             margin-right: 12px;
         }
+
         .ad-info h3 {
             margin: 0;
             font-size: 15px;
             font-weight: 600;
             color: #e4e6eb;
         }
+
         .ad-info span {
             font-size: 13px;
             color: #b0b3b8;
         }
+
         .ad-body {
             padding: 0 16px 12px;
             font-size: 15px;
@@ -78,6 +88,7 @@
             color: #e4e6eb;
             white-space: pre-wrap;
         }
+
         .ad-media-placeholder {
             height: 350px;
             background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
@@ -90,12 +101,17 @@
             position: relative;
             overflow: hidden;
         }
+
         .ad-media-placeholder::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(circle at center, rgba(255,255,255,0.05) 0%, transparent 70%);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
         }
+
         .ad-media-text {
             color: #94a3b8;
             font-family: monospace;
@@ -105,8 +121,9 @@
             border-radius: 4px;
             max-width: 80%;
             z-index: 1;
-            background: rgba(0,0,0,0.4);
+            background: rgba(0, 0, 0, 0.4);
         }
+
         .ad-media-label {
             position: absolute;
             top: 10px;
@@ -116,21 +133,26 @@
             text-transform: uppercase;
             letter-spacing: 1px;
         }
+
         .ad-footer {
-            background-color: #303134; /* Darker footer area */
+            background-color: #303134;
+            /* Darker footer area */
             padding: 12px 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
+
         .ad-footer-content {
             flex: 1;
         }
+
         .ad-footer-url {
             font-size: 12px;
             color: #b0b3b8;
             margin-bottom: 4px;
         }
+
         .ad-headline {
             font-size: 17px;
             font-weight: 700;
@@ -138,8 +160,10 @@
             line-height: 1.2;
             margin: 0;
         }
+
         .ad-cta {
-            background-color: #3a3b3c; /* Or generic grey/white */
+            background-color: #3a3b3c;
+            /* Or generic grey/white */
             color: #e4e6eb;
             border: 1px solid #4e4f50;
             padding: 8px 12px;
@@ -149,15 +173,30 @@
             white-space: nowrap;
             margin-left: 12px;
         }
-        /* Color coded stages for visual separation */
-        .stage-1 .ad-media-placeholder { border-bottom: 2px solid #60a5fa; }
-        .stage-2 .ad-media-placeholder { border-bottom: 2px solid #34d399; }
-        .stage-3 .ad-media-placeholder { border-bottom: 2px solid #fbbf24; }
-        .stage-4 .ad-media-placeholder { border-bottom: 2px solid #f87171; }
-        .stage-5 .ad-media-placeholder { border-bottom: 2px solid #a78bfa; }
 
+        /* Color coded stages for visual separation */
+        .stage-1 .ad-media-placeholder {
+            border-bottom: 2px solid #60a5fa;
+        }
+
+        .stage-2 .ad-media-placeholder {
+            border-bottom: 2px solid #34d399;
+        }
+
+        .stage-3 .ad-media-placeholder {
+            border-bottom: 2px solid #fbbf24;
+        }
+
+        .stage-4 .ad-media-placeholder {
+            border-bottom: 2px solid #f87171;
+        }
+
+        .stage-5 .ad-media-placeholder {
+            border-bottom: 2px solid #a78bfa;
+        }
     </style>
 </head>
+
 <body>
 
     <h1>ELIANATECH ADS PREVIEW</h1>
@@ -176,10 +215,13 @@
                     <span>Sponsored · 🌍</span>
                 </div>
             </div>
-            <div class="ad-body">You started this company for freedom, but you're trapped in operations. You're the bottleneck, the firefighter, and the visionary all at once. The solution isn't "hiring a better manager." The solution is an operating system that runs without you.</div>
+            <div class="ad-body">You started this company for freedom, but you're trapped in operations. You're the
+                bottleneck, the firefighter, and the visionary all at once. The solution isn't "hiring a better
+                manager." The solution is an operating system that runs without you.</div>
             <div class="ad-media-placeholder">
                 <div class="ad-media-label">VISUAL CONCEPT</div>
-                <div class="ad-media-text">A chaotic, cluttered calendar vs. a clean, automated dashboard. Contrast chaos vs order.</div>
+                <div class="ad-media-text">A chaotic, cluttered calendar vs. a clean, automated dashboard. Contrast
+                    chaos vs order.</div>
             </div>
             <div class="ad-footer">
                 <div class="ad-footer-content">
@@ -199,10 +241,12 @@
                     <span>Sponsored · 🌍</span>
                 </div>
             </div>
-            <div class="ad-body">Most companies hit a wall at $1M-$5M. Why? Because you're scaling linearly. More revenue = more people = more complexity. Break the cycle. Scale your impact, not your headcount.</div>
+            <div class="ad-body">Most companies hit a wall at $1M-$5M. Why? Because you're scaling linearly. More
+                revenue = more people = more complexity. Break the cycle. Scale your impact, not your headcount.</div>
             <div class="ad-media-placeholder">
                 <div class="ad-media-label">VISUAL CONCEPT</div>
-                <div class="ad-media-text">Graph showing Revenue vs. Headcount (Linear) vs. Revenue vs. Headcount (Exponential/AI Native).</div>
+                <div class="ad-media-text">Graph showing Revenue vs. Headcount (Linear) vs. Revenue vs. Headcount
+                    (Exponential/AI Native).</div>
             </div>
             <div class="ad-footer">
                 <div class="ad-footer-content">
@@ -222,10 +266,13 @@
                     <span>Sponsored · 🌍</span>
                 </div>
             </div>
-            <div class="ad-body">How many hours did your team spend on data entry, scheduling, and follow-ups this week? That's not "work"—that's inefficiency disguised as productivity. It's causing burnout and killing your margins.</div>
+            <div class="ad-body">How many hours did your team spend on data entry, scheduling, and follow-ups this week?
+                That's not "work"—that's inefficiency disguised as productivity. It's causing burnout and killing your
+                margins.</div>
             <div class="ad-media-placeholder">
                 <div class="ad-media-label">VISUAL CONCEPT</div>
-                <div class="ad-media-text">A "receipt" showing the cost of manual tasks (e.g., "Email Follow-ups: $2,500/mo").</div>
+                <div class="ad-media-text">A "receipt" showing the cost of manual tasks (e.g., "Email Follow-ups:
+                    $2,500/mo").</div>
             </div>
             <div class="ad-footer">
                 <div class="ad-footer-content">
@@ -248,7 +295,9 @@
                     <span>Sponsored · 🌍</span>
                 </div>
             </div>
-            <div class="ad-body">Agencies charge you retainers forever. Employees churn. But systems? Systems compound. Stop trying to solve process problems with more people. It's time to build infrastructure that you own.</div>
+            <div class="ad-body">Agencies charge you retainers forever. Employees churn. But systems? Systems compound.
+                Stop trying to solve process problems with more people. It's time to build infrastructure that you own.
+            </div>
             <div class="ad-media-placeholder">
                 <div class="ad-media-label">VISUAL CONCEPT</div>
                 <div class="ad-media-text">Video/Image contrasting an "Agency Invoice" vs. "Asset Value".</div>
@@ -271,10 +320,12 @@
                     <span>Sponsored · 🌍</span>
                 </div>
             </div>
-            <div class="ad-body">While your team is manually qualifying leads, your competitors' AI systems are closing them. In 2026, speed isn't a luxury—it's survival. If you aren't automated, you're already behind.</div>
+            <div class="ad-body">While your team is manually qualifying leads, your competitors' AI systems are closing
+                them. In 2026, speed isn't a luxury—it's survival. If you aren't automated, you're already behind.</div>
             <div class="ad-media-placeholder">
                 <div class="ad-media-label">VISUAL CONCEPT</div>
-                <div class="ad-media-text">Split screen: A slow, manual typist vs. lightning-fast code executing tasks.</div>
+                <div class="ad-media-text">Split screen: A slow, manual typist vs. lightning-fast code executing tasks.
+                </div>
             </div>
             <div class="ad-footer">
                 <div class="ad-footer-content">
@@ -294,7 +345,8 @@
                     <span>Sponsored · 🌍</span>
                 </div>
             </div>
-            <div class="ad-body">The old way: Grow by hiring. The new way: Grow by building. AI-native organizations scale infinitely at near-zero marginal cost. Protect your margins.</div>
+            <div class="ad-body">The old way: Grow by hiring. The new way: Grow by building. AI-native organizations
+                scale infinitely at near-zero marginal cost. Protect your margins.</div>
             <div class="ad-media-placeholder">
                 <div class="ad-media-label">VISUAL CONCEPT</div>
                 <div class="ad-media-text">Animation of revenue bar going up while expense bar stays flat.</div>
@@ -320,10 +372,13 @@
                     <span>Sponsored · 🌍</span>
                 </div>
             </div>
-            <div class="ad-body">Consultants give you a 50-page PDF and wish you luck. Agencies rent you hours. We do neither. We install the actual technical infrastructure that runs your business for you. Don't pay for advice. Pay for execution.</div>
+            <div class="ad-body">Consultants give you a 50-page PDF and wish you luck. Agencies rent you hours. We do
+                neither. We install the actual technical infrastructure that runs your business for you. Don't pay for
+                advice. Pay for execution.</div>
             <div class="ad-media-placeholder">
                 <div class="ad-media-label">VISUAL CONCEPT</div>
-                <div class="ad-media-text">A hand throwing a "Strategy Document" in the trash and turning on a "Server".</div>
+                <div class="ad-media-text">A hand throwing a "Strategy Document" in the trash and turning on a "Server".
+                </div>
             </div>
             <div class="ad-footer">
                 <div class="ad-footer-content">
@@ -334,8 +389,8 @@
             </div>
         </div>
 
-         <!-- Ad 8 -->
-         <div class="ad-card stage-3">
+        <!-- Ad 8 -->
+        <div class="ad-card stage-3">
             <div class="ad-header">
                 <div class="ad-avatar">ET</div>
                 <div class="ad-info">
@@ -343,10 +398,13 @@
                     <span>Sponsored · 🌍</span>
                 </div>
             </div>
-            <div class="ad-body">Signing up for AI tools is easy. Integrating them into a seamless, autonomous workflow that replaces entire departments is hard. That's the difference between "using AI" and being "AI-Native."</div>
+            <div class="ad-body">Signing up for AI tools is easy. Integrating them into a seamless, autonomous workflow
+                that replaces entire departments is hard. That's the difference between "using AI" and being
+                "AI-Native."</div>
             <div class="ad-media-placeholder">
                 <div class="ad-media-label">VISUAL CONCEPT</div>
-                <div class="ad-media-text">A mess of disconnected logos (Zapier, OpenAI, Slack) organizing into a sleek circuit board.</div>
+                <div class="ad-media-text">A mess of disconnected logos (Zapier, OpenAI, Slack) organizing into a sleek
+                    circuit board.</div>
             </div>
             <div class="ad-footer">
                 <div class="ad-footer-content">
@@ -357,8 +415,8 @@
             </div>
         </div>
 
-         <!-- Ad 9 -->
-         <div class="ad-card stage-3">
+        <!-- Ad 9 -->
+        <div class="ad-card stage-3">
             <div class="ad-header">
                 <div class="ad-avatar">ET</div>
                 <div class="ad-info">
@@ -366,7 +424,9 @@
                     <span>Sponsored · 🌍</span>
                 </div>
             </div>
-            <div class="ad-body">So why are you trying to hack together your own AI operations? You need enterprise-grade architecture, not a fragile web of Zaps. Get professional growth infrastructure installed for you.</div>
+            <div class="ad-body">So why are you trying to hack together your own AI operations? You need
+                enterprise-grade architecture, not a fragile web of Zaps. Get professional growth infrastructure
+                installed for you.</div>
             <div class="ad-media-placeholder">
                 <div class="ad-media-label">VISUAL CONCEPT</div>
                 <div class="ad-media-text">Side-by-side: "Duct Tape Solution" vs. "Engineered System".</div>
@@ -393,7 +453,9 @@
                     <span>Sponsored · 🌍</span>
                 </div>
             </div>
-            <div class="ad-body">Get the strategic vision of a Chief AI Officer combined with the execution power of a dev team. We identify the opportunities AND build the systems to capture them. It's a partnership, not a vendor relationship.</div>
+            <div class="ad-body">Get the strategic vision of a Chief AI Officer combined with the execution power of a
+                dev team. We identify the opportunities AND build the systems to capture them. It's a partnership, not a
+                vendor relationship.</div>
             <div class="ad-media-placeholder">
                 <div class="ad-media-label">VISUAL CONCEPT</div>
                 <div class="ad-media-text">Photo of the "Inner Circle" or a professional team meeting vibe.</div>
@@ -416,7 +478,9 @@
                     <span>Sponsored · 🌍</span>
                 </div>
             </div>
-            <div class="ad-body">Buyers pay for systems, not hustle. We transform your operations from "founder-dependent" to "autonomous." Increase your multiple by building tangible IP and infrastructure.</div>
+            <div class="ad-body">Buyers pay for systems, not hustle. We transform your operations from
+                "founder-dependent" to "autonomous." Increase your multiple by building tangible IP and infrastructure.
+            </div>
             <div class="ad-media-placeholder">
                 <div class="ad-media-label">VISUAL CONCEPT</div>
                 <div class="ad-media-text">A "For Sale" sign on a business with a "Sold - Premium" sticker.</div>
@@ -439,7 +503,9 @@
                     <span>Sponsored · 🌍</span>
                 </div>
             </div>
-            <div class="ad-body">From Construction to SaaS, Real Estate to Healthcare. Our Growth Infrastructure works because it solves the universal bottleneck: human inefficiency. See how we've helped companies like yours.</div>
+            <div class="ad-body">From Construction to SaaS, Real Estate to Healthcare. Our Growth Infrastructure works
+                because it solves the universal bottleneck: human inefficiency. See how we've helped companies like
+                yours.</div>
             <div class="ad-media-placeholder">
                 <div class="ad-media-label">VISUAL CONCEPT</div>
                 <div class="ad-media-text">Carousel of logos/case studies from different industries.</div>
@@ -465,7 +531,8 @@
                     <span>Sponsored · 🌍</span>
                 </div>
             </div>
-            <div class="ad-body">Book your AI Infrastructure Audit. We'll tear down your operations and show you exactly where manual work is killing your growth—and how to automate it in 90 days.</div>
+            <div class="ad-body">Book your AI Infrastructure Audit. We'll tear down your operations and show you exactly
+                where manual work is killing your growth—and how to automate it in 90 days.</div>
             <div class="ad-media-placeholder">
                 <div class="ad-media-label">VISUAL CONCEPT</div>
                 <div class="ad-media-text">A "Red Pen" marking up a process flowchart.</div>
@@ -488,7 +555,8 @@
                     <span>Sponsored · 🌍</span>
                 </div>
             </div>
-            <div class="ad-body">We only partner with 3 new organizations per month for full infrastructure installation to ensure quality. Secure your spot for this quarter and start scaling.</div>
+            <div class="ad-body">We only partner with 3 new organizations per month for full infrastructure installation
+                to ensure quality. Secure your spot for this quarter and start scaling.</div>
             <div class="ad-media-placeholder">
                 <div class="ad-media-label">VISUAL CONCEPT</div>
                 <div class="ad-media-text">Simple text graphic: "3 Spots Left for March".</div>
@@ -511,7 +579,8 @@
                     <span>Sponsored · 🌍</span>
                 </div>
             </div>
-            <div class="ad-body">If you're generating $1M+ and feel the drag of manual ops, let's talk. We'll show you how to automate 50% of your workload and 10x your capacity. No fluff, just code.</div>
+            <div class="ad-body">If you're generating $1M+ and feel the drag of manual ops, let's talk. We'll show you
+                how to automate 50% of your workload and 10x your capacity. Just code.</div>
             <div class="ad-media-placeholder">
                 <div class="ad-media-label">VISUAL CONCEPT</div>
                 <div class="ad-media-text">Founder (Mia) speaking directly to camera / professional shot.</div>
@@ -527,4 +596,5 @@
 
     </div>
 </body>
+
 </html>

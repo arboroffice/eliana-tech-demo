@@ -14,7 +14,7 @@ export function CategoryHero({ title, subtitle, backgroundImage = "/images/hero-
         <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
             {/* Background - generic dark gradient for now if no image */}
             <div className="absolute inset-0 bg-black z-0">
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-purple-900/20 opacity-50" />
+                <div className="absolute inset-0 bg-gradient-to-br from-red-900/20 to-red-900/20 opacity-50" />
                 <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]" />
             </div>
 

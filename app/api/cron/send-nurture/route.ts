@@ -38,7 +38,7 @@ export async function GET(request: Request) {
     //   const personalized = personalizeEmail(email, {
     //     ...data.formData,
     //     auditScore: data.auditScore,
-    //     calLink: 'https://cal.com/mia-louviere-a4n2hk/30min'
+    //     calLink: 'https://cal.com/elianatech/30min'
     //   })
     //
     //   // Send via Resend

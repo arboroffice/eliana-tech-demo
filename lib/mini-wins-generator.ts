@@ -102,7 +102,7 @@ From 1 podcast/video/blog post, create:
 
 **STYLE GUIDE:**
 - Match the founder's voice and tone from existing content.
-- No generic motivational fluff.
+- No generic motivational content.
 - Every piece should have a clear takeaway or CTA.
 - Focus on "How-to" and transformation stories.`
         }
