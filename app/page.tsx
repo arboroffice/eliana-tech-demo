@@ -45,16 +45,113 @@ export default function HomePage() {
 
         {/* ═══ 3. BRIDGE — What changes ═══ */}
         <section className="fn-bridge">
-          <div className="fn-bridge-bg">SHIFT</div>
+          <div className="fn-bridge-bg">FLUENCY</div>
           <div className="fn-container fn-bridge-inner">
             <h2 className="fn-bridge-h2">
-              What if your business could<br />
-              <span>think, respond, and act — without you?</span>
+              Transform your business into an<br />
+              <span>autonomous machine.</span>
             </h2>
           </div>
         </section>
 
-        {/* ═══ 4. SOLUTION — Infrastructure layers ═══ */}
+        {/* ═══ DIGITAL FLUENCY ═══ */}
+        <section className="fn-section">
+          <div className="fn-container">
+            <p className="fn-label">Digital Fluency</p>
+            <h2 className="fn-h2">EQUIPPING YOUR BUSINESS WITH<br /><span>THE RIGHT AI.</span></h2>
+            <p className="fn-desc-wide">
+              Digital fluency isn't just about using AI — it's about engineering autonomy. We move you from "asking a chatbot" to "running a machine."
+            </p>
+            <div className="fn-fluency-grid">
+              {[
+                { 
+                  title: "Claude + Connectors", 
+                  desc: "This may mean we setup your Claude with connectors, turning a chatbot into a live intelligence center that understands your entire business context." 
+                },
+                { 
+                  title: "Training & Cowork", 
+                  desc: "This may mean you need team training or a custom Claude Cowork / Claudbot instance to handle high-volume digital labor." 
+                },
+                { 
+                  title: "Custom vs. Playbooks", 
+                  desc: "You may need a completely custom architecture or one of our battle-tested industry playbooks built upon—we don't know until we see the data." 
+                },
+              ].map((item, i) => (
+                <div key={i} className="fn-fluency-item">
+                  <div className="fn-fluency-decorator" />
+                  <h3 className="fn-fluency-title">{item.title}</h3>
+                  <p className="fn-fluency-desc">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="fn-fluency-footer">
+              <p className="fn-fluency-note">
+                Every business is different. We don't guess which solution you need. <strong>We need an audit to know.</strong>
+              </p>
+              <Link href="/audit" className="fn-link-red">
+                Initialize Audit <ArrowRight size={14} />
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* ═══ 3.5. COMMAND CENTER — The Control Layer ═══ */}
+        <section className="fn-section fn-section-alt overflow-hidden">
+          <div className="fn-container">
+            <p className="fn-label">The Interface</p>
+            <h2 className="fn-h2">A CHAT WITH YOUR BUSINESS<br /><span>TO CONTROL IT.</span></h2>
+            <p className="fn-desc-wide">
+              It looks like a chat with a GPT. It acts like a conversation with your most senior employees. 
+              The Command Center connects your intent directly to sub-agents and tools.
+            </p>
+
+            <div className="fn-cc-grid">
+              <div className="fn-cc-chat">
+                <div className="fn-cc-chat-header">
+                  <div className="fn-cc-status">
+                    <span className="fn-cc-status-dot" />
+                    CONNECTED TO INFRASTRUCTURE
+                  </div>
+                  <div className="fn-cc-version">ELIANA-OS v4.0</div>
+                </div>
+                <div className="fn-cc-messages">
+                  <div className="fn-msg fn-msg-user">
+                    "Audit the current lead response time and deploy the follow-up agent if we're hitting a bottleneck."
+                  </div>
+                  <div className="fn-msg fn-msg-ai">
+                    <div className="fn-msg-meta">ANALYZING INFRASTRUCTURE...</div>
+                    Average response time: <strong>14.2 minutes.</strong> Bottleneck identified in manual routing. 
+                    Deploying <strong>Autonomous Follow-up Agent</strong> with live GHL connectors. 
+                    New playbook generated for real-time lead escalation.
+                  </div>
+                  <div className="fn-msg fn-msg-user">
+                    "Good. Now sync those findings with the Slack channel and notify the sales lead."
+                  </div>
+                </div>
+                <div className="fn-cc-input">
+                  Type a command to your business...
+                  <div className="fn-cc-cursor" />
+                </div>
+              </div>
+
+              <div className="fn-cc-info">
+                <div className="fn-cc-info-card">
+                  <h3 className="fn-cc-info-h3">Employee Logic</h3>
+                  <p className="fn-cc-info-p">Agents don't just "talk"—they work. They have access to your CRM, calendars, and backend tools as employees would.</p>
+                </div>
+                <div className="fn-cc-info-card">
+                  <h3 className="fn-cc-info-h3">Real-Time Evolution</h3>
+                  <p className="fn-cc-info-p">As you chat, the system learns your business logic. It continuously builds and evolves playbooks based on what you actually need in real-time.</p>
+                </div>
+                <div className="fn-cc-info-card">
+                  <h3 className="fn-cc-info-h3">Sub-Agent Clusters</h3>
+                  <p className="fn-cc-info-p">Your single input triggers a swarm of specialized agents—researchers, builders, and executors—all working in sync.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
         <section className="fn-section fn-section-alt">
           <div className="fn-container">
             <p className="fn-label">The Solution</p>
@@ -105,7 +202,7 @@ export default function HomePage() {
             <div className="fn-roadmap-v2">
               <div className="fn-roadmap-line" />
               {[
-                { phase: "01", title: "Single Problem Build", desc: "14 days. One complete system solving your biggest bottleneck. We build it, return it, you watch it work.", tag: "$5K+", href: "/apply", accent: true, meta: "The Proof" },
+                { phase: "01", title: "Single Problem Build", desc: "14 days. This may be a Claude setup, team training, or a single autonomous build like an Executive Assistant or Secretary. If your needs go deeper, we build this first and talk further.", tag: "$5K+", href: "/apply", accent: true, meta: "The Proof" },
                 { phase: "02", title: "Full Buildout", desc: "Complete operational architecture across every department. All six layers — built, connected, running.", tag: "$25–75K+", href: "/apply", meta: "The Scale" },
                 { phase: "03", title: "AI Wing Retainer", desc: "Ongoing evolution. Your infrastructure grows and adapts as you scale. We become your AI department.", tag: "$5–10K/mo+", href: "/apply", meta: "The Engine" },
                 { phase: "04", title: "Revenue Share", desc: "Skin in the game. Your growth is our growth. Full alignment. Multi-year legacy building.", tag: "Partnership", href: "/apply", meta: "The Partner" },
@@ -409,6 +506,159 @@ export default function HomePage() {
           font-size: 10px; color: var(--gray-400); letter-spacing: 0.02em; line-height: 1.6;
         }
 
+        /* ═══ DIGITAL FLUENCY STYLES ═══ */
+        .fn-fluency-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 32px;
+          margin-top: 48px;
+        }
+        .fn-fluency-item {
+          position: relative;
+          padding: 32px;
+          background: var(--gray-50);
+          border: 1px solid var(--gray-100);
+          transition: all 0.3s ease;
+        }
+        .fn-fluency-item:hover {
+          background: var(--white);
+          border-color: var(--black);
+          transform: translateY(-4px);
+          box-shadow: 0 20px 40px rgba(0,0,0,0.03);
+        }
+        .fn-fluency-decorator {
+          position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+          background: var(--red); opacity: 0.1;
+          transition: opacity 0.3s;
+        }
+        .fn-fluency-item:hover .fn-fluency-decorator { opacity: 1; }
+        .fn-fluency-title {
+          font-family: var(--font-bebas-neue), sans-serif;
+          font-size: 24px; letter-spacing: 0.04em;
+          color: var(--black); margin-bottom: 12px;
+        }
+        .fn-fluency-desc {
+          font-size: 13px; color: var(--gray-500); line-height: 1.7;
+        }
+        .fn-fluency-footer {
+          margin-top: 56px;
+          padding-top: 40px;
+          border-top: 1px solid var(--gray-100);
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 32px;
+        }
+        .fn-fluency-note {
+          font-size: 14px; color: var(--gray-600); max-width: 480px;
+        }
+        .fn-link-red {
+          display: inline-flex;
+          align-items: center;
+          gap: 12px;
+          font-family: var(--font-bebas-neue), sans-serif;
+          font-size: 20px;
+          letter-spacing: 0.06em;
+          color: var(--red);
+          text-decoration: none;
+          transition: all 0.3s;
+        }
+        .fn-link-red:hover {
+          gap: 16px;
+          text-decoration: underline;
+        }
+
+        /* ═══ COMMAND CENTER STYLES ═══ */
+        .fn-cc-grid {
+          display: grid;
+          grid-template-columns: 1.2fr 0.8fr;
+          gap: 48px;
+          margin-top: 48px;
+          align-items: center;
+        }
+        .fn-cc-chat {
+          background: var(--black);
+          border-radius: 12px;
+          border: 1px solid #222;
+          overflow: hidden;
+          box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+          display: flex;
+          flex-direction: column;
+          height: 480px;
+        }
+        .fn-cc-chat-header {
+          padding: 16px 20px;
+          background: #111;
+          border-bottom: 1px solid #222;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .fn-cc-status {
+          font-size: 10px; color: #fff; letter-spacing: 0.15em;
+          display: flex; align-items: center; gap: 8px;
+        }
+        .fn-cc-status-dot {
+          width: 6px; height: 6px; background: var(--red); border-radius: 50%;
+          box-shadow: 0 0 10px var(--red);
+          animation: fnPulse 2s infinite;
+        }
+        .fn-cc-version { font-size: 9px; color: #444; }
+        .fn-cc-messages {
+          flex: 1;
+          padding: 24px;
+          overflow-y: auto;
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+        }
+        .fn-msg {
+          font-size: 12px; line-height: 1.6; max-width: 85%;
+        }
+        .fn-msg-user {
+          align-self: flex-end;
+          color: #fff;
+          background: #222;
+          padding: 12px 16px;
+          border-radius: 12px 12px 2px 12px;
+        }
+        .fn-msg-ai {
+          align-self: flex-start;
+          color: #999;
+          border-left: 1px solid var(--red);
+          padding-left: 16px;
+        }
+        .fn-msg-meta {
+          font-size: 9px; color: var(--red); letter-spacing: 0.1em;
+          margin-bottom: 8px;
+        }
+        .fn-cc-input {
+          padding: 20px;
+          background: #0a0a0a;
+          border-top: 1px solid #222;
+          color: #444;
+          font-size: 11px;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+        .fn-cc-cursor { width: 1px; height: 14px; background: var(--red); animation: fnFlash 1s infinite; }
+        
+        .fn-cc-info { display: flex; flex-direction: column; gap: 32px; }
+        .fn-cc-info-card { border-left: 1px solid var(--gray-200); padding-left: 24px; }
+        .fn-cc-info-h3 { font-size: 13px; font-weight: 700; color: var(--black); margin-bottom: 8px; }
+        .fn-cc-info-p { font-size: 12px; color: var(--gray-500); line-height: 1.6; }
+
+        @keyframes fnPulse {
+          0% { transform: scale(1); opacity: 1; }
+          50% { transform: scale(1.5); opacity: 0.5; }
+          100% { transform: scale(1); opacity: 1; }
+        }
+        @keyframes fnFlash {
+          0%, 100% { opacity: 0; }
+          50% { opacity: 1; }
+        }
+
         /* ═══ MID CTA ═══ */
         .fn-mid-cta {
           padding: 72px 48px; background: var(--white);
@@ -700,6 +950,13 @@ export default function HomePage() {
           .fn-layer-title { font-size: 18px; }
           .fn-layer-desc { font-size: 11px; margin-bottom: 6px; }
           .fn-layer-tags { font-size: 9px; }
+
+          .fn-cc-grid { grid-template-columns: 1fr; gap: 32px; }
+          .fn-cc-chat { height: 400px; }
+          .fn-cc-info { gap: 24px; }
+
+          .fn-fluency-grid { grid-template-columns: 1fr; gap: 16px; }
+          .fn-fluency-footer { flex-direction: column; align-items: flex-start; text-align: left; gap: 24px; }
 
           .fn-mid-cta { padding: 48px 20px; }
           .fn-mid-h2 { font-size: clamp(24px, 6vw, 36px); }

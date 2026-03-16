@@ -232,12 +232,48 @@ Monthly Support Cost: $${revenue.supportCostMonthly.toLocaleString()}/month
 8. Payment options: Pay in full (5-10% off), 2 payments (50/50), or 3 monthly payments`
 }
 
+// ─── Video Discovery Script (NotebookLM Audio Overview) ──────
+
+function buildVideoScriptPrompt(formData: any, scores: AuditScores, pricing: PricingResult): string {
+  return `You are Mia Louviere, founder of Eliana Tech. You are writing the script for a 2-minute NotebookLM audio overview for ${formData.fullName} at ${formData.companyName}.
+
+CONTEXT:
+They just completed an audit and scored ${scores.overall}/100. They're spending ${formData.hoursPerWeek} hours/week on manual work. Their #1 pain: "${formData.keepsUpAtNight}". Their bottleneck: ${formData.bottleneck}.
+
+THIS IS NOT A SALES PITCH. This is a discovery session — a clear, honest breakdown of where they are, what we can build, and how to get started.
+
+SCRIPT STRUCTURE (2 minutes total):
+
+1. WHERE YOU ARE (0:00-0:40):
+   Open with their name and company. Be direct about the ${scores.overall}/100 score — what it means, not just the number. Call out the specific bottleneck (${formData.bottleneck}) and the ${formData.hoursPerWeek} hours/week being burned on manual operations. Name the tools they're using (${formData.tools?.join(', ')}) and why they're creating infrastructure debt, not solving it.
+
+2. WHAT WE CAN DO (0:40-1:20):
+   Introduce the ${pricing.tierLabel} system — not as software, but as an operating system that replaces the manual decision-making in ${formData.bottleneck}. Be specific: what gets automated, what changes in 90 days. The ${formData.hoursPerWeek} hours disappear. The team of ${formData.teamSize} does 10x more. The "${formData.revenueGoal}" becomes structural, not aspirational.
+
+3. NEXT STEPS (1:20-2:00):
+   Be crystal clear:
+   - We don't do sales calls. We see who is ready.
+   - Step 1: Pay a $5,000 deposit to lock in your build slot. This goes toward your total investment of ${pricing.priceRange}.
+   - Step 2: We schedule a discovery call — a deep technical session to architect your system. Not a pitch. A build plan.
+   - Step 3: If during discovery we determine we're not a fit — you get a same-day refund. No questions. No runaround.
+   - The deposit exists because we only work with people who are ready to move. And the refund guarantee means there's zero risk.
+
+TONE:
+Direct. Warm but no-nonsense. Like a smart friend who also happens to be a systems architect. No hype, no "in today's fast-paced world" filler. Just their data, their problem, and the fix.
+
+IMPORTANT: Keep it to 2 minutes of spoken content (~300 words). This will be used as input for NotebookLM's audio overview feature.
+
+Format as a clean script with section headers.`
+}
+
+
 // ─── Main Agent Function ────────────────────────────────────
 
 export async function generateAIProposal(formData: any): Promise<{
   proposal: string
   pricing: PricingResult
   scores: AuditScores
+  videoScript: string
 }> {
   // Step 1: Calculate scores
   const scores = calculateSubScores(formData)
@@ -251,24 +287,41 @@ export async function generateAIProposal(formData: any): Promise<{
   // Step 4: Get revenue numbers
   const revenue = getRevenueNumbers(formData)
 
-  // Step 5: Generate proposal with Claude
-  const message = await anthropic.messages.create({
-    model: 'claude-sonnet-4-6',
-    max_tokens: 4000,
-    messages: [
-      {
-        role: 'user',
-        content: buildUserPrompt(formData, scores, pricing, revenue, companyResearch),
-      },
-    ],
-    system: buildSystemPrompt(),
-  })
+  // Step 5: Generate proposal + video script with Claude (parallel)
+  const [proposalMsg, videoMsg] = await Promise.all([
+    anthropic.messages.create({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 4000,
+      messages: [
+        {
+          role: 'user',
+          content: buildUserPrompt(formData, scores, pricing, revenue, companyResearch),
+        },
+      ],
+      system: buildSystemPrompt(),
+    }),
+    anthropic.messages.create({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 1000,
+      messages: [
+        {
+          role: 'user',
+          content: buildVideoScriptPrompt(formData, scores, pricing),
+        },
+      ],
+    }),
+  ])
 
-  // Extract text from response
-  const proposal = message.content
+  // Extract text from responses
+  const proposal = proposalMsg.content
     .filter((block): block is Anthropic.TextBlock => block.type === 'text')
     .map(block => block.text)
     .join('\n')
 
-  return { proposal, pricing, scores }
+  const videoScript = videoMsg.content
+    .filter((block): block is Anthropic.TextBlock => block.type === 'text')
+    .map(block => block.text)
+    .join('\n')
+
+  return { proposal, pricing, scores, videoScript }
 }

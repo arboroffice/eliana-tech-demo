@@ -14,11 +14,12 @@ export async function POST(request: Request) {
       )
     }
 
-    const { proposal, pricing, scores } = await generateAIProposal(formData)
+    const { proposal, pricing, scores, videoScript } = await generateAIProposal(formData)
 
     return NextResponse.json({
       success: true,
       proposal,
+      videoScript,
       pricing: {
         qualified: pricing.qualified,
         tier: pricing.tier,

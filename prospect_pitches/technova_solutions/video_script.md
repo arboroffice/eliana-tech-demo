@@ -1,0 +1,1 @@
+Error generating script. Check your ANTHROPIC_API_KEY.
