@@ -89,8 +89,8 @@ export default function HomePage() {
               <p className="fn-fluency-note">
                 Every business is different. We don't guess which solution you need. <strong>We need an audit to know.</strong>
               </p>
-              <Link href="/audit" className="fn-link-red">
-                Initialize Audit <ArrowRight size={14} />
+              <Link href="/apply" className="fn-link-red">
+                Apply for Audit <ArrowRight size={14} />
               </Link>
             </div>
           </div>
