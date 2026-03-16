@@ -2,6 +2,22 @@ import { niches1 } from "./niches-1";
 import { niches2 } from "./niches-2";
 import { niches3 } from "./niches-3";
 
+export interface BusinessPartSolution {
+    painPoint: string;
+    dreamOutcome: string;
+    systems: { name: string; description: string }[];
+    transformation: { before: string; after: string };
+}
+
+export interface IndustrySolutions {
+    revenueSales: BusinessPartSolution;
+    operationsDelivery: BusinessPartSolution;
+    customerAcquisition: BusinessPartSolution;
+    customerRetention: BusinessPartSolution;
+    timeTeam: BusinessPartSolution;
+    dataIntelligence: BusinessPartSolution;
+}
+
 export interface IndustryContent {
     slug: string;
     name: string;
@@ -9,6 +25,7 @@ export interface IndustryContent {
     problem: string;
     operatorProblem: string;
     result?: string;
+    solutions?: IndustrySolutions;
     services: {
         singleSystems: {
             title: string;

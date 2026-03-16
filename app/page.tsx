@@ -56,59 +56,51 @@ export default function HomePage() {
 
 
 
-        {/* ═══ 3.5. COMMAND CENTER — The Control Layer ═══ */}
-        <section className="fn-section fn-section-alt overflow-hidden">
+        {/* ═══ YOUR ROADMAP ═══ */}
+        <section className="fn-section" style={{ borderTop: "1px solid var(--gray-100)", borderBottom: "1px solid var(--gray-100)" }}>
           <div className="fn-container">
-            <p className="fn-label">The Interface</p>
-            <h2 className="fn-h2">A CHAT WITH YOUR BUSINESS<br /><span>TO CONTROL IT.</span></h2>
-            <p className="fn-desc-wide">
-              It looks like a chat with a GPT. It acts like a conversation with your most senior employees. 
-              The Command Center connects your intent directly to sub-agents and tools.
-            </p>
+            <div className="fn-roadmap-intro">
+              <p className="fn-label">How It Works</p>
+              <h2 className="fn-h2">YOUR <span>ROADMAP.</span></h2>
+              <p className="fn-desc-wide">We do not ask you to commit to everything upfront. You start small. We prove ourselves. Then we scale together.</p>
+            </div>
 
-            <div className="fn-cc-grid">
-              <div className="fn-cc-chat">
-                <div className="fn-cc-chat-header">
-                  <div className="fn-cc-status">
-                    <span className="fn-cc-status-dot" />
-                    CONNECTED TO INFRASTRUCTURE
+            <div className="fn-roadmap-v2">
+              <div className="fn-roadmap-line" />
+              {[
+                { phase: "01", title: "Single Problem Build", desc: "14 days. This may be a Claude setup, team training, or a single autonomous build like an Executive Assistant or Secretary. If your needs go deeper, we build this first and talk further.", tag: "$5K+", href: "/apply", accent: true, meta: "The Proof" },
+                { phase: "02", title: "Full Buildout", desc: "Complete operational architecture across every department. All six layers — built, connected, running.", tag: "$25–75K+", href: "/apply", meta: "The Scale" },
+                { phase: "03", title: "AI Wing Retainer", desc: "Ongoing evolution. Your infrastructure grows and adapts as you scale. We become your AI department.", tag: "$5–10K/mo+", href: "/apply", meta: "The Engine" },
+                { phase: "04", title: "Revenue Share", desc: "Skin in the game. Your growth is our growth. Full alignment. Multi-year legacy building.", tag: "Partnership", href: "/apply", meta: "The Partner" },
+              ].map((s, i) => (
+                <Link key={i} href={s.href} className={`fn-rm-step ${s.accent ? 'fn-rm-step-accent' : ''}`}>
+                  <div className="fn-rm-dot" />
+                  <div className="fn-rm-step-content">
+                    <div className="fn-rm-step-header">
+                      <span className="fn-rm-step-phase">{s.phase}</span>
+                      <span className="fn-rm-step-meta">{s.meta}</span>
+                    </div>
+                    <h3 className="fn-rm-step-title">{s.title}</h3>
+                    <p className="fn-rm-step-desc">{s.desc}</p>
+                    <div className="fn-rm-step-footer">
+                      <span className="fn-rm-step-tag">{s.tag}</span>
+                      <span className="fn-rm-step-link">Apply Now <ArrowRight size={14} /></span>
+                    </div>
                   </div>
-                  <div className="fn-cc-version">ELIANA-OS v4.0</div>
-                </div>
-                <div className="fn-cc-messages">
-                  <div className="fn-msg fn-msg-user">
-                    "Audit the current lead response time and deploy the follow-up agent if we're hitting a bottleneck."
-                  </div>
-                  <div className="fn-msg fn-msg-ai">
-                    <div className="fn-msg-meta">ANALYZING INFRASTRUCTURE...</div>
-                    Average response time: <strong>14.2 minutes.</strong> Bottleneck identified in manual routing. 
-                    Deploying <strong>Autonomous Follow-up Agent</strong> with live GHL connectors. 
-                    New playbook generated for real-time lead escalation.
-                  </div>
-                  <div className="fn-msg fn-msg-user">
-                    "Good. Now sync those findings with the Slack channel and notify the sales lead."
-                  </div>
-                </div>
-                <div className="fn-cc-input">
-                  Type a command to your business...
-                  <div className="fn-cc-cursor" />
-                </div>
-              </div>
+                </Link>
+              ))}
+            </div>
 
-              <div className="fn-cc-info">
-                <div className="fn-cc-info-card">
-                  <h3 className="fn-cc-info-h3">Employee Logic</h3>
-                  <p className="fn-cc-info-p">Agents don't just "talk"—they work. They have access to your CRM, calendars, and backend tools as employees would.</p>
+            <div className="fn-diy-section">
+              <div className="fn-diy-line" />
+              <Link href="/roadmap/build-program" className="fn-diy-card">
+                <div className="fn-diy-badge">DIY</div>
+                <div className="fn-diy-content">
+                  <h3 className="fn-diy-title">Build Program</h3>
+                  <p className="fn-diy-desc">Learn to build with AI yourself — so you never depend on anyone again.</p>
                 </div>
-                <div className="fn-cc-info-card">
-                  <h3 className="fn-cc-info-h3">Real-Time Evolution</h3>
-                  <p className="fn-cc-info-p">As you chat, the system learns your business logic. It continuously builds and evolves playbooks based on what you actually need in real-time.</p>
-                </div>
-                <div className="fn-cc-info-card">
-                  <h3 className="fn-cc-info-h3">Sub-Agent Clusters</h3>
-                  <p className="fn-cc-info-p">Your single input triggers a swarm of specialized agents—researchers, builders, and executors—all working in sync.</p>
-                </div>
-              </div>
+                <span className="fn-diy-link">Join the program <ArrowRight size={14} /></span>
+              </Link>
             </div>
           </div>
         </section>
@@ -203,54 +195,7 @@ export default function HomePage() {
         </section>
 
 
-        {/* ═══ YOUR ROADMAP ═══ */}
-        <section className="fn-section" style={{ borderTop: "1px solid var(--gray-100)", borderBottom: "1px solid var(--gray-100)" }}>
-          <div className="fn-container">
-            <div className="fn-roadmap-intro">
-              <p className="fn-label">How It Works</p>
-              <h2 className="fn-h2">YOUR <span>ROADMAP.</span></h2>
-              <p className="fn-desc-wide">We do not ask you to commit to everything upfront. You start small. We prove ourselves. Then we scale together.</p>
-            </div>
 
-            <div className="fn-roadmap-v2">
-              <div className="fn-roadmap-line" />
-              {[
-                { phase: "01", title: "Single Problem Build", desc: "14 days. This may be a Claude setup, team training, or a single autonomous build like an Executive Assistant or Secretary. If your needs go deeper, we build this first and talk further.", tag: "$5K+", href: "/apply", accent: true, meta: "The Proof" },
-                { phase: "02", title: "Full Buildout", desc: "Complete operational architecture across every department. All six layers — built, connected, running.", tag: "$25–75K+", href: "/apply", meta: "The Scale" },
-                { phase: "03", title: "AI Wing Retainer", desc: "Ongoing evolution. Your infrastructure grows and adapts as you scale. We become your AI department.", tag: "$5–10K/mo+", href: "/apply", meta: "The Engine" },
-                { phase: "04", title: "Revenue Share", desc: "Skin in the game. Your growth is our growth. Full alignment. Multi-year legacy building.", tag: "Partnership", href: "/apply", meta: "The Partner" },
-              ].map((s, i) => (
-                <Link key={i} href={s.href} className={`fn-rm-step ${s.accent ? 'fn-rm-step-accent' : ''}`}>
-                  <div className="fn-rm-dot" />
-                  <div className="fn-rm-step-content">
-                    <div className="fn-rm-step-header">
-                      <span className="fn-rm-step-phase">{s.phase}</span>
-                      <span className="fn-rm-step-meta">{s.meta}</span>
-                    </div>
-                    <h3 className="fn-rm-step-title">{s.title}</h3>
-                    <p className="fn-rm-step-desc">{s.desc}</p>
-                    <div className="fn-rm-step-footer">
-                      <span className="fn-rm-step-tag">{s.tag}</span>
-                      <span className="fn-rm-step-link">Apply Now <ArrowRight size={14} /></span>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-
-            <div className="fn-diy-section">
-              <div className="fn-diy-line" />
-              <Link href="/roadmap/build-program" className="fn-diy-card">
-                <div className="fn-diy-badge">DIY</div>
-                <div className="fn-diy-content">
-                  <h3 className="fn-diy-title">Build Program</h3>
-                  <p className="fn-diy-desc">Learn to build with AI yourself — so you never depend on anyone again.</p>
-                </div>
-                <span className="fn-diy-link">Join the program <ArrowRight size={14} /></span>
-              </Link>
-            </div>
-          </div>
-        </section>
 
         {/* ═══ 7. PARTNERSHIP CTA ═══ */}
         <section className="fn-partner-cta">

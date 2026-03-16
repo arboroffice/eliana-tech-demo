@@ -5,6 +5,7 @@ import { GlassmorphismNav } from "@/components/glassmorphism-nav"
 import { Footer } from "@/components/footer"
 import Link from "next/link"
 import { IndustryContent } from "@/lib/industry-data"
+import { SolutionsSection } from "./SolutionsSection"
 
 export function IndustryClient({ industry }: { industry: IndustryContent }) {
     const [openFaq, setOpenFaq] = useState<number | null>(null)
@@ -61,6 +62,10 @@ export function IndustryClient({ industry }: { industry: IndustryContent }) {
                             </div>
                         </div>
                     </section>
+                )}
+
+                {industry.solutions && (
+                    <SolutionsSection solutions={industry.solutions} industryName={industry.name} />
                 )}
 
                 <section className="mb-24">
