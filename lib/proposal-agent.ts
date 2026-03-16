@@ -273,7 +273,6 @@ export async function generateAIProposal(formData: any): Promise<{
   proposal: string
   pricing: PricingResult
   scores: AuditScores
-  videoScript: string
 }> {
   // Step 1: Calculate scores
   const scores = calculateSubScores(formData)
@@ -287,41 +286,23 @@ export async function generateAIProposal(formData: any): Promise<{
   // Step 4: Get revenue numbers
   const revenue = getRevenueNumbers(formData)
 
-  // Step 5: Generate proposal + video script with Claude (parallel)
-  const [proposalMsg, videoMsg] = await Promise.all([
-    anthropic.messages.create({
-      model: 'claude-sonnet-4-6',
-      max_tokens: 4000,
-      messages: [
-        {
-          role: 'user',
-          content: buildUserPrompt(formData, scores, pricing, revenue, companyResearch),
-        },
-      ],
-      system: buildSystemPrompt(),
-    }),
-    anthropic.messages.create({
-      model: 'claude-sonnet-4-6',
-      max_tokens: 1000,
-      messages: [
-        {
-          role: 'user',
-          content: buildVideoScriptPrompt(formData, scores, pricing),
-        },
-      ],
-    }),
-  ])
+  // Step 5: Generate proposal with Claude
+  const proposalMsg = await anthropic.messages.create({
+    model: 'claude-sonnet-4-6',
+    max_tokens: 4000,
+    messages: [
+      {
+        role: 'user',
+        content: buildUserPrompt(formData, scores, pricing, revenue, companyResearch),
+      },
+    ],
+    system: buildSystemPrompt(),
+  })
 
-  // Extract text from responses
   const proposal = proposalMsg.content
     .filter((block): block is Anthropic.TextBlock => block.type === 'text')
     .map(block => block.text)
     .join('\n')
 
-  const videoScript = videoMsg.content
-    .filter((block): block is Anthropic.TextBlock => block.type === 'text')
-    .map(block => block.text)
-    .join('\n')
-
-  return { proposal, pricing, scores, videoScript }
+  return { proposal, pricing, scores }
 }

@@ -2,14 +2,13 @@
 
 import { motion } from "framer-motion"
 import { useState, useMemo, useEffect } from "react"
-import ReactMarkdown from 'react-markdown'
 import {
   TrendingUp, AlertCircle, CheckCircle2, Target, Lightbulb,
   Rocket, DollarSign, Clock, Users, BarChart3, ArrowRight,
   Download, Calendar, Zap, Brain, Mail, Search,
   ShieldCheck, Settings, MessageSquare, FileText, Calculator,
   RefreshCw, Headphones, LayoutDashboard, Layers, Building2,
-  Loader2, Sparkles, ChevronDown, ChevronUp, Play
+  Sparkles, ChevronDown, ChevronUp
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -879,142 +878,6 @@ function ROICalculator({ fd }: { fd: any }) {
 }
 
 // ─── Fade wrapper ─────────────────────────────────────────
-// ─── AI Discovery Session (NotebookLM Audio Overview) ────
-function AIVideoDiscovery({ companyName, videoScript, formData, notebookUrl }: { companyName: string, videoScript?: string | null, formData: any, notebookUrl?: string | null }) {
-  const [status, setStatus] = useState<'analyzing' | 'generating' | 'ready'>('analyzing')
-  const [progress, setProgress] = useState(0)
-  const [showScript, setShowScript] = useState(false)
-
-  useEffect(() => {
-    // Progress tracks the video script loading state
-    if (videoScript) {
-      setProgress(100)
-      setStatus('ready')
-      return
-    }
-
-    const timer = setInterval(() => {
-      setProgress(prev => {
-        if (prev >= 95) return 95 // Hold at 95 until script arrives
-        return prev + 1
-      })
-    }, 200)
-
-    const status1 = setTimeout(() => setStatus('generating'), 3000)
-
-    return () => {
-      clearInterval(timer)
-      clearTimeout(status1)
-    }
-  }, [videoScript])
-
-  return (
-    <Card className="bg-black border-red-500/20 overflow-hidden shadow-2xl relative">
-      <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-red-500 to-transparent animate-pulse" />
-
-      <div className="p-8 md:p-12">
-        <div className="flex flex-col md:flex-row gap-8 items-center">
-          <div className="w-full md:w-3/5 aspect-video bg-white/5 rounded-xl border border-white/10 flex items-center justify-center relative overflow-hidden group">
-            {status !== 'ready' ? (
-              <div className="text-center space-y-4 relative z-10">
-                <Loader2 className="w-12 h-12 text-red-500 animate-spin mx-auto mb-4" />
-                <p className="text-white font-mono text-xs uppercase tracking-widest">
-                  {status === 'analyzing' ? 'Analyzing Your Audit Data...' : 'Building Your Discovery Session...'}
-                </p>
-                <div className="w-48 h-1 bg-white/10 mx-auto rounded-full overflow-hidden">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    animate={{ width: `${progress}%` }}
-                    className="h-full bg-red-500"
-                  />
-                </div>
-                <p className="text-white/40 text-[10px] font-mono">{progress}% complete</p>
-              </div>
-            ) : (
-              <div className="w-full h-full bg-gradient-to-br from-[#1a1a1a] to-black flex items-center justify-center">
-                <div className="absolute inset-0 opacity-20 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
-                <div className="text-center space-y-6 relative z-10 p-6">
-                  {notebookUrl ? (
-                    <a href={notebookUrl} target="_blank" rel="noopener noreferrer">
-                      <div className="w-20 h-20 bg-red-500 rounded-full flex items-center justify-center mx-auto shadow-[0_0_50px_rgba(239,68,68,0.4)] cursor-pointer hover:scale-110 transition-transform">
-                        <Play className="w-8 h-8 text-white fill-white ml-1" />
-                      </div>
-                    </a>
-                  ) : (
-                    <div className="w-20 h-20 bg-red-500 rounded-full flex items-center justify-center mx-auto shadow-[0_0_50px_rgba(239,68,68,0.4)] cursor-pointer hover:scale-110 transition-transform" onClick={() => setShowScript(true)}>
-                      <Play className="w-8 h-8 text-white fill-white ml-1" />
-                    </div>
-                  )}
-                  <div className="space-y-2">
-                    <h3 className="text-white font-black text-2xl uppercase tracking-tighter">Your Discovery Session</h3>
-                    <p className="text-white/60 text-xs font-mono uppercase tracking-widest max-w-sm mx-auto">
-                      {companyName} • 2 Min Overview
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-
-          <div className="flex-1 space-y-6">
-            <div>
-              <p className="text-red-500 text-[10px] font-mono font-black uppercase tracking-[0.3em] mb-2">Your Personalized Breakdown</p>
-              <h2 className="text-white font-black text-4xl uppercase tracking-tighter leading-tight font-bebas-neue">
-                Discovery <span className="italic text-red-500 underline decoration-red-500/30 underline-offset-8">Session</span>
-              </h2>
-            </div>
-
-            <div className="space-y-4">
-              {[
-                { label: "Where You Stand", text: formData ? `Score: ${formData.auditScore || '?'}/100 — ${formData.hoursPerWeek || '20+'} hrs/week manual overhead.` : "Your current operational assessment." },
-                { label: "What We Build", text: "An AI-Native Operating System that replaces manual decision-making." },
-                { label: "Next Steps", text: "$5K deposit locks your slot. Discovery call architects the system." },
-                { label: "Zero Risk", text: "If we're not a fit during discovery, same-day refund. No questions." }
-              ].map((item, i) => (
-                <div key={i} className="flex gap-4 items-start p-3 bg-white/[0.02] border border-white/[0.05] rounded-lg hover:bg-white/[0.05] transition-colors group">
-                  <div className="w-1.5 h-1.5 rounded-full bg-red-500 mt-2 shrink-0 shadow-[0_0_8px_rgba(239,68,68,0.6)]" />
-                  <div>
-                    <p className="text-white text-[11px] font-black uppercase tracking-tighter group-hover:text-red-400 transition-colors">{item.label}</p>
-                    <p className="text-white/40 text-[10px] leading-relaxed font-mono italic">{item.text}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="flex flex-col gap-3">
-              <a href="https://cal.com/elianatech/discovery" target="_blank" rel="noopener noreferrer" className="w-full btn-red group flex items-center justify-center gap-2 py-4 text-center">
-                <Rocket className="w-4 h-4 group-hover:-translate-y-1 transition-transform" />
-                <span>Secure Your Build Slot — $5K Deposit</span>
-              </a>
-
-              {status === 'ready' && videoScript && (
-                <button
-                  onClick={() => setShowScript(!showScript)}
-                  className="w-full py-2 text-[#888] text-[10px] font-mono uppercase tracking-widest hover:text-white transition-colors border border-white/5 rounded-lg"
-                >
-                  {showScript ? 'Hide Session Script' : 'Read Discovery Session Script'}
-                </button>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {showScript && videoScript && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            className="mt-12 p-8 bg-white/5 border border-white/10 rounded-xl overflow-hidden"
-          >
-            <h4 className="text-white font-bold text-xs uppercase tracking-widest mb-6 border-b border-white/10 pb-4">Discovery Session — Full Script</h4>
-            <div className="prose prose-invert prose-xs max-w-none">
-              <ReactMarkdown>{videoScript}</ReactMarkdown>
-            </div>
-          </motion.div>
-        )}
-      </div>
-    </Card>
-  )
-}
 
 function FadeUp({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   return (
@@ -1031,57 +894,6 @@ function FadeUp({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
 export function AuditResults({ formData, auditScore, researchFindings }: AuditResultsProps) {
   const [showROI, setShowROI] = useState(false)
   const [showChecklist, setShowChecklist] = useState(false)
-  const [proposalMarkdown, setProposalMarkdown] = useState<string | null>(null)
-  const [videoScript, setVideoScript] = useState<string | null>(null)
-  const [notebookUrl, setNotebookUrl] = useState<string | null>(null)
-  const [proposalLoading, setProposalLoading] = useState(true)
-  const [proposalError, setProposalError] = useState(false)
-  const [proposalExpanded, setProposalExpanded] = useState(true)
-  const [proposalPricing, setProposalPricing] = useState<any>(null)
-
-  // Fire the proposal agent on mount
-  useEffect(() => {
-    let cancelled = false
-    async function fetchProposal() {
-      try {
-        const res = await fetch('/api/audit/generate-proposal', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData),
-        })
-        if (cancelled) return
-        const data = await res.json()
-        if (data.success && data.proposal) {
-          setProposalMarkdown(data.proposal)
-          setProposalPricing(data.pricing)
-          setVideoScript(data.videoScript)
-        } else {
-          setProposalError(true)
-        }
-      } catch {
-        if (!cancelled) setProposalError(true)
-      } finally {
-        if (!cancelled) setProposalLoading(false)
-      }
-    }
-    fetchProposal()
-
-    // Also trigger notebook creation in background
-    fetch('/api/audit/notebook', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData),
-    })
-      .then(res => res.json())
-      .then(data => {
-        if (!cancelled && data.success && data.notebookUrl) {
-          setNotebookUrl(data.notebookUrl)
-        }
-      })
-      .catch(() => {}) // Notebook is optional — don't block on failure
-
-    return () => { cancelled = true }
-  }, [formData])
 
   const sub = useMemo(() => calcSubScores(formData), [formData])
   const opps = useMemo(() => topOpportunities(formData), [formData])
@@ -1184,11 +996,6 @@ export function AuditResults({ formData, auditScore, researchFindings }: AuditRe
         </div>
       </FadeUp>
       
-      {/* ── 0.5. AI Discovery Session ───────────── */}
-      <FadeUp delay={0.1}>
-        <AIVideoDiscovery companyName={formData.companyName} videoScript={videoScript} formData={formData} notebookUrl={notebookUrl} />
-      </FadeUp>
-
       {/* ── 0b. AI Research Findings ─────────────────────── */}
       {researchFindings && (researchFindings.websiteFindings?.length || researchFindings.operationalIssues?.length || researchFindings.opportunities?.length) ? (
         <FadeUp delay={0.05}>
