@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import { GlassmorphismNav } from "@/components/glassmorphism-nav"
 import { Footer } from "@/components/footer"
 import Link from "next/link"
+import { ArrowRight } from "lucide-react"
 
 /* ─── APPLICATION FORM ─── */
 function ApplicationForm() {
@@ -242,24 +243,51 @@ export default function ApplyPage() {
           </div>
         </section>
 
-        {/* ══════ HOW IT WORKS ══════ */}
-        <section className="fotf-section">
-          <div className="fotf-container fotf-prose">
-            <div className="fotf-eyebrow" style={{ marginBottom: 16 }}>How This Works</div>
-            <p>There&apos;s no webinar. No 47-minute VSL.</p>
-            <p><strong>You apply.</strong></p>
-            <p>Three questions. That&apos;s it.</p>
-            <p>We read every application personally. If it&apos;s a fit, you&apos;re in. If it&apos;s not, we&apos;ll tell you honestly and point you somewhere better.</p>
-            <p>The spots are limited — not because of manufactured scarcity, but because the work is custom, hands-on, and real. We build WITH you. That takes time, attention, and capacity. When the spots are full, they&apos;re full.</p>
-
-            <div className="fotf-callout accent-callout" style={{ marginTop: 32 }}>
-              <p>If you&apos;ve read this far, you already know whether this is for you. The question isn&apos;t whether this is worth it. The question is whether you&apos;re ready.</p>
+        {/* ══════ YOUR ROADMAP ══════ */}
+        <section className="fn-section" style={{ borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)" }}>
+          <div className="fn-container">
+            <div className="fn-roadmap-intro">
+              <p className="fn-label">How It Works</p>
+              <h2 className="fn-h2">YOUR <span>ROADMAP.</span></h2>
+              <p className="fn-desc-wide">We do not ask you to commit to everything upfront. You start small. We prove ourselves. Then we scale together.</p>
             </div>
 
-            <div style={{ textAlign: "center", marginTop: 40 }}>
-              <button onClick={scrollToApply} className="app-btn-primary" style={{ fontSize: 12, padding: "18px 40px" }}>
-                Apply Below
-              </button>
+            <div className="fn-roadmap-v2">
+              <div className="fn-roadmap-line" />
+              {[
+                { phase: "01", title: "Single Problem Build", desc: "14 days. This may be a Claude setup, team training, or a single autonomous build like an Executive Assistant or Secretary. If your needs go deeper, we build this first and talk further.", tag: "$5K+", href: "#apply", accent: true, meta: "The Proof" },
+                { phase: "02", title: "Full Buildout", desc: "Complete operational architecture across every department. All six layers — built, connected, running.", tag: "$25–75K+", href: "#apply", meta: "The Scale" },
+                { phase: "03", title: "AI Wing Retainer", desc: "Ongoing evolution. Your infrastructure grows and adapts as you scale. We become your AI department.", tag: "$5–10K/mo+", href: "#apply", meta: "The Engine" },
+                { phase: "04", title: "Revenue Share", desc: "Skin in the game. Your growth is our growth. Full alignment. Multi-year legacy building.", tag: "Partnership", href: "#apply", meta: "The Partner" },
+              ].map((s, i) => (
+                <div key={i} onClick={scrollToApply} style={{ cursor: 'pointer' }} className={`fn-rm-step ${s.accent ? 'fn-rm-step-accent' : ''}`}>
+                  <div className="fn-rm-dot" />
+                  <div className="fn-rm-step-content">
+                    <div className="fn-rm-step-header">
+                      <span className="fn-rm-step-phase">{s.phase}</span>
+                      <span className="fn-rm-step-meta">{s.meta}</span>
+                    </div>
+                    <h3 className="fn-rm-step-title">{s.title}</h3>
+                    <p className="fn-rm-step-desc">{s.desc}</p>
+                    <div className="fn-rm-step-footer">
+                      <span className="fn-rm-step-tag">{s.tag}</span>
+                      <span className="fn-rm-step-link">Apply Now <ArrowRight size={14} /></span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="fn-diy-section">
+              <div className="fn-diy-line" />
+              <Link href="/roadmap/build-program" className="fn-diy-card">
+                <div className="fn-diy-badge">DIY</div>
+                <div className="fn-diy-content">
+                  <h3 className="fn-diy-title">Build Program</h3>
+                  <p className="fn-diy-desc">Learn to build with AI yourself — so you never depend on anyone again.</p>
+                </div>
+                <span className="fn-diy-link">Join the program <ArrowRight size={14} /></span>
+              </Link>
             </div>
           </div>
         </section>
@@ -431,6 +459,140 @@ export default function ApplyPage() {
           .fotf-statement { padding: 60px 0; }
           .fotf-build-card { padding: 24px; }
           .fotf-container { padding: 0 16px; }
+        }
+
+        /* ═══ FN UTILS (For Roadmap) ═══ */
+        .fn-section { padding: 100px 0; --gray-50: #F9FAFB; --gray-100: #F3F4F6; --gray-200: #E5E7EB; --gray-400: #9CA3AF; --gray-500: #6B7280; --gray-600: #4B5563; }
+        .fn-container { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
+        .fn-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--red); margin-bottom: 24px; position: relative; padding-left: 20px; }
+        .fn-label::before { content: ""; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 12px; height: 1px; background: var(--red); }
+        .fn-h2 { font-family: var(--font-bebas-neue), sans-serif; font-size: clamp(32px, 5vw, 64px); line-height: 0.95; color: var(--black); margin-bottom: 24px; letter-spacing: 0.02em; }
+        .fn-h2 span { color: var(--red); }
+        .fn-desc-wide { font-size: 14px; line-height: 1.7; color: var(--gray-500); max-width: 600px; margin-bottom: 56px; }
+
+        /* ═══ ROADMAP V2 ═══ */
+        .fn-roadmap-intro { margin-bottom: 64px; }
+        .fn-roadmap-v2 {
+          position: relative;
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 24px;
+        }
+        .fn-roadmap-line {
+          position: absolute; top: 40px; left: 0; right: 0;
+          height: 1px; background: var(--gray-200);
+          z-index: 1;
+        }
+        .fn-rm-step {
+          position: relative; z-index: 2;
+          text-decoration: none; color: inherit;
+          display: flex; flex-direction: column;
+        }
+        .fn-rm-dot {
+          width: 80px; height: 80px; background: var(--white);
+          border: 1px solid var(--gray-200); border-radius: 50%;
+          margin-bottom: 32px; display: flex; align-items: center; justify-content: center;
+          transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+          position: relative;
+        }
+        .fn-rm-dot::after {
+          content: ''; position: absolute; inset: 8px;
+          border: 1px dashed var(--gray-200); border-radius: 50%;
+          transition: all 0.4s ease;
+        }
+        .fn-rm-step:hover .fn-rm-dot {
+          border-color: var(--red); transform: translateY(-4px);
+          box-shadow: 0 12px 30px rgba(217,0,25,0.1);
+        }
+        .fn-rm-step:hover .fn-rm-dot::after {
+          border-color: var(--red); transform: rotate(45deg);
+        }
+        .fn-rm-step-accent .fn-rm-dot {
+          background: var(--red); border-color: var(--red);
+        }
+        .fn-rm-step-accent .fn-rm-dot::after { border-color: rgba(255,255,255,0.3); }
+
+        .fn-rm-step-header {
+          display: flex; align-items: baseline; gap: 8px; margin-bottom: 12px;
+        }
+        .fn-rm-step-phase {
+          font-family: var(--font-bebas-neue), sans-serif;
+          font-size: 28px; color: var(--black); line-height: 1;
+        }
+        .fn-rm-step-meta {
+          font-size: 10px; color: var(--gray-400); text-transform: uppercase;
+          letter-spacing: 0.1em; font-weight: 600;
+        }
+        .fn-rm-step-title {
+          font-size: 15px; font-weight: 700; color: var(--black); margin-bottom: 12px;
+          letter-spacing: -0.01em;
+        }
+        .fn-rm-step-desc {
+          font-size: 12px; color: var(--gray-500); line-height: 1.7;
+          margin-bottom: 24px; flex: 1;
+        }
+        .fn-rm-step-footer {
+          display: flex; flex-direction: column; gap: 12px;
+          padding-top: 16px; border-top: 1px solid var(--gray-100);
+        }
+        .fn-rm-step-tag {
+          font-family: var(--font-bebas-neue), sans-serif;
+          font-size: 20px; color: var(--red);
+        }
+        .fn-rm-step-link {
+          font-size: 11px; font-weight: 600; color: var(--black);
+          text-transform: uppercase; letter-spacing: 0.05em;
+          display: flex; align-items: center; gap: 6px;
+          transition: gap 0.2s;
+        }
+        .fn-rm-step:hover .fn-rm-step-link { gap: 10px; color: var(--red); }
+
+        /* DIY SECTION */
+        .fn-diy-section {
+          margin-top: 80px; position: relative;
+          padding-left: 100px;
+        }
+        .fn-diy-line {
+          position: absolute; left: 40px; top: -80px; bottom: 50%;
+          width: 1px; background: var(--gray-200); border-left: 1px dashed var(--gray-200);
+        }
+        .fn-diy-card {
+          display: flex; align-items: center; gap: 32px;
+          padding: 32px; background: var(--gray-50);
+          border: 1px solid var(--gray-200); text-decoration: none; color: inherit;
+          transition: all 0.3s; position: relative;
+        }
+        .fn-diy-card:hover {
+          background: var(--white); border-color: var(--black);
+          transform: translateX(8px); box-shadow: 0 20px 40px rgba(0,0,0,0.03);
+        }
+        .fn-diy-badge {
+          width: 64px; height: 64px; background: var(--black); color: #fff;
+          display: flex; align-items: center; justify-content: center;
+          font-family: var(--font-bebas-neue), sans-serif; font-size: 18px;
+          border-radius: 4px;
+        }
+        .fn-diy-content { flex: 1; }
+        .fn-diy-title { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+        .fn-diy-desc { font-size: 12px; color: var(--gray-500); }
+        .fn-diy-link {
+          font-size: 11px; font-weight: 600; text-transform: uppercase;
+          display: flex; align-items: center; gap: 8px;
+        }
+
+        @media (max-width: 900px) {
+          .fn-container { padding: 0 20px; }
+          .fn-roadmap-v2 { grid-template-columns: 1fr; gap: 40px; }
+          .fn-roadmap-line { left: 40px; top: 0; bottom: 0; width: 1px; height: auto; }
+          .fn-rm-step { flex-direction: row; gap: 24px; align-items: flex-start; }
+          .fn-rm-dot { width: 80px; height: 80px; flex-shrink: 0; margin-bottom: 0; }
+          .fn-rm-step-content { flex: 1; }
+          .fn-rm-step-footer { flex-direction: row; align-items: center; justify-content: space-between; }
+          
+          .fn-diy-section { padding-left: 0; margin-top: 56px; }
+          .fn-diy-line { display: none; }
+          .fn-diy-card { flex-direction: column; align-items: flex-start; gap: 16px; padding: 24px; }
+          .fn-diy-badge { width: 48px; height: 48px; font-size: 14px; }
         }
       `}</style>
 

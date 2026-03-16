@@ -1,28 +1,51 @@
 /**
- * NotebookLM API Service
+ * NotebookLM Enterprise API Service
  *
- * Uses Google service account authentication — no browser login needed.
+ * Uses Google Cloud service account — no browser login needed.
  * Creates notebooks, adds sources, and generates audio overviews per audit.
  *
+ * API: Discovery Engine v1alpha
+ * Docs: https://docs.cloud.google.com/gemini/enterprise/notebooklm-enterprise/docs/api-notebooks
+ *
  * Required env vars:
- *   GOOGLE_SERVICE_ACCOUNT_EMAIL  — service account email
- *   GOOGLE_SERVICE_ACCOUNT_KEY    — private key (PEM format, newlines as \n)
- *   GOOGLE_NOTEBOOKLM_PROJECT_ID  — Google Cloud project ID
+ *   GOOGLE_SERVICE_ACCOUNT_EMAIL    — service account email
+ *   GOOGLE_SERVICE_ACCOUNT_KEY      — private key (PEM, newlines as \n)
+ *   GOOGLE_CLOUD_PROJECT_NUMBER     — numeric project number (not project ID)
+ *   GOOGLE_CLOUD_LOCATION           — "us", "eu", or "global" (default: "us")
  */
 
 import { google } from 'googleapis'
 
-const NOTEBOOKLM_API_BASE = 'https://notebooklm.googleapis.com/v1alpha1'
+// ─── Config ──────────────────────────────────────────────────
+
+function getConfig() {
+  const projectNumber = process.env.GOOGLE_CLOUD_PROJECT_NUMBER
+  const location = process.env.GOOGLE_CLOUD_LOCATION || 'us'
+  const endpointLocation = location === 'global' ? '' : `${location}-`
+
+  if (!projectNumber) throw new Error('Missing GOOGLE_CLOUD_PROJECT_NUMBER env var')
+
+  const baseUrl = `https://${endpointLocation}discoveryengine.googleapis.com/v1alpha/projects/${projectNumber}/locations/${location}`
+
+  return { projectNumber, location, baseUrl }
+}
 
 // ─── Auth ────────────────────────────────────────────────────
 
 async function getAuthToken(): Promise<string> {
+  const email = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL
+  const key = process.env.GOOGLE_SERVICE_ACCOUNT_KEY
+
+  if (!email || !key) {
+    throw new Error('Missing GOOGLE_SERVICE_ACCOUNT_EMAIL or GOOGLE_SERVICE_ACCOUNT_KEY env vars')
+  }
+
   const auth = new google.auth.GoogleAuth({
     credentials: {
-      client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-      private_key: (process.env.GOOGLE_SERVICE_ACCOUNT_KEY || '').replace(/\\n/g, '\n'),
+      client_email: email,
+      private_key: key.replace(/\\n/g, '\n'),
     },
-    scopes: ['https://www.googleapis.com/auth/notebooklm'],
+    scopes: ['https://www.googleapis.com/auth/cloud-platform'],
   })
 
   const client = await auth.getClient()
@@ -31,13 +54,10 @@ async function getAuthToken(): Promise<string> {
   return tokenResponse.token
 }
 
-async function apiRequest(
-  method: 'GET' | 'POST' | 'PATCH',
-  path: string,
-  body?: any
-) {
+// ─── API Request Helper ──────────────────────────────────────
+
+async function apiRequest(method: 'GET' | 'POST' | 'DELETE', url: string, body?: any) {
   const token = await getAuthToken()
-  const url = `${NOTEBOOKLM_API_BASE}${path}`
 
   const res = await fetch(url, {
     method,
@@ -53,7 +73,8 @@ async function apiRequest(
     throw new Error(`NotebookLM API error (${res.status}): ${errorText}`)
   }
 
-  return res.json()
+  const text = await res.text()
+  return text ? JSON.parse(text) : {}
 }
 
 // ─── Notebook Operations ─────────────────────────────────────
@@ -61,11 +82,11 @@ async function apiRequest(
 export interface NotebookResult {
   notebookId: string
   notebookUrl: string
-  audioOverviewUrl?: string
+  audioOverviewStatus?: string
 }
 
 /**
- * Creates a new notebook, adds the research brief + website source,
+ * Creates a notebook, adds the research brief + website source,
  * and kicks off audio overview generation.
  */
 export async function createAuditNotebook(auditData: {
@@ -75,53 +96,69 @@ export async function createAuditNotebook(auditData: {
   researchBrief: string
 }): Promise<NotebookResult> {
   const { companyName, fullName, websiteUrl, researchBrief } = auditData
+  const { baseUrl } = getConfig()
 
   // 1. Create notebook
-  const notebook = await apiRequest('POST', '/notebooks', {
-    displayName: `Audit: ${companyName} — ${fullName}`,
+  const notebook = await apiRequest('POST', `${baseUrl}/notebooks`, {
+    title: `Audit: ${companyName} — ${fullName}`,
   })
 
-  const notebookId = notebook.name?.split('/').pop() || notebook.notebookId
+  // Extract notebook ID from resource name: projects/X/locations/Y/notebooks/NOTEBOOK_ID
+  const notebookName: string = notebook.name || ''
+  const notebookId = notebookName.split('/').pop() || ''
 
-  // 2. Add research brief as text source
-  await apiRequest('POST', `/notebooks/${notebookId}/sources`, {
-    type: 'TEXT',
-    displayName: `Research Brief: ${companyName}`,
-    content: researchBrief,
-  })
-
-  // 3. Add website source if provided
-  if (websiteUrl && websiteUrl.startsWith('http')) {
-    try {
-      await apiRequest('POST', `/notebooks/${notebookId}/sources`, {
-        type: 'WEBSITE',
-        displayName: `Website: ${companyName}`,
-        url: websiteUrl,
-      })
-    } catch (e: any) {
-      console.warn(`[NotebookLM] Could not add website source: ${e.message}`)
-    }
+  if (!notebookId) {
+    throw new Error(`Failed to parse notebook ID from response: ${JSON.stringify(notebook)}`)
   }
 
-  // 4. Generate audio overview
-  let audioOverviewUrl: string | undefined
+  // 2. Add sources (batch create — text brief + optional website)
+  const userContents: any[] = [
+    {
+      textContent: {
+        sourceName: `Research Brief: ${companyName}`,
+        content: researchBrief,
+      },
+    },
+  ]
+
+  if (websiteUrl && websiteUrl.startsWith('http')) {
+    userContents.push({
+      webContent: {
+        url: websiteUrl,
+        sourceName: `Website: ${companyName}`,
+      },
+    })
+  }
+
+  const sourcesResult = await apiRequest(
+    'POST',
+    `${baseUrl}/notebooks/${notebookId}/sources:batchCreate`,
+    { userContents }
+  )
+
+  // 3. Generate audio overview
+  let audioOverviewStatus = 'not_started'
   try {
     const audioResult = await apiRequest(
       'POST',
-      `/notebooks/${notebookId}/audioOverview:generate`,
-      {}
+      `${baseUrl}/notebooks/${notebookId}/audioOverviews`,
+      {
+        episodeFocus: `Personalized discovery session for ${fullName} at ${companyName}. Cover: where the business stands based on audit data, what Eliana Tech can build, and next steps — $5,000 deposit to lock build slot, discovery call, same-day refund if not a fit.`,
+      }
     )
-    audioOverviewUrl = audioResult.audioUrl || audioResult.uri
+    audioOverviewStatus = audioResult?.audioOverview?.status || 'in_progress'
   } catch (e: any) {
     console.warn(`[NotebookLM] Audio overview generation failed: ${e.message}`)
+    audioOverviewStatus = 'failed'
   }
 
+  // NotebookLM Enterprise notebooks are accessed via the enterprise URL
   const notebookUrl = `https://notebooklm.google.com/notebook/${notebookId}`
 
   return {
     notebookId,
     notebookUrl,
-    audioOverviewUrl,
+    audioOverviewStatus,
   }
 }
 
