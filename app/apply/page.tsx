@@ -278,17 +278,7 @@ export default function ApplyPage() {
               ))}
             </div>
 
-            <div className="fn-diy-section">
-              <div className="fn-diy-line" />
-              <Link href="/roadmap/build-program" className="fn-diy-card">
-                <div className="fn-diy-badge">DIY</div>
-                <div className="fn-diy-content">
-                  <h3 className="fn-diy-title">Build Program</h3>
-                  <p className="fn-diy-desc">Learn to build with AI yourself — so you never depend on anyone again.</p>
-                </div>
-                <span className="fn-diy-link">Join the program <ArrowRight size={14} /></span>
-              </Link>
-            </div>
+
           </div>
         </section>
 
@@ -547,38 +537,7 @@ export default function ApplyPage() {
         }
         .fn-rm-step:hover .fn-rm-step-link { gap: 10px; color: var(--red); }
 
-        /* DIY SECTION */
-        .fn-diy-section {
-          margin-top: 80px; position: relative;
-          padding-left: 100px;
-        }
-        .fn-diy-line {
-          position: absolute; left: 40px; top: -80px; bottom: 50%;
-          width: 1px; background: var(--gray-200); border-left: 1px dashed var(--gray-200);
-        }
-        .fn-diy-card {
-          display: flex; align-items: center; gap: 32px;
-          padding: 32px; background: var(--gray-50);
-          border: 1px solid var(--gray-200); text-decoration: none; color: inherit;
-          transition: all 0.3s; position: relative;
-        }
-        .fn-diy-card:hover {
-          background: var(--white); border-color: var(--black);
-          transform: translateX(8px); box-shadow: 0 20px 40px rgba(0,0,0,0.03);
-        }
-        .fn-diy-badge {
-          width: 64px; height: 64px; background: var(--black); color: #fff;
-          display: flex; align-items: center; justify-content: center;
-          font-family: var(--font-bebas-neue), sans-serif; font-size: 18px;
-          border-radius: 4px;
-        }
-        .fn-diy-content { flex: 1; }
-        .fn-diy-title { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
-        .fn-diy-desc { font-size: 12px; color: var(--gray-500); }
-        .fn-diy-link {
-          font-size: 11px; font-weight: 600; text-transform: uppercase;
-          display: flex; align-items: center; gap: 8px;
-        }
+
 
         @media (max-width: 900px) {
           .fn-container { padding: 0 20px; }
@@ -589,10 +548,7 @@ export default function ApplyPage() {
           .fn-rm-step-content { flex: 1; }
           .fn-rm-step-footer { flex-direction: row; align-items: center; justify-content: space-between; }
           
-          .fn-diy-section { padding-left: 0; margin-top: 56px; }
-          .fn-diy-line { display: none; }
-          .fn-diy-card { flex-direction: column; align-items: flex-start; gap: 16px; padding: 24px; }
-          .fn-diy-badge { width: 48px; height: 48px; font-size: 14px; }
+
         }
       `}</style>
 
