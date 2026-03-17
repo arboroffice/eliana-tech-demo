@@ -1521,29 +1521,92 @@ export function AuditResults({ formData, auditScore, researchFindings }: AuditRe
         </Card>
       </FadeUp>
 
-      {/* ── 11. Strategy Session Booking ───────────────────── */}
+      {/* ── 11. Next Step — Budget-based routing ───────────────────── */}
       <FadeUp delay={0.32}>
         <div id="booking-section" className="flex flex-col items-center justify-center p-8 md:p-16 bg-white border border-[#E4E3DE] shadow-2xl relative overflow-hidden text-center mt-20">
           <div className="absolute top-0 left-0 w-full h-[3px] bg-[#D90019]" />
           <div className="relative z-10 space-y-8 w-full max-w-5xl">
-            <div className="space-y-4 text-center">
-              <p className="text-[#D90019] font-mono text-xs font-bold uppercase tracking-[0.3em]">Next Step</p>
-              <h2 className="text-4xl md:text-5xl font-black text-black uppercase tracking-tighter leading-tight">
-                Book Your <span className="italic">Strategy Session</span>
-              </h2>
-              <p className="text-[#555] max-w-2xl mx-auto text-sm leading-relaxed font-mono uppercase tracking-tight">
-                In the meantime, book a call to discuss your results and get your proposal in real-time.
-              </p>
-            </div>
+            {['growth', 'aggressive', 'enterprise'].includes(formData.growthBudget) ? (
+              <>
+                {/* HIGH BUDGET ($10K+) — Show cal.com booking */}
+                <div className="space-y-4 text-center">
+                  <p className="text-[#D90019] font-mono text-xs font-bold uppercase tracking-[0.3em]">Your Next Move</p>
+                  <h2 className="text-4xl md:text-5xl font-black text-black uppercase tracking-tighter leading-tight">
+                    Book Your <span className="italic">Strategy Session</span>
+                  </h2>
+                  <p className="text-[#555] max-w-2xl mx-auto text-sm leading-relaxed font-mono uppercase tracking-tight">
+                    You have two options:
+                  </p>
+                </div>
 
-            <div className="w-full min-h-[700px] border border-[#E4E3DE] bg-[#FAFAF8] rounded-2xl overflow-hidden shadow-inner mt-8">
-              <iframe
-                src="https://cal.com/elianatech/30min?embed=true"
-                style={{ width: '100%', height: '700px', border: 'none' }}
-                title="Strategy Session Booking"
-                className="w-full"
-              />
-            </div>
+                <div className="grid md:grid-cols-2 gap-6 mt-8">
+                  <div className="p-8 border border-[#E4E3DE] bg-[#FAFAF8] text-left">
+                    <p className="text-[#888] text-[10px] font-mono uppercase tracking-widest mb-4 font-bold">Option 1: DIY</p>
+                    <h3 className="text-black font-bold text-lg uppercase tracking-tight mb-3">Take this and build it yourself</h3>
+                    <p className="text-[#555] text-sm leading-relaxed">
+                      Use your audit results, the quick wins checklist, and the DIY action plan above to start implementing on your own.
+                    </p>
+                    <p className="text-[#888] text-xs mt-4 italic">This usually takes months of trial and error.</p>
+                  </div>
+                  <div className="p-8 border-2 border-[#D90019] bg-[#D90019]/5 text-left relative">
+                    <div className="absolute top-0 right-0 bg-[#D90019] text-white text-[9px] font-mono font-bold uppercase tracking-widest px-3 py-1">Recommended</div>
+                    <p className="text-[#D90019] text-[10px] font-mono uppercase tracking-widest mb-4 font-bold">Option 2: Done for you</p>
+                    <h3 className="text-black font-bold text-lg uppercase tracking-tight mb-3">We build the entire system for you</h3>
+                    <ul className="text-[#555] text-sm leading-relaxed space-y-2">
+                      <li className="flex items-start gap-2"><span className="text-[#D90019] mt-0.5 shrink-0">-</span> Fully set up</li>
+                      <li className="flex items-start gap-2"><span className="text-[#D90019] mt-0.5 shrink-0">-</span> Customized to your workflows</li>
+                      <li className="flex items-start gap-2"><span className="text-[#D90019] mt-0.5 shrink-0">-</span> Ready to run</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="w-full min-h-[700px] border border-[#E4E3DE] bg-[#FAFAF8] rounded-2xl overflow-hidden shadow-inner mt-8">
+                  <iframe
+                    src="https://cal.com/elianatech/30min?embed=true"
+                    style={{ width: '100%', height: '700px', border: 'none' }}
+                    title="Strategy Session Booking"
+                    className="w-full"
+                  />
+                </div>
+              </>
+            ) : (
+              <>
+                {/* LOWER BUDGET (under $10K) — Nurture path, no cal.com embed */}
+                <div className="space-y-4 text-center">
+                  <p className="text-[#D90019] font-mono text-xs font-bold uppercase tracking-[0.3em]">Your Next Move</p>
+                  <h2 className="text-4xl md:text-5xl font-black text-black uppercase tracking-tighter leading-tight">
+                    Start With The <span className="italic">Quick Wins</span>
+                  </h2>
+                  <p className="text-[#555] max-w-2xl mx-auto text-sm leading-relaxed">
+                    Use the DIY action plan and quick wins checklist above to start removing manual work from your business today. We&apos;ll send you weekly tips to keep the momentum going.
+                  </p>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-6 mt-8">
+                  <div className="p-8 border-2 border-[#D90019] bg-[#D90019]/5 text-left relative">
+                    <div className="absolute top-0 right-0 bg-[#D90019] text-white text-[9px] font-mono font-bold uppercase tracking-widest px-3 py-1">Start Here</div>
+                    <p className="text-[#D90019] text-[10px] font-mono uppercase tracking-widest mb-4 font-bold">Option 1: DIY</p>
+                    <h3 className="text-black font-bold text-lg uppercase tracking-tight mb-3">Build it yourself</h3>
+                    <p className="text-[#555] text-sm leading-relaxed mb-4">
+                      Take your audit results, follow the action plan above, and start implementing. We&apos;ll email you step-by-step guidance.
+                    </p>
+                    <button onClick={handleDownloadPDF} className="text-[#D90019] text-xs font-mono font-bold uppercase tracking-widest hover:underline">
+                      Download Full Report PDF
+                    </button>
+                  </div>
+                  <div className="p-8 border border-[#E4E3DE] bg-[#FAFAF8] text-left">
+                    <p className="text-[#888] text-[10px] font-mono uppercase tracking-widest mb-4 font-bold">Option 2: Get help when ready</p>
+                    <h3 className="text-black font-bold text-lg uppercase tracking-tight mb-3">Have us build it for you</h3>
+                    <p className="text-[#555] text-sm leading-relaxed mb-4">
+                      When you&apos;re ready to invest in AI systems, book a strategy session and we&apos;ll map out the build together.
+                    </p>
+                    <a href="https://cal.com/elianatech/30min" target="_blank" rel="noopener noreferrer" className="text-[#D90019] text-xs font-mono font-bold uppercase tracking-widest hover:underline">
+                      Book a Call When Ready &rarr;
+                    </a>
+                  </div>
+                </div>
+              </>
+            )}
 
             <div className="pt-12 border-t border-[#E4E3DE] w-full">
               <div className="flex flex-col items-center gap-6">

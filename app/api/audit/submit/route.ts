@@ -156,6 +156,14 @@ export async function POST(request: Request) {
         // ─── Lead Scoring & Nurture Sequence ─────────────────────────
         const leadScore = scoreAndRouteLead(formData, auditScore)
 
+        // Override nurture sequence for high-budget leads ($10K+)
+        const isHighBudget = ['growth', 'aggressive', 'enterprise'].includes(formData.growthBudget || '')
+        if (isHighBudget && leadScore.nurturSequence !== 'A') {
+            leadScore.nurturSequence = 'I' // Dedicated high-budget AI adopter nurture sequence
+            leadScore.reasons.push('$10K+ AI adoption budget — high-budget nurture sequence')
+            console.log(`[LEAD ROUTER] 💰 High-budget lead override: ${formData.fullName} → Sequence D`)
+        }
+
         // Send first nurture email immediately (Day 0)
         const sequence = getSequence(leadScore.nurturSequence)
         const firstEmail = personalizeEmail(sequence.emails[0], {

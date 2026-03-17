@@ -34,6 +34,35 @@ export function IndustryClient({ industry }: { industry: IndustryContent }) {
                     <p className="text-xl sm:text-3xl font-bold italic text-[#0C0C0C] leading-tight">&ldquo;{industry.operatorProblem}&rdquo;</p>
                 </section>
 
+                {industry.dreamVision && (
+                    <section className="mb-24">
+                        <div className="category-header mb-12">
+                            <span className="cat-num">The Dream Outcome</span>
+                            <h2 className="cat-title">Imagine Your {industry.name} Business Fully Autonomous</h2>
+                        </div>
+                        <div className="max-w-4xl">
+                            <p className="text-base sm:text-lg text-[#333] leading-[1.9] whitespace-pre-line">{industry.dreamVision}</p>
+                        </div>
+                    </section>
+                )}
+
+                {industry.industryStats && industry.industryStats.length > 0 && (
+                    <section className="mb-24">
+                        <div className="category-header mb-12">
+                            <span className="cat-num">Industry Intelligence</span>
+                            <h2 className="cat-title">The Numbers That Matter</h2>
+                        </div>
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1 bg-[#CCCBC5]">
+                            {industry.industryStats.map((item, idx) => (
+                                <div key={idx} className="bg-white p-8 text-center">
+                                    <div className="text-3xl sm:text-4xl font-bold text-[#D90019] font-syne mb-3">{item.stat}</div>
+                                    <div className="text-[11px] text-[#555] uppercase tracking-wider leading-relaxed">{item.label}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                )}
+
                 {industry.subNiches && industry.subNiches.length > 0 && (
                     <section className="mb-16">
                         <div className="mb-8">
@@ -64,8 +93,59 @@ export function IndustryClient({ industry }: { industry: IndustryContent }) {
                     </section>
                 )}
 
+                {industry.useCases && industry.useCases.length > 0 && (
+                    <section className="mb-24">
+                        <div className="category-header mb-12">
+                            <span className="cat-num">Real-World Scenarios</span>
+                            <h2 className="cat-title">How AI Transforms Your Day-to-Day</h2>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-1 bg-[#CCCBC5]">
+                            {industry.useCases.map((uc, idx) => (
+                                <div key={idx} className="bg-white p-10">
+                                    <span className="text-[10px] text-[#D90019] font-bold uppercase tracking-widest font-mono block mb-4">Scenario 0{idx + 1}</span>
+                                    <h4 className="font-syne font-bold text-lg text-[#0C0C0C] mb-4">{uc.title}</h4>
+                                    <p className="text-sm text-[#555] leading-relaxed mb-6">{uc.scenario}</p>
+                                    <div className="border-t border-[#E4E3DE] pt-4">
+                                        <span className="text-[10px] text-[#888] uppercase tracking-wider font-bold block mb-2">Outcome</span>
+                                        <p className="text-sm text-[#0C0C0C] font-medium leading-relaxed">{uc.outcome}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                )}
+
                 {industry.solutions && (
                     <SolutionsSection solutions={industry.solutions} industryName={industry.name} />
+                )}
+
+                {industry.comparisonTable && industry.comparisonTable.length > 0 && (
+                    <section className="mb-24">
+                        <div className="category-header mb-12">
+                            <span className="cat-num">The Transformation</span>
+                            <h2 className="cat-title">Before vs. After AI Infrastructure</h2>
+                        </div>
+                        <div className="overflow-x-auto">
+                            <table className="w-full border-collapse">
+                                <thead>
+                                    <tr>
+                                        <th className="text-left text-[10px] uppercase tracking-widest text-[#888] font-bold p-4 border-b-2 border-[#CCCBC5]">Category</th>
+                                        <th className="text-left text-[10px] uppercase tracking-widest text-[#888] font-bold p-4 border-b-2 border-[#CCCBC5]">Without AI</th>
+                                        <th className="text-left text-[10px] uppercase tracking-widest text-[#D90019] font-bold p-4 border-b-2 border-[#CCCBC5]">With Eliana AI</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {industry.comparisonTable.map((row, idx) => (
+                                        <tr key={idx} className={idx % 2 === 0 ? "bg-white" : "bg-[#F2F1ED]"}>
+                                            <td className="p-4 text-xs font-bold uppercase tracking-wider text-[#0C0C0C] border-b border-[#E4E3DE]">{row.category}</td>
+                                            <td className="p-4 text-sm text-[#888] border-b border-[#E4E3DE]">{row.without}</td>
+                                            <td className="p-4 text-sm text-[#0C0C0C] font-medium border-b border-[#E4E3DE]">{row.withAI}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
                 )}
 
                 <section className="mb-24">
@@ -119,6 +199,28 @@ export function IndustryClient({ industry }: { industry: IndustryContent }) {
                     </div>
                 </section>
 
+                {industry.processSteps && industry.processSteps.length > 0 && (
+                    <section className="mb-24">
+                        <div className="category-header mb-12">
+                            <span className="cat-num">Implementation Roadmap</span>
+                            <h2 className="cat-title">How We Deploy Your AI Infrastructure</h2>
+                        </div>
+                        <div className="space-y-0">
+                            {industry.processSteps.map((ps, idx) => (
+                                <div key={idx} className="flex gap-8 p-8 border-b border-[#E4E3DE] last:border-b-0 items-start">
+                                    <div className="flex-shrink-0 w-16 h-16 bg-[#0C0C0C] flex items-center justify-center">
+                                        <span className="text-[#D90019] font-bold font-mono text-lg">0{ps.step}</span>
+                                    </div>
+                                    <div className="flex-1">
+                                        <h4 className="font-syne font-bold text-lg text-[#0C0C0C] mb-3">{ps.title}</h4>
+                                        <p className="text-sm text-[#555] leading-relaxed max-w-2xl">{ps.description}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                )}
+
                 {industry.layers && industry.layers.length > 0 && (
                     <section className="mb-24">
                         <div className="category-header mb-12">
@@ -151,13 +253,11 @@ export function IndustryClient({ industry }: { industry: IndustryContent }) {
                     </section>
                 )}
 
-
-
                 {industry.faq.length > 0 && (
                     <section className="mb-24">
                         <div className="category-header mb-12">
                             <span className="cat-num">Friction Points Resolved</span>
-                            <h2 className="cat-title">Industry FAQ</h2>
+                            <h2 className="cat-title">{industry.name} FAQ</h2>
                         </div>
                         <div className="faq-list">
                             {industry.faq.map((item, idx) => (
@@ -177,7 +277,7 @@ export function IndustryClient({ industry }: { industry: IndustryContent }) {
 
                 <section className="mb-24 p-16 bg-[#0B0B0B] text-[#FAFAF8] text-center rounded-sm">
                     <h2 className="text-4xl font-syne font-bold mb-6">Ready to install your neural layer?</h2>
-                    <p className="text-white/60 mb-12 max-w-2xl mx-auto text-lg leading-relaxed">We build the infrastructure that turns your industry expertise into an autonomous operations machine.</p>
+                    <p className="text-white/60 mb-12 max-w-2xl mx-auto text-lg leading-relaxed">We build the infrastructure that turns your {industry.name.toLowerCase()} expertise into an autonomous operations machine.</p>
                     <Link href="/audit" className="btn-white inline-block">
                         Get Your Free Audit
                     </Link>
@@ -244,7 +344,7 @@ export function IndustryClient({ industry }: { industry: IndustryContent }) {
           text-decoration: none;
           transition: all 0.2s ease;
         }
-        
+
         .btn-white:hover {
           background: #D90019;
           color: white;

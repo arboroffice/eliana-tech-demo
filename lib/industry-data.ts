@@ -26,6 +26,11 @@ export interface IndustryContent {
     operatorProblem: string;
     result?: string;
     solutions?: IndustrySolutions;
+    dreamVision?: string;
+    industryStats?: { stat: string; label: string }[];
+    useCases?: { title: string; scenario: string; outcome: string }[];
+    processSteps?: { step: number; title: string; description: string }[];
+    comparisonTable?: { category: string; without: string; withAI: string }[];
     services: {
         singleSystems: {
             title: string;

@@ -255,7 +255,7 @@ export default function ApplyPage() {
             <div className="fn-roadmap-v2">
               <div className="fn-roadmap-line" />
               {[
-                { phase: "01", title: "Single Problem Build", desc: "14 days. This may be a Claude setup, team training, or a single autonomous build like an Executive Assistant or Secretary. If your needs go deeper, we build this first and talk further.", tag: "$5K+", href: "#apply", accent: true, meta: "The Proof" },
+                { phase: "01", title: "Single Problem Build", desc: "14 days. This may be a Claude setup, team training, or a single autonomous build. This could be us getting you ranked by AI, recommended by AI, or installing the systems so your manual labor is replaced by it. If your needs go deeper, we build this first.", tag: "$5K+", href: "#apply", accent: true, meta: "The Proof" },
                 { phase: "02", title: "Full Buildout", desc: "Complete operational architecture across every department. All six layers — built, connected, running.", tag: "$25–75K+", href: "#apply", meta: "The Scale" },
                 { phase: "03", title: "AI Wing Retainer", desc: "Ongoing evolution. Your infrastructure grows and adapts as you scale. We become your AI department.", tag: "$5–10K/mo+", href: "#apply", meta: "The Engine" },
                 { phase: "04", title: "Revenue Share", desc: "Skin in the game. Your growth is our growth. Full alignment. Multi-year legacy building.", tag: "Partnership", href: "#apply", meta: "The Partner" },
@@ -542,7 +542,7 @@ export default function ApplyPage() {
         @media (max-width: 900px) {
           .fn-container { padding: 0 20px; }
           .fn-roadmap-v2 { grid-template-columns: 1fr; gap: 40px; }
-          .fn-roadmap-line { left: 40px; top: 0; bottom: 0; width: 1px; height: auto; }
+          .fn-roadmap-line { display: none; }
           .fn-rm-step { flex-direction: row; gap: 24px; align-items: flex-start; }
           .fn-rm-dot { width: 80px; height: 80px; flex-shrink: 0; margin-bottom: 0; }
           .fn-rm-step-content { flex: 1; }

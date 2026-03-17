@@ -1,38 +1,39 @@
 "use client"
 
 import Link from "next/link"
-import { ArrowRight, Check } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import { industries } from "@/lib/industry-data"
 
 export default function HomePage() {
   return (
     <div className="fn">
 
-      {/* STICKY NAV — minimal for funnel */}
+      {/* STICKY NAV */}
       <nav className="fn-nav">
         <Link href="/" className="fn-logo">ELIANA<span>TECH</span></Link>
-        <Link href="/apply" className="fn-nav-cta">
-          Apply Now <ArrowRight size={12} />
+        <Link href="/audit" className="fn-nav-cta">
+          Get My Free Audit <ArrowRight size={12} />
         </Link>
       </nav>
 
       <main>
 
-        {/* ═══ 1. HERO — Hook + Single CTA ═══ */}
+        {/* ═══ HERO ═══ */}
         <section className="fn-hero">
           <div className="fn-hero-content">
-            <p className="fn-tag">AI Infrastructure for Founders</p>
+            <p className="fn-tag">Free AI Efficiency Audit</p>
             <h1 className="fn-h1">
-              THE AI COMPANY<br />
-              <span>BUILDER.</span>
+              STOP WASTING<br />
+              <span>10–30 HOURS</span><br />
+              A WEEK.
             </h1>
             <p className="fn-sub">
-              We build AI-native infrastructure that runs your business — so you can stop being the system and start being the architect.
+              Get a free AI audit that shows exactly what to fix first — and how to get your time back.
             </p>
-            <Link href="/apply" className="fn-hero-cta">
-              Apply Now <ArrowRight size={18} />
+            <Link href="/audit" className="fn-hero-cta">
+              Get My Free Audit <ArrowRight size={18} />
             </Link>
-            <p className="fn-micro">Three questions. We review every application within 48 hours.</p>
+            <p className="fn-micro">Takes 3 minutes. No call required.</p>
           </div>
           <div className="fn-hero-bg">
             <div className="fn-grid-overlay" />
@@ -43,35 +44,182 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ═══ 3. BRIDGE — What changes ═══ */}
-        <section className="fn-bridge">
-          <div className="fn-bridge-bg">FLUENCY</div>
-          <div className="fn-container fn-bridge-inner">
-            <h2 className="fn-bridge-h2">
-              Transform your business into an<br />
-              <span>autonomous machine.</span>
-            </h2>
+        {/* ═══ PROBLEM ═══ */}
+        <section className="fn-problem">
+          <div className="fn-container">
+            <p className="fn-label">The Problem</p>
+            <h2 className="fn-h2">RIGHT NOW YOUR BUSINESS<br /><span>DEPENDS ON YOU.</span></h2>
+            <div className="fn-problem-list">
+              <p className="fn-problem-item">You follow up manually</p>
+              <p className="fn-problem-item">You answer the same things every day</p>
+              <p className="fn-problem-item">You keep operations moving</p>
+              <p className="fn-problem-item">You fix what breaks</p>
+            </div>
+            <div className="fn-problem-callout">
+              <p className="fn-problem-bold">That&apos;s not a system.</p>
+              <p className="fn-problem-dim">That&apos;s you holding everything together.</p>
+              <p className="fn-problem-dim">That&apos;s why you feel busy all the time.</p>
+            </div>
           </div>
         </section>
 
+        {/* ═══ REFRAME ═══ */}
+        <section className="fn-bridge">
+          <div className="fn-bridge-bg">SYSTEM</div>
+          <div className="fn-container fn-bridge-inner">
+            <h2 className="fn-bridge-h2">
+              You don&apos;t need more tools.<br />
+              You don&apos;t need more leads.<br /><br />
+              <span>You need your business to run<br />without you doing everything.</span>
+            </h2>
+            <p className="fn-bridge-sub">
+              Most people try AI and nothing changes. Not because AI doesn&apos;t work — because nothing is actually built into a system.
+            </p>
+          </div>
+        </section>
 
+        {/* ═══ THE AUDIT (Core Offer) ═══ */}
+        <section className="fn-section">
+          <div className="fn-container fn-audit-offer">
+            <p className="fn-label">Your AI Efficiency Audit</p>
+            <h2 className="fn-h2">WE BREAK DOWN YOUR BUSINESS<br /><span>AND SHOW YOU.</span></h2>
+            <div className="fn-audit-grid">
+              <div className="fn-audit-item">
+                <span className="fn-audit-num">01</span>
+                <p>Where your time is actually going</p>
+              </div>
+              <div className="fn-audit-item">
+                <span className="fn-audit-num">02</span>
+                <p>What to automate first</p>
+              </div>
+              <div className="fn-audit-item">
+                <span className="fn-audit-num">03</span>
+                <p>What it looks like in your workflow</p>
+              </div>
+              <div className="fn-audit-item">
+                <span className="fn-audit-num">04</span>
+                <p>How many hours you get back</p>
+              </div>
+            </div>
+          </div>
+        </section>
 
-        {/* ═══ YOUR ROADMAP ═══ */}
+        {/* ═══ WHAT YOU GET ═══ */}
+        <section className="fn-section fn-section-alt">
+          <div className="fn-container">
+            <p className="fn-label">What You Get</p>
+            <h2 className="fn-h2">AFTER YOU <span>SUBMIT.</span></h2>
+            <div className="fn-get-list">
+              <div className="fn-get-item">
+                <div className="fn-get-check" />
+                <p>Your top 3 time leaks</p>
+              </div>
+              <div className="fn-get-item">
+                <div className="fn-get-check" />
+                <p>The first system to fix it</p>
+              </div>
+              <div className="fn-get-item">
+                <div className="fn-get-check" />
+                <p>A simple breakdown (no tech talk)</p>
+              </div>
+              <div className="fn-get-item">
+                <div className="fn-get-check" />
+                <p>Estimated hours saved per week</p>
+              </div>
+            </div>
+            <p className="fn-get-bottom">This is about removing work from your day.</p>
+          </div>
+        </section>
+
+        {/* ═══ PROCESS ═══ */}
+        <section className="fn-section">
+          <div className="fn-container">
+            <p className="fn-label">How It Works</p>
+            <h2 className="fn-h2">THREE <span>STEPS.</span></h2>
+            <div className="fn-process">
+              <div className="fn-process-step">
+                <div className="fn-process-num">1</div>
+                <h3 className="fn-process-title">Fill out the audit</h3>
+                <p className="fn-process-desc">Tell us how your business runs.</p>
+              </div>
+              <div className="fn-process-arrow"><ArrowRight size={20} /></div>
+              <div className="fn-process-step">
+                <div className="fn-process-num">2</div>
+                <h3 className="fn-process-title">Get your breakdown</h3>
+                <p className="fn-process-desc">We show you exactly what to fix.</p>
+              </div>
+              <div className="fn-process-arrow"><ArrowRight size={20} /></div>
+              <div className="fn-process-step">
+                <div className="fn-process-num">3</div>
+                <h3 className="fn-process-title">Decide your next move</h3>
+                <p className="fn-process-desc">Build it yourself or have us do it.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ═══ MID-PAGE CTA ═══ */}
+        <section className="fn-mid-cta">
+          <div className="fn-container fn-mid-cta-inner">
+            <h2 className="fn-mid-h2">Ready to see where your time is going?</h2>
+            <Link href="/audit" className="fn-hero-cta" style={{ fontSize: 20, padding: '18px 48px' }}>
+              Get My Free Audit <ArrowRight size={16} />
+            </Link>
+            <p className="fn-micro" style={{ marginTop: 16 }}>Takes 3 minutes. No call required.</p>
+          </div>
+        </section>
+
+        {/* ═══ TRANSITION ═══ */}
+        <section className="fn-transition">
+          <div className="fn-container">
+            <p className="fn-transition-text">If you want it built, this is what we do.</p>
+          </div>
+        </section>
+
+        {/* ═══ THE SOLUTION — 6 Layers ═══ */}
+        <section className="fn-section fn-section-alt">
+          <div className="fn-container">
+            <p className="fn-label">The Solution</p>
+            <h2 className="fn-h2">WE BUILD THE <span>OPERATING SYSTEM</span><br />YOUR BUSINESS IS MISSING.</h2>
+            <p className="fn-desc-wide">Not another tool. Not another subscription. A connected system that removes manual work across your business.</p>
+
+            <div className="fn-layers">
+              {[
+                { num: "01", title: "Attract", desc: "Get found without chasing.", tags: "Website · Content · Lead Gen" },
+                { num: "02", title: "Capture", desc: "No lead gets missed.", tags: "AI Answering · Instant Response" },
+                { num: "03", title: "Convert", desc: "Deals move without follow up work.", tags: "Pipeline · Proposals · Contracts" },
+                { num: "04", title: "Deliver", desc: "Operations run without you.", tags: "Onboarding · Scheduling · Workflows" },
+                { num: "05", title: "Retain", desc: "Clients come back automatically.", tags: "Reviews · Reactivation · Nurture" },
+                { num: "06", title: "Intelligence", desc: "You see everything clearly.", tags: "Dashboards · Reporting · Planning" },
+              ].map((layer, i) => (
+                <div key={i} className="fn-layer">
+                  <div className="fn-layer-num">{layer.num}</div>
+                  <div className="fn-layer-content">
+                    <h3 className="fn-layer-title">{layer.title}</h3>
+                    <p className="fn-layer-desc">{layer.desc}</p>
+                    <p className="fn-layer-tags">{layer.tags}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ═══ HOW YOU WORK WITH US ═══ */}
         <section className="fn-section" style={{ borderTop: "1px solid var(--gray-100)", borderBottom: "1px solid var(--gray-100)" }}>
           <div className="fn-container">
             <div className="fn-roadmap-intro">
-              <p className="fn-label">How It Works</p>
-              <h2 className="fn-h2">YOUR <span>ROADMAP.</span></h2>
-              <p className="fn-desc-wide">We do not ask you to commit to everything upfront. You start small. We prove ourselves. Then we scale together.</p>
+              <p className="fn-label">How You Work With Us</p>
+              <h2 className="fn-h2">START SMALL.<br /><span>THEN SCALE.</span></h2>
             </div>
 
             <div className="fn-roadmap-v2">
               <div className="fn-roadmap-line" />
               {[
-                { phase: "01", title: "Single Problem Build", desc: "14 days. This may be a Claude setup, team training, or a single autonomous build like an Executive Assistant or Secretary. If your needs go deeper, we build this first and talk further.", tag: "$5K+", href: "/apply", accent: true, meta: "The Proof" },
-                { phase: "02", title: "Full Buildout", desc: "Complete operational architecture across every department. All six layers — built, connected, running.", tag: "$25–75K+", href: "/apply", meta: "The Scale" },
-                { phase: "03", title: "AI Wing Retainer", desc: "Ongoing evolution. Your infrastructure grows and adapts as you scale. We become your AI department.", tag: "$5–10K/mo+", href: "/apply", meta: "The Engine" },
-                { phase: "04", title: "Revenue Share", desc: "Skin in the game. Your growth is our growth. Full alignment. Multi-year legacy building.", tag: "Partnership", href: "/apply", meta: "The Partner" },
+                { phase: "01", title: "Fix One Problem First", desc: "14 day build. Remove a key bottleneck. Show real time saved.", tag: "$5K+", href: "/apply", accent: true, meta: "The Proof" },
+                { phase: "02", title: "Full System Build", desc: "All core operations automated. Systems connected end to end.", tag: "$25–75K+", href: "/apply", meta: "The Scale" },
+                { phase: "03", title: "Ongoing AI Department", desc: "Systems evolve as you grow. Continuous improvements.", tag: "$5–10K/mo", href: "/apply", meta: "The Engine" },
+                { phase: "04", title: "Long Term Alignment", desc: "Revenue share. Deep integration. Your growth is our growth.", tag: "Partnership", href: "/apply", meta: "The Partner" },
               ].map((s, i) => (
                 <Link key={i} href={s.href} className={`fn-rm-step ${s.accent ? 'fn-rm-step-accent' : ''}`}>
                   <div className="fn-rm-dot" />
@@ -90,50 +238,36 @@ export default function HomePage() {
                 </Link>
               ))}
             </div>
-
-
           </div>
         </section>
+
+        {/* ═══ WHO THIS IS FOR ═══ */}
         <section className="fn-section fn-section-alt">
           <div className="fn-container">
-            <p className="fn-label">The Solution</p>
-            <h2 className="fn-h2">WE BUILD THE <span>OPERATING SYSTEM</span><br />YOUR COMPANY IS MISSING.</h2>
-            <p className="fn-desc-wide">Not another tool. Not another SaaS subscription. A complete AI infrastructure — six layers that connect every part of your business into one system that runs itself.</p>
-
-            <div className="fn-layers">
-              {[
-                { num: "01", title: "Attract", desc: "Your company shows up everywhere your customers look.", tags: "Website · SEO · Content Engine · Social Media · Lead Generation" },
-                { num: "02", title: "Capture", desc: "No lead disappears. Every inquiry — handled in under 60 seconds.", tags: "AI Phone Answerer · Speed to Lead · Missed Call Text Back · Lead Capture" },
-                { num: "03", title: "Convert", desc: "Leads become clients without manual chasing.", tags: "Sales Pipeline · Proposal Automation · Contracts · Appointments · Follow Up" },
-                { num: "04", title: "Deliver", desc: "Operations stop depending on the founder.", tags: "Client Onboarding · Scheduling · Workflow Automation · SOPs · Invoicing" },
-                { num: "05", title: "Retain", desc: "Clients return. Reputation compounds. Revenue stabilizes.", tags: "Review Systems · Client Nurture · Reactivation · Churn Prevention" },
-                { num: "06", title: "Intelligence", desc: "The business becomes aware of itself.", tags: "Dashboards · Knowledge Base · Reporting · Capacity Planning" },
-              ].map((layer, i) => (
-                <div key={i} className="fn-layer">
-                  <div className="fn-layer-num">{layer.num}</div>
-                  <div className="fn-layer-content">
-                    <h3 className="fn-layer-title">{layer.title}</h3>
-                    <p className="fn-layer-desc">{layer.desc}</p>
-                    <p className="fn-layer-tags">{layer.tags}</p>
-                  </div>
-                </div>
-              ))}
+            <p className="fn-label">Who This Is For</p>
+            <h2 className="fn-h2">THIS IS FOR YOU <span>IF.</span></h2>
+            <div className="fn-for-grid">
+              <div className="fn-for-yes">
+                <h3 className="fn-for-heading">You&apos;re a fit if:</h3>
+                <ul className="fn-for-list">
+                  <li>You&apos;re doing $500K+</li>
+                  <li>You feel busy but things are messy</li>
+                  <li>You know you&apos;re wasting time</li>
+                  <li>You want systems, not more work</li>
+                </ul>
+              </div>
+              <div className="fn-for-no">
+                <h3 className="fn-for-heading">Not for:</h3>
+                <ul className="fn-for-list fn-for-list-dim">
+                  <li>People looking for free ideas only</li>
+                  <li>People who won&apos;t execute</li>
+                </ul>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* ═══ MID-PAGE CTA ═══ */}
-        <section className="fn-mid-cta">
-          <div className="fn-container fn-mid-cta-inner">
-            <h2 className="fn-mid-h2">Ready to see what this looks like <span>for your business?</span></h2>
-            <Link href="/audit" className="fn-btn-outline">
-              Get a Free AI Audit <ArrowRight size={14} />
-            </Link>
-          </div>
-        </section>
-
-
-        {/* ═══ 6. INDUSTRY PROOF ═══ */}
+        {/* ═══ INDUSTRY PLAYBOOKS ═══ */}
         <section className="fn-section">
           <div className="fn-container">
             <p className="fn-label">Built for Your Industry</p>
@@ -184,18 +318,28 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* ═══ CLOSE ═══ */}
+        <section className="fn-close">
+          <div className="fn-container fn-close-inner">
+            <p className="fn-close-dim">Most businesses stay stuck doing everything themselves.</p>
+            <p className="fn-close-or">Or</p>
+            <h2 className="fn-close-h2">You fix the system and<br /><span>get your time back.</span></h2>
+            <Link href="/audit" className="fn-hero-cta" style={{ fontSize: 22, marginTop: 8 }}>
+              Get My Free Audit <ArrowRight size={18} />
+            </Link>
+            <p className="fn-micro" style={{ marginTop: 16 }}>Takes 3 minutes. No call required.</p>
+          </div>
+        </section>
 
-
-
-        {/* ═══ 7. PARTNERSHIP CTA ═══ */}
+        {/* ═══ PARTNER CTA ═══ */}
         <section className="fn-partner-cta">
           <div className="fn-container fn-partner-inner">
             <h2 className="fn-partner-h2">Finding Partners to Build<br /><span>Industry Playbooks</span></h2>
             <p className="fn-partner-desc">
-              We are looking for domain experts who want to formalize their industry's logic into autonomous agents. 
+              We are looking for domain experts who want to formalize their industry&apos;s logic into autonomous agents.
               We build the tech. You provide the expertise. Together, we own the digital labor.
             </p>
-            <Link href="/audit" className="fn-partner-btn">
+            <Link href="/apply" className="fn-partner-btn">
               BECOME A BUILD PARTNER <ArrowRight size={16} />
             </Link>
           </div>
@@ -210,7 +354,6 @@ export default function HomePage() {
           <Link href="/about">About</Link>
           <Link href="/privacy">Privacy</Link>
           <Link href="/terms">Terms</Link>
-
           <Link href="/custom">Custom</Link>
           <Link href="/audit">Audit</Link>
           <Link href="/blog">Blog</Link>
@@ -230,7 +373,7 @@ export default function HomePage() {
           font-family: var(--font-dm-mono), monospace;
         }
 
-        /* ═══ NAV — minimal funnel nav ═══ */
+        /* ═══ NAV ═══ */
         .fn-nav {
           position: fixed; top: 0; left: 0; right: 0; z-index: 100;
           padding: 0 48px; height: 56px;
@@ -249,7 +392,7 @@ export default function HomePage() {
           font-size: 11px; letter-spacing: 0.08em;
           padding: 8px 16px; text-decoration: none;
           display: flex; align-items: center; gap: 6px;
-          background: var(--black); color: #fff;
+          background: var(--red); color: #fff;
           transition: opacity 0.2s;
         }
         .fn-nav-cta:hover { opacity: 0.8; }
@@ -348,6 +491,36 @@ export default function HomePage() {
           100% { transform: scaleY(0); transform-origin: bottom; }
         }
 
+        /* ═══ PROBLEM ═══ */
+        .fn-problem {
+          padding: 96px 48px; background: var(--white);
+          border-top: 1px solid var(--gray-100);
+        }
+        .fn-problem-list {
+          display: flex; flex-direction: column; gap: 12px;
+          margin: 40px 0 48px; max-width: 500px;
+        }
+        .fn-problem-item {
+          font-size: 15px; color: var(--gray-600);
+          padding-left: 20px; position: relative; line-height: 1.7;
+        }
+        .fn-problem-item::before {
+          content: ''; position: absolute; left: 0; top: 12px;
+          width: 8px; height: 1px; background: var(--red);
+        }
+        .fn-problem-callout {
+          border-left: 3px solid var(--red);
+          padding: 24px 32px; background: var(--gray-50);
+          max-width: 560px;
+        }
+        .fn-problem-bold {
+          font-size: 18px; font-weight: 700; color: var(--black);
+          margin-bottom: 8px;
+        }
+        .fn-problem-dim {
+          font-size: 14px; color: var(--gray-500); line-height: 1.7;
+        }
+
         /* ═══ SECTIONS ═══ */
         .fn-section { padding: 96px 48px; }
         .fn-section-alt { background: var(--gray-50); }
@@ -367,7 +540,7 @@ export default function HomePage() {
           max-width: 640px; margin-bottom: 48px;
         }
 
-        /* ═══ BRIDGE ═══ */
+        /* ═══ BRIDGE / REFRAME ═══ */
         .fn-bridge {
           padding: 120px 48px; background: var(--black);
           position: relative; overflow: hidden;
@@ -387,6 +560,99 @@ export default function HomePage() {
           color: #fff; letter-spacing: 0.02em;
         }
         .fn-bridge-h2 span { color: var(--red); }
+        .fn-bridge-sub {
+          font-size: 14px; color: rgba(255,255,255,0.4);
+          line-height: 1.8; max-width: 520px; margin: 32px auto 0;
+        }
+
+        /* ═══ AUDIT OFFER ═══ */
+        .fn-audit-grid {
+          display: grid; grid-template-columns: repeat(2, 1fr);
+          gap: 24px; margin-top: 48px;
+        }
+        .fn-audit-item {
+          display: flex; align-items: flex-start; gap: 16px;
+          padding: 24px; background: var(--gray-50);
+          border: 1px solid var(--gray-100);
+          transition: border-color 0.2s;
+        }
+        .fn-audit-item:hover { border-color: var(--red); }
+        .fn-audit-num {
+          font-family: var(--font-bebas-neue), sans-serif;
+          font-size: 28px; color: var(--red); line-height: 1; flex-shrink: 0;
+        }
+        .fn-audit-item p {
+          font-size: 15px; color: var(--gray-600); line-height: 1.6;
+          padding-top: 4px;
+        }
+
+        /* ═══ WHAT YOU GET ═══ */
+        .fn-get-list {
+          display: flex; flex-direction: column; gap: 16px;
+          margin: 40px 0 32px; max-width: 500px;
+        }
+        .fn-get-item {
+          display: flex; align-items: center; gap: 16px;
+        }
+        .fn-get-check {
+          width: 20px; height: 20px; flex-shrink: 0;
+          border: 2px solid var(--red); position: relative;
+        }
+        .fn-get-check::after {
+          content: ''; position: absolute;
+          left: 4px; top: 1px; width: 6px; height: 10px;
+          border-right: 2px solid var(--red);
+          border-bottom: 2px solid var(--red);
+          transform: rotate(45deg);
+        }
+        .fn-get-item p {
+          font-size: 15px; color: var(--gray-600); line-height: 1.5;
+        }
+        .fn-get-bottom {
+          font-size: 16px; font-weight: 700; color: var(--black);
+          border-left: 3px solid var(--red); padding-left: 20px;
+          margin-top: 40px;
+        }
+
+        /* ═══ PROCESS ═══ */
+        .fn-process {
+          display: flex; align-items: flex-start; gap: 16px;
+          margin-top: 48px;
+        }
+        .fn-process-step {
+          flex: 1; text-align: center;
+          padding: 32px 24px;
+          background: var(--white); border: 1px solid var(--gray-100);
+        }
+        .fn-process-num {
+          font-family: var(--font-bebas-neue), sans-serif;
+          font-size: 48px; color: var(--red); line-height: 1;
+          margin-bottom: 16px;
+        }
+        .fn-process-title {
+          font-size: 15px; font-weight: 700; color: var(--black);
+          margin-bottom: 8px; text-transform: uppercase;
+          letter-spacing: 0.02em;
+        }
+        .fn-process-desc {
+          font-size: 13px; color: var(--gray-500); line-height: 1.6;
+        }
+        .fn-process-arrow {
+          color: var(--gray-200); padding-top: 56px; flex-shrink: 0;
+        }
+
+        /* ═══ TRANSITION ═══ */
+        .fn-transition {
+          padding: 64px 48px; background: var(--gray-50);
+          text-align: center;
+          border-top: 1px solid var(--gray-100);
+          border-bottom: 1px solid var(--gray-100);
+        }
+        .fn-transition-text {
+          font-family: var(--font-bebas-neue), sans-serif;
+          font-size: clamp(24px, 3.5vw, 40px);
+          color: var(--gray-400); letter-spacing: 0.02em;
+        }
 
         /* ═══ INFRASTRUCTURE LAYERS ═══ */
         .fn-layers {
@@ -418,99 +684,6 @@ export default function HomePage() {
           font-size: 10px; color: var(--gray-400); letter-spacing: 0.02em; line-height: 1.6;
         }
 
-
-
-        /* ═══ COMMAND CENTER STYLES ═══ */
-        .fn-cc-grid {
-          display: grid;
-          grid-template-columns: 1.2fr 0.8fr;
-          gap: 48px;
-          margin-top: 48px;
-          align-items: center;
-        }
-        .fn-cc-chat {
-          background: var(--black);
-          border-radius: 12px;
-          border: 1px solid #222;
-          overflow: hidden;
-          box-shadow: 0 40px 100px rgba(0,0,0,0.5);
-          display: flex;
-          flex-direction: column;
-          height: 480px;
-        }
-        .fn-cc-chat-header {
-          padding: 16px 20px;
-          background: #111;
-          border-bottom: 1px solid #222;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
-        .fn-cc-status {
-          font-size: 10px; color: #fff; letter-spacing: 0.15em;
-          display: flex; align-items: center; gap: 8px;
-        }
-        .fn-cc-status-dot {
-          width: 6px; height: 6px; background: var(--red); border-radius: 50%;
-          box-shadow: 0 0 10px var(--red);
-          animation: fnPulse 2s infinite;
-        }
-        .fn-cc-version { font-size: 9px; color: #444; }
-        .fn-cc-messages {
-          flex: 1;
-          padding: 24px;
-          overflow-y: auto;
-          display: flex;
-          flex-direction: column;
-          gap: 20px;
-        }
-        .fn-msg {
-          font-size: 12px; line-height: 1.6; max-width: 85%;
-        }
-        .fn-msg-user {
-          align-self: flex-end;
-          color: #fff;
-          background: #222;
-          padding: 12px 16px;
-          border-radius: 12px 12px 2px 12px;
-        }
-        .fn-msg-ai {
-          align-self: flex-start;
-          color: #999;
-          border-left: 1px solid var(--red);
-          padding-left: 16px;
-        }
-        .fn-msg-meta {
-          font-size: 9px; color: var(--red); letter-spacing: 0.1em;
-          margin-bottom: 8px;
-        }
-        .fn-cc-input {
-          padding: 20px;
-          background: #0a0a0a;
-          border-top: 1px solid #222;
-          color: #444;
-          font-size: 11px;
-          display: flex;
-          align-items: center;
-          gap: 8px;
-        }
-        .fn-cc-cursor { width: 1px; height: 14px; background: var(--red); animation: fnFlash 1s infinite; }
-        
-        .fn-cc-info { display: flex; flex-direction: column; gap: 32px; }
-        .fn-cc-info-card { border-left: 1px solid var(--gray-200); padding-left: 24px; }
-        .fn-cc-info-h3 { font-size: 13px; font-weight: 700; color: var(--black); margin-bottom: 8px; }
-        .fn-cc-info-p { font-size: 12px; color: var(--gray-500); line-height: 1.6; }
-
-        @keyframes fnPulse {
-          0% { transform: scale(1); opacity: 1; }
-          50% { transform: scale(1.5); opacity: 0.5; }
-          100% { transform: scale(1); opacity: 1; }
-        }
-        @keyframes fnFlash {
-          0%, 100% { opacity: 0; }
-          50% { opacity: 1; }
-        }
-
         /* ═══ MID CTA ═══ */
         .fn-mid-cta {
           padding: 72px 48px; background: var(--white);
@@ -524,20 +697,58 @@ export default function HomePage() {
           font-size: clamp(28px, 4vw, 48px); line-height: 1.05;
           color: var(--black); margin-bottom: 28px;
         }
-        .fn-mid-h2 span { color: var(--red); }
-        .fn-btn-outline {
-          display: inline-flex; align-items: center; gap: 10px;
-          font-family: var(--font-dm-mono), monospace;
-          font-size: 12px; letter-spacing: 0.06em;
-          padding: 16px 32px; text-decoration: none;
-          border: 1px solid var(--black); color: var(--black);
-          transition: all 0.3s;
+
+        /* ═══ WHO THIS IS FOR ═══ */
+        .fn-for-grid {
+          display: grid; grid-template-columns: 1fr 1fr;
+          gap: 48px; margin-top: 48px;
         }
-        .fn-btn-outline:hover {
-          background: var(--black); color: #fff;
-          transform: translateY(-2px);
+        .fn-for-heading {
+          font-family: var(--font-bebas-neue), sans-serif;
+          font-size: 24px; color: var(--black);
+          margin-bottom: 20px; letter-spacing: 0.02em;
+        }
+        .fn-for-list {
+          list-style: none; padding: 0; margin: 0;
+          display: flex; flex-direction: column; gap: 12px;
+        }
+        .fn-for-list li {
+          font-size: 14px; color: var(--gray-600);
+          padding-left: 20px; position: relative; line-height: 1.6;
+        }
+        .fn-for-list li::before {
+          content: ''; position: absolute; left: 0; top: 10px;
+          width: 8px; height: 8px; border: 2px solid var(--red);
+        }
+        .fn-for-list-dim li { color: var(--gray-400); }
+        .fn-for-list-dim li::before {
+          border-color: var(--gray-200);
         }
 
+        /* ═══ CLOSE ═══ */
+        .fn-close {
+          background: var(--black); padding: 120px 48px;
+          text-align: center;
+        }
+        .fn-close-inner {
+          max-width: 700px;
+          display: flex; flex-direction: column; align-items: center;
+        }
+        .fn-close-dim {
+          font-size: 15px; color: rgba(255,255,255,0.35);
+          margin-bottom: 16px; line-height: 1.7;
+        }
+        .fn-close-or {
+          font-family: var(--font-bebas-neue), sans-serif;
+          font-size: 20px; color: rgba(255,255,255,0.15);
+          margin-bottom: 24px; letter-spacing: 0.15em;
+        }
+        .fn-close-h2 {
+          font-family: var(--font-bebas-neue), sans-serif;
+          font-size: clamp(40px, 7vw, 80px); line-height: 0.95;
+          color: #fff; margin-bottom: 40px;
+        }
+        .fn-close-h2 span { color: var(--red); }
 
         /* ═══ PLAYBOOKS ═══ */
         .fn-playbooks-list {
@@ -650,59 +861,6 @@ export default function HomePage() {
         }
         .fn-rm-step:hover .fn-rm-step-link { gap: 10px; color: var(--red); }
 
-
-
-        /* ═══ FINAL CTA ═══ */
-        .fn-final-cta {
-          background: var(--black); padding: 120px 48px;
-          text-align: center; position: relative; overflow: hidden;
-        }
-        .fn-final-grid {
-          position: absolute; inset: 0;
-          background-image:
-            linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
-          background-size: 60px 60px;
-          mask-image: radial-gradient(ellipse at 50% 50%, black 20%, transparent 70%);
-        }
-        .fn-final-inner { position: relative; z-index: 2; max-width: 700px; }
-        .fn-final-tag {
-          font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
-          color: var(--red); margin-bottom: 24px;
-        }
-        .fn-final-h2 {
-          font-family: var(--font-bebas-neue), sans-serif;
-          font-size: clamp(48px, 8vw, 100px); line-height: 0.9;
-          color: #fff; margin-bottom: 24px;
-        }
-        .fn-final-h2 span { color: var(--red); }
-        .fn-final-sub {
-          font-size: 13px; color: rgba(255,255,255,0.35); line-height: 1.7;
-          margin-bottom: 40px;
-        }
-        .fn-final-btn {
-          display: inline-flex; align-items: center; gap: 12px;
-          font-family: var(--font-bebas-neue), sans-serif;
-          font-size: 22px; letter-spacing: 0.08em;
-          padding: 22px 64px; text-decoration: none;
-          background: var(--red); color: #fff;
-          transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
-          box-shadow: 0 10px 40px rgba(217,0,25,0.25);
-        }
-        .fn-final-btn:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 20px 50px rgba(217,0,25,0.35);
-          background: #c00016;
-        }
-        .fn-final-alt {
-          margin-top: 28px; font-size: 12px; color: rgba(255,255,255,0.25);
-          display: flex; align-items: center; justify-content: center; gap: 8px;
-        }
-        .fn-final-alt a {
-          color: var(--red); text-decoration: none; transition: color 0.2s;
-        }
-        .fn-final-alt a:hover { color: #fff; }
-
         /* ═══ PARTNER CTA ═══ */
         .fn-partner-cta {
           background: var(--red); padding: 100px 48px;
@@ -762,8 +920,6 @@ export default function HomePage() {
           .fn-hero-cta { font-size: 18px; padding: 18px 40px; }
 
           .fn-problem { padding: 56px 20px; }
-          .fn-pain-grid { grid-template-columns: 1fr; gap: 10px; margin-top: 28px; }
-          .fn-pain-item { padding: 16px 20px; font-size: 12px; }
 
           .fn-bridge { padding: 64px 20px; }
           .fn-bridge-h2 { font-size: clamp(22px, 5vw, 36px); }
@@ -772,6 +928,11 @@ export default function HomePage() {
           .fn-h2 { font-size: clamp(28px, 8vw, 44px); margin-bottom: 12px; }
           .fn-desc-wide { font-size: 12px; margin-bottom: 32px; }
 
+          .fn-audit-grid { grid-template-columns: 1fr; gap: 12px; }
+
+          .fn-process { flex-direction: column; gap: 12px; }
+          .fn-process-arrow { display: none; }
+
           .fn-layer { grid-template-columns: 48px 1fr; }
           .fn-layer-num { font-size: 24px; }
           .fn-layer-content { padding: 16px; }
@@ -779,15 +940,10 @@ export default function HomePage() {
           .fn-layer-desc { font-size: 11px; margin-bottom: 6px; }
           .fn-layer-tags { font-size: 9px; }
 
-          .fn-cc-grid { grid-template-columns: 1fr; gap: 32px; }
-          .fn-cc-chat { height: 400px; }
-          .fn-cc-info { gap: 24px; }
-
-
-
           .fn-mid-cta { padding: 48px 20px; }
           .fn-mid-h2 { font-size: clamp(24px, 6vw, 36px); }
 
+          .fn-for-grid { grid-template-columns: 1fr; gap: 32px; }
 
           .fn-playbooks-list {
             grid-template-columns: 1fr;
@@ -799,25 +955,16 @@ export default function HomePage() {
           .fn-pb-num { font-size: 14px; }
 
           .fn-roadmap-v2 { grid-template-columns: 1fr; gap: 40px; }
-          .fn-roadmap-line { left: 40px; top: 0; bottom: 0; width: 1px; height: auto; }
+          .fn-roadmap-line { display: none; }
           .fn-rm-step { flex-direction: row; gap: 24px; align-items: flex-start; }
           .fn-rm-dot { width: 80px; height: 80px; flex-shrink: 0; margin-bottom: 0; }
           .fn-rm-step-content { flex: 1; text-align: left; }
           .fn-rm-step-footer { flex-direction: row; align-items: center; justify-content: space-between; }
-          
-          .fn-diy-section { padding-left: 0; margin-top: 56px; }
-          .fn-diy-line { display: none; }
-          .fn-diy-card { flex-direction: column; align-items: flex-start; gap: 16px; padding: 24px; }
-          .fn-diy-badge { width: 48px; height: 48px; font-size: 14px; }
 
-          .fn-faq-item { padding: 24px 0; }
-          .fn-faq-q { font-size: 18px; }
-          .fn-faq-a { font-size: 12px; }
+          .fn-close { padding: 64px 20px; }
+          .fn-close-h2 { font-size: clamp(32px, 10vw, 56px); }
 
-          .fn-final-cta { padding: 64px 20px; }
-          .fn-final-h2 { font-size: clamp(36px, 12vw, 64px); }
-          .fn-final-btn { font-size: 18px; padding: 18px 40px; }
-          .fn-final-alt { flex-direction: column; gap: 4px; font-size: 11px; }
+          .fn-transition { padding: 40px 20px; }
 
           .fn-footer {
             flex-direction: column; gap: 16px;
@@ -839,11 +986,9 @@ export default function HomePage() {
           .fn-section { padding: 48px 16px; }
           .fn-h2 { font-size: clamp(24px, 8vw, 36px); }
 
-
           .fn-mid-cta { padding: 40px 16px; }
-          .fn-final-cta { padding: 56px 16px; }
-          .fn-final-h2 { font-size: clamp(28px, 10vw, 44px); }
-          .fn-final-btn { width: 100%; justify-content: center; }
+          .fn-close { padding: 56px 16px; }
+          .fn-close-h2 { font-size: clamp(28px, 10vw, 44px); }
 
           .fn-footer { padding: 20px 16px; }
         }

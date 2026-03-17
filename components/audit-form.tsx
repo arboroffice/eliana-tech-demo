@@ -6,7 +6,15 @@ import { ArrowLeft, ArrowRight, Send, X, Loader2, Sparkles, CheckCircle2, Brain,
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
 import { Slider } from "@/components/ui/slider"
 import { Textarea } from "@/components/ui/textarea"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -520,24 +528,62 @@ export function AuditForm() {
                                             <Select value={formData.businessType} onValueChange={(val: string) => updateField("businessType", val)}>
                                                 <SelectTrigger className="bg-white border-[#E4E3DE]"><SelectValue placeholder="Select..." /></SelectTrigger>
                                                 <SelectContent>
-                                                    <SelectItem value="saas">SaaS / Software</SelectItem>
-                                                    <SelectItem value="course-creators">Course Creator</SelectItem>
-                                                    <SelectItem value="coaching">Coaching / Consulting</SelectItem>
-                                                    <SelectItem value="membership">Membership / Community</SelectItem>
-                                                    <SelectItem value="digital-products">Digital Products (templates, tools, etc.)</SelectItem>
-                                                    <SelectItem value="agencies">Agency (Marketing, Creative, Dev)</SelectItem>
-                                                    <SelectItem value="ecommerce">E-commerce / Retail</SelectItem>
-                                                    <SelectItem value="home-services">Home Services (HVAC, Plumbing, Electrical, etc.)</SelectItem>
-                                                    <SelectItem value="healthcare">Healthcare / Dental / Wellness</SelectItem>
-                                                    <SelectItem value="legal-finance">Professional Services (Law, Accounting, Finance)</SelectItem>
-                                                    <SelectItem value="construction">Construction / Trades</SelectItem>
-                                                    <SelectItem value="hospitality">Restaurant / Hospitality</SelectItem>
-                                                    <SelectItem value="real-estate">Real Estate</SelectItem>
-                                                    <SelectItem value="manufacturing">Manufacturing / Logistics</SelectItem>
-                                                    <SelectItem value="newsletter">Newsletter / Media</SelectItem>
-                                                    <SelectItem value="cohort">Cohort-Based Program</SelectItem>
-                                                    <SelectItem value="professional-services">Other Professional Services</SelectItem>
-                                                    <SelectItem value="other">Other</SelectItem>
+                                                    <SelectGroup>
+                                                        <SelectLabel className="text-xs text-muted-foreground uppercase tracking-wider px-2 py-1.5">Online Business</SelectLabel>
+                                                        <SelectItem value="saas">SaaS / Software</SelectItem>
+                                                        <SelectItem value="course-creators">Course Creator</SelectItem>
+                                                        <SelectItem value="coaching">Coaching / Consulting</SelectItem>
+                                                        <SelectItem value="membership">Membership / Community</SelectItem>
+                                                        <SelectItem value="digital-products">Digital Products</SelectItem>
+                                                        <SelectItem value="newsletter">Newsletter / Media</SelectItem>
+                                                        <SelectItem value="cohort">Cohort-Based Program</SelectItem>
+                                                    </SelectGroup>
+                                                    <SelectGroup>
+                                                        <SelectLabel className="text-xs text-muted-foreground uppercase tracking-wider px-2 py-1.5 font-semibold">Trades & Services</SelectLabel>
+                                                        <SelectItem value="home-services">General Home Services</SelectItem>
+                                                        <SelectItem value="roofing">Roofing Companies</SelectItem>
+                                                        <SelectItem value="storm-restoration">Storm Restoration</SelectItem>
+                                                        <SelectItem value="solar-installers">Solar & Renewables</SelectItem>
+                                                        <SelectItem value="pool-construction">Pool Construction</SelectItem>
+                                                        <SelectItem value="custom-home-builders">Custom Home Builders</SelectItem>
+                                                        <SelectItem value="commercial-cleaning">Commercial Cleaning</SelectItem>
+                                                        <SelectItem value="commercial-home-services">Commercial Facility Services</SelectItem>
+                                                    </SelectGroup>
+                                                    <SelectGroup>
+                                                        <SelectLabel className="text-xs text-muted-foreground uppercase tracking-wider px-2 py-1.5 font-semibold">Professional Services</SelectLabel>
+                                                        <SelectItem value="agencies">Marketing / Creative Agencies</SelectItem>
+                                                        <SelectItem value="legal-finance">Legal & Accounting</SelectItem>
+                                                        <SelectItem value="financial-advisors">Financial Advisors</SelectItem>
+                                                        <SelectItem value="mortgage-brokers">Mortgage Brokers</SelectItem>
+                                                        <SelectItem value="real-estate">Real Estate (General)</SelectItem>
+                                                        <SelectItem value="luxury-real-estate">Luxury Real Estate</SelectItem>
+                                                        <SelectItem value="staffing-agencies">Staffing & Recruiting</SelectItem>
+                                                        <SelectItem value="private-equity">Private Equity / M&A</SelectItem>
+                                                        <SelectItem value="franchise-owners">Franchise Groups</SelectItem>
+                                                        <SelectItem value="personal-concierge">Personal Concierge / HNW</SelectItem>
+                                                    </SelectGroup>
+                                                    <SelectGroup>
+                                                        <SelectLabel className="text-xs text-muted-foreground uppercase tracking-wider px-2 py-1.5 font-semibold">Medical & Wellness</SelectLabel>
+                                                        <SelectItem value="healthcare">Healthcare / Dental</SelectItem>
+                                                        <SelectItem value="med-spas">Med Spas & Aesthetics</SelectItem>
+                                                        <SelectItem value="plastic-surgery">Plastic Surgery Clinics</SelectItem>
+                                                        <SelectItem value="gyms-fitness">Gyms & Fitness Studios</SelectItem>
+                                                        <SelectItem value="senior-living">Senior Living Facilities</SelectItem>
+                                                    </SelectGroup>
+                                                    <SelectGroup>
+                                                        <SelectLabel className="text-xs text-muted-foreground uppercase tracking-wider px-2 py-1.5 font-semibold">Industrial & Special</SelectLabel>
+                                                        <SelectItem value="manufacturing">Manufacturing</SelectItem>
+                                                        <SelectItem value="logistics-freight">Logistics & Freight</SelectItem>
+                                                        <SelectItem value="agricultural">Agricultural / Farming</SelectItem>
+                                                        <SelectItem value="dealerships">Dealerships (Auto, Boat, RV)</SelectItem>
+                                                        <SelectItem value="hospitality">Restaurant / Hospitality</SelectItem>
+                                                        <SelectItem value="yacht-charters">Yacht Charter / Marine</SelectItem>
+                                                        <SelectItem value="venues-events">Venues & Events</SelectItem>
+                                                    </SelectGroup>
+                                                    <SelectGroup>
+                                                        <SelectLabel className="text-xs text-muted-foreground uppercase tracking-wider px-2 py-1.5 font-semibold">Other</SelectLabel>
+                                                        <SelectItem value="other">Other / Not Listed</SelectItem>
+                                                    </SelectGroup>
                                                 </SelectContent>
                                             </Select>
                                         </div>
@@ -925,14 +971,15 @@ export function AuditForm() {
                                             </Select>
                                         </div>
                                         <div className="space-y-2">
-                                            <Label>Investment Comfort Level</Label>
+                                            <Label>What&apos;s your budget to adopt AI systems?</Label>
                                             <Select value={formData.growthBudget} onValueChange={(val: string) => updateField("growthBudget", val)}>
                                                 <SelectTrigger className="bg-white border-[#E4E3DE]"><SelectValue placeholder="Select..." /></SelectTrigger>
                                                 <SelectContent>
-                                                    <SelectItem value="starter">Under $5K (single system)</SelectItem>
-                                                    <SelectItem value="moderate">$5K - $15K (multiple systems)</SelectItem>
-                                                    <SelectItem value="aggressive">$15K - $40K (full build)</SelectItem>
-                                                    <SelectItem value="enterprise">$40K+ (AI-native operations)</SelectItem>
+                                                    <SelectItem value="starter">Under $5K</SelectItem>
+                                                    <SelectItem value="moderate">$5K - $10K</SelectItem>
+                                                    <SelectItem value="growth">$10K - $25K</SelectItem>
+                                                    <SelectItem value="aggressive">$25K - $50K</SelectItem>
+                                                    <SelectItem value="enterprise">$50K+</SelectItem>
                                                 </SelectContent>
                                             </Select>
                                         </div>

@@ -53,9 +53,20 @@ type IndustryOverride = DeepPartial<IndustryConfig>;
 
 export function getBusinessCategory(businessType: string): BusinessCategory {
   const online = ['course-creators', 'coaching', 'membership', 'saas', 'digital-products', 'newsletter', 'cohort']
-  const local = ['home-services', 'healthcare', 'construction', 'hospitality']
-  const professional = ['agencies', 'professional-services', 'real-estate', 'legal-finance']
-  const product = ['ecommerce', 'manufacturing']
+  const local = [
+    'home-services', 'healthcare', 'construction', 'hospitality', 
+    'storm-restoration', 'roofing', 'med-spas', 'commercial-home-services', 
+    'plastic-surgery', 'solar-installers', 'custom-home-builders', 
+    'commercial-cleaning', 'gyms-fitness', 'senior-living', 'venues-events', 
+    'pool-construction'
+  ]
+  const professional = [
+    'agencies', 'professional-services', 'real-estate', 'legal-finance', 
+    'luxury-real-estate', 'mortgage-brokers', 'franchise-owners', 
+    'private-equity', 'yacht-charters', 'staffing-agencies', 
+    'personal-concierge', 'financial-advisors'
+  ]
+  const product = ['ecommerce', 'manufacturing', 'dealerships', 'agricultural', 'logistics-freight']
 
   if (online.includes(businessType)) return 'online'
   if (local.includes(businessType)) return 'local'
@@ -449,16 +460,459 @@ const INDUSTRY_OVERRIDES: Record<string, IndustryOverride> = {
   },
   'cohort': {
     step2: {
-      productDescription: { label: "What is the cohort topic?", placeholder: "e.g. 4-week intensive on building a personal brand on LinkedIn..." },
-      productPricePoint: { label: "Price per Seat / Enrollment" }
+      productDescription: { label: "What is your cohort-based program about?", placeholder: "e.g. 6-week intensive for senior product managers..." },
+      productPricePoint: { label: "Program Enrollment Fee" }
     },
     step4: {
-      listSize: { label: "Total Waitlist / Alumni Size" },
-      conversionRate: { label: "Waitlist to Enrolled Conversion Rate" },
-      launchesPerYear: { label: "Cohorts Per Year" }
+      listSize: { label: "Student & Alumni Database" },
+      launchesPerYear: { label: "Live Cohort Launches Per Year" }
     },
     step5: {
       supportHoursPerWeek: { label: "Hours / Week on Live Moderation & Student DMs" }
+    }
+  },
+  'storm-restoration': {
+    step2: {
+      productDescription: { label: "Describe your restoration focus", placeholder: "e.g. Major storm restoration and insurance claim work in the SE region..." },
+      productPricePoint: { label: "Average Claim / Project Value" },
+      platform: {
+        label: "Field & Claim Management", options: [
+          { value: "xactimate", label: "Xactimate" },
+          { value: "jobber", label: "Jobber" },
+          { value: "servicetitan", label: "ServiceTitan" },
+          { value: "manual", label: "Manual / Sheets" },
+          { value: "other", label: "Other" },
+        ]
+      }
+    },
+    step6: {
+      tools: ["Xactimate", "CompanyCam", "Jobber", "ServiceTitan", "Hovr", "QuickBooks", "Zapier"],
+      problems: ["Storm speed-to-lead", "Insurance delays", "Crew scheduling spikes", "Supply chain during storms", "Manual estimating"]
+    }
+  },
+  'roofing': {
+    step2: {
+      productDescription: { label: "Roofing specialty", placeholder: "e.g. High-end residential slate and metal roofing..." },
+      productPricePoint: { label: "Average Roof Replacement Value" },
+      platform: {
+        label: "Roofing Software", options: [
+          { value: "acculynx", label: "AccuLynx" },
+          { value: "roofsnap", label: "RoofSnap" },
+          { value: "jobber", label: "Jobber" },
+          { value: "other", label: "Other" },
+        ]
+      }
+    },
+    step4: {
+      trafficSource: { label: "Primary Lead Source (Door Knocking, LSA, SEO)" }
+    },
+    step6: {
+      tools: ["AccuLynx", "EagleView", "RoofSnap", "Jobber", "CompanyCam", "QuickBooks"],
+      problems: ["Lead follow-up persistence", "Estimate speed", "Estimator no-shows", "Inconsistent pipeline", "Review management"]
+    }
+  },
+  'med-spas': {
+    step2: {
+      productDescription: { label: "Describe your clinic's services", placeholder: "e.g. Full-service medical spa specializing in aesthetics and wellness..." },
+      platform: {
+        label: "Booking & EMR System", options: [
+          { value: "mindbody", label: "Mindbody" },
+          { value: "boulevard", label: "Boulevard" },
+          { value: "phorest", label: "Phorest" },
+          { value: "vagaro", label: "Vagaro" },
+          { value: "other", label: "Other" },
+        ]
+      }
+    },
+    step4: {
+      churnRate: { label: "Membership / Client Retention Rate" },
+      conversionRate: { label: "Inquiry to Appointment Rate" }
+    },
+    step6: {
+      tools: ["Mindbody / Boulevard", "Zenoti", "Klaviyo", "Instagram / FB", "Mailchimp", "Zapier"],
+      problems: ["No-shows", "Lead response time", "Membership management", "Inventory tracking", "Repeat bookings"]
+    }
+  },
+  'mortgage-brokers': {
+    step2: {
+      productDescription: { label: "Lending Focus", placeholder: "e.g. Residential mortgage broker specializing in VA and FHA loans..." },
+      productPricePoint: { label: "Average Loan Amount / GCI" },
+      platform: {
+        label: "Loan Origination System (LOS)", options: [
+          { value: "calyx", label: "Calyx / Encompass" },
+          { value: "lendingpad", label: "LendingPad" },
+          { value: "floify", label: "Floify" },
+          { value: "other", label: "Other" },
+        ]
+      }
+    },
+    step4: {
+      listSize: { label: "Total Past Client Database" },
+      conversionRate: { label: "Lead to Funded Loan Rate" }
+    },
+    step6: {
+      tools: ["Encompass", "LendingPad", "Floify", "Total Expert", "Jungo", "Zapier"],
+      problems: ["Document chasing", "Friday pipeline updates", "Realtor relationship management", "Refi trigger tracking", "Compliance admin"]
+    }
+  },
+  'dealerships': {
+    step2: {
+      productDescription: { label: "What do you sell?", placeholder: "e.g. New and used marine / boat dealership..." },
+      productPricePoint: { label: "Average Unit Sale Value" },
+      platform: {
+        label: "Dealer Management System (DMS)", options: [
+          { value: "revelation", label: "Revelation / IDS" },
+          { value: "lightspeed", label: "Lightspeed" },
+          { value: "cdk", label: "CDK Global" },
+          { value: "other", label: "Other" },
+        ]
+      }
+    },
+    step5: {
+      supportHoursPerWeek: { label: "Hours / Week on Lead Follow-up & F&I" }
+    },
+    step6: {
+      tools: ["Lightspeed / IDS", "HubSpot", "DealerSocket", "TraderInteractive", "QuickBooks"],
+      problems: ["Speed-to-lead (after hours)", "Inventory spec questions", "Financing qualification", "Trade-in valuations", "Service lane upselling"]
+    }
+  },
+  'staffing-agencies': {
+    step2: {
+      productDescription: { label: "Staffing focus", placeholder: "e.g. Specialized IT and software engineering recruitment..." },
+      productPricePoint: { label: "Average Placement Fee / Margin" },
+      platform: {
+        label: "Applicant Tracking System (ATS)", options: [
+          { value: "bullhorn", label: "Bullhorn" },
+          { value: "greenhouse", label: "Greenhouse" },
+          { value: "lever", label: "Lever" },
+          { value: "manual", label: "LinkedIn / Sheets" },
+          { value: "other", label: "Other" },
+        ]
+      }
+    },
+    step4: {
+      listSize: { label: "Candidate Database Size" },
+      conversionRate: { label: "Sourcing to Placement Rate" }
+    },
+    step6: {
+      tools: ["Bullhorn", "Greenhouse", "LinkedIn Recruiter", "Lusha / Apollo", "Zapier"],
+      problems: ["Resume screening volume", "Interview no-shows", "Candidate ghosting", "Dormant database mining", "BizDev / Client acquisition"]
+    }
+  },
+  'gyms-fitness': {
+    step2: {
+      productDescription: { label: "Describe your studio", placeholder: "e.g. Boutique CrossFit and functional fitness facility..." },
+      productPricePoint: { label: "Monthly Membership Fee" },
+      platform: {
+        label: "Gym Management Software", options: [
+          { value: "wodify", label: "Wodify" },
+          { value: "pushpress", label: "PushPress" },
+          { value: "mindbody", label: "Mindbody" },
+          { value: "other", label: "Other" },
+        ]
+      }
+    },
+    step4: {
+      churnRate: { label: "Monthly Member Churn" },
+      conversionRate: { label: "Trial to Member Conversion" }
+    },
+    step6: {
+      tools: ["Wodify / PushPress", "Mindbody", "Zapier", "Klaviyo / Mailchimp", "Facebook Ads"],
+      problems: ["Credit card declines (Dunning)", "Trial no-shows", "Member accountability", "Lead follow-up", "Coach scheduling"]
+    }
+  },
+  'logistics-freight': {
+    step2: {
+      productDescription: { label: "Logistics focus", placeholder: "e.g. 3PL and freight brokerage specializing in cold chain..." },
+      platform: {
+        label: "Transportation Management (TMS)", options: [
+          { value: "mcleod", label: "McLeod" },
+          { value: "aljex", label: "Aljex" },
+          { value: "turvo", label: "Turvo" },
+          { value: "mercury-gate", label: "MercuryGate" },
+          { value: "other", label: "Other" },
+        ]
+      }
+    },
+    step4: {
+      conversionRate: { label: "Quote to Load Win Rate" },
+      churnRate: { label: "Claims / Issue Rate" }
+    },
+    step6: {
+      tools: ["DAT / Truckstop", "McLeod", "QuickBooks", "Project44", "Zapier"],
+      problems: ["Track & Trace (updates)", "Load board competition", "Billing delay (DSO)", "Empty miles (deadhead)", "Broker/Carrier communication"]
+    }
+  },
+  'luxury-real-estate': {
+    step2: {
+      productDescription: { label: "Market focus", placeholder: "e.g. Ultra-luxury residential listings in the Hamptons..." },
+      productPricePoint: { label: "Average Listing Value" },
+      platform: {
+        label: "Luxury CRM", options: [
+          { value: "followupboss", label: "Follow Up Boss" },
+          { value: "luxury-presence", label: "Luxury Presence" },
+          { value: "boomtown", label: "BoomTown" },
+          { value: "other", label: "Other" },
+        ]
+      }
+    },
+    step4: {
+      listSize: { label: "High-Net-Worth Database" },
+      conversionRate: { label: "Inquiry to Showing Rate" }
+    }
+  },
+  'financial-advisors': {
+    step2: {
+      productDescription: { label: "Advisory focus", placeholder: "e.g. Fee-only financial planning for tech executives..." },
+      productPricePoint: { label: "Average AUM per Client" },
+      platform: {
+        label: "Wealth Management CRM", options: [
+          { value: "redtail", label: "Redtail" },
+          { value: "wealthbox", label: "Wealthbox" },
+          { value: "salesforce", label: "Salesforce Financial" },
+          { value: "other", label: "Other" },
+        ]
+      }
+    },
+    step6: {
+      tools: ["Redtail / Wealthbox", "Morningstar", "eMoney", "RightCapital", "Zapier"],
+      problems: ["Client review prep", "Compliance monitoring", "Lead generation/HNW outreach", "Administrative drag", "Data reporting"]
+    }
+  },
+  'senior-living': {
+    step2: {
+      productDescription: { label: "Facility Type / Focus", placeholder: "e.g. Assisted living and memory care facility in a major metro area..." },
+      productPricePoint: { label: "Average Monthly Residency Fee" },
+      platform: {
+        label: "Facility Management / CRM", options: [
+          { value: "pointclickcare", label: "PointClickCare" },
+          { value: "matrixcare", label: "MatrixCare" },
+          { value: "sherpa", label: "Sherpa / WelcomeHome" },
+          { value: "other", label: "Other" },
+        ]
+      }
+    },
+    step4: {
+      listSize: { label: "Leads / Census Database" },
+      conversionRate: { label: "Inquiry to Tour Rate" }
+    },
+    step6: {
+      tools: ["PointClickCare", "Sherpa", "LeadSquared", "QuickBooks", "Zapier"],
+      problems: ["Night-shift inquiry response", "Family follow-up persistence", "Staffing/Recruiting CNAs", "Occupancy stabilization", "Tour booking efficiency"]
+    }
+  },
+  'yacht-charters': {
+    step2: {
+      productDescription: { label: "Fleet / Charter focus", placeholder: "e.g. Luxury superyacht charters in the Mediterranean..." },
+      productPricePoint: { label: "Average Charter Week Value" },
+      platform: {
+        label: "Charter Management Tool", options: [
+          { value: "sedna", label: "Sedna" },
+          { value: "charter-it", label: "Charter It" },
+          { value: "manual", label: "WhatsApp / Email" },
+          { value: "other", label: "Other" },
+        ]
+      }
+    },
+    step6: {
+      tools: ["Sedna", "WhatsApp Business", "CharterIndex", "QuickBooks", "Zapier"],
+      problems: ["Preference sheet collection", "Itinerary drafting speed", "High-HNW concierge expectations", "Crew coordination", "Contract/Wire speed"]
+    }
+  },
+  'venues-events': {
+    step2: {
+      productDescription: { label: "Venue type", placeholder: "e.g. Luxury wedding venue and corporate retreat center..." },
+      productPricePoint: { label: "Average Event / Venue Fee" },
+      platform: {
+        label: "Event Management Software", options: [
+          { value: "honeybook", label: "HoneyBook" },
+          { value: "tripleseat", label: "TripleSeat" },
+          { value: "planning-pod", label: "Planning Pod" },
+          { value: "other", label: "Other" },
+        ]
+      }
+    },
+    step4: {
+      conversionRate: { label: "Inquiry to Tour / Book Rate" }
+    },
+    step6: {
+      tools: ["HoneyBook", "TripleSeat", "Planning Pod", "Social Tables", "QuickBooks"],
+      problems: ["High inquiry volume triage", "Live calendar availability questions", "Vendor insurance collection", "Proposal drafting speed", "Post-event review harvesting"]
+    }
+  },
+  'pool-construction': {
+    step2: {
+      productDescription: { label: "Pool specialty", placeholder: "e.g. High-end custom gunite pools and outdoor living design..." },
+      productPricePoint: { label: "Average Pool Project Value" },
+      platform: {
+        label: "Construction / CRM Tool", options: [
+          { value: "jobber", label: "Jobber" },
+          { value: "pool-care", label: "Pool Care / PoolOffice" },
+          { value: "buildertrend", label: "Buildertrend" },
+          { value: "other", label: "Other" },
+        ]
+      }
+    },
+    step5: {
+      supportHoursPerWeek: { label: "Hours / Week on Homeowner Communications" }
+    },
+    step6: {
+      tools: ["Jobber", "Buildertrend", "PoolOffice", "Structure Studios", "Zapier"],
+      problems: ["Project status updates", "Permit/HOA delay management", "Sub-contractor dispatching", "Maintenance upsell after build", "Friday photo updates"]
+    }
+  },
+  'personal-concierge': {
+    step2: {
+      productDescription: { label: "Service focus", placeholder: "e.g. Lifestyle management for high-net-worth tech founders..." },
+      deliveryMethod: {
+        label: "Engagement Model", options: [
+          { value: "retainer", label: "Monthly Retainer" },
+          { value: "hourly", label: "Hourly / Task-based" },
+          { value: "project", label: "Project / Event based" },
+        ]
+      }
+    },
+    step6: {
+      tools: ["Motion / Google Cal", "WhatsApp", "Slack", "Notion", "Superhuman", "Zapier"],
+      problems: ["Inbox triage volume", "Complex travel logistics", "Estate staff coordination", "24/7 responsiveness pressure", "Institutional knowledge loss"]
+    }
+  },
+  'custom-home-builders': {
+    step2: {
+      productDescription: { label: "Build focus", placeholder: "e.g. Luxury design-build firm specializing in modern hillside homes..." },
+      productPricePoint: { label: "Average Build Value" },
+      platform: {
+        label: "Builder Platform", options: [
+          { value: "buildertrend", label: "Buildertrend" },
+          { value: "procore", label: "Procore" },
+          { value: "manual", label: "Sheets / Email" },
+          { value: "other", label: "Other" },
+        ]
+      }
+    },
+    step6: {
+      tools: ["Buildertrend", "Procore", "CompanyCam", "QuickBooks Online", "Zapier"],
+      problems: ["Client selection delays", "Change order signature speed", "Sub-contractor no-shows", "Schedule drift communication", "Weekly progress reporting"]
+    }
+  },
+  'franchise-owners': {
+    step2: {
+      productDescription: { label: "Franchise type", placeholder: "e.g. Multi-unit owner of 8 quick-service restaurant locations..." },
+      numberOfProducts: { label: "Total Locations" }
+    },
+    step5: {
+      supportHoursPerWeek: { label: "Hours / Week on Recruiting & Onboarding" }
+    },
+    step6: {
+      tools: ["7shifts", "Homebase", "Gusto", "FranConnect", "Zapier"],
+      problems: ["High employee turnover", "Training consistency", "Multi-unit reporting lag", "Marketing compliance", "Applicant screening speed"]
+    }
+  },
+  'private-equity': {
+    step2: {
+      productDescription: { label: "Focus / Strategy", placeholder: "e.g. Lower middle-market LBOs in the manufacturing sector..." },
+      numberOfProducts: { label: "Portfolio Companies" }
+    },
+    step6: {
+      tools: ["DealCloud", "Intralinks", "QuickBooks / NetSuite", "Excel", "Zapier"],
+      problems: ["Due diligence speed", "Portfolio margin expansion", "Post-close G&A consolidation", "Reporting lag", "Data extraction from VDRs"]
+    }
+  },
+  'commercial-cleaning': {
+    step2: {
+      productDescription: { label: "Cleaning focus", placeholder: "e.g. Daily janitorial and medical facility sanitation..." },
+      platform: {
+        label: "Scheduling Software", options: [
+          { value: "swept", label: "Swept" },
+          { value: "janitorial-manager", label: "Janitorial Manager" },
+          { value: "jobber", label: "Jobber" },
+          { value: "other", label: "Other" },
+        ]
+      }
+    },
+    step5: {
+      supportHoursPerWeek: { label: "Hours / Week on Dispatch & Recruiting" }
+    },
+    step6: {
+      tools: ["Swept", "Janitorial Manager", "Jobber", "Homebase", "Spanish Translation Tools"],
+      problems: ["High night-shift turnover", "Quality control visibility", "Client communication lag", "Supply tracking", "Hispanic labor recruiting"]
+    }
+  },
+  'agricultural': {
+    step2: {
+      productDescription: { label: "Operation Type", placeholder: "e.g. Row crop farming and livestock management in the Midwest..." },
+      platform: {
+        label: "Ag-Tech Platform", options: [
+          { value: "john-deere", label: "John Deere Operations Center" },
+          { value: "climate-fieldview", label: "Climate FieldView" },
+          { value: "farm-logics", label: "FarmLogics" },
+          { value: "other", label: "Other" },
+        ]
+      }
+    },
+    step6: {
+      tools: ["John Deere Ops Center", "Climate FieldView", "Granular", "WhatsApp", "QuickBooks"],
+      problems: ["Equipment downtime during harvest", "Seasonal labor recruiting (H-2A)", "Data synthesis from multiple sensors", "Commodity price monitoring", "Compliance logging"]
+    }
+  },
+  'commercial-home-services': {
+    step2: {
+      productDescription: { label: "Service Focus", placeholder: "e.g. Commercial HVAC and facility maintenance for property groups..." },
+      productPricePoint: { label: "Average Contract / Bid Value" },
+      platform: {
+        label: "Commercial Field Software", options: [
+          { value: "servicetitan", label: "ServiceTitan (Commercial)" },
+          { value: "corrigo", label: "Corrigo" },
+          { value: "procore", label: "Procore" },
+          { value: "other", label: "Other" },
+        ]
+      }
+    },
+    step4: {
+      conversionRate: { label: "Bid to Award Rate" }
+    },
+    step6: {
+      tools: ["ServiceTitan", "Corrigo", "Procore", "Stack", "Bidtracer"],
+      problems: ["Complex RFP decoding", "Facility manager follow-ups", "Proposal drafting time", "Net-30/60 cash flow", "Compliance/Insurance tracking"]
+    }
+  },
+  'plastic-surgery': {
+    step2: {
+      productDescription: { label: "Surgical specialty", placeholder: "e.g. Boutique plastic surgery clinic focus on body contouring..." },
+      productPricePoint: { label: "Average Procedure Value" },
+      platform: {
+        label: "Surgical EMR / CRM", options: [
+          { value: "nextech", label: "Nextech" },
+          { value: "symplast", label: "Symplast" },
+          { value: "patient-now", label: "PatientNow" },
+          { value: "other", label: "Other" },
+        ]
+      }
+    },
+    step6: {
+      tools: ["Nextech", "Symplast", "Klaviyo", "Instagram", "PatientNow", "Zapier"],
+      problems: ["High-touch lead nurturing", "Consultation no-shows", "Before/After asset management", "Post-op check-in volume", "Inquiry-to-surgery conversion"]
+    }
+  },
+  'solar-installers': {
+    step2: {
+      productDescription: { label: "Installation focus", placeholder: "e.g. Residential solar and battery storage in California..." },
+      productPricePoint: { label: "Average System Value" },
+      platform: {
+        label: "Solar Design/CRM Tool", options: [
+          { value: "aurora", label: "Aurora Solar" },
+          { value: "solo", label: "Solo" },
+          { value: "gohighlevel", label: "GoHighLevel Solar" },
+          { value: "other", label: "Other" },
+        ]
+      }
+    },
+    step4: {
+      conversionRate: { label: "Appointment to Close Rate" }
+    },
+    step6: {
+      tools: ["Aurora Solar", "Solo", "Sunbase", "GoHighLevel", "Nearmap"],
+      problems: ["Lead acquisition cost (CAC)", "Speed-to-lead", "Permit wait-time cancellations", "Reps calling dead leads", "Roof viability assessment velocity"]
     }
   }
 }

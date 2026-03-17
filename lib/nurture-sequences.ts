@@ -11,7 +11,7 @@ export interface NurtureEmail {
 }
 
 export interface NurtureSequence {
-  id: 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H'
+  id: 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I'
   name: string
   emails: NurtureEmail[]
 }
@@ -654,17 +654,100 @@ ${ctaButton('Book a 5-Minute Sync →')}
   ]
 }
 
+// ─── SEQUENCE I: High-Budget AI Adopter ($10K+) (5 emails, 14 days) ──
+const sequenceI: NurtureSequence = {
+  id: 'I',
+  name: 'High-Budget AI Adopter',
+  emails: [
+    {
+      day: 0,
+      subject: 'Your AI Efficiency Audit is ready — here\'s the #1 thing to fix',
+      bodyHtml: wrapEmail(`
+<p>Hey {firstName},</p>
+<p>Your audit for <strong>{companyName}</strong> just came back.</p>
+<p>Based on your answers, your biggest opportunity is removing manual work from <strong>{painPoint}</strong>.</p>
+<p>Right now, your business is losing time in a few key places that can be automated quickly. Your full report breaks it all down — the time leaks, the hours lost, and the first system to fix it.</p>
+<p>Since you mentioned you're ready to invest in AI systems, I'd love to walk you through your results and map out exactly what we'd build:</p>
+${ctaButton('Book Your Strategy Session →')}
+<p>This is a 30-minute call. No pitch deck. Just your data, your workflow, and a clear plan.</p>
+<p>Talk soon,<br>Mia</p>
+      `)
+    },
+    {
+      day: 2,
+      subject: 'The system your business is missing (based on your audit)',
+      bodyHtml: wrapEmail(`
+<p>Hey {firstName},</p>
+<p>I was reviewing your audit data for <strong>{companyName}</strong> and wanted to share something specific.</p>
+<p>Most businesses at your stage have the same pattern: great at the work, drowning in the operations around the work. You mentioned <strong>{painPoint}</strong> — that's not a tools problem. It's a systems problem.</p>
+<p>Here's what we typically build for businesses like yours:</p>
+<ul style="color: #555; font-size: 14px; line-height: 1.8;">
+  <li>Automated lead intake + instant response (no more missed opportunities)</li>
+  <li>Follow-up sequences that run without you touching them</li>
+  <li>Operations that don't break when you step away</li>
+</ul>
+<p>The first build usually takes 14 days and removes a key bottleneck immediately.</p>
+${ctaButton('Let\'s Map It Out →')}
+<p>Mia</p>
+      `)
+    },
+    {
+      day: 5,
+      subject: 'What {companyName} looks like with AI running ops',
+      bodyHtml: wrapEmail(`
+<p>Hey {firstName},</p>
+<p>Quick picture of what changes when the system is in place:</p>
+<ul style="color: #555; font-size: 14px; line-height: 1.8;">
+  <li>A lead comes in → info captured automatically → instant response sent</li>
+  <li>Follow-ups happen without you → you only step in when needed</li>
+  <li>Operations data flows into one dashboard → you see everything clearly</li>
+</ul>
+<p>No APIs to learn. No tech to manage. We build it, customize it to your workflows, and hand it over ready to run.</p>
+<p>This is not about adding more tools. This is about removing work from your day.</p>
+${ctaButton('Book Your Strategy Session →')}
+<p>Mia</p>
+      `)
+    },
+    {
+      day: 8,
+      subject: 'Quick question about {companyName}',
+      bodyHtml: wrapEmail(`
+<p>Hey {firstName},</p>
+<p>Wanted to follow up on your AI audit results.</p>
+<p>You scored <strong>{auditScore}/100</strong> on efficiency — which means there's significant room to remove manual work and get hours back every week.</p>
+<p>Are you still thinking about this? If timing isn't right, no worries — I just want to make sure you have the option while we still have build slots open this month.</p>
+${ctaButton('Grab a Time →')}
+<p>Either way, rooting for <strong>{companyName}</strong>.</p>
+<p>Mia</p>
+      `)
+    },
+    {
+      day: 14,
+      subject: 'Last note on your AI audit',
+      bodyHtml: wrapEmail(`
+<p>Hey {firstName},</p>
+<p>This is my last follow-up on your audit results.</p>
+<p>Your data showed clear opportunities to save 10-20+ hours per week by automating the manual work in your business. If you're ready to act on that, I'd love to build it for you.</p>
+<p>If not, no hard feelings — you've got the DIY action plan in your report and you can always come back when timing is better.</p>
+${ctaButton('Book Before Slots Fill →')}
+<p>Wishing you the best,<br>Mia</p>
+      `)
+    }
+  ]
+}
+
 // ─── Exports ─────────────────────────────────────────────────────────
 
-const sequences: Record<string, NurtureSequence> = { 
-  A: sequenceA, 
-  B: sequenceB, 
+const sequences: Record<string, NurtureSequence> = {
+  A: sequenceA,
+  B: sequenceB,
   C: sequenceC,
   D: sequenceD,
   E: sequenceE,
   F: sequenceF,
   G: sequenceG,
-  H: sequenceH
+  H: sequenceH,
+  I: sequenceI
 }
 
 export function getSequence(id: string): NurtureSequence {
