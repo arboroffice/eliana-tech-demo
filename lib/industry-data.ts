@@ -1,6 +1,7 @@
 import { niches1 } from "./niches-1";
 import { niches2 } from "./niches-2";
 import { niches3 } from "./niches-3";
+import { nichesTop100 } from "./niches-top-100";
 
 export interface BusinessPartSolution {
     painPoint: string;
@@ -1991,5 +1992,6 @@ export const industries: IndustryContent[] = [
     },
     ...niches1,
     ...niches2,
-    ...niches3
+    ...niches3,
+    ...nichesTop100
 ];

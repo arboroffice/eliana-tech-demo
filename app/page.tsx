@@ -43,6 +43,206 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* ═══ META VERIFIED + INTEGRATIONS ═══ */}
+        <section className="fn-trust">
+          <div className="fn-container">
+
+            {/* Meta Verified Badge */}
+            <div className="fn-meta-badge">
+              <svg className="fn-meta-logo" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 0C8.06 0 0 8.06 0 18s8.06 18 18 18 18-8.06 18-18S27.94 0 18 0z" fill="#0081FB"/>
+                <path d="M24.71 10.24c-1.46 0-2.8.98-4.06 2.72-.47.65-.92 1.38-1.35 2.17l-.3.56c-.6-1.14-1.15-2.06-1.67-2.73-1.27-1.64-2.56-2.72-4.1-2.72-3.12 0-6.23 4.67-6.23 10.18 0 3.35 1.56 5.82 4.12 5.82 1.52 0 2.86-.88 4.37-3.12.46-.68.92-1.45 1.38-2.3l.13-.24c.54 1.01 1.04 1.85 1.51 2.54 1.51 2.17 2.85 3.12 4.37 3.12 2.55 0 4.12-2.47 4.12-5.82 0-5.51-3.11-10.18-6.29-10.18zM13.23 22.68c-1.1 1.58-1.82 2.04-2.58 2.04-1.26 0-1.97-1.42-1.97-3.87 0-4.14 2.09-8.23 4.05-8.23.86 0 1.6.59 2.54 1.96.53.77 1.07 1.72 1.65 2.85l.09.17c-1.46 2.72-2.72 4.42-3.78 5.08zm8.31 2.04c-.76 0-1.48-.46-2.58-2.04-.5-.66-1.03-1.49-1.6-2.48l-.6-1.06.46-.84c.58-1.07 1.13-1.97 1.64-2.72.95-1.37 1.68-1.96 2.54-1.96 1.96 0 4.05 4.09 4.05 8.23 0 2.45-.71 3.87-1.91 3.87z" fill="white"/>
+              </svg>
+              <div className="fn-meta-text">
+                <span className="fn-meta-label">Meta Verified Integration</span>
+                <span className="fn-meta-sub">Official Business Partner</span>
+              </div>
+              <svg className="fn-verified-check" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="12" fill="#0081FB"/>
+                <path d="M7 12.5l3 3 7-7" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
+
+            {/* Integrations Grid */}
+            <div className="fn-integrations">
+              <p className="fn-label" style={{ textAlign: 'center' }}>Trusted Integrations</p>
+              <h2 className="fn-h2" style={{ textAlign: 'center' }}>
+                <span>THESE + MORE</span> INTEGRATIONS<br />TO BUILD TRUST.
+              </h2>
+              <p className="fn-int-sub">
+                OpenClaw &middot; Codex &middot; Cursor
+              </p>
+
+              <div className="fn-int-grid">
+
+                {/* OpenAI */}
+                <div className="fn-int-item">
+                  <div className="fn-int-icon" style={{ background: '#000' }}>
+                    <svg viewBox="0 0 24 24" width="28" height="28" fill="white"><path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073zM13.26 22.43a4.476 4.476 0 0 1-2.876-1.04l.141-.081 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.494zM3.6 18.304a4.47 4.47 0 0 1-.535-3.014l.142.085 4.783 2.759a.771.771 0 0 0 .78 0l5.843-3.369v2.332a.08.08 0 0 1-.033.062L9.74 19.95a4.5 4.5 0 0 1-6.14-1.646zM2.34 7.896a4.485 4.485 0 0 1 2.366-1.973V11.6a.766.766 0 0 0 .388.676l5.815 3.355-2.02 1.168a.076.076 0 0 1-.071 0l-4.83-2.786A4.504 4.504 0 0 1 2.34 7.872zm16.597 3.855l-5.833-3.387L15.119 7.2a.076.076 0 0 1 .071 0l4.83 2.791a4.494 4.494 0 0 1-.676 8.105v-5.678a.79.79 0 0 0-.407-.667zm2.01-3.023l-.141-.085-4.774-2.782a.776.776 0 0 0-.785 0L9.409 9.23V6.897a.066.066 0 0 1 .028-.061l4.83-2.787a4.5 4.5 0 0 1 6.68 4.66zm-12.64 4.135l-2.02-1.164a.08.08 0 0 1-.038-.057V6.075a4.5 4.5 0 0 1 7.375-3.453l-.142.08L8.704 5.46a.795.795 0 0 0-.393.681zm1.097-2.365l2.602-1.5 2.607 1.5v2.999l-2.597 1.5-2.607-1.5z"/></svg>
+                  </div>
+                  <span className="fn-int-name">OpenAI</span>
+                </div>
+
+                {/* Claude */}
+                <div className="fn-int-item">
+                  <div className="fn-int-icon" style={{ background: '#D4A27F' }}>
+                    <svg viewBox="0 0 24 24" width="28" height="28" fill="white"><path d="M4.709 15.955l4.72-2.756.08-.046 2.702-1.578c.414-.242.414-.636 0-.878L9.51 8.92l-.08-.046-4.72-2.756c-.415-.242-.753-.044-.753.44v8.957c0 .484.338.682.753.44zm6.628-3.677L24 5.291v13.418l-12.663-6.43z"/></svg>
+                  </div>
+                  <span className="fn-int-name">Claude</span>
+                </div>
+
+                {/* ElevenLabs */}
+                <div className="fn-int-item">
+                  <div className="fn-int-icon" style={{ background: '#000' }}>
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="white"><rect x="8" y="4" width="3" height="16" rx="1.5"/><rect x="13" y="4" width="3" height="16" rx="1.5"/></svg>
+                  </div>
+                  <span className="fn-int-name">ElevenLabs</span>
+                </div>
+
+                {/* Gemini */}
+                <div className="fn-int-item">
+                  <div className="fn-int-icon" style={{ background: '#fff', border: '1px solid #e0e0dc' }}>
+                    <svg viewBox="0 0 24 24" width="24" height="24"><defs><linearGradient id="gm" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse"><stop stopColor="#4285F4"/><stop offset="1" stopColor="#886FBF"/></linearGradient></defs><path d="M12 2C12 2 17 7.5 17 12s-5 10-5 10c0 0-5-5.5-5-10S12 2 12 2z" fill="url(#gm)"/></svg>
+                  </div>
+                  <span className="fn-int-name">Gemini</span>
+                </div>
+
+                {/* Kling */}
+                <div className="fn-int-item">
+                  <div className="fn-int-icon" style={{ background: 'linear-gradient(135deg, #7C3AED, #3B82F6)' }}>
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="white"><polygon points="12,2 15,9 22,9 16.5,14 18.5,21 12,17 5.5,21 7.5,14 2,9 9,9"/></svg>
+                  </div>
+                  <span className="fn-int-name">Kling</span>
+                </div>
+
+                {/* Sora 2 */}
+                <div className="fn-int-item">
+                  <div className="fn-int-icon" style={{ background: '#000' }}>
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="white"><circle cx="12" cy="12" r="4" fill="none" stroke="white" strokeWidth="2"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4" stroke="white" strokeWidth="2" strokeLinecap="round"/></svg>
+                  </div>
+                  <span className="fn-int-name">Sora 2</span>
+                </div>
+
+                {/* GHL / GoHighLevel */}
+                <div className="fn-int-item">
+                  <div className="fn-int-icon" style={{ background: '#14B8A6' }}>
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="white"><path d="M12 2L4 6v6c0 5.55 3.84 10.74 8 12 4.16-1.26 8-6.45 8-12V6l-8-4zm0 2.18L18 7.3v4.7c0 4.42-3.06 8.58-6 9.83-2.94-1.25-6-5.41-6-9.83V7.3L12 4.18z"/><path d="M10 14.2l-2.6-2.6L6 13l4 4 8-8-1.4-1.4z"/></svg>
+                  </div>
+                  <span className="fn-int-name">GoHighLevel</span>
+                </div>
+
+                {/* Airtable */}
+                <div className="fn-int-item">
+                  <div className="fn-int-icon" style={{ background: '#18BFFF' }}>
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="white"><path d="M11.52 2.309l-8.39 3.054a.6.6 0 0 0 .007 1.125l8.468 3.019a1.5 1.5 0 0 0 1.008-.003l8.347-3.016a.6.6 0 0 0 .006-1.125l-8.43-3.054a1.5 1.5 0 0 0-1.018 0z"/><path d="M12.7 11.238v8.406c0 .376.393.622.734.46l9.048-4.157a.48.48 0 0 0 .278-.434V7.16c0-.378-.397-.623-.737-.458L12.98 10.78a.48.48 0 0 0-.28.458z" fill="rgba(255,255,255,0.85)"/><path d="M11.1 11.335L1.518 15.96a.48.48 0 0 1-.718-.415V7.228a.48.48 0 0 1 .287-.44l9.4-4.11" fill="rgba(255,255,255,0.7)"/></svg>
+                  </div>
+                  <span className="fn-int-name">Airtable</span>
+                </div>
+
+                {/* Zapier */}
+                <div className="fn-int-item">
+                  <div className="fn-int-icon" style={{ background: '#FF4A00' }}>
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="white"><path d="M15.477 12.89l2.8-2.8a.6.6 0 0 0 0-.848l-.52-.52a.6.6 0 0 0-.848 0l-2.8 2.8-2.8-2.8a.6.6 0 0 0-.848 0l-.52.52a.6.6 0 0 0 0 .849l2.8 2.8-2.8 2.8a.6.6 0 0 0 0 .848l.52.52a.6.6 0 0 0 .849 0l2.8-2.8 2.8 2.8a.6.6 0 0 0 .848 0l.52-.52a.6.6 0 0 0 0-.849l-2.8-2.8z"/><circle cx="14.109" cy="12.89" r="9.5" fill="none" stroke="white" strokeWidth="1.5"/></svg>
+                  </div>
+                  <span className="fn-int-name">Zapier</span>
+                </div>
+
+                {/* HubSpot */}
+                <div className="fn-int-item">
+                  <div className="fn-int-icon" style={{ background: '#FF7A59' }}>
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="white"><path d="M16.5 7.56V5.85a1.62 1.62 0 0 0 .94-1.46 1.63 1.63 0 0 0-1.63-1.63 1.63 1.63 0 0 0-1.63 1.63c0 .63.37 1.18.9 1.44v1.73a4.65 4.65 0 0 0-2.27 1.12L7.63 4.6a1.96 1.96 0 0 0 .07-.49A1.94 1.94 0 1 0 5.76 6.05c.44 0 .85-.15 1.18-.41l5.07 3.94a4.65 4.65 0 0 0-.64 2.35 4.65 4.65 0 0 0 .79 2.59l-1.59 1.59a1.52 1.52 0 0 0-.45-.08 1.55 1.55 0 1 0 1.55 1.55c0-.16-.03-.31-.08-.45l1.56-1.56a4.66 4.66 0 0 0 2.65.83 4.67 4.67 0 0 0 4.67-4.67 4.67 4.67 0 0 0-3.97-4.62zm-.69 7.08a2.45 2.45 0 1 1 0-4.9 2.45 2.45 0 0 1 0 4.9z"/></svg>
+                  </div>
+                  <span className="fn-int-name">HubSpot</span>
+                </div>
+
+                {/* Stripe */}
+                <div className="fn-int-item">
+                  <div className="fn-int-icon" style={{ background: '#635BFF' }}>
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="white"><path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.918 3.757 7.075c0 4.257 2.636 5.71 6.544 7.158 2.508.927 3.208 1.583 3.208 2.564 0 1.015-.874 1.61-2.354 1.61-1.945 0-4.915-.936-6.872-2.19L3.4 21.742C5.137 22.95 8.208 24 11.042 24c2.635 0 4.797-.632 6.302-1.835 1.64-1.304 2.476-3.218 2.476-5.49 0-4.352-2.696-5.828-5.844-7.525z"/></svg>
+                  </div>
+                  <span className="fn-int-name">Stripe</span>
+                </div>
+
+                {/* Slack */}
+                <div className="fn-int-item">
+                  <div className="fn-int-icon" style={{ background: '#4A154B' }}>
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="white"><path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zm1.271 0a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zm0 1.271a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zm10.122 2.521a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zm-1.268 0a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zm-2.523 10.122a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zm0-1.268a2.527 2.527 0 0 1-2.52-2.523 2.527 2.527 0 0 1 2.52-2.52h6.313A2.528 2.528 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z"/></svg>
+                  </div>
+                  <span className="fn-int-name">Slack</span>
+                </div>
+
+                {/* Notion */}
+                <div className="fn-int-item">
+                  <div className="fn-int-icon" style={{ background: '#000' }}>
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="white"><path d="M4.459 4.208c.746.606 1.026.56 2.428.466l13.215-.793c.28 0 .047-.28-.046-.326L17.86 1.968c-.42-.326-.98-.7-2.055-.607L3.01 2.295c-.466.046-.56.28-.373.466l1.822 1.447zm.793 3.08v13.904c0 .747.373 1.027 1.214.98l14.523-.84c.841-.046.934-.56.934-1.166V6.354c0-.606-.233-.933-.747-.886l-15.177.887c-.56.047-.747.327-.747.933zm14.337.745c.093.42 0 .84-.42.888l-.7.14v10.264c-.608.327-1.168.514-1.635.514-.747 0-.934-.234-1.494-.933l-4.577-7.186v6.952l1.448.327s0 .84-1.168.84l-3.222.186c-.093-.186 0-.653.327-.746l.84-.233V9.854L7.822 9.76c-.094-.42.14-1.026.793-1.073l3.456-.233 4.764 7.279v-6.44l-1.215-.14c-.093-.514.28-.886.747-.933l3.222-.186zM2.877.56l13.916-.934c1.68-.14 2.1.093 2.8.607L23.4 2.946c.467.373.607.84.607 1.493v17.08c0 1.073-.373 1.68-1.587 1.773l-15.457.933c-.887.047-1.307-.093-1.774-.7L1.89 19.468C1.377 18.815 1.143 18.302 1.143 17.7V2.9c0-.793.373-1.447 1.307-1.587z" fillRule="evenodd"/></svg>
+                  </div>
+                  <span className="fn-int-name">Notion</span>
+                </div>
+
+                {/* Shopify */}
+                <div className="fn-int-item">
+                  <div className="fn-int-icon" style={{ background: '#96BF48' }}>
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="white"><path d="M15.337 23.979l7.216-1.561s-2.604-17.613-2.625-17.73c-.018-.116-.114-.192-.211-.192s-1.929-.136-1.929-.136-1.275-1.274-1.439-1.411c-.045-.037-.075-.058-.121-.074l-.914 21.104zm-1.332-17.48c0-.135-.014-.28-.035-.416-.5-2.554-2.195-3.747-3.933-3.747-.124 0-.25.007-.375.023l-.07-.072c-.509-.577-1.15-.845-1.835-.845-3.146 0-4.653 3.935-5.126 5.935l-2.17.672c-.662.21-.683.23-.77.854C-.066 9.686.0 9.695.0 9.695L5.405 24l8.6-2.116s-1.074-12.088-1.074-12.088c0 0 .674-.21 1.074-.297z"/><path d="M12.27 6.62l-.727 2.245s-.85-.392-1.862-.392c-1.505 0-1.58.944-1.58 1.182 0 1.298 3.39 1.796 3.39 4.836 0 2.392-1.518 3.932-3.566 3.932-2.456 0-3.711-1.528-3.711-1.528l.656-2.17s1.291 1.109 2.381 1.109c.711 0 1.001-.56 1.001-.97 0-1.695-2.783-1.77-2.783-4.554 0-2.343 1.681-4.612 5.076-4.612.873 0 1.725.23 1.725.23z" fill="rgba(255,255,255,0.9)"/></svg>
+                  </div>
+                  <span className="fn-int-name">Shopify</span>
+                </div>
+
+                {/* Twilio */}
+                <div className="fn-int-item">
+                  <div className="fn-int-icon" style={{ background: '#F22F46' }}>
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="white"><path d="M12 0C5.381 0 0 5.381 0 12s5.381 12 12 12 12-5.381 12-12S18.619 0 12 0zm0 20.8c-4.862 0-8.8-3.938-8.8-8.8S7.138 3.2 12 3.2s8.8 3.938 8.8 8.8-3.938 8.8-8.8 8.8zm3.6-12.4a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm0 4.8a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm-4.8-4.8a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm0 4.8a2 2 0 1 1 0 4 2 2 0 0 1 0-4z" fillRule="evenodd"/></svg>
+                  </div>
+                  <span className="fn-int-name">Twilio</span>
+                </div>
+
+                {/* Make */}
+                <div className="fn-int-item">
+                  <div className="fn-int-icon" style={{ background: '#6D00CC' }}>
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="white"><circle cx="12" cy="12" r="3.5" fill="none" stroke="white" strokeWidth="2"/><circle cx="12" cy="4" r="2"/><circle cx="12" cy="20" r="2"/><circle cx="4.69" cy="8" r="2"/><circle cx="19.31" cy="16" r="2"/><circle cx="4.69" cy="16" r="2"/><circle cx="19.31" cy="8" r="2"/></svg>
+                  </div>
+                  <span className="fn-int-name">Make</span>
+                </div>
+
+                {/* Mailchimp */}
+                <div className="fn-int-item">
+                  <div className="fn-int-icon" style={{ background: '#FFE01B' }}>
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="#241C15"><path d="M18.824 10.72c.15-.005.3.06.376.196.08.14.068.312-.03.44-.5.648-.736 1.164-.693 1.533.044.383.38.583.993.594 1.3.024 2.167.578 2.58 1.645.576 1.487-.124 3.554-1.942 4.553-.853.47-1.73.7-2.59.7-1.426 0-2.59-.64-3.276-1.67h-.003c-.73.47-1.735.78-2.835.78h-.06c-.558-.004-1.08-.09-1.554-.24l-.197.38c-.18.342-.038.527.05.59.088.065.316.16.478.228l.135.057c.55.236 1.12.48 1.3.887.196.444.012.993-.543 1.48-.633.555-1.786.873-3.164.873l-.22-.004c-1.852-.054-3.292-.656-3.794-1.5-.315-.532-.242-1.1.053-1.558-.99-.58-1.595-1.31-1.595-2.113 0-.17.027-.342.082-.512-1.032-.75-1.666-1.897-1.666-3.212 0-1.064.39-2.09 1.098-2.89-.13-.68-.147-1.71.507-2.788C3.614 7.453 5.225 6.72 7.282 6.41 8.748 4.04 11.177 2.62 12.48 2.62c.066 0 .127.004.183.013.86-.685 2.776-1.615 4.398-1.023.695.254 1.572.856 1.81 2.59.178 1.287-.042 3.203-.62 4.363l-.004.008.017.014c.13.108.238.23.313.356.136-.05.263-.097.372-.128.11-.035.268-.068.4-.072l-.006-.001zm-.69.926c-.36.12-.627.325-.81.564l.47.524c.23.26.288.574.162.874l.032.014c.34-.62.57-1.223.638-1.694l-.003-.004c-.08-.115-.18-.214-.3-.26-.058-.022-.123-.027-.19-.018zm-7.525 2.276c-.05.252-.063.52-.035.8.082.82.535 1.55 1.156 2.03h.003c.31-.26.774-.503 1.34-.695-.32-.4-.53-.87-.584-1.39-.056-.543.05-1.092.294-1.575-.3-.1-.58-.223-.84-.36-.57.19-.97.53-1.2.93-.05.08-.097.165-.134.26zm4.468-.394c-.24.357-.368.79-.33 1.262.046.455.26.868.576 1.204.627-.155 1.32-.232 2.016-.218.014-.032.027-.063.04-.094.206-.5-.01-.95-.35-1.33-.33-.37-.852-.68-1.352-.796-.2-.054-.403-.06-.6-.028zm2.41 3.183c-.69-.017-1.387.06-2.01.22.584.37 1.3.6 2.08.614.37.007.654-.048.847-.167.194-.12.3-.3.287-.527-.014-.073-.065-.112-.16-.13-.116-.016-.43-.002-1.043-.01zm-5.22-1.59c-.09-.908-.56-1.718-1.243-2.193-.26.41-.407.88-.41 1.354-.003.493.147.983.46 1.4.15.195.327.36.52.492.26-.41.52-.725.764-.963-.03-.03-.06-.057-.09-.09zm-3.3-3.08c.57-.24 1.27-.32 2.037-.2.15-.158.29-.33.41-.52.36-.557.52-1.233.44-1.894-.27-.045-.563-.034-.86.04-.78.19-1.49.73-1.79 1.5-.16.41-.23.79-.24 1.073zm-1.423-.197c-.61.71-.92 1.593-.92 2.48 0 1.02.455 1.922 1.2 2.59.082-.22.2-.42.38-.59l.1-.098c-.22-.16-.42-.34-.6-.55-.41-.5-.63-1.106-.63-1.73 0-.59.17-1.19.52-1.715l.02-.026c-.03-.12-.054-.24-.07-.36zm7.73-5.89c-1.18.04-3.34 1.38-4.66 3.5l-.154.254c.66-.12 1.35-.07 1.98.13.3-.77 1.07-1.38 1.94-1.59.4-.1.79-.12 1.14-.08.057-.73.034-1.48-.077-2.065-.008-.05-.022-.1-.032-.148-.36-.03-.74-.02-1.14 0zm4.71-2.02c-.41-.15-.88-.15-1.39-.01-.48.13-.98.39-1.44.72.02.05.032.1.05.16.15.8.2 1.68.15 2.5.2.08.36.2.48.33.48-.97.72-2.36.58-3.38-.02-.11-.04-.216-.07-.31l-.36-.01z"/></svg>
+                  </div>
+                  <span className="fn-int-name">Mailchimp</span>
+                </div>
+
+                {/* Midjourney */}
+                <div className="fn-int-item">
+                  <div className="fn-int-icon" style={{ background: '#000' }}>
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="white"><path d="M2.4 3.6L7.2 12l-4.8 8.4h3.6l3-5.4 3 5.4h3.6L10.8 12l4.8-8.4h-3.6l-3 5.4-3-5.4H2.4zm10.8 0L18 12l-4.8 8.4h3.6L21.6 12l-4.8-8.4h-3.6z"/></svg>
+                  </div>
+                  <span className="fn-int-name">Midjourney</span>
+                </div>
+
+                {/* Perplexity */}
+                <div className="fn-int-item">
+                  <div className="fn-int-icon" style={{ background: '#1FB8CD' }}>
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="white"><path d="M12 1L5 5.5V11l-4 2.5v5L8 22l4-2.5L16 22l7-3.5v-5L19 11V5.5L12 1zm0 2.3l5 3.2v4L12 14 7 10.5v-4L12 3.3zm-6 9l4 2.5v4.5l-4-2.5V12.3zm12 0v4.5l-4 2.5v-4.5l4-2.5z"/></svg>
+                  </div>
+                  <span className="fn-int-name">Perplexity</span>
+                </div>
+
+                {/* Runway */}
+                <div className="fn-int-item">
+                  <div className="fn-int-icon" style={{ background: '#000' }}>
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="white"><path d="M3 4h18v2H3zm0 7h12v2H3zm0 7h18v2H3zm15-7l4 3.5L18 15v-4z"/></svg>
+                  </div>
+                  <span className="fn-int-name">Runway</span>
+                </div>
+
+              </div>
+
+              <p className="fn-int-tagline">+ more integrations coming soon</p>
+            </div>
+
+          </div>
+        </section>
+
         {/* ═══ PROBLEM — tight, scannable ═══ */}
         <section className="fn-problem">
           <div className="fn-container">
@@ -136,10 +336,10 @@ export default function HomePage() {
             <div className="fn-roadmap-v2">
               <div className="fn-roadmap-line" />
               {[
-                { phase: "01", title: "Fix One Problem", desc: "14 day build. Remove a key bottleneck.", tag: "$5K+", href: "/apply", accent: true, meta: "Proof" },
-                { phase: "02", title: "Full System Build", desc: "All core operations automated.", tag: "$25–75K+", href: "/apply", meta: "Scale" },
-                { phase: "03", title: "Your AI Wing", desc: "We become your AI department.", tag: "$5–10K/mo", href: "/apply", meta: "Engine" },
-                { phase: "04", title: "Chief AI Officer", desc: "Revenue share. Full alignment.", tag: "Partnership", href: "/apply", meta: "Partner" },
+                { phase: "01", title: "Fix One Problem", desc: "14 day build. Remove a key bottleneck.", href: "/apply", accent: true, meta: "Proof" },
+                { phase: "02", title: "Full System Build", desc: "All core operations automated.", href: "/apply", meta: "Scale" },
+                { phase: "03", title: "Your AI Wing", desc: "We become your AI department.", href: "/apply", meta: "Engine" },
+                { phase: "04", title: "Chief AI Officer", desc: "Revenue share. Full alignment.", href: "/apply", meta: "Partner" },
               ].map((s, i) => (
                 <Link key={i} href={s.href} className={`fn-rm-step ${s.accent ? 'fn-rm-step-accent' : ''}`}>
                   <div className="fn-rm-dot" />
@@ -151,7 +351,6 @@ export default function HomePage() {
                     <h3 className="fn-rm-step-title">{s.title}</h3>
                     <p className="fn-rm-step-desc">{s.desc}</p>
                     <div className="fn-rm-step-footer">
-                      <span className="fn-rm-step-tag">{s.tag}</span>
                       <span className="fn-rm-step-link">Apply <ArrowRight size={14} /></span>
                     </div>
                   </div>
@@ -192,36 +391,24 @@ export default function HomePage() {
             <h2 className="fn-h2">INDUSTRY <span>PLAYBOOKS.</span></h2>
             <div className="fn-playbooks-list">
               {[
+                { slug: "medical-dental", name: "Medical & Dental" },
+                { slug: "home-services-high-ticket", name: "Home Services — High Ticket" },
+                { slug: "legal", name: "Legal Services" },
+                { slug: "beauty-personal-care", name: "Beauty & Personal Care" },
+                { slug: "home-services-recurring", name: "Home Services — Recurring" },
+                { slug: "real-estate-property", name: "Real Estate & Property" },
+                { slug: "health-wellness", name: "Health & Wellness" },
+                { slug: "pet-services", name: "Pet Services" },
+                { slug: "automotive", name: "Automotive" },
+                { slug: "professional-financial", name: "Professional & Financial Services" },
+                { slug: "events-hospitality", name: "Events & Hospitality" },
+                { slug: "education-childcare", name: "Education & Childcare" },
+                { slug: "misc-local-services", name: "Misc. Local Services" },
                 { slug: "saas", name: "SaaS Founders" },
                 { slug: "course-creators", name: "Course Creators" },
                 { slug: "coaching", name: "Coaches & Consultants" },
                 { slug: "ecommerce", name: "E-commerce & Retail" },
                 { slug: "agencies", name: "Agencies" },
-                { slug: "home-services", name: "Home Services" },
-                { slug: "healthcare", name: "Healthcare & Dental" },
-                { slug: "legal-finance", name: "Law Firms & Accounting" },
-                { slug: "real-estate", name: "Real Estate" },
-                { slug: "hospitality", name: "Restaurants & Hospitality" },
-                { slug: "construction", name: "Construction & Trades" },
-                { slug: "manufacturing", name: "Manufacturing & Logistics" },
-                { slug: "membership", name: "Membership & Community" },
-                { slug: "digital-products", name: "Digital Products" },
-                { slug: "professional-services", name: "Professional Services" },
-                { slug: "solar-installers", name: "Solar & Renewables" },
-                { slug: "franchise-owners", name: "Franchise Owners" },
-                { slug: "private-equity", name: "Private Equity & M&A" },
-                { slug: "staffing-agencies", name: "Staffing & Recruiting" },
-                { slug: "logistics-freight", name: "Logistics & Freight" },
-                { slug: "med-spas", name: "Med Spas & Aesthetics" },
-                { slug: "mortgage-brokers", name: "Mortgage Brokers" },
-                { slug: "roofing", name: "Roofing & Restoration" },
-                { slug: "luxury-real-estate", name: "Luxury Real Estate" },
-                { slug: "agricultural", name: "Agricultural & Farming" },
-                { slug: "financial-advisors", name: "Financial Advisors" },
-                { slug: "senior-living", name: "Senior Living Facilities" },
-                { slug: "yacht-charters", name: "Yacht Charter & Marine" },
-                { slug: "venues-events", name: "Venues & Events" },
-                { slug: "pool-construction", name: "Pool Construction" },
               ].map((ind, i) => (
                 <Link key={i} href={`/industry-categories/${ind.slug}`} className="fn-pb-item">
                   <span className="fn-pb-num">{String(i + 1).padStart(2, '0')}</span>
@@ -392,6 +579,58 @@ export default function HomePage() {
           50% { transform: scaleY(1); transform-origin: top; }
           50.1% { transform: scaleY(1); transform-origin: bottom; }
           100% { transform: scaleY(0); transform-origin: bottom; }
+        }
+
+        /* ═══ TRUST / META / INTEGRATIONS ═══ */
+        .fn-trust {
+          padding: 80px 48px;
+          border-top: 1px solid var(--gray-100);
+          background: var(--gray-50);
+        }
+        .fn-meta-badge {
+          display: flex; align-items: center; gap: 16px;
+          background: #fff; border: 1px solid var(--gray-100);
+          padding: 20px 28px; margin-bottom: 56px;
+          max-width: 440px; margin-left: auto; margin-right: auto;
+          box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+        }
+        .fn-meta-logo { width: 36px; height: 36px; flex-shrink: 0; }
+        .fn-meta-text { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+        .fn-meta-label {
+          font-size: 14px; font-weight: 700; color: var(--black);
+          letter-spacing: 0.01em;
+        }
+        .fn-meta-sub { font-size: 11px; color: var(--gray-400); }
+        .fn-verified-check { width: 24px; height: 24px; flex-shrink: 0; }
+
+        .fn-integrations { text-align: center; }
+        .fn-int-sub {
+          font-size: 14px; color: var(--gray-500); text-align: center;
+          margin-bottom: 40px; letter-spacing: 0.04em;
+        }
+        .fn-int-grid {
+          display: grid; grid-template-columns: repeat(5, 1fr);
+          gap: 24px 20px; max-width: 700px; margin: 0 auto 24px;
+        }
+        .fn-int-item {
+          display: flex; flex-direction: column; align-items: center; gap: 10px;
+        }
+        .fn-int-icon {
+          width: 56px; height: 56px; border-radius: 14px;
+          display: flex; align-items: center; justify-content: center;
+          color: #fff; font-weight: 700; font-size: 14px;
+          letter-spacing: 0.02em;
+          font-family: var(--font-dm-mono), monospace;
+          box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+          transition: transform 0.2s;
+        }
+        .fn-int-item:hover .fn-int-icon { transform: translateY(-3px); }
+        .fn-int-name {
+          font-size: 11px; color: var(--gray-500); font-weight: 500;
+        }
+        .fn-int-tagline {
+          font-size: 12px; color: var(--gray-400); text-align: center;
+          letter-spacing: 0.02em;
         }
 
         /* ═══ PROBLEM ═══ */
@@ -732,6 +971,9 @@ export default function HomePage() {
           .fn-h1 { font-size: clamp(48px, 12vw, 80px); margin-bottom: 28px; }
           .fn-sub { font-size: 14px; margin-bottom: 32px; }
           .fn-hero-cta { font-size: 18px; padding: 18px 40px; }
+          .fn-trust { padding: 56px 20px; }
+          .fn-int-grid { grid-template-columns: repeat(4, 1fr); gap: 16px; }
+          .fn-int-icon { width: 48px; height: 48px; font-size: 12px; border-radius: 12px; }
           .fn-problem { padding: 56px 20px; }
           .fn-problem-grid { grid-template-columns: 1fr; gap: 32px; }
           .fn-bridge { padding: 56px 20px; }
@@ -769,6 +1011,10 @@ export default function HomePage() {
           .fn-h1 { font-size: clamp(40px, 13vw, 56px); }
           .fn-sub { font-size: 13px; }
           .fn-hero-cta { font-size: 16px; padding: 16px 36px; width: 100%; justify-content: center; }
+          .fn-trust { padding: 48px 16px; }
+          .fn-meta-badge { padding: 16px 20px; margin-bottom: 40px; }
+          .fn-int-grid { grid-template-columns: repeat(4, 1fr); gap: 12px; }
+          .fn-int-icon { width: 44px; height: 44px; font-size: 11px; }
           .fn-problem { padding: 48px 16px; }
           .fn-bridge { padding: 48px 16px; }
           .fn-section { padding: 48px 16px; }

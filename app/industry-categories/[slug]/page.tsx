@@ -6,10 +6,88 @@ import { ArrowRight } from "lucide-react";
 
 export const industryCategories = [
   {
+    slug: "medical-dental",
+    name: "Medical & Dental",
+    description: "AI infrastructure for specialized medical and dental practices.",
+    subNiches: ["cosmetic-dentistry", "orthodontics-invisalign", "dental-implants", "oral-surgery-practices", "pediatric-dentists", "fertility-clinics", "hormone-therapy-trt-clinics", "addiction-treatment-centers", "weight-loss-clinics"]
+  },
+  {
+    slug: "home-services-high-ticket",
+    name: "Home Services — High Ticket",
+    description: "High-ROI automation for expensive home installments and renovations.",
+    subNiches: ["solar-panel-installers", "hvac-companies", "pool-builders", "window-door-replacement", "general-contractors", "roofing-contractors", "home-remodeling-contractors", "kitchen-bathroom-remodeling", "water-damage-restoration"]
+  },
+  {
+    slug: "legal",
+    name: "Legal Services",
+    description: "AI intake and case management for high-demand legal practices.",
+    subNiches: ["divorce-family-law", "bankruptcy-lawyers", "immigration-lawyers", "dui-defense-attorneys", "personal-injury-lawyers", "workers-comp-lawyers", "criminal-defense-attorneys", "estate-planning-attorneys"]
+  },
+  {
+    slug: "beauty-personal-care",
+    name: "Beauty & Personal Care",
+    description: "24/7 booking and patient care for aesthetics and personal grooming.",
+    subNiches: ["teeth-whitening-services", "laser-hair-removal-clinics", "hair-restoration-clinics", "lash-brow-studios", "nail-salons", "hair-salons-barbershops", "tattoo-studios"]
+  },
+  {
+    slug: "home-services-recurring",
+    name: "Home Services — Recurring",
+    description: "AI retention and routing for repeat residential services.",
+    subNiches: ["cleaning-services-commercial", "garage-door-repair-install", "landscaping-companies", "painting-contractors", "electricians", "pest-control-companies", "concrete-paving-contractors", "tree-service-companies", "fence-companies", "plumbing-companies", "flooring-companies"]
+  },
+  {
+    slug: "real-estate-property",
+    name: "Real Estate & Property",
+    description: "Concierge and management tools for agents and facilities.",
+    subNiches: ["real-estate-agents-teams", "storage-facilities", "property-management-companies", "home-inspection-services", "mortgage-brokers"]
+  },
+  {
+    slug: "health-wellness",
+    name: "Health & Wellness",
+    description: "Automation for physical and mental health clinics.",
+    subNiches: ["iv-therapy-wellness-clinics", "physical-therapy-clinics", "mental-health-practices", "allergy-clinics", "senior-care-assisted-living", "dermatology-practices", "hearing-aid-clinics", "home-health-care-agencies", "veterinary-clinics", "pain-management-clinics", "chiropractors", "urgent-care-centers", "optometrists-eye-care"]
+  },
+  {
+    slug: "pet-services",
+    name: "Pet Services",
+    description: "24/7 care coordination and scheduling for pet businesses.",
+    subNiches: ["dog-grooming", "dog-training", "emergency-vet-clinics", "pet-boarding-daycare"]
+  },
+  {
+    slug: "automotive",
+    name: "Automotive",
+    description: "AI BDC and service automation for dealerships and repair shops.",
+    subNiches: ["auto-body-collision-repair", "towing-companies", "auto-detailing", "car-dealerships", "tire-shops", "auto-repair-shops"]
+  },
+  {
+    slug: "professional-financial",
+    name: "Professional & Financial Services",
+    description: "Digital back-office and lead gen for consultants and firms.",
+    subNiches: ["insurance-agencies", "it-services-managed-it", "commercial-printing-companies", "accounting-firms-cpas", "financial-advisors", "staffing-recruiting-agencies"]
+  },
+  {
+    slug: "events-hospitality",
+    name: "Events & Hospitality",
+    description: "Booking and coordination for high-touch hospitality venues.",
+    subNiches: ["photographers", "event-planners", "catering-companies", "food-trucks", "wedding-venues", "hotels-bbs-independent", "restaurants"]
+  },
+  {
+    slug: "education-childcare",
+    name: "Education & Childcare",
+    description: "Onboarding and enrollment automation for learning centers.",
+    subNiches: ["tutoring-centers", "martial-arts-studios", "music-dance-schools", "private-charter-schools", "daycare-childcare-centers", "driving-schools"]
+  },
+  {
+    slug: "misc-local-services",
+    name: "Misc. Local Services",
+    description: "AI-powered capture and follow-up for unique local providers.",
+    subNiches: ["pressure-washing", "pool-cleaning-maintenance", "locksmith-services", "window-cleaning-services", "moving-companies", "junk-removal", "car-wash-businesses"]
+  },
+  {
     slug: "saas",
     name: "SaaS Founders",
     description: "AI infrastructure for B2B and B2C SaaS platforms.",
-    subNiches: ["saas"] // mapped to existing slugs
+    subNiches: ["saas"]
   },
   {
     slug: "course-creators",
@@ -34,156 +112,6 @@ export const industryCategories = [
     name: "Agencies",
     description: "Scale client delivery without scaling headcount.",
     subNiches: ["agencies"]
-  },
-  {
-    slug: "home-services",
-    name: "Home Services",
-    description: "Lead follow-up, dispatch, and billing for local operators.",
-    subNiches: ["home-services", "storm-restoration", "roofing", "commercial-home-services", "solar-installers", "commercial-cleaning", "pool-construction"]
-  },
-  {
-    slug: "healthcare",
-    name: "Healthcare & Dental",
-    description: "HIPAA-compliant intake and patient coordination.",
-    subNiches: ["healthcare", "med-spas", "plastic-surgery", "senior-living"]
-  },
-  {
-    slug: "legal-finance",
-    name: "Law Firms & Accounting",
-    description: "Automated document prep and client communication.",
-    subNiches: ["legal-finance", "mortgage-brokers", "private-equity", "financial-advisors"]
-  },
-  {
-    slug: "real-estate",
-    name: "Real Estate",
-    description: "24/7 concierge tools for buyers and sellers.",
-    subNiches: ["real-estate", "luxury-real-estate"]
-  },
-  {
-    slug: "hospitality",
-    name: "Restaurants & Hospitality",
-    description: "Guest management, reservations, and back-of-house AI.",
-    subNiches: ["hospitality", "franchise-owners", "venues-events", "yacht-charters"]
-  },
-  {
-    slug: "construction",
-    name: "Construction & Trades",
-    description: "Project updates, change orders, and sub routing.",
-    subNiches: ["construction", "custom-home-builders"]
-  },
-  {
-    slug: "manufacturing",
-    name: "Manufacturing & Logistics",
-    description: "Supply chain, inventory, and floor automation.",
-    subNiches: ["manufacturing", "logistics-freight", "agricultural", "dealerships"]
-  },
-  {
-    slug: "membership",
-    name: "Membership & Community",
-    description: "Dunning recovery, onboarding, and proactive retention.",
-    subNiches: ["membership", "gyms-fitness"]
-  },
-  {
-    slug: "digital-products",
-    name: "Digital Products",
-    description: "Scale fulfillment and post-purchase sequences.",
-    subNiches: ["digital-products"]
-  },
-  {
-    slug: "professional-services",
-    name: "Professional Services",
-    description: "AI paraplanners and digital Chiefs of Staff.",
-    subNiches: ["professional-services", "staffing-agencies", "personal-concierge"]
-  },
-  {
-    slug: "solar-installers",
-    name: "Solar & Renewables",
-    description: "Qualification, appointment setting, and project tracking for solar operators.",
-    subNiches: ["solar-installers"]
-  },
-  {
-    slug: "franchise-owners",
-    name: "Franchise Owners",
-    description: "Multi-location HR, training, and operational auditing.",
-    subNiches: ["franchise-owners"]
-  },
-  {
-    slug: "private-equity",
-    name: "Private Equity & M&A",
-    description: "Accelerated due diligence and post-acquisition margin expansion.",
-    subNiches: ["private-equity"]
-  },
-  {
-    slug: "staffing-agencies",
-    name: "Staffing & Recruiting",
-    description: "Automated candidate sourcing, screening, and database reactivation.",
-    subNiches: ["staffing-agencies"]
-  },
-  {
-    slug: "logistics-freight",
-    name: "Logistics & Freight",
-    description: "Autonomous dispatch, load bidding, and billing automation.",
-    subNiches: ["logistics-freight"]
-  },
-  {
-    slug: "med-spas",
-    name: "Med Spas & Aesthetics",
-    description: "24/7 patient coordination, booking, and membership management.",
-    subNiches: ["med-spas"]
-  },
-  {
-    slug: "mortgage-brokers",
-    name: "Mortgage Brokers",
-    description: "Lead nurturing, LOS integration, and automated document collection.",
-    subNiches: ["mortgage-brokers"]
-  },
-  {
-    slug: "roofing",
-    name: "Roofing & Restoration",
-    description: "Canvas tracking, appointment set, and insurance claim coordination.",
-    subNiches: ["roofing"]
-  },
-  {
-    slug: "luxury-real-estate",
-    name: "Luxury Real Estate",
-    description: "Billionaire-tier concierge and asset distribution systems.",
-    subNiches: ["luxury-real-estate"]
-  },
-  {
-    slug: "agricultural",
-    name: "Agricultural & Farming",
-    description: "Farm management, labor logistics, and data synthesis.",
-    subNiches: ["agricultural"]
-  },
-  {
-    slug: "financial-advisors",
-    name: "Financial Advisors",
-    description: "Digital paraplanners and high-net-worth lead generation.",
-    subNiches: ["financial-advisors"]
-  },
-  {
-    slug: "senior-living",
-    name: "Senior Living Facilities",
-    description: "Empathetic admissions counseling and staff recruiting.",
-    subNiches: ["senior-living"]
-  },
-  {
-    slug: "yacht-charters",
-    name: "Yacht Charter & Marine",
-    description: "Luxury guest concierges and fleet maintenance systems.",
-    subNiches: ["yacht-charters"]
-  },
-  {
-    slug: "venues-events",
-    name: "Venues & Events",
-    description: "Budget qualification, booking acceleration, and vendor coordination.",
-    subNiches: ["venues-events"]
-  },
-  {
-    slug: "pool-construction",
-    name: "Pool Construction",
-    description: "Project updates, change orders, and maintenance retention.",
-    subNiches: ["pool-construction"]
   }
 ];
 
