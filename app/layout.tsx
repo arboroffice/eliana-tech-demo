@@ -6,6 +6,7 @@ import { PageTransition } from "@/components/page-transition"
 import { NavigationTransition } from "@/components/navigation-transition"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Bebas_Neue, DM_Mono, Syne } from "next/font/google"
+import StyledJsxRegistry from "@/lib/registry"
 
 const bebasNeue = Bebas_Neue({
   weight: "400",
@@ -48,10 +49,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${bebasNeue.variable} ${dmMono.variable} ${syne.variable} font-mono antialiased`}>
-        <Suspense fallback={null}>
-          <NavigationTransition />
-          <PageTransition>{children}</PageTransition>
-        </Suspense>
+        <StyledJsxRegistry>
+          <Suspense fallback={null}>
+            <NavigationTransition />
+            <PageTransition>{children}</PageTransition>
+          </Suspense>
+        </StyledJsxRegistry>
         <SpeedInsights />
       </body>
     </html>
