@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import Anthropic from '@anthropic-ai/sdk'
-import { twilioClient, TWILIO_PHONE, formatPhoneNumber } from '@/lib/sms-service'
+import { getTwilioClient, TWILIO_PHONE, formatPhoneNumber } from '@/lib/sms-service'
 import { Resend } from 'resend'
 import { logEmailActivity } from '@/lib/email-service'
 
@@ -206,7 +206,7 @@ export async function POST(request: Request) {
                 const formattedPhone = formatPhoneNumber(lead.phoneNumber)
                 const smsBody = genResult.body || genResult.subject || 'Hi, please complete your AI Audit here: https://elianatech.com/audit'
                 
-                await twilioClient.messages.create({
+                await getTwilioClient().messages.create({
                     body: smsBody,
                     from: TWILIO_PHONE,
                     to: formattedPhone

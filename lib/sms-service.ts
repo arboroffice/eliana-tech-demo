@@ -7,10 +7,14 @@ import twilio from 'twilio'
 import { db } from './firebase'
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 
-export const twilioClient = twilio(
-    process.env.TWILIO_ACCOUNT_SID || '',
-    process.env.TWILIO_AUTH_TOKEN || ''
-)
+export function getTwilioClient() {
+    const sid = process.env.TWILIO_ACCOUNT_SID
+    const token = process.env.TWILIO_AUTH_TOKEN
+    if (!sid || !token) {
+        throw new Error('Twilio credentials not configured')
+    }
+    return twilio(sid, token)
+}
 
 export const TWILIO_PHONE = process.env.TWILIO_PHONE_NUMBER || ''
 const YOUR_PHONE = process.env.YOUR_PHONE_NUMBER || ''
@@ -41,7 +45,7 @@ export async function sendHighIntentSMS(params: SMSParams) {
         // Message to the lead
         const message = `Hey ${firstName}, it's Mia from Eliana. Just reviewed your audit for ${companyName}. You mentioned "${painPoint}" - I've seen this exact issue before and have a quick solution. Got 5 min to chat? Book here: https://cal.com/elianatech/30min`
 
-        const result = await twilioClient.messages.create({
+        const result = await getTwilioClient().messages.create({
             body: message,
             from: TWILIO_PHONE,
             to: to
@@ -86,7 +90,7 @@ export async function notifyTeamOfHotLead(params: SMSParams) {
     try {
         const message = `🔥 HOT LEAD ALERT!\n\n${name} from ${companyName}\n\nPain: "${painPoint}"\n\nAudit submitted just now. Follow up ASAP!`
 
-        await twilioClient.messages.create({
+        await getTwilioClient().messages.create({
             body: message,
             from: TWILIO_PHONE,
             to: YOUR_PHONE
@@ -217,7 +221,7 @@ export async function sendWhatsAppNotification(type: string, details: Record<str
 
         const message = `📩 New ${type} Application\n\n${detailLines}`
 
-        await twilioClient.messages.create({
+        await getTwilioClient().messages.create({
             body: message,
             from: `whatsapp:${TWILIO_PHONE}`,
             to: `whatsapp:${YOUR_PHONE}`
