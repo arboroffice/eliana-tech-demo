@@ -1,7 +1,17 @@
-import { niches1 } from "./niches-1";
-import { niches2 } from "./niches-2";
-import { niches3 } from "./niches-3";
-import { nichesTop100 } from "./niches-top-100";
+import { automotiveIndustries } from "./industries/automotive";
+import { beautyIndustries } from "./industries/beauty";
+import { businessIndustries } from "./industries/business";
+import { educationIndustries } from "./industries/education";
+import { eventsIndustries } from "./industries/events";
+import { homeServicesAIndustries } from "./industries/home-services-a";
+import { homeServicesBIndustries } from "./industries/home-services-b";
+import { homeServicesCIndustries } from "./industries/home-services-c";
+import { legalIndustries } from "./industries/legal";
+import { medicalIndustries } from "./industries/medical";
+import { petIndustries } from "./industries/pet-services";
+import { professionalIndustries } from "./industries/professional";
+import { realEstateIndustries } from "./industries/real-estate";
+import { wellnessIndustries } from "./industries/wellness";
 
 export interface BusinessPartSolution {
     painPoint: string;
@@ -185,6 +195,24 @@ export const industries: IndustryContent[] = [
                 roles: ["Finance assistant", "Recruiter", "Office manager", "Compliance Officer"],
                 tasks: ["Automate billing", "Screen resumes", "Schedule interviews", "Manage vendor payments", "Investor reporting", "Continuous SOC2 audit logs", "Predictive head-count planning"]
             }
+        ],
+        dreamVision: "Imagine a SaaS company where every trial user gets a personalized onboarding sequence. Churn is predicted 30 days out and handled before the customer even thinks about leaving. Your support queue resolves itself. Your sales pipeline fills without cold calls. And you — the founder — finally work on product, not on putting out fires.",
+        industryStats: [
+            { stat: "25%", label: "Less Churn" },
+            { stat: "30%", label: "Trial-to-Paid Lift" },
+            { stat: "4x", label: "SDR Pipeline" },
+            { stat: "80%", label: "Tickets Auto-Resolved" }
+        ],
+        useCases: [
+            { title: "The Silent Churn Save", scenario: "A B2B customer hasn't logged in for 12 days. Their contract renews in 45 days.", outcome: "AI detects the drop-off, triggers a personalized re-engagement email with their unused features, and alerts the CS team. The customer re-activates and renews." },
+            { title: "The Midnight Trial Conversion", scenario: "A trial user signs up at 11 PM, explores the dashboard for 20 minutes, then leaves.", outcome: "AI sends a personalized walkthrough video based on their exact usage pattern at 8 AM the next day. They convert to paid by noon." },
+            { title: "The Enterprise Security Questionnaire", scenario: "A Fortune 500 prospect sends a 200-question security questionnaire. Your team dreads it.", outcome: "AI completes 90% of the questionnaire using your compliance docs and previous responses. Your team reviews and submits in 2 hours instead of 2 weeks." }
+        ],
+        comparisonTable: [
+            { category: "Trial Onboarding", without: "Generic welcome email", withAI: "Personalized AI-guided activation" },
+            { category: "Churn Prevention", without: "Noticed after cancellation", withAI: "Predicted 30 days early" },
+            { category: "Support Resolution", without: "24-48 hour ticket response", withAI: "Instant AI resolution (80%)" },
+            { category: "Sales Pipeline", without: "Manual SDR outreach", withAI: "AI-qualified, auto-booked demos" }
         ]
     },
     {
@@ -317,6 +345,23 @@ export const industries: IndustryContent[] = [
                 roles: ["Affiliate manager", "Outreach SDR", "JV Coordinator"],
                 tasks: ["Scout influencers", "Track affiliate sales", "Automate partner payouts", "Manage launch calendar", "Triage collaboration DMs"]
             }
+        ],
+        dreamVision: "Imagine launching a course once — and it sells every day without you. Students enroll, onboard themselves, get personalized study plans, and complete the material with AI coaching along the way. Testimonials collect themselves. Refund requests drop to near zero. And your revenue grows while you create the next thing.",
+        industryStats: [
+            { stat: "45%", label: "Higher Completion" },
+            { stat: "35%", label: "Fewer Refunds" },
+            { stat: "20%", label: "More Launch Revenue" },
+            { stat: "20hrs", label: "Saved Weekly" }
+        ],
+        useCases: [
+            { title: "The Evergreen Sales Machine", scenario: "Your launch is over but people still find your sales page every day. Without a live event, conversions drop.", outcome: "AI handles objections in real-time via chat, answers questions about the curriculum, and closes the sale — 24/7, no launch required." },
+            { title: "The Stuck Student", scenario: "A student is 40% through your course and hasn't logged in for 2 weeks. They're about to request a refund.", outcome: "AI detects the drop-off, sends a personalized nudge with a custom study plan for their remaining modules, and re-engages them before they churn." }
+        ],
+        comparisonTable: [
+            { category: "Student Support", without: "You answer DMs all day", withAI: "AI answers 90% instantly" },
+            { category: "Sales (Off-Launch)", without: "Dead — no revenue", withAI: "Evergreen AI sales agent" },
+            { category: "Course Completion", without: "~15% finish rate", withAI: "~45% with AI coaching" },
+            { category: "Testimonial Collection", without: "Manual asks (rarely done)", withAI: "Auto-detected and collected" }
         ]
     },
     {
@@ -442,6 +487,23 @@ export const industries: IndustryContent[] = [
                 roles: ["Finance manager", "Calendar architect", "Event coordinator"],
                 tasks: ["Automate billing", "Optimize energy-budget scheduling", "Coordinate workshops", "Track LTV per lead source"]
             }
+        ],
+        dreamVision: "Imagine a coaching practice where clients apply, get screened by AI, onboard themselves with a personalized prep packet, and show up to their first session fully briefed. Your calendar manages itself. Follow-ups happen without you. And your business grows through automated referrals while you focus solely on transforming lives.",
+        industryStats: [
+            { stat: "3x", label: "Client Capacity" },
+            { stat: "80%", label: "Admin Eliminated" },
+            { stat: "40%", label: "More Referrals" },
+            { stat: "15hrs", label: "Saved Weekly" }
+        ],
+        useCases: [
+            { title: "The Midnight Application", scenario: "A potential high-ticket client finds your site at 11 PM. They want to apply but your team isn't available until Monday.", outcome: "AI screens the application instantly, sends a personalized response, and books a discovery call for Tuesday. By the time you wake up, your calendar has a qualified prospect." },
+            { title: "The Session Prep Automation", scenario: "You have 6 coaching calls tomorrow. You need to review each client's progress, goals, and last session notes.", outcome: "AI generates a 1-page brief for each client — their wins, blockers, action items, and suggested talking points — delivered to your inbox at 7 AM." }
+        ],
+        comparisonTable: [
+            { category: "Client Intake", without: "Manual application review", withAI: "AI-screened in seconds" },
+            { category: "Session Prep", without: "30 min per client", withAI: "Auto-generated briefs" },
+            { category: "Follow-Up", without: "Forgotten or delayed", withAI: "Instant post-session sequences" },
+            { category: "Referral Generation", without: "Asks when you remember", withAI: "Automated at peak satisfaction" }
         ]
     },
     {
@@ -567,6 +629,23 @@ export const industries: IndustryContent[] = [
                 roles: ["Media buyer assistant", "CRO analyst", "Copywriter", "Influencer scout", "LTV Architect"],
                 tasks: ["Test ad creatives", "Analyze funnels", "Adjust bids", "A/B test landing pages", "Manage affiliate DMs", "Segment high-value customers"]
             }
+        ],
+        dreamVision: "Imagine a store that never sleeps and never drops the ball. Every visitor gets personalized recommendations. Abandoned carts recover themselves. 'Where's my order?' emails answer instantly. Reviews pour in on autopilot. And your margins grow because you're not hiring more support reps — AI handles it all.",
+        industryStats: [
+            { stat: "22%", label: "Revenue Recovered" },
+            { stat: "90%", label: "Tickets Auto-Resolved" },
+            { stat: "3x", label: "Repeat Purchases" },
+            { stat: "$0", label: "Extra Headcount" }
+        ],
+        useCases: [
+            { title: "The 2 AM Cart Abandoner", scenario: "A customer adds $240 worth of products to their cart at 2 AM, then leaves. Your retargeting ad won't fire for 12 hours.", outcome: "AI sends a personalized SMS within 15 minutes with the exact items, a 10% incentive, and a direct checkout link. The order completes by 2:30 AM." },
+            { title: "The Holiday Support Flood", scenario: "It's Black Friday. You have 400 unread support tickets. Your team of 3 can't keep up.", outcome: "AI resolves 360 of them instantly — order tracking, return policies, size guides. Your team handles only the 40 that need a human touch." }
+        ],
+        comparisonTable: [
+            { category: "Cart Recovery", without: "Generic email 12 hours later", withAI: "Personalized SMS in 15 minutes" },
+            { category: "Customer Support", without: "24-48 hour email response", withAI: "Instant AI resolution (90%)" },
+            { category: "Post-Purchase", without: "One thank-you email", withAI: "Personalized upsell sequences" },
+            { category: "Review Collection", without: "Manual ask (low response)", withAI: "Automated at peak satisfaction" }
         ]
     },
     {
@@ -687,6 +766,23 @@ export const industries: IndustryContent[] = [
                 roles: ["Operations manager", "Finance assistant", "Freelance coordinator", "Margin Analyst"],
                 tasks: ["Automate billing", "Triage project expenses", "Triage incoming applications", "Onboard contractors", "Monitor billable utilization"]
             }
+        ],
+        dreamVision: "Imagine an agency where every client gets a weekly performance report generated automatically. First drafts write themselves. Client communication never falls through the cracks. Your team focuses on strategy and creative — not status updates and copy-paste. And your margins grow because you're delivering more with the same headcount.",
+        industryStats: [
+            { stat: "40%", label: "Higher Margins" },
+            { stat: "3x", label: "Client Capacity" },
+            { stat: "60%", label: "Less Admin Work" },
+            { stat: "2x", label: "Faster Delivery" }
+        ],
+        useCases: [
+            { title: "The Monday Morning Report Flood", scenario: "It's Monday. 8 clients expect performance reports. Your team spends half the day pulling data from 5 different platforms.", outcome: "AI generates all 8 reports overnight — pulling from Google Ads, Meta, GA4, and your CRM. Your team reviews and sends by 9 AM." },
+            { title: "The Scope Creep Killer", scenario: "A client keeps asking for 'one more thing.' Your PM doesn't push back. Your margins erode.", outcome: "AI tracks every deliverable against the SOW, flags out-of-scope requests, and generates a professional change order for the PM to send." }
+        ],
+        comparisonTable: [
+            { category: "Client Reporting", without: "Half-day manual pulls", withAI: "Auto-generated overnight" },
+            { category: "First Drafts", without: "Junior copywriter (2-3 days)", withAI: "AI draft in minutes, human polish" },
+            { category: "Client Updates", without: "Forgotten or delayed", withAI: "Automated weekly digests" },
+            { category: "Scope Management", without: "Gut feel (margin leak)", withAI: "AI-tracked against SOW" }
         ]
     },
     {
@@ -807,6 +903,23 @@ export const industries: IndustryContent[] = [
                 roles: ["Billing assistant", "Permit coordinator", "Vendor manager", "Compliance Officer"],
                 tasks: ["Process payments", "Check permit status", "Reorder parts", "Verify technician notes", "Automate job close-out", "Monitor safety documentation", "Audit job profitability"]
             }
+        ],
+        dreamVision: "Imagine a field service business where the phone never goes to voicemail. Every missed call is answered by an AI that texts them back instantly, qualifies the job, and books the estimate. Your trucks are always where they need to be. Your reviews grow while you're on the job. And your business grows without you answering a single call while under a sink.",
+        industryStats: [
+            { stat: "30%", label: "More Jobs Booked" },
+            { stat: "95%", label: "Lead Response Rate" },
+            { stat: "50%", label: "Less Office Admin" },
+            { stat: "22%", label: "Lower Fleet Costs" }
+        ],
+        useCases: [
+            { title: "The Midnight Emergency", scenario: "A pipe bursts at 3 AM. The homeowner is in a panic and calls you. Your office is closed.", outcome: "AI answers, triages the emergency, collects the address and photos, and dispatches your closest standby tech. The job is secured before any competitor wakes up." },
+            { title: "The Missed Call Recovery", scenario: "You're on a ladder or under a sink and miss a call from a new prospect. They're about to call the next plumber on Google.", outcome: "AI sends a text within 10 seconds: 'Hey, I missed your call! Are you looking for a quote?' It qualifies the job and books the estimate in 2 minutes via SMS." }
+        ],
+        comparisonTable: [
+            { category: "Lead Response", without: "Voicemail (Slow)", withAI: "Instant Text-Back (<10s)" },
+            { category: "Booking Flow", without: "Phone tag (Days)", withAI: "Automated in minutes" },
+            { category: "Field Ops", without: "Manual routing", withAI: "AI-optimized routes" },
+            { category: "Review Growth", without: "Rarely asked", withAI: "Automated post-job check" }
         ]
     },
     {
@@ -927,6 +1040,23 @@ export const industries: IndustryContent[] = [
                 roles: ["Billing specialist", "RCM analyst", "Credentialing manager", "Compliance Auditor"],
                 tasks: ["Scrub claims", "Manage denials", "Verify EOBs", "Monitor compliance", "Update provider credentials", "Audit HIPAA access logs", "P&L tracking per office"]
             }
+        ],
+        dreamVision: "Imagine a healthcare practice where the front desk isn't overwhelmed by phones. Patients arrive with their paperwork already finished and insurance already verified. Doctors spend their time with patients, not on clinical notes. And your practice grows through automated patient nurturing and referral tracking that happens while you're in surgery.",
+        industryStats: [
+            { stat: "40%", label: "Less Front-Desk Noise" },
+            { stat: "2hrs", label: "Saved per Doctor/Day" },
+            { stat: "2x", label: "Referral Conversion" },
+            { stat: "$15K", label: "Recovered Revenue/Mo" }
+        ],
+        useCases: [
+            { title: "The Referral Fast-Track", scenario: "An outside doctor faxes a referral for a patient. Your staff usually calls them in 1-2 days.", outcome: "AI OCR-scans the fax and texts the patient within 60 seconds of receipt: 'Hi Sarah, we just received your referral! Would you like to schedule your exam?' The patient is booked before they've even left the other doctor's office." },
+            { title: "The Scribe Freedom", scenario: "A specialist sees 25 patients a day and spends 3 hours every evening finished their chart notes.", outcome: "AI listens to each patient encounter and drafts the note in real-time. The specialist reviews and signs throughout the day. They go home at 5 PM with all notes completed." }
+        ],
+        comparisonTable: [
+            { category: "Patient Intake", without: "Paper forms/Manual entry", withAI: "Digital/Auto-synced to EMR" },
+            { category: "Clinical Notes", without: "Manual dictation/typing", withAI: "AI-drafted in real-time" },
+            { category: "Insurance Setup", without: "On-site manual verification", withAI: "Pre-verified benefits/costs" },
+            { category: "Referral Nurture", without: "Call 48 hours later", withAI: "Text in <60 seconds" }
         ]
     },
     {
@@ -1058,6 +1188,23 @@ export const industries: IndustryContent[] = [
                 roles: ["Billing assistant", "P&A coordinator", "Trust account manager", "Revenue Auditor"],
                 tasks: ["Generate invoices", "Verify billable hours", "Monitor trust accounts", "Follow up on collections", "Investor/Partner reporting", "Reconcile escrow funds", "Predict quarterly tax liabilty"]
             }
+        ],
+        dreamVision: "Imagine a firm where high-value partners focus on strategy and high-stakes advocacy, not on lead qualification or document prep. Every intake is consistent. Every billable minute is captured. Every client feels personally served because your automated systems never drop the ball. And your firm scales without the stress of managing another 10 junior paralegals.",
+        industryStats: [
+            { stat: "60%", label: "Faster Document Prep" },
+            { stat: "70%", label: "Higher Intake Conversion" },
+            { stat: "20hrs", label: "Saved Per Attorney/Week" },
+            { stat: "15%", label: "More Billable Recapture" }
+        ],
+        useCases: [
+            { title: "The Midnight Lead Qualification", scenario: "A potential high-value client finds your firm at 11 PM. They want to know if they have a case. Your team isn't available.", outcome: "AI screens the lead with your specific legal logic, checks for immediate conflicts of interest, and books a consult for Tuesday. By the time you wake up, your calendar is ready for a win." },
+            { title: "The Discovery Sprint", scenario: "You receive 2,000 pages of evidence in a new case. Your paralegals are booked for the next 2 weeks.", outcome: "AI scans, indexes, and summarizes the entire discovery set in 2 hours — highlighting every mention of a key fact and generating a searchable map of the evidence for your initial strategy session." }
+        ],
+        comparisonTable: [
+            { category: "Client Intake", without: "Manual screening (Days)", withAI: "AI-qualified (Seconds)" },
+            { category: "Discovery Prep", without: "Dozens of manual hours", withAI: "Auto-mapped and summarized" },
+            { category: "Time Tracking", without: "Manual gut-feel entries", withAI: "AI-suggested billable logs" },
+            { category: "Case Updates", without: "Phone tag and voicemails", withAI: "Instant automated status text" }
         ]
     },
     {
@@ -1198,6 +1345,23 @@ export const industries: IndustryContent[] = [
                 roles: ["Content creator", "Local SEO strategist", "Maintenance coordinator", "Property analyst"],
                 tasks: ["Post listing updates", "Identify local trends", "Schedule property repairs", "Draft rent increase notices", "Reconcile property P&Ls", "Automate HOA applications"]
             }
+        ],
+        dreamVision: "Imagine a brokerage where no lead is ever lost to a slow response. While you're at a showing, the AI captures, qualifies, and books a new Zillow lead on your calendar. While you sleep, it writes the listing description for tomorrow's new property. Your transaction coordinator never misses a deadline because the AI tracks every document. You focus on relationships and closings; the AI handles the pipeline.",
+        industryStats: [
+            { stat: "50%", label: "Higher Lead Conversion" },
+            { stat: "<10s", label: "Response Time" },
+            { stat: "3hrs", label: "Saved per Listing" },
+            { stat: "0", label: "Missed Deadlines" }
+        ],
+        useCases: [
+            { title: "The Open House Capture", scenario: "You meet 30 people at a Sunday open house. It takes you 3 days to manually enter them into your CRM and text them.", outcome: "Visitors scan a QR code at the door. AI instantly logs them in the CRM, sends a welcome text with the property flyer, and follows up on Monday morning asking if they'd like a private showing." },
+            { title: "The Speed-to-Lead Guarantee", scenario: "A lead submits a request on your site at 8 PM while you're at dinner. You reply at 9 PM; they've already booked with another agent.", outcome: "AI texts the lead within 5 seconds: 'Hi! I see you're looking at 123 Main St. I can get you in tomorrow at 2 PM or 4 PM. Which works better?' The showing is booked before dessert." }
+        ],
+        comparisonTable: [
+            { category: "Speed to Lead", without: "Minutes to Hours", withAI: "Seconds (Instant)" },
+            { category: "Listing Marketing", without: "2-3 days of manual work", withAI: "Generated in minutes" },
+            { category: "Lead Nurture", without: "Inconsistent/Forgotten", withAI: "Automated 12-month drips" },
+            { category: "Transaction Comms", without: "Manual email chasing", withAI: "Automated milestone updates" }
         ]
     },
     {
@@ -1328,6 +1492,23 @@ export const industries: IndustryContent[] = [
                 roles: ["Loyalty coordinator", "Event sales assistant", "Social manager"],
                 tasks: ["Nurture regulars", "Triage event inquiries", "Post daily specials", "Manage ad spend", "Trigger anniversary offers"]
             }
+        ],
+        dreamVision: "Imagine a Friday night service where your host never touches the phone. Every reservation, cancellation, and 'Are you dog friendly?' question is handled instantly by AI. Your managers aren't stuck in the back office doing shift schedules; the AI optimized them based on the weather forecast. You run a leaner, more profitable house where the staff actually focuses on the guest right in front of them.",
+        industryStats: [
+            { stat: "60%", label: "Fewer Phone Interruptions" },
+            { stat: "15%", label: "Lower Labor Waste" },
+            { stat: "2x", label: "Group Sales Velocity" },
+            { stat: "30%", label: "More Return Visits" }
+        ],
+        useCases: [
+            { title: "The Friday Night Rush", scenario: "It's 7 PM. You have a line out the door. The phone rings 15 times in 10 minutes with people asking for directions, hours, or trying to change reservations.", outcome: "AI Voice answers every call simultaneously. It texts directions, updates reservations in your system, and politely informs walk-ins of the current wait time. Your host never breaks eye contact with the guest in front of them." },
+            { title: "The Hidden Upsell", scenario: "A guest is staying at your boutique hotel. They check in at 4 PM, go to their room, and you don't hear from them until checkout.", outcome: "AI texts them at 5 PM: 'Hi! I see you checked in. Would you like me to book you a table at our restaurant tonight, or reserve a spa spot for tomorrow?' The AI handles the booking conversationaly via SMS, increasing RevPAR by 12%." }
+        ],
+        comparisonTable: [
+            { category: "Guest Questions", without: "Distracted staff/Holding", withAI: "Instant SMS/Voice answers" },
+            { category: "Reservations", without: "Manual entry/Errors", withAI: "Auto-synced & confirmed" },
+            { category: "Staff Scheduling", without: "Manager gut-feel (waste)", withAI: "AI predicted (Lean)" },
+            { category: "Guest Retention", without: "Hope they come back", withAI: "Automated milestone invites" }
         ]
     },
     {
@@ -1443,6 +1624,23 @@ export const industries: IndustryContent[] = [
                 roles: ["Billing assistant", "Lien manager", "Permit coordinator", "Margin Watchdog"],
                 tasks: ["Generate invoices", "Track lien waivers", "Submit permit apps", "Verify job costs", "Manage vendor payouts", "Monitor project P&L", "Audit labor hours vs bid"]
             }
+        ],
+        dreamVision: "Imagine a job site where your foreman never has to stop working to do paperwork. The daily logs write themselves based on voice notes. Change orders are tracked automatically. Material prices are monitored so you buy at the absolute bottom of the market. And your office isn't chasing subcontractors for lien waivers—the AI does it. You just build.",
+        industryStats: [
+            { stat: "20%", label: "Lower Insurance Risk" },
+            { stat: "12%", label: "Higher Profit Margins" },
+            { stat: "0", label: "Lost Lien Waivers" },
+            { stat: "60%", label: "Faster Estimating" }
+        ],
+        useCases: [
+            { title: "The Invisible Scope Creep", scenario: "The client asks your foreman on Friday to move a wall. The foreman does it. It takes 8 extra hours of labor and $400 in materials. The office never knows, and it never gets billed.", outcome: "The foreman dictates a 10-second voice note into the AI app: 'Client wanted wall moved 2 feet south. Took 2 guys half a day.' AI immediately generates a formal change order, updates the job cost, and emails the client for approval." },
+            { title: "The Subcontractor Chase", scenario: "It's the 28th of the month. Your PM spends 4 days calling 15 different subcontractors to collect their lien waivers so you can submit your pay app to the owner.", outcome: "AI knows exactly which subs are owed money. On the 25th, it auto-emails them a DocuSign link. If they don't sign in 24 hours, it texts them. When they sign, it auto-compiles the entire pay app bundle for the owner." }
+        ],
+        comparisonTable: [
+            { category: "Daily Logs", without: "Skipped/Messy paper logs", withAI: "Auto-drafted from 10s voice note" },
+            { category: "Change Orders", without: "Done for free (margin bleed)", withAI: "Auto-captured and billed" },
+            { category: "Lien Waivers", without: "4 days of manual chasing", withAI: "Automated via Docusign/SMS" },
+            { category: "Material Buying", without: "Buy when needed (expensive)", withAI: "AI predicted market timing" }
         ]
     },
     {
@@ -1578,6 +1776,23 @@ export const industries: IndustryContent[] = [
                 roles: ["QC Inspector", "Returns manager", "Inventory auditor", "Design Engineer assistant"],
                 tasks: ["Scan for defects", "Categorize returns", "Audit stock levels", "Identify shrinkage", "Track material substitutions", "Generate safety certs"]
             }
+        ],
+        dreamVision: "Imagine a factory floor where you never run out of raw materials because the AI placed the PO 3 days ago. Machines schedule their own maintenance during planned downtime. Quality control catches defects instantly using computer vision, preventing bad batches. You manage output and margin, not fires.",
+        industryStats: [
+            { stat: "30%", label: "Faster Inventory Turns" },
+            { stat: "22%", label: "Less Unplanned Downtime" },
+            { stat: "15%", label: "Working Capital Freed" },
+            { stat: "80%", label: "Fewer Sourcing Errors" }
+        ],
+        useCases: [
+            { title: "The Silent Stockout", scenario: "You run a custom fabrication shop. Your supplier for a specialized coating runs out. You don't know until your line stops. Delivery is delayed by a week.", outcome: "AI monitors inventory and supplier lead times daily. It sees the coating is running low and lead times have increased. It automatically requests approval for a larger PO from an alternate, pre-vetted supplier. Production never stops." },
+            { title: "The Predictive Fix", scenario: "A critical CNC machine breaks down mid-shift. It takes 48 hours to get the replacement part. The entire line is halted.", outcome: "AI monitors the machine's vibration and heat data. It detects an anomaly 3 weeks before failure. It auto-orders the part and schedules a technician for the next scheduled shift change. Zero downtime." }
+        ],
+        comparisonTable: [
+            { category: "Inventory Control", without: "Spreadsheets/Manual counts", withAI: "Auto-synced & predictive" },
+            { category: "Supplier Chasing", without: "Manual follow-up emails", withAI: "Automated status checks" },
+            { category: "Maintenance", without: "Break-fix (expensive downtime)", withAI: "Predictive (scheduled fixes)" },
+            { category: "Quality Control", without: "Human inspection (slow/errors)", withAI: "Computer vision (instant/flawless)" }
         ]
     },
     {
@@ -1723,6 +1938,23 @@ export const industries: IndustryContent[] = [
                 roles: ["Marketing analyst", "Affiliate manager", "Partnership scout", "Curriculum Assistant"],
                 tasks: ["Track LTV per channel", "Triage partner applications", "Manage affiliate payouts", "Monitor viral loops", "Update course descriptions", "Tag webinar timestamps"]
             }
+        ],
+        dreamVision: "Imagine a community where you only step in to deliver high-level value. The AI welcomes every new member, answers their 'where is the link' questions instantly, and connects them with other members who share their goals. When someone's attendance drops, the AI gently nudges them back before they cancel. You sleep soundly knowing your members feel seen and supported 24/7.",
+        industryStats: [
+            { stat: "25%", label: "Lower Monthly Churn" },
+            { stat: "3x", label: "Higher Engagement" },
+            { stat: "80%", label: "Fewer Support Tickets" },
+            { stat: "2x", label: "More Member Referrals" }
+        ],
+        useCases: [
+            { title: "The Silent Churner", scenario: "A member hasn't logged into your Skool/Circle group in 18 days. Usually, you only notice when the Stripe cancellation comes through.", outcome: "AI flags the inactivity on day 14. It sends a highly personalized, automated DM: 'Hey John, I saw you were working through Module 3 last week! Anything I can help unblock for you?' John replies, gets help, and stays." },
+            { title: "The Repetitive FAQ", scenario: "You launch a new cohort. For the next 3 days, your community manager answers 'Where do I find the calendar?' 45 times in the Slack/Discord.", outcome: "AI reads the question and instantly replies in-thread with the exact link and schedule, plus a friendly welcome emoji. Your community manager spends those 3 days actually building relationships." }
+        ],
+        comparisonTable: [
+            { category: "Member Support", without: "Hours to reply (CM burnout)", withAI: "Instant 24/7 answers" },
+            { category: "Churn Prevention", without: "Reactive (Too late)", withAI: "Predictive (Saves MRR)" },
+            { category: "Onboarding", without: "Generic welcome email", withAI: "Personalized journey guide" },
+            { category: "Networking", without: "Hope they find each other", withAI: "AI-suggested 1-on-1 matches" }
         ]
     },
     {
@@ -1858,6 +2090,23 @@ export const industries: IndustryContent[] = [
                 roles: ["Tech support agent", "Success coordinator", "Refund deflector", "LTV Analyst"],
                 tasks: ["Troubleshoot downloads", "Resolve login issues", "Send personalized 'How-to' videos", "Monitor refund requests", "Incentivize exchanges", "Segment high-value buyers"]
             }
+        ],
+        dreamVision: "Imagine launching a new product and watching Stripe notifications roll in, knowing you won't have to answer a single 'I can't log in' email. The AI handles the tech support. It bumps your AOV by offering perfectly timed upsells. It even monitors Telegram for leaked versions of your course and issues takedowns automatically. You finally have the freedom that digital products promised.",
+        industryStats: [
+            { stat: "90%", label: "Support Tickets Automated" },
+            { stat: "15%", label: "Higher Cart Value" },
+            { stat: "25%", label: "Abandoned Carts Saved" },
+            { stat: "0", label: "Piracy Leaks Ignored" }
+        ],
+        useCases: [
+            { title: "The High-Ticket Hesitation", scenario: "A prospect is on your $997 course checkout page. They've been there for 4 minutes. They're wondering if it works for real estate agents.", outcome: "An AI chat widget pops up: 'Hi! I see you're looking at the course. Just so you know, we have 42 real estate agents who have taken this. Want to see a case study?' The AI handles the objection and secures the $997 sale." },
+            { title: "The Weekend Black Hole", scenario: "Someone buys your software template on Saturday morning. The download link goes to their spam. They email you furious. You don't reply until Monday.", outcome: "AI reads their angry email on Saturday at 9:05 AM. At 9:06 AM, it replies: 'I'm so sorry about that! Here is a direct link to your download, and a quick video on how to install it.' The customer leaves a 5-star review." }
+        ],
+        comparisonTable: [
+            { category: "Tech Support", without: "Creator answers emails", withAI: "Instant AI resolution" },
+            { category: "Checkout Friction", without: "Abandoned carts (Lost)", withAI: "Real-time AI objection handling" },
+            { category: "Piracy Protection", without: "Manual DMCA (Impossible)", withAI: "Automated forum scanning" },
+            { category: "AOV Bumps", without: "Static checkout pages", withAI: "Dynamic behavioral bundles" }
         ]
     },
     {
@@ -1988,10 +2237,37 @@ export const industries: IndustryContent[] = [
                 roles: ["Billing assistant", "Contract manager", "Vendor liaison", "Margin Strategist"],
                 tasks: ["Generate invoices", "Verify contract terms", "Manage vendor payments", "Monitor firm P&L", "Audit project expenses", "Predict revenue quarterly"]
             }
+        ],
+        dreamVision: "Imagine a firm where your partners actually spend 90% of their time advising clients, not formatting PowerPoint decks or chasing invoices. AI digests the raw data overnight and has the first draft of the strategy waiting at 8 AM. New client onboarding is completely frictionless. Your firm's institutional knowledge is instantly searchable by every junior analyst. You scale your revenue without scaling your headcount linearly.",
+        industryStats: [
+            { stat: "65%", label: "Faster prep time" },
+            { stat: "20hrs", label: "Saved per Partner/Wk" },
+            { stat: "90%", label: "Faster onboarding" },
+            { stat: "30%", label: "More internal capacity" }
+        ],
+        useCases: [
+            { title: "The Friday Data Dump", scenario: "A client uploads 40 spreadsheets of raw operational data at 5 PM on Friday. They expect an initial strategy call on Monday. Your junior analyst loses their weekend.", outcome: "AI ingests the 40 spreadsheets Friday night. By Saturday morning, it has cleaned the data, identified the 3 major operational bottlenecks, and drafted a 10-slide summary deck in your firm's branding. The analyst reviews it Monday at 8 AM and is ready for the call." },
+            { title: "The Lost Knowledge", scenario: "You are pitching a supply chain client. You know your firm did a similar project 3 years ago, but that partner left, and the files are buried in a shared drive.", outcome: "You ask your AI Knowledge Engine: 'What was our supply-chain optimization strategy for the manufacturing client in 2023?' It instantly summarizes the methodology, identifies the pitfalls to avoid, and provides links to the original deliverables." }
+        ],
+        comparisonTable: [
+            { category: "Data Analysis", without: "Junior analysts (Days)", withAI: "Instant synthesis (Minutes)" },
+            { category: "Client Intake", without: "Manual forms/emails", withAI: "Automated document gathering" },
+            { category: "Knowledge Sharing", without: "Asking around/Searching drives", withAI: "Instant semantic search" },
+            { category: "Report Drafting", without: "Manual formatting", withAI: "AI-generated branded drafts" }
         ]
     },
-    ...niches1,
-    ...niches2,
-    ...niches3,
-    ...nichesTop100
+    ...automotiveIndustries,
+    ...beautyIndustries,
+    ...businessIndustries,
+    ...educationIndustries,
+    ...eventsIndustries,
+    ...homeServicesAIndustries,
+    ...homeServicesBIndustries,
+    ...homeServicesCIndustries,
+    ...legalIndustries,
+    ...medicalIndustries,
+    ...petIndustries,
+    ...professionalIndustries,
+    ...realEstateIndustries,
+    ...wellnessIndustries,
 ];
