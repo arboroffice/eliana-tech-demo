@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic'
 import { NextResponse } from 'next/server'
 import { getAllBlogPosts } from '@/lib/blog'
 import { generateBatch, buildMarkdownFile } from '@/lib/blog-agent'
