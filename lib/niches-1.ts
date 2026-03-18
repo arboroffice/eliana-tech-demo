@@ -5,304 +5,440 @@ export const niches1: IndustryContent[] = [
         slug: "storm-restoration",
         name: "Storm Restoration",
         hook: "Chaos is Your Opportunity. But Speed is Your Bottleneck.",
-        problem: "When a storm hits, leads flood in. But you're manually trying to organize crews, generate estimates, follow up with insurance adjusters, and keep homeowners calm. While you're on hold with State Farm, your competitor is getting the contract signed.",
-        operatorProblem: "Every manual follow-up and insurance chase is costing you margin and momentum during catastrophic events. We install an AI triage system that qualifies the homeowner, schedules the inspection, and auto-generates the initial paperwork.",
+        problem: "When a storm hits, leads flood in. But you're manually trying to organize crews, generate estimates, follow up with insurance adjusters, and keep homeowners calm.",
+        operatorProblem: "Every manual follow-up and insurance chase is costing you margin and momentum. We install an AI triage system that qualifies the homeowner, schedules the inspection, and auto-generates the initial paperwork.",
         result: "You capture 3x more jobs per storm event by accelerating speed-to-lead to under 10 seconds.",
-        subNiches: ["Wind & Hail Damage", "Flood & Water Mitigation", "Fire & Smoke Restoration", "Emergency Tarp & Board Up", "Insurance Claim Specialists"],
+        subNiches: ["Wind & Hail Damage", "Flood & Water Mitigation", "Insurance Claim Specialists"],
         geoKeywords: ["Florida", "Texas", "Midwest", "Gulf Coast", "Colorado"],
         services: {
             singleSystems: {
-                title: "Storm Response Automation",
+                title: "Response Automation",
                 description: "Dominate the impact zone with instant triage.",
                 examples: [
-                    { title: "The 10-Second Lead Qualifier", detail: "AI that asks damage-specific questions via SMS and instantly routes high-priority claims to your top inspectors.", roi: "2x increase in closed storm inspections." },
-                    { title: "Insurance Follow-Up Bot", detail: "AI that continually follows up with adjusters via email and manages the paperwork queue.", roi: "Reclaims 20+ hours per week of admin time." }
+                    { title: "The 10-Second Qualifier", detail: "AI that asks damage-specific questions via SMS and instantly routes high-priority claims.", roi: "2x increase in closed storm inspections." },
+                    { title: "Insurance Follow-Up Bot", detail: "AI that follows up with adjusters via email and manages the paperwork queue.", roi: "Reclaims 20+ hours per week of admin time." }
                 ]
             },
             departments: {
                 title: "Department Automation",
-                description: "Complete storm operation systems.",
+                description: "Complete storm scalability.",
                 areas: [
-                    { area: "Intake & Routing", detail: "AI answers 100% of calls, qualifies damage scope, and places it on your crew's calendar.", impact: "Zero missed opportunities during peak storm spikes." }
+                    { area: "Intake & Triage", detail: "Answers 100% of calls, qualifies damage, and schedules visits.", impact: "Zero missed opportunities during spikes." },
+                    { area: "Finance & Supplements", detail: "Automated billing follow-up and supplement tracking.", impact: "Faster cash flow post-storm." }
                 ]
             },
             custom: {
                 title: "The Restoration OS",
-                description: "Built for scalable multi-state storm deployments.",
-                features: ["Automated Xactimate data prep", "Multi-crew dynamic routing", "Automated supplement requests"]
+                description: "Built for multi-state storm deployments.",
+                features: ["Automated Xactimate data prep", "Multi-crew dynamic routing", "Automated supplement requests", "State-specific compliance trackers"]
             }
         },
         faq: [
-            { q: "Can it handle 100 calls a day when a storm hits?", a: "Yes, our voice AI scales infinitely to handle massive regional spikes instantly." }
+            { q: "Can it handle 100 calls a day quando a storm hits?", a: "Yes, our voice AI scales infinitely to handle massive regional spikes instantly." },
+            { q: "Does it integrate with my estimator tool?", a: "We build middleware for Xactimate and other major platforms." }
         ],
-        layers: [
-            { department: "Sales & Triage", roles: ["Lead Qualifier", "Claim Assistant"], tasks: ["Triage leads", "Gather damage photos"] }
-        ]
+        dreamVision: "Imagine a storm event where you don't even have to look at your phone. Your crews are dispatched, your supplements are filed, and your homeowners are kept updated 24/7 by a neural system that never sleeps.",
+        industryStats: [
+            { stat: "300%", label: "Lead Throughput" },
+            { stat: "10s", label: "Speed to Lead" },
+            { stat: "40%", label: "Admin Reduction" }
+        ],
+        useCases: [
+            { title: "The Hail Surge", scenario: "Hail hits at 2 AM. 200 homeowners call by 8 AM.", outcome: "AI answers every call, qualifies the damage, and populates the inspection route automatically." }
+        ],
+        comparisonTable: [
+            { category: "Lead Intake", without: "Manual (Phone Tag)", withAI: "Instant (10s SMS/Voice)" },
+            { category: "Dispatch", without: "Spreadsheets & Texts", withAI: "Automated Fleet Routing" }
+        ],
+        processSteps: [
+            { step: 1, title: "Storm Audit", description: "Mapping your response bottlenecks." },
+            { step: 2, title: "Triage Setup", description: "Launching your 24/7 AI response unit." }
+        ],
+        layers: [{ department: "Sales & Triage", roles: ["Lead Qualifier", "Claim Assistant"], tasks: ["Triage leads", "Gather damage photos"] }]
     },
     {
         slug: "roofing",
         name: "Roofing Companies",
         hook: "Stop Chasing Leads and Let Your System Chase the Checks.",
-        problem: "You are spending too much money on HomeAdvisor or Angi leads that never answer the phone. Your trucks are disorganized, and your pipeline is inconsistent outside of hail season.",
-        operatorProblem: "Your residential roofing operation relies on manual door knocking and phone tag. We install an AI that handles the 15-touch follow-up sequence over SMS and Voice so your estimators only roll to qualified appointments.",
+        problem: "You're spending too much on leads that never answer. Your trucks are disorganized, and your pipeline is inconsistent.",
+        operatorProblem: "Your residential roofing operation relies on manual door knocking and phone tag. We install an AI that handles the 15-touch follow-up sequence.",
         result: "Estimators close more deals because they stop knocking on unqualified doors.",
-        subNiches: ["Residential Roofing", "Commercial Flat Roofs", "Metal & Slate Specialists", "Solar Roofing Integration"],
+        subNiches: ["Residential Roofing", "Commercial Flat Roofs"],
         geoKeywords: ["Texas", "Florida", "Ohio", "Colorado", "Nationwide"],
         services: {
             singleSystems: {
                 title: "Roofing Growth Systems",
                 description: "Fix the leaks in your sales funnel.",
                 examples: [
-                    { title: "The Persistent Estimator", detail: "AI that follows up 7-15 times via SMS with homeowners who received a quote but haven't signed.", roi: "Closes 15% more outstanding quotes." },
-                    { title: "Automated Review Generator", detail: "Requests Google reviews from happy customers upon final payment.", roi: "Builds massive local SEO dominance." }
+                    { title: "The Persistent Estimator", detail: "AI that follows up 15 times via SMS with homeowners who received a quote.", roi: "Closes 15% more outstanding quotes." },
+                    { title: "Automated Review Generator", detail: "Requests Google reviews from happy customers upon final payment automatically.", roi: "Builds massive local SEO dominance." }
                 ]
             },
             departments: {
                 title: "Department Automation",
                 description: "Scale beyond the owner's bandwidth.",
                 areas: [
-                    { area: "Sales & Estimating", detail: "AI that pre-qualifies incoming web leads and schedules satellite estimations automatically.", impact: "Doubles the efficiency of your estimating team." }
+                    { area: "Sales & Estimating", detail: "AI-led qualification and calendar management.", impact: "Doubles efficiency." },
+                    { area: "Admin & Support", detail: "24/7 answering for tracking status and scheduling.", impact: "Reclaim 40 hours of admin time weekly." }
                 ]
             },
             custom: {
-                title: "Roofing Revenue Engine",
-                description: "The complete pipeline from click to final inspection.",
+                title: "The Roofing Revenue Engine",
+                description: "Complete click-to-final-inspection pipeline.",
                 features: ["AI integration to EagleView", "Automated subcontractor payments", "Supplement follow-ups"]
             }
         },
         faq: [
-            { q: "Does the AI sound like a real person over text?", a: "Yes, we use advanced conversational logic that includes natural pauses, empathy, and localized terminology." }
+            { q: "Does the AI sound like a real person?", a: "Yes, we use advanced conversational logic including natural pauses." },
+            { q: "Can it integrate with Jobber?", a: "Yes, we connect directly to Jobber and other major roofing CRMs." }
         ],
-        layers: [
-            { department: "Pre-Sales", roles: ["Lead Chaser", "Appointment Setter"], tasks: ["Follow up on stale leads", "Gather property details"] }
-        ]
+        dreamVision: "Imagine a roofing business where your only job is to review the daily win report. Every lead is nurtured, every crew is confirmed, and your Google reviews grow on autopilot while you sleep.",
+        industryStats: [
+            { stat: "2x", label: "Closed Jobs" },
+            { stat: "15%", label: "Higher Margin" },
+            { stat: "Zero", label: "Lead Leakage" }
+        ],
+        useCases: [
+            { title: "The Ghost Lead", scenario: "A homeowner gets a quote but stops answering their phone.", outcome: "AI follows up 15 times over 30 days via SMS, eventually booking the signature call." }
+        ],
+        comparisonTable: [
+            { category: "Follow-up", without: "Manual (Rare)", withAI: "Persistent (15 Touches)" },
+            { category: "Booking", without: "Phone Tag", withAI: "Instant On-Calendar" }
+        ],
+        processSteps: [
+            { step: 1, title: "Funnel Audit", description: "Finding your biggest lead leaks." },
+            { step: 2, title: "Nurture Launch", description: "Deploying your persistent AI chaser." }
+        ],
+        layers: [{ department: "Pre-Sales", roles: ["Lead Chaser", "Appointment Setter"], tasks: ["Follow up on stale leads", "Gather property details"] }]
     },
     {
         slug: "luxury-real-estate",
         name: "Luxury Real Estate",
         hook: "High-Net-Worth Clients Demand Instant, Perfect Communication.",
-        problem: "When a potential buyer inquiries about a $5M property, they expect a concierge experience. You can't provide that if you are driving across town or negotiating another deal. Missing that text means losing a six-figure commission.",
-        operatorProblem: "Delivering a white-glove experience doesn't scale if you are the only one answering the phone. We build a high-fidelity AI concierge that handles inquiries, provides neighborhood details, and discreetly qualifies the buyer's timeline.",
+        problem: "When a potential buyer inquiries about a $5M property, they expect a concierge experience. Missing that text means losing a six-figure commission.",
+        operatorProblem: "Delivering a white-glove experience doesn't scale if you are the only one answering. We build an AI concierge that handles neighborhood details.",
         result: "You provide a billionaire-level concierge experience 24/7 without being glued to your phone.",
-        subNiches: ["Ultra-Luxury Residential", "Equestrian Properties", "Private Island Sales", "High-End Condos & Penthouses"],
-        geoKeywords: ["Beverly Hills", "Miami", "Hamptons", "Aspen", "New York City", "Dubai"],
+        subNiches: ["Ultra-Luxury Residential", "High-End Condos & Penthouses"],
+        geoKeywords: ["Beverly Hills", "Miami", "Hamptons", "Aspen", "NYC"],
         services: {
             singleSystems: {
                 title: "White-Glove Automations",
                 description: "Elevate your property marketing instantly.",
                 examples: [
-                    { title: "The 24/7 Listing Concierge", detail: "AI that instantly texts buyers property brochures, floor plans, and virtual tours.", roi: "Increases high-net-worth buyer engagement." },
-                    { title: "Discreet Buyer Qualifier", detail: "AI that asks polite but firm pre-qualification questions before booking a private showing.", roi: "Saves hours of wasted time on unqualified looky-loos." }
+                    { title: "The 24/7 Listing Concierge", detail: "AI that instantly texts buyers property brochures and virtual tours.", roi: "Increases HNW buyer engagement." },
+                    { title: "Discreet Buyer Qualifier", detail: "AI that asks polite pre-qualification questions before booking a private showing.", roi: "Saves hours of wasted time." }
                 ]
             },
             departments: {
                 title: "Department Automation",
                 description: "Operate like a global luxury brand.",
                 areas: [
-                    { area: "Brand & Marketing", detail: "AI that generates premium architectural copy and translates it into 5 languages for international buyers.", impact: "Dominates international syndication platforms." }
+                    { area: "Marketing & Listings", detail: "AI-generated bespoke listing copy and global distribution.", impact: "Maximum property eyeballs." },
+                    { area: "Client Experience", detail: "24/7 concierge for existing clients and high-value prospects.", impact: "Unbeatable responsiveness scores." }
                 ]
             },
             custom: {
-                title: "The Platinum Broker OS",
-                description: "Full suite for a luxury group.",
-                features: ["Multi-lingual concierge", "Automated off-market matchmaker", "High-frequency investor updates"]
+                title: "The Luxury Real Estate OS",
+                description: "Bespoke infrastructure for elite agents.",
+                features: ["Custom brochures", "Vetted buyer portals", "Global market analytics"]
             }
         },
         faq: [
-            { q: "Will luxury buyers get offended by AI?", a: "Not when it delivers exactly what they want (a PDF, a video, a floorpan) instantly. The AI hands the conversation to you seamlessly for personal touch." }
+            { q: "Can it handle complex buyer questions?", a: "Yes, we feed the AI every detail about your listings." },
+            { q: "Is buyer privacy protected?", a: "Absolutely. We use high-security nodes and non-disclosure protocols." }
         ],
-        layers: [
-            { department: "Concierge", roles: ["Listing Ambassador", "Data Coordinator"], tasks: ["Distribute marketing assets", "Qualify buyer timelines"] }
-        ]
+        dreamVision: "Imagine a world where your listings market themselves globally while you are on vacation. Your buyers are vetted, their tours are scheduled, and your only job is the handshake and final number.",
+        industryStats: [
+            { stat: "24/7", label: "Global Concierge" },
+            { stat: "20%", label: "Faster Closings" },
+            { stat: "Zero", label: "Agent Burnout" }
+        ],
+        useCases: [
+            { title: "The International Buyer", scenario: "An investor from Dubai inquiries about a penthouse at 3 AM local time.", outcome: "AI texts them the brochure in Arabic, answers tax questions, and schedules a tour." }
+        ],
+        comparisonTable: [
+            { category: "Client Response", without: "Manual (Hours/Days)", withAI: "Instant (10 Seconds)" },
+            { category: "Buyer Vetting", without: "Phone tag and wasted tours", withAI: "Autonomous Pre-Qualification" }
+        ],
+        processSteps: [
+            { step: 1, title: "Listing Audit", description: "Mapping your current HNW client journey." },
+            { step: 2, title: "Concierge Deployment", description: "Launching your 24/7 white-glove assistant." }
+        ],
+        layers: [{ department: "Concierge", roles: ["Listing Assistant", "Buyer Qualifier"], tasks: ["Provide property info", "Vet buyer timeline"] }]
     },
     {
         slug: "med-spas",
-        name: "Med Spas & Aesthetics",
-        hook: "Fill Your Chairs, Manage Your Memberships, Stop Chasing No-Shows.",
-        problem: "Your injectors are booked, but you are losing thousands of dollars to last-minute cancellations. New leads ask 'How much is Botox?' via Instagram DM at midnight and book with a competitor by morning because no one answered.",
-        operatorProblem: "Front desk staff cannot keep up with marketing campaigns, intake forms, and high-maintenance patient questions. We install an AI patient coordinator that lives in your DMs, texts, and web chat to convert curiosity into a confirmed appointment with a credit card on file.",
-        result: "Your schedule stays full, no-shows drop to near zero, and repeat treatments happen on autopilot.",
-        subNiches: ["Injectables & Botox Clinics", "Laser Hair Removal Centers", "IV Therapy Clinics", "Anti-Aging Centers"],
-        geoKeywords: ["Los Angeles", "Dallas", "Miami", "New York", "Chicago"],
+        name: "Med Spas",
+        hook: "Your Clinic is Full, but Your Staff is Burned Out.",
+        problem: "You are spending too much time on admin. Patients are calling constantly, and your front desk is overwhelmed with scheduling and reminders.",
+        operatorProblem: "The bottleneck is human interaction for repetitive tasks. We install AI agents that handle booking and patient inquiries 24/7.",
+        result: "The clinic runs smoothly with zero missed calls and automated patient nurturing.",
+        subNiches: ["Aesthetics Clinics", "Laser Hair Removal Specialists"],
+        geoKeywords: ["Nationwide", "Major Metros"],
         services: {
             singleSystems: {
-                title: "Aesthetic Growth Systems",
-                description: "Turn clicks into confirmed bookings.",
+                title: "Practice Automation",
+                description: "Streamline your clinic intake.",
                 examples: [
-                    { title: "The DM Booking Agent", detail: "AI that responds instantly to Instagram/Facebook DMs to answer pricing questions and book the consult.", roi: "Recovers 30% of lost social media leads." },
-                    { title: "The Membership Reactivator", detail: "Automated SMS to patients who haven't been in for 4+ months with a personalized 'We miss you' offer.", roi: "Adds $10k+ a month to the bottom line." }
+                    { title: "The 24/7 Receptionist", detail: "AI that answers every call and text to book appointments.", roi: "30% increase in volume." },
+                    { title: "Patient Re-engagement Bot", detail: "AI scans your database to fill cancelled slots and re-call dormant patients.", roi: "Adds $10k-$25k/mo in revenue." }
                 ]
             },
             departments: {
-                title: "Department Automation",
-                description: "Overhaul your intake and retention.",
+                title: "Practice Operations",
+                description: "Full-scale clinic automation.",
                 areas: [
-                    { area: "Front Desk & Triage", detail: "AI handles every 'Do you have openings today?' question across all platforms.", impact: "Reduces phone volume by 70%." }
+                    { area: "Patient Reception", detail: "Multi-channel AI intake handling for calls, texts, and social DMs.", impact: "Reclaim 80% bandwidth." },
+                    { area: "Clinical Administration", detail: "Automated charting and patient record mapping.", impact: "Reduced provider burnout." }
                 ]
             },
             custom: {
-                title: "The MedSpa OS",
-                description: "Built for multi-location aesthetic brands.",
-                features: ["HIPAA-compliant intake systems", "Automated post-care follow-up", "Dynamic promotional pricing engine"]
+                title: "The Med Spa OS",
+                description: "Built for modern aesthetic practices.",
+                features: ["HIPAA-compliant LLM", "Direct integration to Boulevard/MindBody", "Practice dashboards"]
             }
         },
         faq: [
-            { q: "Can the AI collect a deposit?", a: "Yes, it can seamlessly guide the patient to a secure payment portal to lock in their appointment." }
+            { q: "Is the AI secure?", a: "Yes, we use enterprise-grade, HIPAA-compliant security." },
+            { q: "Does it work with my booking software?", a: "We integrate with MindBody, Boulevard, and more." }
         ],
-        layers: [
-            { department: "Patient Experience", roles: ["Virtual Coordinator", "Retention Specialist"], tasks: ["Answer FAQs", "Rebook past patients"] }
-        ]
+        dreamVision: "Imagine a clinic where the only thing your staff does is treat patients. Every call is answered, every trial is closed, and your inventory is managed by an AI eye that never loses track of a single laser pulse.",
+        industryStats: [
+            { stat: "30%", label: "Patient Growth" },
+            { stat: "100%", label: "Inquiry Capture" },
+            { stat: "15h", label: "Weekly Admin Recaptured" }
+        ],
+        useCases: [
+            { title: "The Instagram DM", scenario: "An influencer tags your clinic at 9 PM and you get 50 DMs asking for pricing.", outcome: "AI answers every DM, provides the service menu, and books 15 consultations before you wake up." }
+        ],
+        comparisonTable: [
+            { category: "Patient Intake", without: "Manual Phonetag", withAI: "Instant Autonomous Booking" },
+            { category: "Re-engagement", without: "Manual (Rare)", withAI: "Continuous AI Nurture" }
+        ],
+        processSteps: [
+            { step: 1, title: "Clinic Audit", description: "Mapping your current patient intake flow." },
+            { step: 2, title: "HIPAA Node Launch", description: "Deploying secure AI infrastructure for scheduling." }
+        ],
+        layers: [{ department: "Patient Coordination", roles: ["Front Desk AI", "Intake Assistant"], tasks: ["Answer inquiries", "Book procedures"] }]
     },
     {
         slug: "commercial-home-services",
         name: "Commercial Home Services",
-        hook: "Commercial Contracts Move Slow. Your Follow-Up Should Not.",
-        problem: "Winning commercial contracts (HVAC, plumbing, electrical) requires navigating facility managers, procurement officers, and endless RFPs. Your sales team is spending 60% of their time deciphering bid requirements instead of building relationships.",
-        operatorProblem: "Commercial bids demand precision and persistence. We install an AI that digests 100-page RFP documents, extracts the core requirements, drafts the proposal, and automates the multi-month follow-up sequence.",
-        result: "Your team bids on twice as many contracts with half the administrative overhead.",
-        subNiches: ["Commercial HVAC", "Facility Maintenance", "Commercial Roofing", "Industrial Plumbing", "Property Management Vendors"],
-        geoKeywords: ["Nationwide", "Major Metros", "Dallas", "Chicago", "New York"],
+        hook: "B2B Service Contracts Are Won by the Most Responsive Firm.",
+        problem: "Facility managers don't have time for slow replies. If you don't answer their RFP or service call instantly, they move to the next vendor.",
+        operatorProblem: "Handling multi-property service requests is an administrative nightmare. We install an AI dispatcher that coordinates everything.",
+        result: "You win and retain larger commercial contracts by providing instant, reliable coordination.",
+        subNiches: ["HVAC Commercial", "Electrical", "Plumbing", "Janitorial"],
+        geoKeywords: ["Industrial Parks", "Retail Centers", "Office Complexes"],
         services: {
             singleSystems: {
-                title: "Commercial Bidding Tools",
-                description: "Accelerate your path to the contract.",
+                title: "Commercial Dispatch",
+                description: "Enterprise-grade service coordination.",
                 examples: [
-                    { title: "The RFP Decoder", detail: "AI that scans complex bid documents to summarize scope, timeline, and compliance requirements in 2 minutes.", roi: "Saves 10+ hours per bid." },
-                    { title: "Automated Compliance Checker", detail: "AI that ensures every proposal includes the right insurance certs and licensing data.", roi: "Zero rejected bids due to missing paperwork." }
+                    { title: "RFP Response Bot", detail: "AI that initial-drafts responses to service RFPs based on your past wins.", roi: "3x faster bid submission." },
+                    { title: "Facility Manager Concierge", detail: "A dedicated AI line for facility managers to request emergency service.", roi: "100% contract retention." }
                 ]
             },
             departments: {
-                title: "Department Automation",
-                description: "Full-scale commercial operation.",
+                title: "Service Operations",
+                description: "Automate the commercial lifecycle.",
                 areas: [
-                    { area: "Sales & Proposals", detail: "AI drafts the first 80% of any commercial proposal using historical pricing and margin data.", impact: "Massive scale in proposal output." }
+                    { area: "Contract Management", detail: "AI-monitored SLAs and renewal dates.", impact: "Zero missed renewals." },
+                    { area: "Billing & Invoicing", detail: "Automated progress billing for large commercial projects.", impact: "Faster cash cycles." }
                 ]
             },
             custom: {
-                title: "The Commercial Vendor OS",
-                description: "Complete B2B service pipeline.",
-                features: ["Predictive fleet maintenance", "Automated net-30 invoice chasing", "Subcontractor compliance tracking"]
+                title: "The Commercial OS",
+                description: "Built for scaling service fleets.",
+                features: ["Multi-property dashboards", "Vendor portal integration", "Automated compliance audits"]
             }
         },
         faq: [
-            { q: "Can it handle complex commercial pricing?", a: "Yes, we connect the AI to your pricing matrix or historical job data so it can generate accurate preliminary quotes." }
+            { q: "Can it handle complex vendor portals?", a: "Yes, we build custom connectors for major enterprise property tools." },
+            { q: "How does it handle emergency dispatch?", a: "AI identifies 'Critical' keywords and immediately triggers your on-call crew." }
         ],
-        layers: [
-            { department: "Bidding & Ops", roles: ["RFP Analyst", "Account Follow-Up"], tasks: ["Extract spec sheets", "Persistently contact facility managers"] }
-        ]
+        dreamVision: "Imagine a commercial operation where every facility manager you serve feels like they have a dedicated account manager. The bids go out, the crews go in, and the invoices are paid before you even check your dashboard.",
+        industryStats: [
+            { stat: "100%", label: "SLA Compliance" },
+            { stat: "24/7", label: "Managed Response" },
+            { stat: "25%", label: "Faster Invoicing" }
+        ],
+        useCases: [
+            { title: "The Emergency Leak", scenario: "A retail center has a pipe burst at 11 PM.", outcome: "AI triages the urgency, notifies the facility manager it's handled, and dispatches the closest tech." }
+        ],
+        comparisonTable: [
+            { category: "Bid Speed", without: "Manual (Days)", withAI: "AI-Assisted (Hours)" },
+            { category: "Status Transparency", without: "Manual Phone calls", withAI: "Instant Portal Updates" }
+        ],
+        processSteps: [
+            { step: 1, title: "Operations Audit", description: "Mapping your contract and dispatch flow." },
+            { step: 2, title: "Dispatch Deployment", description: "Launching your commercial AI response layer." }
+        ],
+        layers: [{ department: "Dispatch", roles: ["AI Scheduler", "Contract Assistant"], tasks: ["Manage work orders", "Track SLA compliance"] }]
     },
     {
         slug: "mortgage-brokers",
         name: "Mortgage Brokers",
-        hook: "Don't Lose the Refi to Rocket Mortgage.",
-        problem: "When rates drop, your phone blows up. But when rates are high, you have to scrape for every deal. Managing Realtor relationships, checking on underwriting status, and keeping the borrower calm is an administrative nightmare.",
-        operatorProblem: "The mortgage business is 90% document collection and status checking. We install an AI 'Loan Officer Assistant' that chases missing W-2s, updates Realtors on Friday afternoons, and mines your past database for refinance triggers.",
-        result: "You close loans faster and retain your Realtor channel through flawless communication.",
-        subNiches: ["Residential Lending", "Commercial Mortgages", "VA & FHA Specialists", "Hard Money Lenders"],
-        geoKeywords: ["Nationwide", "California", "Texas", "Florida", "New York"],
+        hook: "In a Low-Inventory Market, Speed-to-Pre-Approval is Everything.",
+        problem: "Borrowers are shopping multiple brokers. If you don't answer their text or get their docs in the first 10 minutes, you've lost the deal.",
+        operatorProblem: "Doc chasing and basic qualification take up 70% of your day. We install an AI processor that handles the boring stuff.",
+        result: "You spend your time locked in on high-value advice and closing, not asking for W2s for the fifth time.",
+        subNiches: ["Residential Purchase", "Refinance Specialists", "Commercial Lending"],
+        geoKeywords: ["Nationwide", "High-Growth Metros"],
         services: {
             singleSystems: {
-                title: "Loan Velocity Systems",
-                description: "Speed up the pipeline to closing.",
+                title: "Mortgage Intake AI",
+                description: "Accelerate the loan lifecycle.",
                 examples: [
-                    { title: "The Document Chaser", detail: "AI that repeatedly and politely texts borrowers for missing bank statements and pay stubs until they upload them.", roi: "Cuts 4-7 days off the loan cycle." },
-                    { title: "Automated Pipeline Updates", detail: "AI that sends customized pipeline updates to your Realtor partners every Friday without you lifting a finger.", roi: "Increases Realtor referral loyalty by 40%." }
+                    { title: "The 10-Minute Pre-Qualifier", detail: "AI that gathers basic credit/income stats and checks them against guidelines.", roi: "2x more pre-approvals issued." },
+                    { title: "Automated Doc Chaser", detail: "Persistent but polite AI that follows up for missing documents.", roi: "Reduces processing time by 4 days." }
                 ]
             },
             departments: {
-                title: "Department Automation",
-                description: "Scale your origination without hiring.",
+                title: "Loan Operations",
+                description: "Autonomous mortgage processing.",
                 areas: [
-                    { area: "Marketing & Lead Gen", detail: "AI that scans your CRM for life events and equity shifts to pitch refinance or HELOC offers.", impact: "Generates deals out of thin air." }
+                    { area: "Lead Conversion", detail: "Instant response to Zillow or LendingTree leads.", impact: "4x increase in lead-to-app conversion." },
+                    { area: "Processor Support", detail: "AI-assisted document verification and file prep.", impact: "Processor handles 3x the volume." }
                 ]
             },
             custom: {
-                title: "The Broker OS",
-                description: "Full origination and processing support.",
-                features: ["Automated 1003 data extraction", "Pre-approval letter generation system", "Real-estate agent co-marketing engine"]
+                title: "The Mortgage OS",
+                description: "Built for high-volume brokerages.",
+                features: ["Direct CRM sync (Encompass/Calyx)", "Secure doc upload portal", "Real-time rate watch AI"]
             }
         },
         faq: [
-            { q: "Is this compliant with lending regulations?", a: "Yes. The AI does not offer financial advice; it focuses on administrative communication and data gathering." }
+            { q: "Is the data secure?", a: "Yes, we use SOC2-compliant nodes and bank-grade encryption." },
+            { q: "Can it run credit?", a: "We integrate with your credit provider to trigger pulls upon consent." }
         ],
-        layers: [
-            { department: "Loan Ops", roles: ["Doc Chaser", "Realtor Liaison"], tasks: ["Follow up on conditions", "Send Friday status updates"] }
-        ]
+        dreamVision: "Imagine a mortgage desk where every morning you walk in to a stack of completed applications with docs pre-verified. You just have to find the right loan product and hit submit.",
+        industryStats: [
+            { stat: "4 Days", label: "Faster Processing" },
+            { stat: "4.5x", label: "Lead Conversion" },
+            { stat: "Zero", label: "Missed Follow-ups" }
+        ],
+        useCases: [
+            { title: "The Weekend Lead", scenario: "A buyer finds a house on Sunday and needs a pre-approval letter.", outcome: "AI gathers their details, verifies income via uploaded docs, and prepares the letter for broker review in minutes." }
+        ],
+        comparisonTable: [
+            { category: "Doc Collection", without: "Manual Phonetag & Emails", withAI: "Autonomous Instant Chasing" },
+            { category: "Lead Response", without: "Slow (Hours)", withAI: "Instant (Seconds)" }
+        ],
+        processSteps: [
+            { step: 1, title: "Pipeline Audit", description: "Identifying doc-collection bottlenecks." },
+            { step: 2, title: "Intake Launch", description: "Deploying your 24/7 mortgage intake assistant." }
+        ],
+        layers: [{ department: "Intake", roles: ["Lead Qualifier", "Doc Assistant"], tasks: ["Vet borrower intent", "Verify doc completion"] }]
     },
     {
         slug: "plastic-surgery",
-        name: "Plastic Surgery Clinics",
-        hook: "High-Ticket Procedures Require High-Touch Nurturing.",
-        problem: "A mommy makeover is a $15k+ decision. Patients don't book on the first click. They ask questions, get scared, ghost you, and come back 6 months later. If your clinic isn't nurturing them the entire time, they go to the surgeon down the street.",
-        operatorProblem: "Your patient coordinators are overwhelmed answering 'What is the downtime?' for the thousandth time. We build an AI system that answers medical FAQs, shares before/after galleries via text, and books the high-value consults.",
-        result: "Your conversion rate from inquiry to surgery spikes because no lead is ever abandoned.",
-        subNiches: ["Cosmetic Surgery", "Reconstructive Surgery", "Hair Restoration Clinics", "Bariatric Surgery Centers"],
-        geoKeywords: ["Beverly Hills", "Miami", "New York", "Dallas", "Atlanta"],
+        name: "Plastic Surgery",
+        hook: "High-Ticket Consultations Require a High-Touch Digital Experience.",
+        problem: "Potential patients are nervous and have 100 questions. If they feel ignored or wait too long for a reply, they book with the clinic across town.",
+        operatorProblem: "Answering the same 50 questions about recovery time and pricing is draining your staff. We install an AI Patient Educator.",
+        result: "Consultations are higher-quality because patients are already pre-educated and vetted.",
+        subNiches: ["Cosmetic Surgery", "Reconstructive Surgery", "Medical Spa Integration"],
+        geoKeywords: ["Miami", "LA", "NYC", "Dallas", "Atlanta"],
         services: {
             singleSystems: {
-                title: "Surgical Conversion Funnels",
-                description: "Automate the high-ticket sales cycle.",
+                title: "Patient Concierge AI",
+                description: "Elevate your practice's digital touch.",
                 examples: [
-                    { title: "The Treatment Matchmaker", detail: "AI that chats with web visitors, understands their aesthetic goals, and suggests the correct procedure consultation.", roi: "2x increase in qualified consults." },
-                    { title: "Long-Term Nurture Engine", detail: "AI that stays in touch with 'Maybe Later' leads for 12 months with value-driven content and testimonials.", roi: "Captures 30% of lost leads safely." }
+                    { title: "The Virtual Patient Educator", detail: "AI that explains recovery times, procedures, and risks via chat.", roi: "50% increase in consult booking rate." },
+                    { title: "VIP Consult Scheduler", detail: "Qualifies patients by interest and budget before booking a face-to-face.", roi: "Eliminates empty consult slots." }
                 ]
             },
             departments: {
-                title: "Department Automation",
-                description: "Clinic operations on autopilot.",
+                title: "Surgical Operations",
+                description: "Seamless patient journey automation.",
                 areas: [
-                    { area: "Patient Coordination", detail: "AI handles pre-op instructions, post-op check-ins, and collects online reviews at day 30.", impact: "Five-star reputation built seamlessly." }
+                    { area: "Patient Experience", detail: "24/7 concierge for pre-op questions and post-op check-ins.", impact: "Massive patient satisfaction." },
+                    { area: "Finance & Billing", detail: "Automated payment plans and financing education via AI.", impact: "Increases case acceptance." }
                 ]
             },
             custom: {
-                title: "The Clinic OS",
-                description: "End-to-end surgical pipeline.",
-                features: ["HIPAA-compliant image processing workflows", "Financing qualification bot", "Automated recurring revenue (injectables) triggers"]
+                title: "The Surgery OS",
+                description: "Elite infrastructure for surgical practices.",
+                features: ["HIPAA-compliant video nodes", "Integrated finance portals", "Automated post-op check-in logs"]
             }
         },
         faq: [
-            { q: "Does the AI give medical advice?", a: "No. The AI provides logistical information, procedure overviews, and books consultations for the doctor to provide medical advice." }
+            { q: "Can the AI provide medical advice?", a: "No, the AI is trained to educate on procedures and risks, and routes medical questions to your team." },
+            { q: "Is it HIPAA compliant?", a: "Yes, our medical nodes are fully compliant and secure." }
         ],
-        layers: [
-            { department: "Consultation & Intake", roles: ["Virtual Guide", "Post-Op Checker"], tasks: ["Send before/afters", "Confirm pre-op compliance"] }
-        ]
+        dreamVision: "Imagine a practice where every patient who walks in for a consult already knows exactly what to expect, has their financing in place, and is ready to book their surgery date immediately.",
+        industryStats: [
+            { stat: "50%", label: "Acceptance Increase" },
+            { stat: "24/7", label: "Patient Support" },
+            { stat: "20h", label: "Staff Time Saved" }
+        ],
+        useCases: [
+            { title: "The Post-Op Panic", scenario: "A patient is worried about swelling at 1 AM.", outcome: "AI reassures them with standard recovery info and flags the doctor if symptoms match an alert profile." }
+        ],
+        comparisonTable: [
+            { category: "Patient Education", without: "Manual (Hours of staff talk)", withAI: "Autonomous Instant Education" },
+            { category: "Lead Vetting", without: "Wasted consult slots", withAI: "Pre-qualified High-Value Leads" }
+        ],
+        processSteps: [
+            { step: 1, title: "Patient Flow Audit", description: "Mapping the pre-op and post-op touchpoints." },
+            { step: 2, title: "Care Node Launch", description: "Deploying your patient education and triage AI." }
+        ],
+        layers: [{ department: "Patient Care", roles: ["AI Educator", "Concierge"], tasks: ["Answer pre-op questions", "Track post-op recovery"] }]
     },
     {
         slug: "solar-installers",
-        name: "Solar & Renewables",
-        hook: "Sunlight is Free. Your Customer Acquisition Cost is Not.",
-        problem: "Solar leads are notoriously difficult to convert. They're skeptical, they want to compare 5 quotes, and they ghost you after the initial roof assessment. If your speed-to-lead and follow-up persistence isn't perfect, your margins vanish in ad spend.",
-        operatorProblem: "Sales reps burn out calling 100 dead leads a day. We install an AI SDR that texts and calls leads instantly, qualifies their energy bill, checks roof viability via satellite APIs, and only books appointments that are ready to go solar.",
-        result: "Your reps stop dialing and start closing. Your CAC drops by 30%.",
-        subNiches: ["Residential Solar", "Commercial Microgrids", "Battery Storage Installers", "Wind & Alternative Energy"],
-        geoKeywords: ["California", "Texas", "Florida", "Nevada", "Arizona"],
+        name: "Solar Installers",
+        hook: "In the Race to the Clean Energy Future, Speed-to-Site-Visit Wins.",
+        problem: "Solar leads are expensive. If you don't catch the lead and check their roof compatibility in the first 5 minutes, they've already moved on.",
+        operatorProblem: "Qualifying solar leads manually is slow and error-prone. We install an AI systems that checks compatibility instantly.",
+        result: "Your sales team spends their time on roofs that are actually compatible and with homeowners who can afford it.",
+        subNiches: ["Residential Solar", "Commercial PV Systems", "Battery Storage Solutions"],
+        geoKeywords: ["California", "Arizona", "Texas", "Florida", "Nevada"],
         services: {
             singleSystems: {
-                title: "Solar Lead Qualification",
-                description: "Sift the gold from the dirt.",
+                title: "Solar Sales AI",
+                description: "Accelerate your solar pipeline.",
                 examples: [
-                    { title: "The Utility Qualifer", detail: "AI that asks leads for their average monthly utility bill and shade profile before booking a calendar slot.", roi: "Eliminates 50% of wasted appointments." },
-                    { title: "Instant Proposal Gen", detail: "AI that syncs with Aurora or Solo to generate and text a preliminary system design within minutes of an inquiry.", roi: "Crushes competitors who take 3 days to send a proposal." }
+                    { title: "The Satellite Qualifier", detail: "AI that checks roof orientation and shade via satellite before you call a lead.", roi: "30% reduction in site-visit waste." },
+                    { title: "Persistent Homeowner Nurture", detail: "AI that follows up for months with leads who 'need to talk to their spouse'.", roi: "Increases close rate by 20%." }
                 ]
             },
             departments: {
-                title: "Department Automation",
-                description: "Manage the grid of operations.",
+                title: "Growth & Install",
+                description: "Autonomous solar operations.",
                 areas: [
-                    { area: "Permitting & Ops", detail: "AI that tracks interconnection queues and city permit approvals, keeping the homeowner updated automatically.", impact: "Cuts cancellation rates during the install wait-time." }
+                    { area: "Lead Intake", detail: "Instant response to Facebook or Google Ads leads.", impact: "5x increase in site-visit bookings." },
+                    { area: "Project Coordination", detail: "Automated permit tracking and homeowner status updates.", impact: "Zero 'where is my solar' calls." }
                 ]
             },
             custom: {
                 title: "The Solar OS",
-                description: "From click to PTO (Permission to Operate).",
-                features: ["Multi-touch financing integration", "Automated referral generation engine", "Fleet dispatch optimization"]
+                description: "Built for scaling solar fleets.",
+                features: ["Direct integration to Aurora Solar", "Automated permit monitoring", "Predictive maintenance logs"]
             }
         },
         faq: [
-            { q: "Can the AI help prevent cancellations?", a: "Yes, by sending automated updates and educational videos during the 30-90 day permitting wait, buyer's remorse drops significantly." }
+            { q: "Does it work with Aurora Solar?", a: "Yes, we build connectors for major solar design tools." },
+            { q: "How fast can you launch?", a: "Most solar systems are live within 14 days." }
         ],
-        layers: [
-            { department: "Acquisition & Ops", roles: ["Pre-Qualifier", "Permit Monitor"], tasks: ["Analyze roof viability", "Update homeowners locally"] }
-        ]
+        dreamVision: "Imagine a solar business where your sales reps only drive to houses with 'perfect' roofs and 'perfect' credit. The AI handles the chasing, the vetting, and the updating, while you handle the power.",
+        industryStats: [
+            { stat: "5x", label: "Booking Velocity" },
+            { stat: "30%", label: "Lower CAC" },
+            { stat: "Zero", label: "Lead Leakage" }
+        ],
+        useCases: [
+            { title: "The Bill Chaser", scenario: "A lead doesn't have their electric bill handy.", outcome: "AI follows up daily via SMS with a secure upload link until the bill is received for analysis." }
+        ],
+        comparisonTable: [
+            { category: "Site Qualification", without: "Manual satellite checks", withAI: "Autonomous Instant Vetting" },
+            { category: "Follow-up", without: "Ignored leads", withAI: "Machine-Driven Persistence" }
+        ],
+        processSteps: [
+            { step: 1, title: "Lead Audit", description: "Mapping your current sales funnel leaks." },
+            { step: 2, title: "Intake Launch", description: "Deploying your solar-specific AI intake unit." }
+        ],
+        layers: [{ department: "Sales", roles: ["Lead Qualifier", "Document Chaser"], tasks: ["Vet roof compatibility", "Gather utility bills"] }]
     }
 ];

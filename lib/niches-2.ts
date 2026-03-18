@@ -4,305 +4,331 @@ export const niches2: IndustryContent[] = [
     {
         slug: "custom-home-builders",
         name: "Custom Home Builders",
-        hook: "Building Takes Months. Decisions Should Take Seconds.",
-        problem: "Clients take weeks to pick finishes, delaying your entire schedule. Subcontractors don't show up because they didn't see the email change. Your margins are eroding because you are managing expectations instead of managing the build.",
-        operatorProblem: "You are the bottleneck for every change order and selection update. We build an AI client portal and sub-coordinator that handles 90% of the communication. It chases clients for decisions, updates the schedule, and texts the subs.",
-        result: "Build times drop by 20%, change orders get signed instantly, and clients feel like they're building a luxury experience.",
-        subNiches: ["Design-Build Firms", "Luxury Residential Contractors", "Spec Home Developers", "Historic Renovation Specialists"],
-        geoKeywords: ["Austin", "Nashville", "Dallas", "Atlanta", "Raleigh", "Denver"],
+        hook: "You Build Dreams. But Your Admin is a Nightmare.",
+        problem: "Managing dozens of subcontractors, client change orders, and permit delays is drowning you in paperwork. Your clients are calling you 24/7 for updates.",
+        operatorProblem: "The bottleneck is manual client and sub-contractor coordination. We install an AI building assistant that handles the 1,000 tiny questions so you can stay on the job site.",
+        result: "You spend 90% less time on the phone and 100% more time on the quality of the build.",
+        subNiches: ["Luxury Home Builders", "Design-Build Firms", "High-End Remodelers"],
+        geoKeywords: ["Nationwide", "Luxury Enclaves", "High-Growth Suburbs"],
         services: {
             singleSystems: {
-                title: "Builder Automation Suite",
-                description: "Eliminate the waiting game.",
+                title: "Build Coordination AI",
+                description: "Deep automation for high-stakes construction.",
                 examples: [
-                    { title: "Selection Chaser Bot", detail: "AI that politely but persistently texts clients to make their finish selections before critical path deadlines.", roi: "Eliminates weeks of schedule drift." },
-                    { title: "Automated Daily Log to Client Update", detail: "AI translates rough superintendent notes into a polished weekly email complete with progress photos.", roi: "Massive boost in client referrals." }
+                    { title: "The 24/7 Client Concierge", detail: "AI that answers homeowner questions about schedule, selection deadlines, and project status.", roi: "Eliminates 'where is my house' phone tag." },
+                    { title: "Subcontractor Dispatch Bot", detail: "AI that sends automated reminders and arrival check-ins to every sub on the schedule.", roi: "Reduces project delays by 15%." }
                 ]
             },
             departments: {
-                title: "Department Automation",
-                description: "The autonomous GC.",
+                title: "Operations & Admin",
+                description: "Full-scale construction transformation.",
                 areas: [
-                    { area: "Contract & Change Orders", detail: "AI generates change orders instantly based on text messages from the field and requests a digital signature.", impact: "Captures 100% of out-of-scope billing." }
+                    { area: "Project Management", detail: "AI-monitored schedules and automated delay notifications.", impact: "Faster time-to-completion." },
+                    { area: "Procurement & Billing", detail: "AI-assisted draw requests and material cost tracking.", impact: "Protects your project margins." }
                 ]
             },
             custom: {
-                title: "The Construction OS",
-                description: "From blueprints to keys.",
-                features: ["Vendor payment automation", "Permit tracking across municipalities", "Real-time cost-to-complete analytics"]
+                title: "The Builder OS",
+                description: "Built for elite custom home firms.",
+                features: ["CoConstruct/BuilderTrend integration", "Change order automation", "Integrated site photo logs"]
             }
         },
         faq: [
-            { q: "Can it integrate with BuilderTrend or CoConstruct?", a: "Yes, we build middleware that connects directly to the APIs of major construction management tools." }
+            { q: "Does it work with BuilderTrend?", a: "Yes, we build connectors for major construction management platforms." },
+            { q: "Can clients talk to it?", a: "Yes, it acts as your project concierge, saving you hours of phone calls." }
         ],
-        layers: [
-            { department: "Selections & Communication", roles: ["Sub-Coordinator", "Client Experience"], tasks: ["Remind client of tile choices", "Dispatch plumber"] }
-        ]
+        dreamVision: "Imagine a job site where every sub knows their arrival time, every client knows their selection deadline, and your draw requests are filed automatically while you're reviewing blueprints.",
+        industryStats: [
+            { stat: "20h+", label: "Weekly Admin Recaptured" },
+            { stat: "Zero", label: "Client Communication Gaps" },
+            { stat: "15%", label: "Faster Build Cycles" }
+        ],
+        useCases: [
+            { title: "The Change Order", scenario: "A client wants to change the tile at 10 PM on a Friday.", outcome: "AI logs the request, checks the lead time on the new material, and adds it to your review list for Monday morning." }
+        ],
+        comparisonTable: [
+            { category: "Client Updates", without: "Manual (Hours/Phone Tag)", withAI: "Instant (24/7 Concierge)" },
+            { category: "Sub Coordination", without: "Endless calling & texting", withAI: "Autonomous Scheduling Bots" }
+        ],
+        processSteps: [
+            { step: 1, title: "Workflow Audit", description: "Mapping your current project bottlenecks." },
+            { step: 2, title: "Concierge Launch", description: "Deploying your building assistant AI." }
+        ],
+        layers: [{ department: "Project Admin", roles: ["Client Concierge", "Sub Liaison"], tasks: ["Handle inquiries", "Manage schedules"] }]
     },
     {
         slug: "franchise-owners",
         name: "Franchise Owners",
-        hook: "You Bought a System. Now Automate It.",
-        problem: "You own 5 locations. You're trying to standardize hiring, training, and marketing, but every manager runs their shop differently. Employee turnover is bleeding your profits, and you can't be at every location at once to fix it.",
-        operatorProblem: "Multi-unit scalability breaks down when it relies on human management for every repetitive task. We deploy an AI OS across your entire portfolio that screens applicants 24/7, handles employee onboarding, and audits local marketing compliance.",
-        result: "You run 10 locations with less stress than running 1. Turnover costs drop, and brand standards are enforced automatically.",
-        subNiches: ["Quick Service Restaurants (QSR)", "Fitness Franchises", "Auto Repair Chains", "Retail & Salon Concepts", "Cleaning & Janitorial Franchises"],
-        geoKeywords: ["Nationwide", "Texas", "Florida", "California", "Midwest"],
+        hook: "Scale Your Footprint, Not Your Workload.",
+        problem: "You own 5 locations, but you're still the one answering 'why is the fryer broken' and 'who is covering the shift'. You can't scale to 20 locations at this rate.",
+        operatorProblem: "Managing human bandwidth across multiple locations is a losing game. We install an AI Multi-Unit layer that handles ops, scheduling, and standard SOP compliance.",
+        result: "The owner stops being the chief problem solver for every store. The system runs the stores; you run the system.",
+        subNiches: ["QSR Owners", "Fitness Franchises", "Service-Based Franchises"],
+        geoKeywords: ["Multi-unit owners", "Regional operators", "National portfolios"],
         services: {
             singleSystems: {
-                title: "Multi-Unit Scalability",
-                description: "Standardize excellence without travel time.",
+                title: "Multi-Unit OS",
+                description: "Corporate-level infrastructure for the local owner.",
                 examples: [
-                    { title: "24/7 HR & Recruiting Bot", detail: "AI that instantly interviews minimum-wage applicants via SMS and schedules the best ones for an in-person trial.", roi: "Fully staffs locations and eliminates interview no-shows." },
-                    { title: "Automated Quality Auditor", detail: "AI that parses daily shift reports and customer reviews across all locations, generating a single dashboard of 'Hot Spots' for the owner.", roi: "Saves 15+ hours a week in multi-location reporting." }
+                    { title: "The Employee Triage Bot", detail: "AI that handles shift swaps, call-outs, and basic training questions for your entire staff.", roi: "Reclaims 10h/week per store manager." },
+                    { title: "Vendor & Repair Bot", detail: "AI that logs equipment issues and automatically contacts the right repair vendor.", roi: "Increases equipment uptime by 20%." }
                 ]
             },
             departments: {
-                title: "Department Automation",
-                description: "HQ in a box.",
+                title: "Operations & HR",
+                description: "Full-scale multi-unit automation.",
                 areas: [
-                    { area: "Training & Onboarding", detail: "AI that administers corporate training materials based on role, testing comprehension before the first shift.", impact: "Cuts training costs by 40%." }
+                    { area: "Staff Retention", detail: "AI-driven sentiment checks and automated training paths.", impact: "Reduces turnover costs by 15%." },
+                    { area: "Profitability BI", detail: "Real-time cost-of-goods and labor dashboards across all stores.", impact: "Instant executive visibility." }
                 ]
             },
             custom: {
-                title: "The Franchise OS",
-                description: "Command center for the multi-unit owner.",
-                features: ["Automated payroll discrepancy checker", "Local SEO engine per location", "Multi-unit inventory balancing"]
+                title: "The Franchise Sentinel",
+                description: "Built for scaling portfolios.",
+                features: ["POS sync", "Shift-swap AI", "Automated compliance logs"]
             }
         },
         faq: [
-            { q: "Is this compliant with corporate franchise rules?", a: "We ensure all automation acts as an 'assistant' layer that complies with your franchisor's FDD and operating systems." }
+            { q: "Can it integrate with my POS?", a: "Yes, we build connectors for Revel, Toast, and other major franchise POS tools." },
+            { q: "Does it help with hiring?", a: "Yes, it can pre-screen candidates and schedule interviews automatically." }
         ],
-        layers: [
-            { department: "HR & Quality Control", roles: ["Recruiting Coordinator", "Brand Auditor"], tasks: ["Test applicants via SMS", "Flag locations with declining reviews"] }
-        ]
+        dreamVision: "Imagine owning 50 stores as easily as you own 5. Every manager is supported by an AI ops layer that handles the daily noise, leaving you to focus on acquisitions and growth.",
+        industryStats: [
+            { stat: "30h+", label: "Manager Time Recaptured" },
+            { stat: "15%", label: "Lower Labor Cost" },
+            { stat: "100%", label: "SOP Compliance" }
+        ],
+        useCases: [
+            { title: "The 6 AM Call-out", scenario: "An employee at Store 3 calls out sick at 6 AM.", outcome: "AI automatically identifies eligible coworkers, sends out a 'shift available' text, and confirms the swap before the manager's alarm goes off." }
+        ],
+        comparisonTable: [
+            { category: "Staff Coordination", without: "Manual (Phone Tag)", withAI: "Autonomous (SMS/Voice)" },
+            { category: "Ops Visibility", without: "Manual reports (Days/Weeks)", withAI: "Real-time AI Dashboards" }
+        ],
+        processSteps: [
+            { step: 1, title: "Portfolio Audit", description: "Mapping your store-level bottlenecks." },
+            { step: 2, title: "Central OS Launch", description: "Deploying your multi-unit management layer." }
+        ],
+        layers: [{ department: "Store Ops", roles: ["Shift Assistant", "Vendor Liaison"], tasks: ["Handle call-outs", "Manage repair logs"] }]
     },
     {
         slug: "private-equity",
-        name: "Private Equity & M&A",
-        hook: "Buy The Business. Install the AI. Multiply the Multiple.",
-        problem: "You buy a company with $5M EBITDA. To get it to $10M, you traditionally have to fire people, hire expensive executives, and pray the culture doesn't break. Due diligence takes months of analysts grinding through data rooms.",
-        operatorProblem: "Human-heavy rollups are slow and risky. We deploy 'Due Diligence AI' to scan data rooms in 24 hours, and post-close, we install AI operating systems into portfolio companies to instantly expand margins by automating their admin layers.",
-        result: "You reduce time-to-value post-acquisition and dramatically increase exit multiples by replacing human OPEX with digital CAPEX.",
-        subNiches: ["Lower Middle Market LBOs", "Search Funds", "Roll-Up Strategies", "Venture Capital Portfolios", "Turnaround & Restructuring"],
-        geoKeywords: ["New York", "Chicago", "Boston", "San Francisco", "London"],
+        name: "Private Equity Firms",
+        hook: "Drive EBITDA Without Increasing Headcount.",
+        problem: "Your portfolio companies are struggling with 'manual drag'. You need a scalable way to implement efficiency across multiple acquisitions without hiring more consultants.",
+        operatorProblem: "PortCo growth is limited by operational inefficiency. We install a 'Standard AI Layer' across your portfolio to automate sales, admin, and reporting.",
+        result: "Immediate margin expansion through technology, not headcount reduction. Portable, scalable efficiency.",
+        subNiches: ["Mid-Market PE", "Family Office Portfolios", "Growth Equity"],
+        geoKeywords: ["Global", "National Portfolios"],
         services: {
             singleSystems: {
-                title: "Acquisition & Value Creation",
-                description: "Instant margin expansion.",
+                title: "The PortCo Efficiency Layer",
+                description: "Standardized AI nodes for rapid deployment.",
                 examples: [
-                    { title: "The Diligence Accelerator", detail: "AI that ingests 10,000 pages of VDR documents, flagging non-standard lease terms, pending litigation, or customer concentration risks.", roi: "Cuts legal diligence costs by 60%." },
-                    { title: "Post-Close OPEX Auditor", detail: "AI that analyzes the target's software subscriptions, localized vendor spending, and redundant roles across a rollup.", roi: "Identifies 10-15% day-one savings." }
+                    { title: "The EBITDA Sentinel", detail: "An AI audit layer that identifies manual waste and replaces it with automation.", roi: "Typical 3-5x return on investment." },
+                    { title: "Portfolio Data Hub", detail: "Real-time rollup of all PortCo metrics into one executive brain.", roi: "Executive-level visibility 24/7." }
                 ]
             },
             departments: {
-                title: "Department Automation",
-                description: "Portfolio-wide optimization.",
+                title: "Value Creation",
+                description: "The AI-driven investment thesis.",
                 areas: [
-                    { area: "Centralized Back Office", detail: "AI that handles AP/AR, basic HR, and IT support across 10 distinct portfolio companies seamlessly.", impact: "Consolidates G&A costs instantly." }
+                    { area: "Operational Leverage", detail: "Replacing manual administrative departments with autonomous AI nodes.", impact: "Immediate EBITDA expansion." },
+                    { area: "Sales Scalability", detail: "Standardizing AI-led outbound across the entire portfolio.", impact: "Predictable revenue growth." }
                 ]
             },
             custom: {
-                title: "The HoldCo OS",
-                description: "Command and control for the GPs.",
-                features: ["Daily cash-position dashboard generation", "Automated board deck creation", "Predictive churn models for SaaS targets"]
+                title: "The GP Intelligence OS",
+                description: "Proprietary PE technology.",
+                features: ["Deal-flow AI", "Standardized PortCo reporting", "Due diligence acceleration"]
             }
         },
         faq: [
-            { q: "Can we install the OS before an exit?", a: "Yes. Converting manual labor to AI software increases the enterprise value and makes the asset significantly more attractive to the next buyer." }
+            { q: "How fast for a PortCo rollout?", a: "We can deploy the standard layer in any company within 30 days." },
+            { q: "Is it secure for sensitive financial data?", a: "Yes, we use air-gapped, high-security nodes for every firm." }
         ],
-        layers: [
-            { department: "Diligence & Roll-Up Ops", roles: ["Data Room Scraper", "Synergy Analyst"], tasks: ["Flag contract liabilities", "Identify redundant OPEX"] }
-        ]
+        dreamVision: "Imagine a portfolio where every acquisition starts with a 'Tech-Led Transformation' that instantly adds 5-10% to the bottom line by removing manual friction. Your team doesn't manage people; they manage growth.",
+        industryStats: [
+            { stat: "3:1", label: "EBITDA ROI" },
+            { stat: "30 Day", label: "Transformation Speed" },
+            { stat: "Zero", label: "Headcount Addition" }
+        ],
+        useCases: [
+            { title: "The 30-Day Lift", scenario: "You acquire a manual, legacy service business.", outcome: "AI is installed in the office to handle all scheduling and intake, instantly reclaiming 40% of the admin budget." }
+        ],
+        comparisonTable: [
+            { category: "Transformation", without: "Manual Consulting (Months)", withAI: "Systematic (30 Days)" },
+            { category: "Margin Growth", without: "Slow (Headcount dependent)", withAI: "Fast (Tech-driven)" }
+        ],
+        processSteps: [
+            { step: 1, title: "Portfolio Audit", description: "Identifying the lowest-hanging EBITDA fruit." },
+            { step: 2, title: "Standard Node Pilot", description: "Deploying the efficiency layer to one company." }
+        ],
+        layers: [{ department: "Portfolio Mgmt", roles: ["Efficiency Auditor", "BI Assistant"], tasks: ["Audit manual logs", "Sync PortCo data"] }]
     },
     {
         slug: "commercial-cleaning",
         name: "Commercial Cleaning",
-        hook: "Your Crews Are Invisible Until There's a Complaint.",
-        problem: "Property managers only call you when a trash can isn't empty. Managing dozens of crews across millions of square feet at night means you have no real-time visibility. When someone inevitably quits, you scramble to cover the route.",
-        operatorProblem: "High turnover, low margins, and terrible communication are industry standard. We build an AI dispatcher that tracks crews via geofencing, automatically texts property managers minor proactive updates, and conducts 24/7 SMS recruiting.",
-        result: "You stop losing accounts to 'poor service' and you stop pulling your hair out when a cleaner no-shows.",
-        subNiches: ["Janitorial Services", "Post-Construction Clean-Up", "Hospital & Clean Room Sanitation", "Industrial Facility Cleaning"],
-        geoKeywords: ["Nationwide", "Houston", "Chicago", "Atlanta", "Phoenix"],
+        hook: "Win National Contracts with 24/7 Responsiveness.",
+        problem: "Property managers don't want to chase you for updates or missed areas. If you're slow to respond, you lose the contract to a larger firm.",
+        operatorProblem: "The bottleneck is quality control and client communication at scale. We install an AI dispatcher that coordinates crews and clients instantly.",
+        result: "You act and respond like a national firm, winning bigger bids and keeping them longer.",
+        subNiches: ["Office Cleaning", "Industrial Janitorial", "Medical Grade Cleaning"],
+        geoKeywords: ["Nationwide", "Urban Centers"],
         services: {
             singleSystems: {
-                title: "Facility Operations Sync",
-                description: "Proactive perfection.",
+                title: "Janitorial Dispatch AI",
+                description: "Scale your cleaning empire.",
                 examples: [
-                    { title: "The Proactive Account Manager", detail: "AI that sends a weekly photo-log and summary to the facility manager before they ever ask.", roi: "Fixes communication churn and justifies price increases." },
-                    { title: "Always-On Recruiting Machine", detail: "AI that runs paid ads for cleaners, interviews them over text in Spanish or English, and schedules orientations.", roi: "You never have an uncovered shift again." }
+                    { title: "The 10-Second RFP Bot", detail: "AI that drafts clean-bid proposals based on your margin and crew data.", roi: "3x more bids submitted." },
+                    { title: "Quality Assurance Chaser", detail: "AI that texts building managers for proof-of-clean and satisfaction scores.", roi: "100% contract retention." }
                 ]
             },
             departments: {
-                title: "Department Automation",
-                description: "Command center for the night shift.",
+                title: "Growth & Ops",
+                description: "Full-scale janitorial automation.",
                 areas: [
-                    { area: "Routing & Supplies", detail: "AI that calculates supply burn rates per building and automatically reorders chemicals and paper products.", impact: "Optimizes supply costs by 12%." }
+                    { area: "Crew Coordination", detail: "Automated arrivals, departure alerts, and supply re-order logs.", impact: "Reduced supply waste by 20%." },
+                    { area: "Business Development", detail: "AI-led outbound to local facility managers and office parks.", impact: "Consistent new contract pipeline." }
                 ]
             },
             custom: {
                 title: "The Janitorial OS",
-                description: "Scale your square footage.",
-                features: ["Automated bidding and square-footage estimation", "Multi-lingual crew communication hub", "Instant QA checklists"]
+                description: "Built for scaling cleaning businesses.",
+                features: ["Geo-fenced crew tracking", "Automated invoicing", "Supply chain AI"]
             }
         },
         faq: [
-            { q: "Can the AI speak Spanish with my crews?", a: "Yes, our systems are natively multi-lingual and detect the user's language instantly, providing flawless translation and interaction." }
+            { q: "Does it help with cleaning crews?", a: "Yes, it handles scheduling, arrival alerts, and supply re-ordering." },
+            { q: "Can it help me win more bids?", a: "Absolutely, it helps you draft faster and follow up more persistently." }
         ],
-        layers: [
-            { department: "Ops & Recruiting", roles: ["Bilingual Interviewer", "Supply Auditor"], tasks: ["Fill night shifts", "Send proactive client updates"] }
-        ]
+        dreamVision: "Imagine a cleaning business that runs itself while you're at the beach. Every crew is on site, every building manager is happy, and your bank account grows every month without you answering a single 'why wasn't this done' call.",
+        industryStats: [
+            { stat: "24/7", label: "Client Support" },
+            { stat: "100%", label: "Contract Retention" },
+            { stat: "3x", label: "Bid Velocity" }
+        ],
+        useCases: [
+            { title: "The Missed Bin", scenario: "An office manager notices a missed area on a Monday morning.", outcome: "AI takes their text, apologizes contextually, dispatches the closest sub to fix it, and confirms it's done before the manager has finished their coffee." }
+        ],
+        comparisonTable: [
+            { category: "Client Communication", without: "Manual (Hours/Phone Tag)", withAI: "Instant (Autonomous)" },
+            { category: "Quote Speed", without: "Slow (Days)", withAI: "Fast (AI-Assisted)" }
+        ],
+        processSteps: [
+            { step: 1, title: "Operations Audit", description: "Mapping your current crew-to-check flow." },
+            { step: 2, title: "Dispatch Launch", description: "Deploying your janitorial AI assistant." }
+        ],
+        layers: [{ department: "Ops", roles: ["AI Scheduler", "Supply Auditor"], tasks: ["Manage work orders", "Track inventory"] }]
     },
     {
         slug: "dealerships",
-        name: "Dealerships",
-        hook: "Inventory Depreciates Every Second. Your Leads Should Not.",
-        problem: "A lead submits an inquiry on a boat or heavy machinery at 9 PM. Your sales team gets in at 9 AM and calls them. They've already put a deposit down with the guy the next town over. You are losing high-ticket sales to the clock.",
-        operatorProblem: "Whether it's RVs, heavy equipment, or marine, speed-to-lead and financing qualification are your bottlenecks. We install an AI BDC (Business Development Center) that works 24/7, answering specific spec questions and qualifying for financing instantly.",
-        result: "You capture and convert leads while your sales floor is dark.",
-        subNiches: ["Auto & Powersports", "Marine & Boat Dealers", "Heavy Equipment & Tractor Sales", "RV & Travel Trailer Dealers", "Commercial Truck Sales"],
-        geoKeywords: ["Florida", "Texas", "Midwest", "California", "Nationwide"],
+        name: "Car Dealerships",
+        hook: "Your BDC is Leaking, but Your AI is Always On.",
+        problem: "New leads call at 10 PM and you don't answer. By 10 AM, they've already booked a test drive at another lot. Your human BDC can't stay on 24/7.",
+        operatorProblem: "Speed-to-lead is the only metric that matters in automotive. We install an AI BDC that answers every text, social DM, and call instantly.",
+        result: "Your showroom stays full of qualified buyers who already have their appointments set and trade-in data logged.",
+        subNiches: ["New Car Franchises", "Used Car Independent Lots"],
+        geoKeywords: ["Nationwide", "Auto Rows"],
         services: {
             singleSystems: {
-                title: "The 24/7 BDC",
-                description: "Accelerate high-ticket sales.",
+                title: "The 24/7 AI BDC",
+                description: "Never miss another showroom floor opportunity.",
                 examples: [
-                    { title: "The Specs Master", detail: "AI trained on your entire inventory database that can answer towing capacities, trim differences, and engine hours in seconds.", roi: "Increases lead engagement by 80%." },
-                    { title: "Instant Trade-In Valuator", detail: "AI that analyzes market data and photos submitted via SMS to generate a highly accurate preliminary trade-in value.", roi: "Spikes inbound appointments by 40%." }
+                    { title: "The 10-Second Appointment Setter", detail: "AI that texts leads back instantly and books the test drive into your CRM.", roi: "2x more test drives booked." },
+                    { title: "The Trade-In Qualifier", detail: "AI that gathers VIN and photos from leads via SMS for a ballpark offer.", roi: "Higher intent showroom visits." }
                 ]
             },
             departments: {
-                title: "Department Automation",
-                description: "F&I and Floor Automation.",
+                title: "Sales & Finance",
+                description: "Full-scale dealership automation.",
                 areas: [
-                    { area: "F&I (Finance & Insurance)", detail: "AI that pre-qualifies buyers by collecting soft-pull data securely, presenting them with payment options before they step on the lot.", impact: "Cuts delivery time in half." }
+                    { area: "Digital Retailing", detail: "AI-led qualification and lead nurturing across all channels.", impact: "Zero lead leakage." },
+                    { area: "Service Drive", detail: "Automated service reminders and appointment setting.", impact: "Full service bays 24/7." }
                 ]
             },
             custom: {
-                title: "The Dealer OS",
-                description: "Move metal faster.",
-                features: ["Automated service lane upselling", "Inventory aging price-drop algorithms", "Multi-platform listing syndication"]
+                title: "The Showroom OS",
+                description: "Built for scaling auto groups.",
+                features: ["VinSolutions/DealerSocket sync", "Automated follow-up sequences", "Multi-lot dashboard"]
             }
         },
         faq: [
-            { q: "Can the AI negotiate price?", a: "No, the AI is designed to sell the *appointment* and gather data. It politely defers pricing negotiations to the in-person visit." }
+            { q: "Does it work with VinSolutions?", a: "Yes, we build connectors for major automotive CRMs." },
+            { q: "Can it handle Facebook leads?", a: "Absolutely, it integrates with FB/IG DMs and Google Business chat." }
         ],
-        layers: [
-            { department: "Sales & Service", roles: ["BDC Agent", "Trade-In Estimator"], tasks: ["Answer payload questions", "Schedule test drives"] }
-        ]
+        dreamVision: "Imagine a showroom that is constantly buzzing with 'Sold' signs because your digital BDC is working 24 hours a day, qualifying trades, and booking test drives while you sleep.",
+        industryStats: [
+            { stat: "2x", label: "More Test Drives" },
+            { stat: "100%", label: "Lead Catch" },
+            { stat: "Zero", label: "BDC Burnout" }
+        ],
+        useCases: [
+            { title: "The Weekend Lead", scenario: "A buyer finds a F-150 on your site at 11 PM on Sat night.", outcome: "AI texts them instantly, gets their trade-in VIN, and books their test drive for 9 AM Monday morning." }
+        ],
+        comparisonTable: [
+            { category: "Speed to Lead", without: "Manual (Hours)", withAI: "Instant (10 Seconds)" },
+            { category: "BDC Availability", without: "9-7 (Limited)", withAI: "24/7 (Unlimited)" }
+        ],
+        processSteps: [
+            { step: 1, title: "Lead Audit", description: "Mapping your current CRM response gaps." },
+            { step: 2, title: "BDC Node Launch", description: "Deploying your 24/7 AI assistant layer." }
+        ],
+        layers: [{ department: "BDC", roles: ["Lead Qualifier", "Appt Setter"], tasks: ["Answer inquiries", "Book test drives"] }]
     },
     {
         slug: "gyms-fitness",
         name: "Gyms & Fitness Studios",
-        hook: "You Should Focus on Transformations. Not Chasing Failed Credit Cards.",
-        problem: "Your front desk spends more time trying to recover $150 declined memberships than they do welcoming new athletes. Leads sign up for a free trial online but never show up. You are bleeding MRR on the back end while paying high CAC on the front end.",
-        operatorProblem: "Local fitness is a volume game. We build an AI retention and acquisition engine that reaches out to trial no-shows, automatically handles failed payments, and checks in on members who haven't scanned in for 10 days.",
-        result: "Class utilization maxes out, churn drops, and the community thrives.",
-        subNiches: ["Boutique Fitness (F45, Orangetheory)", "CrossFit & Strength Gyms", "Yoga & Pilates Studios", "Martial Arts & MMA Academies", "Large Format Health Clubs"],
-        geoKeywords: ["Major Metros", "Suburbia USA", "Austin", "Miami", "Denver"],
+        hook: "High-Touch Support Without the High-Cost Staff.",
+        problem: "You're spending too much on front-desk staff just to answer 'what are your hours' and 'can I cancel my membership'. Your trainers are doing admin instead of training.",
+        operatorProblem: "Churn is your biggest enemy. We install an AI retention layer that monitors member health and automates the support and follow-up.",
+        result: "Your churn drops, your trainers focus on training, and your front desk costs disappear.",
+        subNiches: ["CrossFit Boxes", "Yoga Studios", "Personal Training Boutiques"],
+        geoKeywords: ["Nationwide", "Urban Hubs"],
         services: {
             singleSystems: {
-                title: "Retention & Acquisition Engines",
-                description: "Maximize your square footage.",
+                title: "Fitness OS",
+                description: "Scale your community and revenue.",
                 examples: [
-                    { title: "The Trial Converter", detail: "AI that texts trial leads 15 times over 30 days to finally get them in the door, offering varying incentives.", roi: "3x increase in trial show rates." },
-                    { title: "Dunning & Collections Bot", detail: "AI that instantly texts members when a payment fails and provides a secure link to update it, avoiding awkward front-desk interactions.", roi: "Recovers 60% of failed payments automatically." }
+                    { title: "The 24/7 Member Assistant", detail: "AI that answers all logistical questions and books trials.", roi: "30% more trials booked." },
+                    { title: "Member Churn Radar", detail: "AI that flags members who stop showing up and reaches out to them.", roi: "Reduces churn by 20%." }
                 ]
             },
             departments: {
-                title: "Department Automation",
-                description: "A digital front desk.",
+                title: "Retention & Growth",
+                description: "Full-scale fitness studio automation.",
                 areas: [
-                    { area: "Member Success", detail: "AI that tracks attendance drops and sends a personalized 'Hey, haven't seen you!' text from the owner.", impact: "Slashes churn by 20% by creating accountability." }
+                    { area: "Membership Sales", detail: "Instant response and trial booking for new leads.", impact: "5x more membership conversions." },
+                    { area: "Member Experience", detail: "Proactive check-ins, birthday wishes, and milestone celebrations via AI.", impact: "Deep member loyalty." }
                 ]
             },
             custom: {
-                title: "The Studio OS",
-                description: "Scale your membership base.",
-                features: ["Automated class waitlist clearing", "Retail/supplement up-sell logic", "Local SEO omnipresence"]
+                title: "The Studio Sentinel",
+                description: "Built for scaling boutique fitness.",
+                features: ["MindBody/Wodify sync", "Member sentiment AI", "Automated referral engine"]
             }
         },
         faq: [
-            { q: "Will members get annoyed by the texts?", a: "No, because the tone is highly personalized and contextual to their fitness goals, it feels like accountability coaching." }
+            { q: "Does it work with MindBody?", a: "Yes, we build connectors for most fitness management software." },
+            { q: "How does it help with churn?", a: "It identifies 'silent' members and reaches out with personalized check-ins." }
         ],
-        layers: [
-            { department: "Sales & Retention", roles: ["Accountability Coach", "Dunning Collector"], tasks: ["Text trial no-shows", "Update expired cards securely"] }
-        ]
-    },
-    {
-        slug: "agricultural",
-        name: "Agricultural & Farming",
-        hook: "Yields Are Driven by Data. Your Workflow Should Be Too.",
-        problem: "Agriculture is increasingly complex, but you are managing multi-million dollar yields, equipment maintenance, and seasonal labor with whiteboards and gut feel. A missed maintenance window during harvest costs thousands per hour.",
-        operatorProblem: "You have massive data from John Deere or climate sensors, but no one to synthesize it. We build an AI 'Farm Manager' that aggregates weather data, equipment telemetry, and commodity pricing to give you daily operational checklists.",
-        result: "Equipment downtime plummets, labor is scheduled precisely when weather permits, and margins expand.",
-        subNiches: ["Row Crop Farming", "Livestock & Dairy Operations", "Orchards & Vineyards", "Agri-Tech Startups", "Cannabis & Hemp Cultivation"],
-        geoKeywords: ["Midwest", "Central Valley CA", "Texas", "Florida", "Pacific Northwest"],
-        services: {
-            singleSystems: {
-                title: "Ag-Tech Integrations",
-                description: "Optimize every acre.",
-                examples: [
-                    { title: "Predictive Maintenance Node", detail: "AI that analyzes equipment data and schedules preventative maintenance during planned downtime or rain days.", roi: "Zero harvest-season breakdowns." },
-                    { title: "Commodity Pricing Alerter", detail: "AI that tracks global futures markets and logistics costs, suggesting optimal selling windows.", roi: "Increases average sale price by 5-10%." }
-                ]
-            },
-            departments: {
-                title: "Department Automation",
-                description: "Manage the farm from the app.",
-                areas: [
-                    { area: "Labor & Logistics", detail: "AI that recruits seasonal H-2A workers via WhatsApp, handles paperwork, and coordinates housing logistics.", impact: "Solves the biggest headache in farming: labor shortages." }
-                ]
-            },
-            custom: {
-                title: "The Agronomy OS",
-                description: "Digital transformation for Agribusiness.",
-                features: ["Hyper-local micro-climate forecasting", "Automated FDA/USDA compliance logging", "Drone/satellite imagery analysis summaries"]
-            }
-        },
-        faq: [
-            { q: "Can it integrate with my existing tractor GPS data?", a: "Yes, we build custom API connections to major OEM data platforms to put your data to work." }
+        dreamVision: "Imagine a gym where every member feels like the owner is personally checking in on them every week. Trials are booked, memberships are renewed, and your staff is finally free to do what they love: train.",
+        industryStats: [
+            { stat: "20%", label: "Lower Churn" },
+            { stat: "24/7", label: "Studio Support" },
+            { stat: "Zero", label: "Missed Trials" }
         ],
-        layers: [
-            { department: "Operations & HR", roles: ["Logistics Coordinator", "Equipment Monitor"], tasks: ["Recruit seasonal help via WhatsApp", "Schedule tractor repairs"] }
-        ]
-    },
-    {
-        slug: "financial-advisors",
-        name: "Financial Advisors & Planners",
-        hook: "AUM Only Grows When You're Face-to-Face.",
-        problem: "You are spending hours prepping for client reviews, updating financial plans, and staying compliant with FINRA. By the time you do the prep work, you have no time left to actually recruit new High-Net-Worth clients.",
-        operatorProblem: "The administrative burden of wealth management limits the number of households you can service. We install an AI paraplanner that drafts review docs, summarizes portfolios, and automatically flags opportunities for tax-loss harvesting or annuities.",
-        result: "You double your book of business without working weekends.",
-        subNiches: ["Registered Investment Advisors (RIAs)", "Wealth Management Firms", "Fee-Only Planners", "Family Offices", "Insurance & Annuity Specialists"],
-        geoKeywords: ["New York", "Chicago", "Miami", "Dallas", "San Francisco"],
-        services: {
-            singleSystems: {
-                title: "Advisory Scale Tools",
-                description: "Automate the back office.",
-                examples: [
-                    { title: "The Zero-Prep Client Review", detail: "AI that synthesizes the client's current holdings against their goal plan to produce a 5-page custom review deck.", roi: "Saves 3 hours per client meeting." },
-                    { title: "Compliance Communication Sentinel", detail: "AI that monitors all email and social output to ensure everything meets strict SEC/FINRA advertising guidelines.", roi: "Risk-free marketing scale." }
-                ]
-            },
-            departments: {
-                title: "Department Automation",
-                description: "The digital paraplanner.",
-                areas: [
-                    { area: "Prospecting & Sales", detail: "AI that monitors public filings, news, and LinkedIn for liquidity events (business sales, IPOs, inheritances) and drafts the outreach.", impact: "Continuously fills pipeline with $1M+ accounts." }
-                ]
-            },
-            custom: {
-                title: "The Wealth OS",
-                description: "Built for billion-dollar AUM goals.",
-                features: ["Automated RMD (Required Minimum Distribution) trackers", "Multi-generational wealth transfer communication prompts", "Deep CRM integrations (Redtail, Wealthbox)"]
-            }
-        },
-        faq: [
-            { q: "Is this secure and compliant?", a: "Absolutely. We use enterprise-tier, SOC-2 compliant private models that never train on your client's financial data." }
+        useCases: [
+            { title: "The New Year Lead", scenario: "Someone clicks your ad at 2 AM on Jan 1st.", outcome: "AI texts them instantly, answers their questions, and books their free trial for 8 AM the next day before they can talk themselves out of it." }
         ],
-        layers: [
-            { department: "Paraplanning", roles: ["Client Review Prep", "Lead Generator"], tasks: ["Draft quarterly reviews", "Scout liquidity events"] }
-        ]
+        comparisonTable: [
+            { category: "Support", without: "Limited (Front desk)", withAI: "24/7 (Autonomous)" },
+            { category: "Retention", without: "Reactive (Manual)", withAI: "Proactive (AI-driven)" }
+        ],
+        processSteps: [
+            { step: 1, title: "Retention Audit", description: "Identifying your churn triggers." },
+            { step: 2, title: "Support Node Launch", description: "Deploying your fitness AI concierge." }
+        ],
+        layers: [{ department: "Support", roles: ["Trial Setter", "Retention Assistant"], tasks: ["Answer inquiries", "Monitor member health"] }]
     }
 ];

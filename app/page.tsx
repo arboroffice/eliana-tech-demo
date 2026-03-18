@@ -43,6 +43,185 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* ═══ PROBLEM — tight, scannable ═══ */}
+        <section className="fn-problem">
+          <div className="fn-container">
+            <div className="fn-problem-grid">
+              <div>
+                <p className="fn-label">The Problem</p>
+                <h2 className="fn-h2">YOU ARE<br /><span>THE SYSTEM.</span></h2>
+              </div>
+              <div className="fn-problem-list">
+                <p className="fn-problem-item">You follow up manually</p>
+                <p className="fn-problem-item">You answer the same things daily</p>
+                <p className="fn-problem-item">You keep everything moving</p>
+                <p className="fn-problem-item">You fix what breaks</p>
+                <div className="fn-problem-callout">
+                  That&apos;s not a business. That&apos;s a job you built for yourself.
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ═══ REFRAME ═══ */}
+        <section className="fn-bridge">
+          <div className="fn-bridge-bg">FREEDOM</div>
+          <div className="fn-container fn-bridge-inner">
+            <h2 className="fn-bridge-h2">
+              <span>AI-powered businesses</span><br />
+              don&apos;t need you doing everything.
+            </h2>
+          </div>
+        </section>
+
+
+        {/* ═══ PROCESS — minimal ═══ */}
+        <section className="fn-section fn-section-alt">
+          <div className="fn-container">
+            <p className="fn-label">How It Works</p>
+            <div className="fn-process">
+              {[
+                { num: "1", title: "Tell us how your business runs", desc: "3 minute audit" },
+                { num: "2", title: "Get your breakdown", desc: "Instant results" },
+                { num: "3", title: "Decide your next move", desc: "DIY or done for you" },
+              ].map((step, i) => (
+                <div key={i} className="fn-process-step">
+                  <div className="fn-process-num">{step.num}</div>
+                  <div>
+                    <h3 className="fn-process-title">{step.title}</h3>
+                    <p className="fn-process-desc">{step.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ═══ THE SOLUTION — 6 Layers ═══ */}
+        <section className="fn-section">
+          <div className="fn-container">
+            <p className="fn-label">Your AI Wing</p>
+            <h2 className="fn-h2">WE BUILD THE <span>AI-NATIVE</span><br />OPERATING SYSTEM.</h2>
+
+            <div className="fn-layers">
+              {[
+                { num: "01", title: "Attract", desc: "Get found without chasing." },
+                { num: "02", title: "Capture", desc: "No lead gets missed." },
+                { num: "03", title: "Convert", desc: "Deals move without follow up." },
+                { num: "04", title: "Deliver", desc: "Operations run without you." },
+                { num: "05", title: "Retain", desc: "Clients come back automatically." },
+                { num: "06", title: "Intelligence", desc: "You see everything clearly." },
+              ].map((layer, i) => (
+                <div key={i} className="fn-layer">
+                  <div className="fn-layer-num">{layer.num}</div>
+                  <div className="fn-layer-content">
+                    <h3 className="fn-layer-title">{layer.title}</h3>
+                    <p className="fn-layer-desc">{layer.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ═══ HOW YOU WORK WITH US ═══ */}
+        <section className="fn-section fn-section-alt" style={{ borderTop: "1px solid var(--gray-100)" }}>
+          <div className="fn-container">
+            <div className="fn-roadmap-intro">
+              <p className="fn-label">Your AI Department</p>
+              <h2 className="fn-h2">START SMALL. <span>THEN SCALE.</span></h2>
+            </div>
+
+            <div className="fn-roadmap-v2">
+              <div className="fn-roadmap-line" />
+              {[
+                { phase: "01", title: "Fix One Problem", desc: "14 day build. Remove a key bottleneck.", href: "/apply", accent: true, meta: "Proof" },
+                { phase: "02", title: "Full System Build", desc: "All core operations automated.", href: "/apply", meta: "Scale" },
+                { phase: "03", title: "Your AI Wing", desc: "We become your AI department.", href: "/apply", meta: "Engine" },
+                { phase: "04", title: "Chief AI Officer", desc: "Revenue share. Full alignment.", href: "/apply", meta: "Partner" },
+              ].map((s, i) => (
+                <Link key={i} href={s.href} className={`fn-rm-step ${s.accent ? 'fn-rm-step-accent' : ''}`}>
+                  <div className="fn-rm-dot" />
+                  <div className="fn-rm-step-content">
+                    <div className="fn-rm-step-header">
+                      <span className="fn-rm-step-phase">{s.phase}</span>
+                      <span className="fn-rm-step-meta">{s.meta}</span>
+                    </div>
+                    <h3 className="fn-rm-step-title">{s.title}</h3>
+                    <p className="fn-rm-step-desc">{s.desc}</p>
+                    <div className="fn-rm-step-footer">
+                      <span className="fn-rm-step-link">Apply <ArrowRight size={14} /></span>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ═══ WHO THIS IS FOR — compact ═══ */}
+        <section className="fn-section">
+          <div className="fn-container">
+            <div className="fn-for-grid">
+              <div className="fn-for-yes">
+                <p className="fn-label">This is for you if</p>
+                <ul className="fn-for-list">
+                  <li>You&apos;re doing $500K+</li>
+                  <li>You feel busy but things are messy</li>
+                  <li>You know you&apos;re wasting time</li>
+                  <li>You want systems, not more work</li>
+                </ul>
+              </div>
+              <div className="fn-for-no">
+                <p className="fn-label" style={{ color: 'var(--gray-400)' }}>Not for</p>
+                <ul className="fn-for-list fn-for-list-dim">
+                  <li>People looking for free ideas only</li>
+                  <li>People who won&apos;t execute</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ═══ INDUSTRY PLAYBOOKS ═══ */}
+        <section className="fn-section fn-section-alt">
+          <div className="fn-container">
+            <p className="fn-label">Built for Your Industry</p>
+            <h2 className="fn-h2">INDUSTRY <span>PLAYBOOKS.</span></h2>
+            <div className="fn-playbooks-list">
+              {[
+                { slug: "medical-dental", name: "Medical & Dental" },
+                { slug: "home-services-high-ticket", name: "Home Services — High Ticket" },
+                { slug: "legal", name: "Legal Services" },
+                { slug: "beauty-personal-care", name: "Beauty & Personal Care" },
+                { slug: "home-services-recurring", name: "Home Services — Recurring" },
+                { slug: "real-estate-property", name: "Real Estate & Property" },
+                { slug: "health-wellness", name: "Health & Wellness" },
+                { slug: "pet-services", name: "Pet Services" },
+                { slug: "automotive", name: "Automotive" },
+                { slug: "professional-financial", name: "Professional & Financial Services" },
+                { slug: "events-hospitality", name: "Events & Hospitality" },
+                { slug: "education-childcare", name: "Education & Childcare" },
+                { slug: "misc-local-services", name: "Misc. Local Services" },
+                { slug: "saas", name: "SaaS Founders" },
+                { slug: "course-creators", name: "Course Creators" },
+                { slug: "coaching", name: "Coaches & Consultants" },
+                { slug: "ecommerce", name: "E-commerce & Retail" },
+                { slug: "agencies", name: "Agencies" },
+              ].map((ind, i) => (
+                <Link key={i} href={`/industry-categories/${ind.slug}`} className="fn-pb-item">
+                  <span className="fn-pb-num">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="fn-pb-name">{ind.name}</span>
+                  <span className="fn-pb-line" />
+                  <ArrowRight size={14} className="fn-pb-arrow" />
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+
         {/* ═══ META VERIFIED + INTEGRATIONS ═══ */}
         <section className="fn-trust">
           <div className="fn-container">
@@ -242,185 +421,6 @@ export default function HomePage() {
 
           </div>
         </section>
-
-        {/* ═══ PROBLEM — tight, scannable ═══ */}
-        <section className="fn-problem">
-          <div className="fn-container">
-            <div className="fn-problem-grid">
-              <div>
-                <p className="fn-label">The Problem</p>
-                <h2 className="fn-h2">YOU ARE<br /><span>THE SYSTEM.</span></h2>
-              </div>
-              <div className="fn-problem-list">
-                <p className="fn-problem-item">You follow up manually</p>
-                <p className="fn-problem-item">You answer the same things daily</p>
-                <p className="fn-problem-item">You keep everything moving</p>
-                <p className="fn-problem-item">You fix what breaks</p>
-                <div className="fn-problem-callout">
-                  That&apos;s not a business. That&apos;s a job you built for yourself.
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ═══ REFRAME ═══ */}
-        <section className="fn-bridge">
-          <div className="fn-bridge-bg">FREEDOM</div>
-          <div className="fn-container fn-bridge-inner">
-            <h2 className="fn-bridge-h2">
-              <span>AI-powered businesses</span><br />
-              don&apos;t need you doing everything.
-            </h2>
-          </div>
-        </section>
-
-
-        {/* ═══ PROCESS — minimal ═══ */}
-        <section className="fn-section fn-section-alt">
-          <div className="fn-container">
-            <p className="fn-label">How It Works</p>
-            <div className="fn-process">
-              {[
-                { num: "1", title: "Tell us how your business runs", desc: "3 minute audit" },
-                { num: "2", title: "Get your breakdown", desc: "Instant results" },
-                { num: "3", title: "Decide your next move", desc: "DIY or done for you" },
-              ].map((step, i) => (
-                <div key={i} className="fn-process-step">
-                  <div className="fn-process-num">{step.num}</div>
-                  <div>
-                    <h3 className="fn-process-title">{step.title}</h3>
-                    <p className="fn-process-desc">{step.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ═══ THE SOLUTION — 6 Layers ═══ */}
-        <section className="fn-section">
-          <div className="fn-container">
-            <p className="fn-label">Your AI Wing</p>
-            <h2 className="fn-h2">WE BUILD THE <span>AI-NATIVE</span><br />OPERATING SYSTEM.</h2>
-
-            <div className="fn-layers">
-              {[
-                { num: "01", title: "Attract", desc: "Get found without chasing." },
-                { num: "02", title: "Capture", desc: "No lead gets missed." },
-                { num: "03", title: "Convert", desc: "Deals move without follow up." },
-                { num: "04", title: "Deliver", desc: "Operations run without you." },
-                { num: "05", title: "Retain", desc: "Clients come back automatically." },
-                { num: "06", title: "Intelligence", desc: "You see everything clearly." },
-              ].map((layer, i) => (
-                <div key={i} className="fn-layer">
-                  <div className="fn-layer-num">{layer.num}</div>
-                  <div className="fn-layer-content">
-                    <h3 className="fn-layer-title">{layer.title}</h3>
-                    <p className="fn-layer-desc">{layer.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ═══ HOW YOU WORK WITH US ═══ */}
-        <section className="fn-section fn-section-alt" style={{ borderTop: "1px solid var(--gray-100)" }}>
-          <div className="fn-container">
-            <div className="fn-roadmap-intro">
-              <p className="fn-label">Your AI Department</p>
-              <h2 className="fn-h2">START SMALL. <span>THEN SCALE.</span></h2>
-            </div>
-
-            <div className="fn-roadmap-v2">
-              <div className="fn-roadmap-line" />
-              {[
-                { phase: "01", title: "Fix One Problem", desc: "14 day build. Remove a key bottleneck.", href: "/apply", accent: true, meta: "Proof" },
-                { phase: "02", title: "Full System Build", desc: "All core operations automated.", href: "/apply", meta: "Scale" },
-                { phase: "03", title: "Your AI Wing", desc: "We become your AI department.", href: "/apply", meta: "Engine" },
-                { phase: "04", title: "Chief AI Officer", desc: "Revenue share. Full alignment.", href: "/apply", meta: "Partner" },
-              ].map((s, i) => (
-                <Link key={i} href={s.href} className={`fn-rm-step ${s.accent ? 'fn-rm-step-accent' : ''}`}>
-                  <div className="fn-rm-dot" />
-                  <div className="fn-rm-step-content">
-                    <div className="fn-rm-step-header">
-                      <span className="fn-rm-step-phase">{s.phase}</span>
-                      <span className="fn-rm-step-meta">{s.meta}</span>
-                    </div>
-                    <h3 className="fn-rm-step-title">{s.title}</h3>
-                    <p className="fn-rm-step-desc">{s.desc}</p>
-                    <div className="fn-rm-step-footer">
-                      <span className="fn-rm-step-link">Apply <ArrowRight size={14} /></span>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ═══ WHO THIS IS FOR — compact ═══ */}
-        <section className="fn-section">
-          <div className="fn-container">
-            <div className="fn-for-grid">
-              <div className="fn-for-yes">
-                <p className="fn-label">This is for you if</p>
-                <ul className="fn-for-list">
-                  <li>You&apos;re doing $500K+</li>
-                  <li>You feel busy but things are messy</li>
-                  <li>You know you&apos;re wasting time</li>
-                  <li>You want systems, not more work</li>
-                </ul>
-              </div>
-              <div className="fn-for-no">
-                <p className="fn-label" style={{ color: 'var(--gray-400)' }}>Not for</p>
-                <ul className="fn-for-list fn-for-list-dim">
-                  <li>People looking for free ideas only</li>
-                  <li>People who won&apos;t execute</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ═══ INDUSTRY PLAYBOOKS ═══ */}
-        <section className="fn-section fn-section-alt">
-          <div className="fn-container">
-            <p className="fn-label">Built for Your Industry</p>
-            <h2 className="fn-h2">INDUSTRY <span>PLAYBOOKS.</span></h2>
-            <div className="fn-playbooks-list">
-              {[
-                { slug: "medical-dental", name: "Medical & Dental" },
-                { slug: "home-services-high-ticket", name: "Home Services — High Ticket" },
-                { slug: "legal", name: "Legal Services" },
-                { slug: "beauty-personal-care", name: "Beauty & Personal Care" },
-                { slug: "home-services-recurring", name: "Home Services — Recurring" },
-                { slug: "real-estate-property", name: "Real Estate & Property" },
-                { slug: "health-wellness", name: "Health & Wellness" },
-                { slug: "pet-services", name: "Pet Services" },
-                { slug: "automotive", name: "Automotive" },
-                { slug: "professional-financial", name: "Professional & Financial Services" },
-                { slug: "events-hospitality", name: "Events & Hospitality" },
-                { slug: "education-childcare", name: "Education & Childcare" },
-                { slug: "misc-local-services", name: "Misc. Local Services" },
-                { slug: "saas", name: "SaaS Founders" },
-                { slug: "course-creators", name: "Course Creators" },
-                { slug: "coaching", name: "Coaches & Consultants" },
-                { slug: "ecommerce", name: "E-commerce & Retail" },
-                { slug: "agencies", name: "Agencies" },
-              ].map((ind, i) => (
-                <Link key={i} href={`/industry-categories/${ind.slug}`} className="fn-pb-item">
-                  <span className="fn-pb-num">{String(i + 1).padStart(2, '0')}</span>
-                  <span className="fn-pb-name">{ind.name}</span>
-                  <span className="fn-pb-line" />
-                  <ArrowRight size={14} className="fn-pb-arrow" />
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-
 
         {/* ═══ PARTNER CTA ═══ */}
         <section className="fn-partner-cta">
