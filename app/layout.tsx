@@ -48,7 +48,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${bebasNeue.variable} ${dmMono.variable} ${syne.variable} font-mono antialiased`}>
+      <body className={`${bebasNeue.variable} ${dmMono.variable} ${syne.variable} font-sans antialiased text-gray-900`}>
         <StyledJsxRegistry>
           <Suspense fallback={null}>
             <NavigationTransition />

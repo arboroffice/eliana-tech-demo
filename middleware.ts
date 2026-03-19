@@ -23,6 +23,15 @@ export function middleware(request: NextRequest) {
     return NextResponse.rewrite(newUrl)
   }
 
+  // Support for foundersofthefuture subdomain
+  if (hostname.startsWith('foundersofthefuture.')) {
+    if (url.pathname.startsWith('/foundersofthefuture')) {
+      return NextResponse.next()
+    }
+    const newUrl = new URL(`/foundersofthefuture${url.pathname === '/' ? '' : url.pathname}`, request.url)
+    return NextResponse.rewrite(newUrl)
+  }
+
   return NextResponse.next()
 }
 

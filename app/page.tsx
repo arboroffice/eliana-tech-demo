@@ -16,7 +16,7 @@ export default function HomePage() {
   }, [])
 
   return (
-    <div className="bg-[#FAFAF8] text-[#0C0C0C] font-mono overflow-x-hidden selection:bg-[#D90019] selection:text-white">
+    <div className="bg-[#FAFAF8] text-[#0C0C0C] font-sans overflow-x-hidden selection:bg-[#D90019] selection:text-white">
       
       {/* ═══ NAVIGATION ═══ */}
       <nav className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 px-6 md:px-12 h-16 sm:h-20 flex items-center justify-between ${scrolled ? 'bg-white/80 backdrop-blur-md border-b border-gray-100 shadow-sm' : 'bg-transparent'}`}>
@@ -191,48 +191,6 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ═══ WHAT YOU GET (AI BACK OFFICE) ═══ */}
-        <section className="py-32 px-6 bg-[#FAFAF8]">
-           <div className="max-w-6xl mx-auto">
-              <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12 mb-20">
-                 <div className="flex-1">
-                    <p className="text-[#D90019] font-bold tracking-[0.3em] uppercase mb-4 text-sm font-mono">What You Get</p>
-                    <h2 className="font-bebas text-6xl sm:text-8xl leading-[0.85] uppercase">
-                       Your AI<br />
-                       <span className="text-[#D90019]">Back Office</span>
-                    </h2>
-                    <p className="text-gray-950 font-bold text-xl mt-8">This replaces hours of manual work every day.</p>
-                 </div>
-                 <div className="lg:max-w-md border-l-4 border-red-600 pl-8">
-                    <p className="text-gray-500 font-medium text-lg lg:text-xl italic leading-relaxed">
-                        &ldquo;This isn&apos;t software. This is your AI back office. Built for your business. Managed by us. Runs without you.&rdquo;
-                    </p>
-                 </div>
-              </div>
-
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-gray-200 border border-gray-200 overflow-hidden rounded-sm transition-all duration-700 hover:shadow-2xl">
-                 {[
-                    { title: "AI Answers Every Call", icon: Phone, desc: "No more missed leads. Every call handled instantly, even after hours." },
-                    { title: "Instant Lead Follow-Up", icon: MessageSquare, desc: "Every new lead gets a response in under 60 seconds. Automatically." },
-                    { title: "Jobs Scheduled Automatically", icon: Calendar, desc: "Dispatch runs itself. Your team knows exactly where to go." },
-                    { title: "Customers Updated Without You", icon: Check, desc: "Confirmations, reminders, and follow-ups sent on autopilot." },
-                    { title: "Payments and Reviews Handled", icon: CreditCard, desc: "Collect faster. Generate more 5-star reviews. No manual work." },
-                    { title: "Revenue Tracked in Real Time", icon: BarChart3, desc: "Know your numbers without digging through spreadsheets." }
-                 ].map((feature, i) => (
-                    <div key={i} className="bg-white p-10 group transition-all duration-500 hover:bg-black hover:text-white relative overflow-hidden">
-                       {/* Subtle hover background decoration */}
-                       <div className="absolute top-0 left-0 w-full h-1 bg-[#D90019] scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500"></div>
-                       
-                       <div className="mb-8 relative transition-transform duration-500 group-hover:scale-110 group-hover:-translate-y-1">
-                          <feature.icon className="text-[#D90019]" size={40} strokeWidth={1.5} />
-                       </div>
-                       <h3 className="text-2xl font-bold mb-4 tracking-tight">{feature.title}</h3>
-                       <p className="text-gray-500 group-hover:text-gray-400 font-medium text-lg leading-relaxed transition-colors">{feature.desc}</p>
-                    </div>
-                 ))}
-              </div>
-           </div>
-        </section>
 
         {/* ═══ PRICING SECTION ═══ */}
         <section className="py-32 px-6 bg-white overflow-hidden border-y border-gray-100">
@@ -292,7 +250,7 @@ export default function HomePage() {
                 
                 <div className="mt-6 mb-10">
                    <span className="font-bebas text-2xl text-red-600 mb-2 block uppercase tracking-widest">Full Build</span>
-                   <h3 className="text-4xl font-bold font-bebas tracking-wide">Business OS</h3>
+                   <h3 className="text-4xl font-bold font-bebas tracking-wide">AI Backoffice OS</h3>
                    <div className="mt-4 text-3xl font-bold font-bebas text-[#D90019]">$25,000 &mdash; $75,000</div>
                 </div>
                 
@@ -354,39 +312,6 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ═══ RESULTS SECTION ═══ */}
-        <section className="bg-black py-40 px-6 overflow-hidden relative">
-          <div className="absolute inset-0 opacity-20">
-             <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-red-600 to-transparent"></div>
-             <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-red-600 to-transparent"></div>
-          </div>
-          
-          <div className="max-w-6xl mx-auto relative z-10 text-center">
-             <p className="text-[#D90019] font-bold tracking-[0.4em] uppercase mb-16 text-sm">Real Impact</p>
-             <h2 className="font-bebas text-7xl sm:text-[120px] leading-[0.8] uppercase text-white mb-32 tracking-tighter">
-               What Happens When<br />
-               <span className="text-[#D90019]">The System Is In</span>
-             </h2>
-
-             <div className="grid md:grid-cols-3 gap-24 lg:gap-32">
-                <div className="group">
-                   <span className="block font-bebas text-[140px] text-white leading-none mb-4 transition-all group-hover:scale-110 group-hover:text-[#D90019] duration-500">0</span>
-                   <div className="h-1 w-12 bg-red-600 mx-auto mb-8"></div>
-                   <p className="text-gray-400 font-bold tracking-[0.2em] uppercase text-xs max-w-[200px] mx-auto leading-relaxed">missed leads</p>
-                </div>
-                <div className="group">
-                   <span className="block font-bebas text-[140px] text-white leading-none mb-4 transition-all group-hover:scale-110 group-hover:text-[#D90019] duration-500">60s</span>
-                   <div className="h-1 w-12 bg-red-600 mx-auto mb-8"></div>
-                   <p className="text-gray-400 font-bold tracking-[0.2em] uppercase text-xs max-w-[200px] mx-auto leading-relaxed">or less response time</p>
-                </div>
-                <div className="group">
-                   <span className="block font-bebas text-[140px] text-white leading-none mb-4 transition-all group-hover:scale-110 group-hover:text-[#D90019] duration-500">14d</span>
-                   <div className="h-1 w-12 bg-red-600 mx-auto mb-8"></div>
-                   <p className="text-gray-400 font-bold tracking-[0.2em] uppercase text-xs max-w-[200px] mx-auto leading-relaxed">days to first system live</p>
-                </div>
-             </div>
-          </div>
-        </section>
 
         {/* ═══ INDUSTRY PLAYBOOKS (PRESERVED) ═══ */}
         <section className="py-32 px-6 bg-[#FAFAF8] border-b border-gray-100">
