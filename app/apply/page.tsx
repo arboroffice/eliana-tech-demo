@@ -233,11 +233,6 @@ export default function ApplyPage() {
               <p>Because information without installation is entertainment.</p>
             </div>
 
-            <p>Knowing what AI can do and having AI running inside your business are two completely different things. The distance between them is enormous. And nobody is helping you cross it.</p>
-            <p>The courses teach theory. The agencies build generic. The consultants advise from the sidelines. The tools are powerful but directionless without strategy. And the people shouting loudest about AI on social media are mostly selling the shouting.</p>
-
-            <h2 className="fotf-h2 light-h2">The gap in the market is simple and massive:</h2>
-            <p>Someone who understands business architecture — real business, not startup fantasy — AND who can build AI infrastructure from the inside out. Not advise. Not teach. <strong>Build.</strong> In your business. With your voice. Around your operations. Beside you.</p>
             <p>That&apos;s what doesn&apos;t exist yet.</p>
             <p><strong>Except here.</strong></p>
           </div>
@@ -247,20 +242,21 @@ export default function ApplyPage() {
         <section className="fn-section" style={{ borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)" }}>
           <div className="fn-container">
             <div className="fn-roadmap-intro">
-              <p className="fn-label">How It Works</p>
-              <h2 className="fn-h2">YOUR <span>ROADMAP.</span></h2>
-              <p className="fn-desc-wide">We do not ask you to commit to everything upfront. You start small. We prove ourselves. Then we scale together.</p>
+               <p className="fn-label">How It Works</p>
+               <h2 className="fn-h2">THE <span>LADDER.</span></h2>
+               <p className="fn-desc-wide">We do not ask you to commit to everything upfront. You start with the logic. We build the layer. Then we scale the system.</p>
             </div>
 
             <div className="fn-roadmap-v2">
               <div className="fn-roadmap-line" />
               {[
-                { phase: "01", title: "Single Problem Build", desc: "14 days. This may be a Claude setup, team training, or a single autonomous build. This could be us getting you ranked by AI, recommended by AI, or installing the systems so your manual labor is replaced by it. If your needs go deeper, we build this first.", tag: "$5K+", href: "#apply", accent: true, meta: "The Proof" },
-                { phase: "02", title: "Full Buildout", desc: "Complete operational architecture across every department. All six layers — built, connected, running.", tag: "$25–75K+", href: "#apply", meta: "The Scale" },
-                { phase: "03", title: "AI Wing Retainer", desc: "Ongoing evolution. Your infrastructure grows and adapts as you scale. We become your AI department.", tag: "$5–10K/mo+", href: "#apply", meta: "The Engine" },
-                { phase: "04", title: "Revenue Share", desc: "Skin in the game. Your growth is our growth. Full alignment. Multi-year legacy building.", tag: "Partnership", href: "#apply", meta: "The Partner" },
+                { phase: "01", title: "Founders of the Future", desc: "Entry level access to the logic. This is where you learn how to think in systems before you spend a dollar on builds. Hosted on our dedicated community subdomain.", tag: "TO LEARN", href: "https://foundersofthefuture.com", accent: true, meta: "The Logic" },
+                { phase: "02", title: "Build One: Living Layer", desc: "A custom communication infrastructure between your existing tools and the coming agent workforce. Rapid deployment in 14 days.", tag: "$5K+", href: "#apply", meta: "The Layer" },
+                { phase: "03", title: "Full Build: Industry Playbook", desc: "Proven operational playbooks for your specific niche. Full automation across every department. The true Business OS.", tag: "$25K+", href: "#apply", meta: "The Scale" },
+                { phase: "04", title: "Inner Circle", desc: "Ongoing expert build access and system updates. Stay in the network of high-scale founders who are actually building.", tag: "$500/mo", href: "#apply", meta: "The Network" },
+                { phase: "05", title: "Partnership / Share", desc: "Skin in the game. Full alignment. We become your equity AI department for high-scale growth.", tag: "Partnership", href: "#apply", meta: "The Legend" },
               ].map((s, i) => (
-                <div key={i} onClick={scrollToApply} style={{ cursor: 'pointer' }} className={`fn-rm-step ${s.accent ? 'fn-rm-step-accent' : ''}`}>
+                <div key={i} onClick={s.href.startsWith('#') ? scrollToApply : () => window.open(s.href, '_blank')} style={{ cursor: 'pointer' }} className={`fn-rm-step ${s.accent ? 'fn-rm-step-accent' : ''}`}>
                   <div className="fn-rm-dot" />
                   <div className="fn-rm-step-content">
                     <div className="fn-rm-step-header">
@@ -271,7 +267,7 @@ export default function ApplyPage() {
                     <p className="fn-rm-step-desc">{s.desc}</p>
                     <div className="fn-rm-step-footer">
                       <span className="fn-rm-step-tag">{s.tag}</span>
-                      <span className="fn-rm-step-link">Apply Now <ArrowRight size={14} /></span>
+                      <span className="fn-rm-step-link">{s.phase === "01" ? "Join FOTF" : "Apply Now"} <ArrowRight size={14} /></span>
                     </div>
                   </div>
                 </div>

@@ -198,114 +198,139 @@ export default function HomePage() {
             <div className="text-center mb-24">
               <p className="text-[#D90019] font-bold tracking-[0.3em] uppercase mb-4 text-sm">Pricing</p>
               <h2 className="font-bebas text-6xl sm:text-8xl leading-none uppercase">
-                Three Ways In
+                The Pipeline
               </h2>
               <p className="text-gray-500 text-xl font-medium max-w-2xl mx-auto mt-8 leading-relaxed">
-                Start with one bottleneck. Scale into full automation.
+                From logic to infrastructure to ongoing evolution.
               </p>
             </div>
 
-            <div className="grid lg:grid-cols-3 gap-10 items-stretch">
-              {/* Starter */}
-              <div className="p-12 border border-gray-100 flex flex-col transition-all duration-500 hover:border-black group">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 items-stretch">
+              {/* Founders of the Future */}
+              <div className="p-10 border border-gray-100 flex flex-col transition-all duration-500 hover:border-black group">
                 <div className="flex justify-between items-start mb-10">
                    <div>
-                      <span className="font-bebas text-2xl text-gray-400 mb-2 block uppercase tracking-widest">Starter</span>
-                      <h3 className="text-4xl font-bold font-bebas tracking-wide group-hover:text-[#D90019] transition-colors">The Build</h3>
+                      <span className="font-bebas text-xl text-gray-400 mb-2 block uppercase tracking-widest">Step 01</span>
+                      <h3 className="text-3xl font-bold font-bebas tracking-wide group-hover:text-[#D90019] transition-colors">Founders of the Future</h3>
                    </div>
                    <div className="text-right">
-                      <div className="text-3xl font-bold font-bebas">$5,000</div>
-                      <div className="text-gray-400 text-[10px] font-bold uppercase tracking-widest">One-Time</div>
+                      <div className="text-2xl font-bold font-bebas">LEARN</div>
                    </div>
                 </div>
                 
-                <p className="text-gray-500 mb-10 font-medium text-lg leading-relaxed">Fix one high-leverage problem fast.</p>
+                <p className="text-gray-500 mb-10 font-medium text-sm leading-relaxed">Master AI logic before building infrastructure. Hosted on our dedicated subdomain.</p>
                 
-                <div className="flex-1 space-y-5 mb-12">
+                <div className="flex-1 space-y-4 mb-10">
                   {[
-                    "One automation fully built",
-                    "Live in your workflow in 14 days",
-                    "Money-back guarantee",
-                    "Full walkthrough + documentation"
+                    "Logic blueprints",
+                    "Weekly strategy",
+                    "Community access",
+                    "FOTF Subdomain"
                   ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-4 text-sm font-bold uppercase tracking-widest text-[#0C0C0C]">
-                      <Check className="text-[#D90019] shrink-0 mt-0.5" size={16} strokeWidth={3} /> {item}
+                    <li key={i} className="flex items-start gap-3 text-xs font-bold uppercase tracking-widest text-[#0C0C0C]">
+                      <Check className="text-[#D90019] shrink-0 mt-0.5" size={12} strokeWidth={3} /> {item}
                     </li>
                   ))}
                 </div>
                 
-                <Link href="/apply" className="w-full text-center py-5 bg-black text-white font-bebas text-2xl tracking-[0.2em] transition-all hover:bg-[#D90019] hover:tracking-[0.3em] active:scale-95">
-                  Let&apos;s Start
+                <Link href="https://foundersofthefuture.com" target="_blank" className="w-full text-center py-4 bg-black text-white font-bebas text-xl tracking-[0.2em] transition-all hover:bg-[#D90019] hover:tracking-[0.3em] active:scale-95">
+                  Join FOTF
                 </Link>
               </div>
 
-              {/* Full Build - High Impact */}
-              <div className="p-12 bg-black text-white flex flex-col relative transform lg:scale-110 shadow-[0_40px_100px_-20px_rgba(217,0,25,0.25)] z-20 overflow-hidden">
+              {/* Build One */}
+              <div className="p-10 bg-black text-white flex flex-col relative transform lg:scale-105 shadow-[0_40px_100px_-20px_rgba(217,0,25,0.25)] z-20 overflow-hidden">
                 <div className="absolute top-0 right-0 p-4">
-                   <ZapIcon className="text-[#D90019] animate-pulse" size={32} />
-                </div>
-                <div className="absolute top-0 left-0 bg-[#D90019] text-white text-[10px] font-bold uppercase tracking-[0.3em] px-6 py-2">
-                  Most Popular
+                   <ZapIcon className="text-[#D90019] animate-pulse" size={24} />
                 </div>
                 
-                <div className="mt-6 mb-10">
-                   <span className="font-bebas text-2xl text-red-600 mb-2 block uppercase tracking-widest">Full Build</span>
-                   <h3 className="text-4xl font-bold font-bebas tracking-wide">AI Backoffice OS</h3>
-                   <div className="mt-4 text-3xl font-bold font-bebas text-[#D90019]">$25,000 &mdash; $75,000</div>
+                <div className="mt-8 mb-10">
+                   <span className="font-bebas text-xl text-red-600 mb-2 block uppercase tracking-widest">Step 02</span>
+                   <h3 className="text-3xl font-bold font-bebas tracking-wide text-white font-bebas">Build One</h3>
+                   <div className="mt-4 text-2xl font-bold font-bebas text-[#D90019]">$5,000+</div>
                 </div>
                 
-                <p className="text-gray-400 mb-10 font-medium text-lg leading-relaxed">Full business automation system.</p>
+                <p className="text-gray-400 mb-10 font-medium text-sm leading-relaxed">A living communication layer between your tools and your business.</p>
                 
-                <div className="flex-1 space-y-5 mb-12">
+                <div className="flex-1 space-y-4 mb-10">
                   {[
-                    "Lead capture + instant response",
-                    "Scheduling + dispatch system",
-                    "Payment + review automation",
-                    "Backend operations workflows",
-                    "Revenue dashboards",
-                    "60-day post-launch support"
+                    "Custom Layer 1 build",
+                    "Tool integrations",
+                    "Agent logic setup",
+                    "14-day deployment"
                   ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-4 text-sm font-bold uppercase tracking-widest text-white">
-                      <Check className="text-[#D90019] shrink-0 mt-0.5" size={16} strokeWidth={3} /> {item}
+                    <li key={i} className="flex items-start gap-3 text-xs font-bold uppercase tracking-widest text-white">
+                      <Check className="text-[#D90019] shrink-0 mt-0.5" size={12} strokeWidth={3} /> {item}
                     </li>
                   ))}
                 </div>
                 
-                <Link href="/apply" className="w-full text-center py-6 bg-[#D90019] text-white font-bebas text-3xl tracking-[0.2em] transition-all hover:bg-white hover:text-[#D90019] hover:tracking-[0.3em] active:scale-95">
-                  Redo My Business
+                <Link href="/apply" className="w-full text-center py-5 bg-[#D90019] text-white font-bebas text-2xl tracking-[0.2em] transition-all hover:bg-white hover:text-[#D90019] hover:tracking-[0.3em] active:scale-95">
+                  Apply Now
                 </Link>
               </div>
 
-              {/* AI Department */}
-              <div className="p-12 border border-gray-100 flex flex-col transition-all duration-500 hover:border-black group">
+              {/* Full OS */}
+              <div className="p-10 border border-gray-100 flex flex-col transition-all duration-500 hover:border-black group">
                 <div className="flex justify-between items-start mb-10">
                    <div>
-                      <span className="font-bebas text-2xl text-gray-400 mb-2 block uppercase tracking-widest">Ongoing</span>
-                      <h3 className="text-4xl font-bold font-bebas tracking-wide group-hover:text-[#D90019] transition-colors">AI Department</h3>
+                      <span className="font-bebas text-xl text-gray-400 mb-2 block uppercase tracking-widest">Step 03</span>
+                      <h3 className="text-3xl font-bold font-bebas tracking-wide group-hover:text-[#D90019] transition-colors">Playbook OS</h3>
                    </div>
                    <div className="text-right">
-                      <div className="text-3xl font-bold font-bebas">$5,000 &mdash; $10,000</div>
-                      <div className="text-gray-400 text-[10px] font-bold uppercase tracking-widest">Per Month</div>
+                      <div className="text-2xl font-bold font-bebas">$25K+</div>
                    </div>
                 </div>
                 
-                <p className="text-gray-500 mb-10 font-medium text-lg leading-relaxed">We run and improve everything.</p>
+                <p className="text-gray-500 mb-10 font-medium text-sm leading-relaxed">Proven industry playbooks deployed as full business automation.</p>
                 
-                <div className="flex-1 space-y-5 mb-12">
+                <div className="flex-1 space-y-4 mb-10">
                   {[
-                    "Unlimited system upgrades",
-                    "48-hour turnaround on requests",
-                    "Infrastructure + security managed",
-                    "Monthly strategy + optimization"
+                    "Full sector automation",
+                    "Custom playbook",
+                    "Agent workforce",
+                    "Revenue scale"
                   ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-4 text-sm font-bold uppercase tracking-widest text-[#0C0C0C]">
-                      <Check className="text-[#D90019] shrink-0 mt-0.5" size={16} strokeWidth={3} /> {item}
+                    <li key={i} className="flex items-start gap-3 text-xs font-bold uppercase tracking-widest text-[#0C0C0C]">
+                      <Check className="text-[#D90019] shrink-0 mt-0.5" size={12} strokeWidth={3} /> {item}
                     </li>
                   ))}
                 </div>
                 
-                <Link href="/apply" className="w-full text-center py-5 bg-black text-white font-bebas text-2xl tracking-[0.2em] transition-all hover:bg-[#D90019] hover:tracking-[0.3em] active:scale-95">
-                  Apply Today
+                <Link href="/apply" className="w-full text-center py-4 bg-black text-white font-bebas text-xl tracking-[0.2em] transition-all hover:bg-[#D90019] hover:tracking-[0.3em] active:scale-95">
+                  Full Deploy
+                </Link>
+              </div>
+
+              {/* Inner Circle */}
+              <div className="p-10 border border-gray-100 flex flex-col transition-all duration-500 hover:border-black group">
+                <div className="flex justify-between items-start mb-10">
+                   <div>
+                      <span className="font-bebas text-xl text-gray-400 mb-2 block uppercase tracking-widest">Ongoing</span>
+                      <h3 className="text-3xl font-bold font-bebas tracking-wide group-hover:text-[#D90019] transition-colors">Inner Circle</h3>
+                   </div>
+                   <div className="text-right">
+                      <div className="text-2xl font-bold font-bebas">$500/mo</div>
+                   </div>
+                </div>
+                
+                <p className="text-gray-500 mb-10 font-medium text-sm leading-relaxed">After the build, stay in the loop with expert access and network support.</p>
+                
+                <div className="flex-1 space-y-4 mb-10">
+                  {[
+                    "Expert build access",
+                    "Founders network",
+                    "System updates",
+                    "Ongoing strategy"
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-start gap-3 text-xs font-bold uppercase tracking-widest text-[#0C0C0C]">
+                      <Check className="text-[#D90019] shrink-0 mt-0.5" size={12} strokeWidth={3} /> {item}
+                    </li>
+                  ))}
+                </div>
+                
+                <Link href="/apply" className="w-full text-center py-4 bg-black text-white font-bebas text-xl tracking-[0.2em] transition-all hover:bg-[#D90019] hover:tracking-[0.3em] active:scale-95">
+                  Stay Connected
                 </Link>
               </div>
             </div>
