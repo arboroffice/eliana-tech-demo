@@ -251,7 +251,7 @@ export default function ApplyPage() {
               <div className="fn-roadmap-line" />
               {[
                 { phase: "01", title: "Audit & Logic", desc: "We map your operation and identify the biggest manual bottlenecks. This is where we design your custom Brain.", tag: "Included", href: "#apply", meta: "The Blueprint" },
-                { phase: "02", title: "Living Layer Install", desc: "Leveraging our 100+ proven Industry Playbooks, we build and deploy your AI backend in 14 days.", tag: "$10,000", href: "#apply", accent: true, meta: "The Build" },
+                { phase: "02", title: "Living Layer Install", desc: "Leveraging our 100+ proven Industry Playbooks, we build and deploy your AI backend in 7 days.", tag: "Prioritized", href: "#apply", accent: true, meta: "The Build" },
                 { phase: "03", title: "The AI Department", desc: "We host and maintain your system, becoming your outsourced AI department for continuous evolution.", tag: "Available", href: "#apply", meta: "The Dept" },
               ].map((s, i) => (
                 <div key={i} onClick={scrollToApply} style={{ cursor: 'pointer' }} className={`fn-rm-step ${s.accent ? 'fn-rm-step-accent' : ''}`}>

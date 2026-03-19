@@ -42,7 +42,36 @@ export interface MeetingNote {
     created_at: string
 }
 
-export type SectionKey = 'research' | 'strategy' | 'onboarding' | 'credentials' | 'timeline' | 'meetings'
+export interface DeploymentConfig {
+    model: string
+    tools: string[]
+    system_prompt_ref: string
+    endpoints: string[]
+    api_keys_rotated: string
+    notes: string
+}
+
+export interface ClientMetrics {
+    monthly_spend: number
+    hours_saved: number
+    tickets_deflected: number
+    response_time_before: string
+    response_time_after: string
+    roi_notes: string
+    custom: Record<string, string>
+}
+
+export interface IssueEntry {
+    id: string
+    date: string
+    title: string
+    description: string
+    resolution: string
+    severity: 'low' | 'medium' | 'high' | 'critical'
+    resolved: boolean
+}
+
+export type SectionKey = 'research' | 'strategy' | 'onboarding' | 'credentials' | 'timeline' | 'meetings' | 'deployment' | 'metrics' | 'issues'
 
 export interface VaultDoc {
     id?: string
@@ -71,6 +100,9 @@ export interface VaultDoc {
     credentials: CredentialEntry[]
     timeline: TimelineEntry[]
     meetings: MeetingNote[]
+    deployment: DeploymentConfig
+    metrics: ClientMetrics
+    issues: IssueEntry[]
     // Firestore metadata
     createdAt?: any
     updatedAt?: any
@@ -343,6 +375,30 @@ ${v.strategy || '_No strategy notes yet._'}
 ## 📄 Proposal
 ${proposalLink}
 
+## 🤖 Deployment
+| Field | Value |
+|-------|-------|
+| Model | ${v.deployment?.model || '—'} |
+| Tools | ${(v.deployment?.tools || []).join(', ') || '—'} |
+| System Prompt | ${v.deployment?.system_prompt_ref ? `[[${v.deployment.system_prompt_ref}]]` : '—'} |
+| Endpoints | ${(v.deployment?.endpoints || []).join(', ') || '—'} |
+| Keys Rotated | ${v.deployment?.api_keys_rotated || '—'} |
+${v.deployment?.notes ? `\n${v.deployment.notes}` : ''}
+
+## 📊 Metrics & Spend
+| Metric | Value |
+|--------|-------|
+| Monthly Spend | ${v.metrics?.monthly_spend ? `$${v.metrics.monthly_spend.toLocaleString()}` : '—'} |
+| Hours Saved | ${v.metrics?.hours_saved || '—'} |
+| Tickets Deflected | ${v.metrics?.tickets_deflected || '—'} |
+| Response Time (Before) | ${v.metrics?.response_time_before || '—'} |
+| Response Time (After) | ${v.metrics?.response_time_after || '—'} |
+${v.metrics?.roi_notes ? `\n**ROI Notes:** ${v.metrics.roi_notes}` : ''}
+${Object.entries(v.metrics?.custom || {}).map(([k, val]) => `| ${k} | ${val} |`).join('\n')}
+
+## 🐛 Issues
+${(v.issues || []).length > 0 ? (v.issues || []).map(issue => `- [${issue.resolved ? 'x' : ' '}] **${issue.title}** (${issue.severity}) — ${issue.date}\n  ${issue.description}${issue.resolution ? `\n  ✅ Resolution: ${issue.resolution}` : ''}`).join('\n') : '_No issues logged._'}
+
 ## 🚀 Onboarding
 ${checklist}
 
@@ -351,6 +407,9 @@ ${meetingLinks}
 
 ## 🔗 Related Clients
 ${relatedSection}
+
+## 📚 Industry Playbook
+[[playbook-${slugify(v.industry || 'general')}|${v.industry || 'General'} Playbook]]
 
 ## 🔐 Credentials
 | Service | Username | Notes |
@@ -378,6 +437,10 @@ export async function scaffoldObsidianVault(): Promise<void> {
         '05 - Resources',
         '06 - Meetings',
         '07 - Proposals',
+        '08 - Agents',
+        '09 - Issues',
+        '10 - Runbooks',
+        '11 - Playbooks',
     ]
 
     for (const d of dirs) {
@@ -807,6 +870,210 @@ tags: [meeting]
 - Topics:
 `, 'utf-8')
 
+    // ─── Agent Library ─────────────────────────
+    await fs.writeFile(`${VAULT_PATH}/08 - Agents/README.md`, `# Agent Library
+
+Store reusable system prompts, tool configs, and agent architectures here.
+Link them to clients: e.g. \`Acme uses [[customer-support-agent-v3]]\`
+
+## Naming Convention
+\`{function}-agent-v{version}.md\` — e.g. \`customer-support-agent-v3.md\`
+
+## Template
+\`\`\`
+---
+name: "Agent Name"
+version: 3
+model: "claude-sonnet-4-6"
+tools: [tool1, tool2]
+clients: []
+tags: [agent]
+---
+
+# Agent Name v3
+
+## System Prompt
+\\\`\\\`\\\`
+Your system prompt here...
+\\\`\\\`\\\`
+
+## Tools / MCPs
+- tool1: description
+- tool2: description
+
+## Configuration Notes
+...
+
+## Clients Using This Agent
+\\\`\\\`\\\`dataview
+LIST
+FROM "01 - Clients"
+WHERE contains(deployment.system_prompt_ref, this.file.name)
+\\\`\\\`\\\`
+\`\`\`
+`, 'utf-8')
+
+    // ─── Issue Resolution KB Dashboard ──────────
+    await fs.writeFile(`${VAULT_PATH}/09 - Issues/README.md`, `# Issue Resolution KB
+
+When a client setup breaks, log it here linked to the client.
+Next time you see the same error, backlinks show you the fix.
+
+## All Open Issues
+\`\`\`dataview
+TABLE
+  company AS "Client",
+  severity AS "Severity",
+  date AS "Date"
+FROM "01 - Clients"
+FLATTEN issues AS issue
+WHERE !issue.resolved
+SORT issue.severity DESC
+\`\`\`
+
+## Recently Resolved
+\`\`\`dataview
+TABLE
+  company AS "Client",
+  severity AS "Severity"
+FROM "01 - Clients"
+FLATTEN issues AS issue
+WHERE issue.resolved
+SORT issue.date DESC
+LIMIT 20
+\`\`\`
+`, 'utf-8')
+
+    // ─── Claw Setup Runbook ─────────────────────
+    await fs.writeFile(`${VAULT_PATH}/10 - Runbooks/claw-setup.md`, `# OpenClaw / NemoClaw Setup Runbook
+
+## Pre-Flight
+- [ ] Client vault created and research complete
+- [ ] Discovery call done — requirements documented
+- [ ] Access credentials collected
+- [ ] Client's existing tools/systems mapped
+- [ ] Deployment tier confirmed (which agents, which tools)
+
+## Environment Setup
+- [ ] Clone base claw config
+- [ ] Set up API keys (OpenAI / Anthropic / client-specific)
+- [ ] Configure MCP servers for client's stack
+- [ ] Set up monitoring / logging endpoint
+- [ ] Test connectivity to all client systems
+
+## Agent Configuration
+- [ ] Select base agent template from [[08 - Agents/README|Agent Library]]
+- [ ] Customize system prompt with client context
+- [ ] Configure tool permissions and scopes
+- [ ] Set up memory / context persistence
+- [ ] Add client knowledge base docs if applicable
+
+## Tool / MCP Integration
+- [ ] Connect CRM (GHL / HubSpot / etc.)
+- [ ] Connect email (Gmail / Outlook / Resend)
+- [ ] Connect calendar (Cal.com / Google Calendar)
+- [ ] Connect messaging (Slack / SMS / WhatsApp)
+- [ ] Connect custom APIs / webhooks
+- [ ] Test each integration individually
+
+## Testing & QA
+- [ ] Run through 10 sample interactions
+- [ ] Test edge cases (angry customer, refund request, off-topic)
+- [ ] Test fail-safes (what happens when API is down)
+- [ ] Review response quality with client
+- [ ] Load test if applicable
+
+## Go-Live
+- [ ] Client approval on test results
+- [ ] Switch from staging to production
+- [ ] Set up alerts / monitoring
+- [ ] Document final config in client vault (Deployment section)
+- [ ] Update client metrics baseline
+
+## Post-Launch (Week 1)
+- [ ] Daily check on logs / errors
+- [ ] Collect initial metrics (response time, deflection rate)
+- [ ] Client check-in call
+- [ ] Tune system prompt based on real interactions
+- [ ] Log any issues in [[09 - Issues/README|Issue KB]]
+
+## Handoff (Week 2-4)
+- [ ] Client training session
+- [ ] Documentation handoff
+- [ ] Set up ongoing monitoring
+- [ ] Schedule 30-day review
+- [ ] Update client vault with final metrics
+`, 'utf-8')
+
+    // ─── Playbook Dashboard ─────────────────────
+    await fs.writeFile(`${VAULT_PATH}/11 - Playbooks/README.md`, `# Industry Playbooks
+
+Auto-generated playbooks based on real client data across industries.
+These aggregate what works, what clients spend, common issues, and winning configurations.
+
+## All Playbooks
+\`\`\`dataview
+TABLE
+  date AS "Last Updated",
+  file.size AS "Size"
+FROM "11 - Playbooks"
+WHERE file.name != "README"
+SORT date DESC
+\`\`\`
+
+## Client Count by Industry
+\`\`\`dataview
+TABLE
+  length(rows) AS "Clients",
+  rows.stage AS "Stages"
+FROM "01 - Clients"
+GROUP BY industry
+SORT length(rows) DESC
+\`\`\`
+`, 'utf-8')
+
+    // ─── Metrics Dashboard ──────────────────────
+    await fs.writeFile(`${VAULT_PATH}/00 - Dashboard/Metrics.md`, `# Client Metrics & ROI
+
+## Spend Overview
+\`\`\`dataview
+TABLE
+  contact AS "Contact",
+  metrics.monthly_spend AS "Monthly Spend",
+  deal_value AS "Deal Value",
+  metrics.hours_saved AS "Hours Saved",
+  metrics.tickets_deflected AS "Tickets Deflected"
+FROM "01 - Clients"
+WHERE metrics.monthly_spend > 0 OR metrics.hours_saved > 0
+SORT metrics.monthly_spend DESC
+\`\`\`
+
+## ROI Leaders
+\`\`\`dataview
+TABLE
+  contact AS "Contact",
+  metrics.hours_saved AS "Hours Saved",
+  metrics.response_time_before AS "Before",
+  metrics.response_time_after AS "After",
+  metrics.roi_notes AS "Notes"
+FROM "01 - Clients"
+WHERE metrics.hours_saved > 0
+SORT metrics.hours_saved DESC
+\`\`\`
+
+## Deployment Overview
+\`\`\`dataview
+TABLE
+  deployment.model AS "Model",
+  deployment.tools AS "Tools",
+  deployment.system_prompt_ref AS "Agent",
+  status AS "Status"
+FROM "01 - Clients"
+WHERE deployment.model != "" AND deployment.model
+SORT company ASC
+\`\`\`
+`, 'utf-8')
+
     console.log('[VAULT] Obsidian vault scaffolded at', VAULT_PATH)
 }
 
@@ -1072,6 +1339,160 @@ ${meetingsThisWeek.length > 0 ? meetingsThisWeek.map(m => `- [[${slugify(m.compa
     console.log(`[VAULT] Weekly digest generated: week-of-${weekAgoStr}`)
 }
 
+// ─── Industry Playbook Generator ─────────────────────────────
+
+export async function generateIndustryPlaybook(industry: string, vaults: VaultDoc[]): Promise<string> {
+    const industryClients = vaults.filter(v =>
+        v.industry && v.industry.toLowerCase() === industry.toLowerCase()
+    )
+
+    if (industryClients.length === 0) {
+        return 'No clients found for this industry.'
+    }
+
+    // Aggregate data
+    const totalClients = industryClients.length
+    const avgScore = Math.round(industryClients.reduce((s, v) => s + (v.audit_score || 0), 0) / totalClients)
+    const avgDealValue = Math.round(industryClients.reduce((s, v) => s + (v.deal_value || 0), 0) / totalClients)
+    const totalSpend = industryClients.reduce((s, v) => s + (v.metrics?.monthly_spend || 0), 0)
+    const avgHoursSaved = Math.round(industryClients.reduce((s, v) => s + (v.metrics?.hours_saved || 0), 0) / totalClients)
+    const avgTicketsDeflected = Math.round(industryClients.reduce((s, v) => s + (v.metrics?.tickets_deflected || 0), 0) / totalClients)
+
+    // Common tools across clients
+    const toolCounts: Record<string, number> = {}
+    for (const v of industryClients) {
+        for (const tool of (v.deployment?.tools || [])) {
+            toolCounts[tool] = (toolCounts[tool] || 0) + 1
+        }
+    }
+    const topTools = Object.entries(toolCounts).sort((a, b) => b[1] - a[1]).slice(0, 10)
+
+    // Common models
+    const modelCounts: Record<string, number> = {}
+    for (const v of industryClients) {
+        if (v.deployment?.model) modelCounts[v.deployment.model] = (modelCounts[v.deployment.model] || 0) + 1
+    }
+
+    // Issues patterns
+    const allIssues = industryClients.flatMap(v => (v.issues || []))
+    const issuesByTitle: Record<string, number> = {}
+    for (const issue of allIssues) {
+        const key = issue.title.toLowerCase().slice(0, 50)
+        issuesByTitle[key] = (issuesByTitle[key] || 0) + 1
+    }
+    const commonIssues = Object.entries(issuesByTitle).sort((a, b) => b[1] - a[1]).slice(0, 5)
+
+    // Stage distribution
+    const stageCounts: Record<string, number> = {}
+    for (const v of industryClients) {
+        stageCounts[v.stage] = (stageCounts[v.stage] || 0) + 1
+    }
+
+    // Build with Claude
+    const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
+
+    const clientSummaries = industryClients.slice(0, 10).map(v =>
+        `- ${v.company}: score ${v.audit_score}, deal $${v.deal_value || 0}, stage ${v.stage}, spend $${v.metrics?.monthly_spend || 0}/mo, ${v.metrics?.hours_saved || 0} hrs saved, tools: ${(v.deployment?.tools || []).join(', ') || 'none'}`
+    ).join('\n')
+
+    const msg = await anthropic.messages.create({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 2000,
+        messages: [{
+            role: 'user',
+            content: `You are a business analyst for ElianaTech. Generate an industry playbook based on real client data.
+
+INDUSTRY: ${industry}
+TOTAL CLIENTS: ${totalClients}
+AVG AUDIT SCORE: ${avgScore}/100
+AVG DEAL VALUE: $${avgDealValue.toLocaleString()}
+TOTAL MONTHLY SPEND: $${totalSpend.toLocaleString()}
+AVG HOURS SAVED: ${avgHoursSaved}/client
+AVG TICKETS DEFLECTED: ${avgTicketsDeflected}/client
+
+TOP TOOLS USED:
+${topTools.map(([tool, count]) => `- ${tool}: ${count} clients`).join('\n') || 'No deployment data yet.'}
+
+MODELS USED:
+${Object.entries(modelCounts).map(([m, c]) => `- ${m}: ${c} clients`).join('\n') || 'No deployment data yet.'}
+
+COMMON ISSUES:
+${commonIssues.map(([title, count]) => `- "${title}": ${count} occurrences`).join('\n') || 'No issues logged yet.'}
+
+STAGE DISTRIBUTION:
+${Object.entries(stageCounts).map(([s, c]) => `- ${s}: ${c}`).join('\n')}
+
+CLIENT SUMMARIES:
+${clientSummaries}
+
+Write a playbook covering:
+1. **Industry Overview** — What ${industry} businesses typically need
+2. **Winning Configuration** — Best model + tools combo based on data
+3. **Common Pain Points** — What keeps these clients up at night
+4. **Typical ROI** — Hours saved, tickets deflected, spend patterns
+5. **Setup Recommendations** — Step-by-step for new ${industry} clients
+6. **Common Pitfalls** — Issues to watch for (from the issue data)
+7. **Pricing Guidance** — What these clients typically spend/accept
+8. **Upsell Opportunities** — Where to expand after initial setup
+
+Be specific. Use the actual numbers. This is an internal playbook, not a sales doc.
+Keep it under 800 words.`
+        }]
+    })
+
+    const playbookContent = msg.content
+        .filter((b): b is Anthropic.TextBlock => b.type === 'text')
+        .map(b => b.text)
+        .join('\n')
+
+    return playbookContent
+}
+
+export async function syncPlaybookToObsidian(industry: string, content: string, vaults: VaultDoc[]): Promise<void> {
+    if (!IS_LOCAL) return
+
+    try {
+        const fs = await import('fs/promises')
+        const dir = `${VAULT_PATH}/11 - Playbooks`
+        await fs.mkdir(dir, { recursive: true })
+
+        const slug = slugify(industry || 'general')
+        const today = new Date().toISOString().split('T')[0]
+        const industryClients = vaults.filter(v =>
+            v.industry && v.industry.toLowerCase() === industry.toLowerCase()
+        )
+
+        const clientLinks = industryClients
+            .map(v => `- [[${slugify(v.company)}|${v.company}]] — ${v.stage}, score ${v.audit_score}`)
+            .join('\n')
+
+        const md = `---
+industry: "${industry}"
+date: ${today}
+clients: ${industryClients.length}
+type: playbook
+tags: [playbook, ${slug}]
+---
+
+# ${industry} Playbook
+
+> **Last Updated:** ${today} | **Clients:** ${industryClients.length}
+
+---
+
+${content}
+
+---
+
+## Clients in This Industry
+${clientLinks || '_None yet._'}
+`
+        await fs.writeFile(`${dir}/playbook-${slug}.md`, md, 'utf-8')
+    } catch (err) {
+        console.error('[PLAYBOOK SYNC ERROR]', err)
+    }
+}
+
 // ─── Auto-create from audit ──────────────────────────────────
 
 export async function createVaultFromAudit(
@@ -1124,6 +1545,9 @@ export async function createVaultFromAudit(
         onboarding_checklist: new Array(ONBOARDING_ITEMS.length).fill(false),
         credentials: [],
         meetings: [],
+        deployment: { model: '', tools: [], system_prompt_ref: '', endpoints: [], api_keys_rotated: '', notes: '' },
+        metrics: { monthly_spend: 0, hours_saved: 0, tickets_deflected: 0, response_time_before: '', response_time_after: '', roi_notes: '', custom: {} },
+        issues: [],
         timeline: [
             {
                 timestamp: nowFull,

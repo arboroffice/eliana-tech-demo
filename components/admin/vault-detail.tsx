@@ -6,7 +6,7 @@ import {
     Building2, Target, Calendar, FileText, Shield, Clock,
     CheckCircle2, Circle, Plus, Trash2, Copy, Check,
     Sparkles, Download, DollarSign, PhoneCall, Edit3,
-    ExternalLink, Link2, BookOpen
+    ExternalLink, Link2, BookOpen, Bug, Cpu, BarChart3, BookMarked
 } from "lucide-react"
 
 interface TimelineEntry { timestamp: string; emoji: string; text: string }
@@ -20,6 +20,20 @@ interface MeetingNote {
     notes: string
     action_items: string[]
     created_at: string
+}
+
+interface DeploymentConfig {
+    model: string; tools: string[]; system_prompt_ref: string
+    endpoints: string[]; api_keys_rotated: string; notes: string
+}
+interface ClientMetrics {
+    monthly_spend: number; hours_saved: number; tickets_deflected: number
+    response_time_before: string; response_time_after: string; roi_notes: string
+    custom: Record<string, string>
+}
+interface IssueEntry {
+    id: string; date: string; title: string; description: string
+    resolution: string; severity: 'low' | 'medium' | 'high' | 'critical'; resolved: boolean
 }
 
 interface VaultDoc {
@@ -48,6 +62,9 @@ interface VaultDoc {
     credentials: CredentialEntry[]
     timeline: TimelineEntry[]
     meetings: MeetingNote[]
+    deployment: DeploymentConfig
+    metrics: ClientMetrics
+    issues: IssueEntry[]
 }
 
 const ONBOARDING_ITEMS = [
@@ -84,7 +101,7 @@ export default function VaultDetail({
 }) {
     const [vault, setVault] = useState<VaultDoc | null>(null)
     const [loading, setLoading] = useState(true)
-    const [activeTab, setActiveTab] = useState<'research' | 'strategy' | 'onboarding' | 'credentials' | 'timeline' | 'meetings'>('research')
+    const [activeTab, setActiveTab] = useState<'research' | 'strategy' | 'onboarding' | 'credentials' | 'timeline' | 'meetings' | 'deployment' | 'metrics' | 'issues'>('research')
 
     // Edit states
     const [editingResearch, setEditingResearch] = useState(false)
@@ -119,6 +136,24 @@ export default function VaultDetail({
     // Weekly digest
     const [generatingDigest, setGeneratingDigest] = useState(false)
 
+    // Deployment
+    const [deployDraft, setDeployDraft] = useState<DeploymentConfig>({ model: '', tools: [], system_prompt_ref: '', endpoints: [], api_keys_rotated: '', notes: '' })
+    const [savingDeploy, setSavingDeploy] = useState(false)
+    const [editingDeploy, setEditingDeploy] = useState(false)
+
+    // Metrics
+    const [metricsDraft, setMetricsDraft] = useState<ClientMetrics>({ monthly_spend: 0, hours_saved: 0, tickets_deflected: 0, response_time_before: '', response_time_after: '', roi_notes: '', custom: {} })
+    const [savingMetrics, setSavingMetrics] = useState(false)
+    const [editingMetrics, setEditingMetrics] = useState(false)
+
+    // Issues
+    const [newIssue, setNewIssue] = useState({ title: '', description: '', severity: 'medium' as const })
+    const [addingIssue, setAddingIssue] = useState(false)
+    const [showIssueForm, setShowIssueForm] = useState(false)
+
+    // Playbook
+    const [generatingPlaybook, setGeneratingPlaybook] = useState(false)
+
     // Smart follow-up
     const [showFollowUp, setShowFollowUp] = useState(false)
     const [followUpTrigger, setFollowUpTrigger] = useState('auto')
@@ -140,6 +175,8 @@ export default function VaultDetail({
                 setStrategyDraft(data.vault.strategy || '')
                 setDealValueDraft(data.vault.deal_value ? String(data.vault.deal_value) : '')
                 setReferralDraft(data.vault.referred_by || '')
+                if (data.vault.deployment) setDeployDraft(data.vault.deployment)
+                if (data.vault.metrics) setMetricsDraft(data.vault.metrics)
             }
         } catch { /* ignore */ } finally { setLoading(false) }
     }, [vaultId, token])
@@ -264,6 +301,46 @@ export default function VaultDetail({
     const handleWeeklyDigest = async () => {
         setGeneratingDigest(true)
         try { await patchVault('weekly-digest', {}) } catch { /* ignore */ } finally { setGeneratingDigest(false) }
+    }
+
+    const handleSaveDeployment = async () => {
+        setSavingDeploy(true)
+        try { await patchVault('update-deployment', deployDraft); await fetchVault(); setEditingDeploy(false) }
+        catch { /* ignore */ } finally { setSavingDeploy(false) }
+    }
+
+    const handleSaveMetrics = async () => {
+        setSavingMetrics(true)
+        try { await patchVault('update-metrics', metricsDraft); await fetchVault(); setEditingMetrics(false) }
+        catch { /* ignore */ } finally { setSavingMetrics(false) }
+    }
+
+    const handleAddIssue = async () => {
+        if (!newIssue.title) return
+        setAddingIssue(true)
+        try {
+            await patchVault('add-issue', newIssue)
+            setNewIssue({ title: '', description: '', severity: 'medium' })
+            setShowIssueForm(false)
+            await fetchVault()
+        } catch { /* ignore */ } finally { setAddingIssue(false) }
+    }
+
+    const handleResolveIssue = async (issueId: string, resolution: string) => {
+        await patchVault('resolve-issue', { issueId, resolution })
+        fetchVault()
+    }
+
+    const handleDeleteIssue = async (issueId: string) => {
+        await patchVault('delete-issue', { issueId })
+        fetchVault()
+    }
+
+    const handleGeneratePlaybook = async () => {
+        if (!vault?.industry) return
+        setGeneratingPlaybook(true)
+        try { await patchVault('generate-playbook', { industry: vault.industry }) }
+        catch { /* ignore */ } finally { setGeneratingPlaybook(false) }
     }
 
     const obsidianUri = vault ? `obsidian://open?vault=${encodeURIComponent('elianatech')}&file=${encodeURIComponent(`01 - Clients/${vault.company.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`)}` : ''
@@ -471,6 +548,16 @@ export default function VaultDetail({
                                 <Mail className="w-3.5 h-3.5" />
                                 Smart Follow-up
                             </button>
+                            {vault.industry && (
+                                <button
+                                    onClick={handleGeneratePlaybook}
+                                    disabled={generatingPlaybook}
+                                    className="flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-medium hover:bg-amber-500/20 transition-all disabled:opacity-50 w-full"
+                                >
+                                    {generatingPlaybook ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <BookMarked className="w-3.5 h-3.5" />}
+                                    {vault.industry} Playbook
+                                </button>
+                            )}
                         </div>
 
                         {/* Referred by */}
@@ -604,7 +691,7 @@ export default function VaultDetail({
 
             {/* Tabs */}
             <div className="flex gap-2 mb-6 overflow-x-auto">
-                {(['research', 'strategy', 'onboarding', 'meetings', 'credentials', 'timeline'] as const).map(tab => (
+                {(['research', 'strategy', 'deployment', 'metrics', 'issues', 'onboarding', 'meetings', 'credentials', 'timeline'] as const).map(tab => (
                     <button
                         key={tab}
                         onClick={() => setActiveTab(tab)}
@@ -612,6 +699,9 @@ export default function VaultDetail({
                     >
                         {tab === 'research' && '🔍 Research'}
                         {tab === 'strategy' && '📋 Strategy'}
+                        {tab === 'deployment' && '🤖 Deployment'}
+                        {tab === 'metrics' && '📊 Metrics'}
+                        {tab === 'issues' && `🐛 Issues (${(vault.issues || []).filter(i => !i.resolved).length})`}
                         {tab === 'onboarding' && `🚀 Onboarding (${completedSteps}/${totalSteps})`}
                         {tab === 'meetings' && `📞 Meetings (${(vault.meetings || []).length})`}
                         {tab === 'credentials' && `🔐 Credentials (${(vault.credentials || []).length})`}

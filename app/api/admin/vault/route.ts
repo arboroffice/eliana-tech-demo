@@ -5,8 +5,9 @@ import {
     getAllVaults, getVault, getVaultByAuditId, createVault, updateVault, deleteVault,
     appendTimeline, runVaultResearch, syncVaultToObsidian, scaffoldObsidianVault,
     generateDailyNote, generateWeeklyDigest, createMeetingNote, updateMeetingNote, deleteMeetingNote,
-    getObsidianUri,
+    getObsidianUri, generateIndustryPlaybook, syncPlaybookToObsidian,
     type VaultDoc, type TimelineEntry, type CredentialEntry,
+    type DeploymentConfig, type ClientMetrics, type IssueEntry,
 } from '@/lib/client-vault'
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'Mia-Eliana476'
@@ -94,6 +95,9 @@ export async function POST(request: Request) {
             onboarding_checklist: new Array(9).fill(false),
             credentials: [],
             meetings: [],
+            deployment: { model: '', tools: [], system_prompt_ref: '', endpoints: [], api_keys_rotated: '', notes: '' },
+            metrics: { monthly_spend: 0, hours_saved: 0, tickets_deflected: 0, response_time_before: '', response_time_after: '', roi_notes: '', custom: {} },
+            issues: [],
             timeline: [{
                 timestamp: new Date().toISOString(),
                 emoji: '📝',
@@ -259,6 +263,79 @@ export async function PATCH(request: Request) {
             case 'get-obsidian-uri': {
                 const uri = getObsidianUri(vault.company)
                 return NextResponse.json({ success: true, uri })
+            }
+
+            case 'update-deployment': {
+                const deployment: DeploymentConfig = {
+                    model: payload.model || vault.deployment?.model || '',
+                    tools: payload.tools || vault.deployment?.tools || [],
+                    system_prompt_ref: payload.system_prompt_ref || vault.deployment?.system_prompt_ref || '',
+                    endpoints: payload.endpoints || vault.deployment?.endpoints || [],
+                    api_keys_rotated: payload.api_keys_rotated || vault.deployment?.api_keys_rotated || '',
+                    notes: payload.notes ?? vault.deployment?.notes ?? '',
+                }
+                await updateVault(id, { deployment })
+                return NextResponse.json({ success: true })
+            }
+
+            case 'update-metrics': {
+                const metrics: ClientMetrics = {
+                    monthly_spend: payload.monthly_spend ?? vault.metrics?.monthly_spend ?? 0,
+                    hours_saved: payload.hours_saved ?? vault.metrics?.hours_saved ?? 0,
+                    tickets_deflected: payload.tickets_deflected ?? vault.metrics?.tickets_deflected ?? 0,
+                    response_time_before: payload.response_time_before ?? vault.metrics?.response_time_before ?? '',
+                    response_time_after: payload.response_time_after ?? vault.metrics?.response_time_after ?? '',
+                    roi_notes: payload.roi_notes ?? vault.metrics?.roi_notes ?? '',
+                    custom: payload.custom ?? vault.metrics?.custom ?? {},
+                }
+                await updateVault(id, { metrics })
+                return NextResponse.json({ success: true })
+            }
+
+            case 'add-issue': {
+                const issue: IssueEntry = {
+                    id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+                    date: payload.date || new Date().toISOString().split('T')[0],
+                    title: payload.title || '',
+                    description: payload.description || '',
+                    resolution: payload.resolution || '',
+                    severity: payload.severity || 'medium',
+                    resolved: false,
+                }
+                const issues = [...(vault.issues || []), issue]
+                await updateVault(id, { issues })
+                await appendTimeline(id, { timestamp: new Date().toISOString(), emoji: '🐛', text: `Issue: ${issue.title} (${issue.severity})` })
+                return NextResponse.json({ success: true, issue })
+            }
+
+            case 'resolve-issue': {
+                const { issueId, resolution: issueResolution } = payload
+                const issues = (vault.issues || []).map(i =>
+                    i.id === issueId ? { ...i, resolved: true, resolution: issueResolution || i.resolution } : i
+                )
+                await updateVault(id, { issues })
+                const resolved = issues.find(i => i.id === issueId)
+                if (resolved) {
+                    await appendTimeline(id, { timestamp: new Date().toISOString(), emoji: '✅', text: `Issue resolved: ${resolved.title}` })
+                }
+                return NextResponse.json({ success: true })
+            }
+
+            case 'delete-issue': {
+                const { issueId: delIssueId } = payload
+                const updatedIssues = (vault.issues || []).filter(i => i.id !== delIssueId)
+                await updateVault(id, { issues: updatedIssues })
+                return NextResponse.json({ success: true })
+            }
+
+            case 'generate-playbook': {
+                const { industry: playbookIndustry } = payload
+                const targetIndustry = playbookIndustry || vault.industry
+                if (!targetIndustry) return NextResponse.json({ error: 'Industry is required' }, { status: 400 })
+                const allVaults = await getAllVaults()
+                const content = await generateIndustryPlaybook(targetIndustry, allVaults)
+                await syncPlaybookToObsidian(targetIndustry, content, allVaults)
+                return NextResponse.json({ success: true, content })
             }
 
             default:
