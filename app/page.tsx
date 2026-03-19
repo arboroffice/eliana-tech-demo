@@ -286,7 +286,7 @@ export default function HomePage() {
                       <h3 className="text-3xl font-bold font-bebas tracking-wide text-white group-hover:text-[#D90019] transition-colors">F.O.T.F.</h3>
                    </div>
                    <div className="text-right">
-                      <div className="text-2xl font-bold font-bebas text-[#D90019]">LEARN</div>
+                      <div className="text-2xl font-bold font-bebas text-[#D90019]">$97</div>
                    </div>
                 </div>
                 
