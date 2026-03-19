@@ -305,7 +305,7 @@ export default function HomePage() {
                   ))}
                 </div>
                 
-                <Link href="https://foundersofthefuture.com" target="_blank" className="w-full text-center py-4 bg-[#D90019] text-white font-bebas text-xl tracking-[0.2em] transition-all hover:bg-white hover:text-[#D90019] active:scale-95">
+                <Link href="https://www.elianatech.com/foundersofthefuture" target="_blank" className="w-full text-center py-4 bg-[#D90019] text-white font-bebas text-xl tracking-[0.2em] transition-all hover:bg-white hover:text-[#D90019] active:scale-95">
                   Join FOTF
                 </Link>
               </div>
