@@ -265,7 +265,10 @@ export default function HomePage() {
 
         {/* ═══ F.O.T.F. MOVEMENT SECTION ═══ */}
         <section className="py-24 sm:py-40 px-6 bg-[#FAFAF8] relative overflow-hidden border-t border-gray-100">
-          <div className="max-w-6xl mx-auto">
+          {/* Subtle Grid Background */}
+          <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '32px 32px' }}></div>
+          
+          <div className="max-w-6xl mx-auto relative z-10">
             <div className="grid lg:grid-cols-2 gap-20 items-start">
               <div className="lg:sticky lg:top-32">
                 <p className="text-[#D90019] font-bold tracking-[0.5em] uppercase mb-8 text-xs font-mono">Founders of the Future</p>
@@ -290,82 +293,120 @@ export default function HomePage() {
                       </button>
                    </div>
                 </div>
+
+                <div className="mt-20 pt-10 border-t border-gray-100 hidden lg:block">
+                   <div className="grid grid-cols-2 gap-8 grayscale opacity-40">
+                      <div className="flex items-center gap-3">
+                         <div className="w-8 h-8 rounded-full bg-black/5 flex items-center justify-center">
+                            <Users size={14} />
+                         </div>
+                         <span className="text-[10px] font-bold uppercase tracking-widest">Active Community</span>
+                      </div>
+                      <div className="flex items-center gap-3">
+                         <div className="w-8 h-8 rounded-full bg-black/5 flex items-center justify-center">
+                            <Zap size={14} />
+                         </div>
+                         <span className="text-[10px] font-bold uppercase tracking-widest">Weekly Blueprints</span>
+                      </div>
+                   </div>
+                </div>
               </div>
 
-              <div className="space-y-32 pt-20 lg:pt-0">
-                {/* Block 1 */}
-                <div className="relative">
-                  <div className="absolute -left-12 top-0 text-[#D90019] opacity-20 font-bebas text-9xl leading-none">01</div>
-                  <p className="text-2xl sm:text-3xl font-bold text-black leading-snug">
-                    Right now most people are using AI <span className="text-[#D90019]">wrong</span>. They generate content. Ask random questions. Test prompts. And then go right back to doing everything manually.
-                  </p>
-                </div>
-
-                {/* Block 2 (Contrast) */}
-                <div className="bg-black p-12 sm:p-16 text-white relative overflow-hidden">
-                   <div className="absolute top-0 right-0 p-8 opacity-10">
-                      <Zap size={100} />
+              <div className="space-y-32">
+                {/* Block 1 & 2: Comparison Grid */}
+                <div className="grid sm:grid-cols-2 gap-1 px-4 sm:px-0 bg-gray-100 border border-gray-100 rounded-sm overflow-hidden">
+                   <div className="bg-white p-10 flex flex-col justify-between group overflow-hidden relative">
+                      <div className="absolute top-4 right-4 text-gray-100 font-bebas text-4xl group-hover:text-red-500/10 transition-colors italic uppercase">The Play</div>
+                      <div>
+                        <span className="text-[#D90019] font-mono text-[10px] tracking-widest mb-4 block uppercase font-bold">Standard Use</span>
+                        <h4 className="font-bebas text-4xl mb-6 text-black tracking-wide">Playing <br />With AI</h4>
+                        <div className="space-y-3">
+                           {["Generate Content", "Ask Questions", "Test Prompts", "Manual Followup"].map((task, i) => (
+                             <div key={i} className="flex items-center gap-2 text-gray-400 text-[10px] font-bold uppercase">
+                                <X size={10} className="text-gray-300" /> {task}
+                             </div>
+                           ))}
+                        </div>
+                      </div>
+                      <p className="text-xs text-gray-400 mt-10 font-medium">Result: You stay as the bottleneck.</p>
                    </div>
-                   <p className="text-gray-500 font-bold tracking-[0.3em] uppercase mb-8 text-[10px]">The Shift</p>
-                   <h4 className="font-bebas text-4xl sm:text-5xl mb-12 tracking-wider leading-none">
-                     A small group of founders are building <span className="text-[#D90019]">systems that run their businesses.</span>
-                   </h4>
-                   <p className="text-gray-400 font-medium text-lg italic border-l-2 border-[#D90019] pl-6 py-2">
-                     Same tools. Different approach.
-                   </p>
-                </div>
-
-                {/* Block 3 (The Operator) */}
-                <div className="text-center py-20 border-y border-gray-100">
-                   <h4 className="font-bebas text-7xl sm:text-9xl leading-none uppercase mb-6 text-black tracking-tight">
-                     AI Is Not <br />
-                     <span className="text-gray-300">Just A Tool.</span><br />
-                     <span className="text-[#D90019]">It's An Operator.</span>
-                   </h4>
-                   <p className="text-gray-500 font-bold uppercase tracking-[0.2em] text-sm mt-10">
-                     Once you understand that, you stop chatting with it — and start building with it.
-                   </p>
-                </div>
-
-                {/* Block 4 (What This Is) */}
-                <div className="space-y-12">
-                   <div>
-                     <h4 className="font-bebas text-5xl mb-4 text-black uppercase">Not a course.<br />Not a community.<br /><span className="text-[#D90019]">A Movement.</span></h4>
-                     <p className="text-gray-500 font-medium leading-relaxed">
-                       Founders. Future founders. Employees. Managers. Operators. Anyone using AI to build, automate, and replace the manual grind. Inside, you don't get theory.
-                     </p>
+                   <div className="bg-black p-10 flex flex-col justify-between group overflow-hidden relative border-t-4 sm:border-t-0 sm:border-l-4 border-[#D90019]">
+                      <div className="absolute top-4 right-4 text-white/5 font-bebas text-4xl italic uppercase">The Shift</div>
+                      <div>
+                        <span className="text-[#D90019] font-mono text-[10px] tracking-widest mb-4 block uppercase font-bold">Founder Mode</span>
+                        <h4 className="font-bebas text-4xl mb-6 text-white tracking-wide">Building <br />Systems</h4>
+                        <div className="space-y-3">
+                           {["Autonomous Logic", "Tool Integration", "Lead Routing", "Auto-Profits"].map((task, i) => (
+                             <div key={i} className="flex items-center gap-2 text-white/80 text-[10px] font-bold uppercase">
+                                <Check size={10} className="text-[#D90019]" /> {task}
+                             </div>
+                           ))}
+                        </div>
+                      </div>
+                      <p className="text-xs text-[#D90019] mt-10 font-bold uppercase tracking-widest">Result: The system runs itself.</p>
                    </div>
-                   
-                   <div className="grid sm:grid-cols-3 gap-8">
+                </div>
+
+                {/* Block 3: The Operator Insight Card */}
+                <div className="relative group">
+                   <div className="absolute -inset-4 bg-gradient-to-tr from-[#D90019]/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                   <div className="relative bg-white border border-[#EAE9E4] p-12 sm:p-20 text-center shadow-sm">
+                      <div className="w-20 h-20 rounded-full bg-black flex items-center justify-center mx-auto mb-10 shadow-2xl">
+                         <Bot className="text-white" size={40} />
+                      </div>
+                      <h4 className="font-bebas text-7xl sm:text-8xl leading-none uppercase mb-8 text-black tracking-tight">
+                        AI Is Not <br />
+                        <span className="text-gray-300">Just A Tool.</span><br />
+                        <span className="text-[#D90019]">It's An Operator.</span>
+                      </h4>
+                      <p className="text-gray-500 font-bold uppercase tracking-[0.25em] text-xs max-w-sm mx-auto leading-loose">
+                        Once you understand that, you stop chatting with it — and start building with it.
+                      </p>
+                   </div>
+                </div>
+
+                {/* Block 4: The Pillars */}
+                <div className="grid gap-12 sm:gap-16">
+                   <div className="flex items-center gap-6">
+                      <div className="h-px flex-1 bg-gray-100"></div>
+                      <span className="text-gray-300 font-bebas text-2xl uppercase tracking-widest">The Pillars</span>
+                      <div className="h-px flex-1 bg-gray-100"></div>
+                   </div>
+                   <div className="grid sm:grid-cols-3 gap-12">
                       {[
                         { title: "Real Workflows", desc: "Step-by-step systems you can follow and implement today.", icon: Database },
                         { title: "Real Systems", desc: "Proven automation stacks that founders are running right now.", icon: ZapIcon },
                         { title: "Real Use Cases", desc: "Stuff you can copy and run. No fluff. Just what works.", icon: Target },
                       ].map((item, i) => (
-                        <div key={i} className="group">
-                           <h5 className="font-bold text-black uppercase tracking-tight text-sm mb-2 group-hover:text-[#D90019] transition-colors">{item.title}</h5>
-                           <p className="text-[11px] text-gray-400 leading-relaxed group-hover:text-gray-600 transition-colors">{item.desc}</p>
+                        <div key={i} className="text-center sm:text-left">
+                           <item.icon size={28} className="text-[#D90019] mb-4 mx-auto sm:mx-0 opacity-40" />
+                           <h5 className="font-bold text-black uppercase tracking-tight text-sm mb-3">{item.title}</h5>
+                           <p className="text-[11px] text-gray-500 leading-relaxed font-medium">{item.desc}</p>
                         </div>
                       ))}
                    </div>
                 </div>
 
-                {/* Block 5 (The Tension) */}
-                <div className="pt-20 border-t-2 border-black">
-                   <p className="text-gray-400 font-bold tracking-[0.3em] uppercase mb-8 text-[10px]">The Window</p>
-                   <p className="text-3xl font-black text-black leading-tight mb-8">
-                     This is early. Most people are still playing with AI. <span className="text-[#D90019]">A few are building real systems with it.</span>
-                   </p>
-                   <p className="text-6xl sm:text-8xl font-bebas text-black leading-[0.8] mb-12">
-                     THAT GAP IS ABOUT TO <span className="text-[#D90019]">GET VERY BIG.</span>
-                   </p>
-                   <p className="text-gray-500 text-lg font-medium leading-relaxed mb-12">
-                     You can keep using AI for small tasks. Or you can use it to run your business.<br />
-                     If you've had the thought: <span className="text-black italic">“I could build something crazy with this...”</span>
-                   </p>
-                   <Link href="https://www.elianatech.com/foundersofthefuture" className="group inline-flex items-center gap-6 bg-black text-white px-12 py-6 font-bebas text-3xl tracking-widest hover:bg-[#D90019] transition-all hover:-translate-y-1">
-                      Join The Community <ArrowRight className="group-hover:translate-x-2 transition-transform" />
-                   </Link>
+                {/* Block 5: The Closing Tension */}
+                <div className="relative">
+                   <div className="absolute top-0 right-0 w-64 h-64 bg-[#D90019]/5 rounded-full blur-[80px] -z-10"></div>
+                   <div className="pt-20 border-t-2 border-black">
+                      <p className="text-gray-400 font-bold tracking-[0.3em] uppercase mb-8 text-[10px]">The Window</p>
+                      <p className="text-4xl font-black text-black leading-tight mb-8 tracking-tighter">
+                        This is early. Most people are still playing with AI. <br />
+                        <span className="text-[#D90019] italic">A few are building real systems with it.</span>
+                      </p>
+                      <p className="text-6xl sm:text-8xl font-bebas text-black leading-[0.8] mb-12 uppercase tracking-tight">
+                        THAT GAP IS ABOUT <br /><span className="text-[#D90019]">TO GET VERY BIG.</span>
+                      </p>
+                      <p className="text-gray-500 text-lg font-medium leading-relaxed mb-12 max-w-lg">
+                        You can keep using AI for small tasks. Or you can use it to run your business.<br />
+                        If you've had the thought: <span className="text-black italic">“I could build something crazy with this...”</span>
+                      </p>
+                      <Link href="https://www.elianatech.com/foundersofthefuture" className="group inline-flex items-center gap-8 bg-black text-white px-12 py-6 font-bebas text-4xl tracking-widest hover:bg-[#D90019] transition-all hover:scale-[1.02] active:scale-95 shadow-2xl">
+                         Join Now <ArrowRight size={32} className="group-hover:translate-x-3 transition-transform" />
+                      </Link>
+                   </div>
                 </div>
               </div>
             </div>
