@@ -211,46 +211,59 @@ export default function FoundersOfTheFuturePage() {
 
 
         {/* ═══════════════════════════════════════════
-            WHAT YOU GET
+            WHAT YOU GET — 3 tiers
         ═══════════════════════════════════════════ */}
         <section id="what-you-get" className="px-6 md:px-12 py-32 sm:py-48 border-t border-white/5">
           <div className="max-w-[1200px] mx-auto">
             <Reveal>
               <p className="font-mono text-[#D90019] text-[10px] font-bold tracking-[0.5em] uppercase mb-6">What You Get</p>
               <h2 className="font-bebas text-[clamp(40px,7vw,100px)] leading-[0.88] uppercase tracking-tight">
-                Four levels.
+                Three levels.
               </h2>
             </Reveal>
 
-            {/* Tier 1 — Community */}
+            {/* Tier 1 — Free Community */}
             <Reveal delay={0.1}>
               <div className="mt-24 sm:mt-32 border-t border-white/10 pt-12 grid md:grid-cols-[1fr_2fr] gap-12 md:gap-20">
                 <div>
                   <span className="font-mono text-[#D90019] text-xs tracking-widest">01</span>
-                  <h3 className="font-bebas text-4xl sm:text-5xl uppercase mt-2">Community</h3>
+                  <h3 className="font-bebas text-4xl sm:text-5xl uppercase mt-2">Free Community</h3>
+                  <span className="font-bebas text-3xl text-white/60 mt-3 block">$0</span>
                 </div>
-                <div className="space-y-4">
-                  {["Founders sharing real builds daily", "See exactly how others are using AI", "Ask questions and get answers fast"].map((item, i) => (
-                    <p key={i} className="font-syne text-white/40 text-base sm:text-lg leading-relaxed pl-6 border-l border-white/10 hover:border-[#D90019] hover:text-white/70 transition-all duration-300">
-                      {item}
-                    </p>
-                  ))}
+                <div>
+                  <p className="font-syne text-white/50 text-base sm:text-lg leading-relaxed mb-6">
+                    Get in the room. See what&apos;s possible. Start learning from founders who are already building with AI.
+                  </p>
+                  <div className="space-y-4">
+                    {["Access to the community feed", "See real builds and use cases daily", "Ask questions and get answers", "Weekly AI system breakdowns", "Network with other operators"].map((item, i) => (
+                      <p key={i} className="font-syne text-white/40 text-base sm:text-lg leading-relaxed pl-6 border-l border-white/10 hover:border-[#D90019] hover:text-white/70 transition-all duration-300">
+                        {item}
+                      </p>
+                    ))}
+                  </div>
                 </div>
               </div>
             </Reveal>
 
-            {/* Tier 2 — AI System Packs */}
+            {/* Tier 2 — $97/mo */}
             <Reveal delay={0.1}>
               <div className="mt-20 sm:mt-28 border-t border-white/10 pt-12 grid md:grid-cols-[1fr_2fr] gap-12 md:gap-20">
                 <div>
                   <span className="font-mono text-[#D90019] text-xs tracking-widest">02</span>
                   <h3 className="font-bebas text-4xl sm:text-5xl uppercase mt-2">AI System Packs</h3>
-                  <p className="font-syne text-white/25 text-sm mt-4 leading-relaxed">Plug-and-play systems by industry.</p>
+                  <span className="font-bebas text-3xl text-white mt-3 block">$97<span className="text-white/30 text-lg">/mo</span></span>
                 </div>
                 <div>
-                  <p className="font-syne text-white/40 text-base sm:text-lg leading-relaxed mb-8">
-                    Each pack shows you what to build, how it works, and exact prompts + structure.
+                  <p className="font-syne text-white/50 text-base sm:text-lg leading-relaxed mb-6">
+                    Plug-and-play systems by industry. Each pack shows you exactly what to build, how it works, and the exact prompts + structure to launch it.
                   </p>
+                  <div className="space-y-4 mb-8">
+                    {["Everything in Free", "Full AI system packs by industry", "Copy-paste prompts + automations", "Step-by-step implementation guides", "New packs dropped monthly", "Private members-only channel"].map((item, i) => (
+                      <p key={i} className="font-syne text-white/40 text-base sm:text-lg leading-relaxed pl-6 border-l border-white/10 hover:border-[#D90019] hover:text-white/70 transition-all duration-300">
+                        {item}
+                      </p>
+                    ))}
+                  </div>
                   <div className="flex flex-wrap gap-3">
                     {["Lead capture + follow-up", "AI receptionist", "Instant estimate generators", "CRM automations"].map((tag, i) => (
                       <span key={i} className="font-mono text-[10px] font-bold tracking-[0.2em] uppercase text-white/30 border border-white/10 px-4 py-2 hover:border-[#D90019] hover:text-[#D90019] transition-all duration-300 cursor-default">
@@ -262,39 +275,39 @@ export default function FoundersOfTheFuturePage() {
               </div>
             </Reveal>
 
-            {/* Tier 3 — Build With You */}
+            {/* Tier 3 — $997/mo Inner Circle */}
             <Reveal delay={0.1}>
               <div className="mt-20 sm:mt-28 border-t border-[#D90019]/30 pt-12 grid md:grid-cols-[1fr_2fr] gap-12 md:gap-20 relative">
-                <div className="absolute top-0 left-0 w-24 h-px bg-[#D90019]"></div>
+                <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-[#D90019] via-[#D90019]/40 to-transparent"></div>
                 <div>
-                  <span className="font-mono text-[10px] font-bold tracking-[0.3em] uppercase text-black bg-[#D90019] px-3 py-1 inline-block mb-4">Upgrade</span>
+                  <span className="font-mono text-[10px] font-bold tracking-[0.3em] uppercase text-black bg-[#D90019] px-3 py-1 inline-block mb-4">Inner Circle</span>
                   <span className="font-mono text-[#D90019] text-xs tracking-widest block">03</span>
-                  <h3 className="font-bebas text-4xl sm:text-5xl uppercase mt-2">Build With You</h3>
+                  <h3 className="font-bebas text-4xl sm:text-5xl uppercase mt-2">The Inner Circle</h3>
+                  <span className="font-bebas text-3xl text-[#D90019] mt-3 block">$997<span className="text-white/30 text-lg">/mo</span></span>
+                  <p className="font-syne text-white/30 text-sm mt-4 leading-relaxed italic">
+                    Direct access to Mia and the team.
+                  </p>
                 </div>
-                <div className="space-y-4">
-                  {["We build it with you", "Step-by-step guidance", "Get it live fast"].map((item, i) => (
-                    <p key={i} className="font-syne text-white/50 text-base sm:text-lg leading-relaxed pl-6 border-l border-[#D90019]/30 hover:border-[#D90019] hover:text-white/80 transition-all duration-300">
-                      {item}
-                    </p>
-                  ))}
-                </div>
-              </div>
-            </Reveal>
-
-            {/* Tier 4 — Done For You */}
-            <Reveal delay={0.1}>
-              <div className="mt-20 sm:mt-28 border-t border-white/10 pt-12 grid md:grid-cols-[1fr_2fr] gap-12 md:gap-20">
                 <div>
-                  <span className="font-mono text-[10px] font-bold tracking-[0.3em] uppercase text-white/40 border border-white/10 px-3 py-1 inline-block mb-4">Application Only</span>
-                  <span className="font-mono text-[#D90019] text-xs tracking-widest block">04</span>
-                  <h3 className="font-bebas text-4xl sm:text-5xl uppercase mt-2">Done For You</h3>
-                </div>
-                <div className="space-y-4">
-                  {["Full system installs", "Custom workflows", "Built around your business"].map((item, i) => (
-                    <p key={i} className="font-syne text-white/40 text-base sm:text-lg leading-relaxed pl-6 border-l border-white/10 hover:border-[#D90019] hover:text-white/70 transition-all duration-300">
-                      {item}
-                    </p>
-                  ))}
+                  <p className="font-syne text-white/50 text-base sm:text-lg leading-relaxed mb-6">
+                    This is not a course. This is proximity. You get direct access to the people building these systems every day — and we help you build yours.
+                  </p>
+                  <div className="space-y-4">
+                    {[
+                      "Everything in $97",
+                      "Direct access to Mia + the ElianaTech team",
+                      "Weekly live build sessions",
+                      "We review your systems and tell you what to fix",
+                      "Custom implementation support",
+                      "Priority builds — your use case, built with you",
+                      "Private Slack/group with inner circle members only",
+                      "First access to every new system, tool, and pack",
+                    ].map((item, i) => (
+                      <p key={i} className="font-syne text-white/50 text-base sm:text-lg leading-relaxed pl-6 border-l border-[#D90019]/30 hover:border-[#D90019] hover:text-white/80 transition-all duration-300">
+                        {item}
+                      </p>
+                    ))}
+                  </div>
                 </div>
               </div>
             </Reveal>
@@ -396,16 +409,15 @@ export default function FoundersOfTheFuturePage() {
             <Reveal>
               <p className="font-mono text-[#D90019] text-[10px] font-bold tracking-[0.5em] uppercase mb-6">How It Works</p>
               <h2 className="font-bebas text-[clamp(40px,7vw,100px)] leading-[0.88] uppercase tracking-tight">
-                Four steps.<br />That&apos;s it.
+                Three steps.<br />That&apos;s it.
               </h2>
             </Reveal>
 
-            <div className="mt-20 sm:mt-28 grid grid-cols-2 md:grid-cols-4 gap-px">
+            <div className="mt-20 sm:mt-28 grid grid-cols-3 gap-px">
               {[
-                { n: "01", word: "Join", sub: "Get into the community" },
-                { n: "02", word: "Pick", sub: "Choose a system or pack" },
-                { n: "03", word: "Copy", sub: "Copy and launch it" },
-                { n: "04", word: "Upgrade", sub: "Get help if you want it" },
+                { n: "01", word: "Join Free", sub: "Get in the room and start learning" },
+                { n: "02", word: "Go $97", sub: "Get the systems and start building" },
+                { n: "03", word: "Go Inner Circle", sub: "Build directly with Mia and the team" },
               ].map((s, i) => (
                 <Reveal key={i} delay={i * 0.1}>
                   <div className="border-t border-white/10 pt-8 pr-8 group">
@@ -463,31 +475,72 @@ export default function FoundersOfTheFuturePage() {
               </h2>
             </Reveal>
 
-            <div className="mt-20 sm:mt-28 grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/5">
-              {[
-                { title: "Community", tag: "Low Monthly", desc: "Real founders. Real builds. Real answers." },
-                { title: "System Packs", tag: "One-Time", desc: "Plug-and-play AI systems by industry." },
-                { title: "Build With You", tag: "Hands-On", desc: "We build it with you, step-by-step." },
-                { title: "Done For You", tag: "Application", desc: "Full implementation. Everything handled." },
-              ].map((tier, i) => (
-                <Reveal key={i} delay={i * 0.08}>
-                  <div className="bg-[#08080A] p-8 sm:p-10 group hover:bg-[#0f0f12] transition-colors duration-500 h-full flex flex-col">
-                    <span className="font-mono text-[#D90019] text-[10px] font-bold tracking-[0.3em] uppercase block mb-6">{tier.tag}</span>
-                    <h3 className="font-bebas text-2xl sm:text-3xl uppercase mb-4 group-hover:text-[#D90019] transition-colors duration-300">{tier.title}</h3>
-                    <p className="font-syne text-white/25 text-sm leading-relaxed flex-1">{tier.desc}</p>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
+            {/* 3-tier pricing cards */}
+            <div className="mt-20 sm:mt-28 grid lg:grid-cols-3 gap-0">
 
-            {/* CTA */}
-            <Reveal delay={0.3}>
-              <div className="mt-20 sm:mt-28 text-center">
-                <a href="#join" className="group inline-flex font-bebas text-2xl sm:text-3xl tracking-[0.15em] bg-[#D90019] text-white pl-10 pr-8 py-5 sm:py-6 items-center gap-5 hover:gap-7 transition-all duration-300 hover:bg-white hover:text-black">
-                  Join the Community <ArrowRight size={24} strokeWidth={2.5} />
-                </a>
-              </div>
-            </Reveal>
+              {/* FREE */}
+              <Reveal delay={0.08}>
+                <div className="bg-white/[0.02] border border-white/5 p-10 sm:p-12 group hover:bg-white/[0.04] transition-all duration-500 h-full flex flex-col">
+                  <span className="font-mono text-white/30 text-[10px] font-bold tracking-[0.3em] uppercase block mb-3">Start Here</span>
+                  <h3 className="font-bebas text-3xl sm:text-4xl uppercase mb-2">Free Community</h3>
+                  <span className="font-bebas text-5xl sm:text-6xl text-white block mb-6">$0</span>
+                  <div className="w-12 h-px bg-white/10 mb-6"></div>
+                  <div className="space-y-3 flex-1 mb-10">
+                    {["Community feed access", "Real builds + use cases", "Ask questions anytime", "Weekly AI breakdowns", "Network with operators"].map((item, i) => (
+                      <p key={i} className="font-syne text-white/35 text-sm leading-relaxed">{item}</p>
+                    ))}
+                  </div>
+                  <a href="#join" className="group/btn font-bebas text-xl tracking-[0.15em] text-white border border-white/20 px-8 py-4 text-center hover:bg-white hover:text-black transition-all duration-300 block">
+                    Join Free
+                  </a>
+                </div>
+              </Reveal>
+
+              {/* $97 */}
+              <Reveal delay={0.16}>
+                <div className="bg-white/[0.04] border border-white/10 p-10 sm:p-12 group hover:bg-white/[0.06] transition-all duration-500 h-full flex flex-col relative">
+                  <span className="font-mono text-[#D90019] text-[10px] font-bold tracking-[0.3em] uppercase block mb-3">Most Popular</span>
+                  <h3 className="font-bebas text-3xl sm:text-4xl uppercase mb-2">AI System Packs</h3>
+                  <div className="flex items-baseline gap-1 mb-6">
+                    <span className="font-bebas text-5xl sm:text-6xl text-white">$97</span>
+                    <span className="font-mono text-white/30 text-xs">/mo</span>
+                  </div>
+                  <div className="w-12 h-px bg-[#D90019]/30 mb-6"></div>
+                  <div className="space-y-3 flex-1 mb-10">
+                    {["Everything in Free", "Full AI system packs by industry", "Copy-paste prompts + automations", "Step-by-step guides", "New packs monthly", "Private members channel"].map((item, i) => (
+                      <p key={i} className="font-syne text-white/45 text-sm leading-relaxed">{item}</p>
+                    ))}
+                  </div>
+                  <a href="#join" className="group/btn font-bebas text-xl tracking-[0.15em] bg-white text-black px-8 py-4 text-center hover:bg-[#D90019] hover:text-white transition-all duration-300 block">
+                    Get System Packs
+                  </a>
+                </div>
+              </Reveal>
+
+              {/* $997 Inner Circle */}
+              <Reveal delay={0.24}>
+                <div className="bg-[#D90019]/[0.06] border border-[#D90019]/20 p-10 sm:p-12 group hover:bg-[#D90019]/[0.1] transition-all duration-500 h-full flex flex-col relative overflow-hidden">
+                  <div className="absolute top-0 left-0 w-full h-px bg-[#D90019]"></div>
+                  <span className="font-mono text-[#D90019] text-[10px] font-bold tracking-[0.3em] uppercase block mb-3">Inner Circle</span>
+                  <h3 className="font-bebas text-3xl sm:text-4xl uppercase mb-2">Direct Access</h3>
+                  <div className="flex items-baseline gap-1 mb-2">
+                    <span className="font-bebas text-5xl sm:text-6xl text-[#D90019]">$997</span>
+                    <span className="font-mono text-white/30 text-xs">/mo</span>
+                  </div>
+                  <p className="font-syne text-white/30 text-xs italic mb-6">Work directly with Mia + the team</p>
+                  <div className="w-12 h-px bg-[#D90019]/30 mb-6"></div>
+                  <div className="space-y-3 flex-1 mb-10">
+                    {["Everything in $97", "Direct access to Mia + team", "Weekly live build sessions", "System reviews + fixes", "Custom implementation support", "Priority builds for your business", "Private inner circle group", "First access to everything new"].map((item, i) => (
+                      <p key={i} className="font-syne text-white/50 text-sm leading-relaxed">{item}</p>
+                    ))}
+                  </div>
+                  <a href="#join" className="group/btn font-bebas text-xl tracking-[0.15em] bg-[#D90019] text-white px-8 py-4 text-center hover:bg-white hover:text-black transition-all duration-300 block">
+                    Apply for Inner Circle
+                  </a>
+                </div>
+              </Reveal>
+
+            </div>
           </div>
         </section>
 

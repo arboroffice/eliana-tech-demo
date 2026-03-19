@@ -190,8 +190,6 @@ export default function CaaSApplyPage() {
             >
               <option value="">Select budget range...</option>
               <option value="starter">$2,500/mo (Starter)</option>
-              <option value="growth">$5,000/mo (Growth)</option>
-              <option value="enterprise">$10,000+/mo (Enterprise)</option>
               <option value="unsure">Not sure yet</option>
             </select>
           </div>

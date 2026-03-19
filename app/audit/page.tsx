@@ -8,7 +8,7 @@ import Link from "next/link"
 export default function AuditPage() {
   return (
     <div className="min-h-screen bg-[#FAFAF8] text-[#0C0C0C] font-mono">
-      <GlassmorphismNav />
+      <GlassmorphismNav minimal={true} />
 
       <main className="pt-32 pb-20 px-6 max-w-7xl mx-auto">
         <div className="flex justify-end mb-8">

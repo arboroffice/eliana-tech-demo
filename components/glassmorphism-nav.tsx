@@ -5,7 +5,7 @@ import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X } from "lucide-react"
 
-export function GlassmorphismNav() {
+export function GlassmorphismNav({ minimal = false }: { minimal?: boolean }) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
@@ -23,26 +23,32 @@ export function GlassmorphismNav() {
         ELIANA<em>TECH</em>
       </Link>
       <div className="nav-right">
-        <ul className="nav-links">
-          <li>
-            <Link href="https://www.elianatech.com/roadmap/build-program">Build</Link>
-          </li>
-          <li>
-            <Link href="https://www.elianatech.com/roadmap/full-buildout">Partner</Link>
-          </li>
-          <li>
-            <Link href="https://www.elianatech.com/custom">Custom</Link>
-          </li>
-          <li>
-            <Link href="https://www.elianatech.com/about">About</Link>
-          </li>
-        </ul>
-        <Link href="https://www.elianatech.com/audit" className="nav-btn">
-          Get Free Audit
-        </Link>
-        <button className="mobile-toggle" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        {!minimal && (
+          <ul className="nav-links">
+            <li>
+              <Link href="https://www.elianatech.com/roadmap/build-program">Build</Link>
+            </li>
+            <li>
+              <Link href="https://www.elianatech.com/roadmap/full-buildout">Partner</Link>
+            </li>
+            <li>
+              <Link href="https://www.elianatech.com/custom">Custom</Link>
+            </li>
+            <li>
+              <Link href="https://www.elianatech.com/about">About</Link>
+            </li>
+          </ul>
+        )}
+        {!minimal && (
+          <Link href="https://www.elianatech.com/audit" className="nav-btn">
+            Get Free Audit
+          </Link>
+        )}
+        {!minimal && (
+          <button className="mobile-toggle" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        )}
       </div>
 
       <AnimatePresence>

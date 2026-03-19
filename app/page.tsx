@@ -310,7 +310,7 @@ export default function HomePage() {
                       <h3 className="text-3xl font-bold font-bebas tracking-wide group-hover:text-[#D90019] transition-colors">Inner Circle</h3>
                    </div>
                    <div className="text-right">
-                      <div className="text-2xl font-bold font-bebas">$500/mo</div>
+                      <div className="text-2xl font-bold font-bebas">$997/mo</div>
                    </div>
                 </div>
                 

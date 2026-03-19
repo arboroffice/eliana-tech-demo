@@ -96,24 +96,6 @@ const PRICING_TIERS = [
     highlighted: false,
   },
   {
-    name: "Growth",
-    price: "$5,000",
-    period: "/month",
-    description: "Full Claude operations suite",
-    features: [
-      "3-5 custom Claude agents",
-      "Unlimited tool integrations",
-      "Bi-weekly strategy calls",
-      "Multi-agent orchestration",
-      "Team training sessions",
-      "Priority support + dedicated Slack",
-      "Monthly performance reports",
-      "Agent expansion roadmap",
-    ],
-    cta: "Apply Now",
-    highlighted: true,
-  },
-  {
     name: "Enterprise",
     price: "Custom",
     period: "",
@@ -129,7 +111,7 @@ const PRICING_TIERS = [
       "Quarterly business reviews",
     ],
     cta: "Book a Call",
-    highlighted: false,
+    highlighted: true,
   },
 ]
 
