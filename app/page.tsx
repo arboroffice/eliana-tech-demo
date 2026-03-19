@@ -163,8 +163,8 @@ export default function HomePage() {
                     <div className="w-12 h-12 rounded-full bg-[#FAF9F6] flex items-center justify-center mx-auto mb-4 group-hover:bg-[#D90019]/5 transition-colors">
                       <Phone className="text-[#D90019]" size={22} />
                     </div>
-                    <span className="font-bebas text-lg sm:text-xl tracking-wide text-black block">Phone Call</span>
-                    <span className="text-[9px] font-bold tracking-[0.2em] uppercase text-gray-400 mt-2 block">Always Picked Up</span>
+                    <span className="font-bebas text-lg sm:text-xl tracking-wide text-black block">Voice Inbox</span>
+                    <span className="text-[9px] font-bold tracking-[0.2em] uppercase text-gray-400 mt-2 block">Voice Capturing</span>
                   </div>
                 </div>
                 <div className="flex justify-center sm:justify-start">
@@ -190,7 +190,7 @@ export default function HomePage() {
                   </div>
                   <div className="p-6 sm:p-8 space-y-4">
                     {[
-                      { icon: Phone, color: "text-green-500", text: "Phone call answered in 0.8s — Lead qualified", time: "2m ago" },
+                      { icon: Phone, color: "text-green-500", text: "Voice lead captured — Auto-qualified", time: "2m ago" },
                       { icon: Bot, color: "text-[#D90019]", text: "Automated quote generated for Sarah M.", time: "1m ago" },
                       { icon: Send, color: "text-blue-500", text: "SMS Confirmation & Follow-up sent", time: "45s ago" },
                       { icon: Calendar, color: "text-purple-500", text: "Job dispatched to field team (Mar 22)", time: "10s ago" },
@@ -210,29 +210,34 @@ export default function HomePage() {
                 </div>
               </div>
 
-              {/* ── TOOLS (BOTTOM) ── */}
+              {/* ── TOOLS (BOTTOM) — Real software per category ── */}
               <div className="relative z-20">
                 <div className="text-center mb-10">
-                   <p className="text-[10px] font-bold tracking-[0.5em] uppercase text-gray-400">Integrated with your entire stack</p>
+                   <p className="text-[10px] font-bold tracking-[0.5em] uppercase text-gray-400">Sends to your entire tool stack</p>
                 </div>
-                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
+                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
                   {[
-                    { icon: Calendar, name: "Books jobs" },
-                    { icon: CreditCard, name: "Collects $" },
-                    { icon: Mail, name: "Email" },
-                    { icon: MessageSquare, name: "Texting" },
-                    { icon: Database, name: "CRM" },
-                    { icon: FileText, name: "Billing" },
-                    { icon: Star, name: "Reviews" },
-                    { icon: Users, name: "Dispatches" },
-                    { icon: BarChart3, name: "Revenue" },
-                    { icon: Globe, name: "Lead Gen" },
-                    { icon: Headphones, name: "Support" },
-                    { icon: Wrench, name: "Operations" },
+                    { category: "Books Jobs", tools: ["Calendly", "Housecall Pro", "Jobber"], icon: Calendar },
+                    { category: "Collects $", tools: ["Stripe", "Square", "QuickBooks"], icon: CreditCard },
+                    { category: "Email", tools: ["Mailchimp", "SendGrid", "Gmail"], icon: Mail },
+                    { category: "Texting", tools: ["Twilio", "OpenPhone", "Podium"], icon: MessageSquare },
+                    { category: "CRM", tools: ["HubSpot", "GoHighLevel", "Salesforce"], icon: Database },
+                    { category: "Billing", tools: ["FreshBooks", "Xero", "Wave"], icon: FileText },
+                    { category: "Reviews", tools: ["Google", "Yelp", "Trustpilot"], icon: Star },
+                    { category: "Dispatches", tools: ["ServiceTitan", "Workiz", "FieldPulse"], icon: Users },
+                    { category: "Revenue", tools: ["QuickBooks", "ProfitWell", "Baremetrics"], icon: BarChart3 },
+                    { category: "Lead Gen", tools: ["Meta Ads", "Google Ads", "Typeform"], icon: Globe },
+                    { category: "Support", tools: ["Intercom", "Zendesk", "Freshdesk"], icon: Headphones },
+                    { category: "Operations", tools: ["Zapier", "Make", "n8n"], icon: Wrench },
                   ].map((tool, i) => (
-                    <div key={i} className="bg-white border border-[#EAE9E4] p-5 sm:p-6 text-center rounded-xl shadow-sm hover:shadow-md hover:border-[#D90019]/20 transition-all duration-300">
-                      <tool.icon className="text-black/10 group-hover:text-[#D90019] mx-auto mb-3" size={20} strokeWidth={1} />
-                      <span className="font-bebas text-sm sm:text-base tracking-wide text-black block">{tool.name}</span>
+                    <div key={i} className="bg-white border border-[#EAE9E4] p-4 sm:p-5 text-center rounded-xl shadow-sm hover:shadow-md hover:border-[#D90019]/20 transition-all duration-300 group">
+                      <tool.icon className="text-gray-200 group-hover:text-[#D90019] mx-auto mb-2 transition-colors duration-300" size={18} strokeWidth={1.5} />
+                      <span className="font-bebas text-xs sm:text-sm tracking-wide text-[#D90019] block mb-2">{tool.category}</span>
+                      <div className="space-y-0.5">
+                        {tool.tools.map((name, j) => (
+                          <span key={j} className="text-[8px] sm:text-[9px] font-bold tracking-[0.1em] uppercase text-gray-300 group-hover:text-gray-500 transition-colors block leading-tight">{name}</span>
+                        ))}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -256,133 +261,36 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ═══ THE PROBLEM SECTION ═══ */}
-        <section className="bg-black text-white py-32 px-6 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-1/3 h-full bg-red-600/5 blur-[120px]"></div>
-          <div className="max-w-6xl mx-auto relative z-10 grid lg:grid-cols-2 gap-20 items-center">
-            <div>
-              <p className="text-[#D90019] font-bold tracking-[0.3em] uppercase mb-4 text-sm">The Problem</p>
-              <h2 className="font-bebas text-5xl sm:text-7xl lg:text-8xl leading-[0.9] uppercase mb-12">
-                Right Now,<br />
-                Business Depends<br />
-                <span className="text-[#D90019]">On You</span>
-              </h2>
-              <ul className="space-y-8">
-                {[
-                  { l: "Miss a call", r: "lose the deal" },
-                  { l: "Forget to follow up", r: "lead is gone" },
-                  { l: "Team needs you", r: "everything slows down" },
-                  { l: "No systems", r: "you’re always on" },
-                  { l: "Growth stops", r: "when you stop working" }
-                ].map((item, i) => (
-                  <li key={i} className="flex items-center gap-5 group">
-                    <div className="w-7 h-7 rounded-sm border border-red-600/30 flex items-center justify-center text-[#D90019] group-hover:bg-[#D90019] group-hover:text-white transition-all duration-300">
-                      <X size={16} strokeWidth={3} />
-                    </div>
-                    <span className="text-xl sm:text-2xl text-gray-300 font-medium tracking-tight leading-none italic">
-                       {item.l} <span className="text-[#D90019] font-bold not-italic px-2">→</span> {item.r}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="relative">
-               <div className="aspect-square bg-[#0C0C0C] border border-white/10 p-12 flex flex-col justify-center items-center text-center shadow-2xl relative">
-                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#D90019] to-transparent"></div>
-                  <span className="font-serif text-8xl text-red-600/20 mb-4 ">&ldquo;</span>
-                  <p className="text-2xl sm:text-4xl font-bold leading-tight mb-10 max-w-md tracking-tight">
-                    You don&apos;t have a business.<br />
-                    You have a job with overhead.
-                  </p>
-                  <div className="h-px w-20 bg-red-600/30 mb-8"></div>
-                  <p className="text-[#D90019] font-bebas text-5xl tracking-[0.1em] mt-2 animate-pulse">
-                    That ends here.
-                  </p>
-               </div>
-               {/* Decorative background orbs */}
-               <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-red-600/10 rounded-full blur-[100px] -z-10"></div>
-               <div className="absolute -top-20 -left-20 w-48 h-48 bg-white/5 rounded-full blur-[80px] -z-10"></div>
-            </div>
-          </div>
-        </section>
 
-        {/* ═══ THE PROCESS SECTION ═══ */}
-        <section id="process" className="py-32 px-6 bg-white border-b border-gray-100">
-          <div className="max-w-6xl mx-auto">
+
+        {/* ═══ PRICING SECTION (COLOR BLOCK: BLACK) ═══ */}
+        <section className="py-32 px-6 bg-[#050505] overflow-hidden border-y border-white/5 relative">
+          <div className="absolute top-0 right-0 w-1/4 h-full bg-[#D90019]/5 blur-[120px]"></div>
+          <div className="max-w-6xl mx-auto relative z-10">
             <div className="text-center mb-24">
-              <p className="text-[#D90019] font-bold tracking-[0.3em] uppercase mb-4 text-sm">The Process</p>
-              <h2 className="font-bebas text-6xl sm:text-8xl leading-[0.9] uppercase">
-                We Build The System<br />
-                <span className="text-[#D90019]">Your Business Is Missing</span>
-              </h2>
-              <div className="flex flex-col gap-2 mt-8">
-                <p className="text-gray-950 text-xl font-bold uppercase tracking-widest">Not another tool.</p>
-                <p className="text-gray-950 text-xl font-bold uppercase tracking-widest mb-4">Not another subscription.</p>
-                <p className="text-gray-500 text-xl font-medium max-w-2xl mx-auto leading-relaxed">
-                  A full AI infrastructure that actually runs your company.
-                </p>
-              </div>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-10">
-              {[
-                {
-                  id: "01",
-                  title: "We Find The Bottleneck",
-                  desc: "You show us where you’re losing time or money. We find the leaks in your system."
-                },
-                {
-                  id: "02",
-                  title: "We Build The System",
-                  desc: "We install AI that fixes it. First automation live in 14 days or your money back."
-                },
-                {
-                  id: "03",
-                  title: "It Runs Without You",
-                  desc: "Leads, follow-ups, scheduling, operations. Handled automatically. You stop chasing. You start scaling."
-                }
-              ].map((step, i) => (
-                <div key={i} className="group p-10 border border-gray-100 bg-[#FAFAF8] relative overflow-hidden transition-all duration-500 hover:-translate-y-3 hover:border-red-600/40 hover:shadow-[0_30px_60px_-15px_rgba(217,0,25,0.1)]">
-                  <span className="font-bebas text-[180px] text-red-600/5 absolute -bottom-10 -right-10 leading-none transition-all group-hover:text-red-600/10 pointer-events-none">{step.id}</span>
-                  <div className="relative z-10">
-                    <span className="inline-block px-4 py-1 bg-white border border-gray-200 text-xs font-bold tracking-widest text-[#D90019] mb-8">{step.id} — {step.title.split(' ').slice(1).join(' ')}</span>
-                    <h3 className="text-3xl font-bold mb-6 tracking-tight leading-tight group-hover:text-[#D90019] transition-colors">{step.title}</h3>
-                    <p className="text-gray-500 font-medium leading-relaxed text-lg">{step.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-
-        {/* ═══ PRICING SECTION ═══ */}
-        <section className="py-32 px-6 bg-white overflow-hidden border-y border-gray-100">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-24">
-              <p className="text-[#D90019] font-bold tracking-[0.3em] uppercase mb-4 text-sm">Pricing</p>
-              <h2 className="font-bebas text-6xl sm:text-8xl leading-none uppercase">
+              <p className="text-[#D90019] font-bold tracking-[0.4em] uppercase mb-4 text-xs font-mono">Investment</p>
+              <h2 className="font-bebas text-6xl sm:text-8xl lg:text-9xl leading-none uppercase text-white">
                 The Pipeline
               </h2>
-              <p className="text-gray-500 text-xl font-medium max-w-2xl mx-auto mt-8 leading-relaxed">
-                From logic to infrastructure to ongoing evolution.
+              <p className="text-gray-400 text-xl font-medium max-w-2xl mx-auto mt-8 leading-relaxed">
+                From entry-level logic to full business automation and ongoing scale.
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 items-stretch">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
               {/* Founders of the Future */}
-              <div className="p-10 border border-gray-100 flex flex-col transition-all duration-500 hover:border-black group">
+              <div className="p-10 border border-white/10 bg-white/5 backdrop-blur-sm flex flex-col transition-all duration-500 hover:border-[#D90019]/50 group relative">
                 <div className="flex justify-between items-start mb-10">
                    <div>
-                      <span className="font-bebas text-xl text-gray-400 mb-2 block uppercase tracking-widest">Step 01</span>
-                      <h3 className="text-3xl font-bold font-bebas tracking-wide group-hover:text-[#D90019] transition-colors">Founders of the Future</h3>
+                      <span className="font-bebas text-xl text-gray-500 mb-2 block uppercase tracking-widest">Step 01</span>
+                      <h3 className="text-3xl font-bold font-bebas tracking-wide text-white group-hover:text-[#D90019] transition-colors">F.O.T.F.</h3>
                    </div>
                    <div className="text-right">
-                      <div className="text-2xl font-bold font-bebas">LEARN</div>
+                      <div className="text-2xl font-bold font-bebas text-[#D90019]">LEARN</div>
                    </div>
                 </div>
                 
-                <p className="text-gray-500 mb-10 font-medium text-sm leading-relaxed">Master AI logic before building infrastructure. Hosted on our dedicated subdomain.</p>
+                <p className="text-gray-400 mb-10 font-medium text-sm leading-relaxed">Master the logic before the builds. Private subdomain access.</p>
                 
                 <div className="flex-1 space-y-4 mb-10">
                   {[
@@ -391,30 +299,30 @@ export default function HomePage() {
                     "Community access",
                     "FOTF Subdomain"
                   ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 text-xs font-bold uppercase tracking-widest text-[#0C0C0C]">
-                      <Check className="text-[#D90019] shrink-0 mt-0.5" size={12} strokeWidth={3} /> {item}
+                    <li key={i} className="flex items-start gap-3 text-[10px] font-bold uppercase tracking-widest text-gray-300">
+                      <Check className="text-[#D90019] shrink-0 mt-0.5" size={10} strokeWidth={3} /> {item}
                     </li>
                   ))}
                 </div>
                 
-                <Link href="https://foundersofthefuture.com" target="_blank" className="w-full text-center py-4 bg-black text-white font-bebas text-xl tracking-[0.2em] transition-all hover:bg-[#D90019] hover:tracking-[0.3em] active:scale-95">
+                <Link href="https://foundersofthefuture.com" target="_blank" className="w-full text-center py-4 bg-[#D90019] text-white font-bebas text-xl tracking-[0.2em] transition-all hover:bg-white hover:text-[#D90019] active:scale-95">
                   Join FOTF
                 </Link>
               </div>
 
               {/* Build One */}
-              <div className="p-10 bg-black text-white flex flex-col relative transform lg:scale-105 shadow-[0_40px_100px_-20px_rgba(217,0,25,0.25)] z-20 overflow-hidden">
+              <div className="p-10 border-2 border-[#D90019] bg-[#D90019]/5 flex flex-col relative transform lg:scale-105 z-20 overflow-hidden shadow-[0_30px_70px_rgba(217,0,25,0.2)]">
                 <div className="absolute top-0 right-0 p-4">
                    <ZapIcon className="text-[#D90019] animate-pulse" size={24} />
                 </div>
                 
                 <div className="mt-8 mb-10">
                    <span className="font-bebas text-xl text-red-600 mb-2 block uppercase tracking-widest">Step 02</span>
-                   <h3 className="text-3xl font-bold font-bebas tracking-wide text-white font-bebas">Build One</h3>
-                   <div className="mt-4 text-2xl font-bold font-bebas text-[#D90019]">$5,000+</div>
+                   <h3 className="text-3xl font-bold font-bebas tracking-wide text-white">Build One</h3>
+                   <div className="mt-4 text-3xl font-bold font-bebas text-[#D90019]">$5,000+</div>
                 </div>
                 
-                <p className="text-gray-400 mb-10 font-medium text-sm leading-relaxed">A living communication layer between your tools and your business.</p>
+                <p className="text-gray-300 mb-10 font-medium text-sm leading-relaxed">A custom communication layer for your existing tools.</p>
                 
                 <div className="flex-1 space-y-4 mb-10">
                   {[
@@ -423,30 +331,30 @@ export default function HomePage() {
                     "Agent logic setup",
                     "14-day deployment"
                   ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 text-xs font-bold uppercase tracking-widest text-white">
-                      <Check className="text-[#D90019] shrink-0 mt-0.5" size={12} strokeWidth={3} /> {item}
+                    <li key={i} className="flex items-start gap-3 text-[10px] font-bold uppercase tracking-widest text-white">
+                      <Check className="text-[#D90019] shrink-0 mt-0.5" size={10} strokeWidth={3} /> {item}
                     </li>
                   ))}
                 </div>
                 
-                <Link href="/apply" className="w-full text-center py-5 bg-[#D90019] text-white font-bebas text-2xl tracking-[0.2em] transition-all hover:bg-white hover:text-[#D90019] hover:tracking-[0.3em] active:scale-95">
+                <Link href="/apply" className="w-full text-center py-5 bg-[#D90019] text-white font-bebas text-2xl tracking-[0.2em] transition-all hover:bg-white hover:text-[#D90019] active:scale-95">
                   Apply Now
                 </Link>
               </div>
 
               {/* Full OS */}
-              <div className="p-10 border border-gray-100 flex flex-col transition-all duration-500 hover:border-black group">
+              <div className="p-10 border border-white/10 bg-white/5 backdrop-blur-sm flex flex-col transition-all duration-500 hover:border-[#D90019]/50 group relative">
                 <div className="flex justify-between items-start mb-10">
                    <div>
-                      <span className="font-bebas text-xl text-gray-400 mb-2 block uppercase tracking-widest">Step 03</span>
-                      <h3 className="text-3xl font-bold font-bebas tracking-wide group-hover:text-[#D90019] transition-colors">Playbook OS</h3>
+                      <span className="font-bebas text-xl text-gray-500 mb-2 block uppercase tracking-widest">Step 03</span>
+                      <h3 className="text-3xl font-bold font-bebas tracking-wide text-white group-hover:text-[#D90019] transition-colors">Playbook OS</h3>
                    </div>
                    <div className="text-right">
-                      <div className="text-2xl font-bold font-bebas">$25K+</div>
+                      <div className="text-2xl font-bold font-bebas text-white">$25K+</div>
                    </div>
                 </div>
                 
-                <p className="text-gray-500 mb-10 font-medium text-sm leading-relaxed">Proven industry playbooks deployed as full business automation.</p>
+                <p className="text-gray-400 mb-10 font-medium text-sm leading-relaxed">Proven industry playbooks for full business automation.</p>
                 
                 <div className="flex-1 space-y-4 mb-10">
                   {[
@@ -455,50 +363,50 @@ export default function HomePage() {
                     "Agent workforce",
                     "Revenue scale"
                   ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 text-xs font-bold uppercase tracking-widest text-[#0C0C0C]">
-                      <Check className="text-[#D90019] shrink-0 mt-0.5" size={12} strokeWidth={3} /> {item}
+                    <li key={i} className="flex items-start gap-3 text-[10px] font-bold uppercase tracking-widest text-gray-300">
+                      <Check className="text-[#D90019] shrink-0 mt-0.5" size={10} strokeWidth={3} /> {item}
                     </li>
                   ))}
                 </div>
                 
-                <Link href="/apply" className="w-full text-center py-4 bg-black text-white font-bebas text-xl tracking-[0.2em] transition-all hover:bg-[#D90019] hover:tracking-[0.3em] active:scale-95">
+                <Link href="/apply" className="w-full text-center py-4 bg-white/10 text-white font-bebas text-xl tracking-[0.2em] transition-all hover:bg-[#D90019] active:scale-95 border border-white/20">
                   Full Deploy
                 </Link>
               </div>
 
               {/* The Retainer */}
-              <div className="p-10 border border-gray-100 flex flex-col transition-all duration-500 hover:border-black group relative overflow-hidden">
-                <div className="absolute top-0 right-0 bg-black text-white text-[8px] font-bold uppercase tracking-[0.3em] px-4 py-1.5 z-10">
+              <div className="p-10 border border-white/10 bg-white/5 backdrop-blur-sm flex flex-col transition-all duration-500 hover:border-[#D90019]/50 group relative overflow-hidden">
+                <div className="absolute top-0 right-0 bg-white text-black text-[8px] font-bold uppercase tracking-[0.3em] px-4 py-1.5 z-10">
                   Required
                 </div>
                 <div className="flex justify-between items-start mb-10">
                    <div>
-                      <span className="font-bebas text-xl text-gray-400 mb-2 block uppercase tracking-widest">Phase 2</span>
-                      <h3 className="text-3xl font-bold font-bebas tracking-wide group-hover:text-[#D90019] transition-colors">The Retainer</h3>
+                      <span className="font-bebas text-xl text-gray-500 mb-2 block uppercase tracking-widest">Phase 2</span>
+                      <h3 className="text-3xl font-bold font-bebas tracking-wide text-white group-hover:text-[#D90019] transition-colors">The Retainer</h3>
                    </div>
                    <div className="text-right">
-                      <div className="text-xl font-bold font-bebas leading-none">$1,500 –</div>
-                      <div className="text-xl font-bold font-bebas">$5,000/mo</div>
+                      <div className="text-xl font-bold font-bebas text-white leading-none">$1,500 –</div>
+                      <div className="text-xl font-bold font-bebas text-[#D90019]">$5,000/mo</div>
                    </div>
                 </div>
                 
-                <p className="text-gray-500 mb-10 font-medium text-sm leading-relaxed italic">"Leaving means losing the logic. Staying means evolution."</p>
+                <p className="text-gray-400 mb-10 font-medium text-sm leading-relaxed italic">"Logic evolves. Infra stays live."</p>
                 
                 <div className="flex-1 space-y-4 mb-10">
                   {[
-                    "Unlimited new automations",
-                    "Unlimited skill upgrades",
-                    "All compute managed (DO/Hostinger)",
-                    "48-hour feedback loop",
-                    "Security & maintenance handled"
+                    "Unlimited automations",
+                    "Skill upgrades",
+                    "Hosting managed",
+                    "48h turnaround",
+                    "Security handled"
                   ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 text-xs font-bold uppercase tracking-widest text-[#0C0C0C]">
-                      <Check className="text-[#D90019] shrink-0 mt-0.5" size={12} strokeWidth={3} /> {item}
+                    <li key={i} className="flex items-start gap-3 text-[10px] font-bold uppercase tracking-widest text-gray-300">
+                      <Check className="text-[#D90019] shrink-0 mt-0.5" size={10} strokeWidth={3} /> {item}
                     </li>
                   ))}
                 </div>
                 
-                <Link href="/apply" className="w-full text-center py-4 bg-black text-white font-bebas text-xl tracking-[0.2em] transition-all hover:bg-[#D90019] hover:tracking-[0.3em] active:scale-95">
+                <Link href="/apply" className="w-full text-center py-4 bg-white/10 text-white font-bebas text-xl tracking-[0.2em] transition-all hover:bg-[#D90019] active:scale-95 border border-white/20">
                   Secure The System
                 </Link>
               </div>
@@ -507,22 +415,22 @@ export default function HomePage() {
         </section>
 
 
-        {/* ═══ INDUSTRY PLAYBOOKS (PRESERVED) ═══ */}
-        <section className="py-32 px-6 bg-[#FAFAF8] border-b border-gray-100">
+        {/* ═══ INDUSTRY PLAYBOOKS (COLOR BLOCK: RED) ═══ */}
+        <section className="py-32 px-6 bg-[#D90019] overflow-hidden relative">
           <div className="max-w-6xl mx-auto">
             <div className="flex flex-col md:flex-row justify-between items-end gap-10 mb-20 text-center md:text-left">
                <div>
-                  <p className="text-[#D90019] font-bold tracking-[0.3em] uppercase mb-4 text-sm font-mono">Proven Systems</p>
-                  <h2 className="font-bebas text-6xl sm:text-8xl leading-none uppercase">Industry <span className="text-[#D90019]">Playbooks.</span></h2>
+                  <p className="text-white/60 font-bold tracking-[0.4em] uppercase mb-4 text-xs font-mono">Proven Systems</p>
+                  <h2 className="font-bebas text-6xl sm:text-8xl lg:text-9xl leading-none uppercase text-white">Industry <span className="opacity-40">Playbooks.</span></h2>
                </div>
                <div className="flex-1 md:max-w-sm">
-                  <p className="text-gray-500 font-medium text-lg italic">
-                    Specific roadmaps built from real business logic across every major vertical.
+                  <p className="text-white/80 font-medium text-xl italic leading-relaxed">
+                    Battle-tested operational logic deployed across 18+ high-scale verticals.
                   </p>
                </div>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-0 border-t border-gray-200">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-0 border-t border-white/20">
               {[
                 { slug: "medical-dental", name: "Medical & Dental" },
                 { slug: "home-services-high-ticket", name: "Home Services — High Ticket" },
@@ -543,44 +451,44 @@ export default function HomePage() {
                 { slug: "ecommerce", name: "E-commerce & Retail" },
                 { slug: "agencies", name: "Agencies" },
               ].map((ind, i) => (
-                <Link key={i} href={`/industry-categories/${ind.slug}`} className="flex items-center gap-6 py-6 border-b border-gray-100 group transition-all hover:pl-4 hover:bg-white active:scale-[0.98]">
-                  <span className="font-bebas text-lg text-gray-300 group-hover:text-[#D90019] transition-colors duration-300">{String(i + 1).padStart(2, '0')}</span>
-                  <span className="font-bold text-base tracking-tight group-hover:text-[#D90019] transition-colors duration-300 flex-1">{ind.name}</span>
-                  <ArrowRight size={16} className="text-gray-200 group-hover:text-[#D90019] group-hover:translate-x-2 transition-all duration-300" />
+                <Link key={i} href={`/industry-categories/${ind.slug}`} className="flex items-center gap-6 py-6 border-b border-white/10 group transition-all hover:pl-4 hover:bg-white/5 active:scale-[0.98]">
+                  <span className="font-bebas text-lg text-white/30 group-hover:text-white transition-colors duration-300">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="font-bold text-base tracking-tight text-white group-hover:opacity-100 opacity-80 transition-all duration-300 flex-1">{ind.name}</span>
+                  <ArrowRight size={16} className="text-white/20 group-hover:text-white group-hover:translate-x-2 transition-all duration-300" />
                 </Link>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ═══ FINAL CTA SECTION ═══ */}
-        <section className="py-40 px-6 bg-white overflow-hidden relative">
+        {/* ═══ FINAL CTA SECTION (COLOR BLOCK: CREAM/WHITE) ═══ */}
+        <section className="py-40 px-6 bg-[#FAF9F6] overflow-hidden relative">
           <div className="max-w-4xl mx-auto text-center relative z-10">
-            <h2 className="font-bebas text-6xl sm:text-8xl lg:text-9xl leading-[0.85] uppercase mb-12 tracking-tight">
-              See What Your Business<br />
+            <h2 className="font-bebas text-6xl sm:text-8xl lg:text-9xl leading-[0.85] uppercase mb-12 tracking-tight text-[#0C0C0C]">
+              What Your Business<br />
               <span className="text-[#D90019]">Looks Like Automated</span>
             </h2>
             
-            <div className="max-w-2xl mx-auto mb-16 text-left border-l-2 border-[#D90019] pl-8">
-               <p className="text-gray-900 text-2xl font-bold mb-6 italic uppercase tracking-wider">We&apos;ll show you exactly:</p>
+            <div className="max-w-2xl mx-auto mb-16 text-left border-l-4 border-[#D90019] pl-10">
+               <p className="text-gray-950 text-2xl font-bold mb-6 italic uppercase tracking-wider">Live Audit reveals:</p>
                <ul className="space-y-4">
                   {[
                     "Where you’re losing money",
                     "What to automate first",
-                    "What it would look like installed"
+                    "A custom system buildout roadmap"
                   ].map((item, i) => (
-                    <li key={i} className="flex items-center gap-4 text-xl font-medium text-gray-600">
-                       <Check size={20} className="text-[#D90019]" /> {item}
+                    <li key={i} className="flex items-center gap-4 text-xl font-bold text-gray-800">
+                       <Check size={24} className="text-[#D90019] shrink-0" /> {item}
                     </li>
                   ))}
                </ul>
-               <p className="mt-8 text-xl font-bold uppercase tracking-[0.2em] text-[#D90019]">No pitch. Just clarity.</p>
+               <p className="mt-10 text-xl font-black uppercase tracking-[0.3em] text-[#D90019]">No pitch. Just clarity.</p>
             </div>
             
             <div className="flex flex-col items-center gap-10">
-               <Link href="/audit" className="group relative inline-flex font-bebas text-3xl sm:text-4xl tracking-[0.1em] bg-[#D90019] text-white px-16 py-8 hover:bg-black transition-all hover:-translate-y-2 shadow-[0_20px_50px_rgba(217,0,25,0.3)] items-center justify-center gap-6 overflow-hidden">
+               <Link href="/audit" className="group relative inline-flex font-bebas text-3xl sm:text-5xl tracking-[0.1em] bg-black text-white px-20 py-10 hover:bg-[#D90019] transition-all hover:-translate-y-2 shadow-2xl items-center justify-center gap-8 overflow-hidden rounded-sm">
                  <div className="absolute inset-0 bg-white/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out"></div>
-                 Get Your Free AI Audit <ArrowRight size={36} strokeWidth={2.5} className="group-hover:translate-x-2 transition-transform" />
+                 Get Your Free AI Audit <ArrowRight size={48} strokeWidth={3} className="group-hover:translate-x-3 transition-transform" />
                </Link>
             </div>
           </div>

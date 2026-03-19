@@ -78,8 +78,8 @@ export default function FoundersOfTheFuturePage() {
               <span className="text-[#D90019]">Start Building<br className="sm:hidden" /> Systems<br className="hidden sm:block" /> That<br className="sm:hidden" /> Make Money.</span>
             </h1>
 
-            <p className="font-syne text-gray-500 text-base sm:text-lg max-w-md mt-8 leading-relaxed animate-fade-in-sub">
-              Use tools like Claude to run your backend, capture leads, and automate your business.
+            <p className="font-syne text-gray-500 text-base sm:text-lg max-w-lg mt-8 leading-relaxed animate-fade-in-sub">
+              Whether you&apos;re a founder, building toward becoming one, an employee automating your role, or a manager running ops with AI — this is where you learn to build.
             </p>
 
             <div className="mt-10 sm:mt-14 flex flex-col sm:flex-row items-start gap-5 animate-fade-in-buttons">
@@ -174,11 +174,12 @@ export default function FoundersOfTheFuturePage() {
             <Reveal>
               <p className="font-mono text-[#D90019] text-[10px] font-bold tracking-[0.5em] uppercase mb-6">What This Is</p>
               <h2 className="font-bebas text-[clamp(40px,7vw,100px)] leading-[0.88] uppercase tracking-tight text-[#0C0C0C] mb-6">
-                A community for founders<br />
-                who want to become <span className="text-[#D90019]">AI-native.</span>
+                Not a course.<br />
+                Not a community.<br />
+                <span className="text-[#D90019]">A movement.</span>
               </h2>
               <p className="font-syne text-gray-400 text-lg sm:text-xl max-w-lg mt-8 font-medium">
-                Inside, you don&apos;t get theory.
+                Founders. Future founders. Employees. Managers. Operators. Anyone using AI to build, automate, and replace the manual grind. Inside, you don&apos;t get theory.
               </p>
             </Reveal>
 
@@ -238,25 +239,18 @@ export default function FoundersOfTheFuturePage() {
               <div className="mt-20 sm:mt-28 border-t border-gray-200 pt-12 grid md:grid-cols-[1fr_2fr] gap-12 md:gap-20">
                 <div>
                   <span className="font-mono text-[#D90019] text-xs tracking-widest">02</span>
-                  <h3 className="font-bebas text-4xl sm:text-5xl uppercase mt-2 text-[#0C0C0C]">AI System Packs</h3>
+                  <h3 className="font-bebas text-4xl sm:text-5xl uppercase mt-2 text-[#0C0C0C]">Full Access</h3>
                   <span className="font-bebas text-3xl text-[#0C0C0C] mt-3 block">$97<span className="text-gray-300 text-lg">/mo</span></span>
                 </div>
                 <div>
                   <p className="font-syne text-gray-500 text-base sm:text-lg leading-relaxed mb-6">
-                    Plug-and-play systems by industry. Each pack shows you exactly what to build, how it works, and the exact prompts + structure to launch it.
+                    Go deeper. Get the full curriculum, live calls, expanded community access, and everything you need to actually build and ship.
                   </p>
-                  <div className="space-y-4 mb-8">
-                    {["Everything in Free", "Full AI system packs by industry", "Copy-paste prompts + automations", "Step-by-step implementation guides", "New packs dropped monthly", "Private members-only channel"].map((item, i) => (
+                  <div className="space-y-4">
+                    {["Everything in Free", "Full curriculum — AI systems, automation, building", "Live group calls + Q&A sessions", "Expanded community access + private channels", "Step-by-step build guides and walkthroughs", "New content and resources dropped monthly", "Priority support from the team"].map((item, i) => (
                       <p key={i} className="font-syne text-gray-400 text-base sm:text-lg leading-relaxed pl-6 border-l border-gray-200 hover:border-[#D90019] hover:text-gray-700 transition-all duration-300">
                         {item}
                       </p>
-                    ))}
-                  </div>
-                  <div className="flex flex-wrap gap-3">
-                    {["Lead capture + follow-up", "AI receptionist", "Instant estimate generators", "CRM automations"].map((tag, i) => (
-                      <span key={i} className="font-mono text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400 border border-gray-200 px-4 py-2 hover:border-[#D90019] hover:text-[#D90019] transition-all duration-300 cursor-default">
-                        {tag}
-                      </span>
                     ))}
                   </div>
                 </div>
@@ -311,18 +305,18 @@ export default function FoundersOfTheFuturePage() {
             <Reveal>
               <p className="font-mono text-[#D90019] text-[10px] font-bold tracking-[0.5em] uppercase mb-6">Inside Right Now</p>
               <h2 className="font-bebas text-[clamp(40px,7vw,100px)] leading-[0.88] uppercase tracking-tight">
-                What founders<br />
+                What people<br />
                 <span className="text-[#D90019]">are building.</span>
               </h2>
             </Reveal>
 
             <div className="mt-20 sm:mt-28 space-y-0">
               {[
-                "AI answering calls and booking jobs",
-                "Systems that follow up with every lead instantly",
-                "Automated quoting tools that never sleep",
-                "Content engines running on autopilot daily",
-                "Backend workflows replacing admin work entirely",
+                "Founders using AI to answer every call and book jobs",
+                "Employees automating their entire reporting workflow",
+                "Managers building AI ops that run their teams",
+                "People building apps and launching side projects with AI",
+                "Operators replacing 10 hours of admin work per week",
               ].map((item, i) => (
                 <Reveal key={i} delay={i * 0.08}>
                   <div className="border-t border-white/5 py-6 sm:py-8 flex items-center gap-6 group hover:pl-4 transition-all duration-500">
@@ -351,10 +345,11 @@ export default function FoundersOfTheFuturePage() {
                 <p className="font-mono text-[#D90019] text-[10px] font-bold tracking-[0.5em] uppercase mb-6">This is for you if</p>
                 <div className="space-y-6 mt-12">
                   {[
-                    "You own a local service business",
-                    "You run an agency",
-                    "You want leverage, not just tools",
-                    "You're using AI but not getting results",
+                    "You're a founder building or scaling a business",
+                    "You want to become a founder and are building toward it",
+                    "You're an employee using AI to automate your role",
+                    "You're a manager or operator running things with AI",
+                    "You're building an app, a system, or a side project",
                   ].map((item, i) => (
                     <p key={i} className="font-syne text-gray-600 text-base sm:text-lg font-medium leading-relaxed pl-6 border-l-2 border-[#D90019] hover:text-[#0C0C0C] transition-colors duration-300">
                       {item}
@@ -398,7 +393,7 @@ export default function FoundersOfTheFuturePage() {
             <div className="mt-20 sm:mt-28 grid grid-cols-3 gap-px">
               {[
                 { n: "01", word: "Join Free", sub: "Get in the room and start learning" },
-                { n: "02", word: "Go $97", sub: "Get the systems and start building" },
+                { n: "02", word: "Go $97", sub: "Unlock the full curriculum and calls" },
                 { n: "03", word: "Go Inner Circle", sub: "Build directly with Mia and the team" },
               ].map((s, i) => (
                 <Reveal key={i} delay={i * 0.1}>
@@ -478,19 +473,19 @@ export default function FoundersOfTheFuturePage() {
               <Reveal delay={0.16}>
                 <div className="border border-gray-200 bg-white p-10 sm:p-12 group hover:border-[#D90019]/30 hover:shadow-[0_20px_60px_-15px_rgba(217,0,25,0.08)] transition-all duration-500 h-full flex flex-col relative">
                   <span className="font-mono text-[#D90019] text-[10px] font-bold tracking-[0.3em] uppercase block mb-3">Most Popular</span>
-                  <h3 className="font-bebas text-3xl sm:text-4xl uppercase mb-2 text-[#0C0C0C]">AI System Packs</h3>
+                  <h3 className="font-bebas text-3xl sm:text-4xl uppercase mb-2 text-[#0C0C0C]">Full Access</h3>
                   <div className="flex items-baseline gap-1 mb-6">
                     <span className="font-bebas text-5xl sm:text-6xl text-[#0C0C0C]">$97</span>
                     <span className="font-mono text-gray-400 text-xs">/mo</span>
                   </div>
                   <div className="w-12 h-px bg-[#D90019]/20 mb-6"></div>
                   <div className="space-y-3 flex-1 mb-10">
-                    {["Everything in Free", "Full AI system packs by industry", "Copy-paste prompts + automations", "Step-by-step guides", "New packs monthly", "Private members channel"].map((item, i) => (
+                    {["Everything in Free", "Full curriculum + build guides", "Live group calls + Q&A", "Private channels + deeper community", "New content monthly", "Priority team support"].map((item, i) => (
                       <p key={i} className="font-syne text-gray-500 text-sm leading-relaxed">{item}</p>
                     ))}
                   </div>
                   <a href="#join" className="font-bebas text-xl tracking-[0.15em] bg-[#0C0C0C] text-white px-8 py-4 text-center hover:bg-[#D90019] transition-all duration-300 block">
-                    Get System Packs
+                    Get Full Access
                   </a>
                 </div>
               </Reveal>
