@@ -221,6 +221,18 @@ export function GlassmorphismNav({ minimal = false }: { minimal?: boolean }) {
             display: block;
           }
         }
+
+        @media (max-width: 640px) {
+          nav {
+            padding: 12px 16px;
+          }
+          .logo {
+            font-size: 18px;
+          }
+          .nav-right {
+            gap: 16px;
+          }
+        }
       `}</style>
     </nav>
   )

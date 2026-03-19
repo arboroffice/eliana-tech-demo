@@ -543,8 +543,11 @@ export default function ApplyPage() {
           .fn-rm-dot { width: 80px; height: 80px; flex-shrink: 0; margin-bottom: 0; }
           .fn-rm-step-content { flex: 1; }
           .fn-rm-step-footer { flex-direction: row; align-items: center; justify-content: space-between; }
-          
+        }
 
+        @media (max-width: 500px) {
+          .fn-rm-step-footer { flex-direction: column; align-items: flex-start; gap: 20px; }
+          .fn-rm-step-link { width: 100%; border-top: 1px solid var(--gray-100); padding-top: 12px; }
         }
       `}</style>
 

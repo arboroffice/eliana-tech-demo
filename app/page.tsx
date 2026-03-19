@@ -28,8 +28,8 @@ export default function HomePage() {
             Free AI Audit
           </Link>
         </div>
-        <Link href="/audit" className="md:hidden bg-[#D90019] text-white p-2 rounded-full shadow-lg shadow-red-500/20">
-          <ArrowRight size={20} />
+        <Link href="/audit" className="md:hidden bg-[#D90019] text-white p-1.5 rounded-full shadow-lg shadow-red-500/20">
+          <ArrowRight size={16} />
         </Link>
       </nav>
 
@@ -159,7 +159,7 @@ export default function HomePage() {
               {/* ── INPUTS (TOP) ── */}
               <div className="grid grid-cols-2 gap-8 sm:gap-16 -mt-10 sm:-mt-16 mb-20 relative z-20">
                 <div className="flex justify-center sm:justify-end">
-                  <div className="bg-white border border-[#EAE9E4] p-6 sm:p-8 w-44 sm:w-56 shadow-sm hover:shadow-xl hover:border-[#D90019]/20 transition-all duration-500 rounded-2xl group text-center">
+                  <div className="bg-white border border-[#EAE9E4] p-4 sm:p-8 w-[140px] sm:w-56 shadow-sm hover:shadow-xl hover:border-[#D90019]/20 transition-all duration-500 rounded-2xl group text-center">
                     <div className="w-12 h-12 rounded-full bg-[#FAF9F6] flex items-center justify-center mx-auto mb-4 group-hover:bg-[#D90019]/5 transition-colors">
                       <Phone className="text-[#D90019]" size={22} />
                     </div>
@@ -168,7 +168,7 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div className="flex justify-center sm:justify-start">
-                  <div className="bg-white border border-[#EAE9E4] p-6 sm:p-8 w-44 sm:w-56 shadow-sm hover:shadow-xl hover:border-[#D90019]/20 transition-all duration-500 rounded-2xl group text-center">
+                  <div className="bg-white border border-[#EAE9E4] p-4 sm:p-8 w-[140px] sm:w-56 shadow-sm hover:shadow-xl hover:border-[#D90019]/20 transition-all duration-500 rounded-2xl group text-center">
                     <div className="w-12 h-12 rounded-full bg-[#FAF9F6] flex items-center justify-center mx-auto mb-4 group-hover:bg-[#D90019]/5 transition-colors">
                       <MessageSquare className="text-[#D90019]" size={22} />
                     </div>
@@ -277,7 +277,7 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch px-4 sm:px-0">
               {/* Founders of the Future */}
               <div className="p-10 border border-white/10 bg-white/5 backdrop-blur-sm flex flex-col transition-all duration-500 hover:border-[#D90019]/50 group relative">
                 <div className="flex justify-between items-start mb-10">
@@ -305,7 +305,7 @@ export default function HomePage() {
                   ))}
                 </div>
                 
-                <Link href="https://www.elianatech.com/foundersofthefuture" target="_blank" className="w-full text-center py-4 bg-[#D90019] text-white font-bebas text-xl tracking-[0.2em] transition-all hover:bg-white hover:text-[#D90019] active:scale-95">
+                <Link href="https://www.elianatech.com/foundersofthefuture" target="_blank" className="w-full text-center py-4 bg-white text-black font-bebas text-xl tracking-[0.2em] transition-all hover:bg-[#D90019] hover:text-white active:scale-95">
                   Join FOTF
                 </Link>
               </div>
