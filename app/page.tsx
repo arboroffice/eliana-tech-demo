@@ -337,8 +337,8 @@ export default function HomePage() {
                   ))}
                 </div>
                 
-                <Link href="/apply" className="w-full text-center py-5 bg-[#D90019] text-white font-bebas text-2xl tracking-[0.2em] transition-all hover:bg-white hover:text-[#D90019] active:scale-95">
-                  Apply Now
+                <Link href="/build" className="w-full text-center py-5 bg-[#D90019] text-white font-bebas text-2xl tracking-[0.2em] transition-all hover:bg-white hover:text-[#D90019] active:scale-95">
+                  Secure Build One
                 </Link>
               </div>
 

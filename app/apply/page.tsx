@@ -251,7 +251,7 @@ export default function ApplyPage() {
               <div className="fn-roadmap-line" />
               {[
                 { phase: "01", title: "Founders of the Future", desc: "Entry level access to the logic. This is where you learn how to think in systems before you spend a dollar on builds. Hosted on our dedicated community subdomain.", tag: "TO LEARN", href: "https://foundersofthefuture.com", accent: true, meta: "The Logic" },
-                { phase: "02", title: "Build One: Living Layer", desc: "A custom communication infrastructure between your existing tools and the coming agent workforce. Rapid deployment in 14 days.", tag: "$5K+", href: "#apply", meta: "The Layer" },
+                { phase: "02", title: "Build One: Living Layer", desc: "A custom communication infrastructure between your existing tools and the coming agent workforce. Rapid deployment in 14 days.", tag: "$5K+", href: "/build", meta: "The Layer" },
                 { phase: "03", title: "Full Build: Industry Playbook", desc: "Proven operational playbooks for your specific niche. Full automation across every department. The true Business OS.", tag: "$25K+", href: "#apply", meta: "The Scale" },
                 { phase: "04", title: "The Retainer", desc: "Required for all builds. We host, maintain, and upgrade your system. Unlimited skill upgrades and new automations on demand. 48-hour turnarounds.", tag: "$1.5K - $5K/mo", href: "#apply", meta: "The Evolution" },
                 { phase: "05", title: "Partnership / Share", desc: "Skin in the game. Full alignment. We become your equity AI department for high-scale growth.", tag: "Partnership", href: "#apply", meta: "The Legend" },
@@ -267,7 +267,7 @@ export default function ApplyPage() {
                     <p className="fn-rm-step-desc">{s.desc}</p>
                     <div className="fn-rm-step-footer">
                       <span className="fn-rm-step-tag">{s.tag}</span>
-                      <span className="fn-rm-step-link">{s.phase === "01" ? "Join FOTF" : "Apply Now"} <ArrowRight size={14} /></span>
+                      <span className="fn-rm-step-link">{s.phase === "01" ? "Join FOTF" : s.phase === "02" ? "Secure Build" : "Apply Now"} <ArrowRight size={14} /></span>
                     </div>
                   </div>
                 </div>
