@@ -216,12 +216,12 @@ export async function POST(request: Request) {
                 // Log SMS activity
                 await logEmailActivity(lead.email || 'unknown', `[SMS] Follow-up`, `MANUAL_SMS_${(emailType || 'warm-nudge').toUpperCase()}`)
 
-                // Sync to vault timeline
+                // Sync to vault timeline (full SMS content log)
                 if (lead.email) {
                     appendTimelineByEmail(lead.email, {
                         timestamp: new Date().toISOString(),
                         emoji: '💬',
-                        text: `SMS follow-up sent (${emailType || 'warm-nudge'})`,
+                        text: `SMS sent (${emailType || 'warm-nudge'})\n---\n${smsBody}`,
                     }).catch(console.error)
                 }
                 
@@ -248,12 +248,13 @@ export async function POST(request: Request) {
         // Log Email activity
         await logEmailActivity(lead.email, genResult.subject, `MANUAL_EMAIL_${(emailType || 'warm-nudge').toUpperCase()}`)
 
-        // Sync to vault timeline
+        // Sync to vault timeline (full email content log)
         if (lead.email) {
+            const emailLog = `Email sent: "${genResult.subject}" (${emailType || 'warm-nudge'})\n---\n${genResult.body}`
             appendTimelineByEmail(lead.email, {
                 timestamp: new Date().toISOString(),
                 emoji: '📧',
-                text: `Email sent: "${genResult.subject}" (${emailType || 'warm-nudge'})`,
+                text: emailLog,
             }).catch(console.error)
         }
 

@@ -5,7 +5,8 @@ import {
     ArrowLeft, RefreshCw, Loader2, Save, Mail, Phone, Globe,
     Building2, Target, Calendar, FileText, Shield, Clock,
     CheckCircle2, Circle, Plus, Trash2, Copy, Check,
-    Sparkles, Download, DollarSign, PhoneCall, Edit3
+    Sparkles, Download, DollarSign, PhoneCall, Edit3,
+    ExternalLink, Link2, BookOpen
 } from "lucide-react"
 
 interface TimelineEntry { timestamp: string; emoji: string; text: string }
@@ -34,6 +35,7 @@ interface VaultDoc {
     lead_score: number
     audit_score: number
     deal_value: number
+    referred_by: string
     intent: string
     budget: string
     audit_id: string
@@ -110,6 +112,21 @@ export default function VaultDetail({
     const [editingMeetingId, setEditingMeetingId] = useState<string | null>(null)
     const [editMeetingNotes, setEditMeetingNotes] = useState("")
 
+    // Referral
+    const [referralDraft, setReferralDraft] = useState("")
+    const [savingReferral, setSavingReferral] = useState(false)
+
+    // Weekly digest
+    const [generatingDigest, setGeneratingDigest] = useState(false)
+
+    // Smart follow-up
+    const [showFollowUp, setShowFollowUp] = useState(false)
+    const [followUpTrigger, setFollowUpTrigger] = useState('auto')
+    const [followUpCustom, setFollowUpCustom] = useState('')
+    const [followUpResult, setFollowUpResult] = useState<{ subject: string; body: string; strategy: string; tone: string; state?: any } | null>(null)
+    const [generatingFollowUp, setGeneratingFollowUp] = useState(false)
+    const [sendingFollowUp, setSendingFollowUp] = useState(false)
+
     const fetchVault = useCallback(async () => {
         setLoading(true)
         try {
@@ -122,6 +139,7 @@ export default function VaultDetail({
                 setResearchDraft(data.vault.research || '')
                 setStrategyDraft(data.vault.strategy || '')
                 setDealValueDraft(data.vault.deal_value ? String(data.vault.deal_value) : '')
+                setReferralDraft(data.vault.referred_by || '')
             }
         } catch { /* ignore */ } finally { setLoading(false) }
     }, [vaultId, token])
@@ -233,6 +251,62 @@ export default function VaultDetail({
         await patchVault('update-meeting', { meetingId, notes: editMeetingNotes })
         setEditingMeetingId(null)
         fetchVault()
+    }
+
+    const handleSaveReferral = async () => {
+        setSavingReferral(true)
+        try {
+            await patchVault('update-referral', { referred_by: referralDraft })
+            await fetchVault()
+        } catch { /* ignore */ } finally { setSavingReferral(false) }
+    }
+
+    const handleWeeklyDigest = async () => {
+        setGeneratingDigest(true)
+        try { await patchVault('weekly-digest', {}) } catch { /* ignore */ } finally { setGeneratingDigest(false) }
+    }
+
+    const obsidianUri = vault ? `obsidian://open?vault=${encodeURIComponent('elianatech')}&file=${encodeURIComponent(`01 - Clients/${vault.company.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`)}` : ''
+
+    const handleGenerateFollowUp = async () => {
+        if (!vault) return
+        setGeneratingFollowUp(true)
+        setFollowUpResult(null)
+        try {
+            const res = await fetch('/api/admin/smart-followup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                body: JSON.stringify({
+                    email: vault.email,
+                    trigger: followUpTrigger === 'auto' ? undefined : followUpTrigger,
+                    customNote: followUpTrigger === 'custom' ? followUpCustom : undefined,
+                }),
+            })
+            const data = await res.json()
+            if (data.success) {
+                setFollowUpResult({ subject: data.email.subject, body: data.email.body, strategy: data.strategy, tone: data.tone, state: data.state })
+            }
+        } catch { /* ignore */ } finally { setGeneratingFollowUp(false) }
+    }
+
+    const handleSendFollowUp = async () => {
+        if (!vault || !followUpResult) return
+        setSendingFollowUp(true)
+        try {
+            await fetch('/api/admin/smart-followup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                body: JSON.stringify({
+                    email: vault.email,
+                    trigger: followUpTrigger === 'auto' ? undefined : followUpTrigger,
+                    customNote: followUpTrigger === 'custom' ? followUpCustom : undefined,
+                    send: true,
+                }),
+            })
+            setShowFollowUp(false)
+            setFollowUpResult(null)
+            await fetchVault()
+        } catch { /* ignore */ } finally { setSendingFollowUp(false) }
     }
 
     const handleDeleteMeeting = async (meetingId: string) => {
@@ -375,16 +449,158 @@ export default function VaultDetail({
                                 {syncing ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Download className="w-3.5 h-3.5" />}
                                 Sync to Obsidian
                             </button>
+                            <a
+                                href={obsidianUri}
+                                className="flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-medium hover:bg-indigo-500/20 transition-all w-full"
+                            >
+                                <ExternalLink className="w-3.5 h-3.5" />
+                                Open in Obsidian
+                            </a>
+                            <button
+                                onClick={handleWeeklyDigest}
+                                disabled={generatingDigest}
+                                className="flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-medium hover:bg-orange-500/20 transition-all disabled:opacity-50 w-full"
+                            >
+                                {generatingDigest ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <BookOpen className="w-3.5 h-3.5" />}
+                                Weekly Digest
+                            </button>
+                            <button
+                                onClick={() => setShowFollowUp(!showFollowUp)}
+                                className="flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-medium hover:bg-emerald-500/20 transition-all w-full"
+                            >
+                                <Mail className="w-3.5 h-3.5" />
+                                Smart Follow-up
+                            </button>
+                        </div>
+
+                        {/* Referred by */}
+                        <div>
+                            <label className="text-slate-500 text-[10px] uppercase tracking-wider mb-1 block">Referred By</label>
+                            <div className="flex gap-1.5">
+                                <div className="relative flex-1">
+                                    <Link2 className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-500" />
+                                    <input
+                                        value={referralDraft}
+                                        onChange={e => setReferralDraft(e.target.value)}
+                                        placeholder="Company name"
+                                        className="w-full pl-8 pr-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-white/30"
+                                    />
+                                </div>
+                                <button
+                                    onClick={handleSaveReferral}
+                                    disabled={savingReferral}
+                                    className="px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-slate-400 text-xs font-medium hover:text-white transition-all disabled:opacity-50"
+                                >
+                                    {savingReferral ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
+                                </button>
+                            </div>
                         </div>
 
                         <div className="text-[10px] text-slate-600 space-y-0.5">
                             <p>Created: {vault.created}</p>
                             <p>Last Contact: {vault.last_contact}</p>
+                            {vault.referred_by && <p>Referred by: {vault.referred_by}</p>}
                             {vault.audit_id && <p>Audit: {vault.audit_id.slice(0, 8)}...</p>}
                         </div>
                     </div>
                 </div>
             </div>
+
+            {/* Smart Follow-up Panel */}
+            {showFollowUp && (
+                <div className="bg-emerald-500/5 border border-emerald-500/10 rounded-2xl p-6 mb-6">
+                    <h3 className="text-white font-semibold mb-4 flex items-center gap-2">
+                        <Mail className="w-4 h-4 text-emerald-400" /> Smart Follow-up Agent
+                    </h3>
+
+                    {/* Trigger selector */}
+                    <div className="flex flex-wrap gap-2 mb-4">
+                        {[
+                            { value: 'auto', label: 'Auto-detect' },
+                            { value: 'post-audit', label: 'Post-Audit' },
+                            { value: 'gone-cold', label: 'Gone Cold' },
+                            { value: 'post-meeting', label: 'Post-Meeting' },
+                            { value: 'post-proposal', label: 'Post-Proposal' },
+                            { value: 'value-drop', label: 'Value Drop' },
+                            { value: 'check-in', label: 'Check-in' },
+                            { value: 'custom', label: 'Custom' },
+                        ].map(opt => (
+                            <button
+                                key={opt.value}
+                                onClick={() => setFollowUpTrigger(opt.value)}
+                                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${followUpTrigger === opt.value ? 'bg-emerald-400 text-black' : 'bg-white/5 text-slate-400 border border-white/10 hover:text-white'}`}
+                            >
+                                {opt.label}
+                            </button>
+                        ))}
+                    </div>
+
+                    {followUpTrigger === 'custom' && (
+                        <textarea
+                            value={followUpCustom}
+                            onChange={e => setFollowUpCustom(e.target.value)}
+                            placeholder="What context should the agent use? e.g. 'They mentioned at the meeting they're hiring a new ops person...'"
+                            rows={2}
+                            className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none mb-4 resize-y"
+                        />
+                    )}
+
+                    <button
+                        onClick={handleGenerateFollowUp}
+                        disabled={generatingFollowUp}
+                        className="flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-400 text-black text-sm font-semibold hover:bg-emerald-300 transition-colors disabled:opacity-50 mb-4"
+                    >
+                        {generatingFollowUp ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
+                        Generate Follow-up
+                    </button>
+
+                    {/* Preview */}
+                    {followUpResult && (
+                        <div className="bg-white/5 border border-white/10 rounded-xl p-4 space-y-3">
+                            <div className="flex items-center gap-3 text-[11px] text-slate-500">
+                                <span className="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-medium">{followUpResult.tone}</span>
+                                <span>{followUpResult.strategy}</span>
+                                {followUpResult.state && (
+                                    <span className="ml-auto text-slate-600">
+                                        {followUpResult.state.temperature} | {followUpResult.state.daysSinceLastContact}d ago | {followUpResult.state.emailCount} emails sent
+                                    </span>
+                                )}
+                            </div>
+                            <div>
+                                <p className="text-slate-500 text-[10px] uppercase tracking-wider mb-1">Subject</p>
+                                <p className="text-white text-sm font-medium">{followUpResult.subject}</p>
+                            </div>
+                            <div>
+                                <p className="text-slate-500 text-[10px] uppercase tracking-wider mb-1">Body</p>
+                                <p className="text-slate-300 text-sm whitespace-pre-wrap">{followUpResult.body}</p>
+                            </div>
+                            <div className="flex gap-2 pt-2">
+                                <button
+                                    onClick={handleSendFollowUp}
+                                    disabled={sendingFollowUp}
+                                    className="flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-400 text-black text-sm font-semibold hover:bg-emerald-300 transition-colors disabled:opacity-50"
+                                >
+                                    {sendingFollowUp ? <Loader2 className="w-4 h-4 animate-spin" /> : <Mail className="w-4 h-4" />}
+                                    Send Email
+                                </button>
+                                <button
+                                    onClick={handleGenerateFollowUp}
+                                    disabled={generatingFollowUp}
+                                    className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-slate-400 text-sm hover:text-white transition-colors disabled:opacity-50"
+                                >
+                                    <RefreshCw className="w-4 h-4" /> Regenerate
+                                </button>
+                                <button
+                                    onClick={() => { setShowFollowUp(false); setFollowUpResult(null) }}
+                                    className="px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-slate-400 text-sm hover:text-white transition-colors"
+                                >
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            )}
 
             {/* Tabs */}
             <div className="flex gap-2 mb-6 overflow-x-auto">

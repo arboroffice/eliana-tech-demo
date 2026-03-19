@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { generateAIProposal } from '@/lib/proposal-agent'
+import { syncProposalToObsidian, appendTimelineByEmail } from '@/lib/client-vault'
 
 export const maxDuration = 30 // Allow up to 30s for research + Claude generation
 
@@ -15,6 +16,23 @@ export async function POST(request: Request) {
     }
 
     const { proposal, pricing, scores } = await generateAIProposal(formData)
+
+    // Sync proposal to Obsidian vault + timeline
+    if (formData.companyName) {
+      syncProposalToObsidian(formData.companyName, proposal, {
+        tierLabel: pricing.tierLabel,
+        finalPrice: pricing.finalPrice,
+        priceRange: pricing.priceRange,
+      }).catch(err => console.error('[PROPOSAL VAULT SYNC ERROR]', err))
+
+      if (formData.email) {
+        appendTimelineByEmail(formData.email, {
+          timestamp: new Date().toISOString(),
+          emoji: '📄',
+          text: `Proposal generated: ${pricing.tierLabel} ($${pricing.finalPrice.toLocaleString()})`,
+        }).catch(console.error)
+      }
+    }
 
     return NextResponse.json({
       success: true,

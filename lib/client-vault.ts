@@ -377,6 +377,7 @@ export async function scaffoldObsidianVault(): Promise<void> {
         '04 - Daily Notes',
         '05 - Resources',
         '06 - Meetings',
+        '07 - Proposals',
     ]
 
     for (const d of dirs) {
@@ -1113,6 +1114,7 @@ export async function createVaultFromAudit(
         intent: formData.intentLevel || 'unknown',
         budget: formData.growthBudget || '',
         deal_value: 0,
+        referred_by: '',
         audit_id: auditId,
         created: now,
         last_contact: now,

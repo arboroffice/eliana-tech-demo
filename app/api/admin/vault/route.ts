@@ -4,7 +4,8 @@ import { NextResponse } from 'next/server'
 import {
     getAllVaults, getVault, getVaultByAuditId, createVault, updateVault, deleteVault,
     appendTimeline, runVaultResearch, syncVaultToObsidian, scaffoldObsidianVault,
-    generateDailyNote, createMeetingNote, updateMeetingNote, deleteMeetingNote,
+    generateDailyNote, generateWeeklyDigest, createMeetingNote, updateMeetingNote, deleteMeetingNote,
+    getObsidianUri,
     type VaultDoc, type TimelineEntry, type CredentialEntry,
 } from '@/lib/client-vault'
 
@@ -83,6 +84,7 @@ export async function POST(request: Request) {
             intent: body.intent || 'unknown',
             budget: body.budget || '',
             deal_value: body.deal_value || 0,
+            referred_by: body.referred_by || '',
             audit_id: body.audit_id || '',
             created: now,
             last_contact: now,
@@ -240,6 +242,23 @@ export async function PATCH(request: Request) {
                 }
                 await deleteMeetingNote(id, delMeetingId)
                 return NextResponse.json({ success: true })
+            }
+
+            case 'update-referral': {
+                const { referred_by } = payload
+                await updateVault(id, { referred_by: referred_by || '' })
+                return NextResponse.json({ success: true })
+            }
+
+            case 'weekly-digest': {
+                const allVaults = await getAllVaults()
+                await generateWeeklyDigest(allVaults)
+                return NextResponse.json({ success: true })
+            }
+
+            case 'get-obsidian-uri': {
+                const uri = getObsidianUri(vault.company)
+                return NextResponse.json({ success: true, uri })
             }
 
             default:
