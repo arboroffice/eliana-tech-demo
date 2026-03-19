@@ -10,8 +10,8 @@ export default function HomePage() {
       {/* STICKY NAV */}
       <nav className="fn-nav">
         <Link href="/" className="fn-logo">ELIANA<span>TECH</span></Link>
-        <Link href="/audit" className="fn-nav-cta">
-          Free AI Audit <ArrowRight size={12} />
+        <Link href="/apply" className="fn-nav-cta">
+          Get Access <ArrowRight size={12} />
         </Link>
       </nav>
 
@@ -20,19 +20,23 @@ export default function HomePage() {
         {/* ═══ HERO ═══ */}
         <section className="fn-hero">
           <div className="fn-hero-content">
-            <p className="fn-tag">Your AI Department</p>
+            <p className="fn-tag">ElianaTech</p>
             <h1 className="fn-h1">
-              WE MAKE YOUR<br />
-              BUSINESS<br />
-              <span>AI-NATIVE.</span>
+              TURN AI INTO<br />
+              REAL BUSINESS<br />
+              <span>SYSTEMS.</span>
             </h1>
             <p className="fn-sub">
-              We become your AI wing — training technology to do the work so humans can do the living. Take our free audit and see exactly what to hand off first.
+              ElianaTech helps founders and operators use AI to automate workflows, capture leads, and scale faster — without hiring a ton of staff.
             </p>
-            <Link href="/audit" className="fn-hero-cta">
-              Get My Free Audit <ArrowRight size={18} />
-            </Link>
-            <p className="fn-micro">Takes 3 minutes. No call required.</p>
+            <div className="fn-hero-ctas">
+              <Link href="/apply" className="fn-hero-cta">
+                Get Access Today <ArrowRight size={18} />
+              </Link>
+              <a href="#how-it-works" className="fn-hero-cta-secondary">
+                See How It Works
+              </a>
+            </div>
           </div>
           <div className="fn-hero-bg">
             <div className="fn-grid-overlay" />
@@ -43,75 +47,64 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ═══ PROBLEM — tight, scannable ═══ */}
+        {/* ═══ THE PROBLEM ═══ */}
         <section className="fn-problem">
           <div className="fn-container">
             <div className="fn-problem-grid">
               <div>
                 <p className="fn-label">The Problem</p>
-                <h2 className="fn-h2">YOU ARE<br /><span>THE SYSTEM.</span></h2>
+                <h2 className="fn-h2">MOST FOUNDERS ARE<br /><span>STUCK WITH AI.</span></h2>
+                <div className="fn-problem-list" style={{ marginTop: 24 }}>
+                  <p className="fn-problem-item">They generate content and prompts but nothing changes</p>
+                  <p className="fn-problem-item">Leads fall through the cracks</p>
+                  <p className="fn-problem-item">Operations are chaotic</p>
+                </div>
               </div>
-              <div className="fn-problem-list">
-                <p className="fn-problem-item">You follow up manually</p>
-                <p className="fn-problem-item">You answer the same things daily</p>
-                <p className="fn-problem-item">You keep everything moving</p>
-                <p className="fn-problem-item">You fix what breaks</p>
-                <div className="fn-problem-callout">
-                  That&apos;s not a business. That&apos;s a job you built for yourself.
+              <div>
+                <p className="fn-label" style={{ color: 'var(--red)' }}>Meanwhile</p>
+                <p className="fn-problem-callout" style={{ marginTop: 0 }}>
+                  A small group of AI-native founders are building systems that run their business for them:
+                </p>
+                <div className="fn-problem-list" style={{ marginTop: 20 }}>
+                  <p className="fn-problem-item">Automated lead follow-ups</p>
+                  <p className="fn-problem-item">Instant estimates and proposals</p>
+                  <p className="fn-problem-item">AI-powered client communication</p>
+                  <p className="fn-problem-item">Backend workflows that replace hours of admin</p>
+                </div>
+                <div className="fn-problem-callout" style={{ marginTop: 24 }}>
+                  They use the same AI tools you have. You just haven&apos;t seen how yet.
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* ═══ REFRAME ═══ */}
+        {/* ═══ THE SHIFT ═══ */}
         <section className="fn-bridge">
-          <div className="fn-bridge-bg">FREEDOM</div>
+          <div className="fn-bridge-bg">OPERATOR</div>
           <div className="fn-container fn-bridge-inner">
             <h2 className="fn-bridge-h2">
-              <span>AI-powered businesses</span><br />
-              don&apos;t need you doing everything.
+              <span>AI isn&apos;t just a tool.</span><br />
+              It&apos;s an operator.
             </h2>
+            <p className="fn-bridge-sub">
+              Once you start thinking like an AI-native founder, you stop experimenting. You start building systems that actually make money.
+            </p>
           </div>
         </section>
 
-
-        {/* ═══ PROCESS — minimal ═══ */}
-        <section className="fn-section fn-section-alt">
-          <div className="fn-container">
-            <p className="fn-label">How It Works</p>
-            <div className="fn-process">
-              {[
-                { num: "1", title: "Tell us how your business runs", desc: "3 minute audit" },
-                { num: "2", title: "Get your breakdown", desc: "Instant results" },
-                { num: "3", title: "Decide your next move", desc: "DIY or done for you" },
-              ].map((step, i) => (
-                <div key={i} className="fn-process-step">
-                  <div className="fn-process-num">{step.num}</div>
-                  <div>
-                    <h3 className="fn-process-title">{step.title}</h3>
-                    <p className="fn-process-desc">{step.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ═══ THE SOLUTION — 6 Layers ═══ */}
+        {/* ═══ WHAT IS ELIANATECH ═══ */}
         <section className="fn-section">
           <div className="fn-container">
-            <p className="fn-label">Your AI Wing</p>
-            <h2 className="fn-h2">WE BUILD THE <span>AI-NATIVE</span><br />OPERATING SYSTEM.</h2>
+            <p className="fn-label">What Is ElianaTech</p>
+            <h2 className="fn-h2">THE PLACE FOR FOUNDERS<br />WHO WANT TO <span>BUILD.</span></h2>
 
             <div className="fn-layers">
               {[
-                { num: "01", title: "Attract", desc: "Get found without chasing." },
-                { num: "02", title: "Capture", desc: "No lead gets missed." },
-                { num: "03", title: "Convert", desc: "Deals move without follow up." },
-                { num: "04", title: "Deliver", desc: "Operations run without you." },
-                { num: "05", title: "Retain", desc: "Clients come back automatically." },
-                { num: "06", title: "Intelligence", desc: "You see everything clearly." },
+                { num: "01", title: "Build AI Systems", desc: "Real systems for your business, not toy demos." },
+                { num: "02", title: "Learn From Operators", desc: "See exactly how other founders are using AI." },
+                { num: "03", title: "Plug-In Workflows", desc: "Pre-built workflows that work immediately." },
+                { num: "04", title: "Get Help When You Want It", desc: "From DIY to done-for-you, on your terms." },
               ].map((layer, i) => (
                 <div key={i} className="fn-layer">
                   <div className="fn-layer-num">{layer.num}</div>
@@ -122,24 +115,28 @@ export default function HomePage() {
                 </div>
               ))}
             </div>
+
+            <div className="fn-problem-callout" style={{ marginTop: 32 }}>
+              No theory. No fluff. Just real systems, real results.
+            </div>
           </div>
         </section>
 
-        {/* ═══ HOW YOU WORK WITH US ═══ */}
-        <section className="fn-section fn-section-alt" style={{ borderTop: "1px solid var(--gray-100)" }}>
+        {/* ═══ WHAT YOU GET ═══ */}
+        <section id="how-it-works" className="fn-section fn-section-alt" style={{ borderTop: "1px solid var(--gray-100)" }}>
           <div className="fn-container">
             <div className="fn-roadmap-intro">
-              <p className="fn-label">Your AI Department</p>
-              <h2 className="fn-h2">START SMALL. <span>THEN SCALE.</span></h2>
+              <p className="fn-label">What You Get</p>
+              <h2 className="fn-h2">PICK YOUR <span>LEVEL.</span></h2>
             </div>
 
             <div className="fn-roadmap-v2">
               <div className="fn-roadmap-line" />
               {[
-                { phase: "01", title: "Fix One Problem", desc: "14 day build. Remove a key bottleneck.", href: "/apply", accent: true, meta: "Proof" },
-                { phase: "02", title: "Full System Build", desc: "All core operations automated.", href: "/apply", meta: "Scale" },
-                { phase: "03", title: "Your AI Wing", desc: "We become your AI department.", href: "/apply", meta: "Engine" },
-                { phase: "04", title: "Chief AI Officer", desc: "Revenue share. Full alignment.", href: "/apply", meta: "Partner" },
+                { phase: "01", title: "Founder Community", desc: "See other founders' workflows in action. Share your builds and get feedback. Daily AI tips and hacks.", href: "/apply", accent: true, meta: "$99/mo" },
+                { phase: "02", title: "AI System Packs", desc: "Plug-and-play systems: lead capture, AI receptionist, instant estimates, CRM automations. Step-by-step instructions and exact prompts.", href: "/apply", meta: "$597–$997+" },
+                { phase: "03", title: "Build With You", desc: "Hands-on group sessions. Implement systems in real-time with guidance. Get it live fast.", href: "/apply", meta: "$2K–$5K" },
+                { phase: "04", title: "Done For You", desc: "Custom AI backend built around your business. Full setup and integration. For serious operators only.", href: "/apply", meta: "$5K–$20K+" },
               ].map((s, i) => (
                 <Link key={i} href={s.href} className={`fn-rm-step ${s.accent ? 'fn-rm-step-accent' : ''}`}>
                   <div className="fn-rm-dot" />
@@ -151,7 +148,7 @@ export default function HomePage() {
                     <h3 className="fn-rm-step-title">{s.title}</h3>
                     <p className="fn-rm-step-desc">{s.desc}</p>
                     <div className="fn-rm-step-footer">
-                      <span className="fn-rm-step-link">Apply <ArrowRight size={14} /></span>
+                      <span className="fn-rm-step-link">Get Started <ArrowRight size={14} /></span>
                     </div>
                   </div>
                 </Link>
@@ -160,24 +157,51 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ═══ WHO THIS IS FOR — compact ═══ */}
+        {/* ═══ WHY NOW ═══ */}
         <section className="fn-section">
+          <div className="fn-container">
+            <p className="fn-label">Why Now</p>
+            <h2 className="fn-h2">THE GAP IS <span>GROWING.</span></h2>
+            <div className="fn-process">
+              {[
+                { num: "1", title: "AI adoption is exploding", desc: "The tools are here and they're powerful" },
+                { num: "2", title: "Most are still experimenting", desc: "Playing with prompts, not building systems" },
+                { num: "3", title: "A few are building real leverage", desc: "Systems that save hours and make money" },
+              ].map((step, i) => (
+                <div key={i} className="fn-process-step">
+                  <div className="fn-process-num">{step.num}</div>
+                  <div>
+                    <h3 className="fn-process-title">{step.title}</h3>
+                    <p className="fn-process-desc">{step.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="fn-problem-callout" style={{ marginTop: 32 }}>
+              Don&apos;t get left behind.
+            </div>
+          </div>
+        </section>
+
+        {/* ═══ WHO THIS IS FOR — compact ═══ */}
+        <section className="fn-section fn-section-alt">
           <div className="fn-container">
             <div className="fn-for-grid">
               <div className="fn-for-yes">
-                <p className="fn-label">This is for you if</p>
+                <p className="fn-label">This is for</p>
                 <ul className="fn-for-list">
-                  <li>You&apos;re doing $500K+</li>
-                  <li>You feel busy but things are messy</li>
-                  <li>You know you&apos;re wasting time</li>
-                  <li>You want systems, not more work</li>
+                  <li>Local service business owners</li>
+                  <li>Agency owners</li>
+                  <li>Operators who want leverage</li>
+                  <li>Founders already using AI but not getting results</li>
                 </ul>
               </div>
               <div className="fn-for-no">
                 <p className="fn-label" style={{ color: 'var(--gray-400)' }}>Not for</p>
                 <ul className="fn-for-list fn-for-list-dim">
-                  <li>People looking for free ideas only</li>
-                  <li>People who won&apos;t execute</li>
+                  <li>People looking for shortcuts without work</li>
+                  <li>People who just want to &quot;learn AI&quot;</li>
+                  <li>People who won&apos;t implement</li>
                 </ul>
               </div>
             </div>
@@ -422,16 +446,16 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ═══ PARTNER CTA ═══ */}
-        <section className="fn-partner-cta">
-          <div className="fn-container fn-partner-inner">
-            <h2 className="fn-partner-h2">Finding Partners to Build<br /><span>Industry Playbooks</span></h2>
-            <p className="fn-partner-desc">
-              Domain experts who want to formalize their industry&apos;s logic into autonomous agents.
-              We build the tech. You provide the expertise.
-            </p>
-            <Link href="/apply" className="fn-partner-btn">
-              BECOME A BUILD PARTNER <ArrowRight size={16} />
+        {/* ═══ FINAL CLOSE ═══ */}
+        <section className="fn-close">
+          <div className="fn-container fn-close-inner">
+            <p className="fn-close-dim">You can keep using AI for small tasks.</p>
+            <p className="fn-close-or">OR</p>
+            <h2 className="fn-close-h2">
+              USE IT TO RUN PARTS<br />OF YOUR <span>BUSINESS.</span>
+            </h2>
+            <Link href="/apply" className="fn-hero-cta" style={{ opacity: 1 }}>
+              Join ElianaTech Today <ArrowRight size={18} />
             </Link>
           </div>
         </section>
@@ -526,7 +550,6 @@ export default function HomePage() {
           display: inline-flex; align-items: center; gap: 12px;
           transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
           box-shadow: 0 10px 40px rgba(217,0,25,0.2);
-          opacity: 0; animation: fnFadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.6s forwards;
         }
         .fn-hero-cta:hover {
           transform: translateY(-4px);
@@ -695,6 +718,27 @@ export default function HomePage() {
           color: #fff; letter-spacing: 0.02em;
         }
         .fn-bridge-h2 span { color: var(--red); }
+        .fn-bridge-sub {
+          font-size: 16px; color: rgba(255,255,255,0.5);
+          margin-top: 24px; max-width: 520px;
+          margin-left: auto; margin-right: auto;
+          line-height: 1.7;
+        }
+        .fn-hero-ctas {
+          display: flex; flex-wrap: wrap; gap: 16px;
+          justify-content: center; align-items: center;
+          opacity: 0; animation: fnFadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.6s forwards;
+        }
+        .fn-hero-cta-secondary {
+          font-family: var(--font-dm-mono), monospace;
+          font-size: 12px; letter-spacing: 0.08em;
+          padding: 22px 40px; text-decoration: none;
+          color: var(--gray-500); border: 1px solid var(--gray-200);
+          display: inline-flex; align-items: center; gap: 8px;
+          transition: all 0.3s;
+          text-transform: uppercase;
+        }
+        .fn-hero-cta-secondary:hover { color: var(--black); border-color: var(--gray-500); }
 
         /* ═══ AUDIT OFFER ═══ */
         .fn-audit-row {
@@ -971,6 +1015,8 @@ export default function HomePage() {
           .fn-h1 { font-size: clamp(48px, 12vw, 80px); margin-bottom: 28px; }
           .fn-sub { font-size: 14px; margin-bottom: 32px; }
           .fn-hero-cta { font-size: 18px; padding: 18px 40px; }
+          .fn-hero-ctas { flex-direction: column; }
+          .fn-hero-cta-secondary { padding: 16px 32px; }
           .fn-trust { padding: 56px 20px; }
           .fn-int-grid { grid-template-columns: repeat(4, 1fr); gap: 16px; }
           .fn-int-icon { width: 48px; height: 48px; font-size: 12px; border-radius: 12px; }
@@ -1011,6 +1057,7 @@ export default function HomePage() {
           .fn-h1 { font-size: clamp(40px, 13vw, 56px); }
           .fn-sub { font-size: 13px; }
           .fn-hero-cta { font-size: 16px; padding: 16px 36px; width: 100%; justify-content: center; }
+          .fn-hero-cta-secondary { width: 100%; justify-content: center; }
           .fn-trust { padding: 48px 16px; }
           .fn-meta-badge { padding: 16px 20px; margin-bottom: 40px; }
           .fn-int-grid { grid-template-columns: repeat(4, 1fr); gap: 12px; }
