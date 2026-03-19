@@ -26,21 +26,12 @@ export function GlassmorphismNav({ minimal = false }: { minimal?: boolean }) {
         {!minimal && (
           <ul className="nav-links">
             <li>
-              <Link href="https://www.elianatech.com/roadmap/build-program">Build</Link>
-            </li>
-            <li>
-              <Link href="https://www.elianatech.com/roadmap/full-buildout">Partner</Link>
-            </li>
-            <li>
-              <Link href="https://www.elianatech.com/custom">Custom</Link>
-            </li>
-            <li>
-              <Link href="https://www.elianatech.com/about">About</Link>
+              <Link href="/about">About</Link>
             </li>
           </ul>
         )}
         {!minimal && (
-          <Link href="https://www.elianatech.com/audit" className="nav-btn">
+          <Link href="/audit" className="nav-btn">
             Get Free Audit
           </Link>
         )}
@@ -61,27 +52,12 @@ export function GlassmorphismNav({ minimal = false }: { minimal?: boolean }) {
           >
             <ul>
               <li>
-                <Link href="https://www.elianatech.com/roadmap/build-program" onClick={() => setIsMobileMenuOpen(false)}>
-                  Build
-                </Link>
-              </li>
-              <li>
-                <Link href="https://www.elianatech.com/roadmap/full-buildout" onClick={() => setIsMobileMenuOpen(false)}>
-                  Partner
-                </Link>
-              </li>
-              <li>
-                <Link href="https://www.elianatech.com/custom" onClick={() => setIsMobileMenuOpen(false)}>
-                  Custom
-                </Link>
-              </li>
-              <li>
-                <Link href="https://www.elianatech.com/about" onClick={() => setIsMobileMenuOpen(false)}>
+                <Link href="/about" onClick={() => setIsMobileMenuOpen(false)}>
                   About
                 </Link>
               </li>
               <li className="pt-4">
-                <Link href="https://www.elianatech.com/audit" className="nav-btn w-full block text-center" onClick={() => setIsMobileMenuOpen(false)}>
+                <Link href="/audit" className="nav-btn w-full block text-center" onClick={() => setIsMobileMenuOpen(false)}>
                   Get Free Audit
                 </Link>
               </li>

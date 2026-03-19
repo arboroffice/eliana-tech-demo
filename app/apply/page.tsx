@@ -242,21 +242,19 @@ export default function ApplyPage() {
         <section className="fn-section" style={{ borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)" }}>
           <div className="fn-container">
             <div className="fn-roadmap-intro">
-               <p className="fn-label">How It Works</p>
-               <h2 className="fn-h2">THE <span>LADDER.</span></h2>
-               <p className="fn-desc-wide">We do not ask you to commit to everything upfront. You start with the logic. We build the layer. Then we scale the system.</p>
+               <p className="fn-label">The Process</p>
+               <h2 className="fn-h2">ONE INSTALL. <span>INFINITE LOGIC.</span></h2>
+               <p className="fn-desc-wide">We don't do 'projects.' We install a living infrastructure. Here is how we get your business running without you.</p>
             </div>
-
-            <div className="fn-roadmap-v2">
+ 
+            <div className="fn-roadmap-v2" style={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
               <div className="fn-roadmap-line" />
               {[
-                { phase: "01", title: "Founders of the Future", desc: "Entry level access to the logic. This is where you learn how to think in systems before you spend a dollar on builds.", tag: "$97", href: "https://www.skool.com/founders-of-the-future-3908/about", accent: true, meta: "The Logic" },
-                { phase: "02", title: "Build One: Living Layer", desc: "A custom communication infrastructure between your existing tools and the coming agent workforce. Rapid deployment in 14 days.", tag: "$5K+", href: "/build", meta: "The Layer" },
-                { phase: "03", title: "Full Build: Industry Playbook", desc: "Proven operational playbooks for your specific niche. Full automation across every department. The true Business OS.", tag: "$25K+", href: "#apply", meta: "The Scale" },
-                { phase: "04", title: "The Retainer", desc: "Not required for all builds. We host, maintain, and upgrade your system. Unlimited skill upgrades and new automations on demand. 48-hour turnarounds.", tag: "$1.5K - $5K/mo", href: "#apply", meta: "The Evolution" },
-                { phase: "05", title: "Partnership / Share", desc: "Skin in the game. Full alignment. We become your equity AI department for high-scale growth.", tag: "Partnership", href: "#apply", meta: "The Legend" },
+                { phase: "01", title: "Audit & Logic", desc: "We map your operation and identify the biggest manual bottlenecks. This is where we design your custom Brain.", tag: "Included", href: "#apply", meta: "The Blueprint" },
+                { phase: "02", title: "Living Layer Install", desc: "Leveraging our 100+ proven Industry Playbooks, we build and deploy your AI backend in 14 days.", tag: "$10,000", href: "#apply", accent: true, meta: "The Build" },
+                { phase: "03", title: "The AI Department", desc: "We host and maintain your system, becoming your outsourced AI department for continuous evolution.", tag: "Available", href: "#apply", meta: "The Dept" },
               ].map((s, i) => (
-                <div key={i} onClick={s.href.startsWith('#') ? scrollToApply : () => window.open(s.href, '_blank')} style={{ cursor: 'pointer' }} className={`fn-rm-step ${s.accent ? 'fn-rm-step-accent' : ''}`}>
+                <div key={i} onClick={scrollToApply} style={{ cursor: 'pointer' }} className={`fn-rm-step ${s.accent ? 'fn-rm-step-accent' : ''}`}>
                   <div className="fn-rm-dot" />
                   <div className="fn-rm-step-content">
                     <div className="fn-rm-step-header">
@@ -267,14 +265,12 @@ export default function ApplyPage() {
                     <p className="fn-rm-step-desc">{s.desc}</p>
                     <div className="fn-rm-step-footer">
                       <span className="fn-rm-step-tag">{s.tag}</span>
-                      <span className="fn-rm-step-link">{s.phase === "01" ? "Join FOTF" : s.phase === "02" ? "Secure Build" : "Apply Now"} <ArrowRight size={14} /></span>
+                      <span className="fn-rm-step-link">Apply Now <ArrowRight size={14} /></span>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
-
-
           </div>
         </section>
 

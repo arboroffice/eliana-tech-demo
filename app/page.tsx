@@ -294,140 +294,63 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ═══ PIPELINE (SIMPLIFIED) ═══ */}
-        <section id="process" className="py-24 sm:py-32 px-6 bg-black border-y border-white/5">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-20 sm:mb-24">
-              <p className="text-[#D90019] font-bold tracking-[0.4em] uppercase mb-4 text-xs font-mono">Process</p>
-              <h2 className="font-bebas text-6xl sm:text-8xl lg:text-9xl leading-none uppercase text-white">
-                How You Work With Us
-              </h2>
-            </div>
+        {/* ═══ THE SINGLE OFFER ═══ */}
+        <section id="offer" className="py-24 sm:py-48 px-6 bg-[#050505] overflow-hidden relative border-y border-white/5">
+          <div className="absolute top-0 right-0 w-1/3 h-full bg-[#D90019]/5 blur-[160px]"></div>
+          
+          <div className="max-w-4xl mx-auto relative z-10 text-center">
+            <p className="text-[#D90019] font-bold tracking-[0.4em] uppercase mb-8 text-xs font-mono">The AI Department</p>
+            <h2 className="font-bebas text-7xl sm:text-9xl lg:text-[140px] leading-[0.85] uppercase text-white mb-16 tracking-tighter">
+              The Living <br />
+              <span className="text-[#D90019]">Business.</span>
+            </h2>
             
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {[
-                { step: "01", meta: "Learn (Optional)", title: "Founders of the Future", desc: "Learn how AI systems actually work." },
-                { step: "02", meta: "Build", title: "Living Layer", desc: "We install your AI backend in 14 days." },
-                { step: "03", meta: "Scale", title: "Full Build", desc: "We expand automation across your entire business." },
-                { step: "04", meta: "Maintain", title: "System Evolution", desc: "We keep it running and improving." },
-              ].map((item, i) => (
-                <div key={i} className="bg-white/5 border border-white/10 p-10 group hover:border-[#D90019] transition-all">
-                  <span className="text-[#D90019] font-bebas text-2xl mb-4 block">{item.step}</span>
-                  <span className="text-white/40 font-bold tracking-[0.2em] uppercase text-[10px] mb-4 block font-mono">{item.meta}</span>
-                  <h3 className="font-bebas text-3xl text-white mb-4 group-hover:text-[#D90019] transition-colors">{item.title}</h3>
-                  <p className="text-gray-400 text-sm font-medium leading-relaxed">{item.desc}</p>
-                </div>
-              ))}
+            <div className="bg-white p-8 sm:p-20 text-left border-t-8 border-[#D90019] shadow-2xl relative overflow-hidden">
+               <div className="absolute top-0 right-0 p-12 opacity-[0.03] select-none pointer-events-none">
+                  <TrendingUp size={300} />
+               </div>
+               
+               <div className="flex flex-col md:flex-row justify-between items-start gap-12 mb-16">
+                  <div className="flex-1">
+                     <div className="inline-block bg-[#FAF9F6] px-4 py-2 border border-gray-100 rounded-lg mb-6">
+                        <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400">Powered by 100+ Industry Playbooks</span>
+                     </div>
+                     <h3 className="font-bebas text-5xl text-black mb-6 uppercase">We become your <br /><span className="text-[#D90019]">AI Department.</span></h3>
+                     <p className="text-gray-500 text-lg font-medium leading-relaxed italic">
+                       We leverage our library of proven industry blueprints to install your infrastructure fast. One build. Infinite evolution.
+                     </p>
+                  </div>
+                  <div className="shrink-0">
+                     <span className="text-gray-400 font-bold tracking-widest uppercase text-[10px] block mb-2 font-mono">Infrastructure Install</span>
+                     <div className="font-bebas text-7xl text-black leading-none">$10,000</div>
+                     <span className="text-[10px] font-bold uppercase tracking-widest text-[#D90019] mt-2 block">+ Monthly Maintenance</span>
+                  </div>
+               </div>
+
+               <div className="grid sm:grid-cols-2 gap-x-12 gap-y-8 border-t border-gray-100 pt-16 mb-16">
+                  {[
+                    { label: "Active Logic Layer", desc: "The 'Brain' that runs your operational logic." },
+                    { label: "Lead Response", desc: "Instant response across text, voice, and web." },
+                    { label: "Proven Blueprints", desc: "Leveraging our tested Industry Playbooks." },
+                    { label: "Payment Logic", desc: "Automated billing and revenue tracking." },
+                    { label: "Tool Integration", desc: "Full connection to your existing software." },
+                    { label: "Monthly Support", desc: "We host, maintain, and upgrade your system." }
+                  ].map((item, i) => (
+                    <div key={i} className="flex gap-4">
+                       <Check className="text-[#D90019] shrink-0 mt-1" size={20} />
+                       <div>
+                          <p className="text-black font-bebas text-xl uppercase tracking-widest">{item.label}</p>
+                          <p className="text-gray-400 text-sm font-medium">{item.desc}</p>
+                       </div>
+                    </div>
+                  ))}
+               </div>
+
+               <Link href="/audit" className="group relative inline-flex w-full font-bebas text-3xl sm:text-4xl tracking-[0.1em] bg-black text-white px-10 py-8 hover:bg-[#D90019] transition-all items-center justify-between shadow-2xl">
+                 Secure Your Build <ArrowRight size={32} strokeWidth={3} className="group-hover:translate-x-3 transition-transform" />
+               </Link>
             </div>
           </div>
-        </section>
-
-        {/* ═══ OFFERS (CLEANED) ═══ */}
-        <section className="py-32 sm:py-48 px-6 bg-white overflow-hidden">
-          <div className="max-w-6xl mx-auto">
-             <div className="grid lg:grid-cols-3 gap-8 items-stretch">
-                {/* Build Phase */}
-                <div className="bg-[#FAF9F6] border border-gray-100 p-12 flex flex-col justify-between group hover:border-[#D90019]/20 transition-all shadow-sm">
-                   <div>
-                      <span className="bg-[#D90019] text-white font-bebas text-xl px-4 py-1 mb-10 inline-block">Build Phase</span>
-                      <h3 className="font-bebas text-5xl text-black mb-8 leading-none uppercase">AI System <br />Install</h3>
-                      <ul className="space-y-4 mb-12">
-                         {["Full backend setup", "Lead handling", "Follow-up automation", "Tool integrations", "Go live in ~14 days"].map((f, i) => (
-                           <li key={i} className="flex items-center gap-3 text-sm font-bold uppercase tracking-widest text-gray-500 text-[10px]">
-                              <Check size={14} className="text-[#D90019]" /> {f}
-                           </li>
-                         ))}
-                      </ul>
-                   </div>
-                   <div>
-                      <div className="font-bebas text-5xl text-black mb-8">Starting at $5K+</div>
-                      <Link href="/audit" className="w-full inline-flex font-bebas text-2xl tracking-widest bg-black text-white px-8 py-5 hover:bg-[#D90019] transition-all items-center justify-center gap-3">
-                        Apply Now <ArrowRight size={20} />
-                      </Link>
-                   </div>
-                </div>
-
-                {/* Full Scale (Accent) */}
-                <div className="bg-black text-white p-12 flex flex-col justify-between relative overflow-hidden shadow-2xl scale-105 z-10">
-                   <div className="absolute top-0 right-0 p-8 opacity-10">
-                      <Target size={180} />
-                   </div>
-                   <div>
-                      <span className="bg-[#D90019] text-white font-bebas text-xl px-4 py-1 mb-10 inline-block">Full Scale</span>
-                      <h3 className="font-bebas text-5xl text-white mb-8 leading-none uppercase">Business OS <br />Build</h3>
-                      <ul className="space-y-4 mb-12">
-                         {["Everything automated:", "Sales & Marketing", "Ops & Admin", "Revenue Tracking", "Full Agent Workforce"].map((f, i) => (
-                           <li key={i} className="flex items-center gap-3 text-sm font-bold uppercase tracking-widest text-white/60 text-[10px]">
-                              <Check size={14} className="text-[#D90019]" /> {f}
-                           </li>
-                         ))}
-                      </ul>
-                   </div>
-                   <div>
-                      <div className="font-bebas text-5xl text-white mb-8">$25K+</div>
-                      <Link href="/audit" className="w-full inline-flex font-bebas text-2xl tracking-widest bg-[#D90019] text-white px-8 py-5 hover:bg-white hover:text-black transition-all items-center justify-center gap-3">
-                        Apply Now <ArrowRight size={20} />
-                      </Link>
-                   </div>
-                </div>
-
-                {/* Ongoing */}
-                <div className="bg-white border border-gray-100 p-12 flex flex-col justify-between group hover:border-[#D90019]/20 transition-all shadow-sm">
-                   <div>
-                      <span className="bg-gray-100 text-gray-500 font-bebas text-xl px-4 py-1 mb-10 inline-block">Ongoing</span>
-                      <h3 className="font-bebas text-5xl text-black mb-8 leading-none uppercase">System <br />Evolution</h3>
-                      <p className="text-gray-500 font-medium mb-12">We host, maintain, and upgrade your system as AI improves. Guaranteed performance.</p>
-                   </div>
-                   <div>
-                      <div className="font-bebas text-4xl text-black mb-8">$1.5K – $5K/mo</div>
-                      <Link href="/audit" className="w-full inline-flex font-bebas text-2xl tracking-widest bg-gray-100 text-gray-500 px-8 py-5 hover:bg-black hover:text-white transition-all items-center justify-center gap-3">
-                        Apply Now <ArrowRight size={20} />
-                      </Link>
-                   </div>
-                </div>
-             </div>
-          </div>
-        </section>
-
-        {/* ═══ F.O.T.F. (REPOSITIONED) ═══ */}
-        <section className="py-24 sm:py-40 px-6 bg-[#FAFAF8] border-t border-gray-100">
-           <div className="max-w-6xl mx-auto">
-              <div className="grid lg:grid-cols-2 gap-20 items-center">
-                 <div>
-                    <p className="text-[#D90019] font-bold tracking-[0.4em] uppercase mb-8 text-xs font-mono">Builders Only</p>
-                    <h2 className="font-bebas text-6xl sm:text-8xl lg:text-9xl leading-[0.8] uppercase text-[#0C0C0C] mb-8">
-                      Founders <br />
-                      <span className="text-[#D90019]">of the Future.</span>
-                    </h2>
-                    <p className="text-gray-500 text-2xl font-bold uppercase tracking-widest italic leading-tight">Learn to Build Systems Like This</p>
-                 </div>
-                 <div className="bg-white p-12 sm:p-20 shadow-xl rounded-sm border-t-8 border-black">
-                    <h3 className="font-bebas text-4xl uppercase mb-10 text-black">This is where builders start.</h3>
-                    <ul className="grid sm:grid-cols-2 gap-8 mb-16">
-                       {[
-                         { icon: Bot, label: "Weekly drops", desc: "Proven system blueprints." },
-                         { icon: Database, label: "Tool Vault", desc: "The exact tech we use." },
-                         { icon: Target, label: "Real Builds", desc: "No fluff. Just installation." },
-                         { icon: Wrench, label: "Community", desc: "Collaborate with builders." }
-                       ].map((item, i) => (
-                         <li key={i} className="flex flex-col gap-4">
-                            <item.icon className="text-[#D90019]" size={32} />
-                            <div>
-                               <p className="text-black font-bebas text-xl uppercase tracking-widest leading-none mb-1">{item.label}</p>
-                               <p className="text-gray-400 text-xs font-medium leading-relaxed">{item.desc}</p>
-                            </div>
-                         </li>
-                       ))}
-                    </ul>
-                    <div className="space-y-6">
-                       <p className="text-gray-500 text-lg font-medium italic">"Not a course. Not theory. Just real systems."</p>
-                       <Link href="https://www.skool.com/founders-of-the-future-3908/about" className="group inline-flex items-center justify-between bg-black text-white px-10 py-8 font-bebas text-4xl tracking-widest hover:bg-[#D90019] transition-all w-full">
-                          Join FOTF — $97 <ArrowRight size={32} strokeWidth={3} className="group-hover:translate-x-4 transition-transform" />
-                       </Link>
-                    </div>
-                 </div>
-              </div>
-           </div>
         </section>
 
         {/* ═══ FINAL CTA SECTION (CLEANED) ═══ */}

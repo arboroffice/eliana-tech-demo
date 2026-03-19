@@ -59,6 +59,7 @@ export interface VaultDoc {
     intent: string
     budget: string
     deal_value: number
+    referred_by: string
     audit_id: string
     created: string
     last_contact: string
@@ -248,6 +249,9 @@ export async function syncVaultToObsidian(vault: VaultDoc): Promise<void> {
     if (!IS_LOCAL) return
 
     try {
+        // Refresh cache for inter-client backlinks
+        try { _allVaultsCache = await getAllVaults() } catch { /* use stale cache */ }
+
         const fs = await import('fs/promises')
         const slug = slugify(vault.company)
         const dir = `${VAULT_PATH}/01 - Clients`
@@ -261,6 +265,9 @@ export async function syncVaultToObsidian(vault: VaultDoc): Promise<void> {
         console.error('[VAULT SYNC ERROR]', err)
     }
 }
+
+// Store all vaults for cross-referencing (populated during sync)
+let _allVaultsCache: VaultDoc[] = []
 
 function renderVaultMarkdown(v: VaultDoc): string {
     const checklist = ONBOARDING_ITEMS
@@ -279,6 +286,23 @@ function renderVaultMarkdown(v: VaultDoc): string {
         ? (v.meetings || []).map(m => `- [[${slugify(v.company)}-${m.date}|${m.date} — ${m.title}]]`).join('\n')
         : '_No meetings yet._'
 
+    // Inter-client backlinks: same industry
+    const relatedClients = _allVaultsCache
+        .filter(other => other.id !== v.id && other.industry && v.industry && other.industry.toLowerCase() === v.industry.toLowerCase())
+        .map(other => `- [[${slugify(other.company)}|${other.company}]] (${other.stage})`)
+    const relatedSection = relatedClients.length > 0
+        ? relatedClients.join('\n')
+        : '_No related clients._'
+
+    // Referral backlink
+    const referralLine = v.referred_by
+        ? `> **Referred by:** [[${slugify(v.referred_by)}|${v.referred_by}]]`
+        : ''
+
+    // Proposal backlink
+    const proposalSlug = slugify(v.company)
+    const proposalLink = `[[${proposalSlug}-proposal|View Proposal]]`
+
     return `---
 company: "${v.company}"
 contact: "${v.contact}"
@@ -293,6 +317,7 @@ audit_score: ${v.audit_score}
 deal_value: ${v.deal_value || 0}
 intent: ${v.intent}
 budget: "${v.budget}"
+referred_by: "${v.referred_by || ''}"
 audit_id: "${v.audit_id}"
 vault_id: "${v.id || ''}"
 created: ${v.created}
@@ -305,6 +330,7 @@ tags: [${v.tags.join(', ')}]
 > **Contact:** ${v.contact} | ${v.email} | ${v.phone}
 > **Status:** ${statusEmoji(v.status)} ${capitalize(v.status)} | **Stage:** ${capitalize(v.stage)} | **Score:** ${v.lead_score}/100
 ${v.deal_value ? `> **Deal Value:** $${v.deal_value.toLocaleString()}` : ''}
+${referralLine}
 
 ---
 
@@ -314,11 +340,17 @@ ${v.research || '_No research yet. Click "Refresh Research" in admin to generate
 ## 📋 Strategy
 ${v.strategy || '_No strategy notes yet._'}
 
+## 📄 Proposal
+${proposalLink}
+
 ## 🚀 Onboarding
 ${checklist}
 
 ## 📞 Meetings
 ${meetingLinks}
+
+## 🔗 Related Clients
+${relatedSection}
 
 ## 🔐 Credentials
 | Service | Username | Notes |
@@ -882,6 +914,161 @@ ${actionItems || '_No action items._'}
     } catch (err) {
         console.error('[MEETING SYNC ERROR]', err)
     }
+}
+
+// ─── Proposal Sync to Obsidian ───────────────────────────────
+
+export async function syncProposalToObsidian(
+    company: string,
+    proposalMarkdown: string,
+    pricing?: { tierLabel?: string; finalPrice?: number; priceRange?: string }
+): Promise<void> {
+    if (!IS_LOCAL) return
+
+    try {
+        const fs = await import('fs/promises')
+        const dir = `${VAULT_PATH}/07 - Proposals`
+        await fs.mkdir(dir, { recursive: true })
+
+        const slug = slugify(company)
+        const today = new Date().toISOString().split('T')[0]
+
+        const md = `---
+client: "[[${slug}|${company}]]"
+date: ${today}
+tier: "${pricing?.tierLabel || 'Unknown'}"
+price: ${pricing?.finalPrice || 0}
+price_range: "${pricing?.priceRange || ''}"
+type: proposal
+tags: [proposal, ${slug}]
+---
+
+# Proposal — ${company}
+
+> **Client:** [[${slug}|${company}]] | **Generated:** ${today}
+> **Tier:** ${pricing?.tierLabel || 'TBD'} | **Price:** ${pricing?.finalPrice ? `$${pricing.finalPrice.toLocaleString()}` : 'TBD'}
+
+---
+
+${proposalMarkdown}
+`
+        await fs.writeFile(`${dir}/${slug}-proposal.md`, md, 'utf-8')
+        console.log(`[VAULT] Proposal synced for ${company}`)
+    } catch (err) {
+        console.error('[PROPOSAL SYNC ERROR]', err)
+    }
+}
+
+// ─── Obsidian URI Helper ─────────────────────────────────────
+
+const VAULT_NAME = 'elianatech'
+
+export function getObsidianUri(company: string): string {
+    const slug = slugify(company)
+    const filePath = `01 - Clients/${slug}`
+    return `obsidian://open?vault=${encodeURIComponent(VAULT_NAME)}&file=${encodeURIComponent(filePath)}`
+}
+
+export function getObsidianProposalUri(company: string): string {
+    const slug = slugify(company)
+    const filePath = `07 - Proposals/${slug}-proposal`
+    return `obsidian://open?vault=${encodeURIComponent(VAULT_NAME)}&file=${encodeURIComponent(filePath)}`
+}
+
+export function getObsidianMeetingUri(company: string, date: string): string {
+    const slug = slugify(company)
+    const filePath = `06 - Meetings/${slug}-${date}`
+    return `obsidian://open?vault=${encodeURIComponent(VAULT_NAME)}&file=${encodeURIComponent(filePath)}`
+}
+
+// ─── Weekly Digest ───────────────────────────────────────────
+
+export async function generateWeeklyDigest(vaults: VaultDoc[]): Promise<void> {
+    if (!IS_LOCAL) return
+
+    const fs = await import('fs/promises')
+    const now = new Date()
+    const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000)
+    const today = now.toISOString().split('T')[0]
+    const weekAgoStr = weekAgo.toISOString().split('T')[0]
+
+    const dir = `${VAULT_PATH}/04 - Daily Notes`
+    await fs.mkdir(dir, { recursive: true })
+
+    // New leads this week
+    const newThisWeek = vaults.filter(v => v.created >= weekAgoStr)
+
+    // Stage changes this week (check timeline for stage change entries)
+    const stageChanges: { company: string; text: string; timestamp: string }[] = []
+    for (const v of vaults) {
+        for (const t of (v.timeline || [])) {
+            if (t.timestamp >= weekAgo.toISOString() && t.text.includes('Stage changed')) {
+                stageChanges.push({ company: v.company, text: t.text, timestamp: t.timestamp })
+            }
+        }
+    }
+
+    // Meetings this week
+    const meetingsThisWeek: { company: string; title: string; date: string }[] = []
+    for (const v of vaults) {
+        for (const m of (v.meetings || [])) {
+            if (m.date >= weekAgoStr && m.date <= today) {
+                meetingsThisWeek.push({ company: v.company, title: m.title, date: m.date })
+            }
+        }
+    }
+
+    // Pipeline summary
+    const pipelineValue = vaults.reduce((sum, v) => sum + (v.deal_value || 0), 0)
+    const wonThisWeek = vaults.filter(v => v.stage === 'won' && v.timeline?.some(t => t.timestamp >= weekAgo.toISOString() && t.text.includes('Stage changed to "won"')))
+    const wonValue = wonThisWeek.reduce((sum, v) => sum + (v.deal_value || 0), 0)
+
+    // Emails/SMS sent (count timeline entries with email/sms emoji)
+    let emailsSent = 0
+    let smsSent = 0
+    for (const v of vaults) {
+        for (const t of (v.timeline || [])) {
+            if (t.timestamp >= weekAgo.toISOString()) {
+                if (t.emoji === '📧' || t.text.includes('Email sent')) emailsSent++
+                if (t.emoji === '💬' || t.text.includes('SMS')) smsSent++
+            }
+        }
+    }
+
+    const md = `# Week of ${weekAgoStr} — Weekly Digest
+
+## 📊 Pipeline Snapshot
+- **Total Clients:** ${vaults.length}
+- **Pipeline Value:** $${pipelineValue.toLocaleString()}
+- **Won This Week:** ${wonThisWeek.length} ($${wonValue.toLocaleString()})
+- **Prospects:** ${vaults.filter(v => v.status === 'prospect').length}
+- **Active:** ${vaults.filter(v => v.status === 'active').length}
+- **Onboarding:** ${vaults.filter(v => v.status === 'onboarding').length}
+
+## 🔥 New Leads (${newThisWeek.length})
+${newThisWeek.length > 0 ? newThisWeek.map(v => `- [[${slugify(v.company)}|${v.company}]] — ${v.contact} (${v.intent} intent, score: ${v.lead_score})`).join('\n') : '_None this week._'}
+
+## 🔄 Stage Changes (${stageChanges.length})
+${stageChanges.length > 0 ? stageChanges.map(s => `- [[${slugify(s.company)}|${s.company}]] — ${s.text}`).join('\n') : '_No stage changes._'}
+
+## 📞 Meetings Held (${meetingsThisWeek.length})
+${meetingsThisWeek.length > 0 ? meetingsThisWeek.map(m => `- [[${slugify(m.company)}-${m.date}|${m.company}: ${m.title}]] (${m.date})`).join('\n') : '_No meetings this week._'}
+
+## 📧 Outreach
+- **Emails Sent:** ${emailsSent}
+- **SMS Sent:** ${smsSent}
+
+## 🎯 Next Week Priorities
+1.
+2.
+3.
+
+## 📝 Notes
+-
+`
+
+    await fs.writeFile(`${dir}/week-of-${weekAgoStr}.md`, md, 'utf-8')
+    console.log(`[VAULT] Weekly digest generated: week-of-${weekAgoStr}`)
 }
 
 // ─── Auto-create from audit ──────────────────────────────────
