@@ -250,10 +250,10 @@ export default function ApplyPage() {
             <div className="fn-roadmap-v2">
               <div className="fn-roadmap-line" />
               {[
-                { phase: "01", title: "Founders of the Future", desc: "Entry level access to the logic. This is where you learn how to think in systems before you spend a dollar on builds. Hosted on our dedicated community subdomain.", tag: "$97", href: "https://www.elianatech.com/foundersofthefuture", accent: true, meta: "The Logic" },
+                { phase: "01", title: "Founders of the Future", desc: "Entry level access to the logic. This is where you learn how to think in systems before you spend a dollar on builds.", tag: "$97", href: "https://www.skool.com/founders-of-the-future-3908/about", accent: true, meta: "The Logic" },
                 { phase: "02", title: "Build One: Living Layer", desc: "A custom communication infrastructure between your existing tools and the coming agent workforce. Rapid deployment in 14 days.", tag: "$5K+", href: "/build", meta: "The Layer" },
                 { phase: "03", title: "Full Build: Industry Playbook", desc: "Proven operational playbooks for your specific niche. Full automation across every department. The true Business OS.", tag: "$25K+", href: "#apply", meta: "The Scale" },
-                { phase: "04", title: "The Retainer", desc: "Required for all builds. We host, maintain, and upgrade your system. Unlimited skill upgrades and new automations on demand. 48-hour turnarounds.", tag: "$1.5K - $5K/mo", href: "#apply", meta: "The Evolution" },
+                { phase: "04", title: "The Retainer", desc: "Not required for all builds. We host, maintain, and upgrade your system. Unlimited skill upgrades and new automations on demand. 48-hour turnarounds.", tag: "$1.5K - $5K/mo", href: "#apply", meta: "The Evolution" },
                 { phase: "05", title: "Partnership / Share", desc: "Skin in the game. Full alignment. We become your equity AI department for high-scale growth.", tag: "Partnership", href: "#apply", meta: "The Legend" },
               ].map((s, i) => (
                 <div key={i} onClick={s.href.startsWith('#') ? scrollToApply : () => window.open(s.href, '_blank')} style={{ cursor: 'pointer' }} className={`fn-rm-step ${s.accent ? 'fn-rm-step-accent' : ''}`}>

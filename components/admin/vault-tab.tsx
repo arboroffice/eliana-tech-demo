@@ -15,6 +15,7 @@ interface VaultSummary {
     status: string
     stage: string
     lead_score: number
+    deal_value: number
     intent: string
     last_contact: string
     created: string
@@ -248,6 +249,7 @@ export default function VaultTab({
                                 <div className="flex items-center gap-2 mb-3">
                                     <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-white/5 text-slate-400 border border-white/5">{v.stage}</span>
                                     <span className="text-xs text-slate-500">Score: {v.lead_score}</span>
+                                    {v.deal_value > 0 && <span className="text-xs text-green-400 font-medium">${v.deal_value.toLocaleString()}</span>}
                                     {v.intent === 'high' && <span className="text-xs text-red-400 font-medium">HOT</span>}
                                 </div>
                                 {lastActivity && (

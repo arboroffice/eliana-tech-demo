@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server'
 import {
     getAllVaults, getVault, getVaultByAuditId, createVault, updateVault, deleteVault,
     appendTimeline, runVaultResearch, syncVaultToObsidian, scaffoldObsidianVault,
-    generateDailyNote,
+    generateDailyNote, createMeetingNote, updateMeetingNote, deleteMeetingNote,
     type VaultDoc, type TimelineEntry, type CredentialEntry,
 } from '@/lib/client-vault'
 
@@ -82,6 +82,7 @@ export async function POST(request: Request) {
             audit_score: body.audit_score || 0,
             intent: body.intent || 'unknown',
             budget: body.budget || '',
+            deal_value: body.deal_value || 0,
             audit_id: body.audit_id || '',
             created: now,
             last_contact: now,
@@ -90,6 +91,7 @@ export async function POST(request: Request) {
             strategy: '',
             onboarding_checklist: new Array(9).fill(false),
             credentials: [],
+            meetings: [],
             timeline: [{
                 timestamp: new Date().toISOString(),
                 emoji: '📝',
@@ -198,6 +200,45 @@ export async function PATCH(request: Request) {
             case 'daily-note': {
                 const vaults = await getAllVaults()
                 await generateDailyNote(vaults)
+                return NextResponse.json({ success: true })
+            }
+
+            case 'update-deal-value': {
+                const { deal_value } = payload
+                await updateVault(id, { deal_value: Number(deal_value) || 0 })
+                return NextResponse.json({ success: true })
+            }
+
+            case 'create-meeting': {
+                const { date, title, attendees, notes: meetingNotes, action_items } = payload
+                if (!title || !date) {
+                    return NextResponse.json({ error: 'Title and date are required' }, { status: 400 })
+                }
+                const meeting = await createMeetingNote(id, {
+                    date,
+                    title,
+                    attendees: attendees || '',
+                    notes: meetingNotes || '',
+                    action_items: action_items || [],
+                })
+                return NextResponse.json({ success: true, meeting })
+            }
+
+            case 'update-meeting': {
+                const { meetingId, ...meetingUpdates } = payload
+                if (!meetingId) {
+                    return NextResponse.json({ error: 'Meeting ID is required' }, { status: 400 })
+                }
+                await updateMeetingNote(id, meetingId, meetingUpdates)
+                return NextResponse.json({ success: true })
+            }
+
+            case 'delete-meeting': {
+                const { meetingId: delMeetingId } = payload
+                if (!delMeetingId) {
+                    return NextResponse.json({ error: 'Meeting ID is required' }, { status: 400 })
+                }
+                await deleteMeetingNote(id, delMeetingId)
                 return NextResponse.json({ success: true })
             }
 

@@ -5,11 +5,21 @@ import {
     ArrowLeft, RefreshCw, Loader2, Save, Mail, Phone, Globe,
     Building2, Target, Calendar, FileText, Shield, Clock,
     CheckCircle2, Circle, Plus, Trash2, Copy, Check,
-    Sparkles, Download
+    Sparkles, Download, DollarSign, PhoneCall, Edit3
 } from "lucide-react"
 
 interface TimelineEntry { timestamp: string; emoji: string; text: string }
 interface CredentialEntry { service: string; username: string; notes: string }
+
+interface MeetingNote {
+    id: string
+    date: string
+    title: string
+    attendees: string
+    notes: string
+    action_items: string[]
+    created_at: string
+}
 
 interface VaultDoc {
     id: string
@@ -23,6 +33,7 @@ interface VaultDoc {
     stage: string
     lead_score: number
     audit_score: number
+    deal_value: number
     intent: string
     budget: string
     audit_id: string
@@ -34,6 +45,7 @@ interface VaultDoc {
     onboarding_checklist: boolean[]
     credentials: CredentialEntry[]
     timeline: TimelineEntry[]
+    meetings: MeetingNote[]
 }
 
 const ONBOARDING_ITEMS = [
@@ -70,7 +82,7 @@ export default function VaultDetail({
 }) {
     const [vault, setVault] = useState<VaultDoc | null>(null)
     const [loading, setLoading] = useState(true)
-    const [activeTab, setActiveTab] = useState<'research' | 'strategy' | 'onboarding' | 'credentials' | 'timeline'>('research')
+    const [activeTab, setActiveTab] = useState<'research' | 'strategy' | 'onboarding' | 'credentials' | 'timeline' | 'meetings'>('research')
 
     // Edit states
     const [editingResearch, setEditingResearch] = useState(false)
@@ -81,11 +93,22 @@ export default function VaultDetail({
     const [refreshingResearch, setRefreshingResearch] = useState(false)
     const [syncing, setSyncing] = useState(false)
 
+    // Deal value
+    const [dealValueDraft, setDealValueDraft] = useState("")
+    const [savingDealValue, setSavingDealValue] = useState(false)
+
     // Credential form
     const [newCred, setNewCred] = useState({ service: '', username: '', notes: '' })
 
     // Timeline form
     const [newTimeline, setNewTimeline] = useState({ emoji: '📝', text: '' })
+
+    // Meeting form
+    const [showMeetingForm, setShowMeetingForm] = useState(false)
+    const [meetingForm, setMeetingForm] = useState({ date: new Date().toISOString().split('T')[0], title: '', attendees: '', notes: '', action_items_text: '' })
+    const [creatingMeeting, setCreatingMeeting] = useState(false)
+    const [editingMeetingId, setEditingMeetingId] = useState<string | null>(null)
+    const [editMeetingNotes, setEditMeetingNotes] = useState("")
 
     const fetchVault = useCallback(async () => {
         setLoading(true)
@@ -98,6 +121,7 @@ export default function VaultDetail({
                 setVault(data.vault)
                 setResearchDraft(data.vault.research || '')
                 setStrategyDraft(data.vault.strategy || '')
+                setDealValueDraft(data.vault.deal_value ? String(data.vault.deal_value) : '')
             }
         } catch { /* ignore */ } finally { setLoading(false) }
     }, [vaultId, token])
@@ -176,6 +200,47 @@ export default function VaultDetail({
         fetchVault()
     }
 
+    const handleSaveDealValue = async () => {
+        setSavingDealValue(true)
+        try {
+            await patchVault('update-deal-value', { deal_value: Number(dealValueDraft) || 0 })
+            await fetchVault()
+        } catch { /* ignore */ } finally { setSavingDealValue(false) }
+    }
+
+    const handleCreateMeeting = async () => {
+        if (!meetingForm.title || !meetingForm.date) return
+        setCreatingMeeting(true)
+        try {
+            const actionItems = meetingForm.action_items_text
+                .split('\n')
+                .map(s => s.trim())
+                .filter(Boolean)
+            await patchVault('create-meeting', {
+                date: meetingForm.date,
+                title: meetingForm.title,
+                attendees: meetingForm.attendees,
+                notes: meetingForm.notes,
+                action_items: actionItems,
+            })
+            setMeetingForm({ date: new Date().toISOString().split('T')[0], title: '', attendees: '', notes: '', action_items_text: '' })
+            setShowMeetingForm(false)
+            await fetchVault()
+        } catch { /* ignore */ } finally { setCreatingMeeting(false) }
+    }
+
+    const handleUpdateMeetingNotes = async (meetingId: string) => {
+        await patchVault('update-meeting', { meetingId, notes: editMeetingNotes })
+        setEditingMeetingId(null)
+        fetchVault()
+    }
+
+    const handleDeleteMeeting = async (meetingId: string) => {
+        if (!confirm('Delete this meeting note?')) return
+        await patchVault('delete-meeting', { meetingId })
+        fetchVault()
+    }
+
     if (loading) {
         return (
             <div className="flex items-center justify-center py-20">
@@ -229,7 +294,7 @@ export default function VaultDetail({
 
                     {/* Sidebar actions */}
                     <div className="lg:w-64 space-y-3">
-                        <div className="grid grid-cols-2 gap-2 text-center">
+                        <div className="grid grid-cols-3 gap-2 text-center">
                             <div className="bg-white/5 rounded-xl p-3">
                                 <p className="text-xl font-bold text-white">{vault.lead_score}</p>
                                 <p className="text-[10px] text-slate-500">Lead Score</p>
@@ -237,6 +302,34 @@ export default function VaultDetail({
                             <div className="bg-white/5 rounded-xl p-3">
                                 <p className="text-xl font-bold text-white">{vault.audit_score}</p>
                                 <p className="text-[10px] text-slate-500">Audit Score</p>
+                            </div>
+                            <div className="bg-white/5 rounded-xl p-3">
+                                <p className="text-xl font-bold text-green-400">{vault.deal_value ? `$${vault.deal_value.toLocaleString()}` : '—'}</p>
+                                <p className="text-[10px] text-slate-500">Deal Value</p>
+                            </div>
+                        </div>
+
+                        {/* Deal value input */}
+                        <div>
+                            <label className="text-slate-500 text-[10px] uppercase tracking-wider mb-1 block">Deal Value ($)</label>
+                            <div className="flex gap-1.5">
+                                <div className="relative flex-1">
+                                    <DollarSign className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-500" />
+                                    <input
+                                        type="number"
+                                        value={dealValueDraft}
+                                        onChange={e => setDealValueDraft(e.target.value)}
+                                        placeholder="0"
+                                        className="w-full pl-8 pr-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-white/30"
+                                    />
+                                </div>
+                                <button
+                                    onClick={handleSaveDealValue}
+                                    disabled={savingDealValue}
+                                    className="px-3 py-2 rounded-lg bg-green-500/10 border border-green-500/20 text-green-400 text-xs font-medium hover:bg-green-500/20 transition-all disabled:opacity-50"
+                                >
+                                    {savingDealValue ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
+                                </button>
                             </div>
                         </div>
 
@@ -295,7 +388,7 @@ export default function VaultDetail({
 
             {/* Tabs */}
             <div className="flex gap-2 mb-6 overflow-x-auto">
-                {(['research', 'strategy', 'onboarding', 'credentials', 'timeline'] as const).map(tab => (
+                {(['research', 'strategy', 'onboarding', 'meetings', 'credentials', 'timeline'] as const).map(tab => (
                     <button
                         key={tab}
                         onClick={() => setActiveTab(tab)}
@@ -304,6 +397,7 @@ export default function VaultDetail({
                         {tab === 'research' && '🔍 Research'}
                         {tab === 'strategy' && '📋 Strategy'}
                         {tab === 'onboarding' && `🚀 Onboarding (${completedSteps}/${totalSteps})`}
+                        {tab === 'meetings' && `📞 Meetings (${(vault.meetings || []).length})`}
                         {tab === 'credentials' && `🔐 Credentials (${(vault.credentials || []).length})`}
                         {tab === 'timeline' && `📅 Timeline (${(vault.timeline || []).length})`}
                     </button>
@@ -412,6 +506,114 @@ export default function VaultDetail({
                                     </button>
                                 )
                             })}
+                        </div>
+                    </div>
+                )}
+
+                {/* Meetings */}
+                {activeTab === 'meetings' && (
+                    <div>
+                        <div className="flex items-center justify-between mb-4">
+                            <h2 className="text-white font-semibold flex items-center gap-2"><PhoneCall className="w-4 h-4 text-blue-400" /> Meeting Notes</h2>
+                            <button
+                                onClick={() => setShowMeetingForm(!showMeetingForm)}
+                                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white text-black text-xs font-semibold hover:bg-slate-200 transition-colors"
+                            >
+                                <Plus className="w-3.5 h-3.5" /> New Meeting
+                            </button>
+                        </div>
+
+                        {/* Create meeting form */}
+                        {showMeetingForm && (
+                            <div className="bg-white/5 border border-white/10 rounded-xl p-4 mb-6 space-y-3">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                    <div>
+                                        <label className="text-slate-500 text-[10px] mb-1 block">Date *</label>
+                                        <input type="date" value={meetingForm.date} onChange={e => setMeetingForm(p => ({ ...p, date: e.target.value }))} className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none" />
+                                    </div>
+                                    <div>
+                                        <label className="text-slate-500 text-[10px] mb-1 block">Title *</label>
+                                        <input value={meetingForm.title} onChange={e => setMeetingForm(p => ({ ...p, title: e.target.value }))} className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none" placeholder="Discovery call, Strategy review..." />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label className="text-slate-500 text-[10px] mb-1 block">Attendees</label>
+                                    <input value={meetingForm.attendees} onChange={e => setMeetingForm(p => ({ ...p, attendees: e.target.value }))} className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none" placeholder="Mia, John from Acme" />
+                                </div>
+                                <div>
+                                    <label className="text-slate-500 text-[10px] mb-1 block">Notes</label>
+                                    <textarea value={meetingForm.notes} onChange={e => setMeetingForm(p => ({ ...p, notes: e.target.value }))} rows={5} className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none resize-y" placeholder="What was discussed..." />
+                                </div>
+                                <div>
+                                    <label className="text-slate-500 text-[10px] mb-1 block">Action Items (one per line)</label>
+                                    <textarea value={meetingForm.action_items_text} onChange={e => setMeetingForm(p => ({ ...p, action_items_text: e.target.value }))} rows={3} className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none resize-y font-mono" placeholder="Send proposal by Friday&#10;Schedule follow-up for next week&#10;Share access credentials" />
+                                </div>
+                                <div className="flex gap-2">
+                                    <button onClick={handleCreateMeeting} disabled={creatingMeeting || !meetingForm.title || !meetingForm.date} className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white text-black text-sm font-semibold hover:bg-slate-200 transition-colors disabled:opacity-50">
+                                        {creatingMeeting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />} Create Meeting Note
+                                    </button>
+                                    <button onClick={() => setShowMeetingForm(false)} className="px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-slate-400 text-sm hover:text-white transition-colors">Cancel</button>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Meeting list */}
+                        <div className="space-y-3">
+                            {[...(vault.meetings || [])].reverse().map(meeting => (
+                                <div key={meeting.id} className="bg-white/[0.02] border border-white/5 rounded-xl p-4">
+                                    <div className="flex items-start justify-between mb-2">
+                                        <div>
+                                            <h3 className="text-white font-medium text-sm">{meeting.title}</h3>
+                                            <div className="flex items-center gap-3 text-[11px] text-slate-500 mt-0.5">
+                                                <span className="flex items-center gap-1"><Calendar className="w-3 h-3" />{meeting.date}</span>
+                                                {meeting.attendees && <span className="flex items-center gap-1"><Building2 className="w-3 h-3" />{meeting.attendees}</span>}
+                                            </div>
+                                        </div>
+                                        <div className="flex gap-1.5">
+                                            <button onClick={() => { setEditingMeetingId(editingMeetingId === meeting.id ? null : meeting.id); setEditMeetingNotes(meeting.notes || '') }} className="text-slate-600 hover:text-white transition-colors p-1">
+                                                <Edit3 className="w-3.5 h-3.5" />
+                                            </button>
+                                            <button onClick={() => handleDeleteMeeting(meeting.id)} className="text-slate-600 hover:text-red-400 transition-colors p-1">
+                                                <Trash2 className="w-3.5 h-3.5" />
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    {editingMeetingId === meeting.id ? (
+                                        <div className="mt-2">
+                                            <textarea value={editMeetingNotes} onChange={e => setEditMeetingNotes(e.target.value)} rows={6} className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none resize-y" />
+                                            <div className="flex gap-2 mt-2">
+                                                <button onClick={() => handleUpdateMeetingNotes(meeting.id)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white text-black text-xs font-semibold hover:bg-slate-200 transition-colors">
+                                                    <Save className="w-3 h-3" /> Save
+                                                </button>
+                                                <button onClick={() => setEditingMeetingId(null)} className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-slate-400 text-xs hover:text-white transition-colors">Cancel</button>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <>
+                                            {meeting.notes && <p className="text-slate-400 text-sm mt-2 whitespace-pre-wrap">{meeting.notes}</p>}
+                                            {(meeting.action_items || []).length > 0 && (
+                                                <div className="mt-3 space-y-1">
+                                                    <p className="text-slate-500 text-[10px] uppercase tracking-wider font-medium">Action Items</p>
+                                                    {meeting.action_items.map((item, i) => (
+                                                        <div key={i} className="flex items-start gap-2 text-sm text-slate-400">
+                                                            <CheckCircle2 className="w-3.5 h-3.5 text-slate-600 mt-0.5 shrink-0" />
+                                                            <span>{item}</span>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </>
+                                    )}
+                                </div>
+                            ))}
+                            {(!vault.meetings || vault.meetings.length === 0) && !showMeetingForm && (
+                                <div className="text-center py-12">
+                                    <PhoneCall className="w-8 h-8 text-slate-700 mx-auto mb-3" />
+                                    <p className="text-slate-600 text-sm">No meetings recorded yet.</p>
+                                    <button onClick={() => setShowMeetingForm(true)} className="mt-3 text-xs text-blue-400 hover:text-blue-300 transition-colors">Add your first meeting note</button>
+                                </div>
+                            )}
                         </div>
                     </div>
                 )}

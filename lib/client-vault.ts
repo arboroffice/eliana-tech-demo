@@ -32,7 +32,17 @@ export interface CredentialEntry {
     notes: string
 }
 
-export type SectionKey = 'research' | 'strategy' | 'onboarding' | 'credentials' | 'timeline'
+export interface MeetingNote {
+    id: string
+    date: string
+    title: string
+    attendees: string
+    notes: string
+    action_items: string[]
+    created_at: string
+}
+
+export type SectionKey = 'research' | 'strategy' | 'onboarding' | 'credentials' | 'timeline' | 'meetings'
 
 export interface VaultDoc {
     id?: string
@@ -48,6 +58,7 @@ export interface VaultDoc {
     audit_score: number
     intent: string
     budget: string
+    deal_value: number
     audit_id: string
     created: string
     last_contact: string
@@ -58,6 +69,7 @@ export interface VaultDoc {
     onboarding_checklist: boolean[]
     credentials: CredentialEntry[]
     timeline: TimelineEntry[]
+    meetings: MeetingNote[]
     // Firestore metadata
     createdAt?: any
     updatedAt?: any
@@ -263,6 +275,10 @@ function renderVaultMarkdown(v: VaultDoc): string {
         .map(t => `- **${t.timestamp}** — ${t.emoji} ${t.text}`)
         .join('\n')
 
+    const meetingLinks = (v.meetings || []).length > 0
+        ? (v.meetings || []).map(m => `- [[${slugify(v.company)}-${m.date}|${m.date} — ${m.title}]]`).join('\n')
+        : '_No meetings yet._'
+
     return `---
 company: "${v.company}"
 contact: "${v.contact}"
@@ -274,6 +290,7 @@ status: ${v.status}
 stage: ${v.stage}
 lead_score: ${v.lead_score}
 audit_score: ${v.audit_score}
+deal_value: ${v.deal_value || 0}
 intent: ${v.intent}
 budget: "${v.budget}"
 audit_id: "${v.audit_id}"
@@ -287,6 +304,7 @@ tags: [${v.tags.join(', ')}]
 
 > **Contact:** ${v.contact} | ${v.email} | ${v.phone}
 > **Status:** ${statusEmoji(v.status)} ${capitalize(v.status)} | **Stage:** ${capitalize(v.stage)} | **Score:** ${v.lead_score}/100
+${v.deal_value ? `> **Deal Value:** $${v.deal_value.toLocaleString()}` : ''}
 
 ---
 
@@ -298,6 +316,9 @@ ${v.strategy || '_No strategy notes yet._'}
 
 ## 🚀 Onboarding
 ${checklist}
+
+## 📞 Meetings
+${meetingLinks}
 
 ## 🔐 Credentials
 | Service | Username | Notes |
@@ -323,6 +344,7 @@ export async function scaffoldObsidianVault(): Promise<void> {
         '03 - Templates',
         '04 - Daily Notes',
         '05 - Resources',
+        '06 - Meetings',
     ]
 
     for (const d of dirs) {
@@ -620,7 +642,246 @@ _Add strategy notes here._
 - Custom automation workflows
 `, 'utf-8')
 
+    // Revenue Dashboard
+    await fs.writeFile(`${VAULT_PATH}/00 - Dashboard/Revenue.md`, `# Revenue Dashboard
+
+## Pipeline Value by Stage
+\`\`\`dataview
+TABLE
+  rows.company AS "Companies",
+  length(rows) AS "Count",
+  sum(rows.deal_value) AS "Total Value"
+FROM "01 - Clients"
+WHERE deal_value > 0
+GROUP BY stage
+\`\`\`
+
+## All Deals with Value
+\`\`\`dataview
+TABLE
+  contact AS "Contact",
+  stage AS "Stage",
+  deal_value AS "Deal Value",
+  status AS "Status",
+  intent AS "Intent"
+FROM "01 - Clients"
+WHERE deal_value > 0
+SORT deal_value DESC
+\`\`\`
+
+## Won Revenue
+\`\`\`dataview
+TABLE
+  contact AS "Contact",
+  deal_value AS "Value",
+  last_contact AS "Closed"
+FROM "01 - Clients"
+WHERE stage = "won" AND deal_value > 0
+SORT deal_value DESC
+\`\`\`
+
+## Prospects with No Deal Value
+\`\`\`dataview
+TABLE
+  contact AS "Contact",
+  stage AS "Stage",
+  lead_score AS "Score",
+  intent AS "Intent"
+FROM "01 - Clients"
+WHERE deal_value = 0 OR !deal_value
+SORT lead_score DESC
+\`\`\`
+`, 'utf-8')
+
+    // Tasks Overview — aggregates all tasks across clients using Tasks plugin
+    await fs.writeFile(`${VAULT_PATH}/00 - Dashboard/Tasks Overview.md`, `# Tasks Overview
+
+> This dashboard uses the **Tasks** plugin to aggregate all open tasks across the vault.
+> Install the Tasks plugin from Obsidian Community Plugins for this to work.
+
+## All Open Onboarding Tasks
+\`\`\`tasks
+not done
+path includes 01 - Clients
+description includes Kickoff call scheduled OR description includes Access credentials collected OR description includes Systems audit completed OR description includes Strategy document approved OR description includes Phase 1 build started OR description includes Phase 1 QA complete OR description includes Client training session OR description includes Go-live OR description includes Post-launch check-in
+group by filename
+\`\`\`
+
+## Open Action Items from Meetings
+\`\`\`tasks
+not done
+path includes 06 - Meetings
+group by filename
+sort by due
+\`\`\`
+
+## Open Follow-ups from Daily Notes
+\`\`\`tasks
+not done
+path includes 04 - Daily Notes
+sort by due
+\`\`\`
+
+## All Overdue Tasks
+\`\`\`tasks
+not done
+is before today
+group by path
+\`\`\`
+
+## Recently Completed
+\`\`\`tasks
+done
+done after 7 days ago
+group by filename
+sort by done reverse
+\`\`\`
+`, 'utf-8')
+
+    // Meeting Notes template
+    await fs.writeFile(`${VAULT_PATH}/03 - Templates/Meeting Notes.md`, `---
+client: "[[{{client}}]]"
+date: {{date:YYYY-MM-DD}}
+attendees: "{{attendees}}"
+type: meeting
+tags: [meeting]
+---
+
+# {{title}}
+
+> **Client:** [[{{client}}]] | **Date:** {{date:YYYY-MM-DD}}
+> **Attendees:** {{attendees}}
+
+---
+
+## Agenda
+1.
+2.
+3.
+
+## Notes
+
+
+## Decisions Made
+-
+
+## Action Items
+- [ ] [Action] — @owner — due {{date:YYYY-MM-DD}}
+- [ ] [Action] — @owner — due {{date:YYYY-MM-DD}}
+
+## Next Meeting
+- Date:
+- Topics:
+`, 'utf-8')
+
     console.log('[VAULT] Obsidian vault scaffolded at', VAULT_PATH)
+}
+
+// ─── Meeting Notes ───────────────────────────────────────────
+
+export async function createMeetingNote(
+    vaultId: string,
+    meeting: Omit<MeetingNote, 'id' | 'created_at'>
+): Promise<MeetingNote> {
+    const vault = await getVault(vaultId)
+    if (!vault) throw new Error('Vault not found')
+
+    const note: MeetingNote = {
+        ...meeting,
+        id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+        created_at: new Date().toISOString(),
+    }
+
+    const meetings = [...(vault.meetings || []), note]
+    await updateVault(vaultId, { meetings })
+
+    // Add timeline entry
+    await appendTimeline(vaultId, {
+        timestamp: new Date().toISOString(),
+        emoji: '📞',
+        text: `Meeting: ${meeting.title}`,
+    })
+
+    // Write individual meeting .md to Obsidian
+    await syncMeetingToObsidian(vault, note)
+
+    return note
+}
+
+export async function updateMeetingNote(
+    vaultId: string,
+    meetingId: string,
+    updates: Partial<Omit<MeetingNote, 'id' | 'created_at'>>
+): Promise<void> {
+    const vault = await getVault(vaultId)
+    if (!vault) throw new Error('Vault not found')
+
+    const meetings = (vault.meetings || []).map(m =>
+        m.id === meetingId ? { ...m, ...updates } : m
+    )
+    await updateVault(vaultId, { meetings })
+
+    // Re-sync the meeting file
+    const updated = meetings.find(m => m.id === meetingId)
+    if (updated) await syncMeetingToObsidian(vault, updated)
+}
+
+export async function deleteMeetingNote(vaultId: string, meetingId: string): Promise<void> {
+    const vault = await getVault(vaultId)
+    if (!vault) throw new Error('Vault not found')
+
+    const meeting = (vault.meetings || []).find(m => m.id === meetingId)
+    const meetings = (vault.meetings || []).filter(m => m.id !== meetingId)
+    await updateVault(vaultId, { meetings })
+
+    // Remove the .md file
+    if (meeting && IS_LOCAL) {
+        try {
+            const fs = await import('fs/promises')
+            const filename = `${slugify(vault.company)}-${meeting.date}.md`
+            await fs.unlink(`${VAULT_PATH}/06 - Meetings/${filename}`).catch(() => {})
+        } catch { /* skip */ }
+    }
+}
+
+async function syncMeetingToObsidian(vault: VaultDoc, meeting: MeetingNote): Promise<void> {
+    if (!IS_LOCAL) return
+
+    try {
+        const fs = await import('fs/promises')
+        const dir = `${VAULT_PATH}/06 - Meetings`
+        await fs.mkdir(dir, { recursive: true })
+
+        const slug = slugify(vault.company)
+        const actionItems = (meeting.action_items || [])
+            .map(item => `- [ ] ${item}`)
+            .join('\n')
+
+        const md = `---
+client: "[[${slug}|${vault.company}]]"
+date: ${meeting.date}
+attendees: "${meeting.attendees}"
+type: meeting
+tags: [meeting, ${slug}]
+---
+
+# ${meeting.title}
+
+> **Client:** [[${slug}|${vault.company}]] | **Date:** ${meeting.date}
+> **Attendees:** ${meeting.attendees}
+
+---
+
+## Notes
+${meeting.notes || '_No notes yet._'}
+
+## Action Items
+${actionItems || '_No action items._'}
+`
+        await fs.writeFile(`${dir}/${slug}-${meeting.date}.md`, md, 'utf-8')
+    } catch (err) {
+        console.error('[MEETING SYNC ERROR]', err)
+    }
 }
 
 // ─── Auto-create from audit ──────────────────────────────────
@@ -664,6 +925,7 @@ export async function createVaultFromAudit(
         audit_score: formData.auditScore || 0,
         intent: formData.intentLevel || 'unknown',
         budget: formData.growthBudget || '',
+        deal_value: 0,
         audit_id: auditId,
         created: now,
         last_contact: now,
@@ -672,6 +934,7 @@ export async function createVaultFromAudit(
         strategy: '',
         onboarding_checklist: new Array(ONBOARDING_ITEMS.length).fill(false),
         credentials: [],
+        meetings: [],
         timeline: [
             {
                 timestamp: nowFull,

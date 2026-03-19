@@ -112,19 +112,18 @@ export default function HomePage() {
 
             {/* THE DIAGRAM */}
             <div className="relative max-w-5xl mx-auto">
-
               {/* ── CENTER: AI Brain ── */}
-              <div className="flex justify-center mb-0 relative z-30">
-                <div className="diagram-brain w-44 h-44 sm:w-60 sm:h-60 rounded-full bg-white shadow-[0_20px_50px_rgba(217,0,25,0.15)] border border-[#EAE9E4] flex flex-col items-center justify-center text-center relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-tr from-[#D90019]/5 to-transparent"></div>
+              <div className="flex justify-center mb-12 sm:mb-0 relative z-30">
+                <div className="diagram-brain w-52 h-52 sm:w-64 sm:h-64 rounded-full bg-white shadow-[0_25px_60px_rgba(217,0,25,0.2)] border border-[#EAE9E4] flex flex-col items-center justify-center text-center relative overflow-visible">
+                  <div className="absolute inset-0 bg-gradient-to-tr from-[#D90019]/5 to-transparent rounded-full"></div>
                   <div className="absolute inset-0 rounded-full border-4 border-[#D90019]/10 animate-diagram-pulse-light"></div>
                   
-                  <div className="relative z-10 flex flex-col items-center">
-                    <div className="w-16 h-16 rounded-2xl bg-black flex items-center justify-center mb-4 shadow-xl">
+                  <div className="relative z-10 flex flex-col items-center px-4">
+                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-black flex items-center justify-center mb-4 shadow-xl">
                       <Bot className="text-white" size={32} strokeWidth={1.5} />
                     </div>
-                    <span className="font-bebas text-2xl sm:text-3xl tracking-wide text-black">AI Brain</span>
-                    <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-[#D90019] mt-2">Active Logic Layer</span>
+                    <span className="font-bebas text-3xl sm:text-4xl tracking-wide text-black leading-tight">AI Brain</span>
+                    <span className="text-[9px] sm:text-[10px] font-bold tracking-[0.2em] sm:tracking-[0.3em] uppercase text-[#D90019] mt-3 whitespace-nowrap">Active Logic Layer</span>
                   </div>
                 </div>
               </div>
@@ -431,10 +430,10 @@ export default function HomePage() {
 
             <div className="space-y-6 sm:space-y-12">
                {[
-                 { phase: "01", meta: "The Logic", title: "Founders of the Future", desc: "Entry level access to the logic. This is where you learn how to think in systems before you spend a dollar on builds.", price: "$97", cta: "Join FOTF", href: "https://www.skool.com/founders-of-the-future-3908/about", accent: false },
+                 { phase: "01", meta: "The Logic", title: "Founders of the Future", desc: "Entry level access to the logic. This is where you learn how to think in systems before you spend a dollar on builds.", price: "$97", cta: "Join FOTF", href: "https://www.skool.com/founders-of-the-future-3908/about", accent: true },
                  { phase: "02", meta: "The Layer", title: "Build One: Living Layer", desc: "A custom communication infrastructure between your existing tools and the coming agent workforce. Rapid deployment in 14 days.", price: "$5K+", cta: "Secure Build", href: "/build", accent: true },
                  { phase: "03", meta: "The Scale", title: "Full Build: Industry Playbook", desc: "Proven operational playbooks for your specific niche. Full automation across every department. The true Business OS.", price: "$25K+", cta: "Apply Now", href: "/apply", accent: false },
-                 { phase: "04", meta: "The Evolution", title: "The Retainer", desc: "Required for all builds. We host, maintain, and upgrade your system. Unlimited skill upgrades and new automations on demand. 48-hour turnarounds.", price: "$1.5K - $5K/mo", cta: "Apply Now", href: "/apply", accent: false },
+                 { phase: "04", meta: "The Evolution", title: "The Retainer", desc: "Not required for all builds. We host, maintain, and upgrade your system. Unlimited skill upgrades and new automations on demand. 48-hour turnarounds.", price: "$1.5K - $5K/mo", cta: "Apply Now", href: "/apply", accent: false },
                  { phase: "05", meta: "The Legend", title: "Partnership / Share", desc: "Skin in the game. Full alignment. We become your equity AI department for high-scale growth.", price: "Partnership", cta: "Apply Now", href: "/apply", accent: false },
                ].map((step, i) => (
                  <div key={i} className={`group relative bg-white/5 border ${step.accent ? 'border-[#D90019]/50' : 'border-white/10'} p-8 sm:p-16 transition-all hover:bg-white/10 hover:border-[#D90019] overflow-hidden`}>
