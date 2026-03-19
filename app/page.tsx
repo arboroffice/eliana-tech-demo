@@ -92,21 +92,21 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ═══ LIVING BUSINESS DIAGRAM ═══ */}
-        <section className="bg-[#0C0C0C] text-white py-24 sm:py-32 px-6 overflow-hidden relative">
+        {/* ═══ LIVING BUSINESS DIAGRAM (REDESIGNED) ═══ */}
+        <section className="bg-[#FAF9F6] border-y border-[#EAE9E4] py-24 sm:py-32 px-6 overflow-hidden relative">
           <div className="absolute inset-0">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#D90019]/5 rounded-full blur-[200px]"></div>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#D90019]/5 rounded-full blur-[160px]"></div>
           </div>
 
           <div className="max-w-6xl mx-auto relative z-10">
-            <div className="text-center mb-16 sm:mb-20">
-              <p className="text-[#D90019] font-bold tracking-[0.3em] uppercase mb-4 text-sm">The System</p>
-              <h2 className="font-bebas text-5xl sm:text-7xl lg:text-8xl leading-[0.9] uppercase">
+            <div className="text-center mb-16 sm:mb-24">
+              <p className="text-[#D90019] font-bold tracking-[0.4em] uppercase mb-4 text-xs font-mono">The Infrastructure</p>
+              <h2 className="font-bebas text-5xl sm:text-7xl lg:text-9xl leading-[0.85] uppercase text-[#0C0C0C] tracking-tight">
                 Your Business<br />
                 <span className="text-[#D90019]">Comes Alive</span>
               </h2>
-              <p className="text-gray-500 text-lg font-medium max-w-xl mx-auto mt-6 leading-relaxed">
-                A customer texts, calls, or fills out a form — and your AI back office takes it from there.
+              <p className="text-gray-500 text-lg sm:text-xl font-medium max-w-2xl mx-auto mt-8 leading-relaxed">
+                One lead triggers the entire machine. Your back office operates in milliseconds, while you focus on the big picture.
               </p>
             </div>
 
@@ -114,185 +114,142 @@ export default function HomePage() {
             <div className="relative max-w-5xl mx-auto">
 
               {/* ── CENTER: AI Brain ── */}
-              <div className="flex justify-center mb-0 relative z-20">
-                <div className="diagram-brain w-40 h-40 sm:w-52 sm:h-52 rounded-full bg-[#D90019]/10 border-2 border-[#D90019]/40 flex flex-col items-center justify-center text-center relative">
-                  <div className="absolute inset-0 rounded-full bg-[#D90019]/5 animate-diagram-pulse"></div>
-                  <Bot className="text-[#D90019] mb-2" size={36} strokeWidth={1.5} />
-                  <span className="font-bebas text-xl sm:text-2xl tracking-wide">AI Brain</span>
-                  <span className="text-[9px] sm:text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500 mt-1">Always Running</span>
+              <div className="flex justify-center mb-0 relative z-30">
+                <div className="diagram-brain w-44 h-44 sm:w-60 sm:h-60 rounded-full bg-white shadow-[0_20px_50px_rgba(217,0,25,0.15)] border border-[#EAE9E4] flex flex-col items-center justify-center text-center relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-tr from-[#D90019]/5 to-transparent"></div>
+                  <div className="absolute inset-0 rounded-full border-4 border-[#D90019]/10 animate-diagram-pulse-light"></div>
+                  
+                  <div className="relative z-10 flex flex-col items-center">
+                    <div className="w-16 h-16 rounded-2xl bg-black flex items-center justify-center mb-4 shadow-xl">
+                      <Bot className="text-white" size={32} strokeWidth={1.5} />
+                    </div>
+                    <span className="font-bebas text-2xl sm:text-3xl tracking-wide text-black">AI Brain</span>
+                    <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-[#D90019] mt-2">Active Logic Layer</span>
+                  </div>
                 </div>
               </div>
 
               {/* ── CONNECTION LINES (SVG) ── */}
               <div className="hidden md:block absolute inset-0 z-10 pointer-events-none">
                 <svg className="w-full h-full" viewBox="0 0 1000 700" fill="none" preserveAspectRatio="xMidYMid meet">
-                  {/* Phone to Brain */}
-                  <path d="M200 80 Q 400 80 500 200" stroke="#D90019" strokeWidth="1" strokeDasharray="6 4" opacity="0.3">
-                    <animate attributeName="stroke-dashoffset" from="0" to="-20" dur="2s" repeatCount="indefinite" />
+                  {/* Inputs to Brain */}
+                  <path d="M220 120 Q 400 120 500 220" stroke="#D90019" strokeWidth="1.5" strokeDasharray="8 6" opacity="0.2">
+                    <animate attributeName="stroke-dashoffset" from="0" to="-28" dur="2s" repeatCount="indefinite" />
                   </path>
-                  {/* Chat to Brain */}
-                  <path d="M800 80 Q 600 80 500 200" stroke="#D90019" strokeWidth="1" strokeDasharray="6 4" opacity="0.3">
-                    <animate attributeName="stroke-dashoffset" from="0" to="-20" dur="2s" repeatCount="indefinite" />
+                  <path d="M780 120 Q 600 120 500 220" stroke="#D90019" strokeWidth="1.5" strokeDasharray="8 6" opacity="0.2">
+                    <animate attributeName="stroke-dashoffset" from="0" to="-28" dur="2s" repeatCount="indefinite" />
                   </path>
-                  {/* Brain to left tools */}
-                  <path d="M400 280 Q 300 350 150 400" stroke="white" strokeWidth="0.5" strokeDasharray="4 4" opacity="0.15">
-                    <animate attributeName="stroke-dashoffset" from="0" to="-16" dur="3s" repeatCount="indefinite" />
-                  </path>
-                  <path d="M380 300 Q 250 380 100 480" stroke="white" strokeWidth="0.5" strokeDasharray="4 4" opacity="0.15">
-                    <animate attributeName="stroke-dashoffset" from="0" to="-16" dur="3.5s" repeatCount="indefinite" />
-                  </path>
-                  <path d="M420 310 Q 350 400 200 520" stroke="white" strokeWidth="0.5" strokeDasharray="4 4" opacity="0.15">
-                    <animate attributeName="stroke-dashoffset" from="0" to="-16" dur="2.8s" repeatCount="indefinite" />
-                  </path>
-                  {/* Brain to right tools */}
-                  <path d="M600 280 Q 700 350 850 400" stroke="white" strokeWidth="0.5" strokeDasharray="4 4" opacity="0.15">
-                    <animate attributeName="stroke-dashoffset" from="0" to="-16" dur="3s" repeatCount="indefinite" />
-                  </path>
-                  <path d="M620 300 Q 750 380 900 480" stroke="white" strokeWidth="0.5" strokeDasharray="4 4" opacity="0.15">
-                    <animate attributeName="stroke-dashoffset" from="0" to="-16" dur="3.5s" repeatCount="indefinite" />
-                  </path>
-                  <path d="M580 310 Q 650 400 800 520" stroke="white" strokeWidth="0.5" strokeDasharray="4 4" opacity="0.15">
-                    <animate attributeName="stroke-dashoffset" from="0" to="-16" dur="2.8s" repeatCount="indefinite" />
-                  </path>
-                  {/* Brain to center bottom tools */}
-                  <path d="M500 280 Q 500 380 400 520" stroke="white" strokeWidth="0.5" strokeDasharray="4 4" opacity="0.15">
-                    <animate attributeName="stroke-dashoffset" from="0" to="-16" dur="3.2s" repeatCount="indefinite" />
-                  </path>
-                  <path d="M500 280 Q 500 380 600 520" stroke="white" strokeWidth="0.5" strokeDasharray="4 4" opacity="0.15">
-                    <animate attributeName="stroke-dashoffset" from="0" to="-16" dur="3.2s" repeatCount="indefinite" />
-                  </path>
-                  {/* Animated dots traveling along paths */}
-                  <circle r="3" fill="#D90019" opacity="0.8">
-                    <animateMotion dur="3s" repeatCount="indefinite" path="M200 80 Q 400 80 500 200" />
+                  
+                  {/* Brain to tools - Light mode accents */}
+                  <path d="M420 320 Q 300 380 150 450" stroke="#0C0C0C" strokeWidth="1" strokeDasharray="4 4" opacity="0.08" />
+                  <path d="M400 350 Q 250 420 100 550" stroke="#0C0C0C" strokeWidth="1" strokeDasharray="4 4" opacity="0.08" />
+                  <path d="M580 320 Q 700 380 850 450" stroke="#0C0C0C" strokeWidth="1" strokeDasharray="4 4" opacity="0.08" />
+                  <path d="M600 350 Q 750 420 900 550" stroke="#0C0C0C" strokeWidth="1" strokeDasharray="4 4" opacity="0.08" />
+
+                  {/* Animated flow dots */}
+                  <circle r="4" fill="#D90019">
+                    <animateMotion dur="2.5s" repeatCount="indefinite" path="M220 120 Q 400 120 500 220" />
                   </circle>
-                  <circle r="3" fill="#D90019" opacity="0.8">
-                    <animateMotion dur="3s" repeatCount="indefinite" path="M800 80 Q 600 80 500 200" />
-                  </circle>
-                  <circle r="2" fill="white" opacity="0.5">
-                    <animateMotion dur="4s" repeatCount="indefinite" path="M400 280 Q 300 350 150 400" />
-                  </circle>
-                  <circle r="2" fill="white" opacity="0.5">
-                    <animateMotion dur="4.5s" repeatCount="indefinite" path="M600 280 Q 700 350 850 400" />
-                  </circle>
-                  <circle r="2" fill="white" opacity="0.5">
-                    <animateMotion dur="4.2s" repeatCount="indefinite" path="M500 280 Q 500 380 400 520" />
+                  <circle r="4" fill="#D90019">
+                    <animateMotion dur="2.5s" repeatCount="indefinite" path="M780 120 Q 600 120 500 220" />
                   </circle>
                 </svg>
               </div>
 
-              {/* ── TOP ROW: Phone + Chat (inputs) ── */}
-              <div className="grid grid-cols-2 gap-6 sm:gap-12 -mt-6 sm:-mt-10 mb-12 sm:mb-16 relative z-20">
-                {/* Phone Input */}
+              {/* ── INPUTS (TOP) ── */}
+              <div className="grid grid-cols-2 gap-8 sm:gap-16 -mt-10 sm:-mt-16 mb-20 relative z-20">
                 <div className="flex justify-center sm:justify-end">
-                  <div className="diagram-input-node w-36 sm:w-44 bg-black border border-white/10 p-4 sm:p-5 text-center group hover:border-[#D90019]/40 transition-all duration-500">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/5 flex items-center justify-center mx-auto mb-3 group-hover:bg-[#D90019]/10 transition-colors">
-                      <Phone className="text-[#D90019]" size={20} />
+                  <div className="bg-white border border-[#EAE9E4] p-6 sm:p-8 w-44 sm:w-56 shadow-sm hover:shadow-xl hover:border-[#D90019]/20 transition-all duration-500 rounded-2xl group text-center">
+                    <div className="w-12 h-12 rounded-full bg-[#FAF9F6] flex items-center justify-center mx-auto mb-4 group-hover:bg-[#D90019]/5 transition-colors">
+                      <Phone className="text-[#D90019]" size={22} />
                     </div>
-                    <span className="font-bebas text-base sm:text-lg tracking-wide block">Phone Call</span>
-                    <span className="text-[8px] sm:text-[9px] font-bold tracking-[0.2em] uppercase text-gray-600 block mt-1">Customer calls in</span>
-                    {/* Typing indicator */}
-                    <div className="flex items-center justify-center gap-1 mt-3">
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#D90019] animate-diagram-dot1"></div>
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#D90019] animate-diagram-dot2"></div>
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#D90019] animate-diagram-dot3"></div>
-                    </div>
+                    <span className="font-bebas text-lg sm:text-xl tracking-wide text-black block">Phone Call</span>
+                    <span className="text-[9px] font-bold tracking-[0.2em] uppercase text-gray-400 mt-2 block">Always Picked Up</span>
                   </div>
                 </div>
-
-                {/* Chat Input */}
                 <div className="flex justify-center sm:justify-start">
-                  <div className="diagram-input-node w-36 sm:w-44 bg-black border border-white/10 p-4 sm:p-5 text-center group hover:border-[#D90019]/40 transition-all duration-500">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/5 flex items-center justify-center mx-auto mb-3 group-hover:bg-[#D90019]/10 transition-colors">
-                      <MessageSquare className="text-[#D90019]" size={20} />
+                  <div className="bg-white border border-[#EAE9E4] p-6 sm:p-8 w-44 sm:w-56 shadow-sm hover:shadow-xl hover:border-[#D90019]/20 transition-all duration-500 rounded-2xl group text-center">
+                    <div className="w-12 h-12 rounded-full bg-[#FAF9F6] flex items-center justify-center mx-auto mb-4 group-hover:bg-[#D90019]/5 transition-colors">
+                      <MessageSquare className="text-[#D90019]" size={22} />
                     </div>
-                    <span className="font-bebas text-base sm:text-lg tracking-wide block">Text / Chat</span>
-                    <span className="text-[8px] sm:text-[9px] font-bold tracking-[0.2em] uppercase text-gray-600 block mt-1">Lead messages you</span>
-                    <div className="flex items-center justify-center gap-1 mt-3">
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#D90019] animate-diagram-dot1"></div>
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#D90019] animate-diagram-dot2"></div>
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#D90019] animate-diagram-dot3"></div>
-                    </div>
+                    <span className="font-bebas text-lg sm:text-xl tracking-wide text-black block">Text / Lead</span>
+                    <span className="text-[9px] font-bold tracking-[0.2em] uppercase text-gray-400 mt-2 block">Instant Response</span>
                   </div>
                 </div>
               </div>
 
-              {/* ── LIVE ACTIVITY FEED (center) ── */}
-              <div className="max-w-md mx-auto mb-12 sm:mb-16 relative z-20">
-                <div className="bg-black border border-white/10 overflow-hidden">
-                  <div className="px-4 py-2.5 border-b border-white/5 flex items-center gap-2">
-                    <CircleDot className="text-[#D90019] animate-pulse" size={10} />
-                    <span className="text-[9px] font-bold tracking-[0.3em] uppercase text-gray-500">Live Activity</span>
+              {/* ── LIVE FEED (CENTER) ── */}
+              <div className="max-w-lg mx-auto mb-20 relative z-20">
+                <div className="bg-white border border-[#EAE9E4] rounded-2xl shadow-xl overflow-hidden">
+                  <div className="bg-[#0C0C0C] px-6 py-4 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                       <span className="w-2 h-2 rounded-full bg-[#D90019] animate-pulse"></span>
+                       <span className="text-[10px] font-bold tracking-[0.4em] uppercase text-white/60">Logic Pipeline</span>
+                    </div>
+                    <span className="text-[10px] font-bold text-white/30 font-mono">LIVE_FEED_v2.0</span>
                   </div>
-                  <div className="diagram-feed p-4 space-y-3 text-[11px] sm:text-xs">
-                    <div className="flex items-center gap-3 text-gray-500 diagram-feed-row animate-diagram-feed1">
-                      <Phone size={12} className="text-green-500 shrink-0" />
-                      <span>Incoming call from <span className="text-white">+1 (555) 2847</span> — answered in 0.8s</span>
-                    </div>
-                    <div className="flex items-center gap-3 text-gray-500 diagram-feed-row animate-diagram-feed2">
-                      <Bot size={12} className="text-[#D90019] shrink-0" />
-                      <span>AI agent created: <span className="text-white">Quote Generator</span></span>
-                    </div>
-                    <div className="flex items-center gap-3 text-gray-500 diagram-feed-row animate-diagram-feed3">
-                      <Send size={12} className="text-blue-400 shrink-0" />
-                      <span>Follow-up SMS sent to <span className="text-white">Sarah M.</span></span>
-                    </div>
-                    <div className="flex items-center gap-3 text-gray-500 diagram-feed-row animate-diagram-feed4">
-                      <Calendar size={12} className="text-purple-400 shrink-0" />
-                      <span>Job scheduled: <span className="text-white">Mar 22 @ 9am</span></span>
-                    </div>
-                    <div className="flex items-center gap-3 text-gray-500 diagram-feed-row animate-diagram-feed5">
-                      <DollarSign size={12} className="text-green-400 shrink-0" />
-                      <span>Invoice #4021 — <span className="text-green-400">$2,400 collected</span></span>
-                    </div>
-                    <div className="flex items-center gap-3 text-gray-500 diagram-feed-row animate-diagram-feed6">
-                      <Star size={12} className="text-yellow-400 shrink-0" />
-                      <span>Review request sent — <span className="text-white">5-star received</span></span>
-                    </div>
+                  <div className="p-6 sm:p-8 space-y-4">
+                    {[
+                      { icon: Phone, color: "text-green-500", text: "Phone call answered in 0.8s — Lead qualified", time: "2m ago" },
+                      { icon: Bot, color: "text-[#D90019]", text: "Automated quote generated for Sarah M.", time: "1m ago" },
+                      { icon: Send, color: "text-blue-500", text: "SMS Confirmation & Follow-up sent", time: "45s ago" },
+                      { icon: Calendar, color: "text-purple-500", text: "Job dispatched to field team (Mar 22)", time: "10s ago" },
+                      { icon: DollarSign, color: "text-emerald-500", text: "Payment link clicked — $2,400 confirmed", time: "NOW" },
+                    ].map((row, i) => (
+                      <div key={i} className={`flex items-center gap-4 animate-diagram-feed-row`} style={{ animationDelay: `${i * 0.2}s` }}>
+                        <div className={`w-8 h-8 rounded-lg bg-[#FAF9F6] flex items-center justify-center shrink-0`}>
+                          <row.icon size={14} className={row.color} />
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-xs sm:text-sm font-semibold text-black tracking-tight">{row.text}</p>
+                        </div>
+                        <span className="text-[9px] font-bold uppercase tracking-widest text-gray-300 whitespace-nowrap">{row.time}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
 
-              {/* ── BOTTOM: Business Tools Grid ── */}
+              {/* ── TOOLS (BOTTOM) ── */}
               <div className="relative z-20">
-                <p className="text-center text-[9px] sm:text-[10px] font-bold tracking-[0.4em] uppercase text-gray-600 mb-6">Sends off to your entire tool stack</p>
-                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-px bg-white/5">
+                <div className="text-center mb-10">
+                   <p className="text-[10px] font-bold tracking-[0.5em] uppercase text-gray-400">Integrated with your entire stack</p>
+                </div>
+                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
                   {[
-                    { icon: Calendar, name: "Scheduling", sub: "Books jobs" },
-                    { icon: CreditCard, name: "Payments", sub: "Collects $" },
-                    { icon: Mail, name: "Email", sub: "Sends campaigns" },
-                    { icon: MessageSquare, name: "SMS", sub: "Text follow-ups" },
-                    { icon: Database, name: "CRM", sub: "Stores leads" },
-                    { icon: FileText, name: "Invoicing", sub: "Bills clients" },
-                    { icon: Star, name: "Reviews", sub: "Gets 5 stars" },
-                    { icon: Users, name: "Team", sub: "Dispatches crew" },
-                    { icon: BarChart3, name: "Analytics", sub: "Tracks revenue" },
-                    { icon: Globe, name: "Website", sub: "Captures leads" },
-                    { icon: Headphones, name: "Support", sub: "Answers Qs" },
-                    { icon: TrendingUp, name: "Marketing", sub: "Runs ads" },
+                    { icon: Calendar, name: "Books jobs" },
+                    { icon: CreditCard, name: "Collects $" },
+                    { icon: Mail, name: "Email" },
+                    { icon: MessageSquare, name: "Texting" },
+                    { icon: Database, name: "CRM" },
+                    { icon: FileText, name: "Billing" },
+                    { icon: Star, name: "Reviews" },
+                    { icon: Users, name: "Dispatches" },
+                    { icon: BarChart3, name: "Revenue" },
+                    { icon: Globe, name: "Lead Gen" },
+                    { icon: Headphones, name: "Support" },
+                    { icon: Wrench, name: "Operations" },
                   ].map((tool, i) => (
-                    <div key={i} className="bg-[#0C0C0C] p-4 sm:p-5 text-center group hover:bg-[#D90019]/5 transition-all duration-500" style={{ animationDelay: `${i * 0.1}s` }}>
-                      <tool.icon className="text-white/20 group-hover:text-[#D90019] mx-auto mb-2 transition-colors duration-500" size={20} strokeWidth={1.5} />
-                      <span className="font-bebas text-sm sm:text-base tracking-wide block text-white/60 group-hover:text-white transition-colors">{tool.name}</span>
-                      <span className="text-[8px] font-bold tracking-[0.15em] uppercase text-gray-700 group-hover:text-[#D90019]/60 transition-colors">{tool.sub}</span>
+                    <div key={i} className="bg-white border border-[#EAE9E4] p-5 sm:p-6 text-center rounded-xl shadow-sm hover:shadow-md hover:border-[#D90019]/20 transition-all duration-300">
+                      <tool.icon className="text-black/10 group-hover:text-[#D90019] mx-auto mb-3" size={20} strokeWidth={1} />
+                      <span className="font-bebas text-sm sm:text-base tracking-wide text-black block">{tool.name}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* ── RESULTS BAR ── */}
-              <div className="mt-10 sm:mt-14 grid grid-cols-3 gap-px bg-white/5 relative z-20">
-                <div className="bg-[#0C0C0C] py-6 sm:py-8 text-center">
-                  <span className="font-bebas text-3xl sm:text-5xl text-[#D90019] block">24/7</span>
-                  <span className="text-[9px] sm:text-[10px] font-bold tracking-[0.3em] uppercase text-gray-600">Always Running</span>
-                </div>
-                <div className="bg-[#0C0C0C] py-6 sm:py-8 text-center">
-                  <span className="font-bebas text-3xl sm:text-5xl text-white block">0.8s</span>
-                  <span className="text-[9px] sm:text-[10px] font-bold tracking-[0.3em] uppercase text-gray-600">Avg Response</span>
-                </div>
-                <div className="bg-[#0C0C0C] py-6 sm:py-8 text-center">
-                  <span className="font-bebas text-3xl sm:text-5xl text-green-500 block">$$$</span>
-                  <span className="text-[9px] sm:text-[10px] font-bold tracking-[0.3em] uppercase text-gray-600">Making Money</span>
-                </div>
+              {/* ── STATS (FOOTER) ── */}
+              <div className="mt-16 sm:mt-24 grid grid-cols-3 gap-8 sm:gap-16">
+                 {[
+                   { label: "Status", value: "24/7", color: "text-[#D90019]" },
+                   { label: "Response", value: "0.8s", color: "text-black" },
+                   { label: "Outcome", value: "Profit", color: "text-green-600" },
+                 ].map((stat, i) => (
+                   <div key={i} className="text-center border-t border-[#EAE9E4] pt-8">
+                      <span className="text-[10px] font-bold tracking-[0.4em] uppercase text-gray-400 block mb-2">{stat.label}</span>
+                      <span className={`font-bebas text-4xl sm:text-6xl ${stat.color}`}>{stat.value}</span>
+                   </div>
+                 ))}
               </div>
 
             </div>
@@ -695,32 +652,25 @@ export default function HomePage() {
         }
 
         /* ═══ DIAGRAM ANIMATIONS ═══ */
-        @keyframes diagramPulse {
-          0%, 100% { transform: scale(1); opacity: 0.3; }
-          50% { transform: scale(1.3); opacity: 0.08; }
+        @keyframes diagramPulseLight {
+          0%, 100% { transform: scale(1); opacity: 0.1; }
+          50% { transform: scale(1.15); opacity: 0.03; }
         }
-        .animate-diagram-pulse {
-          animation: diagramPulse 3s ease-in-out infinite;
+        .animate-diagram-pulse-light {
+          animation: diagramPulseLight 4s ease-in-out infinite;
         }
 
-        @keyframes dotBounce {
-          0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); }
-          40% { opacity: 1; transform: scale(1.2); }
+        @keyframes diagramFeedRow {
+          0% { opacity: 0; transform: translateY(10px); }
+          10% { opacity: 1; transform: translateY(0); }
+          90% { opacity: 1; transform: translateY(0); }
+          100% { opacity: 0.8; }
         }
-        .animate-diagram-dot1 { animation: dotBounce 1.4s ease-in-out infinite; }
-        .animate-diagram-dot2 { animation: dotBounce 1.4s ease-in-out 0.2s infinite; }
-        .animate-diagram-dot3 { animation: dotBounce 1.4s ease-in-out 0.4s infinite; }
-
-        @keyframes feedSlideIn {
-          0% { opacity: 0; transform: translateX(-10px); }
-          15%, 100% { opacity: 1; transform: translateX(0); }
+        .animate-diagram-feed-row {
+          animation: diagramFeedRow 8s ease-out infinite;
+          opacity: 0;
+          animation-fill-mode: forwards;
         }
-        .animate-diagram-feed1 { animation: feedSlideIn 8s ease-out 0s infinite; }
-        .animate-diagram-feed2 { animation: feedSlideIn 8s ease-out 0.8s infinite; }
-        .animate-diagram-feed3 { animation: feedSlideIn 8s ease-out 1.6s infinite; }
-        .animate-diagram-feed4 { animation: feedSlideIn 8s ease-out 2.4s infinite; }
-        .animate-diagram-feed5 { animation: feedSlideIn 8s ease-out 3.2s infinite; }
-        .animate-diagram-feed6 { animation: feedSlideIn 8s ease-out 4s infinite; }
       `}</style>
     </div>
   )
