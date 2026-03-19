@@ -35,60 +35,52 @@ export default function HomePage() {
 
       <main>
         {/* ═══ HERO SECTION ═══ */}
-        <section className="relative min-h-screen flex flex-col items-center justify-center pt-32 pb-20 px-6 text-center overflow-hidden">
-          {/* Background Elements */}
-          <div className="absolute inset-0 z-0 opacity-40">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,#D90019_0%,transparent_70%)] opacity-10"></div>
-            <div className="absolute inset-0" style={{ backgroundImage: 'linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px)', backgroundSize: '40px 40px', maskImage: 'radial-gradient(circle at center, black, transparent 80%)' }}></div>
-          </div>
-
+        <section className="relative min-h-screen flex flex-col items-center justify-center pt-32 pb-20 px-6 text-center overflow-hidden bg-white">
+          {/* Background Grid Accent */}
+          <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '24px 24px' }}></div>
+          
           <div className="relative z-10 max-w-5xl mx-auto">
-            <p className="inline-block text-[#D90019] text-xs font-bold tracking-[0.3em] uppercase mb-8 border border-red-100 px-4 py-1.5 rounded-full bg-red-50/50 animate-fade-in">
-              AI Systems for Real Businesses
+            <p className="inline-block text-[#D90019] text-[10px] font-bold tracking-[0.4em] uppercase mb-10 border-b-2 border-red-600 pb-2">
+              The AI Infrastructure Layer
             </p>
-            <h1 className="font-bebas text-[clamp(50px,12vw,140px)] leading-[0.82] uppercase mb-10 tracking-tight animate-fade-in-heading">
-              Your Business<br />
-              <span className="text-gray-400">Should Run</span><br />
-              <span className="text-[#D90019]">Without You</span>
+            <h1 className="font-bebas text-[clamp(60px,14vw,180px)] leading-[0.8] uppercase mb-12 tracking-tighter text-black">
+              Own Your AI.<br />
+              <span className="text-[#D90019]">Run Without You.</span>
             </h1>
-            <p className="text-gray-600 text-[clamp(16px,1.5vw,21px)] leading-relaxed max-w-2xl mx-auto mb-12 font-medium animate-fade-in-subheading">
-              We build AI systems that capture leads, close deals, and run operations so you stop being the bottleneck.
+            <p className="text-gray-500 text-[clamp(18px,2vw,24px)] leading-tight max-w-3xl mx-auto mb-16 font-medium tracking-tight">
+              We install AI systems that capture leads, close jobs, and run operations automatically. <br className="hidden sm:block" />
+              Stop renting tools — start owning your workflows.
             </p>
             
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 animate-fade-in-buttons">
-              <Link href="/audit" className="w-full sm:w-auto font-bebas text-2xl tracking-wider bg-[#D90019] text-white px-10 py-5 hover:bg-black transition-all hover:-translate-y-1 shadow-2xl shadow-red-500/30 flex items-center justify-center gap-3">
-                Get Your Free AI Audit <ArrowRight size={22} strokeWidth={2.5} />
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+              <Link href="/audit" className="w-full sm:w-auto font-bebas text-3xl tracking-widest bg-[#D90019] text-white px-12 py-6 hover:bg-black transition-all hover:scale-[1.02] active:scale-95 shadow-2xl shadow-red-500/20 flex items-center justify-center gap-4">
+                Get Your Free AI Audit <ArrowRight size={28} strokeWidth={3} />
               </Link>
-              <Link href="#process" className="w-full sm:w-auto font-bebas text-2xl tracking-wider text-[#0C0C0C] px-10 py-5 border-2 border-black hover:bg-black hover:text-white transition-all flex items-center justify-center gap-3 group">
-                See How It Works <ArrowRight size={22} className="group-hover:translate-x-1 transition-transform" />
+              <Link href="#process" className="w-full sm:w-auto font-bebas text-3xl tracking-widest text-black px-12 py-6 border-b-4 border-black hover:bg-black hover:text-white transition-all flex items-center justify-center gap-4 group">
+                See How It Works <ArrowRight size={28} className="group-hover:translate-x-2 transition-transform" />
               </Link>
             </div>
           </div>
-          
-          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-40">
-             <div className="w-px h-12 bg-gradient-to-b from-red-600 to-transparent"></div>
-          </div>
         </section>
 
-        {/* ═══ TICKER MARQUEE ═══ */}
-        <section className="bg-black py-5 overflow-hidden whitespace-nowrap border-y border-red-600/20">
-          <div className="flex animate-marquee hover:[animation-play-state:paused] gap-12 px-6">
-            {[1, 2, 3, 4].map((_, i) => (
-              <div key={i} className="flex gap-12 items-center">
-                <span className="text-white font-bebas text-xl tracking-widest flex items-center gap-3"><Clock size={16} className="text-[#D90019]" /> Lead response in under 60 seconds</span>
-                <span className="text-[#333] font-bebas text-xl">/</span>
-                <span className="text-white font-bebas text-xl tracking-widest flex items-center gap-3"><Zap size={16} className="text-[#D90019]" /> First automation live in 14 days</span>
-                <span className="text-[#333] font-bebas text-xl">/</span>
-                <span className="text-white font-bebas text-xl tracking-widest flex items-center gap-3"><Phone size={16} className="text-[#D90019]" /> Zero missed calls</span>
-                <span className="text-[#333] font-bebas text-xl">/</span>
-                <span className="text-white font-bebas text-xl tracking-widest flex items-center gap-3"><MessageSquare size={16} className="text-[#D90019]" /> Automated follow-up systems</span>
-                <span className="text-[#333] font-bebas text-xl">/</span>
-                <span className="text-white font-bebas text-xl tracking-widest flex items-center gap-3"><CreditCard size={16} className="text-[#D90019]" /> Payments handled automatically</span>
-                <span className="text-[#333] font-bebas text-xl">/</span>
-                <span className="text-white font-bebas text-xl tracking-widest flex items-center gap-3"><Shield size={16} className="text-[#D90019]" /> Operations that run without oversight</span>
-                <span className="text-[#333] font-bebas text-xl">/</span>
-              </div>
-            ))}
+        {/* ═══ PROOF STRIP (FIXED & STRONG) ═══ */}
+        <section className="bg-black py-8 overflow-hidden border-y border-white/5">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="flex flex-wrap justify-center sm:justify-between items-center gap-8 sm:gap-4">
+              {[
+                "Lead response < 60s",
+                "First system live in 14 days",
+                "Zero missed calls",
+                "Automated follow-up",
+                "Payments handled automatically",
+                "Operations that run without you"
+              ].map((text, i) => (
+                <div key={i} className="flex items-center gap-3 text-white font-bebas text-lg tracking-widest">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#D90019]"></span>
+                  {text}
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -100,14 +92,23 @@ export default function HomePage() {
 
           <div className="max-w-6xl mx-auto relative z-10">
             <div className="text-center mb-16 sm:mb-24">
-              <p className="text-[#D90019] font-bold tracking-[0.4em] uppercase mb-4 text-xs font-mono">The Infrastructure</p>
+              <p className="text-[#D90019] font-bold tracking-[0.4em] uppercase mb-4 text-xs font-mono">Infrastructure</p>
               <h2 className="font-bebas text-5xl sm:text-7xl lg:text-9xl leading-[0.85] uppercase text-[#0C0C0C] tracking-tight">
-                Your Business<br />
-                <span className="text-[#D90019]">Comes Alive</span>
+                Your Business.<br />
+                <span className="text-[#D90019]">Fully Alive.</span>
               </h2>
-              <p className="text-gray-500 text-lg sm:text-xl font-medium max-w-2xl mx-auto mt-8 leading-relaxed">
-                One lead triggers the entire machine. Your back office operates in milliseconds, while you focus on the big picture.
+              <p className="text-gray-500 text-lg sm:text-xl font-medium max-w-2xl mx-auto mt-8 leading-relaxed italic">
+                One lead triggers everything.
               </p>
+              <div className="flex flex-wrap justify-center gap-4 sm:gap-8 mt-12 text-[#D90019] font-bebas text-xl sm:text-2xl uppercase tracking-widest">
+                {["Lead comes in", "AI responds instantly", "Quote gets built", "Follow-ups go out", "Job gets scheduled", "Payment gets collected"].map((step, i) => (
+                  <div key={i} className="flex items-center gap-4">
+                    <span>{step}</span>
+                    {i < 5 && <span className="text-gray-200 hidden sm:block">/</span>}
+                  </div>
+                ))}
+              </div>
+              <p className="text-gray-400 mt-8 text-sm font-bold uppercase tracking-widest">All without you touching it.</p>
             </div>
 
             {/* THE DIAGRAM */}
@@ -156,7 +157,7 @@ export default function HomePage() {
               </div>
 
               {/* ── INPUTS (TOP) ── */}
-              <div className="grid grid-cols-2 gap-8 sm:gap-16 -mt-10 sm:-mt-16 mb-20 relative z-20">
+              <div className="grid grid-cols-2 gap-4 sm:gap-16 mt-8 sm:-mt-16 mb-20 relative z-20">
                 <div className="flex justify-center sm:justify-end">
                   <div className="bg-white border border-[#EAE9E4] p-4 sm:p-8 w-[140px] sm:w-56 shadow-sm hover:shadow-xl hover:border-[#D90019]/20 transition-all duration-500 rounded-2xl group text-center">
                     <div className="w-12 h-12 rounded-full bg-[#FAF9F6] flex items-center justify-center mx-auto mb-4 group-hover:bg-[#D90019]/5 transition-colors">
@@ -183,17 +184,17 @@ export default function HomePage() {
                   <div className="bg-[#0C0C0C] px-6 py-4 flex items-center justify-between">
                     <div className="flex items-center gap-3">
                        <span className="w-2 h-2 rounded-full bg-[#D90019] animate-pulse"></span>
-                       <span className="text-[10px] font-bold tracking-[0.4em] uppercase text-white/60">Logic Pipeline</span>
+                       <span className="text-[10px] font-bold tracking-[0.4em] uppercase text-white/60">LIVE SYSTEM ACTIVITY</span>
                     </div>
-                    <span className="text-[10px] font-bold text-white/30 font-mono">LIVE_FEED_v2.0</span>
+                    <span className="text-[10px] font-bold text-white/30 font-mono">STATUS: RUNNING</span>
                   </div>
                   <div className="p-6 sm:p-8 space-y-4">
                     {[
-                      { icon: Phone, color: "text-green-500", text: "Voice lead captured — Auto-qualified", time: "2m ago" },
-                      { icon: Bot, color: "text-[#D90019]", text: "Automated quote generated for Sarah M.", time: "1m ago" },
-                      { icon: Send, color: "text-blue-500", text: "SMS Confirmation & Follow-up sent", time: "45s ago" },
-                      { icon: Calendar, color: "text-purple-500", text: "Job dispatched to field team (Mar 22)", time: "10s ago" },
-                      { icon: DollarSign, color: "text-emerald-500", text: "Payment link clicked — $2,400 confirmed", time: "NOW" },
+                      { icon: Phone, color: "text-green-500", text: "Voice lead captured — Auto-qualified" },
+                      { icon: Bot, color: "text-[#D90019]", text: "Automated quote generated for Sarah M." },
+                      { icon: Send, color: "text-blue-500", text: "Follow-up sent via SMS" },
+                      { icon: Calendar, color: "text-purple-500", text: "Job scheduled for Mar 22" },
+                      { icon: DollarSign, color: "text-emerald-500", text: "Payment confirmed — $2,400" },
                     ].map((row, i) => (
                       <div key={i} className={`flex items-center gap-4 animate-diagram-feed-row`} style={{ animationDelay: `${i * 0.2}s` }}>
                         <div className={`w-8 h-8 rounded-lg bg-[#FAF9F6] flex items-center justify-center shrink-0`}>
@@ -202,41 +203,25 @@ export default function HomePage() {
                         <div className="flex-1">
                           <p className="text-xs sm:text-sm font-semibold text-black tracking-tight">{row.text}</p>
                         </div>
-                        <span className="text-[9px] font-bold uppercase tracking-widest text-gray-300 whitespace-nowrap">{row.time}</span>
+                        <span className="text-[8px] font-bold uppercase tracking-widest text-gray-200">OK</span>
                       </div>
                     ))}
                   </div>
                 </div>
               </div>
 
-              {/* ── TOOLS (BOTTOM) — Real software per category ── */}
+              {/* ── TOOLS (BOTTOM) — Shortened ── */}
               <div className="relative z-20">
-                <div className="text-center mb-10">
-                   <p className="text-[10px] font-bold tracking-[0.5em] uppercase text-gray-400">Sends to your entire tool stack</p>
+                <div className="text-center mb-12">
+                   <h3 className="font-bebas text-4xl text-black mb-2">Connects to Your Stack</h3>
+                   <p className="text-[10px] font-bold tracking-[0.5em] uppercase text-gray-400">If you use it, we connect it.</p>
                 </div>
-                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
+                <div className="grid grid-cols-2 sm:grid-cols-5 gap-4 max-w-4xl mx-auto">
                   {[
-                    { category: "Books Jobs", tools: ["Calendly", "Housecall Pro", "Jobber"], icon: Calendar },
-                    { category: "Collects $", tools: ["Stripe", "Square", "QuickBooks"], icon: CreditCard },
-                    { category: "Email", tools: ["Mailchimp", "SendGrid", "Gmail"], icon: Mail },
-                    { category: "Texting", tools: ["Twilio", "OpenPhone", "Podium"], icon: MessageSquare },
-                    { category: "CRM", tools: ["HubSpot", "GoHighLevel", "Salesforce"], icon: Database },
-                    { category: "Billing", tools: ["FreshBooks", "Xero", "Wave"], icon: FileText },
-                    { category: "Reviews", tools: ["Google", "Yelp", "Trustpilot"], icon: Star },
-                    { category: "Dispatches", tools: ["ServiceTitan", "Workiz", "FieldPulse"], icon: Users },
-                    { category: "Revenue", tools: ["QuickBooks", "ProfitWell", "Baremetrics"], icon: BarChart3 },
-                    { category: "Lead Gen", tools: ["Meta Ads", "Google Ads", "Typeform"], icon: Globe },
-                    { category: "Support", tools: ["Intercom", "Zendesk", "Freshdesk"], icon: Headphones },
-                    { category: "Operations", tools: ["Zapier", "Make", "n8n"], icon: Wrench },
-                  ].map((tool, i) => (
-                    <div key={i} className="bg-white border border-[#EAE9E4] p-4 sm:p-5 text-center rounded-xl shadow-sm hover:shadow-md hover:border-[#D90019]/20 transition-all duration-300 group">
-                      <tool.icon className="text-gray-200 group-hover:text-[#D90019] mx-auto mb-2 transition-colors duration-300" size={18} strokeWidth={1.5} />
-                      <span className="font-bebas text-xs sm:text-sm tracking-wide text-[#D90019] block mb-2">{tool.category}</span>
-                      <div className="space-y-0.5">
-                        {tool.tools.map((name, j) => (
-                          <span key={j} className="text-[8px] sm:text-[9px] font-bold tracking-[0.1em] uppercase text-gray-300 group-hover:text-gray-500 transition-colors block leading-tight">{name}</span>
-                        ))}
-                      </div>
+                    "Stripe / QuickBooks", "GoHighLevel", "HubSpot", "Jobber", "ServiceTitan", "Twilio", "Gmail", "Zapier / n8n"
+                  ].map((name, i) => (
+                    <div key={i} className="bg-white border border-[#EAE9E4] p-6 text-center rounded-xl shadow-sm hover:shadow-md transition-all group">
+                      <span className="font-bebas text-xl sm:text-2xl tracking-wide text-black group-hover:text-[#D90019] transition-colors">{name}</span>
                     </div>
                   ))}
                 </div>
@@ -260,288 +245,204 @@ export default function HomePage() {
           </div>
         </section>
 
-
-
-        {/* ═══ F.O.T.F. MOVEMENT SECTION ═══ */}
-        <section className="py-24 sm:py-40 px-6 bg-[#FAFAF8] relative overflow-hidden border-t border-gray-100">
-          {/* Subtle Grid Background */}
-          <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '32px 32px' }}></div>
-          
-          <div className="max-w-6xl mx-auto relative z-10">
-            <div className="grid lg:grid-cols-2 gap-20 items-start">
-              <div className="lg:sticky lg:top-32">
-                <p className="text-[#D90019] font-bold tracking-[0.5em] uppercase mb-8 text-xs font-mono">Founders of the Future</p>
-                <h2 className="font-bebas text-[clamp(60px,10vw,140px)] leading-[0.8] uppercase text-black mb-12 tracking-tight">
-                  This Is A<br />
-                  <span className="text-[#D90019]">Movement.</span>
-                </h2>
-                <div className="space-y-8 max-w-lg">
-                   <h3 className="text-3xl font-black uppercase tracking-tight leading-none italic">
-                     Stop Playing With AI.<br />
-                     <span className="text-[#D90019]">Start Building Systems That Make Money.</span>
-                   </h3>
-                   <p className="text-gray-500 text-lg font-medium leading-relaxed">
-                     Whether you're a founder, building toward becoming one, an employee automating your role, or a manager running ops with AI — this is where you learn to build.
-                   </p>
-                   <div className="flex flex-col sm:flex-row gap-6 pt-4">
-                      <Link href="https://www.skool.com/founders-of-the-future-3908/about" target="_blank" className="bg-[#D90019] text-white font-bebas text-2xl tracking-widest px-10 py-5 hover:bg-black transition-all shadow-xl shadow-red-500/10 text-center">
-                        Join the Community
-                      </Link>
-                      <button className="text-xs font-bold uppercase tracking-[0.3em] text-gray-400 hover:text-black transition-colors flex items-center gap-2 justify-center group">
-                        See what founders are building <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform rotate-90" />
-                      </button>
-                   </div>
-                </div>
-
-                <div className="mt-20 pt-10 border-t border-gray-100 hidden lg:block">
-                   <div className="grid grid-cols-2 gap-8 grayscale opacity-40">
-                      <div className="flex items-center gap-3">
-                         <div className="w-8 h-8 rounded-full bg-black/5 flex items-center justify-center">
-                            <Users size={14} />
-                         </div>
-                         <span className="text-[10px] font-bold uppercase tracking-widest">Active Community</span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                         <div className="w-8 h-8 rounded-full bg-black/5 flex items-center justify-center">
-                            <Zap size={14} />
-                         </div>
-                         <span className="text-[10px] font-bold uppercase tracking-widest">Weekly Blueprints</span>
-                      </div>
-                   </div>
-                </div>
-              </div>
-
-              <div className="space-y-32">
-                {/* Block 1 & 2: Comparison Grid */}
-                <div className="grid sm:grid-cols-2 gap-1 px-4 sm:px-0 bg-gray-100 border border-gray-100 rounded-sm overflow-hidden">
-                   <div className="bg-white p-10 flex flex-col justify-between group overflow-hidden relative">
-                      <div className="absolute top-4 right-4 text-gray-100 font-bebas text-4xl group-hover:text-red-500/10 transition-colors italic uppercase">The Play</div>
-                      <div>
-                        <span className="text-[#D90019] font-mono text-[10px] tracking-widest mb-4 block uppercase font-bold">Standard Use</span>
-                        <h4 className="font-bebas text-4xl mb-6 text-black tracking-wide">Playing <br />With AI</h4>
-                        <div className="space-y-3">
-                           {["Generate Content", "Ask Questions", "Test Prompts", "Manual Followup"].map((task, i) => (
-                             <div key={i} className="flex items-center gap-2 text-gray-400 text-[10px] font-bold uppercase">
-                                <X size={10} className="text-gray-300" /> {task}
-                             </div>
-                           ))}
-                        </div>
-                      </div>
-                      <p className="text-xs text-gray-400 mt-10 font-medium">Result: You stay as the bottleneck.</p>
-                   </div>
-                   <div className="bg-black p-10 flex flex-col justify-between group overflow-hidden relative border-t-4 sm:border-t-0 sm:border-l-4 border-[#D90019]">
-                      <div className="absolute top-4 right-4 text-white/5 font-bebas text-4xl italic uppercase">The Shift</div>
-                      <div>
-                        <span className="text-[#D90019] font-mono text-[10px] tracking-widest mb-4 block uppercase font-bold">Founder Mode</span>
-                        <h4 className="font-bebas text-4xl mb-6 text-white tracking-wide">Building <br />Systems</h4>
-                        <div className="space-y-3">
-                           {["Autonomous Logic", "Tool Integration", "Lead Routing", "Auto-Profits"].map((task, i) => (
-                             <div key={i} className="flex items-center gap-2 text-white/80 text-[10px] font-bold uppercase">
-                                <Check size={10} className="text-[#D90019]" /> {task}
-                             </div>
-                           ))}
-                        </div>
-                      </div>
-                      <p className="text-xs text-[#D90019] mt-10 font-bold uppercase tracking-widest">Result: The system runs itself.</p>
-                   </div>
-                </div>
-
-                {/* Block 3: The Operator Insight Card */}
-                <div className="relative group">
-                   <div className="absolute -inset-4 bg-gradient-to-tr from-[#D90019]/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                   <div className="relative bg-white border border-[#EAE9E4] p-12 sm:p-20 text-center shadow-sm">
-                      <div className="w-20 h-20 rounded-full bg-black flex items-center justify-center mx-auto mb-10 shadow-2xl">
-                         <Bot className="text-white" size={40} />
-                      </div>
-                      <h4 className="font-bebas text-7xl sm:text-8xl leading-none uppercase mb-8 text-black tracking-tight">
-                        AI Is Not <br />
-                        <span className="text-gray-300">Just A Tool.</span><br />
-                        <span className="text-[#D90019]">It's An Operator.</span>
-                      </h4>
-                      <p className="text-gray-500 font-bold uppercase tracking-[0.25em] text-xs max-w-sm mx-auto leading-loose">
-                        Once you understand that, you stop chatting with it — and start building with it.
-                      </p>
-                   </div>
-                </div>
-
-                {/* Block 4: What This Is */}
-                <div className="py-16 border-y border-gray-100">
-                   <h4 className="font-bebas text-5xl sm:text-6xl mb-6 text-black uppercase leading-tight">
-                     Not a course.<br />
-                     Not a community.<br />
-                     <span className="text-[#D90019]">A Movement.</span>
-                   </h4>
-                   <p className="text-gray-500 text-lg font-medium leading-relaxed max-w-2xl">
-                     Founders. Future founders. Employees. Managers. Operators. Anyone using AI to build, automate, and replace the manual grind. Inside, you don't get theory.
-                   </p>
-                </div>
-
-              </div>
-            </div>
-
-            {/* Block 5: The Closing Tension (STRETCHED) */}
-            <div className="relative mt-32 sm:mt-48 border-t-4 border-black pt-16 sm:pt-24">
-               <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#D90019]/5 rounded-full blur-[120px] -z-10 animate-pulse"></div>
-               <div className="max-w-4xl">
-                  <p className="text-gray-400 font-bold tracking-[0.5em] uppercase mb-10 text-xs font-mono">The Window</p>
-                  <p className="text-3xl sm:text-5xl font-black text-black leading-tight mb-12 tracking-tighter">
-                    This is early. Most people are still playing with AI. <br />
-                    <span className="text-[#D90019] italic font-serif">A few are building real systems with it.</span>
-                  </p>
-                  <h2 className="font-bebas text-[clamp(50px,12vw,160px)] text-black leading-[0.8] mb-16 uppercase tracking-tight">
-                    THAT GAP IS ABOUT <br /><span className="text-[#D90019]">TO GET VERY BIG.</span>
-                  </h2>
-                  <div className="grid md:grid-cols-2 gap-12 items-end">
-                     <div>
-                        <p className="text-gray-500 text-lg sm:text-xl font-medium leading-relaxed mb-8">
-                          You can keep using AI for small tasks. Or you can use it to run your business.<br />
-                          If you've had the thought: <span className="text-black italic">“I could build something crazy with this...”</span>
-                        </p>
-                        <p className="text-black font-black uppercase tracking-widest text-sm mb-4">This is where you actually do it.</p>
-                     </div>
-                     <div className="flex flex-col gap-4">
-                        <Link href="https://www.skool.com/founders-of-the-future-3908/about" className="group inline-flex items-center justify-between bg-black text-white px-10 py-8 font-bebas text-4xl sm:text-5xl tracking-widest hover:bg-[#D90019] transition-all hover:scale-[1.02] active:scale-95 shadow-2xl rounded-sm">
-                           Join Now <ArrowRight size={48} strokeWidth={3} className="group-hover:translate-x-4 transition-transform" />
-                        </Link>
-                        <div className="flex items-center gap-3 px-4 opacity-40">
-                           <span className="w-2 h-2 rounded-full bg-[#D90019] animate-pulse"></span>
-                           <span className="text-[10px] font-bold uppercase tracking-widest">Entry limited to 50 slots per month</span>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ═══ PRICING SECTION (COLOR BLOCK: BLACK) ═══ */}
-        <section className="py-32 px-6 bg-[#050505] overflow-hidden border-y border-white/5 relative">
-          <div className="absolute top-0 right-0 w-1/4 h-full bg-[#D90019]/5 blur-[120px]"></div>
-          <div className="max-w-6xl mx-auto relative z-10">
-            <div className="text-center mb-24">
-              <p className="text-[#D90019] font-bold tracking-[0.4em] uppercase mb-4 text-xs font-mono">Investment</p>
-              <h2 className="font-bebas text-6xl sm:text-8xl lg:text-9xl leading-none uppercase text-white">
-                The Pipeline
-              </h2>
-              <p className="text-gray-400 text-xl font-medium max-w-2xl mx-auto mt-8 leading-relaxed">
-                From entry-level logic to full business automation and ongoing scale.
-              </p>
-            </div>
-
-            <div className="space-y-6 sm:space-y-12">
-               {[
-                 { phase: "01", meta: "The Logic", title: "Founders of the Future", desc: "Entry level access to the logic. This is where you learn how to think in systems before you spend a dollar on builds.", price: "$97", cta: "Join FOTF", href: "https://www.skool.com/founders-of-the-future-3908/about", accent: true },
-                 { phase: "02", meta: "The Layer", title: "Build One: Living Layer", desc: "A custom communication infrastructure between your existing tools and the coming agent workforce. Rapid deployment in 14 days.", price: "$5K+", cta: "Secure Build", href: "/build", accent: true },
-                 { phase: "03", meta: "The Scale", title: "Full Build: Industry Playbook", desc: "Proven operational playbooks for your specific niche. Full automation across every department. The true Business OS.", price: "$25K+", cta: "Apply Now", href: "/apply", accent: false },
-                 { phase: "04", meta: "The Evolution", title: "The Retainer", desc: "Not required for all builds. We host, maintain, and upgrade your system. Unlimited skill upgrades and new automations on demand. 48-hour turnarounds.", price: "$1.5K - $5K/mo", cta: "Apply Now", href: "/apply", accent: false },
-                 { phase: "05", meta: "The Legend", title: "Partnership / Share", desc: "Skin in the game. Full alignment. We become your equity AI department for high-scale growth.", price: "Partnership", cta: "Apply Now", href: "/apply", accent: false },
-               ].map((step, i) => (
-                 <div key={i} className={`group relative bg-white/5 border ${step.accent ? 'border-[#D90019]/50' : 'border-white/10'} p-8 sm:p-16 transition-all hover:bg-white/10 hover:border-[#D90019] overflow-hidden`}>
-                    {/* Visual Number Background */}
-                    <div className="absolute top-0 right-0 p-8 font-bebas text-[120px] sm:text-[200px] text-white/[0.03] group-hover:text-[#D90019]/[0.05] transition-all uppercase leading-none pointer-events-none select-none italic transform translate-x-12 -translate-y-12">
-                      {step.phase}
-                    </div>
-                    
-                    <div className="flex flex-col lg:flex-row justify-between items-start gap-12 relative z-10 w-full">
-                       <div className="flex-1 max-w-3xl">
-                          <div className="flex items-center gap-4 mb-6">
-                            <span className="bg-[#D90019] text-white font-bebas text-xl px-3 py-1">{step.phase}</span>
-                            <span className="text-[#D90019] font-bold tracking-[0.4em] uppercase text-[10px] font-mono">{step.meta}</span>
-                          </div>
-                          <h3 className="font-bebas text-4xl sm:text-7xl text-white mb-8 uppercase tracking-wider leading-none">{step.title}</h3>
-                          <p className="text-gray-400 text-lg sm:text-xl font-medium leading-relaxed">{step.desc}</p>
-                       </div>
-                       
-                       <div className="shrink-0 w-full lg:w-80 pt-8 lg:pt-0 border-t lg:border-t-0 lg:border-l border-white/10 lg:pl-12 flex flex-col justify-between h-full">
-                          <div className="mb-10 lg:mb-0">
-                            <span className="text-gray-500 font-bold tracking-widest uppercase text-[10px] block mb-2 font-mono">Investment</span>
-                            <div className="font-bebas text-5xl sm:text-6xl text-white leading-none">{step.price}</div>
-                          </div>
-                          <Link href={step.href} className={`inline-flex items-center justify-between group/btn gap-4 mt-8 lg:mt-12 px-10 py-6 font-bebas text-3xl tracking-widest transition-all w-full ${step.accent ? 'bg-[#D90019] text-white hover:bg-white hover:text-black' : 'bg-white text-black hover:bg-[#D90019] hover:text-white'}`}>
-                             {step.cta} <ArrowRight size={28} className="group-hover/btn:translate-x-2 transition-transform" />
-                          </Link>
-                       </div>
-                    </div>
-                 </div>
-               ))}
-            </div>
-          </div>
-        </section>
-
-
-        {/* ═══ INDUSTRY PLAYBOOKS (COLOR BLOCK: RED) ═══ */}
-        <section className="py-32 px-6 bg-[#D90019] overflow-hidden relative">
+        {/* ═══ WHY THIS IS DIFFERENT ═══ */}
+        <section className="py-24 sm:py-40 px-6 bg-white border-t border-gray-100">
           <div className="max-w-6xl mx-auto">
-            <div className="flex flex-col md:flex-row justify-between items-end gap-10 mb-20 text-center md:text-left">
-               <div>
-                  <p className="text-white/60 font-bold tracking-[0.4em] uppercase mb-4 text-xs font-mono">Proven Systems</p>
-                  <h2 className="font-bebas text-6xl sm:text-8xl lg:text-9xl leading-none uppercase text-white">Industry <span className="opacity-40">Playbooks.</span></h2>
-               </div>
-               <div className="flex-1 md:max-w-sm">
-                  <p className="text-white/80 font-medium text-xl italic leading-relaxed">
-                    Battle-tested operational logic deployed across 18+ high-scale verticals.
-                  </p>
-               </div>
+            <div className="grid lg:grid-cols-2 gap-20 items-center">
+              <div>
+                <p className="text-[#D90019] font-bold tracking-[0.4em] uppercase mb-8 text-xs font-mono">The Edge</p>
+                <h2 className="font-bebas text-6xl sm:text-8xl lg:text-9xl leading-[0.8] uppercase text-[#0C0C0C] mb-12 tracking-tight">
+                  Most Businesses Are <span className="text-gray-300">Renting AI.</span>
+                </h2>
+                <div className="space-y-6 max-w-lg">
+                  <div className="flex items-center gap-4 text-gray-400 font-bold uppercase tracking-widest text-sm">
+                    <X size={20} /> monthly subscriptions
+                  </div>
+                  <div className="flex items-center gap-4 text-gray-400 font-bold uppercase tracking-widest text-sm">
+                    <X size={20} /> locked systems
+                  </div>
+                  <div className="flex items-center gap-4 text-gray-400 font-bold uppercase tracking-widest text-sm">
+                    <X size={20} /> no control
+                  </div>
+                </div>
+              </div>
+              <div className="bg-[#FAF9F6] p-12 sm:p-20 border-l-8 border-[#D90019] shadow-2xl relative">
+                <div className="absolute top-0 right-0 p-8 opacity-5">
+                  <Shield size={120} />
+                </div>
+                <h3 className="font-bebas text-5xl sm:text-7xl uppercase mb-10 text-black tracking-tight leading-none">
+                  We build systems <br /><span className="text-[#D90019]">you own.</span>
+                </h3>
+                <ul className="space-y-8 mb-12">
+                   {[
+                     { label: "Your workflows", desc: "Built for your specific operational logic." },
+                     { label: "Your data", desc: "You maintain full custody and privacy." },
+                     { label: "Your automation layer", desc: "No dependency on external black boxes." }
+                   ].map((item, i) => (
+                     <li key={i} className="flex gap-6">
+                        <Check className="text-[#D90019] shrink-0 mt-1" size={24} />
+                        <div>
+                           <p className="text-black font-bebas text-2xl uppercase tracking-widest">{item.label}</p>
+                           <p className="text-gray-500 font-medium">{item.desc}</p>
+                        </div>
+                     </li>
+                   ))}
+                </ul>
+                <p className="text-black font-black uppercase tracking-[0.3em] text-[10px]">Zero Dependency Architecture</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ═══ PIPELINE (SIMPLIFIED) ═══ */}
+        <section id="process" className="py-24 sm:py-32 px-6 bg-black border-y border-white/5">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-20 sm:mb-24">
+              <p className="text-[#D90019] font-bold tracking-[0.4em] uppercase mb-4 text-xs font-mono">Process</p>
+              <h2 className="font-bebas text-6xl sm:text-8xl lg:text-9xl leading-none uppercase text-white">
+                How You Work With Us
+              </h2>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-0 border-t border-white/20">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {[
-                { slug: "medical-dental", name: "Medical & Dental" },
-                { slug: "home-services-high-ticket", name: "Home Services — High Ticket" },
-                { slug: "legal", name: "Legal Services" },
-                { slug: "beauty-personal-care", name: "Beauty & Personal Care" },
-                { slug: "home-services-recurring", name: "Home Services — Recurring" },
-                { slug: "real-estate-property", name: "Real Estate & Property" },
-                { slug: "health-wellness", name: "Health & Wellness" },
-                { slug: "pet-services", name: "Pet Services" },
-                { slug: "automotive", name: "Automotive" },
-                { slug: "professional-financial", name: "Professional & Financial Services" },
-                { slug: "events-hospitality", name: "Events & Hospitality" },
-                { slug: "education-childcare", name: "Education & Childcare" },
-                { slug: "misc-local-services", name: "Misc. Local Services" },
-                { slug: "saas", name: "SaaS Founders" },
-                { slug: "course-creators", name: "Course Creators" },
-                { slug: "coaching", name: "Coaches & Consultants" },
-                { slug: "ecommerce", name: "E-commerce & Retail" },
-                { slug: "agencies", name: "Agencies" },
-              ].map((ind, i) => (
-                <Link key={i} href={`/industry-categories/${ind.slug}`} className="flex items-center gap-6 py-6 border-b border-white/10 group transition-all hover:pl-4 hover:bg-white/5 active:scale-[0.98]">
-                  <span className="font-bebas text-lg text-white/30 group-hover:text-white transition-colors duration-300">{String(i + 1).padStart(2, '0')}</span>
-                  <span className="font-bold text-base tracking-tight text-white group-hover:opacity-100 opacity-80 transition-all duration-300 flex-1">{ind.name}</span>
-                  <ArrowRight size={16} className="text-white/20 group-hover:text-white group-hover:translate-x-2 transition-all duration-300" />
-                </Link>
+                { step: "01", meta: "Learn (Optional)", title: "Founders of the Future", desc: "Learn how AI systems actually work." },
+                { step: "02", meta: "Build", title: "Living Layer", desc: "We install your AI backend in 14 days." },
+                { step: "03", meta: "Scale", title: "Full Build", desc: "We expand automation across your entire business." },
+                { step: "04", meta: "Maintain", title: "System Evolution", desc: "We keep it running and improving." },
+              ].map((item, i) => (
+                <div key={i} className="bg-white/5 border border-white/10 p-10 group hover:border-[#D90019] transition-all">
+                  <span className="text-[#D90019] font-bebas text-2xl mb-4 block">{item.step}</span>
+                  <span className="text-white/40 font-bold tracking-[0.2em] uppercase text-[10px] mb-4 block font-mono">{item.meta}</span>
+                  <h3 className="font-bebas text-3xl text-white mb-4 group-hover:text-[#D90019] transition-colors">{item.title}</h3>
+                  <p className="text-gray-400 text-sm font-medium leading-relaxed">{item.desc}</p>
+                </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ═══ FINAL CTA SECTION (COLOR BLOCK: CREAM/WHITE) ═══ */}
-        <section className="py-40 px-6 bg-[#FAF9F6] overflow-hidden relative">
+        {/* ═══ OFFERS (CLEANED) ═══ */}
+        <section className="py-32 sm:py-48 px-6 bg-white overflow-hidden">
+          <div className="max-w-6xl mx-auto">
+             <div className="grid lg:grid-cols-3 gap-8 items-stretch">
+                {/* Build Phase */}
+                <div className="bg-[#FAF9F6] border border-gray-100 p-12 flex flex-col justify-between group hover:border-[#D90019]/20 transition-all shadow-sm">
+                   <div>
+                      <span className="bg-[#D90019] text-white font-bebas text-xl px-4 py-1 mb-10 inline-block">Build Phase</span>
+                      <h3 className="font-bebas text-5xl text-black mb-8 leading-none uppercase">AI System <br />Install</h3>
+                      <ul className="space-y-4 mb-12">
+                         {["Full backend setup", "Lead handling", "Follow-up automation", "Tool integrations", "Go live in ~14 days"].map((f, i) => (
+                           <li key={i} className="flex items-center gap-3 text-sm font-bold uppercase tracking-widest text-gray-500 text-[10px]">
+                              <Check size={14} className="text-[#D90019]" /> {f}
+                           </li>
+                         ))}
+                      </ul>
+                   </div>
+                   <div>
+                      <div className="font-bebas text-5xl text-black mb-8">Starting at $5K+</div>
+                      <Link href="/audit" className="w-full inline-flex font-bebas text-2xl tracking-widest bg-black text-white px-8 py-5 hover:bg-[#D90019] transition-all items-center justify-center gap-3">
+                        Apply Now <ArrowRight size={20} />
+                      </Link>
+                   </div>
+                </div>
+
+                {/* Full Scale (Accent) */}
+                <div className="bg-black text-white p-12 flex flex-col justify-between relative overflow-hidden shadow-2xl scale-105 z-10">
+                   <div className="absolute top-0 right-0 p-8 opacity-10">
+                      <Target size={180} />
+                   </div>
+                   <div>
+                      <span className="bg-[#D90019] text-white font-bebas text-xl px-4 py-1 mb-10 inline-block">Full Scale</span>
+                      <h3 className="font-bebas text-5xl text-white mb-8 leading-none uppercase">Business OS <br />Build</h3>
+                      <ul className="space-y-4 mb-12">
+                         {["Everything automated:", "Sales & Marketing", "Ops & Admin", "Revenue Tracking", "Full Agent Workforce"].map((f, i) => (
+                           <li key={i} className="flex items-center gap-3 text-sm font-bold uppercase tracking-widest text-white/60 text-[10px]">
+                              <Check size={14} className="text-[#D90019]" /> {f}
+                           </li>
+                         ))}
+                      </ul>
+                   </div>
+                   <div>
+                      <div className="font-bebas text-5xl text-white mb-8">$25K+</div>
+                      <Link href="/audit" className="w-full inline-flex font-bebas text-2xl tracking-widest bg-[#D90019] text-white px-8 py-5 hover:bg-white hover:text-black transition-all items-center justify-center gap-3">
+                        Apply Now <ArrowRight size={20} />
+                      </Link>
+                   </div>
+                </div>
+
+                {/* Ongoing */}
+                <div className="bg-white border border-gray-100 p-12 flex flex-col justify-between group hover:border-[#D90019]/20 transition-all shadow-sm">
+                   <div>
+                      <span className="bg-gray-100 text-gray-500 font-bebas text-xl px-4 py-1 mb-10 inline-block">Ongoing</span>
+                      <h3 className="font-bebas text-5xl text-black mb-8 leading-none uppercase">System <br />Evolution</h3>
+                      <p className="text-gray-500 font-medium mb-12">We host, maintain, and upgrade your system as AI improves. Guaranteed performance.</p>
+                   </div>
+                   <div>
+                      <div className="font-bebas text-4xl text-black mb-8">$1.5K – $5K/mo</div>
+                      <Link href="/audit" className="w-full inline-flex font-bebas text-2xl tracking-widest bg-gray-100 text-gray-500 px-8 py-5 hover:bg-black hover:text-white transition-all items-center justify-center gap-3">
+                        Apply Now <ArrowRight size={20} />
+                      </Link>
+                   </div>
+                </div>
+             </div>
+          </div>
+        </section>
+
+        {/* ═══ F.O.T.F. (REPOSITIONED) ═══ */}
+        <section className="py-24 sm:py-40 px-6 bg-[#FAFAF8] border-t border-gray-100">
+           <div className="max-w-6xl mx-auto">
+              <div className="grid lg:grid-cols-2 gap-20 items-center">
+                 <div>
+                    <p className="text-[#D90019] font-bold tracking-[0.4em] uppercase mb-8 text-xs font-mono">Builders Only</p>
+                    <h2 className="font-bebas text-6xl sm:text-8xl lg:text-9xl leading-[0.8] uppercase text-[#0C0C0C] mb-8">
+                      Founders <br />
+                      <span className="text-[#D90019]">of the Future.</span>
+                    </h2>
+                    <p className="text-gray-500 text-2xl font-bold uppercase tracking-widest italic leading-tight">Learn to Build Systems Like This</p>
+                 </div>
+                 <div className="bg-white p-12 sm:p-20 shadow-xl rounded-sm border-t-8 border-black">
+                    <h3 className="font-bebas text-4xl uppercase mb-10 text-black">This is where builders start.</h3>
+                    <ul className="grid sm:grid-cols-2 gap-8 mb-16">
+                       {[
+                         { icon: Bot, label: "Weekly drops", desc: "Proven system blueprints." },
+                         { icon: Database, label: "Tool Vault", desc: "The exact tech we use." },
+                         { icon: Target, label: "Real Builds", desc: "No fluff. Just installation." },
+                         { icon: Wrench, label: "Community", desc: "Collaborate with builders." }
+                       ].map((item, i) => (
+                         <li key={i} className="flex flex-col gap-4">
+                            <item.icon className="text-[#D90019]" size={32} />
+                            <div>
+                               <p className="text-black font-bebas text-xl uppercase tracking-widest leading-none mb-1">{item.label}</p>
+                               <p className="text-gray-400 text-xs font-medium leading-relaxed">{item.desc}</p>
+                            </div>
+                         </li>
+                       ))}
+                    </ul>
+                    <div className="space-y-6">
+                       <p className="text-gray-500 text-lg font-medium italic">"Not a course. Not theory. Just real systems."</p>
+                       <Link href="https://www.skool.com/founders-of-the-future-3908/about" className="group inline-flex items-center justify-between bg-black text-white px-10 py-8 font-bebas text-4xl tracking-widest hover:bg-[#D90019] transition-all w-full">
+                          Join FOTF — $97 <ArrowRight size={32} strokeWidth={3} className="group-hover:translate-x-4 transition-transform" />
+                       </Link>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </section>
+
+        {/* ═══ FINAL CTA SECTION (CLEANED) ═══ */}
+        <section className="py-40 px-6 bg-black text-white overflow-hidden relative">
           <div className="max-w-4xl mx-auto text-center relative z-10">
-            <h2 className="font-bebas text-6xl sm:text-8xl lg:text-9xl leading-[0.85] uppercase mb-12 tracking-tight text-[#0C0C0C]">
-              What Your Business<br />
-              <span className="text-[#D90019]">Looks Like Automated</span>
+            <h2 className="font-bebas text-6xl sm:text-8xl lg:text-[140px] leading-[0.8] uppercase mb-16 tracking-tighter">
+              If your business <br />
+              <span className="text-gray-600 italic">depends on you...</span><br />
+              <span className="text-[#D90019]">You have a job.</span>
             </h2>
             
-            <div className="max-w-2xl mx-auto mb-16 text-left border-l-4 border-[#D90019] pl-10">
-               <p className="text-gray-950 text-2xl font-bold mb-6 italic uppercase tracking-wider">Live Audit reveals:</p>
-               <ul className="space-y-4">
-                  {[
-                    "Where you’re losing money",
-                    "What to automate first",
-                    "A custom system buildout roadmap"
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-center gap-4 text-xl font-bold text-gray-800">
-                       <Check size={24} className="text-[#D90019] shrink-0" /> {item}
-                    </li>
-                  ))}
-               </ul>
-               <p className="mt-10 text-xl font-black uppercase tracking-[0.3em] text-[#D90019]">No pitch. Just clarity.</p>
-            </div>
+            <p className="text-white/60 text-2xl font-bebas tracking-[0.4em] uppercase mb-20">We fix that.</p>
             
             <div className="flex flex-col items-center gap-10">
-               <Link href="/audit" className="group relative inline-flex font-bebas text-3xl sm:text-5xl tracking-[0.1em] bg-black text-white px-20 py-10 hover:bg-[#D90019] transition-all hover:-translate-y-2 shadow-2xl items-center justify-center gap-8 overflow-hidden rounded-sm">
-                 <div className="absolute inset-0 bg-white/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out"></div>
+               <Link href="/audit" className="group relative inline-flex font-bebas text-4xl sm:text-6xl tracking-[0.1em] bg-[#D90019] text-white px-20 py-12 hover:bg-white hover:text-black transition-all items-center justify-center gap-8 shadow-[0_30px_100px_rgba(217,0,25,0.4)]">
                  Get Your Free AI Audit <ArrowRight size={48} strokeWidth={3} className="group-hover:translate-x-3 transition-transform" />
                </Link>
             </div>
