@@ -429,139 +429,42 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch px-4 sm:px-0">
-              {/* Founders of the Future */}
-              <div className="p-10 border border-white/10 bg-white/5 backdrop-blur-sm flex flex-col transition-all duration-500 hover:border-[#D90019]/50 group relative">
-                <div className="flex justify-between items-start mb-10">
-                   <div>
-                      <span className="font-bebas text-xl text-gray-500 mb-2 block uppercase tracking-widest">Step 01</span>
-                      <h3 className="text-3xl font-bold font-bebas tracking-wide text-white group-hover:text-[#D90019] transition-colors">F.O.T.F.</h3>
-                   </div>
-                   <div className="text-right">
-                      <div className="text-2xl font-bold font-bebas text-[#D90019]">$97</div>
-                   </div>
-                </div>
-                
-                <p className="text-gray-400 mb-10 font-medium text-sm leading-relaxed">Master the logic before the builds. Private subdomain access.</p>
-                
-                <div className="flex-1 space-y-4 mb-10">
-                  {[
-                    "Logic blueprints",
-                    "Weekly strategy",
-                    "Community access",
-                    "FOTF Subdomain"
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 text-[10px] font-bold uppercase tracking-widest text-gray-300">
-                      <Check className="text-[#D90019] shrink-0 mt-0.5" size={10} strokeWidth={3} /> {item}
-                    </li>
-                  ))}
-                </div>
-                
-                <Link href="https://www.skool.com/founders-of-the-future-3908/about" target="_blank" className="w-full text-center py-4 bg-white text-black font-bebas text-xl tracking-[0.2em] transition-all hover:bg-[#D90019] hover:text-white active:scale-95">
-                  Join FOTF
-                </Link>
-              </div>
-
-              {/* Build One */}
-              <div className="p-10 border-2 border-[#D90019] bg-[#D90019]/5 flex flex-col relative transform lg:scale-105 z-20 overflow-hidden shadow-[0_30px_70px_rgba(217,0,25,0.2)]">
-                <div className="absolute top-0 right-0 p-4">
-                   <ZapIcon className="text-[#D90019] animate-pulse" size={24} />
-                </div>
-                
-                <div className="mt-8 mb-10">
-                   <span className="font-bebas text-xl text-red-600 mb-2 block uppercase tracking-widest">Step 02</span>
-                   <h3 className="text-3xl font-bold font-bebas tracking-wide text-white">Build One</h3>
-                   <div className="mt-4 text-3xl font-bold font-bebas text-[#D90019]">$5,000+</div>
-                </div>
-                
-                <p className="text-gray-300 mb-10 font-medium text-sm leading-relaxed">A custom communication layer for your existing tools.</p>
-                
-                <div className="flex-1 space-y-4 mb-10">
-                  {[
-                    "Custom Layer 1 build",
-                    "Tool integrations",
-                    "Agent logic setup",
-                    "14-day deployment"
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 text-[10px] font-bold uppercase tracking-widest text-white">
-                      <Check className="text-[#D90019] shrink-0 mt-0.5" size={10} strokeWidth={3} /> {item}
-                    </li>
-                  ))}
-                </div>
-                
-                <Link href="/build" className="w-full text-center py-5 bg-[#D90019] text-white font-bebas text-2xl tracking-[0.2em] transition-all hover:bg-white hover:text-[#D90019] active:scale-95">
-                  Secure Build One
-                </Link>
-              </div>
-
-              {/* Full OS */}
-              <div className="p-10 border border-white/10 bg-white/5 backdrop-blur-sm flex flex-col transition-all duration-500 hover:border-[#D90019]/50 group relative">
-                <div className="flex justify-between items-start mb-10">
-                   <div>
-                      <span className="font-bebas text-xl text-gray-500 mb-2 block uppercase tracking-widest">Step 03</span>
-                      <h3 className="text-3xl font-bold font-bebas tracking-wide text-white group-hover:text-[#D90019] transition-colors">Playbook OS</h3>
-                   </div>
-                   <div className="text-right">
-                      <div className="text-2xl font-bold font-bebas text-white">$25K+</div>
-                   </div>
-                </div>
-                
-                <p className="text-gray-400 mb-10 font-medium text-sm leading-relaxed">Proven industry playbooks for full business automation.</p>
-                
-                <div className="flex-1 space-y-4 mb-10">
-                  {[
-                    "Full sector automation",
-                    "Custom playbook",
-                    "Agent workforce",
-                    "Revenue scale"
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 text-[10px] font-bold uppercase tracking-widest text-gray-300">
-                      <Check className="text-[#D90019] shrink-0 mt-0.5" size={10} strokeWidth={3} /> {item}
-                    </li>
-                  ))}
-                </div>
-                
-                <Link href="/apply" className="w-full text-center py-4 bg-white/10 text-white font-bebas text-xl tracking-[0.2em] transition-all hover:bg-[#D90019] active:scale-95 border border-white/20">
-                  Full Deploy
-                </Link>
-              </div>
-
-              {/* The Retainer */}
-              <div className="p-10 border border-white/10 bg-white/5 backdrop-blur-sm flex flex-col transition-all duration-500 hover:border-[#D90019]/50 group relative overflow-hidden">
-                <div className="absolute top-0 right-0 bg-white text-black text-[8px] font-bold uppercase tracking-[0.3em] px-4 py-1.5 z-10">
-                  Required
-                </div>
-                <div className="flex justify-between items-start mb-10">
-                   <div>
-                      <span className="font-bebas text-xl text-gray-500 mb-2 block uppercase tracking-widest">Phase 2</span>
-                      <h3 className="text-3xl font-bold font-bebas tracking-wide text-white group-hover:text-[#D90019] transition-colors">The Retainer</h3>
-                   </div>
-                   <div className="text-right">
-                      <div className="text-xl font-bold font-bebas text-white leading-none">$1,500 –</div>
-                      <div className="text-xl font-bold font-bebas text-[#D90019]">$5,000/mo</div>
-                   </div>
-                </div>
-                
-                <p className="text-gray-400 mb-10 font-medium text-sm leading-relaxed italic">"Logic evolves. Infra stays live."</p>
-                
-                <div className="flex-1 space-y-4 mb-10">
-                  {[
-                    "Unlimited automations",
-                    "Skill upgrades",
-                    "Hosting managed",
-                    "48h turnaround",
-                    "Security handled"
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 text-[10px] font-bold uppercase tracking-widest text-gray-300">
-                      <Check className="text-[#D90019] shrink-0 mt-0.5" size={10} strokeWidth={3} /> {item}
-                    </li>
-                  ))}
-                </div>
-                
-                <Link href="/apply" className="w-full text-center py-4 bg-white/10 text-white font-bebas text-xl tracking-[0.2em] transition-all hover:bg-[#D90019] active:scale-95 border border-white/20">
-                  Secure The System
-                </Link>
-              </div>
+            <div className="space-y-6 sm:space-y-12">
+               {[
+                 { phase: "01", meta: "The Logic", title: "Founders of the Future", desc: "Entry level access to the logic. This is where you learn how to think in systems before you spend a dollar on builds.", price: "$97", cta: "Join FOTF", href: "https://www.skool.com/founders-of-the-future-3908/about", accent: false },
+                 { phase: "02", meta: "The Layer", title: "Build One: Living Layer", desc: "A custom communication infrastructure between your existing tools and the coming agent workforce. Rapid deployment in 14 days.", price: "$5K+", cta: "Secure Build", href: "/build", accent: true },
+                 { phase: "03", meta: "The Scale", title: "Full Build: Industry Playbook", desc: "Proven operational playbooks for your specific niche. Full automation across every department. The true Business OS.", price: "$25K+", cta: "Apply Now", href: "/apply", accent: false },
+                 { phase: "04", meta: "The Evolution", title: "The Retainer", desc: "Required for all builds. We host, maintain, and upgrade your system. Unlimited skill upgrades and new automations on demand. 48-hour turnarounds.", price: "$1.5K - $5K/mo", cta: "Apply Now", href: "/apply", accent: false },
+                 { phase: "05", meta: "The Legend", title: "Partnership / Share", desc: "Skin in the game. Full alignment. We become your equity AI department for high-scale growth.", price: "Partnership", cta: "Apply Now", href: "/apply", accent: false },
+               ].map((step, i) => (
+                 <div key={i} className={`group relative bg-white/5 border ${step.accent ? 'border-[#D90019]/50' : 'border-white/10'} p-8 sm:p-16 transition-all hover:bg-white/10 hover:border-[#D90019] overflow-hidden`}>
+                    {/* Visual Number Background */}
+                    <div className="absolute top-0 right-0 p-8 font-bebas text-[120px] sm:text-[200px] text-white/[0.03] group-hover:text-[#D90019]/[0.05] transition-all uppercase leading-none pointer-events-none select-none italic transform translate-x-12 -translate-y-12">
+                      {step.phase}
+                    </div>
+                    
+                    <div className="flex flex-col lg:flex-row justify-between items-start gap-12 relative z-10 w-full">
+                       <div className="flex-1 max-w-3xl">
+                          <div className="flex items-center gap-4 mb-6">
+                            <span className="bg-[#D90019] text-white font-bebas text-xl px-3 py-1">{step.phase}</span>
+                            <span className="text-[#D90019] font-bold tracking-[0.4em] uppercase text-[10px] font-mono">{step.meta}</span>
+                          </div>
+                          <h3 className="font-bebas text-4xl sm:text-7xl text-white mb-8 uppercase tracking-wider leading-none">{step.title}</h3>
+                          <p className="text-gray-400 text-lg sm:text-xl font-medium leading-relaxed">{step.desc}</p>
+                       </div>
+                       
+                       <div className="shrink-0 w-full lg:w-80 pt-8 lg:pt-0 border-t lg:border-t-0 lg:border-l border-white/10 lg:pl-12 flex flex-col justify-between h-full">
+                          <div className="mb-10 lg:mb-0">
+                            <span className="text-gray-500 font-bold tracking-widest uppercase text-[10px] block mb-2 font-mono">Investment</span>
+                            <div className="font-bebas text-5xl sm:text-6xl text-white leading-none">{step.price}</div>
+                          </div>
+                          <Link href={step.href} className={`inline-flex items-center justify-between group/btn gap-4 mt-8 lg:mt-12 px-10 py-6 font-bebas text-3xl tracking-widest transition-all w-full ${step.accent ? 'bg-[#D90019] text-white hover:bg-white hover:text-black' : 'bg-white text-black hover:bg-[#D90019] hover:text-white'}`}>
+                             {step.cta} <ArrowRight size={28} className="group-hover/btn:translate-x-2 transition-transform" />
+                          </Link>
+                       </div>
+                    </div>
+                 </div>
+               ))}
             </div>
           </div>
         </section>

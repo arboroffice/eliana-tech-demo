@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server'
 import { db } from '@/lib/firebase'
 import { collection, getDocs, addDoc, query, orderBy, doc, deleteDoc, updateDoc, arrayUnion, getDoc } from 'firebase/firestore'
 import { syncStageToGHL } from '@/lib/ghl'
+import { appendTimelineByEmail } from '@/lib/client-vault'
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'Mia-Eliana476'
 
@@ -160,6 +161,18 @@ export async function PATCH(request: Request) {
                 console.error('[GHL] Stage sync error:', e)
             }
 
+            // Sync stage change to vault timeline
+            try {
+                const snapData = (await getDoc(docRef)).data()
+                if (snapData?.email) {
+                    appendTimelineByEmail(snapData.email, {
+                        timestamp: new Date().toISOString(),
+                        emoji: '🔄',
+                        text: `Stage changed to "${stage}"`,
+                    }).catch(console.error)
+                }
+            } catch { /* skip */ }
+
             return NextResponse.json({ success: true, stage })
         }
 
@@ -176,6 +189,19 @@ export async function PATCH(request: Request) {
             await updateDoc(docRef, {
                 notes: arrayUnion(note)
             })
+
+            // Sync note to vault timeline
+            try {
+                const snapData = (await getDoc(docRef)).data()
+                if (snapData?.email) {
+                    appendTimelineByEmail(snapData.email, {
+                        timestamp: new Date().toISOString(),
+                        emoji: '📝',
+                        text: `Note: ${text.trim().slice(0, 100)}`,
+                    }).catch(console.error)
+                }
+            } catch { /* skip */ }
+
             return NextResponse.json({ success: true, note })
         }
 

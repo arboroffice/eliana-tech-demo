@@ -8,6 +8,7 @@ import { sendHighIntentSMS, notifyTeamOfHotLead, scheduleSMSFollowUp, isValidPho
 import { scoreAndRouteLead } from '@/lib/lead-router'
 import { getBusinessCategory } from '@/lib/audit-industry-config'
 import { pushLeadToGHL } from '@/lib/ghl'
+import { createVaultFromAudit } from '@/lib/client-vault'
 
 export async function POST(request: Request) {
     try {
@@ -32,6 +33,15 @@ export async function POST(request: Request) {
             accountType: 'audit',
             submittedAt: new Date().toISOString()
         })
+
+        // Create client vault (Obsidian CRM)
+        createVaultFromAudit(auditId, {
+            ...formData,
+            auditScore,
+            intentLevel,
+            growthBudget: formData.growthBudget,
+            opportunities,
+        }).catch(err => console.error('[VAULT CREATE ERROR]', err))
 
         // Push lead to GoHighLevel CRM
         try {

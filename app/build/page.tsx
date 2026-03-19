@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { ArrowRight, Check, Zap, Rocket, Shield, Clock, MousePointer2 } from "lucide-react"
+import { ArrowRight, Check, Zap, Rocket, Shield, Clock, MousePointer2, Bot, Database } from "lucide-react"
 
 export default function BuildPage() {
   const scrollToSteps = () => {
@@ -77,6 +77,74 @@ export default function BuildPage() {
                 </ul>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* ═══ OUTCOMES: THE LIVING LAYER ═══ */}
+        <section className="py-24 sm:py-32 px-6 border-y border-gray-100 bg-white overflow-hidden relative">
+          <div className="absolute top-0 right-0 w-1/3 h-full bg-[#D90019]/5 skew-x-[-12deg] -z-10 translate-x-1/2"></div>
+          <div className="max-w-6xl mx-auto">
+             <div className="grid lg:grid-cols-2 gap-20 items-center">
+                <div className="order-2 lg:order-1">
+                   <div className="grid grid-cols-2 gap-4 sm:gap-8">
+                      {[
+                        { label: "Speed to Lead", value: "< 2s", sub: "Response time across all tools" },
+                        { label: "Lead Retention", value: "100%", sub: "Zero leaks in your routing logic" },
+                        { label: "Operational Uptime", value: "24/7", sub: "Logic that never sleeps" },
+                        { label: "Human Friction", value: "0%", sub: "Automated at the first touch" },
+                      ].map((stat, i) => (
+                        <div key={i} className="bg-[#FAFAF8] p-8 border border-gray-100 group hover:border-[#D90019] transition-all duration-500">
+                           <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-gray-400 block mb-4 group-hover:text-[#D90019] transition-colors">{stat.label}</span>
+                           <span className="font-bebas text-5xl sm:text-7xl block mb-2 text-black leading-none">{stat.value}</span>
+                           <p className="text-[10px] text-gray-500 font-medium leading-relaxed">{stat.sub}</p>
+                        </div>
+                      ))}
+                   </div>
+                </div>
+
+                <div className="order-1 lg:order-2">
+                   <p className="text-[#D90019] font-bold tracking-[0.4em] uppercase mb-8 text-xs font-mono">The Outcome</p>
+                   <h2 className="font-bebas text-6xl sm:text-8xl leading-none uppercase text-black mb-10 tracking-tight">
+                     Target: Extreme <br />
+                     <span className="text-[#D90019]">Coverage.</span>
+                   </h2>
+                   <div className="space-y-10">
+                      <div className="flex gap-8 items-start">
+                         <div className="w-12 h-12 bg-black flex items-center justify-center shrink-0">
+                            <MousePointer2 className="text-white" size={20} />
+                         </div>
+                         <div>
+                            <h4 className="text-xl font-black uppercase tracking-tight mb-2 italic">Lead Protection</h4>
+                            <p className="text-gray-500 font-medium leading-relaxed">
+                              When a prospect clicks, they get an immediate, intelligent response across SMS, Email, and WhatsApp. No human needed to bridge the gap.
+                            </p>
+                         </div>
+                      </div>
+                      <div className="flex gap-8 items-start">
+                         <div className="w-12 h-12 bg-black flex items-center justify-center shrink-0">
+                            <Database className="text-white" size={20} />
+                         </div>
+                         <div>
+                            <h4 className="text-xl font-black uppercase tracking-tight mb-2 italic">Infrastructure Sync</h4>
+                            <p className="text-gray-500 font-medium leading-relaxed">
+                              Your CRM, calendar, and payment systems are fused into a single living entity. Updates in one tool trigger logical shifts in all others—instantly.
+                           </p>
+                         </div>
+                      </div>
+                      <div className="flex gap-8 items-start">
+                         <div className="w-12 h-12 bg-black flex items-center justify-center shrink-0">
+                            <Bot className="text-white" size={20} />
+                         </div>
+                         <div>
+                            <h4 className="text-xl font-black uppercase tracking-tight mb-2 italic">Future Built</h4>
+                            <p className="text-gray-500 font-medium leading-relaxed">
+                              This isn't a temporary fix. It's the permanent foundation required to run an autonomous agent workforce. If it happens in your business, the Layer catches it.
+                           </p>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+             </div>
           </div>
         </section>
 

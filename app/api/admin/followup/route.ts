@@ -3,6 +3,7 @@ import Anthropic from '@anthropic-ai/sdk'
 import { getTwilioClient, TWILIO_PHONE, formatPhoneNumber } from '@/lib/sms-service'
 import { Resend } from 'resend'
 import { logEmailActivity } from '@/lib/email-service'
+import { appendTimelineByEmail } from '@/lib/client-vault'
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'Mia-Eliana476'
 const RESEND_API_KEY = process.env.RESEND_API_KEY || ''
@@ -214,6 +215,15 @@ export async function POST(request: Request) {
 
                 // Log SMS activity
                 await logEmailActivity(lead.email || 'unknown', `[SMS] Follow-up`, `MANUAL_SMS_${(emailType || 'warm-nudge').toUpperCase()}`)
+
+                // Sync to vault timeline
+                if (lead.email) {
+                    appendTimelineByEmail(lead.email, {
+                        timestamp: new Date().toISOString(),
+                        emoji: '💬',
+                        text: `SMS follow-up sent (${emailType || 'warm-nudge'})`,
+                    }).catch(console.error)
+                }
                 
                 return NextResponse.json({
                     success: true,
@@ -237,6 +247,15 @@ export async function POST(request: Request) {
 
         // Log Email activity
         await logEmailActivity(lead.email, genResult.subject, `MANUAL_EMAIL_${(emailType || 'warm-nudge').toUpperCase()}`)
+
+        // Sync to vault timeline
+        if (lead.email) {
+            appendTimelineByEmail(lead.email, {
+                timestamp: new Date().toISOString(),
+                emoji: '📧',
+                text: `Email sent: "${genResult.subject}" (${emailType || 'warm-nudge'})`,
+            }).catch(console.error)
+        }
 
         return NextResponse.json({
             success: true,
