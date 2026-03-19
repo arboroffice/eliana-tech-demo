@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { ArrowRight, Check, X, Phone, MessageSquare, Calendar, CreditCard, BarChart3, Clock, Zap, Shield, Zap as ZapIcon, Bot, DollarSign, Users, FileText, Mail, Star, Headphones, Send, Database, Globe, Wrench, TrendingUp, CircleDot } from "lucide-react"
+import { ArrowRight, Check, X, Phone, MessageSquare, Calendar, CreditCard, BarChart3, Clock, Zap, Shield, Zap as ZapIcon, Bot, DollarSign, Users, FileText, Mail, Star, Headphones, Send, Database, Globe, Wrench, TrendingUp, CircleDot, Target } from "lucide-react"
 import { useEffect, useState, useRef } from "react"
 
 export default function HomePage() {
@@ -262,6 +262,115 @@ export default function HomePage() {
         </section>
 
 
+
+        {/* ═══ F.O.T.F. MOVEMENT SECTION ═══ */}
+        <section className="py-24 sm:py-40 px-6 bg-[#FAFAF8] relative overflow-hidden border-t border-gray-100">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-20 items-start">
+              <div className="lg:sticky lg:top-32">
+                <p className="text-[#D90019] font-bold tracking-[0.5em] uppercase mb-8 text-xs font-mono">Founders of the Future</p>
+                <h2 className="font-bebas text-[clamp(60px,10vw,140px)] leading-[0.8] uppercase text-black mb-12 tracking-tight">
+                  This Is A<br />
+                  <span className="text-[#D90019]">Movement.</span>
+                </h2>
+                <div className="space-y-8 max-w-lg">
+                   <h3 className="text-3xl font-black uppercase tracking-tight leading-none italic">
+                     Stop Playing With AI.<br />
+                     <span className="text-[#D90019]">Start Building Systems That Make Money.</span>
+                   </h3>
+                   <p className="text-gray-500 text-lg font-medium leading-relaxed">
+                     Whether you're a founder, building toward becoming one, an employee automating your role, or a manager running ops with AI — this is where you learn to build.
+                   </p>
+                   <div className="flex flex-col sm:flex-row gap-6 pt-4">
+                      <Link href="https://www.elianatech.com/foundersofthefuture" target="_blank" className="bg-[#D90019] text-white font-bebas text-2xl tracking-widest px-10 py-5 hover:bg-black transition-all shadow-xl shadow-red-500/10 text-center">
+                        Join the Community
+                      </Link>
+                      <button className="text-xs font-bold uppercase tracking-[0.3em] text-gray-400 hover:text-black transition-colors flex items-center gap-2 justify-center group">
+                        See what founders are building <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform rotate-90" />
+                      </button>
+                   </div>
+                </div>
+              </div>
+
+              <div className="space-y-32 pt-20 lg:pt-0">
+                {/* Block 1 */}
+                <div className="relative">
+                  <div className="absolute -left-12 top-0 text-[#D90019] opacity-20 font-bebas text-9xl leading-none">01</div>
+                  <p className="text-2xl sm:text-3xl font-bold text-black leading-snug">
+                    Right now most people are using AI <span className="text-[#D90019]">wrong</span>. They generate content. Ask random questions. Test prompts. And then go right back to doing everything manually.
+                  </p>
+                </div>
+
+                {/* Block 2 (Contrast) */}
+                <div className="bg-black p-12 sm:p-16 text-white relative overflow-hidden">
+                   <div className="absolute top-0 right-0 p-8 opacity-10">
+                      <Zap size={100} />
+                   </div>
+                   <p className="text-gray-500 font-bold tracking-[0.3em] uppercase mb-8 text-[10px]">The Shift</p>
+                   <h4 className="font-bebas text-4xl sm:text-5xl mb-12 tracking-wider leading-none">
+                     A small group of founders are building <span className="text-[#D90019]">systems that run their businesses.</span>
+                   </h4>
+                   <p className="text-gray-400 font-medium text-lg italic border-l-2 border-[#D90019] pl-6 py-2">
+                     Same tools. Different approach.
+                   </p>
+                </div>
+
+                {/* Block 3 (The Operator) */}
+                <div className="text-center py-20 border-y border-gray-100">
+                   <h4 className="font-bebas text-7xl sm:text-9xl leading-none uppercase mb-6 text-black tracking-tight">
+                     AI Is Not <br />
+                     <span className="text-gray-300">Just A Tool.</span><br />
+                     <span className="text-[#D90019]">It's An Operator.</span>
+                   </h4>
+                   <p className="text-gray-500 font-bold uppercase tracking-[0.2em] text-sm mt-10">
+                     Once you understand that, you stop chatting with it — and start building with it.
+                   </p>
+                </div>
+
+                {/* Block 4 (What This Is) */}
+                <div className="space-y-12">
+                   <div>
+                     <h4 className="font-bebas text-5xl mb-4 text-black uppercase">Not a course.<br />Not a community.<br /><span className="text-[#D90019]">A Movement.</span></h4>
+                     <p className="text-gray-500 font-medium leading-relaxed">
+                       Founders. Future founders. Employees. Managers. Operators. Anyone using AI to build, automate, and replace the manual grind. Inside, you don't get theory.
+                     </p>
+                   </div>
+                   
+                   <div className="grid sm:grid-cols-3 gap-8">
+                      {[
+                        { title: "Real Workflows", desc: "Step-by-step systems you can follow and implement today.", icon: Database },
+                        { title: "Real Systems", desc: "Proven automation stacks that founders are running right now.", icon: ZapIcon },
+                        { title: "Real Use Cases", desc: "Stuff you can copy and run. No fluff. Just what works.", icon: Target },
+                      ].map((item, i) => (
+                        <div key={i} className="group">
+                           <h5 className="font-bold text-black uppercase tracking-tight text-sm mb-2 group-hover:text-[#D90019] transition-colors">{item.title}</h5>
+                           <p className="text-[11px] text-gray-400 leading-relaxed group-hover:text-gray-600 transition-colors">{item.desc}</p>
+                        </div>
+                      ))}
+                   </div>
+                </div>
+
+                {/* Block 5 (The Tension) */}
+                <div className="pt-20 border-t-2 border-black">
+                   <p className="text-gray-400 font-bold tracking-[0.3em] uppercase mb-8 text-[10px]">The Window</p>
+                   <p className="text-3xl font-black text-black leading-tight mb-8">
+                     This is early. Most people are still playing with AI. <span className="text-[#D90019]">A few are building real systems with it.</span>
+                   </p>
+                   <p className="text-6xl sm:text-8xl font-bebas text-black leading-[0.8] mb-12">
+                     THAT GAP IS ABOUT TO <span className="text-[#D90019]">GET VERY BIG.</span>
+                   </p>
+                   <p className="text-gray-500 text-lg font-medium leading-relaxed mb-12">
+                     You can keep using AI for small tasks. Or you can use it to run your business.<br />
+                     If you've had the thought: <span className="text-black italic">“I could build something crazy with this...”</span>
+                   </p>
+                   <Link href="https://www.elianatech.com/foundersofthefuture" className="group inline-flex items-center gap-6 bg-black text-white px-12 py-6 font-bebas text-3xl tracking-widest hover:bg-[#D90019] transition-all hover:-translate-y-1">
+                      Join The Community <ArrowRight className="group-hover:translate-x-2 transition-transform" />
+                   </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* ═══ PRICING SECTION (COLOR BLOCK: BLACK) ═══ */}
         <section className="py-32 px-6 bg-[#050505] overflow-hidden border-y border-white/5 relative">
