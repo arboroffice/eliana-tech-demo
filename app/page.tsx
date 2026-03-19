@@ -285,7 +285,7 @@ export default function HomePage() {
                      Whether you're a founder, building toward becoming one, an employee automating your role, or a manager running ops with AI — this is where you learn to build.
                    </p>
                    <div className="flex flex-col sm:flex-row gap-6 pt-4">
-                      <Link href="https://www.elianatech.com/foundersofthefuture" target="_blank" className="bg-[#D90019] text-white font-bebas text-2xl tracking-widest px-10 py-5 hover:bg-black transition-all shadow-xl shadow-red-500/10 text-center">
+                      <Link href="https://www.skool.com/founders-of-the-future-3908/about" target="_blank" className="bg-[#D90019] text-white font-bebas text-2xl tracking-widest px-10 py-5 hover:bg-black transition-all shadow-xl shadow-red-500/10 text-center">
                         Join the Community
                       </Link>
                       <button className="text-xs font-bold uppercase tracking-[0.3em] text-gray-400 hover:text-black transition-colors flex items-center gap-2 justify-center group">
@@ -365,50 +365,52 @@ export default function HomePage() {
                    </div>
                 </div>
 
-                {/* Block 4: The Pillars */}
-                <div className="grid gap-12 sm:gap-16">
-                   <div className="flex items-center gap-6">
-                      <div className="h-px flex-1 bg-gray-100"></div>
-                      <span className="text-gray-300 font-bebas text-2xl uppercase tracking-widest">The Pillars</span>
-                      <div className="h-px flex-1 bg-gray-100"></div>
-                   </div>
-                   <div className="grid sm:grid-cols-3 gap-12">
-                      {[
-                        { title: "Real Workflows", desc: "Step-by-step systems you can follow and implement today.", icon: Database },
-                        { title: "Real Systems", desc: "Proven automation stacks that founders are running right now.", icon: ZapIcon },
-                        { title: "Real Use Cases", desc: "Stuff you can copy and run. No fluff. Just what works.", icon: Target },
-                      ].map((item, i) => (
-                        <div key={i} className="text-center sm:text-left">
-                           <item.icon size={28} className="text-[#D90019] mb-4 mx-auto sm:mx-0 opacity-40" />
-                           <h5 className="font-bold text-black uppercase tracking-tight text-sm mb-3">{item.title}</h5>
-                           <p className="text-[11px] text-gray-500 leading-relaxed font-medium">{item.desc}</p>
-                        </div>
-                      ))}
-                   </div>
+                {/* Block 4: What This Is */}
+                <div className="py-16 border-y border-gray-100">
+                   <h4 className="font-bebas text-5xl sm:text-6xl mb-6 text-black uppercase leading-tight">
+                     Not a course.<br />
+                     Not a community.<br />
+                     <span className="text-[#D90019]">A Movement.</span>
+                   </h4>
+                   <p className="text-gray-500 text-lg font-medium leading-relaxed max-w-2xl">
+                     Founders. Future founders. Employees. Managers. Operators. Anyone using AI to build, automate, and replace the manual grind. Inside, you don't get theory.
+                   </p>
                 </div>
 
-                {/* Block 5: The Closing Tension */}
-                <div className="relative">
-                   <div className="absolute top-0 right-0 w-64 h-64 bg-[#D90019]/5 rounded-full blur-[80px] -z-10"></div>
-                   <div className="pt-20 border-t-2 border-black">
-                      <p className="text-gray-400 font-bold tracking-[0.3em] uppercase mb-8 text-[10px]">The Window</p>
-                      <p className="text-4xl font-black text-black leading-tight mb-8 tracking-tighter">
-                        This is early. Most people are still playing with AI. <br />
-                        <span className="text-[#D90019] italic">A few are building real systems with it.</span>
-                      </p>
-                      <p className="text-6xl sm:text-8xl font-bebas text-black leading-[0.8] mb-12 uppercase tracking-tight">
-                        THAT GAP IS ABOUT <br /><span className="text-[#D90019]">TO GET VERY BIG.</span>
-                      </p>
-                      <p className="text-gray-500 text-lg font-medium leading-relaxed mb-12 max-w-lg">
-                        You can keep using AI for small tasks. Or you can use it to run your business.<br />
-                        If you've had the thought: <span className="text-black italic">“I could build something crazy with this...”</span>
-                      </p>
-                      <Link href="https://www.elianatech.com/foundersofthefuture" className="group inline-flex items-center gap-8 bg-black text-white px-12 py-6 font-bebas text-4xl tracking-widest hover:bg-[#D90019] transition-all hover:scale-[1.02] active:scale-95 shadow-2xl">
-                         Join Now <ArrowRight size={32} className="group-hover:translate-x-3 transition-transform" />
-                      </Link>
-                   </div>
-                </div>
               </div>
+            </div>
+
+            {/* Block 5: The Closing Tension (STRETCHED) */}
+            <div className="relative mt-32 sm:mt-48 border-t-4 border-black pt-16 sm:pt-24">
+               <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#D90019]/5 rounded-full blur-[120px] -z-10 animate-pulse"></div>
+               <div className="max-w-4xl">
+                  <p className="text-gray-400 font-bold tracking-[0.5em] uppercase mb-10 text-xs font-mono">The Window</p>
+                  <p className="text-3xl sm:text-5xl font-black text-black leading-tight mb-12 tracking-tighter">
+                    This is early. Most people are still playing with AI. <br />
+                    <span className="text-[#D90019] italic font-serif">A few are building real systems with it.</span>
+                  </p>
+                  <h2 className="font-bebas text-[clamp(50px,12vw,160px)] text-black leading-[0.8] mb-16 uppercase tracking-tight">
+                    THAT GAP IS ABOUT <br /><span className="text-[#D90019]">TO GET VERY BIG.</span>
+                  </h2>
+                  <div className="grid md:grid-cols-2 gap-12 items-end">
+                     <div>
+                        <p className="text-gray-500 text-lg sm:text-xl font-medium leading-relaxed mb-8">
+                          You can keep using AI for small tasks. Or you can use it to run your business.<br />
+                          If you've had the thought: <span className="text-black italic">“I could build something crazy with this...”</span>
+                        </p>
+                        <p className="text-black font-black uppercase tracking-widest text-sm mb-4">This is where you actually do it.</p>
+                     </div>
+                     <div className="flex flex-col gap-4">
+                        <Link href="https://www.skool.com/founders-of-the-future-3908/about" className="group inline-flex items-center justify-between bg-black text-white px-10 py-8 font-bebas text-4xl sm:text-5xl tracking-widest hover:bg-[#D90019] transition-all hover:scale-[1.02] active:scale-95 shadow-2xl rounded-sm">
+                           Join Now <ArrowRight size={48} strokeWidth={3} className="group-hover:translate-x-4 transition-transform" />
+                        </Link>
+                        <div className="flex items-center gap-3 px-4 opacity-40">
+                           <span className="w-2 h-2 rounded-full bg-[#D90019] animate-pulse"></span>
+                           <span className="text-[10px] font-bold uppercase tracking-widest">Entry limited to 50 slots per month</span>
+                        </div>
+                     </div>
+                  </div>
+               </div>
             </div>
           </div>
         </section>
@@ -455,7 +457,7 @@ export default function HomePage() {
                   ))}
                 </div>
                 
-                <Link href="https://www.elianatech.com/foundersofthefuture" target="_blank" className="w-full text-center py-4 bg-white text-black font-bebas text-xl tracking-[0.2em] transition-all hover:bg-[#D90019] hover:text-white active:scale-95">
+                <Link href="https://www.skool.com/founders-of-the-future-3908/about" target="_blank" className="w-full text-center py-4 bg-white text-black font-bebas text-xl tracking-[0.2em] transition-all hover:bg-[#D90019] hover:text-white active:scale-95">
                   Join FOTF
                 </Link>
               </div>
