@@ -1,8 +1,8 @@
 "use client"
 
 import Link from "next/link"
-import { ArrowRight, Check, X, Phone, MessageSquare, Calendar, CreditCard, BarChart3, Clock, Zap, Shield, Zap as ZapIcon } from "lucide-react"
-import { useEffect, useState } from "react"
+import { ArrowRight, Check, X, Phone, MessageSquare, Calendar, CreditCard, BarChart3, Clock, Zap, Shield, Zap as ZapIcon, Bot, DollarSign, Users, FileText, Mail, Star, Headphones, Send, Database, Globe, Wrench, TrendingUp, CircleDot } from "lucide-react"
+import { useEffect, useState, useRef } from "react"
 
 export default function HomePage() {
   const [scrolled, setScrolled] = useState(false)
@@ -89,6 +89,213 @@ export default function HomePage() {
                 <span className="text-[#333] font-bebas text-xl">/</span>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* ═══ LIVING BUSINESS DIAGRAM ═══ */}
+        <section className="bg-[#0C0C0C] text-white py-24 sm:py-32 px-6 overflow-hidden relative">
+          <div className="absolute inset-0">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#D90019]/5 rounded-full blur-[200px]"></div>
+          </div>
+
+          <div className="max-w-6xl mx-auto relative z-10">
+            <div className="text-center mb-16 sm:mb-20">
+              <p className="text-[#D90019] font-bold tracking-[0.3em] uppercase mb-4 text-sm">The System</p>
+              <h2 className="font-bebas text-5xl sm:text-7xl lg:text-8xl leading-[0.9] uppercase">
+                Your Business<br />
+                <span className="text-[#D90019]">Comes Alive</span>
+              </h2>
+              <p className="text-gray-500 text-lg font-medium max-w-xl mx-auto mt-6 leading-relaxed">
+                A customer texts, calls, or fills out a form — and your AI back office takes it from there.
+              </p>
+            </div>
+
+            {/* THE DIAGRAM */}
+            <div className="relative max-w-5xl mx-auto">
+
+              {/* ── CENTER: AI Brain ── */}
+              <div className="flex justify-center mb-0 relative z-20">
+                <div className="diagram-brain w-40 h-40 sm:w-52 sm:h-52 rounded-full bg-[#D90019]/10 border-2 border-[#D90019]/40 flex flex-col items-center justify-center text-center relative">
+                  <div className="absolute inset-0 rounded-full bg-[#D90019]/5 animate-diagram-pulse"></div>
+                  <Bot className="text-[#D90019] mb-2" size={36} strokeWidth={1.5} />
+                  <span className="font-bebas text-xl sm:text-2xl tracking-wide">AI Brain</span>
+                  <span className="text-[9px] sm:text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500 mt-1">Always Running</span>
+                </div>
+              </div>
+
+              {/* ── CONNECTION LINES (SVG) ── */}
+              <div className="hidden md:block absolute inset-0 z-10 pointer-events-none">
+                <svg className="w-full h-full" viewBox="0 0 1000 700" fill="none" preserveAspectRatio="xMidYMid meet">
+                  {/* Phone to Brain */}
+                  <path d="M200 80 Q 400 80 500 200" stroke="#D90019" strokeWidth="1" strokeDasharray="6 4" opacity="0.3">
+                    <animate attributeName="stroke-dashoffset" from="0" to="-20" dur="2s" repeatCount="indefinite" />
+                  </path>
+                  {/* Chat to Brain */}
+                  <path d="M800 80 Q 600 80 500 200" stroke="#D90019" strokeWidth="1" strokeDasharray="6 4" opacity="0.3">
+                    <animate attributeName="stroke-dashoffset" from="0" to="-20" dur="2s" repeatCount="indefinite" />
+                  </path>
+                  {/* Brain to left tools */}
+                  <path d="M400 280 Q 300 350 150 400" stroke="white" strokeWidth="0.5" strokeDasharray="4 4" opacity="0.15">
+                    <animate attributeName="stroke-dashoffset" from="0" to="-16" dur="3s" repeatCount="indefinite" />
+                  </path>
+                  <path d="M380 300 Q 250 380 100 480" stroke="white" strokeWidth="0.5" strokeDasharray="4 4" opacity="0.15">
+                    <animate attributeName="stroke-dashoffset" from="0" to="-16" dur="3.5s" repeatCount="indefinite" />
+                  </path>
+                  <path d="M420 310 Q 350 400 200 520" stroke="white" strokeWidth="0.5" strokeDasharray="4 4" opacity="0.15">
+                    <animate attributeName="stroke-dashoffset" from="0" to="-16" dur="2.8s" repeatCount="indefinite" />
+                  </path>
+                  {/* Brain to right tools */}
+                  <path d="M600 280 Q 700 350 850 400" stroke="white" strokeWidth="0.5" strokeDasharray="4 4" opacity="0.15">
+                    <animate attributeName="stroke-dashoffset" from="0" to="-16" dur="3s" repeatCount="indefinite" />
+                  </path>
+                  <path d="M620 300 Q 750 380 900 480" stroke="white" strokeWidth="0.5" strokeDasharray="4 4" opacity="0.15">
+                    <animate attributeName="stroke-dashoffset" from="0" to="-16" dur="3.5s" repeatCount="indefinite" />
+                  </path>
+                  <path d="M580 310 Q 650 400 800 520" stroke="white" strokeWidth="0.5" strokeDasharray="4 4" opacity="0.15">
+                    <animate attributeName="stroke-dashoffset" from="0" to="-16" dur="2.8s" repeatCount="indefinite" />
+                  </path>
+                  {/* Brain to center bottom tools */}
+                  <path d="M500 280 Q 500 380 400 520" stroke="white" strokeWidth="0.5" strokeDasharray="4 4" opacity="0.15">
+                    <animate attributeName="stroke-dashoffset" from="0" to="-16" dur="3.2s" repeatCount="indefinite" />
+                  </path>
+                  <path d="M500 280 Q 500 380 600 520" stroke="white" strokeWidth="0.5" strokeDasharray="4 4" opacity="0.15">
+                    <animate attributeName="stroke-dashoffset" from="0" to="-16" dur="3.2s" repeatCount="indefinite" />
+                  </path>
+                  {/* Animated dots traveling along paths */}
+                  <circle r="3" fill="#D90019" opacity="0.8">
+                    <animateMotion dur="3s" repeatCount="indefinite" path="M200 80 Q 400 80 500 200" />
+                  </circle>
+                  <circle r="3" fill="#D90019" opacity="0.8">
+                    <animateMotion dur="3s" repeatCount="indefinite" path="M800 80 Q 600 80 500 200" />
+                  </circle>
+                  <circle r="2" fill="white" opacity="0.5">
+                    <animateMotion dur="4s" repeatCount="indefinite" path="M400 280 Q 300 350 150 400" />
+                  </circle>
+                  <circle r="2" fill="white" opacity="0.5">
+                    <animateMotion dur="4.5s" repeatCount="indefinite" path="M600 280 Q 700 350 850 400" />
+                  </circle>
+                  <circle r="2" fill="white" opacity="0.5">
+                    <animateMotion dur="4.2s" repeatCount="indefinite" path="M500 280 Q 500 380 400 520" />
+                  </circle>
+                </svg>
+              </div>
+
+              {/* ── TOP ROW: Phone + Chat (inputs) ── */}
+              <div className="grid grid-cols-2 gap-6 sm:gap-12 -mt-6 sm:-mt-10 mb-12 sm:mb-16 relative z-20">
+                {/* Phone Input */}
+                <div className="flex justify-center sm:justify-end">
+                  <div className="diagram-input-node w-36 sm:w-44 bg-black border border-white/10 p-4 sm:p-5 text-center group hover:border-[#D90019]/40 transition-all duration-500">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/5 flex items-center justify-center mx-auto mb-3 group-hover:bg-[#D90019]/10 transition-colors">
+                      <Phone className="text-[#D90019]" size={20} />
+                    </div>
+                    <span className="font-bebas text-base sm:text-lg tracking-wide block">Phone Call</span>
+                    <span className="text-[8px] sm:text-[9px] font-bold tracking-[0.2em] uppercase text-gray-600 block mt-1">Customer calls in</span>
+                    {/* Typing indicator */}
+                    <div className="flex items-center justify-center gap-1 mt-3">
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#D90019] animate-diagram-dot1"></div>
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#D90019] animate-diagram-dot2"></div>
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#D90019] animate-diagram-dot3"></div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Chat Input */}
+                <div className="flex justify-center sm:justify-start">
+                  <div className="diagram-input-node w-36 sm:w-44 bg-black border border-white/10 p-4 sm:p-5 text-center group hover:border-[#D90019]/40 transition-all duration-500">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/5 flex items-center justify-center mx-auto mb-3 group-hover:bg-[#D90019]/10 transition-colors">
+                      <MessageSquare className="text-[#D90019]" size={20} />
+                    </div>
+                    <span className="font-bebas text-base sm:text-lg tracking-wide block">Text / Chat</span>
+                    <span className="text-[8px] sm:text-[9px] font-bold tracking-[0.2em] uppercase text-gray-600 block mt-1">Lead messages you</span>
+                    <div className="flex items-center justify-center gap-1 mt-3">
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#D90019] animate-diagram-dot1"></div>
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#D90019] animate-diagram-dot2"></div>
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#D90019] animate-diagram-dot3"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* ── LIVE ACTIVITY FEED (center) ── */}
+              <div className="max-w-md mx-auto mb-12 sm:mb-16 relative z-20">
+                <div className="bg-black border border-white/10 overflow-hidden">
+                  <div className="px-4 py-2.5 border-b border-white/5 flex items-center gap-2">
+                    <CircleDot className="text-[#D90019] animate-pulse" size={10} />
+                    <span className="text-[9px] font-bold tracking-[0.3em] uppercase text-gray-500">Live Activity</span>
+                  </div>
+                  <div className="diagram-feed p-4 space-y-3 text-[11px] sm:text-xs">
+                    <div className="flex items-center gap-3 text-gray-500 diagram-feed-row animate-diagram-feed1">
+                      <Phone size={12} className="text-green-500 shrink-0" />
+                      <span>Incoming call from <span className="text-white">+1 (555) 2847</span> — answered in 0.8s</span>
+                    </div>
+                    <div className="flex items-center gap-3 text-gray-500 diagram-feed-row animate-diagram-feed2">
+                      <Bot size={12} className="text-[#D90019] shrink-0" />
+                      <span>AI agent created: <span className="text-white">Quote Generator</span></span>
+                    </div>
+                    <div className="flex items-center gap-3 text-gray-500 diagram-feed-row animate-diagram-feed3">
+                      <Send size={12} className="text-blue-400 shrink-0" />
+                      <span>Follow-up SMS sent to <span className="text-white">Sarah M.</span></span>
+                    </div>
+                    <div className="flex items-center gap-3 text-gray-500 diagram-feed-row animate-diagram-feed4">
+                      <Calendar size={12} className="text-purple-400 shrink-0" />
+                      <span>Job scheduled: <span className="text-white">Mar 22 @ 9am</span></span>
+                    </div>
+                    <div className="flex items-center gap-3 text-gray-500 diagram-feed-row animate-diagram-feed5">
+                      <DollarSign size={12} className="text-green-400 shrink-0" />
+                      <span>Invoice #4021 — <span className="text-green-400">$2,400 collected</span></span>
+                    </div>
+                    <div className="flex items-center gap-3 text-gray-500 diagram-feed-row animate-diagram-feed6">
+                      <Star size={12} className="text-yellow-400 shrink-0" />
+                      <span>Review request sent — <span className="text-white">5-star received</span></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* ── BOTTOM: Business Tools Grid ── */}
+              <div className="relative z-20">
+                <p className="text-center text-[9px] sm:text-[10px] font-bold tracking-[0.4em] uppercase text-gray-600 mb-6">Sends off to your entire tool stack</p>
+                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-px bg-white/5">
+                  {[
+                    { icon: Calendar, name: "Scheduling", sub: "Books jobs" },
+                    { icon: CreditCard, name: "Payments", sub: "Collects $" },
+                    { icon: Mail, name: "Email", sub: "Sends campaigns" },
+                    { icon: MessageSquare, name: "SMS", sub: "Text follow-ups" },
+                    { icon: Database, name: "CRM", sub: "Stores leads" },
+                    { icon: FileText, name: "Invoicing", sub: "Bills clients" },
+                    { icon: Star, name: "Reviews", sub: "Gets 5 stars" },
+                    { icon: Users, name: "Team", sub: "Dispatches crew" },
+                    { icon: BarChart3, name: "Analytics", sub: "Tracks revenue" },
+                    { icon: Globe, name: "Website", sub: "Captures leads" },
+                    { icon: Headphones, name: "Support", sub: "Answers Qs" },
+                    { icon: TrendingUp, name: "Marketing", sub: "Runs ads" },
+                  ].map((tool, i) => (
+                    <div key={i} className="bg-[#0C0C0C] p-4 sm:p-5 text-center group hover:bg-[#D90019]/5 transition-all duration-500" style={{ animationDelay: `${i * 0.1}s` }}>
+                      <tool.icon className="text-white/20 group-hover:text-[#D90019] mx-auto mb-2 transition-colors duration-500" size={20} strokeWidth={1.5} />
+                      <span className="font-bebas text-sm sm:text-base tracking-wide block text-white/60 group-hover:text-white transition-colors">{tool.name}</span>
+                      <span className="text-[8px] font-bold tracking-[0.15em] uppercase text-gray-700 group-hover:text-[#D90019]/60 transition-colors">{tool.sub}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* ── RESULTS BAR ── */}
+              <div className="mt-10 sm:mt-14 grid grid-cols-3 gap-px bg-white/5 relative z-20">
+                <div className="bg-[#0C0C0C] py-6 sm:py-8 text-center">
+                  <span className="font-bebas text-3xl sm:text-5xl text-[#D90019] block">24/7</span>
+                  <span className="text-[9px] sm:text-[10px] font-bold tracking-[0.3em] uppercase text-gray-600">Always Running</span>
+                </div>
+                <div className="bg-[#0C0C0C] py-6 sm:py-8 text-center">
+                  <span className="font-bebas text-3xl sm:text-5xl text-white block">0.8s</span>
+                  <span className="text-[9px] sm:text-[10px] font-bold tracking-[0.3em] uppercase text-gray-600">Avg Response</span>
+                </div>
+                <div className="bg-[#0C0C0C] py-6 sm:py-8 text-center">
+                  <span className="font-bebas text-3xl sm:text-5xl text-green-500 block">$$$</span>
+                  <span className="text-[9px] sm:text-[10px] font-bold tracking-[0.3em] uppercase text-gray-600">Making Money</span>
+                </div>
+              </div>
+
+            </div>
           </div>
         </section>
 
@@ -302,26 +509,31 @@ export default function HomePage() {
                 </Link>
               </div>
 
-              {/* Inner Circle */}
-              <div className="p-10 border border-gray-100 flex flex-col transition-all duration-500 hover:border-black group">
+              {/* The Retainer */}
+              <div className="p-10 border border-gray-100 flex flex-col transition-all duration-500 hover:border-black group relative overflow-hidden">
+                <div className="absolute top-0 right-0 bg-black text-white text-[8px] font-bold uppercase tracking-[0.3em] px-4 py-1.5 z-10">
+                  Required
+                </div>
                 <div className="flex justify-between items-start mb-10">
                    <div>
-                      <span className="font-bebas text-xl text-gray-400 mb-2 block uppercase tracking-widest">Ongoing</span>
-                      <h3 className="text-3xl font-bold font-bebas tracking-wide group-hover:text-[#D90019] transition-colors">Inner Circle</h3>
+                      <span className="font-bebas text-xl text-gray-400 mb-2 block uppercase tracking-widest">Phase 2</span>
+                      <h3 className="text-3xl font-bold font-bebas tracking-wide group-hover:text-[#D90019] transition-colors">The Retainer</h3>
                    </div>
                    <div className="text-right">
-                      <div className="text-2xl font-bold font-bebas">$997/mo</div>
+                      <div className="text-xl font-bold font-bebas leading-none">$1,500 –</div>
+                      <div className="text-xl font-bold font-bebas">$5,000/mo</div>
                    </div>
                 </div>
                 
-                <p className="text-gray-500 mb-10 font-medium text-sm leading-relaxed">After the build, stay in the loop with expert access and network support.</p>
+                <p className="text-gray-500 mb-10 font-medium text-sm leading-relaxed italic">"Leaving means losing the logic. Staying means evolution."</p>
                 
                 <div className="flex-1 space-y-4 mb-10">
                   {[
-                    "Expert build access",
-                    "Founders network",
-                    "System updates",
-                    "Ongoing strategy"
+                    "Unlimited new automations",
+                    "Unlimited skill upgrades",
+                    "All compute managed (DO/Hostinger)",
+                    "48-hour feedback loop",
+                    "Security & maintenance handled"
                   ].map((item, i) => (
                     <li key={i} className="flex items-start gap-3 text-xs font-bold uppercase tracking-widest text-[#0C0C0C]">
                       <Check className="text-[#D90019] shrink-0 mt-0.5" size={12} strokeWidth={3} /> {item}
@@ -330,7 +542,7 @@ export default function HomePage() {
                 </div>
                 
                 <Link href="/apply" className="w-full text-center py-4 bg-black text-white font-bebas text-xl tracking-[0.2em] transition-all hover:bg-[#D90019] hover:tracking-[0.3em] active:scale-95">
-                  Stay Connected
+                  Secure The System
                 </Link>
               </div>
             </div>
@@ -481,6 +693,34 @@ export default function HomePage() {
         .font-bebas {
            font-family: var(--font-bebas-neue), cursive;
         }
+
+        /* ═══ DIAGRAM ANIMATIONS ═══ */
+        @keyframes diagramPulse {
+          0%, 100% { transform: scale(1); opacity: 0.3; }
+          50% { transform: scale(1.3); opacity: 0.08; }
+        }
+        .animate-diagram-pulse {
+          animation: diagramPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes dotBounce {
+          0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); }
+          40% { opacity: 1; transform: scale(1.2); }
+        }
+        .animate-diagram-dot1 { animation: dotBounce 1.4s ease-in-out infinite; }
+        .animate-diagram-dot2 { animation: dotBounce 1.4s ease-in-out 0.2s infinite; }
+        .animate-diagram-dot3 { animation: dotBounce 1.4s ease-in-out 0.4s infinite; }
+
+        @keyframes feedSlideIn {
+          0% { opacity: 0; transform: translateX(-10px); }
+          15%, 100% { opacity: 1; transform: translateX(0); }
+        }
+        .animate-diagram-feed1 { animation: feedSlideIn 8s ease-out 0s infinite; }
+        .animate-diagram-feed2 { animation: feedSlideIn 8s ease-out 0.8s infinite; }
+        .animate-diagram-feed3 { animation: feedSlideIn 8s ease-out 1.6s infinite; }
+        .animate-diagram-feed4 { animation: feedSlideIn 8s ease-out 2.4s infinite; }
+        .animate-diagram-feed5 { animation: feedSlideIn 8s ease-out 3.2s infinite; }
+        .animate-diagram-feed6 { animation: feedSlideIn 8s ease-out 4s infinite; }
       `}</style>
     </div>
   )
