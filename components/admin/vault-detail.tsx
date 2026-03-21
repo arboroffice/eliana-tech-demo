@@ -816,6 +816,205 @@ export default function VaultDetail({
                     </div>
                 )}
 
+                {/* Deployment */}
+                {activeTab === 'deployment' && (
+                    <div>
+                        <div className="flex items-center justify-between mb-4">
+                            <h2 className="text-white font-semibold flex items-center gap-2"><Cpu className="w-4 h-4 text-cyan-400" /> Deployment Config</h2>
+                            <button onClick={() => { setEditingDeploy(!editingDeploy); if (!editingDeploy && vault.deployment) setDeployDraft(vault.deployment) }} className="text-xs text-slate-400 hover:text-white transition-colors">{editingDeploy ? 'Cancel' : 'Edit'}</button>
+                        </div>
+                        {editingDeploy ? (
+                            <div className="space-y-3">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                    <div>
+                                        <label className="text-slate-500 text-[10px] mb-1 block">Model</label>
+                                        <input value={deployDraft.model} onChange={e => setDeployDraft(p => ({ ...p, model: e.target.value }))} className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none" placeholder="claude-sonnet-4-6" />
+                                    </div>
+                                    <div>
+                                        <label className="text-slate-500 text-[10px] mb-1 block">System Prompt Ref</label>
+                                        <input value={deployDraft.system_prompt_ref} onChange={e => setDeployDraft(p => ({ ...p, system_prompt_ref: e.target.value }))} className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none" placeholder="customer-support-agent-v3" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label className="text-slate-500 text-[10px] mb-1 block">Tools / MCPs (comma-separated)</label>
+                                    <input value={(deployDraft.tools || []).join(', ')} onChange={e => setDeployDraft(p => ({ ...p, tools: e.target.value.split(',').map(s => s.trim()).filter(Boolean) }))} className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none" placeholder="gmail, calendar, slack, crm" />
+                                </div>
+                                <div>
+                                    <label className="text-slate-500 text-[10px] mb-1 block">Endpoints (comma-separated)</label>
+                                    <input value={(deployDraft.endpoints || []).join(', ')} onChange={e => setDeployDraft(p => ({ ...p, endpoints: e.target.value.split(',').map(s => s.trim()).filter(Boolean) }))} className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none" placeholder="https://api.client.com/webhook" />
+                                </div>
+                                <div>
+                                    <label className="text-slate-500 text-[10px] mb-1 block">API Keys Last Rotated</label>
+                                    <input type="date" value={deployDraft.api_keys_rotated} onChange={e => setDeployDraft(p => ({ ...p, api_keys_rotated: e.target.value }))} className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none" />
+                                </div>
+                                <div>
+                                    <label className="text-slate-500 text-[10px] mb-1 block">Notes</label>
+                                    <textarea value={deployDraft.notes} onChange={e => setDeployDraft(p => ({ ...p, notes: e.target.value }))} rows={3} className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none resize-y" />
+                                </div>
+                                <button onClick={handleSaveDeployment} disabled={savingDeploy} className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white text-black text-sm font-semibold hover:bg-slate-200 transition-colors disabled:opacity-50">
+                                    {savingDeploy ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />} Save
+                                </button>
+                            </div>
+                        ) : (
+                            <div className="space-y-2">
+                                {[
+                                    ['Model', vault.deployment?.model],
+                                    ['Tools / MCPs', (vault.deployment?.tools || []).join(', ')],
+                                    ['System Prompt', vault.deployment?.system_prompt_ref],
+                                    ['Endpoints', (vault.deployment?.endpoints || []).join(', ')],
+                                    ['Keys Rotated', vault.deployment?.api_keys_rotated],
+                                ].map(([label, val]) => (
+                                    <div key={label as string} className="flex justify-between py-2 border-b border-white/5">
+                                        <span className="text-slate-500 text-sm">{label}</span>
+                                        <span className="text-white text-sm font-mono">{val || '—'}</span>
+                                    </div>
+                                ))}
+                                {vault.deployment?.notes && <p className="text-slate-400 text-sm mt-3 whitespace-pre-wrap">{vault.deployment.notes}</p>}
+                                {!vault.deployment?.model && <p className="text-slate-600 text-sm italic mt-4">No deployment configured yet. Click Edit to set up.</p>}
+                            </div>
+                        )}
+                    </div>
+                )}
+
+                {/* Metrics */}
+                {activeTab === 'metrics' && (
+                    <div>
+                        <div className="flex items-center justify-between mb-4">
+                            <h2 className="text-white font-semibold flex items-center gap-2"><BarChart3 className="w-4 h-4 text-green-400" /> Metrics & Spend</h2>
+                            <button onClick={() => { setEditingMetrics(!editingMetrics); if (!editingMetrics && vault.metrics) setMetricsDraft(vault.metrics) }} className="text-xs text-slate-400 hover:text-white transition-colors">{editingMetrics ? 'Cancel' : 'Edit'}</button>
+                        </div>
+                        {editingMetrics ? (
+                            <div className="space-y-3">
+                                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                                    <div>
+                                        <label className="text-slate-500 text-[10px] mb-1 block">Monthly Spend ($)</label>
+                                        <input type="number" value={metricsDraft.monthly_spend || ''} onChange={e => setMetricsDraft(p => ({ ...p, monthly_spend: Number(e.target.value) || 0 }))} className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none" />
+                                    </div>
+                                    <div>
+                                        <label className="text-slate-500 text-[10px] mb-1 block">Hours Saved /mo</label>
+                                        <input type="number" value={metricsDraft.hours_saved || ''} onChange={e => setMetricsDraft(p => ({ ...p, hours_saved: Number(e.target.value) || 0 }))} className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none" />
+                                    </div>
+                                    <div>
+                                        <label className="text-slate-500 text-[10px] mb-1 block">Tickets Deflected /mo</label>
+                                        <input type="number" value={metricsDraft.tickets_deflected || ''} onChange={e => setMetricsDraft(p => ({ ...p, tickets_deflected: Number(e.target.value) || 0 }))} className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none" />
+                                    </div>
+                                    <div>
+                                        <label className="text-slate-500 text-[10px] mb-1 block">Response Time Before</label>
+                                        <input value={metricsDraft.response_time_before} onChange={e => setMetricsDraft(p => ({ ...p, response_time_before: e.target.value }))} className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none" placeholder="4 hours" />
+                                    </div>
+                                    <div>
+                                        <label className="text-slate-500 text-[10px] mb-1 block">Response Time After</label>
+                                        <input value={metricsDraft.response_time_after} onChange={e => setMetricsDraft(p => ({ ...p, response_time_after: e.target.value }))} className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none" placeholder="30 seconds" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label className="text-slate-500 text-[10px] mb-1 block">ROI Notes</label>
+                                    <textarea value={metricsDraft.roi_notes} onChange={e => setMetricsDraft(p => ({ ...p, roi_notes: e.target.value }))} rows={3} className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none resize-y" placeholder="Key wins, cost savings, client feedback..." />
+                                </div>
+                                <button onClick={handleSaveMetrics} disabled={savingMetrics} className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white text-black text-sm font-semibold hover:bg-slate-200 transition-colors disabled:opacity-50">
+                                    {savingMetrics ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />} Save
+                                </button>
+                            </div>
+                        ) : (
+                            <div>
+                                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-4">
+                                    {[
+                                        { label: 'Monthly Spend', value: vault.metrics?.monthly_spend ? `$${vault.metrics.monthly_spend.toLocaleString()}` : '—', color: 'text-green-400' },
+                                        { label: 'Hours Saved', value: vault.metrics?.hours_saved ? `${vault.metrics.hours_saved}/mo` : '—', color: 'text-blue-400' },
+                                        { label: 'Tickets Deflected', value: vault.metrics?.tickets_deflected ? `${vault.metrics.tickets_deflected}/mo` : '—', color: 'text-purple-400' },
+                                        { label: 'Response Before', value: vault.metrics?.response_time_before || '—', color: 'text-red-400' },
+                                        { label: 'Response After', value: vault.metrics?.response_time_after || '—', color: 'text-emerald-400' },
+                                    ].map(m => (
+                                        <div key={m.label} className="bg-white/5 rounded-xl p-3">
+                                            <p className={`text-lg font-bold ${m.color}`}>{m.value}</p>
+                                            <p className="text-[10px] text-slate-500">{m.label}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                                {vault.metrics?.roi_notes && <p className="text-slate-400 text-sm whitespace-pre-wrap">{vault.metrics.roi_notes}</p>}
+                                {!vault.metrics?.monthly_spend && !vault.metrics?.hours_saved && <p className="text-slate-600 text-sm italic">No metrics tracked yet. Click Edit to add data.</p>}
+                            </div>
+                        )}
+                    </div>
+                )}
+
+                {/* Issues */}
+                {activeTab === 'issues' && (
+                    <div>
+                        <div className="flex items-center justify-between mb-4">
+                            <h2 className="text-white font-semibold flex items-center gap-2"><Bug className="w-4 h-4 text-red-400" /> Issues</h2>
+                            <button onClick={() => setShowIssueForm(!showIssueForm)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white text-black text-xs font-semibold hover:bg-slate-200 transition-colors">
+                                <Plus className="w-3.5 h-3.5" /> Log Issue
+                            </button>
+                        </div>
+
+                        {showIssueForm && (
+                            <div className="bg-white/5 border border-white/10 rounded-xl p-4 mb-4 space-y-3">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                    <div>
+                                        <label className="text-slate-500 text-[10px] mb-1 block">Title *</label>
+                                        <input value={newIssue.title} onChange={e => setNewIssue(p => ({ ...p, title: e.target.value }))} className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none" placeholder="API timeout on CRM sync" />
+                                    </div>
+                                    <div>
+                                        <label className="text-slate-500 text-[10px] mb-1 block">Severity</label>
+                                        <select value={newIssue.severity} onChange={e => setNewIssue(p => ({ ...p, severity: e.target.value as any }))} className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none appearance-none cursor-pointer">
+                                            <option value="low">Low</option>
+                                            <option value="medium">Medium</option>
+                                            <option value="high">High</option>
+                                            <option value="critical">Critical</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label className="text-slate-500 text-[10px] mb-1 block">Description</label>
+                                    <textarea value={newIssue.description} onChange={e => setNewIssue(p => ({ ...p, description: e.target.value }))} rows={3} className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none resize-y" placeholder="What happened, steps to reproduce..." />
+                                </div>
+                                <div className="flex gap-2">
+                                    <button onClick={handleAddIssue} disabled={addingIssue || !newIssue.title} className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white text-black text-sm font-semibold hover:bg-slate-200 transition-colors disabled:opacity-50">
+                                        {addingIssue ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />} Log Issue
+                                    </button>
+                                    <button onClick={() => setShowIssueForm(false)} className="px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-slate-400 text-sm hover:text-white transition-colors">Cancel</button>
+                                </div>
+                            </div>
+                        )}
+
+                        <div className="space-y-2">
+                            {(vault.issues || []).map(issue => {
+                                const sevColor = { critical: 'text-red-400 bg-red-400/10', high: 'text-orange-400 bg-orange-400/10', medium: 'text-yellow-400 bg-yellow-400/10', low: 'text-slate-400 bg-slate-400/10' }[issue.severity]
+                                return (
+                                    <div key={issue.id} className={`border rounded-xl p-4 ${issue.resolved ? 'bg-green-500/5 border-green-500/10' : 'bg-white/[0.02] border-white/5'}`}>
+                                        <div className="flex items-start justify-between mb-1">
+                                            <div className="flex items-center gap-2">
+                                                <h4 className={`text-sm font-medium ${issue.resolved ? 'text-green-400 line-through opacity-70' : 'text-white'}`}>{issue.title}</h4>
+                                                <span className={`px-1.5 py-0.5 rounded text-[10px] font-medium ${sevColor}`}>{issue.severity}</span>
+                                            </div>
+                                            <div className="flex gap-1.5">
+                                                {!issue.resolved && (
+                                                    <button onClick={() => { const res = prompt('Resolution:'); if (res) handleResolveIssue(issue.id, res) }} className="text-slate-600 hover:text-green-400 transition-colors p-1" title="Resolve">
+                                                        <CheckCircle2 className="w-3.5 h-3.5" />
+                                                    </button>
+                                                )}
+                                                <button onClick={() => handleDeleteIssue(issue.id)} className="text-slate-600 hover:text-red-400 transition-colors p-1">
+                                                    <Trash2 className="w-3.5 h-3.5" />
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <p className="text-slate-500 text-[11px] mb-1">{issue.date}</p>
+                                        {issue.description && <p className="text-slate-400 text-sm">{issue.description}</p>}
+                                        {issue.resolution && <p className="text-green-400/80 text-sm mt-1">Resolution: {issue.resolution}</p>}
+                                    </div>
+                                )
+                            })}
+                            {(!vault.issues || vault.issues.length === 0) && !showIssueForm && (
+                                <div className="text-center py-12">
+                                    <Bug className="w-8 h-8 text-slate-700 mx-auto mb-3" />
+                                    <p className="text-slate-600 text-sm">No issues logged. That&apos;s a good sign.</p>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                )}
+
                 {/* Meetings */}
                 {activeTab === 'meetings' && (
                     <div>

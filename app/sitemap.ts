@@ -6,7 +6,7 @@ import path from 'path'
 export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = 'https://elianatech.com'
 
-    // Main pages
+    // Main pages (clean single-offer architecture)
     const staticRoutes = [
         '',
         '/about',
@@ -14,13 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         '/faq',
         '/founder',
         '/privacy',
-        '/terms',
-        '/webinar',
-        '/custom',
-        '/roadmap/build-program',
-        '/roadmap/full-buildout',
-        '/roadmap/ai-wing-retainer',
-        '/roadmap/revenue-share',
+        '/terms'
     ].map((route) => ({
         url: `${baseUrl}${route}`,
         lastModified: new Date(),
@@ -28,7 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: route === '' ? 1 : 0.8,
     }))
 
-    // Industry pages
+    // Industry pages (for SEO / background auth)
     const industryRoutes = industries.map((industry) => ({
         url: `${baseUrl}/industries/${industry.slug}`,
         lastModified: new Date(),
@@ -54,7 +48,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
                 }
             })
     } catch (error) {
-        console.error('Error reading blog directory for sitemap:', error)
+        // blog might be empty, just skip
     }
 
     return [...staticRoutes, ...industryRoutes, ...blogRoutes]

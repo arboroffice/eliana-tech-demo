@@ -32,7 +32,7 @@ export function generateProposal(formData: any, auditScore: number): Proposal {
     recommendedPackage,
     systems,
     timeline: getTimeline(recommendedPackage),
-    investment: recommendedPackage === 'single-system' ? '$5,000 - $10,000' : recommendedPackage === 'multi-system' ? '$10,000 - $25,000' : '$25,000 - $50,000',
+    investment: 'Custom Quote — Discuss on Strategy Session',
     roi,
     guarantee: '90-Day Performance Guarantee — If you don\'t see measurable improvements within 90 days, we\'ll continue working at no additional cost until you do.'
   }

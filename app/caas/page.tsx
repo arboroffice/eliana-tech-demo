@@ -81,8 +81,8 @@ const PROCESS_STEPS = [
 const PRICING_TIERS = [
   {
     name: "Starter",
-    price: "$2,500",
-    period: "/month",
+    price: "Inquire",
+    period: "",
     description: "One Claude agent, fully configured",
     features: [
       "1 custom Claude agent",
@@ -92,7 +92,7 @@ const PRICING_TIERS = [
       "Prompt engineering & training",
       "Slack/email support",
     ],
-    cta: "Apply Now",
+    cta: "Book a Call",
     highlighted: false,
   },
   {

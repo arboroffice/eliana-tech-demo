@@ -41,10 +41,7 @@ export function OffersSection() {
                 The Build Program
               </h3>
               <p className="text-slate-500 font-light mb-4">We build alongside you in a 30-day container. You leave with a running business.</p>
-              <div className="text-4xl font-bold text-slate-900">
-                $10,000
-              </div>
-              <p className="text-slate-400 text-sm mt-1">One-time infrastructure investment</p>
+              <p className="text-slate-400 text-sm mt-1">Application only. Book a strategy session to start.</p>
             </div>
 
             <div className="bg-slate-50 border border-slate-200 rounded-xl p-5 mb-6">

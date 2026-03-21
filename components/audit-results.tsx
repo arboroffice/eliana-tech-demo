@@ -865,7 +865,7 @@ function ROICalculator({ fd }: { fd: any }) {
         {[
           { label: "Monthly Savings", val: fmt$(monthly) },
           { label: "Annual Impact", val: fmt$(annual) },
-          { label: "ROI on $10K", val: `${roiPct}%` },
+          { label: "System Efficiency", val: `Excellent` },
         ].map((item, i) => (
           <div key={i} className="bg-white/5 rounded-xl p-4 text-center border border-white/10">
             <div className="text-[#555] text-xs mb-1">{item.label}</div>
@@ -1552,11 +1552,14 @@ export function AuditResults({ formData, auditScore, researchFindings }: AuditRe
                     <div className="absolute top-0 right-0 bg-[#D90019] text-white text-[9px] font-mono font-bold uppercase tracking-widest px-3 py-1">Recommended</div>
                     <p className="text-[#D90019] text-[10px] font-mono uppercase tracking-widest mb-4 font-bold">Option 2: Done for you</p>
                     <h3 className="text-black font-bold text-lg uppercase tracking-tight mb-3">We build the entire system for you</h3>
-                    <ul className="text-[#555] text-sm leading-relaxed space-y-2">
+                    <ul className="text-[#555] text-sm leading-relaxed space-y-2 mb-8">
                       <li className="flex items-start gap-2"><span className="text-[#D90019] mt-0.5 shrink-0">-</span> Fully set up</li>
                       <li className="flex items-start gap-2"><span className="text-[#D90019] mt-0.5 shrink-0">-</span> Customized to your workflows</li>
                       <li className="flex items-start gap-2"><span className="text-[#D90019] mt-0.5 shrink-0">-</span> Ready to run</li>
                     </ul>
+                    <a href="https://cal.com/elianatech/30min" className="w-full text-center bg-[#D90019] text-white font-bebas text-2xl tracking-widest px-8 py-4 hover:bg-black transition-all shadow-xl block uppercase">
+                      Book Your Strategy Session &rarr;
+                    </a>
                   </div>
                 </div>
 
@@ -1596,13 +1599,17 @@ export function AuditResults({ formData, auditScore, researchFindings }: AuditRe
                   </div>
                   <div className="p-8 border border-[#E4E3DE] bg-[#FAFAF8] text-left">
                     <p className="text-[#888] text-[10px] font-mono uppercase tracking-widest mb-4 font-bold">Option 2: Get help when ready</p>
-                    <h3 className="text-black font-bold text-lg uppercase tracking-tight mb-3">Have us build it for you</h3>
-                    <p className="text-[#555] text-sm leading-relaxed mb-4">
+                    <p className="text-[#555] text-sm leading-relaxed mb-8">
                       When you&apos;re ready to invest in AI systems, book a strategy session and we&apos;ll map out the build together.
                     </p>
-                    <a href="https://cal.com/elianatech/30min" target="_blank" rel="noopener noreferrer" className="text-[#D90019] text-xs font-mono font-bold uppercase tracking-widest hover:underline">
-                      Book a Call When Ready &rarr;
-                    </a>
+                    <div className="flex flex-col gap-4">
+                      <a href="https://buy.stripe.com/7sY28r23U4zh599fIUcQU02" className="w-full text-center bg-[#D90019] text-white font-bebas text-xl tracking-widest px-6 py-4 hover:bg-black transition-all shadow-xl block uppercase">
+                        Secure Your Build &rarr;
+                      </a>
+                      <a href="https://cal.com/elianatech/30min" target="_blank" rel="noopener noreferrer" className="text-[#D90019] text-xs font-mono font-bold uppercase tracking-widest hover:underline text-center">
+                        Book a Call When Ready &rarr;
+                      </a>
+                    </div>
                   </div>
                 </div>
               </>

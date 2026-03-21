@@ -70,8 +70,15 @@ export default function AboutPage() {
                 </p>
 
                 <p>
-                  Other founders saw the results and began asking, <em>“I wish I had someone like you for my business.”</em> They didn't just need a consultant; they needed a <strong>Living Backend</strong>.
-                  So we built Elianatech to give founders the invisible, AI‑Native infrastructure they’ve always wanted—the backend companies wish they had from day one.
+                  Other founders saw the results and began asking, <em>“I wish I had someone like you for my business.”</em> They didn't just need a consultant; they needed a <strong>specialized provider of AI‑driven infrastructure</strong>.
+                </p>
+
+                <p>
+                  So we built Elianatech to liberate business owners from daily operational tasks. By deploying <strong>autonomous agents on private servers</strong>, we handle essential functions like lead follow‑up, content creation, and financial reporting without human intervention.
+                </p>
+
+                <p>
+                  Our model transforms traditional companies into <strong>self‑sustaining systems</strong> that operate continuously. We integrate custom automations into your existing software suite in just one week—allowing you to step away from the labor of a "job" to focus on the business you always wanted.
                 </p>
               </div>
             </div>

@@ -37,17 +37,17 @@ export default function BuildPage() {
               
               <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center mb-12 border-l-4 border-black pl-6 sm:border-0 sm:pl-0">
                 <div className="bg-black text-white px-8 py-4 font-bebas text-3xl sm:text-4xl tracking-wider">
-                  $5,000 <span className="text-[#D90019] text-xl ml-2 uppercase tracking-widest">Setup</span>
+                  Request Build
                 </div>
                 <div>
-                   <p className="text-black font-black text-sm uppercase tracking-widest leading-tight">One-Time Implementation</p>
-                   <p className="text-gray-400 text-[10px] font-bold uppercase tracking-widest mt-1">Monthly Management Required</p>
+                   <p className="text-black font-black text-sm uppercase tracking-widest leading-tight">Implementation Phase</p>
+                   <p className="text-gray-400 text-[10px] font-bold uppercase tracking-widest mt-1">Limited Availability</p>
                 </div>
               </div>
 
               <div className="flex flex-col gap-4">
-                 <Link href="https://buy.stripe.com/aFa5kD9wm8PxfNN54gcQU01" className="group relative inline-flex font-bebas text-3xl sm:text-4xl tracking-[0.1em] bg-[#D90019] text-white px-12 py-6 hover:bg-black transition-all hover:-translate-y-1 shadow-xl items-center justify-center gap-6 overflow-hidden rounded-sm w-full sm:w-auto">
-                    Secure This Build <ArrowRight size={24} className="group-hover:translate-x-2 transition-transform" />
+                 <Link href="https://cal.com/elianatech/30min" className="group relative inline-flex font-bebas text-3xl sm:text-4xl tracking-[0.1em] bg-[#D90019] text-white px-12 py-6 hover:bg-black transition-all hover:-translate-y-1 shadow-xl items-center justify-center gap-6 overflow-hidden rounded-sm w-full sm:w-auto">
+                    Book Strategy Session <ArrowRight size={24} className="group-hover:translate-x-2 transition-transform" />
                  </Link>
                  <button onClick={scrollToSteps} className="text-[10px] font-bold uppercase tracking-[0.3em] text-gray-400 hover:text-black transition-colors flex items-center gap-2">
                    View Deployment Roadmap <ArrowRight size={10} className="rotate-90" />
@@ -177,7 +177,7 @@ export default function BuildPage() {
 
              <div className="space-y-12">
                 {[
-                  { step: "01", title: "Secure Your Build", desc: "Pay the $5,000 setup fee to reserve your slot in our deployment queue." },
+                  { step: "01", title: "Book a Strategy Session", desc: "Select a time for your deep-dive audit and roadmap session." },
                   { step: "02", title: "Logic Audit", desc: "Immediately after checkout, you'll record a 15-minute walkthrough of your current tools and bottlenecks." },
                   { step: "03", title: "Implementation", desc: "Our team builds your communication layer in the background. No technical work required from you." },
                   { step: "04", title: "Live Handoff", desc: "Day 14. We meet to show you the machine running. Your business is now AI-native." },
@@ -193,9 +193,9 @@ export default function BuildPage() {
              </div>
 
              <div className="mt-24 text-center">
-                <Link href="https://buy.stripe.com/aFa5kD9wm8PxfNN54gcQU01" className="group relative inline-flex font-bebas text-3xl sm:text-5xl tracking-[0.1em] bg-black text-white px-20 py-10 hover:bg-[#D90019] transition-all hover:-translate-y-2 shadow-2xl items-center justify-center gap-8 overflow-hidden rounded-sm w-full sm:w-auto">
+                <Link href="https://cal.com/elianatech/30min" className="group relative inline-flex font-bebas text-3xl sm:text-5xl tracking-[0.1em] bg-black text-white px-20 py-10 hover:bg-[#D90019] transition-all hover:-translate-y-2 shadow-2xl items-center justify-center gap-8 overflow-hidden rounded-sm w-full sm:w-auto">
                   <div className="absolute inset-0 bg-white/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out"></div>
-                  Start Your Build <ArrowRight size={48} strokeWidth={3} className="group-hover:translate-x-3 transition-transform" />
+                  Book Strategy Session <ArrowRight size={48} strokeWidth={3} className="group-hover:translate-x-3 transition-transform" />
                 </Link>
                 <div className="mt-10 flex flex-col items-center gap-4">
                   <p className="text-gray-400 font-bold uppercase tracking-widest text-[10px]">

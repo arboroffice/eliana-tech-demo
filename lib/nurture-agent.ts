@@ -13,38 +13,67 @@ export async function generateAgenticFollowUp(template: string, data: any): Prom
     const tools = formData?.tools ? formData.tools.join(', ') : 'current tools'
     
     let instructions = ''
-    
-    if (template === 'ai_day1') {
-        instructions = `
-        This is Day 1 of the sequence. 
-        Focus: Value Drop & Initial Review. 
-        Write a friendly, high-value email pointing out 1 specific major inefficiency you typical see in the ${industry} space regarding ${painPoint}. 
-        Suggest a specific AI concept that solves it (e.g. AI voice agent, CRM automation) without being overly technical.
-        End with a casual call to action to book a call using ${CAL_LINK}.
-        `
-    } else if (template === 'ai_day3') {
-        instructions = `
-        This is Day 3 of the sequence.
-        Focus: Custom Roadmap & Process.
-        Write an email mapping out a 3-step hypothetical AI implementation plan to directly solve their bottleneck of "${bottleneck}" at ${companyName}.
-        Make the steps extremely actionable and tailored to ${industry}. 
-        End with: "If you want me to build this exact system for you, grab a time here: ${CAL_LINK}".
-        `
-    } else if (template === 'ai_day5') {
-        instructions = `
-        This is Day 5 of the sequence.
-        Focus: Urgency, Cost of Doing Nothing, Case Study.
-        Point out the raw cost in hours or lost revenue of maintaining manual workflows using ${tools}. 
-        Make it specific to the ${industry} industry. 
-        Share a brief hypothetical or generalized success story of a ${industry} company that implemented AI and saved X hours or increased margins.
-        Final push for a strategy session: ${CAL_LINK}.
-        `
-    } else {
-        instructions = `
-        Write a brief, friendly check-in email referencing their business ${companyName} in the ${industry} space. 
-        Ask if they're still struggling with ${painPoint} and offer a strategy call: ${CAL_LINK}.
+
+    const dayInstructions: Record<string, string> = {
+        'ai_day1': `
+        Day 1 — Value Drop & Quick Insight.
+        Write a friendly, high-value email pointing out 1 specific major inefficiency you typically see in the ${industry} space regarding ${painPoint}.
+        Suggest a specific AI concept that solves it (e.g. AI voice agent, CRM automation, automated intake) without being overly technical.
+        Keep it conversational and brief. End with a casual CTA to book a strategy call: ${CAL_LINK}.
+        `,
+
+        'ai_day2': `
+        Day 2 — Quick Win They Can Do Today.
+        Give ${firstName} one specific, actionable thing they can implement THIS WEEK at ${companyName} to start saving time on "${bottleneck}".
+        Make it concrete — name a free tool, a workflow change, or a simple automation they can set up in under an hour.
+        Then position the strategy call as the way to go deeper: "This is just the surface — on a call I can map out the full system. Grab a time: ${CAL_LINK}"
+        `,
+
+        'ai_day3': `
+        Day 3 — Custom 3-Step Roadmap.
+        Write an email mapping out a 3-step AI implementation plan to directly solve their bottleneck of "${bottleneck}" at ${companyName}.
+        Make the steps extremely actionable and tailored to ${industry}.
+        End with: "If you want me to build this exact system for you, grab a time here: ${CAL_LINK}"
+        `,
+
+        'ai_day4': `
+        Day 4 — Social Proof & Results.
+        Share a brief, generalized success story of a business in the ${industry} space that implemented AI automation and saw measurable results (hours saved, faster response times, fewer missed opportunities).
+        Do NOT mention specific pricing, revenue numbers, or financial predictions. Focus on operational improvements and time saved.
+        Connect it back to ${companyName}'s situation with "${painPoint}".
+        End with: "Want to see what this looks like for ${companyName}? Let's map it out: ${CAL_LINK}"
+        `,
+
+        'ai_day5': `
+        Day 5 — Cost of Doing Nothing.
+        Point out the real cost of maintaining manual workflows using ${tools} — in terms of HOURS lost, missed opportunities, slower response times, and team burnout.
+        Do NOT predict revenue or give dollar amounts. Keep it about time and operational drag.
+        Make it specific to the ${industry} industry.
+        Frame the strategy call as the fix: "Let me show you exactly how to eliminate this. 30 minutes: ${CAL_LINK}"
+        `,
+
+        'ai_day6': `
+        Day 6 — Personal Note from Mia.
+        Write a short, genuine, personal email. No pitch frameworks. Just be real.
+        Acknowledge that ${firstName} is probably busy running ${companyName} and might not have had time to look at this.
+        Mention that you've been thinking about their specific situation with "${painPoint}" and have some ideas.
+        Keep it under 5 sentences. End with a soft CTA: "No pressure — if you ever want to talk through it, I'm here: ${CAL_LINK}"
+        `,
+
+        'ai_day7': `
+        Day 7 — Final Follow-Up.
+        This is the last email in the sequence. Be upfront about that.
+        Briefly recap: they completed the audit, you identified opportunities around "${painPoint}" and "${bottleneck}" at ${companyName}.
+        Let them know this is your last follow-up and you respect their time.
+        Leave the door open: "Whenever you're ready, the link is here: ${CAL_LINK}. I'll be here."
+        Keep it short, respectful, and warm. No guilt trips.
         `
     }
+
+    instructions = dayInstructions[template] || `
+        Write a brief, friendly check-in email referencing their business ${companyName} in the ${industry} space.
+        Ask if they're still struggling with ${painPoint} and offer a strategy call: ${CAL_LINK}.
+        `
 
     const prompt = `You are Mia from ElianaTech, writing a highly personalized, automated follow-up email to a lead who completed our AI Readiness Audit.
 
@@ -65,7 +94,9 @@ RULES:
 - NO fluff. Get straight to the point.
 - Keep the subject line compelling, short, and personalized. Do not use emojis in subject.
 - Format the body as plain text with line breaks (no HTML tags, I will map line breaks to HTML later).
-- Always include the calendar link ${CAL_LINK}.
+- Always include the calendar link ${CAL_LINK} as the primary CTA.
+- NEVER mention pricing, costs, dollar amounts, revenue predictions, or financial projections. Focus on time saved, operational improvements, and efficiency gains.
+- NEVER include payment links or "buy now" type CTAs. The only CTA is booking a strategy call.
 - Sign off as "Mia" or "Mia from ElianaTech".
 
 Respond with ONLY valid JSON in this exact format:
@@ -120,7 +151,7 @@ Respond with ONLY valid JSON in this exact format:
                             ${htmlBody}
                             
                             <div style="margin: 32px 0;">
-                                <a href="https://cal.com/elianatech/30min" style="display: inline-block; background-color: #000000; color: #ffffff; padding: 16px 32px; text-decoration: none; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em;">Book Strategy Session →</a>
+                                <a href="${CAL_LINK}" style="display: inline-block; background-color: #000000; color: #ffffff; padding: 16px 32px; text-decoration: none; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; margin-right: 12px; margin-bottom: 12px;">Book Strategy Session →</a>
                             </div>
                         </td>
                     </tr>
