@@ -19,7 +19,7 @@ export default function WebinarPage() {
                         <span className="r">Founder</span>
                     </h1>
                     <p className="text-sm text-[#555] max-w-2xl mx-auto leading-relaxed mb-12">
-                        How to replace yourself with AI systems in 30 days. Learn the exact 3-step framework we use to install autonomous departments and reclaim 20+ hours of your week.
+                        How to replace yourself with AI systems in 7 days. Learn the exact 3-step framework we use to install autonomous departments and reclaim 20+ hours of your week.
                     </p>
 
                     {/* VIDEO PLACEHOLDER */}
@@ -61,7 +61,7 @@ export default function WebinarPage() {
                             {
                                 step: "03",
                                 title: "The Installation Loop",
-                                detail: "Our 30-day process for deploying, testing, and scaling autonomous systems without disrupting your current operations."
+                                detail: "Our 7-day install process for deploying autonomous systems, followed by 30 days of training on your company data — without disrupting your current operations."
                             }
                         ].map((item, idx) => (
                             <div key={idx} className="p-12 bg-white">

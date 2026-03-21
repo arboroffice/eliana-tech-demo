@@ -22,11 +22,11 @@ export default function HomeV2() {
               <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight mb-8 leading-[1.05]">
                 YOUR BUSINESS IS EATING YOUR LIFE.<br />
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-slate-200 to-slate-500">
-                  WE FIX THAT IN 30 DAYS.
+                  WE FIX THAT IN 7 DAYS.
                 </span>
               </h1>
               <p className="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto mb-4 leading-relaxed">
-                We find the one process that's costing you the most time, build an AI system that eliminates it, and install it into your business in 30 days. If it doesn't work, we keep going until it does.
+                We find the one process that's costing you the most time, build an AI system that eliminates it, and install it into your business in 7 days. Then we spend 30 days training it on your company data so it gets smarter every week. If it doesn't work, we keep going until it does.
               </p>
               <p className="text-base text-slate-500 max-w-xl mx-auto mb-12">
                 We don't pitch decks. We don't advise. We build and install — then prove it works before asking you for more.
@@ -172,8 +172,8 @@ export default function HomeV2() {
                   {
                     step: "02",
                     title: "Build & Install",
-                    time: "30 Days",
-                    desc: "We pick the one system that moves the needle most and build it. Fully integrated into your existing stack — your CRM, your payments, your scheduling tool. We install it, test it, and run it live before we call it done.",
+                    time: "7 Days",
+                    desc: "We pick the one system that moves the needle most and build it in 7 days. Fully integrated into your existing stack — your CRM, your payments, your scheduling tool. We install it, test it, and run it live. Then 30 days of training on your company data.",
                   },
                   {
                     step: "03",
@@ -220,7 +220,7 @@ export default function HomeV2() {
                     {[
                       "Custom architecture for your specific bottleneck",
                       "Full integration with your existing tools",
-                      "30 days of build, install & optimization",
+                      "7-day install + 30 days of training & optimization",
                       "Team training — you're never dependent on us",
                       "You own everything we build",
                     ].map((item) => (
@@ -261,7 +261,7 @@ export default function HomeV2() {
                       "Revenue share on system-attributed growth",
                       "Ongoing monitoring & optimization",
                       "Priority support & system upgrades",
-                      "Quarterly strategy reviews with Mia",
+                      "Monthly evolution strategy with Mia",
                     ].map((item) => (
                       <li key={item} className="flex items-start gap-3">
                         <span className="text-red-400 mt-0.5">&#x2022;</span>
@@ -291,7 +291,7 @@ export default function HomeV2() {
                 If It Doesn't Save You Time,<br />We Keep Working Until It Does.
               </h2>
               <p className="text-lg text-slate-400 leading-relaxed mb-8">
-                Every system we build comes with 30 days of optimization included. If it's not performing the way we scoped it, we don't call it done. We stay on it — at no extra cost — until it is.
+                Every system we install comes with 30 days of training and optimization included. If it's not performing the way we scoped it, we don't call it done. We stay on it — at no extra cost — until it is.
               </p>
               <p className="text-slate-500">
                 We're not in the business of collecting checks and disappearing. Our reputation is the only thing that gets us the next client.
@@ -340,7 +340,7 @@ export default function HomeV2() {
                 {[
                   {
                     q: "What if it doesn't work?",
-                    a: "Then we haven't done our job. Every system ships with 30 days of optimization. If it's not hitting the outcome we scoped, we keep working — no extra charge. We don't get paid to build things. We get paid to build things that work.",
+                    a: "Then we haven't done our job. Every system ships with 30 days of training and optimization after the 7-day install. If it's not hitting the outcome we scoped, we keep working — no extra charge. We don't get paid to build things. We get paid to build things that work.",
                   },
                   {
                     q: "Do I need to be technical?",
@@ -352,7 +352,7 @@ export default function HomeV2() {
                   },
                   {
                     q: "How long does this actually take?",
-                    a: "A single system takes 30 days — build, install, and optimization included. A full department build is 6–8 weeks. Enterprise is scoped individually.",
+                    a: "A single system is installed in 7 days, followed by 30 days of training and optimization. A full department build is 2–4 weeks. Enterprise is scoped individually.",
                   },
                   {
                     q: "Is this just ChatGPT wrappers?",
@@ -377,7 +377,7 @@ export default function HomeV2() {
             <div className="max-w-3xl mx-auto text-center">
               <p className="text-sm uppercase tracking-[0.2em] text-slate-500 mb-6">One step</p>
               <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-6">
-                One System. 30 Days.<br />We Prove It Works.
+                One System. 7 Days.<br />We Prove It Works.
               </h2>
               <p className="text-lg text-slate-400 mb-4 max-w-2xl mx-auto">
                 Start with the free audit. We'll find your biggest operational leak, tell you exactly what to build, and scope what it would cost to fix it. No pitch. No pressure.

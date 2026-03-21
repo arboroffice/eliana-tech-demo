@@ -13,7 +13,7 @@ const phases = [
             "Business model audit & optimization",
             "Core process documentation",
             "Basic CRM & Automation setup",
-            "30-day action plan",
+            "7-day install + 30-day training plan",
         ],
         highlight: false,
     },

@@ -59,12 +59,12 @@ const PROCESS_STEPS = [
   {
     num: "03",
     title: "Agent Build & Training",
-    description: "We build your agents with custom system prompts, knowledge bases, tool integrations (CRM, email, calendar, Slack, databases), and decision logic tailored to your exact processes."
+    description: "We build your agents in 7 days with custom system prompts, knowledge bases, tool integrations (CRM, email, calendar, Slack, databases), and decision logic tailored to your exact processes."
   },
   {
     num: "04",
     title: "Shadow Mode & Testing",
-    description: "Your Claude agents run in supervised mode for 2 weeks. Every action is reviewed, refined, and approved before graduating to autonomous execution."
+    description: "Your Claude agents run in supervised mode for 30 days of training. Every action is reviewed, refined, and approved before graduating to autonomous execution. The system learns your company inside and out."
   },
   {
     num: "05",
@@ -108,7 +108,7 @@ const PRICING_TIERS = [
       "Executive & team training",
       "24/7 priority support",
       "Dedicated account manager",
-      "Quarterly business reviews",
+      "Monthly evolution reviews",
     ],
     cta: "Book a Call",
     highlighted: true,
@@ -158,7 +158,7 @@ export default function CaaSLandingPage() {
     { q: "How is this different from just using ChatGPT or Claude.ai?", a: "Using Claude.ai directly is like having a genius intern with no context about your business. We give Claude deep knowledge of your processes, connect it to your tools (CRM, email, calendar, databases), build custom agents for specific roles, and train it to make decisions the way you would." },
     { q: "What tools and platforms does Claude integrate with?", a: "Everything. Gmail, Outlook, Google Calendar, Slack, HubSpot, Salesforce, Notion, Airtable, Google Sheets, Stripe, QuickBooks, Zapier, Make, custom APIs, databases, and more. If it has an API, Claude can work with it." },
     { q: "Is my data safe?", a: "Absolutely. We use Anthropic's enterprise-tier API with zero data retention. Your information never trains any public model. We implement role-based access controls and can deploy in your own cloud environment for maximum security." },
-    { q: "How long does setup take?", a: "Most clients are live within 2-3 weeks. Week 1 is discovery and architecture. Week 2 is building and training. Week 3 is shadow mode testing. Complex enterprise deployments may take 4-6 weeks." },
+    { q: "How long does setup take?", a: "Most clients are live within 7 days. We handle discovery, architecture, building, and installation in one focused sprint. Then 30 days of training where the system learns your company data. Complex enterprise deployments may take 2-3 weeks for the install." },
     { q: "Do I need to be technical?", a: "Not at all. We handle all the technical setup. Our training sessions teach you to work with Claude using plain English. If you can write an email, you can manage your Claude agents." },
     { q: "What happens if Claude makes a mistake?", a: "During shadow mode, every action is human-reviewed. Post-launch, we build guardrails, approval workflows, and escalation rules. Claude flags uncertain decisions for your review rather than guessing. The system gets smarter over time." },
     { q: "Can I cancel anytime?", a: "Yes. Month-to-month after the initial 3-month commitment. You own all your agents, prompts, and configurations. We believe in earning your business every month, not locking you in." },
@@ -292,7 +292,7 @@ export default function CaaSLandingPage() {
           <div className="mb-20">
             <span className="text-[10px] text-amber-500 uppercase tracking-[0.5em] font-black block mb-6">The Process</span>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter">
-              From Zero to <span className="text-amber-500">Autonomous</span> in 3 Weeks
+              From Zero to <span className="text-amber-500">Autonomous</span> in 7 Days
             </h2>
           </div>
 

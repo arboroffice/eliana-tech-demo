@@ -68,7 +68,7 @@ export default function BuildPage() {
                     "AI Agent Communication Hub",
                     "Automated Lead Capture & Routing",
                     "Logic Security & Encryption",
-                    "14-Day Deployment Speed"
+                    "7-Day Deployment Speed"
                   ].map((item, i) => (
                     <li key={i} className="flex items-start gap-4 text-xs font-bold uppercase tracking-[0.15em] text-gray-300">
                       <Check className="text-[#D90019] shrink-0 mt-0.5" size={14} strokeWidth={3} /> {item}
@@ -153,7 +153,7 @@ export default function BuildPage() {
           <div className="max-w-6xl mx-auto">
              <div className="grid grid-cols-1 md:grid-cols-3 gap-12 sm:gap-16">
                 {[
-                  { icon: Clock, title: "14 Days", desc: "Your system is live and running logic in two weeks. No six-month implementation cycles." },
+                  { icon: Clock, title: "7 Days", desc: "Your system is live and running logic in one week. No six-month implementation cycles." },
                   { icon: Shield, title: "Your Stack", desc: "We don't replace your tools. We make them talk to each other through an AI brain." },
                   { icon: Rocket, title: "Evolution Ready", desc: "Once it's live, adding new AI agents is as simple as flipping a switch." },
                 ].map((item, i) => (
@@ -180,7 +180,7 @@ export default function BuildPage() {
                   { step: "01", title: "Book a Strategy Session", desc: "Select a time for your deep-dive audit and roadmap session." },
                   { step: "02", title: "Logic Audit", desc: "Immediately after checkout, you'll record a 15-minute walkthrough of your current tools and bottlenecks." },
                   { step: "03", title: "Implementation", desc: "Our team builds your communication layer in the background. No technical work required from you." },
-                  { step: "04", title: "Live Handoff", desc: "Day 14. We meet to show you the machine running. Your business is now AI-native." },
+                  { step: "04", title: "Live Handoff", desc: "Day 7. We meet to show you the machine running. Your business is now AI-native." },
                 ].map((item, i) => (
                   <div key={i} className="flex flex-col md:flex-row gap-4 md:gap-8 items-start group relative">
                     <div className="font-bebas text-7xl md:text-6xl text-gray-100 group-hover:text-[#D90019] transition-colors shrink-0 leading-none md:static absolute -top-4 -left-2 opacity-50 md:opacity-100">{item.step}</div>

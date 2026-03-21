@@ -19,48 +19,66 @@ export default function HomePage() {
     <div className="bg-[#FAFAF8] text-[#0C0C0C] font-sans overflow-x-hidden selection:bg-[#D90019] selection:text-white">
 
       {/* ═══ NAVIGATION ═══ */}
-      <nav className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 px-6 md:px-12 h-16 sm:h-20 flex items-center justify-between ${scrolled ? 'bg-white/80 backdrop-blur-md border-b border-gray-100 shadow-sm' : 'bg-transparent'}`}>
-        <Link href="/" className="font-bebas text-2xl tracking-[0.12em] text-[#0C0C0C]">
-          ELIANA<span className="text-[#D90019]">TECH</span>
+      <nav className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 px-6 md:px-24 h-20 sm:h-24 flex items-center justify-between ${scrolled ? 'bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm' : 'bg-transparent'}`}>
+        <Link href="/" className="flex items-center gap-2 group">
+          <span className="font-playfair italic text-2xl tracking-tight text-[#0C0C0C] font-black">
+            Elianatech
+          </span>
+          <span className="font-playfair text-[11px] tracking-[0.1em] text-[#D90019] font-bold">
+            [AI WING]
+          </span>
         </Link>
         <div className="hidden md:flex items-center gap-8">
-          <Link href="/audit" className="bg-[#D90019] text-white text-[11px] uppercase tracking-widest font-bold px-6 py-3 hover:bg-black transition-all hover:scale-105 active:scale-95 shadow-lg shadow-red-500/20">
-            Free AI Audit
+          <Link href="/audit" className="bg-[#1A1A1A] text-white text-[10px] uppercase tracking-[0.2em] font-bold px-8 py-3.5 hover:bg-[#D90019] transition-all active:scale-95">
+            FREE AI AUDIT
           </Link>
         </div>
-        <Link href="/audit" className="md:hidden bg-[#D90019] text-white p-1.5 rounded-full shadow-lg shadow-red-500/20">
-          <ArrowRight size={16} />
-        </Link>
       </nav>
 
       <main>
-
         {/* ═══ HERO ═══ */}
-        <section className="relative min-h-[90vh] flex flex-col items-center justify-center pt-28 pb-16 px-6 text-center overflow-hidden bg-white">
-          <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '24px 24px' }}></div>
-
-          <div className="relative z-10 max-w-4xl mx-auto">
-            <div className="inline-block px-4 py-1.5 mb-8 border border-[#D90019]/20 bg-[#D90019]/5 rounded-full">
-              <p className="text-[#D90019] font-mono text-[10px] font-bold uppercase tracking-[0.3em]">Your Chief AI Officer</p>
+        <section className="relative min-h-screen flex flex-col justify-center pt-32 pb-24 px-6 md:px-24 bg-[#FAFAF8] overflow-hidden">
+          <div className="max-w-5xl">
+            {/* Tagline with line */}
+            <div className="flex items-center gap-4 mb-12 animate-fade-in">
+              <div className="w-16 h-[1px] bg-[#D90019]"></div>
+              <p className="text-[#D90019] font-inter text-[11px] font-bold uppercase tracking-[0.4em]">YOUR CHIEF AI OFFICER</p>
             </div>
 
-            <h1 className="font-bebas text-[clamp(40px,9vw,100px)] leading-[0.85] uppercase mb-8 tracking-tight text-black">
-              What If Your Business<br />
-              <span className="text-[#D90019]">Ran Without You?</span>
-            </h1>
+            {/* Headline */}
+            <div className="relative mb-14">
+              <h1 className="font-playfair text-[clamp(48px,8.5vw,100px)] leading-[1.05] text-black font-medium tracking-tight animate-fade-in" style={{ animationDelay: '0.1s' }}>
+                What If Your <br className="hidden md:block" />
+                <span className="relative inline-block">
+                  Business Ran
+                  <span className="absolute bottom-2 left-0 w-full h-[0.15em] bg-[#D90019]/10 -z-10"></span>
+                </span> Without <br className="hidden md:block" />
+                <span className="relative inline-block">
+                  You?
+                  <span className="absolute bottom-2 left-0 w-full h-[0.15em] bg-[#D90019]/10 -z-10"></span>
+                </span>
+              </h1>
+            </div>
 
-            <p className="text-gray-500 text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto mb-12">
-              Not a chatbot. Not a dashboard. A full <span className="text-black font-semibold">AI Wing</span> installed
+            {/* Description */}
+            <p className="text-[#1A1A1A]/60 font-inter text-xl md:text-2xl leading-relaxed max-w-3xl mb-16 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+              Not a chatbot. Not a dashboard. A full <span className="text-black font-bold">AI Wing</span> installed
               inside your company so you wake up to a business that already handled
               the morning without you.
             </p>
 
-            <Link href="/audit" className="w-full sm:w-auto inline-flex font-bebas text-2xl tracking-widest bg-[#D90019] text-white px-10 py-5 hover:bg-black transition-all hover:scale-[1.02] active:scale-95 shadow-2xl shadow-red-500/20 items-center justify-center gap-3">
-              See What We'd Build For You <ArrowRight size={22} strokeWidth={3} />
-            </Link>
-
-            <p className="mt-6 text-gray-400 text-xs font-medium tracking-wide">Free audit. No pitch deck. Just your blueprint.</p>
+            {/* CTA Area */}
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-8 animate-fade-in" style={{ animationDelay: '0.3s' }}>
+              <Link href="/audit" className="bg-[#1A1A1A] text-white font-inter text-[11px] font-bold uppercase tracking-[0.2em] px-12 py-7 hover:bg-[#D90019] transition-all active:scale-95 shadow-xl">
+                SEE WHAT WE'D BUILD FOR YOU
+              </Link>
+              <div className="flex flex-col text-[9px] font-bold tracking-[0.2em] text-[#1A1A1A]/40 uppercase leading-relaxed">
+                <span>FREE AUDIT. NO PITCH DECK.</span>
+                <span>JUST YOUR BLUEPRINT.</span>
+              </div>
+            </div>
           </div>
+
         </section>
 
         {/* ═══ MARQUEE ═══ */}
@@ -157,38 +175,6 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ═══ DREAM OUTCOMES ═══ */}
-        <section className="py-24 sm:py-40 px-6 bg-white">
-          <div className="max-w-4xl mx-auto">
-            <p className="text-[#D90019] font-bold tracking-[0.4em] uppercase mb-6 text-[10px] font-mono text-center">After We Install</p>
-            <h2 className="font-bebas text-4xl sm:text-6xl uppercase tracking-tight text-center mb-20 leading-[0.9]">
-              This Is Your<br />
-              <span className="text-[#D90019]">Monday Morning.</span>
-            </h2>
-
-            <div className="space-y-0">
-              {[
-                "You wake up. Your leads from last night are already in conversation.",
-                "Your calendar has three qualified calls booked. You didn't set them.",
-                "A client who ghosted last week just got a perfectly timed follow-up. They replied.",
-                "Your weekly P&L is sitting in your inbox. Formatted. Accurate. Done.",
-                "You open your laptop and realize there's nothing urgent. For once.",
-                "You spend the morning thinking about where to take the business next. Not putting out fires."
-              ].map((text, i) => (
-                <div key={i} className="flex gap-6 items-start py-6 border-b border-gray-100 group hover:bg-[#FAF9F6] px-4 -mx-4 transition-colors">
-                  <span className="font-bebas text-3xl text-gray-200 group-hover:text-[#D90019] transition-colors leading-none pt-1">{String(i + 1).padStart(2, '0')}</span>
-                  <p className="text-gray-600 text-lg sm:text-xl font-medium group-hover:text-black transition-colors leading-relaxed">{text}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="text-center mt-16">
-              <Link href="/audit" className="inline-flex font-bebas text-2xl tracking-widest bg-black text-white px-10 py-5 hover:bg-[#D90019] transition-all items-center gap-3 shadow-xl">
-                I Want This <ArrowRight size={22} strokeWidth={3} />
-              </Link>
-            </div>
-          </div>
-        </section>
 
         {/* ═══ NOT A TOOL / AN AI WING ═══ */}
         <section className="py-24 sm:py-40 px-6 bg-[#FAF9F6]">
@@ -303,11 +289,15 @@ export default function HomePage() {
       {/* ═══ FOOTER ═══ */}
       <footer className="bg-black text-white py-12 px-6 border-t border-white/5">
         <div className="max-w-6xl mx-auto text-center">
-            <Link href="/" className="font-bebas text-3xl tracking-[0.1em] block mb-3">
-                ELIANA<span className="text-[#D90019]">TECH</span>
+            <Link href="/" className="inline-block group mb-6">
+                <span className="font-playfair italic text-3xl tracking-tight text-white font-black">
+                  Elianatech
+                </span>
+                <span className="font-playfair text-[12px] tracking-[0.1em] text-[#D90019] font-bold block mt-1">
+                  [AI WING]
+                </span>
             </Link>
-            <p className="text-[#D90019] font-bold tracking-[0.4em] uppercase text-[9px] mb-2">Your AI Wing.</p>
-            <p className="text-gray-500 text-xs tracking-wide mb-10">Chief AI Officer for the modern enterprise.</p>
+            <p className="text-gray-500 text-xs tracking-[0.2em] uppercase font-bold mb-10">Chief AI Officer for the modern enterprise.</p>
 
             <div className="flex flex-wrap justify-center gap-x-10 gap-y-4 mb-12">
                 <Link href="/about" className="text-gray-500 hover:text-white transition-colors text-[10px] font-bold tracking-widest uppercase">About</Link>
@@ -346,6 +336,14 @@ export default function HomePage() {
 
         .font-bebas {
            font-family: var(--font-bebas-neue), cursive;
+        }
+
+        .font-playfair {
+          font-family: var(--font-playfair), serif;
+        }
+
+        .font-inter {
+          font-family: var(--font-inter), sans-serif;
         }
       `}</style>
     </div>

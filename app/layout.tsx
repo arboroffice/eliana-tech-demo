@@ -5,7 +5,7 @@ import "./globals.css"
 import { PageTransition } from "@/components/page-transition"
 import { NavigationTransition } from "@/components/navigation-transition"
 import { SpeedInsights } from "@vercel/speed-insights/next"
-import { Bebas_Neue, DM_Mono, Syne } from "next/font/google"
+import { Bebas_Neue, DM_Mono, Syne, Playfair_Display, Inter } from "next/font/google"
 import StyledJsxRegistry from "@/lib/registry"
 
 const bebasNeue = Bebas_Neue({
@@ -25,6 +25,18 @@ const dmMono = DM_Mono({
 const syne = Syne({
   subsets: ["latin"],
   variable: "--font-syne",
+  display: "swap",
+})
+
+const playfairDisplay = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
+  display: "swap",
+})
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
   display: "swap",
 })
 
@@ -48,7 +60,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${bebasNeue.variable} ${dmMono.variable} ${syne.variable} font-sans antialiased text-gray-900`}>
+      <body className={`${bebasNeue.variable} ${dmMono.variable} ${syne.variable} ${playfairDisplay.variable} ${inter.variable} font-sans antialiased text-gray-900`}>
         <StyledJsxRegistry>
           <Suspense fallback={null}>
             <NavigationTransition />

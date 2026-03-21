@@ -11,7 +11,7 @@ export default function FAQPage() {
         { q: "What if it fails?", a: "Then we failed. We fix it." },
         { q: "Do I need to be technical?", a: "No. You explain your business. We build the system." },
         { q: "Will it work with my stack?", a: "If it has an API, yes. We integrate with Stripe, HubSpot, Salesforce, and 100+ others." },
-        { q: "How long does it take?", a: "Single system: 30 days. Department build: 6 to 8 weeks. Enterprise builds are scoped custom." },
+        { q: "How long does it take?", a: "Single system: 7-day install, then 30 days of training on your company data. Department build: 2 to 4 weeks. Enterprise builds are scoped custom." },
         { q: "Why start with an audit?", a: "Because guessing is expensive. We find the highest ROI system first." },
         { q: "Do I own what you build?", a: "Yes. Everything we build is yours. The IP, the documentation, the systems. You are not renting access." },
     ]

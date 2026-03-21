@@ -14,7 +14,7 @@ const steps = [
   {
     number: "03",
     title: "We Build Together",
-    description: "30 days. We build your systems, content, agents, and infrastructure alongside you. Not coaching — building.",
+    description: "7-day install. We build your systems, content, agents, and infrastructure alongside you. Then 30 days of training. Not coaching — building.",
   },
   {
     number: "04",

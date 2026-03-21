@@ -20,7 +20,7 @@ export default function SingleBuildPage() {
               <span className="accent">BUILD.</span>
             </h1>
             <p className="rm-hero-sub">
-              One problem. One complete system. 14 days. We build it, return it to you, and you see it work. No long contracts. No massive commitments. We prove ourselves first.
+              One problem. One complete system. 7 days. We build it, return it to you, and you see it work. No long contracts. No massive commitments. We prove ourselves first.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 mb-12">
               <Link href="/apply" className="rm-btn" style={{ background: '#D90019', color: '#ffffff' }}>
@@ -29,7 +29,7 @@ export default function SingleBuildPage() {
             </div>
             <div className="rm-hero-stats">
               <div className="rm-stat">
-                <div className="rm-stat-num">14</div>
+                <div className="rm-stat-num">7</div>
                 <div className="rm-stat-label">Days</div>
               </div>
               <div className="rm-stat">
@@ -52,7 +52,7 @@ export default function SingleBuildPage() {
 
             <div className="rm-prose">
               <p>You have one problem that is eating your time, burning your team, or costing you revenue. Maybe it is lead follow-up. Maybe it is onboarding. Maybe it is a manual process that should have been automated two years ago.</p>
-              <p>We take that single problem, build a complete AI-powered system to solve it, and hand it back to you in 14 days. You watch it work. You see the results. No guessing. No hoping.</p>
+              <p>We take that single problem, build a complete AI-powered system to solve it, and hand it back to you in 7 days. You watch it work. You see the results. No guessing. No hoping.</p>
               <p className="rm-highlight">This is how we earn the right to do more. You do not have to trust a pitch deck or a promise. You trust the system we built — because it is already running.</p>
               <p>These systems are scoped to the single problem that will make the biggest difference in your business.</p>
             </div>
@@ -112,12 +112,12 @@ export default function SingleBuildPage() {
         <section className="rm-section">
           <div className="rm-container">
             <div className="rm-eyebrow">How It Works</div>
-            <h2 className="rm-heading">14 DAYS. <span className="accent">ONE SYSTEM.</span></h2>
+            <h2 className="rm-heading">7 DAYS. <span className="accent">ONE SYSTEM.</span></h2>
 
             <div className="rm-grid">
               {[
                 { n: "01", title: "IDENTIFY THE PROBLEM", desc: "We get on one call, identify your single biggest operational bottleneck, and scope the build. No fluff. We agree on exactly what gets built and what success looks like." },
-                { n: "02", title: "WE BUILD IT", desc: "Over 14 days, we architect and build the complete system. AI workflows, integrations, automations — whatever it takes to solve that one problem end to end." },
+                { n: "02", title: "WE BUILD IT", desc: "Over 7 days, we architect and build the complete system. AI workflows, integrations, automations — whatever it takes to solve that one problem end to end." },
                 { n: "03", title: "RETURNED TO YOU", desc: "The system is handed back to you fully operational. Documentation included. You own it. You run it. You watch it work." },
                 { n: "04", title: "PROVE & EXPAND", desc: "Once you see the results, we talk about what is next. Full Buildout. AI Wing. Revenue Share. But only after you have seen proof that we deliver." },
               ].map((item, i) => (
@@ -136,7 +136,7 @@ export default function SingleBuildPage() {
           <div className="rm-dark-grid" />
           <div className="rm-container">
             <div className="rm-eyebrow rm-eyebrow-light">Examples</div>
-            <h2 className="rm-heading rm-heading-light">PROBLEMS WE <span className="accent">SOLVE IN 14 DAYS.</span></h2>
+            <h2 className="rm-heading rm-heading-light">PROBLEMS WE <span className="accent">SOLVE IN 7 DAYS.</span></h2>
 
             <div className="rm-who-grid">
               {[
@@ -169,9 +169,9 @@ export default function SingleBuildPage() {
             <div className="rm-faq">
               {[
                 { q: "Why only one problem?", a: "Because focus wins. Trying to fix everything at once is how most AI projects fail. We pick the one thing that will have the biggest impact, nail it, and then expand from there. One working system beats ten half-finished ones." },
-                { q: "What if my problem is too big for 14 days?", a: "Then we scope it down to the highest-impact piece and build that. If the full solution requires a larger engagement, you will know that going in — and you will have a working piece of it as proof before committing." },
-                { q: "What if it does not work?", a: "We do not take on builds we cannot deliver. The scoping call exists to make sure we can solve your problem in 14 days. If we cannot, we will tell you — and we will tell you what it would actually take." },
-                { q: "What happens after the 14 days?", a: "You own the system. It is yours. Most clients move into Phase 02 (Full Buildout) or Phase 03 (AI Wing Retainer) because they see the results and want more. But there is zero obligation." },
+                { q: "What if my problem is too big for 7 days?", a: "Then we scope it down to the highest-impact piece and build that. If the full solution requires a larger engagement, you will know that going in — and you will have a working piece of it as proof before committing." },
+                { q: "What if it does not work?", a: "We do not take on builds we cannot deliver. The scoping call exists to make sure we can solve your problem in 7 days. If we cannot, we will tell you — and we will tell you what it would actually take." },
+                { q: "What happens after the 7 days?", a: "You own the system. It is yours. Most clients move into Phase 02 (Full Buildout) or Phase 03 (AI Wing Retainer) because they see the results and want more. But there is zero obligation." },
                 { q: "How is this different from hiring a freelancer?", a: "Freelancers build what you tell them to. We diagnose the problem, architect the solution, and build operational infrastructure that compounds. The difference is between installing a tool and redesigning how your business operates." },
               ].map((item, i) => (
                 <div key={i} className="rm-faq-item">
@@ -192,7 +192,7 @@ export default function SingleBuildPage() {
               ONE PROBLEM. <span className="accent">SOLVED.</span>
             </h2>
             <p className="rm-cta-sub">
-              Tell us the one thing burning the most time in your business. We will tell you if we can solve it in 14 days.
+              Tell us the one thing burning the most time in your business. We will tell you if we can solve it in 7 days.
             </p>
             <Link href="/apply" className="rm-btn" style={{ background: '#D90019', color: '#ffffff' }}>
               Apply for a Single Build <ArrowRight size={16} />

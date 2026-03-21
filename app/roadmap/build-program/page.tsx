@@ -175,7 +175,7 @@ export default function BuildProgramPage() {
                 { q: "Do I need to be technical?", a: "No. If you can use a computer and follow instructions, you can do this. AI tools today are designed for operators, not engineers. We teach you the thinking and the process — the tools handle the complexity." },
                 { q: "How is this different from watching YouTube tutorials?", a: "YouTube teaches you what is possible. The Build Program teaches you how to do it — on your business, with your data, for your specific problems. You leave with real systems running, not a bookmark folder." },
                 { q: "What happens after the container?", a: "You keep building. That is the point. You have the skills, the mental models, and the foundation to build and scale AI infrastructure on your own. If you want us to build for you, that is what the Single Problem Build and Full Buildout are for." },
-                { q: "What if I want you to just build it for me instead?", a: "That is what Phase 01 is for — the Single Problem Build. We take one problem, solve it in 14 days, and hand it back. The Build Program is for people who want to learn to do it themselves." },
+                { q: "What if I want you to just build it for me instead?", a: "That is what Phase 01 is for — the Single Problem Build. We take one problem, solve it in 7 days, and hand it back. The Build Program is for people who want to learn to do it themselves." },
               ].map((item, i) => (
                 <div key={i} className="rm-faq-item">
                   <h3 className="rm-faq-q">{item.q}</h3>

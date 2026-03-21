@@ -10,7 +10,7 @@ const buildProgramDeliverables = [
   "Your AI Wing running without you as the bottleneck",
   "Full AI Growth Infrastructure — workflows, automations, SOPs",
   "Connected tools — CRM, calendar, email, everything wired",
-  "90-day roadmap to Full Buildout ($25K–$75K) and AI Wing Retainer",
+  "Roadmap to Full Buildout ($25K–$75K) and AI Wing Retainer",
 ]
 
 export function OffersSection() {
@@ -25,7 +25,7 @@ export function OffersSection() {
             Founders of the Future
           </h2>
           <p className="text-lg text-slate-400 max-w-2xl mx-auto font-light">
-            Not a mastermind. Not a course. Not coaching. A 30-day container for a complete business build — done alongside you — that ends with infrastructure, not information.
+            Not a mastermind. Not a course. Not coaching. A 7-day install for a complete business build — done alongside you — that ends with infrastructure, not information.
           </p>
         </div>
 
@@ -40,7 +40,7 @@ export function OffersSection() {
               <h3 className="text-2xl md:text-3xl font-bold text-slate-900 mb-2">
                 The Build Program
               </h3>
-              <p className="text-slate-500 font-light mb-4">We build alongside you in a 30-day container. You leave with a running business.</p>
+              <p className="text-slate-500 font-light mb-4">We install in 7 days. 30 days of training. Then we stay on as your AI Wing.</p>
               <p className="text-slate-400 text-sm mt-1">Application only. Book a strategy session to start.</p>
             </div>
 

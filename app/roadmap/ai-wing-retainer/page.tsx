@@ -64,7 +64,7 @@ export default function AIWingRetainerPage() {
               {[
                 { n: "01", title: "SYSTEM MONITORING & OPTIMIZATION", desc: "Every agent, every workflow, every integration — monitored and optimized continuously. We track performance metrics, identify bottlenecks, and push improvements before you even notice something could be better. Your infrastructure does not degrade. It only improves." },
                 { n: "02", title: "NEW AGENT & CAPABILITY DEPLOYMENT", desc: "As your business evolves, new opportunities emerge. A new service offering needs new sales agents. A new market needs new support workflows. We deploy new capabilities as your business demands them — proactively, not reactively." },
-                { n: "03", title: "QUARTERLY STRATEGIC REVIEWS", desc: "Every 90 days, we sit down and map the next phase of your infrastructure evolution. What is working. What needs to change. Where the next opportunities are. Your systems roadmap stays aligned with your business strategy." },
+                { n: "03", title: "MONTHLY EVOLUTION & STRATEGY", desc: "Every month, we map the next phase of your infrastructure evolution. What is working. What needs to change. Where the next opportunities are. Your systems roadmap stays aligned with your business strategy — continuously, not quarterly." },
                 { n: "04", title: "PRIORITY ACCESS & RAPID RESPONSE", desc: "Direct access to the team that built your infrastructure. When something needs to move — a new workflow, a system adjustment, an urgent fix — it moves. No tickets. No SLAs. No waiting in a queue. You call, we build." },
               ].map((item, i) => (
                 <div key={i} className="rm-card">
