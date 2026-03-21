@@ -189,7 +189,7 @@ export default function CaaSApplyPage() {
               className="w-full bg-zinc-900 border border-zinc-800 p-4 text-white text-sm focus:border-amber-500 outline-none transition-colors rounded-lg"
             >
               <option value="">Select budget range...</option>
-              <option value="starter">$2,500/mo (Starter)</option>
+              <option value="starter">Starter</option>
               <option value="unsure">Not sure yet</option>
             </select>
           </div>

@@ -14,7 +14,7 @@ export default function AIWingRetainerPage() {
         {/* HERO */}
         <section className="rm-hero">
           <div className="rm-container">
-            <div className="rm-phase-tag">Phase 03 — $5–10K/Month</div>
+            <div className="rm-phase-tag">Phase 03 — Retainer</div>
             <h1 className="rm-hero-h1">
               AI WING<br />
               <span className="accent">RETAINER.</span>
@@ -24,8 +24,8 @@ export default function AIWingRetainerPage() {
             </p>
             <div className="rm-hero-stats">
               <div className="rm-stat">
-                <div className="rm-stat-num">$5–10K</div>
-                <div className="rm-stat-label">Per Month</div>
+                <div className="rm-stat-num">Monthly</div>
+                <div className="rm-stat-label">Partnership</div>
               </div>
               <div className="rm-stat">
                 <div className="rm-stat-num">Ongoing</div>
@@ -97,7 +97,7 @@ export default function AIWingRetainerPage() {
 
             <div className="rm-diff-grid">
               {[
-                { hire: "Hire an AI engineer: $120K–$200K/year salary + benefits", retain: "Retainer: $60K–$120K/year for an entire team" },
+                { hire: "Hire an AI engineer: six-figure salary + benefits", retain: "Retainer: a fraction of the cost for an entire team" },
                 { hire: "One person with one perspective and limited bandwidth", retain: "A team that built your infrastructure and knows every piece" },
                 { hire: "Onboarding takes months before they are productive", retain: "Zero onboarding — we are already inside your systems" },
                 { hire: "They leave, and you lose institutional knowledge", retain: "Everything is documented, maintained, and continuously improved" },

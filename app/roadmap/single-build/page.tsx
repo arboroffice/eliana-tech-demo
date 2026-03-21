@@ -14,7 +14,7 @@ export default function SingleBuildPage() {
         {/* HERO */}
         <section className="rm-hero">
           <div className="rm-container">
-            <div className="rm-phase-tag">Phase 01 — Starting at $5,000</div>
+            <div className="rm-phase-tag">Phase 01 — Single Build</div>
             <h1 className="rm-hero-h1">
               SINGLE PROBLEM<br />
               <span className="accent">BUILD.</span>
@@ -37,8 +37,8 @@ export default function SingleBuildPage() {
                 <div className="rm-stat-label">Problem Solved</div>
               </div>
               <div className="rm-stat">
-                <div className="rm-stat-num">$5K</div>
-                <div className="rm-stat-label">Starting At</div>
+                <div className="rm-stat-num">Yours</div>
+                <div className="rm-stat-label">To Own</div>
               </div>
             </div>
           </div>
@@ -54,7 +54,7 @@ export default function SingleBuildPage() {
               <p>You have one problem that is eating your time, burning your team, or costing you revenue. Maybe it is lead follow-up. Maybe it is onboarding. Maybe it is a manual process that should have been automated two years ago.</p>
               <p>We take that single problem, build a complete AI-powered system to solve it, and hand it back to you in 14 days. You watch it work. You see the results. No guessing. No hoping.</p>
               <p className="rm-highlight">This is how we earn the right to do more. You do not have to trust a pitch deck or a promise. You trust the system we built — because it is already running.</p>
-              <p>These systems begin at $5K — scoped to the single problem that will make the biggest difference in your business.</p>
+              <p>These systems are scoped to the single problem that will make the biggest difference in your business.</p>
             </div>
           </div>
         </section>

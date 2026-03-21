@@ -60,7 +60,7 @@ export default function RevenueSharePage() {
 
             <div className="rm-diff-grid">
               {[
-                { flat: "You pay $10K/month regardless of results", rev: "We only earn when you grow — zero risk for you" },
+                { flat: "You pay a flat fee regardless of results", rev: "We only earn when you grow — zero risk for you" },
                 { flat: "Your vendor has no incentive to outperform", rev: "Every dollar of growth is a dollar we share" },
                 { flat: "Scope is defined and limited by the contract", rev: "Scope is unlimited — we build whatever grows revenue" },
                 { flat: "Budget conversations slow down momentum", rev: "No budgets, no approvals, no friction" },
@@ -95,7 +95,7 @@ export default function RevenueSharePage() {
                   <span>Good Fit</span>
                 </h3>
                 <ul className="rm-qualify-list">
-                  <li>Proven revenue ($500K+ annually)</li>
+                  <li>Proven revenue and established operations</li>
                   <li>Clear product-market fit</li>
                   <li>Infrastructure is the bottleneck, not product</li>
                   <li>Willing to share financials transparently</li>
