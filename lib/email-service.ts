@@ -63,22 +63,35 @@ export async function scheduleFollowUpEmails(params: FollowUpParams) {
 
     const firstName = name.split(' ')[0]
 
-    // Define follow-up sequences based on intent using AI Agent Generation
+    // 7-day follow-up sequence based on intent level
+    // If they book a call, Cal.com webhook cancels remaining emails automatically
     const sequences = {
         high: [
             { delay: 1, subject: "AI_GENERATED", template: 'ai_day1' },
+            { delay: 2, subject: "AI_GENERATED", template: 'ai_day2' },
             { delay: 3, subject: "AI_GENERATED", template: 'ai_day3' },
-            { delay: 5, subject: "AI_GENERATED", template: 'ai_day5' }
+            { delay: 4, subject: "AI_GENERATED", template: 'ai_day4' },
+            { delay: 5, subject: "AI_GENERATED", template: 'ai_day5' },
+            { delay: 6, subject: "AI_GENERATED", template: 'ai_day6' },
+            { delay: 7, subject: "AI_GENERATED", template: 'ai_day7' }
         ],
         medium: [
-            { delay: 2, subject: "AI_GENERATED", template: 'ai_day1' },
-            { delay: 5, subject: "AI_GENERATED", template: 'ai_day3' },
-            { delay: 9, subject: "AI_GENERATED", template: 'ai_day5' }
+            { delay: 1, subject: "AI_GENERATED", template: 'ai_day1' },
+            { delay: 2, subject: "AI_GENERATED", template: 'ai_day2' },
+            { delay: 3, subject: "AI_GENERATED", template: 'ai_day3' },
+            { delay: 4, subject: "AI_GENERATED", template: 'ai_day4' },
+            { delay: 5, subject: "AI_GENERATED", template: 'ai_day5' },
+            { delay: 6, subject: "AI_GENERATED", template: 'ai_day6' },
+            { delay: 7, subject: "AI_GENERATED", template: 'ai_day7' }
         ],
         low: [
-            { delay: 3, subject: "AI_GENERATED", template: 'ai_day1' },
-            { delay: 7, subject: "AI_GENERATED", template: 'ai_day3' },
-            { delay: 14, subject: "AI_GENERATED", template: 'ai_day5' }
+            { delay: 1, subject: "AI_GENERATED", template: 'ai_day1' },
+            { delay: 2, subject: "AI_GENERATED", template: 'ai_day2' },
+            { delay: 3, subject: "AI_GENERATED", template: 'ai_day3' },
+            { delay: 4, subject: "AI_GENERATED", template: 'ai_day4' },
+            { delay: 5, subject: "AI_GENERATED", template: 'ai_day5' },
+            { delay: 6, subject: "AI_GENERATED", template: 'ai_day6' },
+            { delay: 7, subject: "AI_GENERATED", template: 'ai_day7' }
         ]
     }
 
@@ -235,12 +248,12 @@ function getHighIntentEmail({ firstName, companyName, auditScore, opportunities,
                             <p style="margin-top: 32px; font-weight: 600;">Next Step:</p>
                             <p style="margin-top: 8px;">We have reserved a strategy session for you tomorrow to map your exact roadmap.</p>
 
-                            <div style="margin: 32px 0;">
+                             <div style="margin: 32px 0;">
                                 <a href="${CALENDAR_LINK}" style="display: inline-block; background-color: #000000; color: #ffffff; padding: 16px 32px; text-decoration: none; font-weight: 700; font-size: 14px; text-transform: uppercase;">Book Strategy Call →</a>
                             </div>
 
                             <p style="font-size: 14px; color: #71717a; margin-top: 40px;">
-                                <strong>P.S.</strong> This is a working session with the Eliana team. You'll leave with a clear action plan.
+                                <strong>P.S.</strong> We only have 4 slots available for new builds this month. Grab a time now to ensure we can get you on the roadmap.
                             </p>
                         </td>
                     </tr>
@@ -292,8 +305,8 @@ function getMediumIntentEmail({ firstName, companyName, auditScore, opportunitie
 
                             <div style="margin: 32px 0; display: table; width: 100%;">
                                 <div style="display: table-cell; vertical-align: middle;">
-                                    <a href="https://elianatech.com/audit/results" style="display: inline-block; background-color: #eeeeee; color: #000000; padding: 14px 24px; text-decoration: none; font-weight: 600; font-size: 13px; text-transform: uppercase; margin-right: 12px;">View Full Report</a>
-                                    <a href="${CALENDAR_LINK}" style="display: inline-block; background-color: #000000; color: #ffffff; padding: 14px 24px; text-decoration: none; font-weight: 600; font-size: 13px; text-transform: uppercase;">Book Strategy Call</a>
+                                    <a href="https://elianatech.com/audit/results" style="display: inline-block; background-color: #eeeeee; color: #000000; padding: 14px 24px; text-decoration: none; font-weight: 600; font-size: 13px; text-transform: uppercase; margin-right: 12px; margin-bottom: 12px;">View Full Report</a>
+                                    <a href="${CALENDAR_LINK}" style="display: inline-block; background-color: #000000; color: #ffffff; padding: 14px 24px; text-decoration: none; font-weight: 600; font-size: 13px; text-transform: uppercase; margin-bottom: 12px;">Book Strategy Call</a>
                                 </div>
                             </div>
 

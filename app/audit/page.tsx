@@ -8,11 +8,11 @@ import Link from "next/link"
 export default function AuditPage() {
   return (
     <div className="min-h-screen bg-[#FAFAF8] text-[#0C0C0C] font-mono">
-      <GlassmorphismNav />
+      <GlassmorphismNav minimal={true} />
 
       <main className="pt-32 pb-20 px-6 max-w-7xl mx-auto">
-        <div className="flex justify-end mb-8">
-          <a href="https://cal.com/elianatech/30min" className="nav-btn">
+        <div className="flex justify-end mb-8 md:mb-12">
+          <a href="https://cal.com/elianatech/30min" className="bg-[#D90019] text-white font-bebas text-xl tracking-widest px-8 py-3 hover:bg-black transition-all shadow-lg shadow-red-500/10">
             Book a Call
           </a>
         </div>

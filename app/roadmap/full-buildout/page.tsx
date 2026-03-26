@@ -14,7 +14,7 @@ export default function FullBuildoutPage() {
         {/* HERO */}
         <section className="rm-hero">
           <div className="rm-container">
-            <div className="rm-phase-tag">Phase 02 — $25K–$75K</div>
+            <div className="rm-phase-tag">Phase 02 — Full Operational Architecture</div>
             <h1 className="rm-hero-h1">
               FULL<br />
               <span className="accent">BUILDOUT.</span>
@@ -24,8 +24,8 @@ export default function FullBuildoutPage() {
             </p>
             <div className="rm-hero-stats">
               <div className="rm-stat">
-                <div className="rm-stat-num">$25–75K</div>
-                <div className="rm-stat-label">Investment</div>
+                <div className="rm-stat-num">Full</div>
+                <div className="rm-stat-label">Automation</div>
               </div>
               <div className="rm-stat">
                 <div className="rm-stat-num">Full</div>

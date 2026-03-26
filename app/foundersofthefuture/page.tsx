@@ -1,746 +1,318 @@
 "use client"
 
-import { GlassmorphismNav } from "@/components/glassmorphism-nav"
-import { Footer } from "@/components/footer"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
+import { useEffect, useState, useRef } from "react"
 
-const SYSTEM_EXAMPLES = [
-  "AI answering calls and booking jobs",
-  "Systems that follow up instantly",
-  "Automated quoting tools",
-  "Content engines running daily",
-  "Backend workflows replacing admin work",
-]
+function useInView(threshold = 0.15) {
+  const ref = useRef<HTMLDivElement>(null)
+  const [visible, setVisible] = useState(false)
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setVisible(true) }, { threshold })
+    obs.observe(el)
+    return () => obs.disconnect()
+  }, [threshold])
+  return { ref, visible }
+}
 
-const STEPS = [
-  { num: "01", text: "Join the community" },
-  { num: "02", text: "Pick a system or pack" },
-  { num: "03", text: "Copy and launch" },
-  { num: "04", text: "Upgrade if you want help" },
-]
-
-const FOR_LIST = [
-  "Local service business owners",
-  "Agency owners",
-  "Operators who want leverage",
-  "Founders already using AI but not getting results",
-]
-
-const NOT_FOR_LIST = [
-  "People looking for shortcuts without work",
-  "People who just want to \"learn AI\"",
-  "People who won't implement",
-]
+function Reveal({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
+  const { ref, visible } = useInView()
+  return (
+    <div
+      ref={ref}
+      className={className}
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'translateY(0)' : 'translateY(40px)',
+        transition: `opacity 0.8s cubic-bezier(0.16,1,0.3,1) ${delay}s, transform 0.8s cubic-bezier(0.16,1,0.3,1) ${delay}s`,
+      }}
+    >
+      {children}
+    </div>
+  )
+}
 
 export default function FoundersOfTheFuturePage() {
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50)
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
   return (
-    <div className="fotf-lp">
-      <GlassmorphismNav />
+    <div className="bg-[#FAFAF8] text-[#0C0C0C] overflow-x-hidden selection:bg-[#D90019] selection:text-white">
+
+      {/* NAV */}
+      <nav className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 px-6 md:px-12 h-16 sm:h-20 flex items-center justify-between ${scrolled ? 'bg-white/80 backdrop-blur-xl border-b border-gray-100 shadow-sm' : 'bg-transparent'}`}>
+        <Link href="/foundersofthefuture" className="font-bebas text-[22px] tracking-[0.2em] text-[#0C0C0C]">
+          FOUNDERS<span className="text-[#D90019]">OTF</span>
+        </Link>
+        <a href="#join" className="font-mono bg-[#D90019] text-white text-[10px] uppercase tracking-[0.25em] font-bold px-5 py-2.5 hover:bg-black transition-all duration-300">
+          Join Now
+        </a>
+      </nav>
 
       <main>
-        {/* ══════ HERO ══════ */}
-        <section className="lp-hero">
-          <div className="lp-container">
-            <div className="lp-eyebrow">Founders of the Future</div>
-            <h1 className="lp-h1">
-              Stop Playing With AI.<br />
-              <span className="accent">Start Building Systems<br />That Make Money.</span>
+
+        {/* ═══ HERO ═══ */}
+        <section className="relative min-h-screen flex flex-col justify-end pb-20 sm:pb-32 px-6 md:px-12 overflow-hidden">
+          {/* Ambient glow */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-[#D90019]/5 rounded-full blur-[200px] pointer-events-none"></div>
+          {/* Grid texture */}
+          <div className="absolute inset-0 opacity-30 pointer-events-none" style={{ backgroundImage: 'linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px)', backgroundSize: '40px 40px', maskImage: 'radial-gradient(circle at center, black, transparent 80%)' }}></div>
+
+          <div className="relative z-10 max-w-[1200px] mx-auto w-full">
+            <div className="mb-8 overflow-hidden">
+              <p className="font-mono text-[#D90019] text-[10px] sm:text-xs font-bold tracking-[0.5em] uppercase animate-fade-in">
+                This is a movement
+              </p>
+            </div>
+
+            <h1 className="font-bebas text-[clamp(52px,11vw,160px)] leading-[0.82] uppercase tracking-[-0.02em] text-[#0C0C0C] animate-fade-in-heading">
+              Stop Playing<br />
+              With AI.<br />
+              <span className="text-[#D90019]">Start Building<br className="sm:hidden" /> Systems<br className="hidden sm:block" /> That<br className="sm:hidden" /> Make Money.</span>
             </h1>
-            <p className="lp-sub">
-              Use tools like Claude to run your backend, capture leads, and automate your business.
+
+            <p className="font-syne text-gray-500 text-base sm:text-lg max-w-lg mt-8 leading-relaxed animate-fade-in-sub">
+              Whether you&apos;re a founder, building toward becoming one, an employee automating your role, or a manager running ops with AI — this is where you learn to build.
             </p>
-            <div className="lp-cta-row">
-              <Link href="/foundersofthefuture/apply" className="lp-btn-primary">
-                Join the Community <ArrowRight size={16} />
-              </Link>
-              <a href="#what-founders-build" className="lp-btn-secondary">
-                See What Founders Are Building
+
+            <div className="mt-10 sm:mt-14 flex flex-col sm:flex-row items-start gap-5 animate-fade-in-buttons">
+              <a href="#join" className="group font-bebas text-xl sm:text-2xl tracking-[0.15em] bg-[#D90019] text-white pl-8 pr-6 py-4 sm:py-5 flex items-center gap-4 hover:gap-6 transition-all duration-300 hover:bg-black shadow-lg shadow-red-500/20">
+                Join the Community <ArrowRight size={20} strokeWidth={2.5} />
+              </a>
+              <a href="#proof" className="font-syne text-sm sm:text-base font-semibold text-gray-400 hover:text-[#0C0C0C] transition-colors duration-300 py-4 sm:py-5 flex items-center gap-3">
+                See what founders are building <span className="text-[#D90019]">&darr;</span>
               </a>
             </div>
           </div>
+
+          <div className="absolute bottom-0 left-6 md:left-12 w-px h-20 bg-gradient-to-b from-red-600/30 to-transparent"></div>
         </section>
 
-        {/* ══════ THE PROBLEM ══════ */}
-        <section className="lp-section">
-          <div className="lp-container lp-narrow">
-            <div className="lp-label">The Problem</div>
-            <h2 className="lp-h2">Right now most people<br />are using AI <span className="accent">wrong.</span></h2>
 
-            <div className="lp-two-col">
-              <div className="lp-col-bad">
-                <p className="lp-col-tag">What most people do</p>
-                <ul className="lp-list-plain">
-                  <li>Generate content</li>
-                  <li>Ask random questions</li>
-                  <li>Test prompts</li>
-                </ul>
-                <p className="lp-col-note">Then go right back to doing everything manually.</p>
-              </div>
-              <div className="lp-col-good">
-                <p className="lp-col-tag accent-tag">What a few founders are doing</p>
-                <ul className="lp-list-plain">
-                  <li>Answer their phones</li>
-                  <li>Follow up with every lead</li>
-                  <li>Send quotes automatically</li>
-                  <li>Run parts of their business daily</li>
-                </ul>
-                <p className="lp-col-note highlight">Same tools. Different approach.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ══════ THE SHIFT ══════ */}
-        <section className="lp-statement-section">
-          <div className="lp-container">
-            <h2 className="lp-statement">
-              AI is not just a tool.<br />
-              <span className="accent">It&apos;s an operator.</span>
-            </h2>
-            <p className="lp-statement-sub">
-              Once you understand that&hellip; you stop chatting with it and start building with it.
-            </p>
-          </div>
-        </section>
-
-        {/* ══════ WHAT THIS IS ══════ */}
-        <section className="lp-section dark">
-          <div className="lp-container lp-narrow">
-            <div className="lp-label light">What This Is</div>
-            <h2 className="lp-h2 light">A community for founders who want to become <span className="accent">AI-native.</span></h2>
-            <p className="lp-body light">Inside, you don&apos;t get theory.</p>
-            <div className="lp-three-cards">
-              <div className="lp-card">
-                <span className="lp-card-num">01</span>
-                <h3>Real Workflows</h3>
-                <p>Copy what&apos;s already working in other businesses.</p>
-              </div>
-              <div className="lp-card">
-                <span className="lp-card-num">02</span>
-                <h3>Real Systems</h3>
-                <p>Plug-and-play automations you can launch today.</p>
-              </div>
-              <div className="lp-card">
-                <span className="lp-card-num">03</span>
-                <h3>Real Use Cases</h3>
-                <p>See exactly how founders are using AI to operate.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ══════ WHAT YOU GET ══════ */}
-        <section className="lp-section">
-          <div className="lp-container">
-            <div className="lp-label">What You Get</div>
-            <h2 className="lp-h2">Four layers. <span className="accent">Pick your level.</span></h2>
-
-            <div className="lp-tiers">
-              <div className="lp-tier">
-                <span className="lp-tier-num">01</span>
-                <h3 className="lp-tier-title">Community</h3>
-                <p className="lp-tier-desc">Founders sharing real builds daily. See exactly how others are using AI. Ask questions and get answers fast.</p>
-              </div>
-              <div className="lp-tier featured">
-                <span className="lp-tier-num">02</span>
-                <h3 className="lp-tier-title">AI System Packs</h3>
-                <p className="lp-tier-desc">Plug-and-play systems by industry. Each pack shows you what to build, how it works, and exact prompts + structure.</p>
-                <div className="lp-tier-examples">
-                  <span>Lead capture + follow-up</span>
-                  <span>AI receptionist + missed call text back</span>
-                  <span>Instant estimate generators</span>
-                  <span>CRM + backend automations</span>
-                </div>
-              </div>
-              <div className="lp-tier">
-                <span className="lp-tier-num">03</span>
-                <h3 className="lp-tier-title">Build With You</h3>
-                <p className="lp-tier-desc">Don&apos;t want to figure it out alone? We build it with you. Step-by-step. Get it live fast.</p>
-                <span className="lp-tier-badge">Upgrade</span>
-              </div>
-              <div className="lp-tier">
-                <span className="lp-tier-num">04</span>
-                <h3 className="lp-tier-title">Done For You</h3>
-                <p className="lp-tier-desc">Full system installs. Custom workflows. Built around your business. For operators who want everything handled.</p>
-                <span className="lp-tier-badge">Application Only</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ══════ WHAT FOUNDERS ARE BUILDING ══════ */}
-        <section className="lp-section dark" id="what-founders-build">
-          <div className="lp-container lp-narrow">
-            <div className="lp-label light">Inside Right Now</div>
-            <h2 className="lp-h2 light">What founders are <span className="accent">already building.</span></h2>
-            <div className="lp-build-list">
-              {SYSTEM_EXAMPLES.map((item, i) => (
-                <div key={i} className="lp-build-item">
-                  <span className="lp-build-dot" />
-                  <span>{item}</span>
-                </div>
-              ))}
-            </div>
-            <div className="lp-callout-dark">
-              This is not theory. This is already happening.
-            </div>
-          </div>
-        </section>
-
-        {/* ══════ WHO THIS IS FOR / NOT FOR ══════ */}
-        <section className="lp-section">
-          <div className="lp-container">
-            <div className="lp-two-col-fit">
-              <div>
-                <div className="lp-label">Who This Is For</div>
-                <ul className="lp-check-list">
-                  {FOR_LIST.map((item, i) => (
-                    <li key={i}><span className="lp-check">+</span>{item}</li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <div className="lp-label not-for">Who This Is Not For</div>
-                <ul className="lp-check-list not-for-list">
-                  {NOT_FOR_LIST.map((item, i) => (
-                    <li key={i}><span className="lp-x">&times;</span>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ══════ HOW IT WORKS ══════ */}
-        <section className="lp-section dark">
-          <div className="lp-container">
-            <div className="lp-label light">How It Works</div>
-            <h2 className="lp-h2 light">Four steps. <span className="accent">That&apos;s it.</span></h2>
-            <div className="lp-steps">
-              {STEPS.map((step, i) => (
-                <div key={i} className="lp-step">
-                  <span className="lp-step-num">{step.num}</span>
-                  <span className="lp-step-text">{step.text}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ══════ WHY NOW ══════ */}
-        <section className="lp-statement-section alt">
-          <div className="lp-container">
-            <div className="lp-label">Why Now</div>
-            <h2 className="lp-statement sm">
-              Most people are still playing with AI.<br />
-              A few are building real systems with it.<br />
-              <span className="accent">That gap is about to get very big.</span>
-            </h2>
-          </div>
-        </section>
-
-        {/* ══════ FINAL CLOSE ══════ */}
-        <section className="lp-final">
-          <div className="lp-container">
-            <h2 className="lp-final-h2">
-              You can keep using AI for small tasks.<br />
-              <span className="accent">Or you can use it to run parts of your business.</span>
-            </h2>
-            <Link href="/foundersofthefuture/apply" className="lp-btn-primary lg">
-              Join the Community <ArrowRight size={18} />
-            </Link>
-
-            <div className="lp-ps">
-              <p>
-                If you&apos;ve had the thought:<br />
-                <strong>&ldquo;I could build something crazy with this&hellip;&rdquo;</strong>
+        {/* ═══ THE PROBLEM ═══ */}
+        <section className="px-6 md:px-12 py-32 sm:py-48 bg-white border-y border-gray-100 relative">
+          <div className="max-w-[1200px] mx-auto">
+            <Reveal>
+              <p className="font-syne text-gray-400 text-sm sm:text-base font-medium leading-[2] max-w-xl">
+                Right now most people are using AI wrong. They generate content. Ask random questions. Test prompts. And then go right back to doing everything manually.
               </p>
-              <p className="accent-text">This is where you actually do it.</p>
+            </Reveal>
+
+            <Reveal delay={0.15}>
+              <div className="mt-20 sm:mt-32">
+                <p className="font-mono text-[#D90019] text-[10px] font-bold tracking-[0.5em] uppercase mb-6">Meanwhile</p>
+                <h2 className="font-bebas text-[clamp(36px,7vw,100px)] leading-[0.88] uppercase tracking-tight text-[#0C0C0C]">
+                  A small group of founders<br />
+                  are building systems that<br />
+                  <span className="text-[#D90019]">run their businesses.</span>
+                </h2>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.2}>
+              <p className="mt-20 font-syne text-gray-300 text-[clamp(20px,3vw,36px)] font-bold leading-tight max-w-2xl">
+                Same tools. <span className="text-[#0C0C0C]">Different approach.</span>
+              </p>
+            </Reveal>
+          </div>
+        </section>
+
+
+        {/* ═══ THE SHIFT ═══ */}
+        <section className="px-6 md:px-12 py-32 sm:py-48 relative overflow-hidden">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-bebas text-[30vw] text-gray-100 leading-none pointer-events-none select-none whitespace-nowrap">
+            OPERATOR
+          </div>
+
+          <div className="max-w-[1200px] mx-auto relative z-10">
+            <Reveal>
+              <h2 className="font-bebas text-[clamp(60px,14vw,200px)] leading-[0.78] uppercase tracking-[-0.02em] text-[#0C0C0C]">
+                AI is not<br />
+                just a tool.
+              </h2>
+            </Reveal>
+
+            <Reveal delay={0.2}>
+              <div className="mt-12 sm:mt-20 flex items-center gap-6">
+                <div className="w-16 sm:w-32 h-px bg-[#D90019]"></div>
+                <p className="font-syne text-[clamp(24px,4vw,56px)] text-[#D90019] font-bold leading-none italic">
+                  It&apos;s an operator.
+                </p>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.3}>
+              <p className="mt-16 sm:mt-24 font-syne text-gray-400 text-lg sm:text-xl max-w-lg leading-relaxed">
+                Once you understand that, you stop chatting with it — and start <span className="text-[#0C0C0C] font-bold">building</span> with it.
+              </p>
+            </Reveal>
+          </div>
+        </section>
+
+
+        {/* ═══ WHAT THIS IS ═══ */}
+        <section className="px-6 md:px-12 py-32 sm:py-48 bg-white border-y border-gray-100">
+          <div className="max-w-[1200px] mx-auto">
+            <Reveal>
+              <p className="font-mono text-[#D90019] text-[10px] font-bold tracking-[0.5em] uppercase mb-6">What This Is</p>
+              <h2 className="font-bebas text-[clamp(40px,7vw,100px)] leading-[0.88] uppercase tracking-tight text-[#0C0C0C] mb-6">
+                Not a course.<br />
+                Not a community.<br />
+                <span className="text-[#D90019]">A movement.</span>
+              </h2>
+              <p className="font-syne text-gray-400 text-lg sm:text-xl max-w-lg mt-8 font-medium">
+                Founders. Future founders. Employees. Managers. Operators. Anyone using AI to build, automate, and replace the manual grind. Inside, you don&apos;t get theory.
+              </p>
+            </Reveal>
+
+            <div className="mt-20 sm:mt-32 grid md:grid-cols-3 gap-0">
+              {[
+                { label: "Real Workflows", text: "Step-by-step systems you can follow and implement today." },
+                { label: "Real Systems", text: "Proven automation stacks that founders are running right now." },
+                { label: "Real Use Cases", text: "Stuff you can copy and run. No fluff. Just what works." },
+              ].map((item, i) => (
+                <Reveal key={i} delay={i * 0.1}>
+                  <div className="border-t border-gray-200 py-10 pr-12 group">
+                    <span className="font-bebas text-[#D90019] text-xl tracking-wide block mb-4">{item.label}</span>
+                    <p className="font-syne text-gray-400 text-sm leading-relaxed group-hover:text-gray-600 transition-colors duration-500">{item.text}</p>
+                  </div>
+                </Reveal>
+              ))}
             </div>
           </div>
         </section>
+
+
+
+
+
+
+
+
+        {/* ═══ WHY NOW ═══ */}
+        <section className="px-6 md:px-12 py-32 sm:py-48 border-t border-gray-100 relative overflow-hidden">
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#D90019]/5 rounded-full blur-[150px] pointer-events-none"></div>
+
+          <div className="max-w-[1200px] mx-auto relative z-10">
+            <Reveal>
+              <h2 className="font-bebas text-[clamp(48px,10vw,140px)] leading-[0.82] uppercase tracking-[-0.02em] text-[#0C0C0C]">
+                This is <span className="text-[#D90019]">early.</span>
+              </h2>
+            </Reveal>
+
+            <Reveal delay={0.15}>
+              <div className="mt-16 sm:mt-24 max-w-xl space-y-6">
+                <p className="font-syne text-gray-400 text-lg sm:text-xl leading-relaxed">
+                  Most people are still playing with AI.
+                </p>
+                <p className="font-syne text-[#0C0C0C] text-lg sm:text-xl font-bold leading-relaxed">
+                  A few are building real systems with it.
+                </p>
+                <div className="w-16 h-px bg-[#D90019]/30 my-8"></div>
+                <p className="font-syne text-[#D90019] text-2xl sm:text-3xl font-bold italic">
+                  That gap is about to get very big.
+                </p>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+
+
+
+
+        {/* ═══ FINAL CLOSE ═══ */}
+        <section className="px-6 md:px-12 py-32 sm:py-48 relative overflow-hidden">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-bebas text-[20vw] text-gray-100/50 leading-none pointer-events-none select-none whitespace-nowrap italic">
+            BUILD SOMETHING
+          </div>
+
+          <div className="max-w-[1200px] mx-auto relative z-10">
+            <Reveal>
+              <h2 className="font-bebas text-[clamp(36px,6vw,80px)] leading-[0.9] uppercase tracking-tight max-w-4xl text-[#0C0C0C]">
+                You can keep using AI for small tasks.
+              </h2>
+            </Reveal>
+
+            <Reveal delay={0.15}>
+              <h2 className="font-bebas text-[clamp(36px,6vw,80px)] leading-[0.9] uppercase tracking-tight max-w-4xl mt-4 text-[#D90019]">
+                Or you can use it to run your business.
+              </h2>
+            </Reveal>
+
+            <Reveal delay={0.3}>
+              <div className="mt-20 sm:mt-28 max-w-md">
+                <div className="border-l-2 border-[#D90019]/20 pl-6">
+                  <p className="font-syne text-gray-400 text-sm leading-relaxed">
+                    If you&apos;ve had the thought:
+                  </p>
+                  <p className="font-syne text-[#0C0C0C] text-xl font-bold mt-3 leading-snug">
+                    &ldquo;I could build something crazy with this...&rdquo;
+                  </p>
+                  <p className="font-mono text-[#D90019] text-[10px] font-bold tracking-[0.3em] uppercase mt-5">
+                    This is where you actually do it.
+                  </p>
+                </div>
+
+                <a href="#join" className="group mt-12 inline-flex font-bebas text-xl tracking-[0.15em] text-[#D90019] items-center gap-3 hover:gap-5 transition-all duration-300 border-b border-[#D90019]/30 pb-1 hover:border-[#D90019]">
+                  Join Now <ArrowRight size={18} strokeWidth={2.5} />
+                </a>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+
       </main>
 
-      <Footer />
 
-      <style jsx>{`
-        .fotf-lp {
-          --red: #D90019;
-          --black: #0C0C0C;
-          --white: #FAFAF8;
-          --off: #F2F1ED;
-          --dim: #888;
-          --border: #E4E3DE;
-          background: var(--white);
-          color: var(--black);
-          font-family: var(--font-dm-mono), monospace;
-        }
+      {/* FOOTER */}
+      <footer className="bg-black text-white px-6 md:px-12 py-12">
+        <div className="max-w-[1200px] mx-auto flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
+          <div className="flex items-center gap-8">
+            <span className="font-bebas text-xl tracking-[0.15em]">
+              FOUNDERS<span className="text-[#D90019]">OTF</span>
+            </span>
+            <span className="text-white/10 text-xs">|</span>
+            <Link href="/" className="font-mono text-white/20 hover:text-white/50 transition-colors text-[10px] font-bold tracking-[0.3em] uppercase">
+              ElianaTech
+            </Link>
+          </div>
+          <span className="font-mono text-white/15 text-[10px] font-bold tracking-[0.3em] uppercase">&copy; 2026</span>
+        </div>
+      </footer>
 
-        /* ── Container ── */
-        .lp-container {
-          max-width: 1100px;
-          margin: 0 auto;
-          padding: 0 24px;
-        }
-        .lp-narrow { max-width: 760px; }
 
-        /* ── Labels ── */
-        .lp-label {
-          font-size: 10px;
-          font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: 0.3em;
-          color: var(--red);
-          margin-bottom: 20px;
-          padding-left: 20px;
-          position: relative;
+      <style jsx global>{`
+        .animate-fade-in {
+          animation: fadeIn 0.8s ease-out forwards;
         }
-        .lp-label::before {
-          content: "";
-          position: absolute;
-          left: 0;
-          top: 50%;
-          transform: translateY(-50%);
-          width: 12px;
-          height: 1px;
-          background: var(--red);
+        .animate-fade-in-heading {
+          animation: fadeIn 1s ease-out 0.3s forwards;
+          opacity: 0;
         }
-        .lp-label.light { color: var(--red); }
-        .lp-label.not-for { color: var(--dim); }
-        .lp-label.not-for::before { background: var(--dim); }
-
-        .lp-eyebrow {
-          font-size: 10px;
-          letter-spacing: 0.4em;
-          text-transform: uppercase;
-          color: var(--red);
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          margin-bottom: 24px;
+        .animate-fade-in-sub {
+          animation: fadeIn 1s ease-out 0.5s forwards;
+          opacity: 0;
         }
-        .lp-eyebrow::before {
-          content: "";
-          width: 24px;
-          height: 1px;
-          background: var(--red);
+        .animate-fade-in-buttons {
+          animation: fadeIn 1s ease-out 0.7s forwards;
+          opacity: 0;
         }
-
-        /* ── Hero ── */
-        .lp-hero {
-          padding: 160px 24px 100px;
-          background: var(--black);
-          color: var(--white);
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(40px); }
+          to { opacity: 1; transform: translateY(0); }
         }
-        .lp-h1 {
-          font-family: var(--font-bebas-neue), sans-serif;
-          font-size: clamp(48px, 7vw, 100px);
-          line-height: 0.9;
-          letter-spacing: 0.02em;
-          margin-bottom: 24px;
+        .font-bebas {
+          font-family: var(--font-bebas-neue), cursive;
         }
-        .lp-h1 .accent { color: var(--red); }
-        .lp-sub {
-          font-size: 16px;
-          line-height: 1.7;
-          color: #aaa;
-          max-width: 520px;
-          margin-bottom: 40px;
-        }
-        .lp-cta-row {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 16px;
-          align-items: center;
-        }
-
-        /* ── Buttons ── */
-        .lp-btn-primary {
-          display: inline-flex;
-          align-items: center;
-          gap: 10px;
-          background: var(--red);
-          color: white;
-          padding: 16px 32px;
-          font-family: var(--font-dm-mono), monospace;
-          font-size: 11px;
-          font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: 0.15em;
-          text-decoration: none;
-          transition: all 0.2s;
-          border: none;
-          cursor: pointer;
-        }
-        .lp-btn-primary:hover { background: white; color: var(--black); }
-        .lp-btn-primary.lg { padding: 20px 40px; font-size: 12px; }
-        .lp-btn-secondary {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          padding: 16px 32px;
-          font-family: var(--font-dm-mono), monospace;
-          font-size: 11px;
-          font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: 0.15em;
-          text-decoration: none;
-          color: #aaa;
-          border: 1px solid #333;
-          transition: all 0.2s;
-        }
-        .lp-btn-secondary:hover { color: white; border-color: #888; }
-
-        /* ── Sections ── */
-        .lp-section {
-          padding: 100px 24px;
-        }
-        .lp-section.dark {
-          background: var(--black);
-          color: var(--white);
-        }
-
-        /* ── Typography ── */
-        .lp-h2 {
-          font-family: var(--font-bebas-neue), sans-serif;
-          font-size: clamp(32px, 5vw, 64px);
-          line-height: 0.95;
-          letter-spacing: 0.02em;
-          margin-bottom: 32px;
-          color: var(--black);
-        }
-        .lp-h2.light { color: white; }
-        .lp-h2 .accent, .accent { color: var(--red); }
-        .lp-body { font-size: 15px; line-height: 1.8; color: #555; margin-bottom: 20px; }
-        .lp-body.light { color: #aaa; }
-
-        /* ── Two Column (Problem) ── */
-        .lp-two-col {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 2px;
-          margin-top: 40px;
-          background: var(--border);
-          border: 1px solid var(--border);
-        }
-        .lp-col-bad, .lp-col-good {
-          padding: 40px;
-          background: var(--white);
-        }
-        .lp-col-tag {
-          font-size: 10px;
-          font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: 0.2em;
-          color: var(--dim);
-          margin-bottom: 20px;
-        }
-        .accent-tag { color: var(--red) !important; }
-        .lp-list-plain {
-          list-style: none;
-          padding: 0;
-          margin: 0 0 20px;
-        }
-        .lp-list-plain li {
-          font-size: 14px;
-          color: #555;
-          padding: 8px 0;
-          border-bottom: 1px solid var(--off);
-        }
-        .lp-list-plain li:last-child { border-bottom: none; }
-        .lp-col-note {
-          font-size: 12px;
-          color: var(--dim);
-          font-style: italic;
-        }
-        .lp-col-note.highlight {
-          color: var(--red);
-          font-style: normal;
-          font-weight: 700;
-        }
-
-        /* ── Statement Section ── */
-        .lp-statement-section {
-          padding: 120px 24px;
-          background: var(--black);
-          color: var(--white);
-          text-align: center;
-        }
-        .lp-statement-section.alt {
-          background: var(--off);
-          color: var(--black);
-        }
-        .lp-statement {
-          font-family: var(--font-bebas-neue), sans-serif;
-          font-size: clamp(40px, 6vw, 80px);
-          line-height: 0.95;
-          letter-spacing: 0.02em;
-        }
-        .lp-statement.sm {
-          font-size: clamp(28px, 4vw, 56px);
-          line-height: 1.05;
-        }
-        .lp-statement .accent { color: var(--red); }
-        .lp-statement-sub {
-          font-size: 16px;
-          color: #aaa;
-          margin-top: 24px;
-          max-width: 480px;
-          margin-left: auto;
-          margin-right: auto;
-          line-height: 1.7;
-        }
-
-        /* ── Three Cards ── */
-        .lp-three-cards {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 2px;
-          margin-top: 40px;
-          background: #222;
-        }
-        .lp-card {
-          background: #111;
-          padding: 40px 28px;
-          transition: background 0.2s;
-        }
-        .lp-card:hover { background: #1a1a1a; }
-        .lp-card-num {
-          font-family: var(--font-bebas-neue), sans-serif;
-          font-size: 36px;
-          color: #333;
-          display: block;
-          margin-bottom: 16px;
-          transition: color 0.2s;
-        }
-        .lp-card:hover .lp-card-num { color: var(--red); }
-        .lp-card h3 {
-          font-size: 14px;
-          font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: 0.1em;
-          color: white;
-          margin-bottom: 8px;
-        }
-        .lp-card p {
-          font-size: 13px;
-          color: #888;
-          line-height: 1.6;
-        }
-
-        /* ── Tiers ── */
-        .lp-tiers {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 2px;
-          background: var(--border);
-          margin-top: 40px;
-        }
-        .lp-tier {
-          background: var(--white);
-          padding: 40px 28px;
-          display: flex;
-          flex-direction: column;
-        }
-        .lp-tier.featured {
-          background: var(--black);
-          color: white;
-        }
-        .lp-tier-num {
-          font-family: var(--font-bebas-neue), sans-serif;
-          font-size: 28px;
-          color: var(--border);
-          margin-bottom: 16px;
-        }
-        .lp-tier.featured .lp-tier-num { color: #333; }
-        .lp-tier-title {
-          font-family: var(--font-bebas-neue), sans-serif;
-          font-size: 24px;
-          letter-spacing: 0.02em;
-          margin-bottom: 12px;
-        }
-        .lp-tier.featured .lp-tier-title { color: var(--red); }
-        .lp-tier-desc {
-          font-size: 13px;
-          line-height: 1.7;
-          color: #888;
-          flex: 1;
-          margin-bottom: 16px;
-        }
-        .lp-tier-examples {
-          display: flex;
-          flex-direction: column;
-          gap: 8px;
-          padding-top: 16px;
-          border-top: 1px solid #222;
-        }
-        .lp-tier-examples span {
-          font-size: 11px;
-          color: #aaa;
-          padding-left: 12px;
-          border-left: 2px solid var(--red);
-        }
-        .lp-tier-badge {
-          display: inline-block;
-          font-size: 9px;
-          font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: 0.2em;
-          color: var(--red);
-          border: 1px solid var(--red);
-          padding: 6px 12px;
-          margin-top: auto;
-          text-align: center;
-        }
-
-        /* ── Build List ── */
-        .lp-build-list {
-          display: flex;
-          flex-direction: column;
-          gap: 0;
-        }
-        .lp-build-item {
-          display: flex;
-          align-items: center;
-          gap: 16px;
-          padding: 20px 0;
-          border-bottom: 1px solid #222;
-          font-size: 15px;
-          color: #ccc;
-        }
-        .lp-build-item:last-child { border-bottom: none; }
-        .lp-build-dot {
-          width: 8px;
-          height: 8px;
-          background: var(--red);
-          border-radius: 50%;
-          flex-shrink: 0;
-        }
-        .lp-callout-dark {
-          margin-top: 40px;
-          padding: 24px 28px;
-          background: rgba(217,0,25,0.08);
-          border-left: 3px solid var(--red);
-          font-size: 15px;
-          font-weight: 700;
-          color: white;
-        }
-
-        /* ── Check Lists ── */
-        .lp-two-col-fit {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 60px;
-        }
-        .lp-check-list {
-          list-style: none;
-          padding: 0;
-          margin: 0;
-        }
-        .lp-check-list li {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          font-size: 14px;
-          color: #555;
-          padding: 14px 0;
-          border-bottom: 1px solid var(--off);
-        }
-        .lp-check-list li:last-child { border-bottom: none; }
-        .lp-check {
-          color: var(--red);
-          font-weight: 900;
-          font-size: 16px;
-          flex-shrink: 0;
-        }
-        .lp-x {
-          color: var(--dim);
-          font-weight: 400;
-          font-size: 18px;
-          flex-shrink: 0;
-        }
-        .not-for-list li { color: var(--dim); }
-
-        /* ── Steps ── */
-        .lp-steps {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 2px;
-          background: #222;
-          margin-top: 40px;
-        }
-        .lp-step {
-          background: #111;
-          padding: 40px 24px;
-          text-align: center;
-          transition: background 0.2s;
-        }
-        .lp-step:hover { background: #1a1a1a; }
-        .lp-step-num {
-          display: block;
-          font-family: var(--font-bebas-neue), sans-serif;
-          font-size: 48px;
-          color: var(--red);
-          margin-bottom: 12px;
-        }
-        .lp-step-text {
-          font-size: 13px;
-          color: #aaa;
-          text-transform: uppercase;
-          letter-spacing: 0.1em;
-        }
-
-        /* ── Final ── */
-        .lp-final {
-          padding: 140px 24px;
-          background: var(--black);
-          color: var(--white);
-          text-align: center;
-        }
-        .lp-final-h2 {
-          font-family: var(--font-bebas-neue), sans-serif;
-          font-size: clamp(32px, 5vw, 64px);
-          line-height: 1;
-          letter-spacing: 0.02em;
-          margin-bottom: 40px;
-          max-width: 800px;
-          margin-left: auto;
-          margin-right: auto;
-        }
-        .lp-final-h2 .accent { color: var(--red); }
-        .lp-ps {
-          margin-top: 60px;
-          padding-top: 40px;
-          border-top: 1px solid #222;
-          max-width: 480px;
-          margin-left: auto;
-          margin-right: auto;
-        }
-        .lp-ps p {
-          font-size: 15px;
-          color: #888;
-          line-height: 1.7;
-          margin-bottom: 12px;
-        }
-        .lp-ps strong { color: white; }
-        .accent-text { color: var(--red) !important; font-weight: 700; }
-
-        /* ── Mobile ── */
-        @media (max-width: 900px) {
-          .lp-hero { padding: 120px 20px 60px; }
-          .lp-section { padding: 60px 16px; }
-          .lp-two-col { grid-template-columns: 1fr; }
-          .lp-three-cards { grid-template-columns: 1fr; }
-          .lp-tiers { grid-template-columns: 1fr; }
-          .lp-two-col-fit { grid-template-columns: 1fr; gap: 40px; }
-          .lp-steps { grid-template-columns: 1fr 1fr; }
-          .lp-statement-section { padding: 80px 20px; }
-          .lp-final { padding: 80px 20px; }
-          .lp-cta-row { flex-direction: column; }
-        }
-        @media (max-width: 480px) {
-          .lp-steps { grid-template-columns: 1fr; }
+        .font-syne {
+          font-family: var(--font-syne), sans-serif;
         }
       `}</style>
     </div>

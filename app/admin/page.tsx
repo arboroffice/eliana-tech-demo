@@ -16,6 +16,8 @@ import {
 import Link from "next/link"
 import Image from "next/image"
 import { getIndustryConfig, getBusinessCategory } from '@/lib/audit-industry-config'
+import VaultTab from '@/components/admin/vault-tab'
+import VaultDetail from '@/components/admin/vault-detail'
 
 // ═══════════════════════════════════════════════════════════════════════════
 // TYPES
@@ -627,7 +629,7 @@ function AddBusinessModal({ isOpen, onClose, onAdd, token }: { isOpen: boolean; 
 // SUBMISSION DETAIL (full answers + audit results + lead score + ROI)
 // ═══════════════════════════════════════════════════════════════════════════
 
-function SubmissionDetail({ submission: s, onBack, onDelete, token, onUpdate }: { submission: Submission; onBack: () => void; onDelete: (id: string) => void; token: string; onUpdate: (updated: Partial<Submission>) => void }) {
+function SubmissionDetail({ submission: s, onBack, onDelete, token, onUpdate, onOpenVault }: { submission: Submission; onBack: () => void; onDelete: (id: string) => void; token: string; onUpdate: (updated: Partial<Submission>) => void; onOpenVault?: (email: string) => void }) {
     const [activeTab, setActiveTab] = useState<'results' | 'answers' | 'followup' | 'notes'>('results')
 
     // Stage state
@@ -926,6 +928,15 @@ function SubmissionDetail({ submission: s, onBack, onDelete, token, onUpdate }: 
                             {syncingGHL ? <Loader2 className="w-3 h-3 animate-spin" /> : <RefreshCw className="w-3 h-3" />}
                             {s.ghlContactId ? 'Synced to GHL' : 'Push to GHL'}
                         </button>
+                        {onOpenVault && (
+                            <button
+                                onClick={() => onOpenVault(s.email)}
+                                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-medium hover:bg-purple-500/20 transition-all"
+                            >
+                                <FileText className="w-3 h-3" />
+                                Open Vault
+                            </button>
+                        )}
                     </div>
                 </div>
             </div>
@@ -1526,8 +1537,9 @@ function Dashboard({ token, onLogout }: { token: string; onLogout: () => void })
     const [typeFilter, setTypeFilter] = useState<string>("all")
     const [sortAsc, setSortAsc] = useState(false)
     const [selectedSubmission, setSelectedSubmission] = useState<Submission | null>(null)
-    const [dashTab, setDashTab] = useState<'pipeline' | 'leads' | 'schedule'>('pipeline')
+    const [dashTab, setDashTab] = useState<'pipeline' | 'leads' | 'schedule' | 'vault'>('pipeline')
     const [isAddModalOpen, setIsAddModalOpen] = useState(false)
+    const [selectedVaultId, setSelectedVaultId] = useState<string | null>(null)
 
     // GHL state
     const [ghlConnected, setGhlConnected] = useState<boolean | null>(null)
@@ -1607,6 +1619,27 @@ function Dashboard({ token, onLogout }: { token: string; onLogout: () => void })
     const thisWeek = submissions.filter((s) => { const d = new Date(s.createdAt || s.submittedAt || 0); return d >= new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) }).length
     const hotLeads = submissions.filter((s) => { const l = calcLeadScore(s, s.auditScore ?? 0); return l.level === 'hot' }).length
 
+    // Vault detail view
+    if (selectedVaultId) {
+        return (
+            <div className="min-h-screen bg-black">
+                <div className="border-b border-white/10 bg-black/80 backdrop-blur-md sticky top-0 z-40">
+                    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                            <Link href="/" className="flex items-center gap-2"><div className="relative w-8 h-8 overflow-hidden rounded-lg"><Image src="/icon.png" alt="Elianatech" fill className="object-cover" /></div></Link>
+                            <span className="text-slate-600">/</span>
+                            <button onClick={() => setSelectedVaultId(null)} className="text-slate-400 hover:text-white text-sm transition-colors">Vault</button>
+                        </div>
+                        <button onClick={onLogout} className="text-slate-400 hover:text-white transition-colors text-sm"><LogOut className="w-4 h-4" /></button>
+                    </div>
+                </div>
+                <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
+                    <VaultDetail vaultId={selectedVaultId} token={token} onBack={() => setSelectedVaultId(null)} />
+                </div>
+            </div>
+        )
+    }
+
     // Detail view
     if (selectedSubmission) {
         return (
@@ -1634,6 +1667,21 @@ function Dashboard({ token, onLogout }: { token: string; onLogout: () => void })
                                 const merged = { ...selectedSubmission, ...updated }
                                 setSelectedSubmission(merged)
                                 setSubmissions(prev => prev.map(sub => sub.id === merged.id ? merged : sub))
+                            }}
+                            onOpenVault={async (email) => {
+                                try {
+                                    const res = await fetch(`/api/admin/vault`, { headers: { Authorization: `Bearer ${token}` } })
+                                    const data = await res.json()
+                                    if (data.success) {
+                                        const match = data.vaults.find((v: any) => v.email === email)
+                                        if (match) {
+                                            setSelectedSubmission(null)
+                                            setSelectedVaultId(match.id)
+                                        } else {
+                                            alert('No vault found for this email. Submit an audit or create one from the Vault tab.')
+                                        }
+                                    }
+                                } catch { alert('Failed to look up vault') }
                             }}
                         />
                     </DetailErrorBoundary>
@@ -1687,6 +1735,9 @@ function Dashboard({ token, onLogout }: { token: string; onLogout: () => void })
                     </button>
                     <button onClick={() => setDashTab('schedule')} className={`px-5 py-2.5 rounded-xl text-sm font-medium transition-all flex items-center gap-2 ${dashTab === 'schedule' ? 'bg-white text-black' : 'bg-white/5 text-slate-400 hover:text-white border border-white/10'}`}>
                         <Calendar className="w-4 h-4" /> Schedule
+                    </button>
+                    <button onClick={() => setDashTab('vault')} className={`px-5 py-2.5 rounded-xl text-sm font-medium transition-all flex items-center gap-2 ${dashTab === 'vault' ? 'bg-white text-black' : 'bg-white/5 text-slate-400 hover:text-white border border-white/10'}`}>
+                        <FileText className="w-4 h-4" /> Vault
                     </button>
                 </div>
 
@@ -1952,6 +2003,10 @@ function Dashboard({ token, onLogout }: { token: string; onLogout: () => void })
                         )}
                         {!loading && filtered.length > 0 && <p className="text-slate-600 text-xs mt-3 text-center">Showing {filtered.length} of {submissions.length} submissions</p>}
                     </>
+                )}
+
+                {dashTab === 'vault' && (
+                    <VaultTab token={token} onSelectVault={(id) => setSelectedVaultId(id)} />
                 )}
             </div>
         </div>

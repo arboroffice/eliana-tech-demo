@@ -5,7 +5,7 @@ import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X } from "lucide-react"
 
-export function GlassmorphismNav() {
+export function GlassmorphismNav({ minimal = false }: { minimal?: boolean }) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
@@ -23,26 +23,23 @@ export function GlassmorphismNav() {
         ELIANA<em>TECH</em>
       </Link>
       <div className="nav-right">
-        <ul className="nav-links">
-          <li>
-            <Link href="https://www.elianatech.com/roadmap/build-program">Build</Link>
-          </li>
-          <li>
-            <Link href="https://www.elianatech.com/roadmap/full-buildout">Partner</Link>
-          </li>
-          <li>
-            <Link href="https://www.elianatech.com/custom">Custom</Link>
-          </li>
-          <li>
-            <Link href="https://www.elianatech.com/about">About</Link>
-          </li>
-        </ul>
-        <Link href="https://www.elianatech.com/audit" className="nav-btn">
-          Get Free Audit
-        </Link>
-        <button className="mobile-toggle" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        {!minimal && (
+          <ul className="nav-links">
+            <li>
+              <Link href="/about">About</Link>
+            </li>
+          </ul>
+        )}
+        {!minimal && (
+          <Link href="/audit" className="nav-btn">
+            Get Free Audit
+          </Link>
+        )}
+        {!minimal && (
+          <button className="mobile-toggle" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        )}
       </div>
 
       <AnimatePresence>
@@ -55,27 +52,12 @@ export function GlassmorphismNav() {
           >
             <ul>
               <li>
-                <Link href="https://www.elianatech.com/roadmap/build-program" onClick={() => setIsMobileMenuOpen(false)}>
-                  Build
-                </Link>
-              </li>
-              <li>
-                <Link href="https://www.elianatech.com/roadmap/full-buildout" onClick={() => setIsMobileMenuOpen(false)}>
-                  Partner
-                </Link>
-              </li>
-              <li>
-                <Link href="https://www.elianatech.com/custom" onClick={() => setIsMobileMenuOpen(false)}>
-                  Custom
-                </Link>
-              </li>
-              <li>
-                <Link href="https://www.elianatech.com/about" onClick={() => setIsMobileMenuOpen(false)}>
+                <Link href="/about" onClick={() => setIsMobileMenuOpen(false)}>
                   About
                 </Link>
               </li>
               <li className="pt-4">
-                <Link href="https://www.elianatech.com/audit" className="nav-btn w-full block text-center" onClick={() => setIsMobileMenuOpen(false)}>
+                <Link href="/audit" className="nav-btn w-full block text-center" onClick={() => setIsMobileMenuOpen(false)}>
                   Get Free Audit
                 </Link>
               </li>
@@ -213,6 +195,18 @@ export function GlassmorphismNav() {
           }
           .mobile-toggle {
             display: block;
+          }
+        }
+
+        @media (max-width: 640px) {
+          nav {
+            padding: 12px 16px;
+          }
+          .logo {
+            font-size: 18px;
+          }
+          .nav-right {
+            gap: 16px;
           }
         }
       `}</style>

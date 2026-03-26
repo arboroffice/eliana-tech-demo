@@ -6,9 +6,9 @@ import { db } from '@/lib/firebase'
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 import { sendHighIntentSMS, notifyTeamOfHotLead, scheduleSMSFollowUp, isValidPhoneNumber, formatPhoneNumber } from '@/lib/sms-service'
 import { scoreAndRouteLead } from '@/lib/lead-router'
-import { getSequence, personalizeEmail } from '@/lib/nurture-sequences'
 import { getBusinessCategory } from '@/lib/audit-industry-config'
 import { pushLeadToGHL } from '@/lib/ghl'
+import { createVaultFromAudit } from '@/lib/client-vault'
 
 export async function POST(request: Request) {
     try {
@@ -33,6 +33,15 @@ export async function POST(request: Request) {
             accountType: 'audit',
             submittedAt: new Date().toISOString()
         })
+
+        // Create client vault (Obsidian CRM)
+        createVaultFromAudit(auditId, {
+            ...formData,
+            auditScore,
+            intentLevel,
+            growthBudget: formData.growthBudget,
+            opportunities,
+        }).catch(err => console.error('[VAULT CREATE ERROR]', err))
 
         // Push lead to GoHighLevel CRM
         try {
@@ -156,38 +165,7 @@ export async function POST(request: Request) {
         // ─── Lead Scoring & Nurture Sequence ─────────────────────────
         const leadScore = scoreAndRouteLead(formData, auditScore)
 
-        // Override nurture sequence for high-budget leads ($10K+)
-        const isHighBudget = ['growth', 'aggressive', 'enterprise'].includes(formData.growthBudget || '')
-        if (isHighBudget && leadScore.nurturSequence !== 'A') {
-            leadScore.nurturSequence = 'I' // Dedicated high-budget AI adopter nurture sequence
-            leadScore.reasons.push('$10K+ AI adoption budget — high-budget nurture sequence')
-            console.log(`[LEAD ROUTER] 💰 High-budget lead override: ${formData.fullName} → Sequence D`)
-        }
-
-        // Send first nurture email immediately (Day 0)
-        const sequence = getSequence(leadScore.nurturSequence)
-        const firstEmail = personalizeEmail(sequence.emails[0], {
-            ...formData,
-            auditScore,
-            calLink: 'https://cal.com/elianatech/30min'
-        })
-
-        // TODO: Send personalized nurture email when Resend is configured
-        // await sendEmail({ to: formData.email, subject: firstEmail.subject, html: firstEmail.bodyHtml })
-
-        // TODO: Queue remaining sequence emails in Firestore nurture_queue
-        // for (const email of sequence.emails.slice(1)) {
-        //   await addDoc(collection(db, 'nurture_queue'), {
-        //     email: formData.email,
-        //     formData,
-        //     auditScore,
-        //     sequenceId: leadScore.nurturSequence,
-        //     currentStep: 1,
-        //     nextEmailDate: new Date(Date.now() + email.day * 86400000),
-        //     status: 'active',
-        //     createdAt: serverTimestamp()
-        //   })
-        // }
+        // TODO: Nurture email sequences have been cleared — re-add when product-accurate sequences are ready
 
         // Team notification for hot leads
         if (leadScore.level === 'hot') {

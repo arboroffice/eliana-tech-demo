@@ -6,49 +6,39 @@ import Link from "next/link"
 
 const CATEGORIES = [
   {
+    label: "Autonomous Infrastructure",
+    description: "Private server deployment that handles the core functions of your business without human intervention.",
+    systems: [
+      { name: "Lead Follow-up AI", what: "Autonomous agents that respond to every lead instantly and follow up until they close." },
+      { name: "Content Creation Engine", what: "Systematic generation and deployment of high-level content tailored to your brand." },
+      { name: "Financial Reporting Ops", what: "Real-time visibility into margins and performance via private dashboards." },
+      { name: "Private Server Deployment", what: "Your own dedicated AI infrastructure for total data security and control." },
+      { name: "Custom Integration Suite", what: "Connecting our automations into your existing software in just one week." },
+      { name: "Monthly System Upgrades", what: "Continuous evolution of your AI agents with the latest industry playbooks." },
+      { name: "Infinite Scalability Ops", what: "Systems built to handle 10x volume without adding human headcount." },
+      { name: "Self-Sustaining Backend", what: "A complete operational engine that runs whether you are there or not." },
+    ],
+  },
+  {
     label: "Lead Generation",
     description: "Get people to find you and raise their hand. Stop losing leads before they even reach you.",
     systems: [
-      { name: "AI Phone Answerer", what: "Answers calls 24/7, books appointments, takes messages, never misses a lead.", price: "$3,000+" },
-      { name: "Missed Call Text-Back", what: "Texts back instantly when a call is missed so the lead does not go cold.", price: "$1,500+" },
-      { name: "Lead Catcher", what: "Captures leads from forms, chat widgets, and pop-ups before they bounce.", price: "$2,500+" },
-      { name: "Lead Chaser", what: "Automated follow-up via email, SMS, and calls until they book or say no.", price: "$3,000+" },
-      { name: "Dead Lead Reviver", what: "Re-engages old leads who went cold and brings them back into the pipeline.", price: "$2,500+" },
-      { name: "Referral Engine", what: "Automates referral requests and tracks them so word-of-mouth becomes a system.", price: "$2,000+" },
-      { name: "Lead Gen Funnel", what: "Landing pages, ads integration, and conversion tracking built to convert.", price: "$5,000+" },
-      { name: "Multi-Channel Lead System", what: "Leads from Google, social, email, and referrals all flowing into one pipeline.", price: "$7,500+" },
-      { name: "Speed-to-Lead Responder", what: "Responds to every inquiry within seconds automatically — before your competitor does.", price: "$2,000+" },
-      { name: "Content and Posting Automation", what: "Creates and schedules social content automatically so your brand stays visible.", price: "$3,500+" },
+      { name: "AI Phone Answerer", what: "Answers calls 24/7, books appointments, takes messages, never misses a lead." },
+      { name: "Missed Call Text-Back", what: "Texts back instantly when a call is missed so the lead does not go cold." },
+      { name: "Lead Catcher", what: "Captures leads from forms, chat widgets, and pop-ups before they bounce." },
+      { name: "Dead Lead Reviver", what: "Re-engages old leads who went cold and brings them back into the pipeline." },
+      { name: "Referral Engine", what: "Automates referral requests and tracks them so word-of-mouth becomes a system." },
     ],
   },
   {
-    label: "Sales and Conversion",
-    description: "Turn leads into paying customers without chasing every deal by hand.",
+    label: "Operations & Sales",
+    description: "Remove the manual work running your business to focus on lifestyle-centric growth.",
     systems: [
-      { name: "Sales Pipeline + CRM", what: "Tracks every lead, stage, and conversation in one place so nothing falls through.", price: "$2,500+" },
-      { name: "Follow-Up Automation", what: "Multi-touch follow-up sequences across email, SMS, and calls on autopilot.", price: "$3,000+" },
-      { name: "Proposal and Estimate System", what: "Generates and sends proposals and estimates in minutes instead of hours.", price: "$3,000+" },
-      { name: "Contract and Signature System", what: "Sends contracts and collects e-signatures automatically with no back-and-forth.", price: "$2,000+" },
-      { name: "Sales Script System", what: "AI-assisted objection handling and call frameworks so the team closes more.", price: "$2,000+" },
-      { name: "Evergreen Sales Funnel", what: "Sells products or services 24/7 without live launching or manual effort.", price: "$5,000+" },
-      { name: "Lead Scoring System", what: "Ranks leads by likelihood to buy so the team focuses on the best ones first.", price: "$3,000+" },
-      { name: "Appointment Setter", what: "AI books discovery calls and consultations automatically so the calendar fills itself.", price: "$2,500+" },
-    ],
-  },
-  {
-    label: "Operations",
-    description: "Remove the manual work running your business so your team can focus on what matters.",
-    systems: [
-      { name: "Operation Infrastructure Installation", what: "Automates handoffs, approvals, and task routing so nothing waits on a person.", price: "$5,000+" },
-      { name: "Industry Playbooks", what: "AI-native playbooks and SOPs so the team stops guessing and the founder stops repeating.", price: "$3,000+" },
-      { name: "AI Scheduling System", what: "Handles booking, rescheduling, reminders, and no-shows without staff involvement.", price: "$2,500+" },
-      { name: "Automated Invoicing", what: "Sends invoices, tracks payments, and chases late payers automatically.", price: "$3,000+" },
-      { name: "Client Onboarding", what: "Welcome sequence, access setup, and first steps delivered on autopilot.", price: "$2,500+" },
-      { name: "Internal AI Knowledge Base", what: "AI assistant that answers team questions about processes, policies, and history.", price: "$4,000+" },
-      { name: "Capacity Planning System", what: "Shows who has bandwidth and where the bottlenecks are before they cause problems.", price: "$4,000+" },
-      { name: "Meeting Notes Automation", what: "Records calls, summarizes notes, and assigns action items automatically.", price: "$2,000+" },
-      { name: "Delegation System", what: "Routes tasks to the right person based on rules and availability.", price: "$3,000+" },
-      { name: "Backend Admin Dashboard", what: "One screen showing every metric that matters so the owner has full visibility.", price: "$4,000+" },
+      { name: "Industry Playbooks", what: "AI-native playbooks and SOPs so the team stops guessing." },
+      { name: "Client Onboarding", what: "Welcome sequence, access setup, and first steps delivered on autopilot." },
+      { name: "Sales Pipeline + CRM", what: "Tracks every lead, stage, and conversation in one place." },
+      { name: "Contract and Signature System", what: "Collects e-signatures automatically with no back-and-forth." },
+      { name: "Capacity Planning System", what: "Shows where the bottlenecks are before they cause problems." },
     ],
   },
 ]
@@ -87,7 +77,7 @@ export default function SystemsPage() {
                 <div key={j} className="system-card">
                   <h3 className="system-name">{sys.name}</h3>
                   <p className="system-what">{sys.what}</p>
-                  <span className="system-price">{sys.price}</span>
+                  <span className="system-price">Contact for pricing</span>
                 </div>
               ))}
             </div>

@@ -4,7 +4,6 @@ import { db } from '@/lib/firebase'
 import { collection, query, where, getDocs, updateDoc, doc } from 'firebase/firestore'
 import { Resend } from 'resend'
 import { generateAgenticFollowUp } from '@/lib/nurture-agent'
-import { getSequence, personalizeEmail } from '@/lib/nurture-sequences'
 import { logEmailActivity } from '@/lib/email-service'
 
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null
@@ -53,19 +52,14 @@ export async function GET(request: Request) {
                     emailContent = agentResult.html
                     emailSubject = agentResult.subject
                 } else if (emailData.template?.startsWith('SEQUENCE_')) {
-                    // Format: SEQUENCE_ID_DAYX
-                    console.log(`[CRON] Handling Nurture Sequence for ${emailData.to}: ${emailData.template}`)
-                    const parts = emailData.template.split('_')
-                    const seqId = parts[1] as any
-                    const dayLabel = parts[2] // e.g. DAY0
-                    const day = parseInt(dayLabel.replace('DAY', '')) || 0
-                    
-                    const sequence = getSequence(seqId)
-                    const emailConfig = sequence.emails.find(e => e.day === day) || sequence.emails[0]
-                    const personalized = personalizeEmail(emailConfig, emailData.data)
-                    
-                    emailContent = personalized.bodyHtml
-                    emailSubject = personalized.subject
+                    // Nurture sequences have been cleared — skip these until new ones are added
+                    console.log(`[CRON] Skipping cleared nurture sequence: ${emailData.template}`)
+                    await updateDoc(doc(db, 'scheduled_emails', emailDoc.id), {
+                        status: 'skipped',
+                        skippedAt: new Date(),
+                        reason: 'Nurture sequences cleared — not accurate to current products'
+                    })
+                    continue
                 } else {
                     // Fallback to static templates
                     emailContent = getEmailTemplate(emailData.template, emailData.data)

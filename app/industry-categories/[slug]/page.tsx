@@ -223,8 +223,8 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
     <div className="fn">
       <nav className="fn-nav">
         <Link href="/" className="fn-logo">ELIANA<span>TECH</span></Link>
-        <Link href="/apply" className="fn-nav-cta">
-          Apply Now <ArrowRight size={12} />
+        <Link href="/audit" className="fn-nav-cta">
+          Free AI Audit <ArrowRight size={12} />
         </Link>
       </nav>
 
