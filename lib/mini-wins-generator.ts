@@ -145,53 +145,184 @@ function generateVideoScripts(formData: any): MiniWin {
     const industry = businessType || 'your industry'
 
     return {
-        title: '3 Ready-to-Film Video Scripts (Reels/TikTok/Shorts)',
-        description: 'Hook → Objection → Explain framework. Film these today — no editing needed.',
-        type: 'chatgpt_prompt',
+        title: '5 Purple Cow Video Scripts (Reels/TikTok/Shorts)',
+        description: 'EXTREME Hook → Objection → Live Proof framework. Show what nobody else can show.',
+        type: 'video_script',
         copyable: true,
         icon: '',
-        content: `**3 SHORT-FORM VIDEO SCRIPTS FOR ${(companyName || 'YOUR BRAND').toUpperCase()}**
-Each script follows the 3-step framework: Hook, Objection Handler, Explanation.
-Film talking to camera. Keep it under 60 seconds. No fancy editing needed.
+        content: `**5 PURPLE COW VIDEO SCRIPTS FOR ${(companyName || 'YOUR BRAND').toUpperCase()}**
+
+THE RULE: Every video must show something LIVE that makes them think "wait... that's real?"
+No talking head theory. No screenshots of ChatGPT. SHOW THE SYSTEM RUNNING.
+
+MIA'S UNFAIR ADVANTAGES (use these as content angles):
+- 22 years old, runs a real AI company from Louisiana
+- Lives with her best friend, travels constantly, lives dream life
+- Her business runs WITHOUT her sitting at a desk 8 hours
+- She's younger than most people's interns — and building their infrastructure
+- She doesn't just talk about AI — she ships production systems that handle real money
+- The "I'm 22 and I built this" factor is the ultimate Purple Cow — LEAN INTO IT
+
+Each script: Hook (stop scroll) → Objection (keep watching) → Live Proof (they can't look away)
 
 ---
 
-**SCRIPT 1: "The AI Advantage"**
+**SCRIPT 1: "I Just Stole Your Website"**
+TITLE ON SCREEN: "I built your proposal in 30 seconds"
+TYPE: Screen record + face cam (picture-in-picture)
 
-HOOK: "Most ${industry} businesses are still doing everything manually. Here's why that's a problem."
+HOOK: "Give me your business name. I'll build you a custom AI proposal in 30 seconds. Ready? Go."
 
-OBJECTION: "And no — I'm not talking about replacing your team or using some robot voice to answer your phones. That's not what this is."
+OBJECTION: "This isn't a template. This isn't ChatGPT copy-paste. Watch — it's scanning your actual website right now."
 
-EXPLAIN: "What I mean is: the follow-ups, the reminders, the scheduling, the repeat questions — all of that can run on autopilot. We set up one system for ${companyName || 'a client'} and it saved 15+ hours a week. The team didn't lose jobs. They got their time back. If you're still doing all that manually, DM me 'SYSTEM' and I'll show you exactly what to automate first."
+LIVE PROOF: [Screen record the proposal agent running in real-time. Type in a real business name. Show it scraping their site, analyzing their operations, generating pricing with their company name, their industry terms, their specific pain points. Show the finished proposal.] "That just happened. 30 seconds. Custom pricing. Custom roadmap. Your company name on it. DM me your business name — I'll run it for you live."
 
----
-
-**SCRIPT 2: "The Follow-Up Problem"**
-
-HOOK: "You're losing clients right now and you don't even know it."
-
-OBJECTION: "I know that sounds dramatic — but think about it. When's the last time you followed up with every single lead within 5 minutes? Exactly."
-
-EXPLAIN: "Studies show that responding in under 5 minutes makes you 21x more likely to close. But most ${industry} businesses take hours — sometimes days. The fix is simple: an automated follow-up sequence that texts and emails the second a lead comes in. No app to check. No reminder to set. It just runs. We built this for ${companyName || 'our clients'} and close rates jumped 30%. Link in bio if you want the same setup."
-
----
-
-**SCRIPT 3: "Stop Posting Every Day"**
-
-HOOK: "Stop posting content every single day. Seriously."
-
-OBJECTION: "I know every marketing guru says 'consistency is key' — and they're right. But consistency doesn't mean YOU have to do it all manually."
-
-EXPLAIN: "Here's what we do instead: take one long piece of content — a podcast, a video, a blog post — and turn it into 30+ pieces automatically. Threads, carousels, email snippets, short-form scripts like this one. One hour of work turns into a month of content. That's how ${companyName || 'smart founders'} stay visible without burning out. Follow for more systems like this."
+FILMING NOTES:
+- Split screen: your face (top right corner) + screen recording (full)
+- Use a REAL local business — a dentist, a roofer, a law firm
+- Speed up the middle 10 seconds slightly (1.5x) to keep pace
+- Freeze frame on the final proposal with their company name visible
+- This is your #1 viral format. Film 10 of these with different businesses.
 
 ---
 
-**HOW TO FILM:**
-- Look directly at camera (eye contact = trust)
-- Deliver the hook with energy — first 2 seconds decide if they stay
-- Slow down slightly on the objection — it builds credibility
-- Speed back up on the explanation — momentum toward the CTA
-- Film in natural light, vertical (9:16), no music needed`
+**SCRIPT 2: "5 Systems in 2 Seconds"**
+TITLE ON SCREEN: "What happens when a lead fills out our form"
+TYPE: Screen record showing multiple systems firing
+
+HOOK: "Someone just filled out a form on our site. Watch what happens next." [Hit submit on screen]
+
+OBJECTION: "Most businesses get an email notification. Maybe a Zapier fires. That's cute. Watch this."
+
+LIVE PROOF: [Screen record: Submit the audit form. Immediately cut to (rapid fire, 1 second each): 1) Email arriving in prospect's inbox with styled template 2) SMS notification hitting your phone 3) GoHighLevel CRM showing the new contact with tags 4) Firebase vault showing the full client record 5) Scheduled email queue with 7 follow-ups loaded] "5 systems. 2 seconds. Zero humans. That lead is already in a 7-day personalized nurture sequence and I haven't touched my phone. This is what an AI-native business looks like."
+
+FILMING NOTES:
+- Pre-record each system separately, then rapid-cut in editing
+- Use a "camera shutter" sound effect on each cut
+- Show the actual UI of each system — not mockups
+- End with a count overlay: "5 systems. 2 seconds. 0 humans."
+- Consider doing this as a "POV: you're a lead" style
+
+---
+
+**SCRIPT 3: "I Wrote 10 Blog Posts While You Watched This"**
+TITLE ON SCREEN: "AI wrote 10 blog posts in 60 seconds"
+TYPE: Screen record (terminal + output) + face cam
+
+HOOK: "By the time this video ends, I'll have written 10 SEO blog posts. Not outlines. Full posts. Starting now." [Start visible timer on screen]
+
+OBJECTION: "And before you say 'AI content is garbage' — these aren't generic. Watch the titles come in."
+
+LIVE PROOF: [Screen record the blog agent running. Show terminal output as it plans 10 unique topics, then starts writing. Show 2-3 titles appearing that are industry-specific and genuinely good. Fast-forward the writing. Show the final output: 10 markdown files, each 1500+ words, with proper SEO, internal links, CTAs.] "10 posts. [Show timer] seconds. Each one targeting a real keyword, linking to our other content, written in our founder's voice. Not templates. Not slop. Actual content strategy on autopilot. This is what a content engine looks like."
+
+FILMING NOTES:
+- The timer is EVERYTHING. Keep it visible the entire time.
+- Speed up the terminal output so text is flying (looks impressive)
+- Pause/slow down on 2-3 particularly good titles so people can read them
+- Show a quick scroll through one finished post at the end
+- Bonus: show the "Blog Published" notification afterward
+
+---
+
+**SCRIPT 4: "Your Followup Email Sucks. Here's Why."**
+TITLE ON SCREEN: "AI that reads the relationship before it writes"
+TYPE: Screen record of admin vault + generated email
+
+HOOK: "This AI doesn't just write follow-up emails. It reads the entire relationship first. Watch."
+
+OBJECTION: "I know what you're thinking — 'so it's a template with their name in it.' No. Look at what it actually knows."
+
+LIVE PROOF: [Screen record: Open client vault in admin. Show the timeline: Day 1 audit, Day 3 email, Day 5 meeting notes, Day 8 proposal sent, Day 14 silence. Now trigger smart followup. Show it analyzing: 'Temperature: cold. 3 emails sent. 1 meeting. Proposal pending. 14 days silent.' Watch it generate an email that references the meeting, acknowledges the silence without being pushy, and offers a new angle.] "It didn't just say 'following up!' — it knew they went cold after the proposal, it knew what was discussed in the meeting, and it adjusted its entire tone. THAT is the difference between automation and intelligence."
+
+FILMING NOTES:
+- Zoom into the "analyzing state" part — let people read the data
+- Highlight the generated email subject line (it should be noticeably good)
+- Split the screen: vault timeline on left, generated email on right
+- This one wins on DETAIL. Don't rush it. Let the intelligence speak.
+
+---
+
+**SCRIPT 5: "The 30-Second Business Roast"**
+TITLE ON SCREEN: "I audited your business in 30 seconds. Here's what's broken."
+TYPE: Face cam + screen record (PIP)
+
+HOOK: "Drop your website in the comments. I'll tell you exactly what's broken in your business in 30 seconds."
+
+OBJECTION: "This isn't me guessing. I built a system that actually scans your site, scores your operations, and finds the gaps. Let me show you with a real one."
+
+LIVE PROOF: [Screen record the deep analysis running: Stage 1 scanning website, Stage 2 analyzing operations, Stage 3 finding opportunities, Stage 4 building report. Show real-time streaming results appearing. Zoom into the score breakdown and the specific opportunities found.] "42 out of 100. Biggest gap: no automated follow-up — they're losing an estimated $180K a year in leads that go cold. Second: manual onboarding taking 3 weeks when it should take 3 days. I just found $200K+ in recoverable revenue in 30 seconds. Comment your website — I'll do yours next."
+
+FILMING NOTES:
+- THIS IS YOUR ENGAGEMENT BAIT. "Comment your website" = massive comments
+- Pre-select a business that will score poorly (most will)
+- Let the streaming UI do the work — it looks like magic
+- React genuinely to the findings ("oh wow, look at this...")
+- Film a SERIES of these. "Business Roast Part 1, 2, 3..."
+- Pin comment: "DM me 'AUDIT' for the full breakdown free"
+
+---
+
+---
+
+**SCRIPT 6: "I'm 22. I Built This From Louisiana."**
+TITLE ON SCREEN: "POV: You're 22 and your AI runs businesses for you"
+TYPE: Lifestyle b-roll + screen recordings intercut
+
+HOOK: "I'm 22 years old. I live in Louisiana with my best friend. I traveled 4 times last month. And my AI systems handled $__K in client operations while I was gone."
+
+OBJECTION: "Before you say 'must be nice' or 'she's just selling a course' — I don't sell courses. I build the actual systems. Let me show you what ran while I was in [last trip location]."
+
+LIVE PROOF: [Quick cuts: 1) You on a trip (b-roll, 3 seconds) 2) Screen: Vault timeline showing emails sent, proposals generated, leads scored — all while you were traveling 3) Screen: CRM showing new leads that came in and were auto-nurtured 4) Screen: Blog posts that published themselves 5) Back to you, on a balcony/coffee shop] "I didn't check Slack. I didn't 'hop on a quick call.' The system handled it. I'm not special. I just built the thing most people keep talking about building. You can too — or I'll build it for you. Link in bio."
+
+FILMING NOTES:
+- B-ROLL IS EVERYTHING HERE. Film 30 seconds of every trip, every fun moment.
+- Keep a "content bank" of lifestyle clips: airport, coffee, friends, views
+- The CONTRAST is the Purple Cow: "22 + Louisiana + traveling" vs "running real AI infrastructure"
+- Don't be humble. Don't apologize for being young. OWN IT. That's the hook.
+- Film this MONTHLY with updated numbers. It becomes a series.
+
+---
+
+**SCRIPT 7: "They're Paying a 22-Year-Old to Replace Their IT Department"**
+TITLE ON SCREEN: "22-year-old builds what their IT team couldn't"
+TYPE: Face cam, direct to camera, raw energy
+
+HOOK: "A 47-year-old business owner just paid me — a 22-year-old from Louisiana — to automate what his 6-person team couldn't figure out in 2 years."
+
+OBJECTION: "And yeah, he was skeptical at first. 'You're how old?' I get it. But here's what I showed him."
+
+LIVE PROOF: [Screen record: Run the audit on a similar business. Show the score. Show the specific gaps. Then show the proposal auto-generate with their company name on it. Cut back to face cam.] "In 30 seconds my system found $200K in recoverable revenue his team missed for 2 years. Age doesn't matter. Credentials don't matter. Results do. The system either works or it doesn't — and mine works. DM 'BUILD' if you want me to run yours."
+
+FILMING NOTES:
+- The AGE CONTRAST is the hook. Don't hide it. Lead with it.
+- This is a "prove them wrong" narrative — people LOVE watching that
+- Keep the energy confident, not arrogant. Matter-of-fact.
+- Works as a response to negative comments ("you're too young" = content)
+
+---
+
+**PURPLE COW PRODUCTION RULES:**
+
+1. SHOW, NEVER TELL: If you can screen record it, screen record it. No "imagine if" — show it happening.
+
+2. THE IMPOSSIBILITY HOOK: Open with something that sounds too fast/too good/impossible. Then prove it live.
+
+3. REAL BUSINESSES, REAL DATA: Use actual company names, real websites, real numbers. Generic = forgettable. Specific = shareable.
+
+4. SPEED = SPECTACLE: Compress time. "30 seconds" "2 seconds" "while you watched this." Speed is the Purple Cow.
+
+5. THE REACTION: Film your genuine reaction to the output. "Wait, it actually pulled their pricing page..." — that moment of surprise is contagious.
+
+6. SERIES FORMATS: Scripts 1 and 5 are infinitely repeatable. "I built your proposal" series. "Business Roast" series. These become your content engine.
+
+7. ENGAGEMENT BAIT BUILT IN: Every script ends with "DM me" or "comment your website" or "drop your business name." The call to action IS the content.
+
+8. VERTICAL ONLY: 9:16. Face cam top-right. Screen takes 80% of frame. Captions on. Sound optional (the screen is the show).
+
+9. TITLES THAT STOP SCROLL: Put the most unbelievable claim as text overlay in the first frame. "I built your proposal in 30 seconds" makes them stop. Then PROVE IT.
+
+10. THE UNFAIR ADVANTAGE: You have WORKING SYSTEMS that 99% of AI creators are only talking about. Every video should make people think "wait, this person actually built this?"`
+    }
     }
 }
 
