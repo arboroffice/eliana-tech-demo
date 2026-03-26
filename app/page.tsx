@@ -24,11 +24,11 @@ export default function HomePage() {
           ELIANA<span className="text-[#D90019]">TECH</span>
         </Link>
         <div className="hidden md:flex items-center gap-8">
-          <Link href="/audit" className="bg-[#D90019] text-white text-[11px] uppercase tracking-widest font-bold px-6 py-3 hover:bg-black transition-all hover:scale-105 active:scale-95 shadow-lg shadow-red-500/20">
-            Free AI Audit
+          <Link href="/apply" className="bg-[#D90019] text-white text-[11px] uppercase tracking-widest font-bold px-6 py-3 hover:bg-black transition-all hover:scale-105 active:scale-95 shadow-lg shadow-red-500/20">
+            Get Access
           </Link>
         </div>
-        <Link href="/audit" className="md:hidden bg-[#D90019] text-white p-1.5 rounded-full shadow-lg shadow-red-500/20">
+        <Link href="/apply" className="md:hidden bg-[#D90019] text-white p-1.5 rounded-full shadow-lg shadow-red-500/20">
           <ArrowRight size={16} />
         </Link>
       </nav>
@@ -41,25 +41,28 @@ export default function HomePage() {
 
           <div className="relative z-10 max-w-4xl mx-auto">
             <div className="inline-block px-4 py-1.5 mb-8 border border-[#D90019]/20 bg-[#D90019]/5 rounded-full">
-              <p className="text-[#D90019] font-mono text-[10px] font-bold uppercase tracking-[0.3em]">Your Chief AI Officer</p>
+              <p className="text-[#D90019] font-mono text-[10px] font-bold uppercase tracking-[0.3em]">ElianaTech</p>
             </div>
 
             <h1 className="font-bebas text-[clamp(40px,9vw,100px)] leading-[0.85] uppercase mb-8 tracking-tight text-black">
-              What If Your Business<br />
-              <span className="text-[#D90019]">Ran Without You?</span>
+              Turn AI Into<br />
+              Real Business<br />
+              <span className="text-[#D90019]">Systems.</span>
             </h1>
 
             <p className="text-gray-500 text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto mb-12">
-              Not a chatbot. Not a dashboard. A full <span className="text-black font-semibold">AI Wing</span> installed
-              inside your company so you wake up to a business that already handled
-              the morning without you.
+              ElianaTech helps founders and operators use AI to automate workflows,
+              capture leads, and scale faster &mdash; without hiring a ton of staff.
             </p>
 
-            <Link href="/audit" className="w-full sm:w-auto inline-flex font-bebas text-2xl tracking-widest bg-[#D90019] text-white px-10 py-5 hover:bg-black transition-all hover:scale-[1.02] active:scale-95 shadow-2xl shadow-red-500/20 items-center justify-center gap-3">
-              See What We'd Build For You <ArrowRight size={22} strokeWidth={3} />
-            </Link>
-
-            <p className="mt-6 text-gray-400 text-xs font-medium tracking-wide">Free audit. No pitch deck. Just your blueprint.</p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link href="/apply" className="w-full sm:w-auto inline-flex font-bebas text-2xl tracking-widest bg-[#D90019] text-white px-10 py-5 hover:bg-black transition-all hover:scale-[1.02] active:scale-95 shadow-2xl shadow-red-500/20 items-center justify-center gap-3">
+                Get Access Today <ArrowRight size={22} strokeWidth={3} />
+              </Link>
+              <a href="#how-it-works" className="text-gray-400 text-sm font-medium tracking-wide hover:text-black transition-colors py-4">
+                See How It Works &darr;
+              </a>
+            </div>
           </div>
         </section>
 
@@ -67,14 +70,14 @@ export default function HomePage() {
         <section className="bg-black py-6 overflow-hidden border-y border-white/5 whitespace-nowrap">
           <div className="flex animate-marquee gap-12">
             {[
-              "Your AI Wing",
-              "Chief AI Officer",
-              "Private Infrastructure",
-              "Installed in 7 Days",
-              "Your AI Wing",
-              "Chief AI Officer",
-              "Private Infrastructure",
-              "Installed in 7 Days"
+              "AI Systems",
+              "Founder Community",
+              "Plug-In Workflows",
+              "Done For You Builds",
+              "AI Systems",
+              "Founder Community",
+              "Plug-In Workflows",
+              "Done For You Builds"
             ].map((text, i) => (
               <div key={i} className="flex items-center gap-4 text-white font-bebas text-2xl sm:text-3xl tracking-[0.1em] uppercase opacity-80">
                 <span className="w-2.5 h-2.5 rounded-full bg-[#D90019]"></span>
@@ -84,27 +87,51 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ═══ THE REAL PROBLEM ═══ */}
+        {/* ═══ THE PROBLEM ═══ */}
         <section className="py-24 sm:py-40 px-6 bg-white">
-          <div className="max-w-3xl mx-auto">
-            <p className="text-[#D90019] font-bold tracking-[0.4em] uppercase mb-6 text-[10px] font-mono text-center">The Truth</p>
+          <div className="max-w-4xl mx-auto">
+            <p className="text-[#D90019] font-bold tracking-[0.4em] uppercase mb-6 text-[10px] font-mono text-center">The Problem</p>
             <h2 className="font-bebas text-4xl sm:text-6xl uppercase tracking-tight text-center mb-16 leading-[0.9]">
-              You Built a Business.<br />
-              <span className="text-gray-300">Then It Trapped You.</span>
+              Most Founders Are<br />
+              <span className="text-gray-300">Stuck With AI.</span>
             </h2>
 
-            <div className="space-y-10 text-lg text-gray-600 leading-relaxed">
-              <p>
-                You're the first one in and the last one out. Every decision routes through you.
-                Every lead that slips is on you. Every follow-up you forgot? Revenue gone.
-              </p>
-              <p>
-                You didn't start this to become the most overworked person in the building.
-                You started it for <span className="text-black font-semibold">freedom</span>.
-              </p>
-              <p className="text-black font-semibold text-xl">
-                Somewhere along the way, you became the system. And the system broke.
-              </p>
+            <div className="grid md:grid-cols-2 gap-16">
+              <div className="space-y-6 text-lg text-gray-600 leading-relaxed">
+                <p>They generate content and prompts but nothing changes.</p>
+                <p>Leads fall through the cracks.</p>
+                <p>Operations are chaotic.</p>
+                <p className="text-black font-semibold text-xl pt-4 border-t border-gray-100">
+                  Sound familiar?
+                </p>
+              </div>
+              <div>
+                <p className="text-[#D90019] font-bold tracking-[0.4em] uppercase mb-6 text-[10px] font-mono">Meanwhile</p>
+                <p className="text-black font-semibold text-lg mb-6">
+                  A small group of AI-native founders are building systems that run their business for them:
+                </p>
+                <div className="space-y-4 text-gray-600">
+                  <div className="flex items-start gap-3">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#D90019] mt-2.5 flex-shrink-0"></span>
+                    <p>Automated lead follow-ups</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#D90019] mt-2.5 flex-shrink-0"></span>
+                    <p>Instant estimates and proposals</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#D90019] mt-2.5 flex-shrink-0"></span>
+                    <p>AI-powered client communication</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#D90019] mt-2.5 flex-shrink-0"></span>
+                    <p>Backend workflows that replace hours of admin</p>
+                  </div>
+                </div>
+                <p className="mt-8 text-black font-semibold border-l-2 border-[#D90019] pl-4">
+                  They use the same AI tools you have. You just haven&apos;t seen how yet.
+                </p>
+              </div>
             </div>
           </div>
         </section>
@@ -112,127 +139,161 @@ export default function HomePage() {
         {/* ═══ THE SHIFT ═══ */}
         <section className="py-24 sm:py-40 px-6 bg-[#050505] text-white overflow-hidden relative">
           <div className="absolute top-0 right-0 w-1/2 h-full bg-[#D90019]/5 blur-[200px]"></div>
-          <div className="max-w-4xl mx-auto relative z-10">
-            <p className="text-[#D90019] font-bold tracking-[0.4em] uppercase mb-6 text-[10px] font-mono text-center">The Shift</p>
-            <h2 className="font-bebas text-4xl sm:text-7xl uppercase tracking-tight text-center mb-6 leading-[0.85]">
-              We Become Your<br />
-              <span className="text-[#D90019]">AI Wing.</span>
+          <div className="max-w-4xl mx-auto relative z-10 text-center">
+            <p className="text-[#D90019] font-bold tracking-[0.4em] uppercase mb-6 text-[10px] font-mono">The Shift</p>
+            <h2 className="font-bebas text-4xl sm:text-7xl uppercase tracking-tight mb-6 leading-[0.85]">
+              AI Isn&apos;t Just a Tool.<br />
+              <span className="text-[#D90019]">It&apos;s an Operator.</span>
             </h2>
-            <p className="text-gray-400 text-center text-lg max-w-2xl mx-auto mb-20">
-              Think of us as the department you always needed but couldn't afford to hire.
-              A Chief AI Officer, a systems architect, and an operations team.
-              Except it's infrastructure, not headcount.
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+              Once you start thinking like an AI-native founder, you stop experimenting.
+              You start building systems that actually make money.
             </p>
+          </div>
+        </section>
 
-            <div className="grid md:grid-cols-2 gap-px bg-white/5">
+        {/* ═══ WHAT IS ELIANATECH ═══ */}
+        <section id="how-it-works" className="py-24 sm:py-40 px-6 bg-white">
+          <div className="max-w-4xl mx-auto">
+            <p className="text-[#D90019] font-bold tracking-[0.4em] uppercase mb-6 text-[10px] font-mono text-center">What Is ElianaTech</p>
+            <h2 className="font-bebas text-4xl sm:text-6xl uppercase tracking-tight text-center mb-20 leading-[0.9]">
+              The Place for Founders<br />
+              Who Want to <span className="text-[#D90019]">Build.</span>
+            </h2>
+
+            <div className="grid md:grid-cols-2 gap-px bg-gray-100">
+              {[
+                { num: "01", title: "Build AI Systems", desc: "Real systems for your business, not toy demos." },
+                { num: "02", title: "Learn From Operators", desc: "See exactly how other founders are using AI." },
+                { num: "03", title: "Plug-In Workflows", desc: "Pre-built workflows that work immediately." },
+                { num: "04", title: "Get Help When You Want It", desc: "From DIY to done-for-you, on your terms." },
+              ].map((item, i) => (
+                <div key={i} className="bg-white p-10 group">
+                  <p className="text-[#D90019] font-mono text-[10px] font-bold uppercase tracking-widest mb-4">{item.num}</p>
+                  <h3 className="font-bebas text-2xl uppercase tracking-wide mb-4 group-hover:text-[#D90019] transition-colors">{item.title}</h3>
+                  <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+
+            <p className="mt-12 text-black font-semibold text-center text-lg border-l-2 border-[#D90019] pl-4 text-left max-w-md mx-auto">
+              No theory. No fluff. Just real systems, real results.
+            </p>
+          </div>
+        </section>
+
+        {/* ═══ WHAT YOU GET ═══ */}
+        <section className="py-24 sm:py-40 px-6 bg-[#FAF9F6]">
+          <div className="max-w-5xl mx-auto">
+            <p className="text-[#D90019] font-bold tracking-[0.4em] uppercase mb-6 text-[10px] font-mono text-center">What You Get</p>
+            <h2 className="font-bebas text-4xl sm:text-6xl uppercase tracking-tight text-center mb-20 leading-[0.9]">
+              Pick Your <span className="text-[#D90019]">Level.</span>
+            </h2>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
                 {
-                  title: "Day 1-3",
-                  headline: "We Map Everything",
-                  body: "Where you're bleeding time. Where leads die. Where money sits on the table. We find it all."
+                  phase: "01",
+                  title: "Founder Community",
+                  price: "$99/mo",
+                  desc: "See other founders' workflows in action. Share your builds and get feedback. Daily AI tips and hacks.",
+                  accent: true,
                 },
                 {
-                  title: "Day 4-6",
-                  headline: "We Build the Machine",
-                  body: "Private servers. Custom agents. Your entire operation wired into a system that thinks, acts, and reports back."
+                  phase: "02",
+                  title: "AI System Packs",
+                  price: "$597\u2013$997+",
+                  desc: "Plug-and-play systems: lead capture, AI receptionist, instant estimates, CRM automations.",
                 },
                 {
-                  title: "Day 7",
-                  headline: "You Step Back",
-                  body: "The business runs. You make decisions from a position of clarity instead of chaos. That's the whole point."
+                  phase: "03",
+                  title: "Build With You",
+                  price: "$2K\u2013$5K",
+                  desc: "Hands-on group sessions. Implement systems in real-time with guidance. Get it live fast.",
                 },
                 {
-                  title: "Ongoing",
-                  headline: "We Stay On As Your AI Wing",
-                  body: "Optionally, we keep building new playbooks and automations monthly."
-                }
-              ].map((step, i) => (
-                <div key={i} className="bg-[#0A0A0A] p-10 group">
-                  <p className="text-[#D90019] font-mono text-[10px] font-bold uppercase tracking-widest mb-4">{step.title}</p>
-                  <h3 className="font-bebas text-2xl uppercase tracking-wide mb-4 group-hover:text-[#D90019] transition-colors">{step.headline}</h3>
-                  <p className="text-gray-500 text-sm leading-relaxed">{step.body}</p>
-                </div>
+                  phase: "04",
+                  title: "Done For You",
+                  price: "$5K\u2013$20K+",
+                  desc: "Custom AI backend built around your business. Full setup and integration. Serious operators only.",
+                },
+              ].map((tier, i) => (
+                <Link key={i} href="/apply" className={`group block p-8 border transition-all hover:border-[#D90019] hover:-translate-y-1 hover:shadow-xl ${tier.accent ? 'bg-[#D90019] text-white border-[#D90019]' : 'bg-white border-gray-100'}`}>
+                  <p className={`font-mono text-[10px] font-bold uppercase tracking-widest mb-6 ${tier.accent ? 'text-white/60' : 'text-gray-300'}`}>{tier.phase}</p>
+                  <h3 className={`font-bebas text-2xl uppercase tracking-wide mb-2 ${tier.accent ? '' : 'group-hover:text-[#D90019] transition-colors'}`}>{tier.title}</h3>
+                  <p className={`font-bebas text-xl mb-4 ${tier.accent ? 'text-white/80' : 'text-[#D90019]'}`}>{tier.price}</p>
+                  <p className={`text-sm leading-relaxed ${tier.accent ? 'text-white/70' : 'text-gray-500'}`}>{tier.desc}</p>
+                  <div className={`mt-6 flex items-center gap-2 text-xs font-bold uppercase tracking-widest ${tier.accent ? 'text-white/80' : 'text-gray-400 group-hover:text-[#D90019]'} transition-all`}>
+                    Get Started <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </Link>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ═══ DREAM OUTCOMES ═══ */}
+        {/* ═══ WHY NOW ═══ */}
         <section className="py-24 sm:py-40 px-6 bg-white">
           <div className="max-w-4xl mx-auto">
-            <p className="text-[#D90019] font-bold tracking-[0.4em] uppercase mb-6 text-[10px] font-mono text-center">After We Install</p>
+            <p className="text-[#D90019] font-bold tracking-[0.4em] uppercase mb-6 text-[10px] font-mono text-center">Why Now</p>
             <h2 className="font-bebas text-4xl sm:text-6xl uppercase tracking-tight text-center mb-20 leading-[0.9]">
-              This Is Your<br />
-              <span className="text-[#D90019]">Monday Morning.</span>
+              The Gap Is <span className="text-[#D90019]">Growing.</span>
             </h2>
 
             <div className="space-y-0">
               {[
-                "You wake up. Your leads from last night are already in conversation.",
-                "Your calendar has three qualified calls booked. You didn't set them.",
-                "A client who ghosted last week just got a perfectly timed follow-up. They replied.",
-                "Your weekly P&L is sitting in your inbox. Formatted. Accurate. Done.",
-                "You open your laptop and realize there's nothing urgent. For once.",
-                "You spend the morning thinking about where to take the business next. Not putting out fires."
-              ].map((text, i) => (
-                <div key={i} className="flex gap-6 items-start py-6 border-b border-gray-100 group hover:bg-[#FAF9F6] px-4 -mx-4 transition-colors">
-                  <span className="font-bebas text-3xl text-gray-200 group-hover:text-[#D90019] transition-colors leading-none pt-1">{String(i + 1).padStart(2, '0')}</span>
-                  <p className="text-gray-600 text-lg sm:text-xl font-medium group-hover:text-black transition-colors leading-relaxed">{text}</p>
+                { num: "01", title: "AI adoption is exploding", desc: "The tools are here and they're powerful." },
+                { num: "02", title: "Most are still experimenting", desc: "Playing with prompts, not building systems." },
+                { num: "03", title: "A few are building real leverage", desc: "Systems that save hours and make money." },
+              ].map((step, i) => (
+                <div key={i} className="flex gap-6 items-start py-8 border-b border-gray-100 group hover:bg-[#FAF9F6] px-4 -mx-4 transition-colors">
+                  <span className="font-bebas text-3xl text-gray-200 group-hover:text-[#D90019] transition-colors leading-none pt-1">{step.num}</span>
+                  <div>
+                    <h3 className="text-black font-semibold text-lg mb-1 group-hover:text-[#D90019] transition-colors">{step.title}</h3>
+                    <p className="text-gray-500 text-sm">{step.desc}</p>
+                  </div>
                 </div>
               ))}
             </div>
 
-            <div className="text-center mt-16">
-              <Link href="/audit" className="inline-flex font-bebas text-2xl tracking-widest bg-black text-white px-10 py-5 hover:bg-[#D90019] transition-all items-center gap-3 shadow-xl">
-                I Want This <ArrowRight size={22} strokeWidth={3} />
-              </Link>
-            </div>
+            <p className="mt-12 text-black font-semibold text-xl text-center">
+              Don&apos;t get left behind.
+            </p>
           </div>
         </section>
 
-        {/* ═══ NOT A TOOL / AN AI WING ═══ */}
+        {/* ═══ WHO THIS IS FOR ═══ */}
         <section className="py-24 sm:py-40 px-6 bg-[#FAF9F6]">
-          <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+          <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-16">
             <div>
-              <p className="text-[#D90019] font-bold tracking-[0.4em] uppercase mb-6 text-[10px] font-mono">Not a Tool</p>
-              <h2 className="font-bebas text-4xl sm:text-6xl uppercase tracking-tight mb-8 leading-[0.9]">
-                This Isn't Software.<br />
-                <span className="text-[#D90019]">It's a Department.</span>
-              </h2>
-              <div className="space-y-6 text-gray-600 text-lg leading-relaxed">
-                <p>
-                  Software gives you another tab to check. Another login. Another thing to manage.
-                </p>
-                <p>
-                  An AI Wing gives you <span className="text-black font-semibold">a part of your company that works without you</span>.
-                  It doesn't wait for instructions. It reads the situation, acts, and reports back.
-                </p>
-                <p>
-                  We install it on private infrastructure you own. It evolves monthly.
-                  And it never asks for time off.
-                </p>
+              <p className="text-[#D90019] font-bold tracking-[0.4em] uppercase mb-6 text-[10px] font-mono">This Is For</p>
+              <div className="space-y-4">
+                {[
+                  "Local service business owners",
+                  "Agency owners",
+                  "Operators who want leverage",
+                  "Founders already using AI but not getting results",
+                ].map((item, i) => (
+                  <div key={i} className="flex items-start gap-3">
+                    <div className="w-2 h-2 border-2 border-[#D90019] mt-1.5 flex-shrink-0"></div>
+                    <p className="text-gray-700 font-medium">{item}</p>
+                  </div>
+                ))}
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-white p-8 border border-gray-100 shadow-sm">
-                <h3 className="font-bebas text-4xl text-[#D90019] mb-2 leading-none uppercase">Private</h3>
-                <p className="text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-4">Servers</p>
-                <p className="text-xs text-gray-500 font-medium leading-relaxed">Your data never leaves your control. No third-party training on your proprietary ops.</p>
-              </div>
-              <div className="bg-black p-8 text-white shadow-xl">
-                <h3 className="font-bebas text-4xl text-[#D90019] mb-2 leading-none uppercase">Chief AI</h3>
-                <p className="text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-4">Officer</p>
-                <p className="text-xs text-gray-500 font-medium leading-relaxed">Strategic AI leadership without the $300K salary. We map the vision, you make the calls.</p>
-              </div>
-              <div className="bg-white p-8 border border-gray-100 shadow-sm col-span-2">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h3 className="font-bebas text-4xl text-[#D90019] mb-2 leading-none uppercase">Evolving</h3>
-                    <p className="text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-4">Monthly</p>
+            <div>
+              <p className="text-gray-400 font-bold tracking-[0.4em] uppercase mb-6 text-[10px] font-mono">Not For</p>
+              <div className="space-y-4">
+                {[
+                  "People looking for shortcuts without work",
+                  "People who just want to \"learn AI\"",
+                  "People who won't implement",
+                ].map((item, i) => (
+                  <div key={i} className="flex items-start gap-3">
+                    <div className="w-2 h-2 border-2 border-gray-200 mt-1.5 flex-shrink-0"></div>
+                    <p className="text-gray-400">{item}</p>
                   </div>
-                  <div className="bg-[#D90019]/10 text-[#D90019] text-[8px] font-bold px-2 py-1 uppercase tracking-widest">Always New</div>
-                </div>
-                <p className="text-sm text-gray-600 font-medium leading-relaxed">New capabilities, new playbooks, new intelligence. Deployed to your system every month.</p>
+                ))}
               </div>
             </div>
           </div>
@@ -242,7 +303,7 @@ export default function HomePage() {
         <section className="py-20 sm:py-32 px-6 bg-white border-b border-gray-100">
           <div className="max-w-5xl mx-auto text-center">
             <p className="text-[#D90019] font-bold tracking-[0.4em] uppercase mb-6 text-[10px] font-mono">Industries</p>
-            <h2 className="font-bebas text-3xl sm:text-5xl uppercase tracking-tight mb-4">We've Built Systems For</h2>
+            <h2 className="font-bebas text-3xl sm:text-5xl uppercase tracking-tight mb-4">We&apos;ve Built Systems For</h2>
             <p className="text-gray-400 text-sm mb-14">Every industry has different ops. We know yours.</p>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {[
@@ -274,27 +335,22 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ═══ THE QUESTION ═══ */}
+        {/* ═══ FINAL CLOSE ═══ */}
         <section className="py-32 sm:py-48 px-6 bg-black text-white overflow-hidden relative">
           <div className="absolute inset-0 bg-gradient-to-b from-[#D90019]/5 to-transparent pointer-events-none"></div>
           <div className="max-w-3xl mx-auto text-center relative z-10">
+            <p className="text-gray-600 text-lg mb-4">You can keep using AI for small tasks.</p>
+            <p className="text-gray-700 font-bebas text-lg tracking-[0.2em] uppercase mb-8">Or</p>
             <h2 className="font-bebas text-4xl sm:text-7xl leading-[0.85] uppercase mb-8 tracking-tight">
-              You Built Something<br />
-              <span className="text-gray-600">Worth Protecting.</span><br />
-              <span className="text-[#D90019]">Now Systemize It.</span>
+              Use It to Run Parts<br />
+              of Your <span className="text-[#D90019]">Business.</span>
             </h2>
 
-            <p className="text-gray-400 text-lg max-w-xl mx-auto mb-14 leading-relaxed">
-              The audit is free. We'll map your entire operation and show you
-              exactly where an AI Wing would sit inside your company.
-              If it doesn't make sense, we'll tell you.
-            </p>
-
-            <Link href="/audit" className="group inline-flex font-bebas text-2xl sm:text-3xl tracking-[0.1em] bg-[#D90019] text-white px-14 py-7 hover:bg-white hover:text-black transition-all items-center gap-4 shadow-[0_20px_60px_rgba(217,0,25,0.3)]">
-              Get Your Free AI Audit <ArrowRight size={28} strokeWidth={3} className="group-hover:translate-x-2 transition-transform" />
+            <Link href="/apply" className="group inline-flex font-bebas text-2xl sm:text-3xl tracking-[0.1em] bg-[#D90019] text-white px-14 py-7 hover:bg-white hover:text-black transition-all items-center gap-4 shadow-[0_20px_60px_rgba(217,0,25,0.3)]">
+              Join ElianaTech Today <ArrowRight size={28} strokeWidth={3} className="group-hover:translate-x-2 transition-transform" />
             </Link>
 
-            <p className="mt-8 text-gray-600 text-xs font-medium">No contracts. No pressure. Just clarity.</p>
+            <p className="mt-8 text-gray-600 text-xs font-medium">No contracts. No pressure. Just systems.</p>
           </div>
         </section>
 
@@ -306,8 +362,8 @@ export default function HomePage() {
             <Link href="/" className="font-bebas text-3xl tracking-[0.1em] block mb-3">
                 ELIANA<span className="text-[#D90019]">TECH</span>
             </Link>
-            <p className="text-[#D90019] font-bold tracking-[0.4em] uppercase text-[9px] mb-2">Your AI Wing.</p>
-            <p className="text-gray-500 text-xs tracking-wide mb-10">Chief AI Officer for the modern enterprise.</p>
+            <p className="text-[#D90019] font-bold tracking-[0.4em] uppercase text-[9px] mb-2">AI Systems for Founders.</p>
+            <p className="text-gray-500 text-xs tracking-wide mb-10">Build. Automate. Scale.</p>
 
             <div className="flex flex-wrap justify-center gap-x-10 gap-y-4 mb-12">
                 <Link href="/about" className="text-gray-500 hover:text-white transition-colors text-[10px] font-bold tracking-widest uppercase">About</Link>

@@ -6,7 +6,7 @@
 export interface MiniWin {
     title: string
     description: string
-    type: 'chatgpt_prompt' | 'email_template' | 'sms_script' | 'checklist' | 'calculator'
+    type: 'chatgpt_prompt' | 'email_template' | 'sms_script' | 'checklist' | 'calculator' | 'video_script'
     content: string
     copyable: boolean
     icon: string
@@ -19,7 +19,10 @@ export function generateMiniWins(formData: any): MiniWin[] {
     // 1. System Prompt Engineering
     wins.push(...generateSystemPrompts(formData))
 
-    // 2. Onboarding automation (if not automated)
+    // 2. Short-form video scripts (Reels/TikTok/Shorts)
+    wins.push(generateVideoScripts(formData))
+
+    // 3. Onboarding automation (if not automated)
     if (formData.onboardingAutomated !== 'Yes') {
         wins.push(generateOnboardingBlueprint(formData))
     }
@@ -96,17 +99,100 @@ From 1 podcast/video/blog post, create:
 - 5 Twitter/X threads (contrarian takes, how-to, story, data-backed, myth-busting)
 - 5 LinkedIn posts (lesson, framework, before/after, question, behind-the-scenes)
 - 3 email newsletter snippets
-- 5 short-form video scripts (for Reels/TikTok/Shorts)
+- 5 short-form video scripts (for Reels/TikTok/Shorts) using the 3-STEP FRAMEWORK below
 - 2 carousel slide decks
 - 10 quote graphics with key insights
+
+**SHORT-FORM VIDEO SCRIPT FRAMEWORK (3-Step):**
+Each video script MUST follow this exact structure:
+
+**Step 1 — HOOK (first 2-3 seconds):**
+A bold, pattern-interrupting statement that stops the scroll. Use a contrarian take, a surprising claim, or call out a specific pain point. Speak directly to the viewer. Examples:
+- "Stop posting content every day."
+- "Your CRM is losing you money."
+- "AI won't replace you. But a founder using AI will."
+
+**Step 2 — OBJECTION HANDLER (next 5-10 seconds):**
+Immediately address the viewer's internal pushback. Acknowledge what they're thinking and reframe it. This builds trust and keeps them watching. Examples:
+- "I know that sounds crazy — but here's what's actually happening..."
+- "You're probably thinking 'that won't work for my business'..."
+- "Most people hear this and think it's too complicated. It's not."
+
+**Step 3 — EXPLANATION (remaining 15-25 seconds):**
+Deliver the value. Explain the insight, framework, or how-to in simple terms. End with a clear CTA or takeaway. Keep it conversational — like you're explaining to a friend. Examples:
+- Walk through a 3-step process
+- Show a before/after result
+- Explain the one thing they should change today
+
+**SCRIPT FORMAT for each video:**
+HOOK: [bold statement]
+OBJECTION: [address pushback]
+EXPLAIN: [deliver value + CTA]
+Total length: 30-60 seconds max.
 
 **STYLE GUIDE:**
 - Match the founder's voice and tone from existing content.
 - No generic motivational content.
 - Every piece should have a clear takeaway or CTA.
-- Focus on "How-to" and transformation stories.`
+- Focus on "How-to" and transformation stories.
+- Video scripts should feel like talking to camera, not reading a teleprompter.`
         }
     ]
+}
+
+function generateVideoScripts(formData: any): MiniWin {
+    const { companyName, businessType } = formData
+    const industry = businessType || 'your industry'
+
+    return {
+        title: '3 Ready-to-Film Video Scripts (Reels/TikTok/Shorts)',
+        description: 'Hook → Objection → Explain framework. Film these today — no editing needed.',
+        type: 'chatgpt_prompt',
+        copyable: true,
+        icon: '',
+        content: `**3 SHORT-FORM VIDEO SCRIPTS FOR ${(companyName || 'YOUR BRAND').toUpperCase()}**
+Each script follows the 3-step framework: Hook, Objection Handler, Explanation.
+Film talking to camera. Keep it under 60 seconds. No fancy editing needed.
+
+---
+
+**SCRIPT 1: "The AI Advantage"**
+
+HOOK: "Most ${industry} businesses are still doing everything manually. Here's why that's a problem."
+
+OBJECTION: "And no — I'm not talking about replacing your team or using some robot voice to answer your phones. That's not what this is."
+
+EXPLAIN: "What I mean is: the follow-ups, the reminders, the scheduling, the repeat questions — all of that can run on autopilot. We set up one system for ${companyName || 'a client'} and it saved 15+ hours a week. The team didn't lose jobs. They got their time back. If you're still doing all that manually, DM me 'SYSTEM' and I'll show you exactly what to automate first."
+
+---
+
+**SCRIPT 2: "The Follow-Up Problem"**
+
+HOOK: "You're losing clients right now and you don't even know it."
+
+OBJECTION: "I know that sounds dramatic — but think about it. When's the last time you followed up with every single lead within 5 minutes? Exactly."
+
+EXPLAIN: "Studies show that responding in under 5 minutes makes you 21x more likely to close. But most ${industry} businesses take hours — sometimes days. The fix is simple: an automated follow-up sequence that texts and emails the second a lead comes in. No app to check. No reminder to set. It just runs. We built this for ${companyName || 'our clients'} and close rates jumped 30%. Link in bio if you want the same setup."
+
+---
+
+**SCRIPT 3: "Stop Posting Every Day"**
+
+HOOK: "Stop posting content every single day. Seriously."
+
+OBJECTION: "I know every marketing guru says 'consistency is key' — and they're right. But consistency doesn't mean YOU have to do it all manually."
+
+EXPLAIN: "Here's what we do instead: take one long piece of content — a podcast, a video, a blog post — and turn it into 30+ pieces automatically. Threads, carousels, email snippets, short-form scripts like this one. One hour of work turns into a month of content. That's how ${companyName || 'smart founders'} stay visible without burning out. Follow for more systems like this."
+
+---
+
+**HOW TO FILM:**
+- Look directly at camera (eye contact = trust)
+- Deliver the hook with energy — first 2 seconds decide if they stay
+- Slow down slightly on the objection — it builds credibility
+- Speed back up on the explanation — momentum toward the CTA
+- Film in natural light, vertical (9:16), no music needed`
+    }
 }
 
 function generateOnboardingBlueprint(formData: any): MiniWin {
