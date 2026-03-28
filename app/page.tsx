@@ -36,34 +36,6 @@ export default function HomePage() {
     { name: "Misc. Local Services", slug: "misc-local-services" },
   ]
 
-  const agents = [
-    {
-      name: "Lead & Sales Agent",
-      desc: "Responds to every new lead in under 5 minutes, qualifies by criteria, routes to pipeline, and follows up until closed or confirmed dead.",
-      tags: ["Sales data trained", "CRM sync", "Multi-channel", "24/7"],
-    },
-    {
-      name: "Client Operations Agent",
-      desc: "Handles onboarding sequences, appointment management, reminders, status updates, and service follow-ups tuned to your industry's client lifecycle.",
-      tags: ["Industry-specific", "Booking sync", "Auto-confirm"],
-    },
-    {
-      name: "Finance & Admin Agent",
-      desc: "Generates and sends invoices on job completion triggers, tracks payment timelines, escalates overdue accounts, and categorizes expenses automatically.",
-      tags: ["Accounting logic", "Invoice triggers", "Escalation"],
-    },
-    {
-      name: "Reputation & Marketing Agent",
-      desc: "Sends review requests post-service, responds to feedback, monitors brand mentions, and executes email and SMS campaigns in your brand voice.",
-      tags: ["Brand voice trained", "Review monitoring", "Campaign AI"],
-    },
-    {
-      name: "Intelligence Agent",
-      desc: "Compiles weekly KPI reports, monitors pipeline health, flags anomalies, and surfaces revenue opportunities your team would otherwise miss.",
-      tags: ["Business analytics", "Weekly reports", "Opportunity scan"],
-    },
-  ]
-
   const freedoms = [
     { n: "01", text: <><strong>Mornings that start with results,</strong> not a to-do list you&apos;re already behind on</> },
     { n: "02", text: <>Your team doing <strong>actual work</strong> — not administrative survival every day</> },
@@ -177,19 +149,25 @@ export default function HomePage() {
                     <span className="w-6 h-px bg-[#D90019]" />Why This Exists
                   </p>
                   <h2 className="font-playfair text-[clamp(32px,4.5vw,62px)] leading-[1.02] text-white mb-6 md:mb-8">
-                    I built this because<br />I needed it and<br /><em className="text-[#D90019]">it didn&apos;t exist.</em>
+                    We built this because<br />we needed it and<br /><em className="text-[#D90019]">it didn&apos;t exist.</em>
                   </h2>
                   <div className="grid md:grid-cols-2 gap-6 md:gap-9 mb-10 md:mb-16">
                     <p className="text-[15px] text-white/40 leading-relaxed">
-                      I grew up running operations for my dad&apos;s company. <strong className="text-white font-medium">Answering phones, chasing follow-ups, copying data between tools, holding everything in my head.</strong> Sticky notes and stress. No tool actually went and did the work. They just reminded me to.
+                      Mia grew up running operations for her dad&apos;s company. <strong className="text-white font-medium">Answering phones, chasing follow-ups, copying data between tools, holding everything in her head.</strong> No tool actually went and did the work. They just reminded her to. Tyler scaled and sold multiple brands through organic media — and watched every one of them hit the same wall: <strong className="text-white font-medium">the back-end couldn&apos;t keep up with the front-end.</strong>
                     </p>
                     <p className="text-[15px] text-white/40 leading-relaxed md:border-l md:border-white/[0.07] md:pl-7">
-                      I couldn&apos;t find a solution that actually <strong className="text-white font-medium">executed</strong> — not assisted, not reminded, not suggested. Everything required a human to be the glue.<br /><br />So we built the glue. Then we replaced it with infrastructure. Then we figured out how to install it inside any business in any industry.
+                      We couldn&apos;t find a solution that actually <strong className="text-white font-medium">executed</strong> — not assisted, not reminded, not suggested. Everything required a human to be the glue.<br /><br />So we built the glue. Then we replaced it with infrastructure. We combined <strong className="text-white font-medium">brand strategy, media, and operational systems</strong> — and figured out how to install it inside any business in any industry.
                     </p>
                   </div>
-                  <div>
-                    <p className="font-playfair italic text-[18px] text-white/40 mb-1">Mia Eliana</p>
-                    <p className="text-[10px] tracking-[2px] uppercase text-white/[0.16] font-semibold">Founder, Elianatech</p>
+                  <div className="flex flex-col sm:flex-row gap-6 sm:gap-12">
+                    <div>
+                      <p className="font-playfair italic text-[18px] text-white/40 mb-0.5">Mia</p>
+                      <p className="text-[10px] tracking-[2px] uppercase text-white/[0.16] font-semibold">Co-Founder · Infrastructure & Operations</p>
+                    </div>
+                    <div>
+                      <p className="font-playfair italic text-[18px] text-white/40 mb-0.5">Tyler</p>
+                      <p className="text-[10px] tracking-[2px] uppercase text-white/[0.16] font-semibold">Co-Founder · Brand Strategy & Media</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -331,50 +309,6 @@ export default function HomePage() {
                 </div>
               </ScrollReveal>
             ))}
-          </div>
-        </section>
-
-        {/* ─── AGENT STACK ─── */}
-        <section className="px-6 md:px-[72px] py-20 md:py-40 overflow-hidden relative">
-          <div className="grid md:grid-cols-2 gap-12 md:gap-24 items-start">
-            <ScrollReveal>
-              <div className="md:sticky md:top-[120px]">
-                <p className="flex items-center gap-3 text-[10px] tracking-[4px] uppercase text-[#D90019] font-semibold mb-5">
-                  <span className="w-6 h-px bg-[#D90019]" />The Agent Stack
-                </p>
-                <h2 className="font-playfair text-[clamp(40px,5vw,72px)] leading-[1] text-white mb-5">
-                  Agents trained<br />on your <em className="text-[#D90019]">industry.</em>
-                </h2>
-                <p className="text-[16px] text-white/40 leading-relaxed max-w-[460px] mb-10">
-                  Not generic AI assistants. Purpose-built agents pre-trained on industry-specific data, deployed to execute real work inside your operation — permanently, automatically, without being asked.
-                </p>
-                <a href="#audit" className="bg-[#D90019] text-white px-9 py-4 text-[13px] font-semibold tracking-wide hover:brightness-110 transition-all inline-block">
-                  See Which Agents You Need
-                </a>
-              </div>
-            </ScrollReveal>
-            <ScrollReveal delay={0.15}>
-              <div className="flex flex-col gap-px bg-white/[0.04]">
-                {agents.map((agent, i) => (
-                  <div key={i} className="bg-[#060406] px-7 py-7 transition-all border-l-2 border-transparent hover:bg-[#0A070B] hover:border-[#D90019] group">
-                    <div className="flex items-center justify-between mb-2.5">
-                      <span className="text-[14px] font-semibold text-white tracking-wide">{agent.name}</span>
-                      <span className="flex items-center gap-1.5 text-[9px] font-bold tracking-[1.5px] uppercase text-emerald-400">
-                        <span className="w-[5px] h-[5px] rounded-full bg-emerald-400 animate-pulse" />Running
-                      </span>
-                    </div>
-                    <p className="text-[13px] text-white/40 leading-relaxed mb-3.5">{agent.desc}</p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {agent.tags.map((tag, j) => (
-                        <span key={j} className={`text-[9px] font-semibold tracking-[1px] uppercase px-2.5 py-1 ${j === 0 ? "bg-[#D90019]/8 text-[#D90019]/60" : "bg-white/[0.04] text-white/[0.16]"}`}>
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </ScrollReveal>
           </div>
         </section>
 
