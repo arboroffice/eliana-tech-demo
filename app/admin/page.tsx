@@ -121,6 +121,18 @@ interface Submission {
     ghlContactId?: string
     ghlOpportunityId?: string
     ghlSyncedAt?: string
+    // New operations audit fields
+    role?: string
+    adminRoles?: string[]
+    opsPerson?: string
+    crmTools?: string[]
+    schedulingTools?: string[]
+    billingTools?: string[]
+    marketingTools?: string[]
+    aiUse?: string
+    opsScore?: string
+    automate?: string[]
+    extraNotes?: string
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -1206,6 +1218,11 @@ function SubmissionDetail({ submission: s, onBack, onDelete, token, onUpdate, on
                                 <DetailField label="Wants to Start" value={s.startDate} />
                                 <DetailField label="Excitement" value={s.excitementLevel} />
                                 <DetailField label={config.step4.churnRate.label || "Churn Rate"} value={s.churnRate} />
+                                {s.role && <DetailField label="Role" value={s.role} />}
+                                {s.opsPerson && <DetailField label="Ops Person" value={s.opsPerson} />}
+                                {s.opsScore && <DetailField label="Ops Score (1-10)" value={s.opsScore} />}
+                                {s.aiUse && <DetailField label="AI Usage" value={s.aiUse} />}
+                                {s.source === 'embedded_ops_audit' && <DetailField label="Source" value="Operations Audit (Landing Page)" />}
                             </div>
                         </DetailSection>
                     )}
@@ -1274,6 +1291,58 @@ function SubmissionDetail({ submission: s, onBack, onDelete, token, onUpdate, on
                             <DetailField label="Decision Maker?" value={s.decisionMaker} /><DetailField label="Newsletter Opt-In" value={s.newsletterOptIn} />
                         </div>
                     </DetailSection>
+
+                    {/* ════ NEW OPERATIONS AUDIT DATA ════ */}
+                    {s.source === 'embedded_ops_audit' && (
+                        <>
+                            <DetailSection title="Operations Audit — Team & Role" icon={Users} iconColor="text-orange-400">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-4">
+                                    <DetailField label="Role" value={s.role} />
+                                    <DetailField label="Ops/Admin Person" value={s.opsPerson} />
+                                    <DetailField label="Ops Score (1-10)" value={s.opsScore} />
+                                </div>
+                                {safeArray<string>(s.adminRoles).length > 0 && (
+                                    <div className="mb-4">
+                                        <span className="text-xs text-slate-500 block mb-2">Roles Buried in Admin</span>
+                                        <div className="flex flex-wrap gap-2">{safeArray<string>(s.adminRoles).map((r: string, i: number) => <span key={i} className="px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-300 text-xs">{r}</span>)}</div>
+                                    </div>
+                                )}
+                            </DetailSection>
+
+                            <DetailSection title="Operations Audit — Tool Stack" icon={Settings} iconColor="text-orange-400">
+                                <div className="space-y-3">
+                                    {safeArray<string>(s.crmTools).length > 0 && (
+                                        <div><span className="text-xs text-slate-500 block mb-2">CRM / Lead Management</span><div className="flex flex-wrap gap-2">{safeArray<string>(s.crmTools).map((t: string, i: number) => <span key={i} className="px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-300 text-xs">{t}</span>)}</div></div>
+                                    )}
+                                    {safeArray<string>(s.schedulingTools).length > 0 && (
+                                        <div><span className="text-xs text-slate-500 block mb-2">Scheduling</span><div className="flex flex-wrap gap-2">{safeArray<string>(s.schedulingTools).map((t: string, i: number) => <span key={i} className="px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-300 text-xs">{t}</span>)}</div></div>
+                                    )}
+                                    {safeArray<string>(s.billingTools).length > 0 && (
+                                        <div><span className="text-xs text-slate-500 block mb-2">Invoicing & Payments</span><div className="flex flex-wrap gap-2">{safeArray<string>(s.billingTools).map((t: string, i: number) => <span key={i} className="px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-300 text-xs">{t}</span>)}</div></div>
+                                    )}
+                                    {safeArray<string>(s.marketingTools).length > 0 && (
+                                        <div><span className="text-xs text-slate-500 block mb-2">Marketing & Campaigns</span><div className="flex flex-wrap gap-2">{safeArray<string>(s.marketingTools).map((t: string, i: number) => <span key={i} className="px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-300 text-xs">{t}</span>)}</div></div>
+                                    )}
+                                    <DetailField label="AI Usage" value={s.aiUse} />
+                                </div>
+                            </DetailSection>
+
+                            <DetailSection title="Operations Audit — Automation Priorities" icon={Zap} iconColor="text-orange-400">
+                                {safeArray<string>(s.automate).length > 0 && (
+                                    <div className="mb-4">
+                                        <span className="text-xs text-slate-500 block mb-2">Functions They Want AI to Own</span>
+                                        <div className="flex flex-wrap gap-2">{safeArray<string>(s.automate).map((a: string, i: number) => <span key={i} className="px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-red-300 text-xs">{a}</span>)}</div>
+                                    </div>
+                                )}
+                                {s.extraNotes && (
+                                    <div className="bg-white/[0.03] rounded-xl p-4 border border-white/5">
+                                        <span className="text-xs text-slate-500 block mb-1">Additional Notes</span>
+                                        <p className="text-slate-300 text-sm leading-relaxed whitespace-pre-wrap">{s.extraNotes}</p>
+                                    </div>
+                                )}
+                            </DetailSection>
+                        </>
+                    )}
                 </>
             )}
 
