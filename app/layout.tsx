@@ -46,7 +46,36 @@ export const metadata: Metadata = {
   description:
     "Transform your business with intelligent AI automation solutions. Empower your organization to operate at the speed of thought.",
   icons: {
-    icon: "/icon.png",
+    icon: [
+      { url: "/icon.png" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    apple: [
+      { url: "/apple-icon.png" },
+    ],
+    shortcut: ["/icon.png"],
+  },
+  openGraph: {
+    title: "Elianatech — Own Your Intelligence",
+    description: "Transform your business with intelligent AI automation solutions. Empower your organization to operate at the speed of thought.",
+    url: "https://elianatech.com",
+    siteName: "Elianatech",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Elianatech - AI Operations Layer",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Elianatech — Own Your Intelligence",
+    description: "Transform your business with intelligent AI automation solutions.",
+    images: ["/og-image.png"],
   },
   generator: "v0.app",
   verification: {
