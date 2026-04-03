@@ -107,7 +107,7 @@ export function TheBriefSection() {
                             </div>
 
                             <a 
-                                href="https://brief-sage-omega.vercel.app" 
+                                href="http://c12hsh4n5bfc02e5c9p4wyax.187.124.238.237.sslip.io" 
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center gap-3 bg-[#D90019] text-white px-9 py-5 text-[14px] font-bold tracking-widest uppercase hover:brightness-110 hover:-translate-y-1 transition-all shadow-[0_20px_80px_rgba(217,0,25,0.25)]"

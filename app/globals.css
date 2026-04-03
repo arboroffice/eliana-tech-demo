@@ -72,6 +72,7 @@
 }
 
 @theme inline {
+  --font-bebas: var(--font-bebas-neue);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-script: "Dancing Script", cursive;

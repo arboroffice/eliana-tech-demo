@@ -1027,10 +1027,9 @@ export function AuditReportPrint({ formData, auditScore }: PrintReportProps) {
                 <li className="flex items-start gap-3"><span className="text-[#D90019]">[+]</span> SYSTEM LIBRARY</li>
                 <li className="flex items-start gap-3"><span className="text-[#D90019]">[+]</span> PEER NETWORK</li>
               </ul>
-              <a href="https://www.skool.com/founders-of-the-future-3908/about" target="_blank" rel="noopener noreferrer" 
-                 className="nb-button block w-full py-5 text-center font-mono text-[10px] font-black uppercase tracking-[0.3em]">
-                Initialize Connection
-              </a>
+              <div className="nb-button block w-full py-5 text-center font-mono text-[10px] font-black uppercase tracking-[0.3em] opacity-30 cursor-default">
+                Coming Soon
+              </div>
             </div>
 
             {/* Path 2: Done-For-You */}
@@ -1064,7 +1063,7 @@ export function AuditReportPrint({ formData, auditScore }: PrintReportProps) {
                 JOIN 50,000+ FOUNDERS // DAILY CORE UPDATES ON AI-NATIVE ARCHITECTURE AND SYSTEMS ENGINEERING.
               </p>
             </div>
-            <a href="https://brief-sage-omega.vercel.app" target="_blank" rel="noopener noreferrer" 
+            <a href="http://c12hsh4n5bfc02e5c9p4wyax.187.124.238.237.sslip.io" target="_blank" rel="noopener noreferrer" 
                className="nb-button shrink-0 py-5 px-12 bg-transparent text-white border-white/20 text-center font-mono text-[10px] font-black uppercase tracking-[0.3em] hover:border-[#D90019]">
               Secure Access
             </a>

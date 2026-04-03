@@ -51,9 +51,14 @@ export default function HomeClient() {
             { label: "The Shift", href: "#transform" },
             { label: "The Framework", href: "#phases" },
             { label: "Playbooks", href: "#playbooks" },
+            { label: "AI Proof Book", href: "https://aiproof-kappa.vercel.app/", target: "_blank", rel: "noopener noreferrer" },
             { label: "OS Audit", href: "/audit" },
           ].map(l => (
-            <a key={l.href} href={l.href} className="text-[12px] text-white/40 tracking-wide hover:text-white transition-colors">{l.label}</a>
+            l.target ? (
+              <a key={l.href} href={l.href} target={l.target} rel={l.rel} className="text-[12px] text-white/40 tracking-wide hover:text-white transition-colors">{l.label}</a>
+            ) : (
+              <a key={l.href} href={l.href} className="text-[12px] text-white/40 tracking-wide hover:text-white transition-colors">{l.label}</a>
+            )
           ))}
         </div>
         <Link href="/audit" className="bg-[#D90019] text-white px-4 md:px-6 py-2 md:py-2.5 text-[11px] md:text-[12px] font-semibold tracking-wide hover:brightness-110 transition-all">Take Your OS Audit</Link>
@@ -98,12 +103,12 @@ export default function HomeClient() {
                 </p>
               </div>
               <div className="flex flex-wrap gap-4 mt-10">
-                <a href="https://brief-sage-omega.vercel.app" target="_blank" rel="noopener noreferrer" className="bg-[#D90019] text-white px-7 md:px-9 py-3.5 md:py-4 text-[13px] font-semibold tracking-wide hover:brightness-110 hover:-translate-y-0.5 transition-all inline-block shadow-[0_12px_48px_rgba(217,0,25,0.2)]">
+                <a href="http://c12hsh4n5bfc02e5c9p4wyax.187.124.238.237.sslip.io" target="_blank" rel="noopener noreferrer" className="bg-[#D90019] text-white px-7 md:px-9 py-3.5 md:py-4 text-[13px] font-semibold tracking-wide hover:brightness-110 hover:-translate-y-0.5 transition-all inline-block shadow-[0_12px_48px_rgba(217,0,25,0.2)]">
                   Get Your Daily Brief →
                 </a>
-                <a href="https://www.skool.com/founders-of-the-future-3908/about" target="_blank" rel="noopener noreferrer" className="bg-transparent text-white/40 px-7 md:px-9 py-3.5 md:py-4 text-[13px] border border-white/[0.07] hover:text-white hover:border-white/20 transition-all inline-block">
-                  Join Founders of the Future →
-                </a>
+                <div className="bg-transparent text-white/20 px-7 md:px-9 py-3.5 md:py-4 text-[13px] border border-white/[0.05] transition-all inline-block cursor-default">
+                  Founders of the Future — Coming Soon
+                </div>
               </div>
             </div>
             <div className="flex flex-row md:flex-col justify-between md:justify-end gap-4 md:gap-7 overflow-x-auto">
@@ -306,7 +311,7 @@ export default function HomeClient() {
             <p className="text-[11px] md:text-[13px] text-white/70 italic font-playfair tracking-wide border-x border-white/20 px-6 hidden lg:block">
               Daily AI intelligence briefing. 7:00 AM. 
             </p>
-            <a href="https://brief-sage-omega.vercel.app" target="_blank" rel="noopener noreferrer" className="bg-white text-[#D90019] px-6 py-2 text-[11px] font-bold uppercase tracking-widest hover:bg-white/90 transition-all shadow-[0_4px_24px_rgba(0,0,0,0.15)]">
+            <a href="http://c12hsh4n5bfc02e5c9p4wyax.187.124.238.237.sslip.io" target="_blank" rel="noopener noreferrer" className="bg-white text-[#D90019] px-6 py-2 text-[11px] font-bold uppercase tracking-widest hover:bg-white/90 transition-all shadow-[0_4px_24px_rgba(0,0,0,0.15)]">
               Secure Your Briefing &#8594;
             </a>
           </section>
@@ -392,9 +397,9 @@ export default function HomeClient() {
                       ))}
                     </ul>
                     {i === 3 ? (
-                       <a href="https://www.skool.com/founders-of-the-future-3908/about" target="_blank" rel="noopener noreferrer" className="text-[12px] font-semibold text-[#D90019] border-b border-[#D90019]/30 pb-0.5 hover:border-[#D90019] transition-all">
-                        Join Founders of the Future &#8594;
-                      </a>
+                       <span className="text-[12px] font-semibold text-[#D90019]/40 border-b border-[#D90019]/10 pb-0.5 cursor-default transition-all">
+                        Founders of the Future — Coming Soon
+                      </span>
                     ) : (
                       <a href="#audit" className="text-[12px] font-semibold text-[#D90019] border-b border-[#D90019]/30 pb-0.5 hover:border-[#D90019] transition-all">
                         {i === 0 ? "Start here" : i === 1 ? "See what we'd build for you" : "Apply for the AI wing"} &#8594;
@@ -415,12 +420,12 @@ export default function HomeClient() {
             
             <ScrollReveal delay={0.4}>
               <div className="flex flex-wrap gap-4 mt-12 justify-center">
-                <a href="https://brief-sage-omega.vercel.app" target="_blank" rel="noopener noreferrer" className="bg-[#D90019] text-white px-9 py-4 text-[13px] font-bold tracking-wide hover:brightness-110 transition-all shadow-[0_12px_48px_rgba(217,0,25,0.2)]">
+                <a href="http://c12hsh4n5bfc02e5c9p4wyax.187.124.238.237.sslip.io" target="_blank" rel="noopener noreferrer" className="bg-[#D90019] text-white px-9 py-4 text-[13px] font-bold tracking-wide hover:brightness-110 transition-all shadow-[0_12px_48px_rgba(217,0,25,0.2)]">
                   Get Your Daily Brief →
                 </a>
-                <a href="https://www.skool.com/founders-of-the-future-3908/about" target="_blank" rel="noopener noreferrer" className="bg-white text-[#D90019] px-9 py-4 text-[13px] font-bold border border-[#D90019]/10 hover:bg-gray-50 transition-all">
-                  Join Founders of the Future →
-                </a>
+                <div className="bg-white/5 text-[#D90019]/40 px-9 py-4 text-[13px] font-bold border border-[#D90019]/10 transition-all cursor-default">
+                  Founders of the Future — Coming Soon
+                </div>
               </div>
             </ScrollReveal>
           </div>
@@ -494,6 +499,60 @@ export default function HomeClient() {
           <p className="text-[13px] text-white/[0.16] mt-6 tracking-wide">
             Every playbook comes with pre-trained agents, automated pipelines, and industry-specific infrastructure. <Link href="/audit" className="text-[#D90019] hover:underline">Start the OS Audit — we&apos;ll match you. &#8594;</Link>
           </p>
+        </section>
+
+        {/* ─── AI PROOF BOOK ─── */}
+        <section className="bg-white px-6 md:px-[72px] py-24 md:py-48 relative overflow-hidden">
+          <div className="absolute w-[800px] h-[800px] bg-[radial-gradient(ellipse,rgba(217,0,25,0.03)_0%,transparent_70%)] -left-[200px] -top-[200px] pointer-events-none" />
+          <div className="max-w-[1200px] mx-auto">
+            <div className="grid md:grid-cols-2 gap-16 md:gap-32 items-center">
+              <ScrollReveal>
+                <div className="relative group">
+                  <div className="absolute -inset-4 bg-[#D90019]/[0.03] border border-[#D90019]/10 -rotate-2 group-hover:rotate-0 transition-transform duration-700" />
+                  <div className="relative bg-white border border-black/5 p-1">
+                    <img 
+                      src="https://aiproof-kappa.vercel.app/book-cover.jpg" 
+                      alt="AI Proof Book Cover" 
+                      className="w-full h-auto grayscale group-hover:grayscale-0 transition-all duration-1000 shadow-2xl"
+                      onError={(e) => {
+                        e.currentTarget.src = "/images/book-placeholder.jpg";
+                      }}
+                    />
+                  </div>
+                  <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-[#D90019]/5 rounded-full blur-3xl" />
+                </div>
+              </ScrollReveal>
+              <ScrollReveal delay={0.2}>
+                <div>
+                  <p className="flex items-center gap-3 text-[10px] tracking-[4px] uppercase text-[#D90019] font-bold mb-6">
+                    <span className="w-8 h-px bg-[#D90019]" />Essential Resource
+                  </p>
+                  <h2 className="font-playfair text-[clamp(42px,5vw,84px)] leading-[0.92] text-[#060406] mb-8 tracking-tighter">
+                    The <em className="text-[#D90019]">AI-Proof</em><br />Manual<span className="text-[#D90019]">.</span>
+                  </h2>
+                  <p className="text-[18px] text-[#060406]/60 leading-relaxed mb-10 max-w-[500px]">
+                    The definitive guide to future-proofing your career and business. Learn how to leverage human-native skills in an AI-native world.
+                  </p>
+                  <div className="space-y-6 mb-12">
+                    {[
+                      "The 3 layers of AI displacement risk",
+                      "The Human-Native skill hierarchy",
+                      "Systemic transformation blueprints",
+                      "The Future Founder methodology"
+                    ].map((text, i) => (
+                      <div key={i} className="flex items-center gap-4">
+                        <span className="w-5 h-px bg-[#D90019]/30" />
+                        <span className="text-[13px] font-mono uppercase tracking-widest text-[#060406]/40">{text}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <a href="https://aiproof-kappa.vercel.app/" target="_blank" rel="noopener noreferrer" className="bg-[#060406] text-white px-10 py-5 text-[14px] font-bold tracking-widest uppercase hover:bg-[#D90019] transition-all inline-block shadow-[0_20px_80px_rgba(0,0,0,0.15)]">
+                    Get Your Copy Now &#8594;
+                  </a>
+                </div>
+              </ScrollReveal>
+            </div>
+          </div>
         </section>
 
 

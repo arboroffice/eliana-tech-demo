@@ -42,8 +42,9 @@ export function Footer() {
           <ul className="footer-links">
             <li><Link href="/blog">Insights & Blog</Link></li>
             <li><Link href="/about">About Us</Link></li>
-            <li><a href="https://brief-sage-omega.vercel.app" target="_blank" rel="noopener noreferrer">The Daily OS Brief</a></li>
-            <li><a href="https://www.skool.com/founders-of-the-future-3908/about" target="_blank" rel="noopener noreferrer">FOTF Community</a></li>
+            <li><a href="http://c12hsh4n5bfc02e5c9p4wyax.187.124.238.237.sslip.io" target="_blank" rel="noopener noreferrer">The Daily OS Brief</a></li>
+            <li><a href="https://aiproof-kappa.vercel.app/" target="_blank" rel="noopener noreferrer">AI Proof Book</a></li>
+            <li className="text-[11px] opacity-30 cursor-default">FOTF Community — Coming Soon</li>
           </ul>
         </div>
 

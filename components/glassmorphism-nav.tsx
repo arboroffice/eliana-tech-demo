@@ -29,10 +29,13 @@ export function GlassmorphismNav({ minimal = false }: { minimal?: boolean }) {
               <Link href="/about">About</Link>
             </li>
             <li>
-              <a href="https://brief-sage-omega.vercel.app" target="_blank" rel="noopener noreferrer">The Brief</a>
+              <a href="http://c12hsh4n5bfc02e5c9p4wyax.187.124.238.237.sslip.io" target="_blank" rel="noopener noreferrer">The Brief</a>
             </li>
             <li>
-              <a href="https://www.skool.com/founders-of-the-future-3908/about" target="_blank" rel="noopener noreferrer">FOTF</a>
+              <a href="https://aiproof-kappa.vercel.app/" target="_blank" rel="noopener noreferrer">AI Proof Book</a>
+            </li>
+            <li>
+              <span className="text-[10px] tracking-[0.25em] uppercase text-black/20 cursor-default">FOTF (Soon)</span>
             </li>
           </ul>
         )}
@@ -63,14 +66,17 @@ export function GlassmorphismNav({ minimal = false }: { minimal?: boolean }) {
                 </Link>
               </li>
               <li>
-                <a href="https://brief-sage-omega.vercel.app" target="_blank" rel="noopener noreferrer" onClick={() => setIsMobileMenuOpen(false)}>
+                <a href="http://c12hsh4n5bfc02e5c9p4wyax.187.124.238.237.sslip.io" target="_blank" rel="noopener noreferrer" onClick={() => setIsMobileMenuOpen(false)}>
                   The Brief
                 </a>
               </li>
               <li>
-                <a href="https://www.skool.com/founders-of-the-future-3908/about" target="_blank" rel="noopener noreferrer" onClick={() => setIsMobileMenuOpen(false)}>
-                  FOTF
+                <a href="https://aiproof-kappa.vercel.app/" target="_blank" rel="noopener noreferrer" onClick={() => setIsMobileMenuOpen(false)}>
+                  AI Proof Book
                 </a>
+              </li>
+              <li>
+                <span className="text-[14px] uppercase tracking-[0.1em] text-black/20 cursor-default">FOTF (Coming Soon)</span>
               </li>
               <li className="pt-4">
                 <Link href="/audit" className="nav-btn w-full block text-center" onClick={() => setIsMobileMenuOpen(false)}>
