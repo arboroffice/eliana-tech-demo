@@ -1,4 +1,4 @@
-﻿"use client"
+"use client"
 
 import { GlassmorphismNav } from "@/components/glassmorphism-nav"
 import { Footer } from "@/components/footer"

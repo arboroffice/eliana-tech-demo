@@ -118,7 +118,7 @@ export const nichesTop100: IndustryContent[] = [
                             "a": "Our infrastructure scales infinitely; it can handle 100 calls simultaneously during peak hours."
                   }
         ],
-        dreamVision: "Imagine a clinic where your staff never answers a generic booking call again. Your schedule is perfectly packed, patient records are updated by AI in real-time, and you are solely focused on delivering world-class care.",
+        dreamVision: "Imagine a clinic where your staff never answers a generic booking call again. Your schedule is perfectly packed, patient records are updated by AI in real-time, and you are solely focused on delivering exceptional care.",
         industryStats: [
                   {
                             "stat": "30%",
@@ -310,7 +310,7 @@ export const nichesTop100: IndustryContent[] = [
                             "a": "Our infrastructure scales infinitely; it can handle 100 calls simultaneously during peak hours."
                   }
         ],
-        dreamVision: "Imagine a clinic where your staff never answers a generic booking call again. Your schedule is perfectly packed, patient records are updated by AI in real-time, and you are solely focused on delivering world-class care.",
+        dreamVision: "Imagine a clinic where your staff never answers a generic booking call again. Your schedule is perfectly packed, patient records are updated by AI in real-time, and you are solely focused on delivering exceptional care.",
         industryStats: [
                   {
                             "stat": "30%",
@@ -694,7 +694,7 @@ export const nichesTop100: IndustryContent[] = [
                             "a": "Our infrastructure scales infinitely; it can handle 100 calls simultaneously during peak hours."
                   }
         ],
-        dreamVision: "Imagine a clinic where your staff never answers a generic booking call again. Your schedule is perfectly packed, patient records are updated by AI in real-time, and you are solely focused on delivering world-class care.",
+        dreamVision: "Imagine a clinic where your staff never answers a generic booking call again. Your schedule is perfectly packed, patient records are updated by AI in real-time, and you are solely focused on delivering exceptional care.",
         industryStats: [
                   {
                             "stat": "30%",
@@ -886,7 +886,7 @@ export const nichesTop100: IndustryContent[] = [
                             "a": "Our infrastructure scales infinitely; it can handle 100 calls simultaneously during peak hours."
                   }
         ],
-        dreamVision: "Imagine a clinic where your staff never answers a generic booking call again. Your schedule is perfectly packed, patient records are updated by AI in real-time, and you are solely focused on delivering world-class care.",
+        dreamVision: "Imagine a clinic where your staff never answers a generic booking call again. Your schedule is perfectly packed, patient records are updated by AI in real-time, and you are solely focused on delivering exceptional care.",
         industryStats: [
                   {
                             "stat": "30%",
@@ -1078,7 +1078,7 @@ export const nichesTop100: IndustryContent[] = [
                             "a": "Our infrastructure scales infinitely; it can handle 100 calls simultaneously during peak hours."
                   }
         ],
-        dreamVision: "Imagine a clinic where your staff never answers a generic booking call again. Your schedule is perfectly packed, patient records are updated by AI in real-time, and you are solely focused on delivering world-class care.",
+        dreamVision: "Imagine a clinic where your staff never answers a generic booking call again. Your schedule is perfectly packed, patient records are updated by AI in real-time, and you are solely focused on delivering exceptional care.",
         industryStats: [
                   {
                             "stat": "30%",
@@ -1151,90 +1151,6 @@ export const nichesTop100: IndustryContent[] = [
                                       "Manage scheduling"
                             ]
                   }
-        ]
-    },
-    {
-        slug: "dental-implants",
-        name: "Dental Implant Practices",
-        hook: "Your Implant Chairs Should Be Full. Your Front Desk Shouldn't Be the Reason They're Not.",
-        problem: "You're losing high-value implant cases because your team can't follow up fast enough. Patients call, get voicemail, and book with the next practice that answers. Your treatment plan acceptance rate is stuck because nobody is nurturing the maybe's.",
-        operatorProblem: "Every implant consultation that doesn't convert is $3K-$8K walking out the door. We install AI that responds in seconds, nurtures undecided patients for weeks, handles financing questions, and books the surgery — all without your front desk lifting a finger.",
-        result: "Implant practices see 30-40% more case acceptance within 90 days. Zero missed consultations. Financing objections handled automatically.",
-        subNiches: ["Full Arch & All-on-4", "Single Tooth Implants", "Implant-Supported Dentures", "Bone Grafting & Sinus Lifts", "Mini Dental Implants"],
-        geoKeywords: ["Nationwide", "Major Metros", "Los Angeles", "Houston", "Miami", "Dallas", "Phoenix", "Chicago", "Atlanta", "New York City"],
-        services: {
-            singleSystems: {
-                title: "Implant Revenue Systems",
-                description: "AI systems that fill your implant chairs and close undecided patients.",
-                examples: [
-                    { title: "The Instant Responder", detail: "AI that answers implant inquiries via phone, text, and web chat within 10 seconds — 24/7.", roi: "Captures 40% more consultations from after-hours and weekend leads." },
-                    { title: "The Treatment Plan Closer", detail: "Automated follow-up sequence for patients who received a treatment plan but haven't scheduled. Handles financing objections and re-engages over 30 days.", roi: "Increases case acceptance by 25-35%." },
-                    { title: "The Financing Navigator", detail: "AI that pre-qualifies patients for CareCredit, Proceed Finance, and in-house payment plans before they even visit.", roi: "Removes the #1 objection before the consultation." },
-                    { title: "Post-Op Care Bot", detail: "Automated post-surgery check-ins, medication reminders, and complication triage via SMS.", roi: "Reduces post-op call volume by 60% and improves patient satisfaction." },
-                    { title: "The Review Generator", detail: "Automatically requests Google reviews from successful implant patients at the perfect moment post-recovery.", roi: "Builds dominant local SEO for high-value implant keywords." },
-                    { title: "Referral Reactivation Engine", detail: "AI that re-engages past patients and referring dentists with personalized outreach.", roi: "Generates 15-20% more referral cases per quarter." },
-                    { title: "Insurance & Benefits Verifier", detail: "Automated insurance verification and benefits breakdown sent to patients before their first visit.", roi: "Saves 8+ hours per week of front desk time." }
-                ]
-            },
-            departments: {
-                title: "Department Automation",
-                description: "End-to-end implant practice automation.",
-                areas: [
-                    { area: "Front Desk & Intake", detail: "AI answers 100% of calls, qualifies implant candidates, and books consultations.", impact: "Zero missed leads, even at 2 AM." },
-                    { area: "Treatment Coordination", detail: "Automated treatment plan delivery, financing pre-qualification, and scheduling.", impact: "30% higher case acceptance." },
-                    { area: "Post-Op & Retention", detail: "AI manages recovery check-ins, follow-up appointments, and long-term maintenance scheduling.", impact: "Higher patient lifetime value." },
-                    { area: "Marketing & Reviews", detail: "Automated review requests, referral outreach, and reactivation campaigns.", impact: "Dominates local search for implant keywords." }
-                ]
-            },
-            custom: {
-                title: "The Implant Revenue OS",
-                description: "Complete click-to-chair pipeline for implant practices.",
-                features: [
-                    "AI phone answering with implant-specific qualification scripts",
-                    "Automated treatment plan follow-up with financing objection handling",
-                    "CareCredit and Proceed Finance pre-qualification integration",
-                    "CBCT scan scheduling and preparation reminders",
-                    "Post-surgical recovery monitoring via SMS",
-                    "Referring dentist communication portal",
-                    "Multi-location patient routing and load balancing"
-                ]
-            }
-        },
-        faq: [
-            { q: "Can the AI handle complex implant questions from patients?", a: "Yes. We train the AI on your specific procedures, pricing ranges, and protocols. It handles FAQs about All-on-4, single implants, bone grafting, recovery times, and financing — escalating to your team only when needed." },
-            { q: "Does it integrate with my practice management software?", a: "We connect directly to Dentrix, Eaglesoft, Open Dental, and other major PMS platforms for seamless scheduling and patient record updates." },
-            { q: "How does the treatment plan follow-up work?", a: "When a patient receives a treatment plan but doesn't schedule, our AI begins a personalized 30-day nurture sequence via SMS and email — addressing common objections like cost, fear, and timing." },
-            { q: "Will patients know they're talking to AI?", a: "Our conversational AI uses natural language with appropriate pauses and empathy. Most patients can't tell the difference, and satisfaction scores typically increase because response times drop to seconds." },
-            { q: "How quickly can this be set up?", a: "Most implant practices are fully live within 14 days. We handle all the setup, integration, and training." }
-        ],
-        dreamVision: "Imagine an implant practice where every inquiry gets answered in 10 seconds — day or night. Treatment plans follow up on themselves. Financing objections dissolve before the consultation. Your post-op patients feel cared for without a single manual call. Your Google reviews grow every week. And your chairs are booked solid because no lead ever falls through the cracks again.",
-        industryStats: [
-            { stat: "35%", label: "Higher Case Acceptance" },
-            { stat: "10s", label: "Average Response Time" },
-            { stat: "60%", label: "Less Post-Op Calls" },
-            { stat: "$4.2K", label: "Avg Case Value" }
-        ],
-        useCases: [
-            { title: "The After-Hours Implant Lead", scenario: "A patient searches 'dental implants near me' at 9 PM and fills out your web form. Your office is closed.", outcome: "AI responds via text in 8 seconds, answers their questions about All-on-4, checks financing eligibility, and books a consultation for Tuesday morning — all before your competitors even see the lead." },
-            { title: "The Undecided Treatment Plan", scenario: "A patient came in for a consultation, got a $6,500 treatment plan, and said 'let me think about it.' That was 2 weeks ago.", outcome: "AI has already sent 4 personalized follow-ups addressing cost concerns, shared financing options, and sent a testimonial video. The patient books their surgery on day 18." },
-            { title: "The Post-Op Check-In", scenario: "A patient had implant surgery yesterday. They're nervous about swelling and want reassurance.", outcome: "AI sends a scheduled check-in at 24 hours, answers their swelling question with pre-approved clinical guidance, and flags any concerning symptoms to the surgeon immediately." }
-        ],
-        comparisonTable: [
-            { category: "Lead Response", without: "Next business day (if remembered)", withAI: "Under 10 seconds, 24/7" },
-            { category: "Treatment Plan Follow-Up", without: "1-2 manual calls, then forgotten", withAI: "30-day automated nurture sequence" },
-            { category: "Financing Discussion", without: "Awkward in-office conversation", withAI: "Pre-qualified before consultation" },
-            { category: "Post-Op Care", without: "Patient calls when worried", withAI: "Proactive AI check-ins with escalation" }
-        ],
-        processSteps: [
-            { step: 1, title: "Practice Audit", description: "We map your implant patient journey from first inquiry to post-op recovery." },
-            { step: 2, title: "AI Configuration", description: "Custom-trained AI for your procedures, pricing, and protocols." },
-            { step: 3, title: "Integration & Launch", description: "Connected to your PMS, phone system, and website in under 14 days." },
-            { step: 4, title: "Optimize & Scale", description: "Weekly performance reviews to maximize case acceptance and ROI." }
-        ],
-        layers: [
-            { department: "Front Desk", roles: ["AI Receptionist", "Lead Qualifier"], tasks: ["Answer all calls", "Qualify implant candidates", "Book consultations"] },
-            { department: "Treatment Coordination", roles: ["AI Treatment Coordinator", "Financing Assistant"], tasks: ["Follow up on treatment plans", "Pre-qualify financing", "Handle objections"] },
-            { department: "Clinical Support", roles: ["Post-Op Monitor", "Recovery Coach"], tasks: ["Send recovery check-ins", "Triage concerns", "Schedule follow-ups"] }
         ]
     },
     {
@@ -1354,7 +1270,7 @@ export const nichesTop100: IndustryContent[] = [
                             "a": "Our infrastructure scales infinitely; it can handle 100 calls simultaneously during peak hours."
                   }
         ],
-        dreamVision: "Imagine a clinic where your staff never answers a generic booking call again. Your schedule is perfectly packed, patient records are updated by AI in real-time, and you are solely focused on delivering world-class care.",
+        dreamVision: "Imagine a clinic where your staff never answers a generic booking call again. Your schedule is perfectly packed, patient records are updated by AI in real-time, and you are solely focused on delivering exceptional care.",
         industryStats: [
                   {
                             "stat": "30%",
@@ -1930,7 +1846,7 @@ export const nichesTop100: IndustryContent[] = [
                             "a": "Our infrastructure scales infinitely; it can handle 100 calls simultaneously during peak hours."
                   }
         ],
-        dreamVision: "Imagine a clinic where your staff never answers a generic booking call again. Your schedule is perfectly packed, patient records are updated by AI in real-time, and you are solely focused on delivering world-class care.",
+        dreamVision: "Imagine a clinic where your staff never answers a generic booking call again. Your schedule is perfectly packed, patient records are updated by AI in real-time, and you are solely focused on delivering exceptional care.",
         industryStats: [
                   {
                             "stat": "30%",
@@ -8650,7 +8566,7 @@ export const nichesTop100: IndustryContent[] = [
                             "a": "Our infrastructure scales infinitely; it can handle 100 calls simultaneously during peak hours."
                   }
         ],
-        dreamVision: "Imagine a clinic where your staff never answers a generic booking call again. Your schedule is perfectly packed, patient records are updated by AI in real-time, and you are solely focused on delivering world-class care.",
+        dreamVision: "Imagine a clinic where your staff never answers a generic booking call again. Your schedule is perfectly packed, patient records are updated by AI in real-time, and you are solely focused on delivering exceptional care.",
         industryStats: [
                   {
                             "stat": "30%",
@@ -8842,7 +8758,7 @@ export const nichesTop100: IndustryContent[] = [
                             "a": "Our infrastructure scales infinitely; it can handle 100 calls simultaneously during peak hours."
                   }
         ],
-        dreamVision: "Imagine a clinic where your staff never answers a generic booking call again. Your schedule is perfectly packed, patient records are updated by AI in real-time, and you are solely focused on delivering world-class care.",
+        dreamVision: "Imagine a clinic where your staff never answers a generic booking call again. Your schedule is perfectly packed, patient records are updated by AI in real-time, and you are solely focused on delivering exceptional care.",
         industryStats: [
                   {
                             "stat": "30%",
@@ -9034,7 +8950,7 @@ export const nichesTop100: IndustryContent[] = [
                             "a": "Our infrastructure scales infinitely; it can handle 100 calls simultaneously during peak hours."
                   }
         ],
-        dreamVision: "Imagine a clinic where your staff never answers a generic booking call again. Your schedule is perfectly packed, patient records are updated by AI in real-time, and you are solely focused on delivering world-class care.",
+        dreamVision: "Imagine a clinic where your staff never answers a generic booking call again. Your schedule is perfectly packed, patient records are updated by AI in real-time, and you are solely focused on delivering exceptional care.",
         industryStats: [
                   {
                             "stat": "30%",

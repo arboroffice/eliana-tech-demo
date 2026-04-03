@@ -41,6 +41,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://elianatech.com"),
   title: "Elianatech — Own Your Intelligence",
   description:
     "Transform your business with intelligent AI automation solutions. Empower your organization to operate at the speed of thought.",
@@ -68,6 +69,27 @@ export default function RootLayout({
           </Suspense>
         </StyledJsxRegistry>
         <SpeedInsights />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "Eliana Tech",
+              "url": "https://elianatech.com",
+              "logo": "https://elianatech.com/icon.png",
+              "description": "Eliana Tech provides high-impact AI operations, founder-led automation, and custom Claude agents to transform business workflows.",
+              "sameAs": [
+                "https://x.com/elianatech",
+                "https://www.linkedin.com/company/eliana-tech"
+              ],
+              "address": {
+                "@type": "PostalAddress",
+                "addressCountry": "USA"
+              }
+            })
+          }}
+        />
       </body>
     </html>
   )

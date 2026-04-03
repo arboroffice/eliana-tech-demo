@@ -145,10 +145,10 @@ export default function RevenueSharePage() {
               LET&apos;S <span className="accent">TALK.</span>
             </h2>
             <p className="rm-cta-sub">
-              Revenue share starts with a conversation. Take the audit so we can understand your business, then we will determine if a partnership makes sense for both sides.
+              Revenue share starts with a conversation. Take the OS Audit so we can understand your business, then we will determine if a partnership makes sense for both sides.
             </p>
             <Link href="/audit" className="rm-btn" style={{ background: '#D90019', color: '#ffffff' }}>
-              Get Your Free Audit <ArrowRight size={16} />
+              Take Your OS Audit <ArrowRight size={16} />
             </Link>
             <div className="rm-next-phase">
               <span>Start from the beginning:</span>

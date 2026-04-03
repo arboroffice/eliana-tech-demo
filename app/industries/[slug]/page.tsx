@@ -18,6 +18,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       description: industry.hook + " " + (industry.result || industry.problem.slice(0, 100)),
       type: "website",
     },
+    alternates: {
+      canonical: `https://elianatech.com/industries/${params.slug}`,
+    },
     keywords: [
       `AI for ${industry.name.toLowerCase()}`,
       `${industry.name.toLowerCase()} automation`,
@@ -31,7 +34,6 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 export async function generateStaticParams() {
   return industries.map((i) => ({ slug: i.slug }))
 }
-
 export default function IndustryPage({ params }: { params: { slug: string } }) {
   const industry = industries.find((i) => i.slug === params.slug)
 
@@ -39,5 +41,52 @@ export default function IndustryPage({ params }: { params: { slug: string } }) {
     notFound()
   }
 
-  return <IndustryClient industry={industry} />
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": `AI Automation for ${industry.name}`,
+    "description": industry.hook + " " + industry.problem,
+    "provider": {
+      "@type": "Organization",
+      "name": "Eliana Tech",
+      "url": "https://elianatech.com"
+    },
+    "serviceArea": (industry.geoKeywords || []).map(city => ({
+      "@type": "City",
+      "name": city
+    })),
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "AI Solutions",
+      "itemListElement": (industry.services.singleSystems.examples || []).map(ex => ({
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": ex.title,
+          "description": ex.detail
+        }
+      }))
+    },
+    "mainEntity": {
+      "@type": "FAQPage",
+      "mainEntity": (industry.faq || []).map(f => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": f.a
+        }
+      }))
+    }
+  }
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <IndustryClient industry={industry} />
+    </>
+  )
 }

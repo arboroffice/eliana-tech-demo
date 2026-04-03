@@ -132,12 +132,12 @@ export function EmbeddedAudit() {
   const prev = () => { if (step > 1) setStep(step - 1) }
 
   const submit = async () => {
-    setSubmitted(true)
     // Map ops score (1=chaos, 10=systemized) to pain level (inverted: high ops score = low pain)
     const opsNum = parseInt(data.opsScore) || 5
     const painFromOps = Math.max(1, 11 - opsNum)
+    
     try {
-      await fetch("/api/audit/submit", {
+      const response = await fetch("/api/audit/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -147,14 +147,20 @@ export function EmbeddedAudit() {
           email: data.email,
           businessType: data.industry[0] || "other",
           currentRevenue: data.revenue,
+          revenue: data.revenue, // Add both for compatibility
           teamSize: data.teamSize,
           tools: [...data.crm, ...data.scheduling, ...data.billing, ...data.marketing],
           hoursPerWeek: data.hoursOnAdmin,
+          hoursOnAdmin: data.hoursOnAdmin, // Add both
           problems: data.bottlenecks,
+          bottlenecks: data.bottlenecks, // Add both
           keepsUpAtNight: data.biggestFix,
+          biggestFix: data.biggestFix, // Add both
           bottleneck: data.bottlenecks[0] || "",
           next12MonthsGoal: data.success,
+          success: data.success, // Add both
           startDate: data.urgency,
+          urgency: data.urgency, // Add both
           decisionMaker: data.decisionMaker[0] || "",
           painLevel: [painFromOps],
           // New operations audit fields
@@ -173,7 +179,16 @@ export function EmbeddedAudit() {
           source: "embedded_ops_audit",
         }),
       })
-    } catch { /* fire and forget */ }
+
+      if (!response.ok) {
+        throw new Error(`Submission failed with status: ${response.status}`)
+      }
+      
+      setSubmitted(true)
+    } catch (error) {
+      console.error('[AUDIT SUBMIT ERROR]', error)
+      alert("There was an issue submitting your audit. Please try again or contact us at support@elianatech.com")
+    }
   }
 
   // Gap detection

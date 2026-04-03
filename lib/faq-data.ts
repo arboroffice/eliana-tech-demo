@@ -153,7 +153,7 @@ export const faqData = [
       { q: "What is 'Growth Infrastructure'?", a: "It's the technical foundation of your business's growth. This includes custom AI agents, automated sales pipelines, and data-driven feedback loops that operate 24/7." },
       { q: "Do you offer 'done-for-you' services?", a: "Yes, our core offering is a high-touch, custom implementation where we build and deploy everything for you." },
       { q: "How long does a typical implementation take?", a: "The initial install is 7 days. Then 30 days of training on your company data. Full Build & Release cycles for larger departments typically take between 2 to 4 weeks for the install, depending on complexity." },
-      { q: "Is Eliana Tech a SaaS platform?", a: "No, we are a service provider that builds custom solutions on top of world-class platforms (like Gemini, OpenAI, Claude) tailored to your specific business." },
+      { q: "Is Eliana Tech a SaaS platform?", a: "No, we are a service provider that builds custom solutions on top of leading platforms (like Gemini, OpenAI, Claude) tailored to your specific business." },
       { q: "What industries do you specialize in?", a: "We work across all industries. Online businesses (SaaS, courses, coaching, memberships), local businesses (home services, healthcare, restaurants, real estate), and enterprise companies. If it has a founder who wants freedom, we build the systems." },
       { q: "Can I see any case studies?", a: "Yes, you can view our recent success stories on the [Case Studies](/case-studies) page." },
       { q: "What is Step 0: The Deep Audit?", a: "It's our mandatory first step where we map out every manual process in your business and identify exactly where you are losing money." },

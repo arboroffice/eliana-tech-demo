@@ -20,18 +20,20 @@ export function getAllBlogPosts(): BlogPost[] {
     }
 
     const fileNames = fs.readdirSync(postsDirectory)
-    const allPostsData = fileNames.map((fileName) => {
-        const slug = fileName.replace(/\.md$/, '')
-        const fullPath = path.join(postsDirectory, fileName)
-        const fileContents = fs.readFileSync(fullPath, 'utf8')
-        const { data, content } = matter(fileContents)
+    const allPostsData = fileNames
+        .filter(fileName => fileName.endsWith('.md') || fileName.endsWith('.mdx'))
+        .map((fileName) => {
+            const slug = fileName.replace(/\.mdx?$/, '')
+            const fullPath = path.join(postsDirectory, fileName)
+            const fileContents = fs.readFileSync(fullPath, 'utf8')
+            const { data, content } = matter(fileContents)
 
-        return {
-            slug,
-            content,
-            ...data,
-        } as BlogPost
-    })
+            return {
+                slug,
+                content,
+                ...data,
+            } as BlogPost
+        })
 
     // Sort posts by date
     return allPostsData.sort((a, b) => {
@@ -45,7 +47,13 @@ export function getAllBlogPosts(): BlogPost[] {
 
 export function getBlogPost(slug: string): BlogPost | null {
     try {
-        const fullPath = path.join(postsDirectory, `${slug}.md`)
+        let fullPath = path.join(postsDirectory, `${slug}.md`)
+        if (!fs.existsSync(fullPath)) {
+            fullPath = path.join(postsDirectory, `${slug}.mdx`)
+        }
+        
+        if (!fs.existsSync(fullPath)) return null
+
         const fileContents = fs.readFileSync(fullPath, 'utf8')
         const { data, content } = matter(fileContents)
 

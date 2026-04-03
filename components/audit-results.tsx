@@ -1621,8 +1621,8 @@ export function AuditResults({ formData, auditScore, researchFindings }: AuditRe
                   <Link href="/audit" className="text-[#888] text-[10px] font-mono uppercase tracking-widest hover:text-black transition-colors">
                     Reset Audit Data
                   </Link>
-                  <a href="mailto:elianatech@yahoo.com" className="text-[#888] text-[10px] font-mono uppercase tracking-widest hover:text-[#D90019] transition-colors">
-                    elianatech@yahoo.com
+                  <a href="mailto:support@elianatech.com" className="text-[#888] text-[10px] font-mono uppercase tracking-widest hover:text-[#D90019] transition-colors">
+                    support@elianatech.com
                   </a>
                 </div>
               </div>

@@ -143,7 +143,7 @@ export default function FullBuildoutPage() {
             </div>
 
             <p className="rm-who-close">
-              The price range depends on complexity. A 3-person operation and a 30-person operation need different architectures. The audit tells us exactly what your business needs.
+              The price range depends on complexity. A 3-person operation and a 30-person operation need different architectures. The OS Audit tells us exactly what your business needs.
             </p>
           </div>
         </section>
@@ -157,10 +157,10 @@ export default function FullBuildoutPage() {
               IT STARTS WITH <span className="accent">THE AUDIT.</span>
             </h2>
             <p className="rm-cta-sub">
-              Whether you are graduating from the Build Program or coming in fresh, the audit maps your entire operation and shows us exactly where to build.
+              Whether you are graduating from the Build Program or coming in fresh, the OS Audit maps your entire operation and shows us exactly where to build.
             </p>
             <Link href="/audit" className="rm-btn" style={{ background: '#D90019', color: '#ffffff' }}>
-              Get Your Free Audit <ArrowRight size={16} />
+              Take Your OS Audit <ArrowRight size={16} />
             </Link>
             <div className="rm-next-phase">
               <span>Next phase:</span>

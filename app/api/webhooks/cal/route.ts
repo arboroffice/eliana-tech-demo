@@ -60,6 +60,8 @@ export async function POST(request: Request) {
             await cancelPendingEmails(email, 'SEQUENCE_D')
             // Also cancel abandonment emails if they completed the goal
             await cancelPendingEmails(email, 'SEQUENCE_F')
+            // Cancel the standard 7-day nurture sequence
+            await cancelPendingEmails(email, 'SEQUENCE_N')
             
             console.log(`[CAL] Success event (${triggerEvent}) for ${email}. Cancelled nurture/recovery.`)
         }

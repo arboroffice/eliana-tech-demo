@@ -11,6 +11,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
         '',
         '/about',
         '/audit',
+        '/caas',
+        '/os/command-center',
+        '/industries-sitemap',
         '/faq',
         '/founder',
         '/privacy',
@@ -22,7 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: route === '' ? 1 : 0.8,
     }))
 
-    // Industry pages (for SEO / background auth)
+    // Industry pages (main categories)
     const industryRoutes = industries.map((industry) => ({
         url: `${baseUrl}/industries/${industry.slug}`,
         lastModified: new Date(),
@@ -30,16 +33,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.7,
     }))
 
-    // Blog posts
+    // 100% Geo-optimized landing pages
+    const geoRoutes: MetadataRoute.Sitemap = []
+    industries.forEach((industry) => {
+        industry.geoKeywords?.forEach((location) => {
+            const locationSlug = location.toLowerCase().replace(/ /g, "-")
+            geoRoutes.push({
+                url: `${baseUrl}/industries/${industry.slug}/${locationSlug}`,
+                lastModified: new Date(),
+                changeFrequency: 'monthly' as const,
+                priority: 0.5,
+            })
+        })
+    })
+
+    // Blog posts (supporting .md and .mdx)
     const blogDirectory = path.join(process.cwd(), 'content/blog')
     let blogRoutes: MetadataRoute.Sitemap = []
 
     try {
         const filenames = fs.readdirSync(blogDirectory)
         blogRoutes = filenames
-            .filter((filename) => filename.endsWith('.md'))
+            .filter((filename) => filename.endsWith('.md') || filename.endsWith('.mdx'))
             .map((filename) => {
-                const slug = filename.replace('.md', '')
+                const slug = filename.replace(/\.mdx?$/, '')
                 return {
                     url: `${baseUrl}/blog/${slug}`,
                     lastModified: new Date(),
@@ -51,5 +68,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
         // blog might be empty, just skip
     }
 
-    return [...staticRoutes, ...industryRoutes, ...blogRoutes]
+    return [...staticRoutes, ...industryRoutes, ...geoRoutes, ...blogRoutes]
 }

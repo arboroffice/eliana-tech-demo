@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 40" fill="none">
+  <!-- Official Meta infinity logomark from meta.com -->
+  <g transform="translate(6, 8) scale(2.2)">
+    <path d="M4.4 0.055c-0.005 0-0.01 0-0.015 0l-0.02 1.643c0.005 0 0.009 0 0.014 0 1.082 0 1.92 0.853 3.744 3.925l0.111 0.187 0.007 0.012 1.021-1.532-0.007-0.012c-0.24-0.39-0.471-0.75-0.692-1.078-0.257-0.38-0.502-0.72-0.74-1.024C6.618 0.64 5.609 0.055 4.4 0.055z" fill="url(#mp0)"/>
+    <path d="M4.387 0.055c-1.213 0.006-2.286 0.79-3.06 1.991l-0.007 0.01 1.422 0.774 0.007-0.011c0.452-0.681 1.015-1.115 1.618-1.122l0.014 0 0.02-1.643c-0.005 0-0.01 0-0.014 0.001z" fill="url(#mp1)"/>
+    <path d="M1.327 2.047l-0.007 0.01c-0.509 0.793-0.888 1.765-1.093 2.814l-0.003 0.014 1.597 0.377 0.003-0.014c0.17-0.922 0.496-1.777 0.918-2.416l0.007-0.011-1.422-0.774z" fill="url(#mp2)"/>
+    <path d="M1.824 5.248L0.227 4.871l-0.003 0.014c-0.112 0.577-0.169 1.163-0.17 1.75v0.015l1.638 0.146v-0.014c-0.001-0.035-0.001-0.07-0.001-0.104 0.001-0.475 0.044-0.95 0.131-1.417l0.002-0.013z" fill="url(#mp3)"/>
+    <path d="M1.742 7.305c-0.03-0.17-0.046-0.34-0.05-0.512l-0.001-0.014-1.637-0.147v0.015c0 0.366 0.03 0.708 0.09 1.025l0.003 0.013 1.597-0.367-0.002-0.013z" fill="url(#mp4)"/>
+    <path d="M2.115 8.154c-0.178-0.194-0.304-0.475-0.371-0.834l-0.002-0.013-1.598 0.367 0.003 0.014c0.12 0.634 0.358 1.162 0.697 1.562l0.009 0.011 1.272-1.097-0.01-0.01z" fill="url(#mp5)"/>
+    <path d="M6.849 3.607c-0.963 1.477-1.546 2.404-1.546 2.404-1.283 2.011-1.727 2.462-2.441 2.462-0.298 0-0.547-0.106-0.738-0.309l-0.009-0.01-1.272 1.096 0.009 0.011c0.468 0.546 1.13 0.849 1.947 0.849 1.238 0 2.127-0.583 3.71-3.349 0 0 0.66-1.165 1.113-1.967-0.28-0.454-0.537-0.847-0.773-1.187z" fill="#0082FB"/>
+    <path d="M8.566 1.277l-0.01 0.011c-0.253 0.27-0.496 0.57-0.732 0.89 0.238 0.303 0.484 0.644 0.741 1.024 0.303-0.467 0.585-0.845 0.862-1.135l0.01-0.01-0.871-0.78z" fill="url(#mp6)"/>
+    <path d="M13.241 1.131c-0.672-0.678-1.472-1.076-2.328-1.076-0.903 0-1.662 0.494-2.347 1.221l-0.01 0.01 0.871 0.779 0.01-0.011c0.451-0.47 0.888-0.704 1.372-0.704 0.521 0 1.009 0.245 1.431 0.675l0.01 0.01 1.001-0.895-0.01-0.009z" fill="#0082FB"/>
+    <path d="M15.182 6.417c-0.038-2.178-0.8-4.126-1.931-5.276l-0.01-0.01-1.001 0.895 0.01 0.01c0.851 0.875 1.435 2.501 1.488 4.381v0.014l1.445 0.001v-0.015z" fill="url(#mp7)"/>
+    <path d="M15.182 6.433v-0.015l-1.444-0.001v0.015c0.002 0.088 0.004 0.177 0.004 0.266 0 0.513-0.077 0.927-0.232 1.226l-0.007 0.013 1.077 1.12 0.008-0.012c0.391-0.603 0.596-1.442 0.596-2.458 0-0.052 0-0.103-0.002-0.154z" fill="url(#mp8)"/>
+    <path d="M13.509 7.922l-0.007 0.013c-0.135 0.252-0.327 0.42-0.578 0.494l0.491 1.547c0.065-0.022 0.128-0.047 0.19-0.074l0.055-0.026 0.031-0.015c0.325-0.162 0.6-0.401 0.821-0.708l0.04-0.057 0.028-0.041 0.008-0.012-1.079-1.121z" fill="url(#mp9)"/>
+    <path d="M12.611 8.471c-0.165 0-0.31-0.024-0.452-0.088l-0.503 1.584c0.283 0.097 0.584 0.14 0.92 0.14 0.31 0 0.594-0.046 0.852-0.136l-0.491-1.547c-0.106 0.032-0.216 0.047-0.326 0.047z" fill="url(#mp10)"/>
+    <path d="M11.605 7.931l-0.01-0.011-1.157 1.203 0.01 0.01c0.402 0.429 0.786 0.694 1.221 0.84l0.503-1.583c-0.184-0.079-0.361-0.222-0.567-0.459z" fill="url(#mp11)"/>
+    <path d="M11.596 7.919c-0.347-0.404-0.776-1.076-1.451-2.162l-0.88-1.468-0.007-0.012-1.021 1.531 0.007 0.013 0.624 1.049c0.604 1.011 1.097 1.743 1.572 2.252l0.01 0.01 1.156-1.203-0.01-0.01z" fill="url(#mp12)"/>
+  </g>
+  <defs>
+    <linearGradient id="mp0" x1="8.586" y1="5.199" x2="5.197" y2="0.758" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0867DF"/><stop offset=".454" stop-color="#0668E1"/><stop offset=".859" stop-color="#0064E0"/></linearGradient>
+    <linearGradient id="mp1" x1="1.988" y1="2.322" x2="4.311" y2="0.558" gradientUnits="userSpaceOnUse"><stop offset=".132" stop-color="#0064DF"/><stop offset=".999" stop-color="#0064E0"/></linearGradient>
+    <linearGradient id="mp2" x1="1.003" y1="4.912" x2="1.935" y2="2.565" gradientUnits="userSpaceOnUse"><stop offset=".015" stop-color="#0072EC"/><stop offset=".688" stop-color="#0064DF"/></linearGradient>
+    <linearGradient id="mp3" x1="0.876" y1="6.607" x2="0.984" y2="5.174" gradientUnits="userSpaceOnUse"><stop offset=".073" stop-color="#007CF6"/><stop offset=".994" stop-color="#0072EC"/></linearGradient>
+    <linearGradient id="mp4" x1="0.936" y1="7.383" x2="0.858" y2="6.809" gradientUnits="userSpaceOnUse"><stop offset=".073" stop-color="#007FF9"/><stop offset="1" stop-color="#007CF6"/></linearGradient>
+    <linearGradient id="mp5" x1="0.89" y1="7.536" x2="1.371" y2="8.556" gradientUnits="userSpaceOnUse"><stop offset=".073" stop-color="#007FF9"/><stop offset="1" stop-color="#0082FB"/></linearGradient>
+    <linearGradient id="mp6" x1="8.279" y1="2.602" x2="8.915" y2="1.723" gradientUnits="userSpaceOnUse"><stop offset=".28" stop-color="#007FF8"/><stop offset=".914" stop-color="#0082FB"/></linearGradient>
+    <linearGradient id="mp7" x1="13.112" y1="1.461" x2="14.441" y2="6.352" gradientUnits="userSpaceOnUse"><stop stop-color="#0082FB"/><stop offset="1" stop-color="#0081FA"/></linearGradient>
+    <linearGradient id="mp8" x1="14.762" y1="6.541" x2="13.921" y2="8.241" gradientUnits="userSpaceOnUse"><stop offset=".062" stop-color="#0081FA"/><stop offset="1" stop-color="#0080F9"/></linearGradient>
+    <linearGradient id="mp9" x1="13.252" y1="9.141" x2="14.039" y2="8.605" gradientUnits="userSpaceOnUse"><stop stop-color="#027AF3"/><stop offset="1" stop-color="#0080F9"/></linearGradient>
+    <linearGradient id="mp10" x1="12.018" y1="9.245" x2="13.111" y2="9.245" gradientUnits="userSpaceOnUse"><stop stop-color="#0377EF"/><stop offset=".999" stop-color="#0279F1"/></linearGradient>
+    <linearGradient id="mp11" x1="11.068" y1="8.645" x2="11.854" y2="9.107" gradientUnits="userSpaceOnUse"><stop offset=".002" stop-color="#0471E9"/><stop offset="1" stop-color="#0377EF"/></linearGradient>
+    <linearGradient id="mp12" x1="8.671" y1="5.235" x2="11.188" y2="8.4" gradientUnits="userSpaceOnUse"><stop offset=".277" stop-color="#0867DF"/><stop offset="1" stop-color="#0471E9"/></linearGradient>
+  </defs>
+  <text x="46" y="21" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="600" fill="#191919">Meta</text>
+  <text x="46" y="34" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="500" fill="#0082FB" letter-spacing="0.5">BUSINESS PARTNER</text>
+</svg>

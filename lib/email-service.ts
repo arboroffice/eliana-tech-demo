@@ -27,6 +27,64 @@ interface FollowUpParams {
     intentLevel: string
     formData: any
     auditId: string
+    auditScore: number
+}
+
+export async function sendAuditNotificationToTeam(params: { 
+    formData: any, 
+    auditScore: number, 
+    opportunities: any[], 
+    intentLevel: string, 
+    auditId: string 
+}) {
+    const { formData, auditScore, opportunities, intentLevel, auditId } = params
+    
+    const subject = `🔥 NEW AUDIT: ${formData.companyName} (${intentLevel.toUpperCase()})`
+    
+    const html = `
+        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #eee; padding: 20px;">
+            <h2 style="color: #D90019; border-bottom: 2px solid #D90019; padding-bottom: 10px;">New Audit Submission</h2>
+            <p><strong>Company:</strong> ${formData.companyName}</p>
+            <p><strong>Name:</strong> ${formData.fullName}</p>
+            <p><strong>Email:</strong> ${formData.email}</p>
+            <p><strong>Phone:</strong> ${formData.phoneNumber || 'N/A'}</p>
+            <hr />
+            <table width="100%">
+                <tr>
+                    <td><strong>Score:</strong></td>
+                    <td style="font-size: 24px; font-weight: bold; color: #D90019;">${auditScore}/100</td>
+                </tr>
+                <tr>
+                    <td><strong>Intent:</strong></td>
+                    <td style="text-transform: uppercase; font-weight: bold;">${intentLevel}</td>
+                </tr>
+            </table>
+            <hr />
+            <p><strong>Industry:</strong> ${formData.specificIndustry || 'N/A'}</p>
+            <p><strong>Growth Budget:</strong> ${formData.growthBudget || 'N/A'}</p>
+            <p><strong>Keeps Up At Night:</strong> ${formData.keepsUpAtNight || 'N/A'}</p>
+            <hr />
+            <h3>Opportunities:</h3>
+            <ul style="padding-left: 20px;">
+                ${opportunities.map((o: any) => `<li style="margin-bottom: 8px;"><strong>${o.title}</strong>: ${o.description}</li>`).join('')}
+            </ul>
+            <div style="margin-top: 30px; padding: 20px; background: #f9f9f9; text-align: center;">
+                <p><a href="https://elianatech.com/admin/audits/${auditId}" style="display: inline-block; padding: 12px 24px; background: #000; color: #fff; text-decoration: none; font-weight: bold;">View in Admin Dashboard</a></p>
+            </div>
+        </div>
+    `
+
+    // Send to both addresses as requested
+    try {
+        await sendEmail({ 
+            to: ['mia@elianatech.com', 'sales@elianatech.com'], 
+            subject, 
+            html, 
+            template: 'TEAM_NOTIFICATION' 
+        } as any) // Cast to any because our interface says string, but Resend takes string[]
+    } catch (teamError) {
+        console.error('[TEAM NOTIFY ERROR]', teamError)
+    }
 }
 
 export async function sendAuditResultEmail(params: EmailParams) {
@@ -59,70 +117,37 @@ export async function sendAuditResultEmail(params: EmailParams) {
 }
 
 export async function scheduleFollowUpEmails(params: FollowUpParams) {
-    const { email, name, companyName, intentLevel, formData, auditId } = params
-
+    const { email, name, companyName, intentLevel, formData, auditId, auditScore } = params
     const firstName = name.split(' ')[0]
 
-    // 7-day follow-up sequence based on intent level
-    // If they book a call, Cal.com webhook cancels remaining emails automatically
-    const sequences = {
-        high: [
-            { delay: 1, subject: "AI_GENERATED", template: 'ai_day1' },
-            { delay: 2, subject: "AI_GENERATED", template: 'ai_day2' },
-            { delay: 3, subject: "AI_GENERATED", template: 'ai_day3' },
-            { delay: 4, subject: "AI_GENERATED", template: 'ai_day4' },
-            { delay: 5, subject: "AI_GENERATED", template: 'ai_day5' },
-            { delay: 6, subject: "AI_GENERATED", template: 'ai_day6' },
-            { delay: 7, subject: "AI_GENERATED", template: 'ai_day7' }
-        ],
-        medium: [
-            { delay: 1, subject: "AI_GENERATED", template: 'ai_day1' },
-            { delay: 2, subject: "AI_GENERATED", template: 'ai_day2' },
-            { delay: 3, subject: "AI_GENERATED", template: 'ai_day3' },
-            { delay: 4, subject: "AI_GENERATED", template: 'ai_day4' },
-            { delay: 5, subject: "AI_GENERATED", template: 'ai_day5' },
-            { delay: 6, subject: "AI_GENERATED", template: 'ai_day6' },
-            { delay: 7, subject: "AI_GENERATED", template: 'ai_day7' }
-        ],
-        low: [
-            { delay: 1, subject: "AI_GENERATED", template: 'ai_day1' },
-            { delay: 2, subject: "AI_GENERATED", template: 'ai_day2' },
-            { delay: 3, subject: "AI_GENERATED", template: 'ai_day3' },
-            { delay: 4, subject: "AI_GENERATED", template: 'ai_day4' },
-            { delay: 5, subject: "AI_GENERATED", template: 'ai_day5' },
-            { delay: 6, subject: "AI_GENERATED", template: 'ai_day6' },
-            { delay: 7, subject: "AI_GENERATED", template: 'ai_day7' }
-        ]
-    }
-
-    const sequence = sequences[intentLevel as keyof typeof sequences] || sequences.low
-
-    // Schedule each email in the sequence
-    for (const email_config of sequence) {
+    // 7-day follow-up sequence
+    // If they book a call, Cal.com webhook cancels remaining emails with 'SEQUENCE_N' prefix
+    for (let day = 1; day <= 7; day++) {
         await scheduleEmail({
             to: email,
-            scheduledFor: new Date(Date.now() + email_config.delay * 24 * 60 * 60 * 1000),
-            subject: email_config.subject,
-            template: email_config.template,
-            data: { firstName, companyName, formData, auditId }
+            scheduledFor: new Date(Date.now() + day * 24 * 60 * 60 * 1000),
+            subject: "AI_GENERATED", // Subject will be pulled from NurtureSequence in Cron
+            template: `SEQUENCE_N_DAY${day}`,
+            data: { ...formData, firstName, companyName, auditScore, auditId }
         })
     }
 }
 
 // Email sending function using Resend
-async function sendEmail({ to, subject, html, template = 'direct_email' }: { to: string, subject: string, html: string, template?: string }) {
+export async function sendEmail({ to, subject, html, template = 'direct_email' }: { to: string | string[], subject: string, html: string, template?: string }) {
     try {
         await resend.emails.send({
             from: 'ElianaTech <noreply@elianatech.com>',
             to,
             subject,
             html,
-            replyTo: 'elianatech@yahoo.com'
+            replyTo: 'support@elianatech.com'
         })
         console.log(`[EMAIL SENT] To: ${to}, Subject: ${subject}`)
         
         // Log to Admin Timeline
-        await logEmailActivity(to, subject, template)
+        const logTo = Array.isArray(to) ? to.join(', ') : to
+        await logEmailActivity(logTo, subject, template)
     } catch (error) {
         console.error('[EMAIL ERROR]', error)
         throw error
@@ -141,7 +166,7 @@ async function scheduleEmail(params: any) {
             status: 'pending',
             createdAt: serverTimestamp()
         })
-        console.log(`[SCHEDULED EMAIL] ${params.subject} for ${params.scheduledFor}`)
+        console.log(`[SCHEDULED EMAIL] ${params.template} for ${params.scheduledFor}`)
     } catch (error) {
         console.error('[SCHEDULE ERROR]', error)
         throw error
@@ -206,6 +231,20 @@ export async function logEmailActivity(email: string, subject: string, template:
     }
 }
 
+// --- Helpers ---
+function getResourceLinks(resources: any[]) {
+    const items = resources || [
+        { title: 'Full AI Readiness Report', url: '/audit/report' },
+        { title: 'DIY Implementation Roadmap', url: '/roadmap' },
+        { title: 'Tool Recommendations', url: '/tools' },
+        { title: 'ROI Calculator', url: '/roi' }
+    ]
+    
+    return items.map((r: any) => 
+        `<li style="margin-bottom: 12px; font-size: 14px;"><strong>${r.title}</strong> — <a href="https://elianatech.com${r.url}" style="color: #000000; text-decoration: underline; font-weight: 600;">Download Now →</a></li>`
+    ).join('')
+}
+
 // Email Templates
 function getHighIntentEmail({ firstName, companyName, auditScore, opportunities, freebies }: any) {
     const opportunitiesList = opportunities.map((opp: any) =>
@@ -244,6 +283,13 @@ function getHighIntentEmail({ firstName, companyName, auditScore, opportunities,
                             <ul style="padding-left: 20px; font-size: 15px;">
                                 ${opportunitiesList}
                             </ul>
+
+                            <div style="background-color: #fafafa; border: 1px solid #eeeeee; padding: 24px; margin: 32px 0;">
+                                <h3 style="margin: 0 0 16px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em;">Free Resources Included:</h3>
+                                <ul style="margin: 0; padding-left: 20px; font-size: 14px;">
+                                    ${getResourceLinks(freebies?.resources)}
+                                </ul>
+                            </div>
 
                             <p style="margin-top: 32px; font-weight: 600;">Next Step:</p>
                             <p style="margin-top: 8px;">We have reserved a strategy session for you tomorrow to map your exact roadmap.</p>
@@ -303,6 +349,13 @@ function getMediumIntentEmail({ firstName, companyName, auditScore, opportunitie
                                 ${top3Opportunities}
                             </ul>
 
+                            <div style="background-color: #fafafa; border: 1px solid #eeeeee; padding: 24px; margin: 12px 0 32px 0;">
+                                <h3 style="margin: 0 0 16px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em;">Free Resources Included:</h3>
+                                <ul style="margin: 0; padding-left: 20px; font-size: 14px;">
+                                    ${getResourceLinks(freebies?.resources)}
+                                </ul>
+                            </div>
+
                             <div style="margin: 32px 0; display: table; width: 100%;">
                                 <div style="display: table-cell; vertical-align: middle;">
                                     <a href="https://elianatech.com/audit/results" style="display: inline-block; background-color: #eeeeee; color: #000000; padding: 14px 24px; text-decoration: none; font-weight: 600; font-size: 13px; text-transform: uppercase; margin-right: 12px; margin-bottom: 12px;">View Full Report</a>
@@ -350,12 +403,12 @@ function getLowIntentEmail({ firstName, companyName, auditScore, freebies }: any
                             <div style="background-color: #fafafa; border: 1px solid #eeeeee; padding: 24px; margin: 32px 0;">
                                 <h3 style="margin: 0 0 16px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em;">Free Resources Included:</h3>
                                 <ul style="margin: 0; padding-left: 20px; font-size: 14px;">
-                                    <li style="margin-bottom: 8px;">Full AI Readiness Report</li>
-                                    <li style="margin-bottom: 8px;">DIY Implementation Roadmap</li>
-                                    <li style="margin-bottom: 8px;">Tool Recommendations</li>
-                                    <li>ROI Calculator</li>
+                                    ${getResourceLinks(freebies?.resources)}
                                 </ul>
                             </div>
+
+                            <p style="margin-top: 24px; font-weight: 600;">Next Steps:</p>
+                            <p style="font-size: 14px; margin-bottom: 24px;">Review your audit report and start with the "quick wins" — most can be implemented in under 2 hours.</p>
 
                             <p style="font-size: 14px; color: #71717a;">View these at your convenience. If you have any questions, we are here.</p>
                             

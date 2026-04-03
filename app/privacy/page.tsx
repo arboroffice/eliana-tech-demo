@@ -72,7 +72,7 @@ export default function PrivacyPolicy() {
           <section>
             <h2 className="text-2xl font-bold text-white mb-6 uppercase tracking-tight">6. Contact Us</h2>
             <p>
-              If you have questions about this Privacy Policy, please contact us at elianatech@yahoo.com or via our Command Center audit logs.
+              If you have questions about this Privacy Policy, please contact us at support@elianatech.com or via our Command Center audit logs.
             </p>
           </section>
         </div>

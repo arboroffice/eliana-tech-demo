@@ -1,0 +1,317 @@
+﻿[
+  {
+    "path": "app\\about\\page.tsx",
+    "hasH1": true,
+    "hasMetadata": false,
+    "hasCanonical": false,
+    "title": null,
+    "description": null,
+    "outgoingLinksCount": 4
+  },
+  {
+    "path": "app\\admin\\marketing\\page.tsx",
+    "hasH1": true,
+    "hasMetadata": false,
+    "hasCanonical": false,
+    "title": null,
+    "description": null,
+    "outgoingLinksCount": 0
+  },
+  {
+    "path": "app\\admin\\page.tsx",
+    "hasH1": true,
+    "hasMetadata": false,
+    "hasCanonical": false,
+    "title": null,
+    "description": null,
+    "outgoingLinksCount": 3
+  },
+  {
+    "path": "app\\apply\\page.tsx",
+    "hasH1": true,
+    "hasMetadata": false,
+    "hasCanonical": false,
+    "title": "Audit & Logic",
+    "description": null,
+    "outgoingLinksCount": 0
+  },
+  {
+    "path": "app\\audit\\page.tsx",
+    "hasH1": true,
+    "hasMetadata": false,
+    "hasCanonical": false,
+    "title": "Lead Response & Follow-Up",
+    "description": null,
+    "outgoingLinksCount": 5
+  },
+  {
+    "path": "app\\audit\\proposal\\page.tsx",
+    "hasH1": true,
+    "hasMetadata": false,
+    "hasCanonical": false,
+    "title": null,
+    "description": null,
+    "outgoingLinksCount": 3
+  },
+  {
+    "path": "app\\audit\\report\\page.tsx",
+    "hasH1": false,
+    "hasMetadata": false,
+    "hasCanonical": false,
+    "title": null,
+    "description": null,
+    "outgoingLinksCount": 0
+  },
+  {
+    "path": "app\\blog\\page.tsx",
+    "hasH1": true,
+    "hasMetadata": false,
+    "hasCanonical": false,
+    "title": null,
+    "description": null,
+    "outgoingLinksCount": 0
+  },
+  {
+    "path": "app\\blog\\[slug]\\page.tsx",
+    "hasH1": true,
+    "hasMetadata": true,
+    "hasCanonical": false,
+    "title": "Post Not Found",
+    "description": null,
+    "outgoingLinksCount": 2
+  },
+  {
+    "path": "app\\build\\page.tsx",
+    "hasH1": true,
+    "hasMetadata": false,
+    "hasCanonical": false,
+    "title": "7 Days",
+    "description": null,
+    "outgoingLinksCount": 2
+  },
+  {
+    "path": "app\\caas\\admin\\page.tsx",
+    "hasH1": false,
+    "hasMetadata": false,
+    "hasCanonical": false,
+    "title": null,
+    "description": null,
+    "outgoingLinksCount": 1
+  },
+  {
+    "path": "app\\caas\\apply\\page.tsx",
+    "hasH1": true,
+    "hasMetadata": false,
+    "hasCanonical": false,
+    "title": "About You",
+    "description": null,
+    "outgoingLinksCount": 1
+  },
+  {
+    "path": "app\\caas\\page.tsx",
+    "hasH1": true,
+    "hasMetadata": false,
+    "hasCanonical": false,
+    "title": "Business Operations Agent",
+    "description": "Claude manages your calendar, email triage, meeting prep, SOPs, hiring workflows, and daily task delegation across your entire team.",
+    "outgoingLinksCount": 3
+  },
+  {
+    "path": "app\\custom\\page.tsx",
+    "hasH1": true,
+    "hasMetadata": false,
+    "hasCanonical": false,
+    "title": null,
+    "description": null,
+    "outgoingLinksCount": 1
+  },
+  {
+    "path": "app\\done-for-you\\page.tsx",
+    "hasH1": true,
+    "hasMetadata": false,
+    "hasCanonical": false,
+    "title": "AI Sales Assistant",
+    "description": null,
+    "outgoingLinksCount": 2
+  },
+  {
+    "path": "app\\done-with-you\\page.tsx",
+    "hasH1": true,
+    "hasMetadata": false,
+    "hasCanonical": false,
+    "title": "CRM Rebuild",
+    "description": null,
+    "outgoingLinksCount": 2
+  },
+  {
+    "path": "app\\faq\\page.tsx",
+    "hasH1": true,
+    "hasMetadata": false,
+    "hasCanonical": false,
+    "title": null,
+    "description": null,
+    "outgoingLinksCount": 0
+  },
+  {
+    "path": "app\\founder\\page.tsx",
+    "hasH1": true,
+    "hasMetadata": false,
+    "hasCanonical": false,
+    "title": "Running My Dad\\u2019s Car Dealership at 14",
+    "description": null,
+    "outgoingLinksCount": 0
+  },
+  {
+    "path": "app\\foundersofthefuture\\page.tsx",
+    "hasH1": true,
+    "hasMetadata": false,
+    "hasCanonical": false,
+    "title": null,
+    "description": null,
+    "outgoingLinksCount": 1
+  },
+  {
+    "path": "app\\industries\\[slug]\\page.tsx",
+    "hasH1": false,
+    "hasMetadata": true,
+    "hasCanonical": false,
+    "title": null,
+    "description": null,
+    "outgoingLinksCount": 0
+  },
+  {
+    "path": "app\\industry-categories\\[slug]\\page.tsx",
+    "hasH1": true,
+    "hasMetadata": false,
+    "hasCanonical": false,
+    "title": null,
+    "description": "AI infrastructure for specialized medical and dental practices. We automate patient intake, appointment scheduling, insurance verification, follow-up sequences, and review generation ΓÇö so your clinical team focuses on care, not admin.",
+    "outgoingLinksCount": 10
+  },
+  {
+    "path": "app\\openclaw\\page.tsx",
+    "hasH1": true,
+    "hasMetadata": false,
+    "hasCanonical": false,
+    "title": "01",
+    "description": null,
+    "outgoingLinksCount": 10
+  },
+  {
+    "path": "app\\os\\command-center\\page.tsx",
+    "hasH1": false,
+    "hasMetadata": false,
+    "hasCanonical": true,
+    "title": "Lead Nurture Sequence v3",
+    "description": "Redesign the 14-day email drip for cold leads captured via Meta Ads.",
+    "outgoingLinksCount": 0
+  },
+  {
+    "path": "app\\os\\page.tsx",
+    "hasH1": true,
+    "hasMetadata": false,
+    "hasCanonical": false,
+    "title": "Recursive Architect",
+    "description": "A self-evolving engine that interprets missions and autonomously builds AI infrastructure using Claude 3.5 Sonnet & OpenAI o1.",
+    "outgoingLinksCount": 2
+  },
+  {
+    "path": "app\\page.tsx",
+    "hasH1": true,
+    "hasMetadata": false,
+    "hasCanonical": false,
+    "title": null,
+    "description": null,
+    "outgoingLinksCount": 16
+  },
+  {
+    "path": "app\\privacy\\page.tsx",
+    "hasH1": true,
+    "hasMetadata": false,
+    "hasCanonical": false,
+    "title": null,
+    "description": null,
+    "outgoingLinksCount": 0
+  },
+  {
+    "path": "app\\roadmap\\ai-wing-retainer\\page.tsx",
+    "hasH1": true,
+    "hasMetadata": false,
+    "hasCanonical": false,
+    "title": "SYSTEM MONITORING & OPTIMIZATION",
+    "description": null,
+    "outgoingLinksCount": 2
+  },
+  {
+    "path": "app\\roadmap\\build-program\\page.tsx",
+    "hasH1": true,
+    "hasMetadata": false,
+    "hasCanonical": false,
+    "title": "AI THINKING",
+    "description": null,
+    "outgoingLinksCount": 3
+  },
+  {
+    "path": "app\\roadmap\\full-buildout\\page.tsx",
+    "hasH1": true,
+    "hasMetadata": false,
+    "hasCanonical": false,
+    "title": "SALES INFRASTRUCTURE",
+    "description": null,
+    "outgoingLinksCount": 2
+  },
+  {
+    "path": "app\\roadmap\\revenue-share\\page.tsx",
+    "hasH1": true,
+    "hasMetadata": false,
+    "hasCanonical": false,
+    "title": null,
+    "description": null,
+    "outgoingLinksCount": 2
+  },
+  {
+    "path": "app\\roadmap\\single-build\\page.tsx",
+    "hasH1": true,
+    "hasMetadata": false,
+    "hasCanonical": false,
+    "title": "IDENTIFY THE PROBLEM",
+    "description": null,
+    "outgoingLinksCount": 3
+  },
+  {
+    "path": "app\\systems\\page.tsx",
+    "hasH1": true,
+    "hasMetadata": false,
+    "hasCanonical": false,
+    "title": null,
+    "description": "Private server deployment that handles the core functions of your business without human intervention.",
+    "outgoingLinksCount": 1
+  },
+  {
+    "path": "app\\terms\\page.tsx",
+    "hasH1": true,
+    "hasMetadata": false,
+    "hasCanonical": false,
+    "title": null,
+    "description": null,
+    "outgoingLinksCount": 0
+  },
+  {
+    "path": "app\\v2\\page.tsx",
+    "hasH1": true,
+    "hasMetadata": false,
+    "hasCanonical": false,
+    "title": "Autonomous Operations",
+    "description": null,
+    "outgoingLinksCount": 2
+  },
+  {
+    "path": "app\\webinar\\page.tsx",
+    "hasH1": true,
+    "hasMetadata": false,
+    "hasCanonical": false,
+    "title": "The Bottleneck Audit",
+    "description": null,
+    "outgoingLinksCount": 2
+  }
+]

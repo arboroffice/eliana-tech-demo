@@ -28,6 +28,12 @@ export function GlassmorphismNav({ minimal = false }: { minimal?: boolean }) {
             <li>
               <Link href="/about">About</Link>
             </li>
+            <li>
+              <a href="https://brief-sage-omega.vercel.app" target="_blank" rel="noopener noreferrer">The Brief</a>
+            </li>
+            <li>
+              <a href="https://www.skool.com/founders-of-the-future-3908/about" target="_blank" rel="noopener noreferrer">FOTF</a>
+            </li>
           </ul>
         )}
         {!minimal && (
@@ -55,6 +61,16 @@ export function GlassmorphismNav({ minimal = false }: { minimal?: boolean }) {
                 <Link href="/about" onClick={() => setIsMobileMenuOpen(false)}>
                   About
                 </Link>
+              </li>
+              <li>
+                <a href="https://brief-sage-omega.vercel.app" target="_blank" rel="noopener noreferrer" onClick={() => setIsMobileMenuOpen(false)}>
+                  The Brief
+                </a>
+              </li>
+              <li>
+                <a href="https://www.skool.com/founders-of-the-future-3908/about" target="_blank" rel="noopener noreferrer" onClick={() => setIsMobileMenuOpen(false)}>
+                  FOTF
+                </a>
               </li>
               <li className="pt-4">
                 <Link href="/audit" className="nav-btn w-full block text-center" onClick={() => setIsMobileMenuOpen(false)}>

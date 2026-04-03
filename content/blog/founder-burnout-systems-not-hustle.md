@@ -221,7 +221,7 @@ By the end of 30 days, you should have reclaimed at least 10 hours per week. Tha
 
 This isn't self-help. It's business strategy. The companies that scale aren't the ones with the hardest-working founders. They're the ones with the best systems.
 
-AI makes world-class systems accessible to every business — not just the ones with giant IT departments. You can build infrastructure in weeks that would have taken months and millions a few years ago.
+AI makes high-level systems accessible to every business — not just the ones with giant IT departments. You can build infrastructure in weeks that would have taken months and millions a few years ago.
 
 The hustle got you here. Systems will get you to where you actually want to go.
 

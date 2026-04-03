@@ -1,7 +1,17 @@
+import { Metadata } from "next"
 import { GlassmorphismNav } from "@/components/glassmorphism-nav"
 import { Footer } from "@/components/footer"
 import { getAllBlogPosts } from "@/lib/blog"
 import BlogFilter from "./BlogFilter"
+import { TheBriefSection } from "@/components/the-brief-section"
+
+export const metadata: Metadata = {
+  title: "Blog & Intelligence | Eliana Tech",
+  description: "Insights on the future of work, AI automation, and scaling your business without scaling headcount. Stay ahead with Eliana Tech.",
+  alternates: {
+    canonical: "https://elianatech.com/blog",
+  },
+}
 
 export default function BlogPage() {
   const posts = getAllBlogPosts()
@@ -23,10 +33,11 @@ export default function BlogPage() {
             Insights on the future of work, AI automation, and scaling your business without scaling headcount.
           </p>
         </section>
-
         <section className="mb-24">
           <BlogFilter posts={posts} />
         </section>
+
+        <TheBriefSection />
       </main>
 
       <Footer />

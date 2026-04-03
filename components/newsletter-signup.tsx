@@ -43,10 +43,10 @@ export function NewsletterSignup() {
                         Newsletter
                     </div>
                     <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
-                        Join the Newsletter
+                        Subscribe to THE <span className="text-red-500">BRIEF</span>
                     </h2>
                     <p className="text-slate-300 max-w-xl">
-                        Join 3.5k+ business owners receiving practical guides on automating their operations with AI agents. Just playbooks.
+                        A daily AI intelligence briefing tailored to your job, your industry, and your goals. No noise, just moves.
                     </p>
                 </div>
 

@@ -152,10 +152,10 @@ export default function AIWingRetainerPage() {
               IT STARTS WITH <span className="accent">THE AUDIT.</span>
             </h2>
             <p className="rm-cta-sub">
-              The retainer follows the buildout. Start with the audit and we will map the full path together.
+              The retainer follows the buildout. Start with the OS Audit and we will map the full path together.
             </p>
             <Link href="/audit" className="rm-btn" style={{ background: '#D90019', color: '#ffffff' }}>
-              Get Your Free Audit <ArrowRight size={16} />
+              Take Your OS Audit <ArrowRight size={16} />
             </Link>
             <div className="rm-next-phase">
               <span>Next phase:</span>

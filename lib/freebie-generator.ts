@@ -392,6 +392,12 @@ export async function generateFreebies(formData: any, auditScore: number, opport
   return {
     quickWins: generateQuickWinsChecklist(formData, opportunities),
     industryPlaybook: generateIndustryPlaybook(formData),
-    reportUrl: '/audit/report'
+    reportUrl: '/audit/report',
+    resources: [
+      { id: 'report', title: 'Full AI Readiness Report', url: `/audit/report/${formData.email || 'guest'}`, icon: '📄' },
+      { id: 'roadmap', title: 'DIY Implementation Roadmap', url: '/roadmap', icon: '🗺️' },
+      { id: 'tools', title: 'Tool Recommendations', url: '/tools', icon: '🛠️' },
+      { id: 'roi', title: 'ROI Calculator', url: '/roi', icon: '💸' }
+    ]
   }
 }

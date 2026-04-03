@@ -4,6 +4,7 @@ import { db } from '@/lib/firebase'
 import { collection, query, where, getDocs, updateDoc, doc } from 'firebase/firestore'
 import { Resend } from 'resend'
 import { generateAgenticFollowUp } from '@/lib/nurture-agent'
+import { getSequence, personalizeEmail } from '@/lib/nurture-sequences'
 import { logEmailActivity } from '@/lib/email-service'
 
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null
@@ -51,13 +52,29 @@ export async function GET(request: Request) {
                     const agentResult = await generateAgenticFollowUp(emailData.template, emailData.data)
                     emailContent = agentResult.html
                     emailSubject = agentResult.subject
+                } else if (emailData.template?.startsWith('SEQUENCE_N_DAY')) {
+                    // Actual Nurture Sequence
+                    const day = parseInt(emailData.template.replace('SEQUENCE_N_DAY', ''))
+                    const sequence = getSequence('standard_nurture')
+                    const sequenceEmail = sequence?.emails.find(e => e.day === day)
+
+                    if (sequenceEmail) {
+                        const personalized = personalizeEmail(sequenceEmail, emailData.data)
+                        emailContent = personalized.bodyHtml
+                        emailSubject = personalized.subject
+                        console.log(`[CRON] Sending Nurture Day ${day} to ${emailData.to}`)
+                    } else {
+                        console.log(`[CRON] Sequence Day ${day} not found for ${emailData.to}`)
+                        await updateDoc(doc(db, 'scheduled_emails', emailDoc.id), { status: 'skipped', reason: 'Day not found' })
+                        continue
+                    }
                 } else if (emailData.template?.startsWith('SEQUENCE_')) {
-                    // Nurture sequences have been cleared — skip these until new ones are added
-                    console.log(`[CRON] Skipping cleared nurture sequence: ${emailData.template}`)
+                    // Other generic sequences
+                    console.log(`[CRON] Skipping generic sequence: ${emailData.template}`)
                     await updateDoc(doc(db, 'scheduled_emails', emailDoc.id), {
                         status: 'skipped',
                         skippedAt: new Date(),
-                        reason: 'Nurture sequences cleared — not accurate to current products'
+                        reason: 'Generic sequence placeholder'
                     })
                     continue
                 } else {

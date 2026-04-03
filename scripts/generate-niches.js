@@ -204,7 +204,7 @@ const getTemplate = (niche) => {
             "Predictive inventory management for supplies",
             "Waitlist optimization engine"
         ];
-        base.dreamVision = "Imagine a clinic where your staff never answers a generic booking call again. Your schedule is perfectly packed, patient records are updated by AI in real-time, and you are solely focused on delivering world-class care.";
+        base.dreamVision = "Imagine a clinic where your staff never answers a generic booking call again. Your schedule is perfectly packed, patient records are updated by AI in real-time, and you are solely focused on delivering exceptional care.";
         base.industryStats = [
             { stat: "30%", label: "Patient Growth" },
             { stat: "100%", label: "Inquiry Response" },

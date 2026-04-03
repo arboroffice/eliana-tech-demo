@@ -7,7 +7,7 @@ excerpt: "Healthcare clinics are drowning in insurance codes, manual scheduling,
 category: "Healthcare"
 ---
 
-You run a medical clinic, a specialized therapy practice, or a multi-location health center. Your doctors are world-class. Your patients are loyal. But your front office is a bottleneck of ringing phones, insurance verification delays, and stacks of "New Patient" clipboards.
+You run a medical clinic, a specialized therapy practice, or a multi-location health center. Your doctors are highly skilled. Your patients are loyal. But your front office is a bottleneck of ringing phones, insurance verification delays, and stacks of "New Patient" clipboards.
 
 In Healthcare, **efficiency is a clinical requirement.** If your staff is tied up in the "Administration of Care," they aren't actually providing care.
 

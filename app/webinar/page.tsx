@@ -95,7 +95,6 @@ export default function WebinarPage() {
                     </div>
                 </section>
             </main>
-
             <Footer />
 
             <style jsx>{`

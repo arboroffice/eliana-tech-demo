@@ -133,6 +133,8 @@ interface Submission {
     opsScore?: string
     automate?: string[]
     extraNotes?: string
+    revenue?: string
+    hoursOnAdmin?: string
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -176,64 +178,43 @@ function safeNumFromSlider(val: unknown): number {
 function calcSubScores(s: Submission) {
     // Revenue
     let revenue = 50
-    if (s.revenueTrend === 'Growing') revenue += 25
-    else if (s.revenueTrend === 'Declining') revenue -= 25
-    if (s.profitMargin === '60+') revenue += 15
-    else if (s.profitMargin === '40-60') revenue += 10
-    else if (s.profitMargin === 'under-20') revenue -= 10
-    else if (s.profitMargin === 'negative') revenue -= 20
-    if (s.currentRevenue === '3m+') revenue += 10
-    else if (s.currentRevenue === '1m-3m') revenue += 5
-    else if (s.currentRevenue === 'pre-revenue') revenue -= 10
+    const rev = s.revenue || s.currentRevenue || ''
+    if (rev.includes('$1M-$5M') || rev.includes('$5M+')) revenue += 30
+    else if (rev.includes('$250K-$1M')) revenue += 15
+    else if (rev.includes('Under $250K')) revenue += 5
+    else if (rev.includes('pre-revenue')) revenue -= 10
     revenue = Math.max(0, Math.min(100, revenue))
 
     // Automation
-    let automation = 0
-    if (s.percentAutomated === '60+') automation = 85
-    else if (s.percentAutomated === '30-60') automation = 60
-    else if (s.percentAutomated === 'under-30') automation = 35
-    else if (s.percentAutomated === 'none') automation = 15
-    automation += Math.min(15, safeArray(s.tools).length * 2)
-    if (s.onboardingAutomated === 'Yes') automation += 10
-    else if (s.onboardingAutomated === 'Partially') automation += 5
+    let automation = 20
+    const ops = parseInt(s.opsScore || '5') || 5
+    automation = ops * 10
+    if (s.aiUse?.includes('Yes')) automation += 15
+    else if (s.aiUse?.includes('little')) automation += 5
     automation = Math.max(0, Math.min(100, automation))
 
-    // Acquisition
+    // Acquisition & Retention
     let acquisition = 50
-    if (s.conversionRate === '10+') acquisition = 90
-    else if (s.conversionRate === '5-10') acquisition = 75
-    else if (s.conversionRate === '3-5') acquisition = 55
-    else if (s.conversionRate === '1-3') acquisition = 35
-    else if (s.conversionRate === 'under-1') acquisition = 15
-    if (s.listSize === '50k+') acquisition += 10
-    else if (s.listSize === '10k-50k') acquisition += 5
-    else if (s.listSize === 'under-1k') acquisition -= 10
-    if (s.trafficSource === 'mixed') acquisition += 5
+    let retention = 60
+    const problems = (s.problems || []) as string[]
+    if (problems.some(p => p.toLowerCase().includes('lead') || p.toLowerCase().includes('marketing'))) {
+        acquisition -= 20
+    } else {
+        acquisition += 10
+    }
+    if (problems.some(p => p.toLowerCase().includes('review') || p.toLowerCase().includes('past client'))) {
+        retention -= 15
+    }
     acquisition = Math.max(0, Math.min(100, acquisition))
-
-    // Retention
-    let retention = 50
-    if (s.churnRate === 'under-5') retention = 85
-    else if (s.churnRate === '5-10') retention = 60
-    else if (s.churnRate === '10-20') retention = 35
-    else if (s.churnRate === '20+') retention = 15
-    else if (s.churnRate === 'unknown') retention = 30
-    if (s.productPricePoint === '5k+' || s.productPricePoint === '1k-5k') retention += 10
-    if (s.productPricePoint === 'recurring') retention += 5
     retention = Math.max(0, Math.min(100, retention))
 
     // Time
     let time = 50
-    if (s.twoWeeksOff === 'Yes') time = 80
-    else if (s.twoWeeksOff === 'Maybe') time = 45
-    else time = 20
-    if (s.hoursPerWeek === 'under-20') time += 10
-    else if (s.hoursPerWeek === '20-40') time += 5
-    else if (s.hoursPerWeek === '40-60') time -= 5
-    else if (s.hoursPerWeek === '60+') time -= 15
-    if (s.highValueWork === '60+') time += 10
-    else if (s.highValueWork === '20-40') time -= 10
-    else if (s.highValueWork === 'under-20') time -= 15
+    const hours = s.hoursOnAdmin || s.hoursPerWeek || ''
+    if (hours === '30h+' || hours === '20-30h') time = 20
+    else if (hours === '10-20h') time = 35
+    else if (hours === '5-10h') time = 60
+    else if (hours === '1-5h') time = 85
     time = Math.max(0, Math.min(100, time))
 
     return { revenue, automation, acquisition, retention, time }
@@ -1851,9 +1832,9 @@ function Dashboard({ token, onLogout }: { token: string; onLogout: () => void })
                             {PIPELINE_STAGES.filter(st => !['won', 'lost'].includes(st.id)).map((stage) => {
                                 const stageLeads = submissions.filter(s => (s.stage || 'new') === stage.id)
                                     .sort((a, b) => {
-                                        const la = calcLeadScore(a, a.auditScore ?? 0)
-                                        const lb = calcLeadScore(b, b.auditScore ?? 0)
-                                        return lb.score - la.score
+                                        const dateA = new Date(a.createdAt || a.submittedAt || 0).getTime()
+                                        const dateB = new Date(b.createdAt || b.submittedAt || 0).getTime()
+                                        return dateB - dateA
                                     })
                                 return (
                                     <div key={stage.id} className="bg-white/[0.02] border border-white/5 rounded-2xl overflow-hidden">
@@ -1871,6 +1852,9 @@ function Dashboard({ token, onLogout }: { token: string; onLogout: () => void })
                                             {stageLeads.map((sub) => {
                                                 const lead = calcLeadScore(sub, sub.auditScore ?? 0)
                                                 const tempColor = lead.level === 'hot' ? 'text-red-400' : lead.level === 'warm' ? 'text-orange-400' : 'text-slate-500'
+                                                const dateStr = sub.createdAt || sub.submittedAt
+                                                const timeAgo = dateStr ? new Date(dateStr).toLocaleDateString("en-US", { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'Unknown'
+                                                
                                                 return (
                                                     <div
                                                         key={sub.id}
@@ -1889,10 +1873,15 @@ function Dashboard({ token, onLogout }: { token: string; onLogout: () => void })
                                                             </div>
                                                             <span className={`text-xs font-medium ${tempColor} shrink-0`}>{lead.level.toUpperCase()}</span>
                                                         </div>
-                                                        <div className="flex items-center gap-2 mt-2">
-                                                            {sub.auditScore && <span className="text-xs text-slate-500">{sub.auditScore}/100</span>}
-                                                            {sub.growthBudget && <span className="text-xs text-slate-600">{sub.growthBudget}</span>}
-                                                            {(sub.notes || []).length > 0 && <span className="text-xs text-slate-600 flex items-center gap-0.5"><StickyNote className="w-2.5 h-2.5" />{(sub.notes || []).length}</span>}
+                                                        <div className="flex items-center justify-between mt-2">
+                                                            <div className="flex items-center gap-2">
+                                                                {sub.auditScore && <span className="text-xs text-slate-500">{sub.auditScore}/100</span>}
+                                                                {sub.growthBudget && <span className="text-xs text-slate-600">{sub.growthBudget}</span>}
+                                                            </div>
+                                                            <span className="text-[10px] text-slate-600 flex items-center gap-1">
+                                                                <Clock className="w-2.5 h-2.5" />
+                                                                {timeAgo}
+                                                            </span>
                                                         </div>
                                                     </div>
                                                 )
@@ -1910,23 +1899,27 @@ function Dashboard({ token, onLogout }: { token: string; onLogout: () => void })
                                 <div className="bg-green-500/5 border border-green-500/10 rounded-2xl p-4">
                                     <h3 className="text-green-400 font-semibold text-sm mb-3 flex items-center gap-2"><Award className="w-4 h-4" /> Won ({submissions.filter(s => s.stage === 'won').length})</h3>
                                     <div className="space-y-2">
-                                        {submissions.filter(s => s.stage === 'won').map(sub => (
-                                            <div key={sub.id} onClick={() => setSelectedSubmission(sub)} className="flex items-center justify-between py-2 px-3 rounded-lg bg-white/[0.03] cursor-pointer hover:bg-white/[0.05] transition-all">
-                                                <div><p className="text-white text-sm">{sub.fullName}</p><p className="text-slate-500 text-xs">{sub.companyName}</p></div>
-                                                <span className="text-green-400 text-xs font-medium">{sub.dealValue || ''}</span>
-                                            </div>
-                                        ))}
+                                        {submissions.filter(s => s.stage === 'won')
+                                            .sort((a, b) => new Date(b.createdAt || b.submittedAt || 0).getTime() - new Date(a.createdAt || a.submittedAt || 0).getTime())
+                                            .map(sub => (
+                                                <div key={sub.id} onClick={() => setSelectedSubmission(sub)} className="flex items-center justify-between py-2 px-3 rounded-lg bg-white/[0.03] cursor-pointer hover:bg-white/[0.05] transition-all">
+                                                    <div><p className="text-white text-sm">{sub.fullName}</p><p className="text-slate-500 text-xs">{sub.companyName}</p></div>
+                                                    <span className="text-green-400 text-xs font-medium">{sub.dealValue || ''}</span>
+                                                </div>
+                                            ))}
                                     </div>
                                 </div>
                                 {/* Lost */}
                                 <div className="bg-slate-500/5 border border-slate-500/10 rounded-2xl p-4">
                                     <h3 className="text-slate-400 font-semibold text-sm mb-3 flex items-center gap-2"><XCircle className="w-4 h-4" /> Lost ({submissions.filter(s => s.stage === 'lost').length})</h3>
                                     <div className="space-y-2">
-                                        {submissions.filter(s => s.stage === 'lost').map(sub => (
-                                            <div key={sub.id} onClick={() => setSelectedSubmission(sub)} className="flex items-center justify-between py-2 px-3 rounded-lg bg-white/[0.03] cursor-pointer hover:bg-white/[0.05] transition-all">
-                                                <div><p className="text-white text-sm">{sub.fullName}</p><p className="text-slate-500 text-xs">{sub.companyName}</p></div>
-                                            </div>
-                                        ))}
+                                        {submissions.filter(s => s.stage === 'lost')
+                                            .sort((a, b) => new Date(b.createdAt || b.submittedAt || 0).getTime() - new Date(a.createdAt || a.submittedAt || 0).getTime())
+                                            .map(sub => (
+                                                <div key={sub.id} onClick={() => setSelectedSubmission(sub)} className="flex items-center justify-between py-2 px-3 rounded-lg bg-white/[0.03] cursor-pointer hover:bg-white/[0.05] transition-all">
+                                                    <div><p className="text-white text-sm">{sub.fullName}</p><p className="text-slate-500 text-xs">{sub.companyName}</p></div>
+                                                </div>
+                                            ))}
                                     </div>
                                 </div>
                             </div>

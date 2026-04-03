@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 40" fill="none">
+  <!-- Anthropic Claude logomark -->
+  <path d="M13.284 28.48L20.844 8h4.476l7.56 20.48h-4.476l-1.62-4.68H19.38l-1.62 4.68h-4.476zm7.38-8.28h6.192l-3.06-9.12h-.072l-3.06 9.12z" fill="#191919"/>
+  <text x="48" y="21" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="600" fill="#191919">Claude</text>
+  <text x="48" y="34" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="500" fill="#8B7355" letter-spacing="0.5">CERTIFIED ARCHITECT</text>
+</svg>

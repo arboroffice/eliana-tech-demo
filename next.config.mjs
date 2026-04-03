@@ -24,8 +24,13 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: '/webinar',
-        destination: '/audit',
+        source: '/watch',
+        destination: '/webinar',
+        permanent: true,
+      },
+      {
+        source: '/vsl',
+        destination: '/webinar',
         permanent: true,
       }
     ]

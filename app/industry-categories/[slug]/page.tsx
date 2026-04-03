@@ -224,7 +224,7 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
       <nav className="fn-nav">
         <Link href="/" className="fn-logo">ELIANA<span>TECH</span></Link>
         <Link href="/audit" className="fn-nav-cta">
-          Free AI Audit <ArrowRight size={12} />
+          OS Audit <ArrowRight size={12} />
         </Link>
       </nav>
 
@@ -242,7 +242,7 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
             <p className="fn-sub">{category.description}</p>
             <div className="fn-hero-actions">
               <Link href="/audit" className="fn-cta-red">
-                GET YOUR FREE AUDIT <ArrowRight size={16} />
+                TAKE YOUR OS AUDIT <ArrowRight size={16} />
               </Link>
               <span className="fn-micro">Takes 3 minutes. No call required.</span>
             </div>
@@ -416,10 +416,10 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
               Ready to Automate Your<br /><span>{category.name}</span> Business?
             </h2>
             <p className="fn-bottom-desc">
-              Take our free 3-minute audit and see exactly what to hand off first.
+              Take our 3-minute OS Audit and see exactly what to hand off first.
             </p>
             <Link href="/audit" className="fn-bottom-btn">
-              GET MY FREE AUDIT <ArrowRight size={16} />
+              TAKE MY OS AUDIT <ArrowRight size={16} />
             </Link>
           </div>
         </section>

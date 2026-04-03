@@ -177,8 +177,8 @@ export default function BuildPage() {
 
              <div className="space-y-12">
                 {[
-                  { step: "01", title: "Book a Strategy Session", desc: "Select a time for your deep-dive audit and roadmap session." },
-                  { step: "02", title: "Logic Audit", desc: "Immediately after checkout, you'll record a 15-minute walkthrough of your current tools and bottlenecks." },
+                  { step: "01", title: "Book a Strategy Session", desc: "Select a time for your deep-dive OS Audit and roadmap session." },
+                  { step: "02", title: "OS Audit Logic Phase", desc: "Immediately after checkout, you'll record a 15-minute walkthrough of your current tools and bottlenecks for your OS Audit." },
                   { step: "03", title: "Implementation", desc: "Our team builds your communication layer in the background. No technical work required from you." },
                   { step: "04", title: "Live Handoff", desc: "Day 7. We meet to show you the machine running. Your business is now AI-native." },
                 ].map((item, i) => (

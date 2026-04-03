@@ -27,97 +27,60 @@ export function analyzeIntent(formData: any): 'high' | 'medium' | 'low' {
 
 function calculateRevenueScore(formData: any): number {
     let score = 50
+    const rev = formData.revenue || formData.currentRevenue || ''
 
-    if (formData.revenueTrend === 'Growing') score += 25
-    else if (formData.revenueTrend === 'Declining') score -= 25
-
-    if (formData.profitMargin === '60+') score += 15
-    else if (formData.profitMargin === '40-60') score += 10
-    else if (formData.profitMargin === '20-40') score += 0
-    else if (formData.profitMargin === 'under-20') score -= 10
-    else if (formData.profitMargin === 'negative') score -= 20
-
-    // Revenue stage bonus
-    if (formData.currentRevenue === '3m+') score += 10
-    else if (formData.currentRevenue === '1m-3m') score += 5
-    else if (formData.currentRevenue === 'pre-revenue') score -= 10
+    if (rev.includes('$1M-$5M') || rev.includes('$5M+')) score += 30
+    else if (rev.includes('$250K-$1M')) score += 15
+    else if (rev.includes('Under $250K')) score += 5
+    else if (rev.includes('pre-revenue')) score -= 10
 
     return Math.max(0, Math.min(100, score))
 }
 
 function calculateAutomationScore(formData: any): number {
-    let score = 0
+    let score = 20
+    const ops = parseInt(formData.opsScore) || 5
+    score = ops * 10 
 
-    if (formData.percentAutomated === '60+') score = 85
-    else if (formData.percentAutomated === '30-60') score = 60
-    else if (formData.percentAutomated === 'under-30') score = 35
-    else if (formData.percentAutomated === 'none') score = 15
-
-    // Tools used bonus
-    const toolCount = formData.tools?.length || 0
-    score += Math.min(15, toolCount * 2)
-
-    // Onboarding automation bonus
-    if (formData.onboardingAutomated === 'Yes') score += 10
-    else if (formData.onboardingAutomated === 'Partially') score += 5
+    // AI Use bonus
+    if (formData.aiUse?.includes('Yes')) score += 15
+    else if (formData.aiUse?.includes('little')) score += 5
 
     return Math.max(0, Math.min(100, score))
 }
 
 function calculateAcquisitionScore(formData: any): number {
     let score = 50
-
-    // Conversion rate
-    if (formData.conversionRate === '10+') score = 90
-    else if (formData.conversionRate === '5-10') score = 75
-    else if (formData.conversionRate === '3-5') score = 55
-    else if (formData.conversionRate === '1-3') score = 35
-    else if (formData.conversionRate === 'under-1') score = 15
-
-    // List size bonus
-    if (formData.listSize === '50k+') score += 10
-    else if (formData.listSize === '10k-50k') score += 5
-    else if (formData.listSize === 'under-1k') score -= 10
-
-    // Multiple traffic sources
-    if (formData.trafficSource === 'mixed') score += 5
+    const problems = formData.problems || formData.bottlenecks || []
+    
+    if (problems.some((p: string) => p.toLowerCase().includes('lead') || p.toLowerCase().includes('marketing'))) {
+        score -= 20
+    } else {
+        score += 10
+    }
 
     return Math.max(0, Math.min(100, score))
 }
 
 function calculateRetentionScore(formData: any): number {
-    let score = 50
+    let score = 60
+    const problems = formData.problems || formData.bottlenecks || []
 
-    // Churn rate (lower = better)
-    if (formData.churnRate === 'under-5') score = 85
-    else if (formData.churnRate === '5-10') score = 60
-    else if (formData.churnRate === '10-20') score = 35
-    else if (formData.churnRate === '20+') score = 15
-    else if (formData.churnRate === 'unknown') score = 30
-
-    // Price point affects retention scoring context
-    if (formData.productPricePoint === '5k+' || formData.productPricePoint === '1k-5k') score += 10
-    if (formData.productPricePoint === 'recurring') score += 5
+    if (problems.some((p: string) => p.toLowerCase().includes('review') || p.toLowerCase().includes('past client'))) {
+        score -= 15
+    }
 
     return Math.max(0, Math.min(100, score))
 }
 
 function calculateTimeScore(formData: any): number {
     let score = 50
+    const hours = formData.hoursOnAdmin || formData.hoursPerWeek || ''
 
-    if (formData.twoWeeksOff === 'Yes') score = 80
-    else if (formData.twoWeeksOff === 'Maybe') score = 45
-    else score = 20
-
-    if (formData.hoursPerWeek === 'under-20') score += 10
-    else if (formData.hoursPerWeek === '20-40') score += 5
-    else if (formData.hoursPerWeek === '40-60') score -= 5
-    else if (formData.hoursPerWeek === '60+') score -= 15
-
-    if (formData.highValueWork === '60+') score += 10
-    else if (formData.highValueWork === '40-60') score += 0
-    else if (formData.highValueWork === '20-40') score -= 10
-    else if (formData.highValueWork === 'under-20') score -= 15
+    if (hours === '30h+' || hours === '20-30h') score = 20
+    else if (hours === '10-20h') score = 35
+    else if (hours === '5-10h') score = 60
+    else if (hours === '1-5h') score = 85
 
     return Math.max(0, Math.min(100, score))
 }

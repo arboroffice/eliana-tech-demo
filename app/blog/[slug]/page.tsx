@@ -1,4 +1,5 @@
-import type { Metadata } from "next"
+import { Metadata } from "next"
+import { notFound } from "next/navigation"
 import Link from "next/link"
 import { ArrowLeft, Calendar, Tag } from "lucide-react"
 import ReactMarkdown from "react-markdown"
@@ -12,6 +13,17 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   return {
     title: `${post.title} | Elianatech`,
     description: post.excerpt,
+    alternates: {
+      canonical: `https://elianatech.com/blog/${params.slug}`,
+    },
+    openGraph: {
+      title: `${post.title} | Elianatech`,
+      description: post.excerpt,
+      type: "article",
+      publishedTime: post.date,
+      authors: [post.author],
+      tags: [post.category],
+    },
   }
 }
 
@@ -26,15 +38,69 @@ export default async function BlogPostDetail({ params }: { params: { slug: strin
   const post = getBlogPost(params.slug)
 
   if (!post) {
-    return (
-      <div className="min-h-screen bg-[#FAFAF8] text-[#0C0C0C] flex items-center justify-center font-mono">
-        Post Not Found
-      </div>
-    )
+    notFound() // Use Next.js notFound
+  }
+
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": post.title,
+    "description": post.excerpt,
+    "image": "https://elianatech.com/og-image.png",
+    "datePublished": post.date,
+    "author": {
+      "@type": "Person",
+      "name": post.author
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Elianatech",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://elianatech.com/icon.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `https://elianatech.com/blog/${params.slug}`
+    }
+  }
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://elianatech.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Blog",
+        "item": "https://elianatech.com/blog"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": post.title,
+        "item": `https://elianatech.com/blog/${params.slug}`
+      }
+    ]
   }
 
   return (
     <div className="min-h-screen bg-[#FAFAF8] text-[#0C0C0C] font-mono antialiased">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <GlassmorphismNav />
 
       <article className="pt-32 pb-20 px-6 max-w-4xl mx-auto">
@@ -70,10 +136,10 @@ export default async function BlogPostDetail({ params }: { params: { slug: strin
         <div className="mt-20 pt-10 border-t border-[#E4E3DE]">
           <h3 className="font-bebas-neue text-3xl text-[#0C0C0C] mb-6">Ready to scale without the chaos?</h3>
           <p className="mb-8 text-[#555]">
-            We build the AI infrastructure that lets you step back from the day-to-day. Get started with a free audit.
+            We build the AI infrastructure that lets you step back from the day-to-day. Get started with the OS Audit - how ai fits into your business.
           </p>
           <Link href="/audit" className="font-dm-mono text-[11px] tracking-[0.2em] uppercase bg-[#D90019] text-[#FAFAF8] py-4 px-8 inline-block transition-opacity hover:opacity-80">
-            Book Your Free Audit
+            Take Your OS Audit
           </Link>
         </div>
       </article>
