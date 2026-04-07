@@ -11,7 +11,7 @@ export default function AboutClient() {
     <div className="font-sans antialiased">
       <GlassmorphismNav />
 
-      {/* ─── HERO — BLACK ─── */}
+      {/* ─── HERO BLACK ─── */}
       <section className="bg-[#0C0C0C] text-white pt-40 pb-24 px-6 md:px-[80px]">
         <div className="max-w-[1240px] mx-auto">
           <p className="text-[11px] tracking-[0.5em] uppercase text-[#D90019] font-black mb-6">Built By Operators</p>
@@ -21,12 +21,12 @@ export default function AboutClient() {
             Businesses.
           </h1>
           <p className="text-[19px] text-white/80 font-light leading-relaxed max-w-2xl">
-            Two operators who built it for themselves first — then opened the doors.
+            Two operators who built it for themselves first then opened the doors.
           </p>
         </div>
       </section>
 
-      {/* ─── FOUNDERS — WHITE ─── */}
+      {/* ─── FOUNDERS WHITE ─── */}
       <section className="bg-[#FAFAF8] text-[#0C0C0C] py-24 px-6 md:px-[80px]">
         <div className="max-w-[1240px] mx-auto">
           <p className="text-[11px] tracking-[0.5em] uppercase text-[#D90019] font-black mb-12">The Team</p>
@@ -35,7 +35,7 @@ export default function AboutClient() {
             {/* MIA */}
             <div className="bg-white border border-[#E4E3DE]">
               <div className="relative aspect-[4/3] overflow-hidden">
-                <Image src="/images/founders/mia.jpg" alt="Mia — Co-Founder" fill className="object-cover object-top" />
+                <Image src="/images/founders/mia.jpg" alt="Mia Co-Founder" fill className="object-cover object-top" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0C0C0C]/60 to-transparent" />
                 <div className="absolute bottom-0 left-0 p-6">
                   <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#D90019]">Co-Founder · Operations</span>
@@ -47,10 +47,10 @@ export default function AboutClient() {
                   Mia dropped out at 14 to scale her family's seven-figure business. She spent years deep in operations, learning how to build systems that allow a company to survive its own growth.
                 </p>
                 <p className="text-[16px] text-[#333] leading-relaxed mb-4">
-                  She learned that <strong className="text-[#0C0C0C]">flow beats force</strong> every single time. She became obsessed with removing friction — not with tools that remind you, but with systems that actually execute.
+                  She learned that <strong className="text-[#0C0C0C]">flow beats force</strong> every single time. She became obsessed with removing friction, not with tools that remind you, but with systems that actually execute.
                 </p>
                 <p className="text-[16px] text-[#333] leading-relaxed">
-                  At Elianatech, Mia architects the automation infrastructure — the pipelines, the agents, the operating system that makes every client's business run without them.
+                  At Elianatech, Mia architects the automation infrastructure: the pipelines, the agents, the operating system that makes every client's business run without them.
                 </p>
               </div>
             </div>
@@ -58,7 +58,7 @@ export default function AboutClient() {
             {/* TYLER */}
             <div className="bg-white border border-[#E4E3DE]">
               <div className="relative aspect-[4/3] overflow-hidden">
-                <Image src="/images/founders/tyler.jpg" alt="Tyler — Co-Founder" fill className="object-cover object-top" />
+                <Image src="/images/founders/tyler.jpg" alt="Tyler Co-Founder" fill className="object-cover object-top" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0C0C0C]/60 to-transparent" />
                 <div className="absolute bottom-0 left-0 p-6">
                   <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#D90019]">Co-Founder · Growth</span>
@@ -67,7 +67,7 @@ export default function AboutClient() {
               <div className="p-8">
                 <h2 className="font-bebas text-5xl tracking-tight uppercase mb-4">Tyler</h2>
                 <p className="text-[16px] text-[#333] leading-relaxed mb-4">
-                  Tyler scaled and sold multiple brands through organic media and brand strategy. He's lived the cycle of explosive growth followed by operational collapse — and figured out how to break it.
+                  Tyler scaled and sold multiple brands through organic media and brand strategy. He's lived the cycle of explosive growth followed by operational collapse and figured out how to break it.
                 </p>
                 <p className="text-[16px] text-[#333] leading-relaxed mb-4">
                   Every company he's built hit the same wall: the <strong className="text-[#0C0C0C]">back-end couldn't keep up with the front-end</strong>. Growth without systems is just a trap he's escaped too many times to count.
@@ -81,7 +81,7 @@ export default function AboutClient() {
         </div>
       </section>
 
-      {/* ─── STORY — RED ─── */}
+      {/* ─── STORY RED ─── */}
       <section className="bg-[#D90019] text-white py-24 px-6 md:px-[80px]">
         <div className="max-w-[1000px] mx-auto">
           <p className="text-[11px] tracking-[0.5em] uppercase text-white/70 font-black mb-6">Why This Exists</p>
@@ -90,19 +90,19 @@ export default function AboutClient() {
           </h2>
           <div className="space-y-6 text-[18px] text-white/90 font-light leading-relaxed">
             <p>
-              When Mia and Tyler met in 2023, they realized they were looking at the same problem from two sides. Systems meets Business Growth. Not another agency selling AI hype — two operators who had already done it for themselves.
+              When Mia and Tyler met in 2023, they realized they were looking at the same problem from two sides. Systems meets Business Growth. Not another agency selling AI hype. Two operators who had already done it for themselves.
             </p>
             <p>
               Other founders saw their results and began asking: <strong className="text-white">"I wish I had someone like you for my business."</strong> They didn't just need a consultant. They needed someone to build the AI infrastructure and actually run it.
             </p>
             <p>
-              So they built Elianatech. In one week, they install an AI system trained on your business, your data, and your operations — running continuously, learning over time, compounding forever.
+              So they built Elianatech. In one week, they install an AI system trained on your business, your data, and your operations It runs continuously, learns over time, and compounds forever.
             </p>
           </div>
         </div>
       </section>
 
-      {/* ─── CTA — BLACK ─── */}
+      {/* ─── CTA BLACK ─── */}
       <section className="bg-[#0C0C0C] text-white py-32 px-6 md:px-[80px]">
         <div className="max-w-[1000px] mx-auto">
           <div className="grid md:grid-cols-2 gap-16 items-center">

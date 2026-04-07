@@ -21,7 +21,7 @@ export default function HomeClient() {
     {
       num: "01",
       title: "See the Shift",
-      summary: "An AI assistant connected to all your tools — like a digital EA. You get 10–15 hours back instantly. Your voice is cloned. Your admin is handled.",
+      summary: "An AI assistant connected to all your tools like a digital EA. You get 10–15 hours back instantly. Your voice is cloned. Your admin is handled.",
       items: ["AI inbox management & replies", "Dynamic calendar coordination", "Deal triage & follow-up", "Daily executive briefings", "Voice-cloned task execution"],
       cta: "Start here",
       href: "/audit"
@@ -47,7 +47,7 @@ export default function HomeClient() {
   const faqItems = [
     {
       q: "How does AI infrastructure integrate with my current tools?",
-      a: "Our agents connect to your existing stack (Slack, HubSpot, Gmail, Notion, etc.) via secure APIs. We don't replace your tools — we install an intelligence layer that operates them for you."
+      a: "Our agents connect to your existing stack (Slack, HubSpot, Gmail, Notion, etc.) via secure APIs. We don't replace your tools. We install an intelligence layer that operates them for you."
     },
     {
       q: "Is my business data secure?",
@@ -71,7 +71,7 @@ export default function HomeClient() {
     <div className="font-sans antialiased selection:bg-[#D90019]/30">
       <GlassmorphismNav />
 
-      {/* ─── HERO — BLACK ─── */}
+      {/* ─── HERO BLACK ─── */}
       <section className="bg-[#0C0C0C] text-white min-h-[100dvh] flex flex-col justify-center items-center px-6 pt-32 pb-20 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 left-0 w-[50%] h-[50%] bg-[#D90019]/8 rounded-full blur-[160px]" />
@@ -85,7 +85,7 @@ export default function HomeClient() {
             <span className="text-[#D90019]">Rebuilt</span> as a Machine.
           </h1>
           <p className="text-[19px] md:text-[22px] text-white/80 font-light leading-relaxed max-w-3xl mx-auto mb-12">
-            We install autonomous AI systems that handle your admin, ops, and sales — so you can focus on what only you can do.
+            We install autonomous AI systems that handle your admin, ops, and sales so you can focus on what only you can do.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20">
@@ -112,7 +112,7 @@ export default function HomeClient() {
         </div>
       </section>
 
-      {/* ─── STATEMENT — RED ─── */}
+      {/* ─── STATEMENT RED ─── */}
       <section className="bg-[#D90019] text-white py-24 px-6 md:px-[80px]">
         <div className="max-w-[1000px] mx-auto text-center">
           <h2 className="font-bebas text-5xl md:text-7xl leading-none tracking-tight mb-8 uppercase">
@@ -122,12 +122,12 @@ export default function HomeClient() {
             We go across your entire organization to systemize, automate, and iterate. Our process begins with a deep-dive audit of your time and your stack.
           </p>
           <p className="text-[18px] md:text-[20px] text-white/90 font-light leading-relaxed max-w-3xl mx-auto">
-            We identify the draining tasks and replace them with autonomous AI systems — freeing the founder and team to focus on high-leverage moves.
+            We identify the draining tasks and replace them with autonomous AI systems, freeing the founder and team to focus on high-leverage moves.
           </p>
         </div>
       </section>
 
-      {/* ─── FOUNDER STORY — WHITE ─── */}
+      {/* ─── FOUNDER STORY WHITE ─── */}
       <section className="bg-[#FAFAF8] text-[#0C0C0C] py-32 px-6 md:px-[80px]">
         <div className="max-w-[1240px] mx-auto">
           <div className="grid lg:grid-cols-2 gap-20 items-center">
@@ -139,13 +139,13 @@ export default function HomeClient() {
               </h2>
               <div className="space-y-5 text-[17px] text-[#333] leading-relaxed">
                 <p>
-                  <strong className="text-[#0C0C0C]">Mia</strong> grew up running operations for her dad's company — answering phones, chasing follow-ups, copying data between tools, holding everything in her head. No tool actually went and did the work. They just reminded her to.
+                  <strong className="text-[#0C0C0C]">Mia</strong> grew up running operations for her dad's company answering phones, chasing follow-ups, copying data between tools, holding everything in her head. No tool actually went and did the work. They just reminded her to.
                 </p>
                 <p>
-                  <strong className="text-[#0C0C0C]">Tyler</strong> scaled and sold multiple brands through organic media — and watched every one of them hit the same wall: the back-end couldn't keep up with the front-end.
+                  <strong className="text-[#0C0C0C]">Tyler</strong> scaled and sold multiple brands through organic media and watched every one of them hit the same wall: the back-end couldn't keep up with the front-end.
                 </p>
                 <p>
-                  We couldn't find a solution that actually <em>executed</em> — not assisted, not reminded, not suggested. Everything required a human to be the glue.
+                  We couldn't find a solution that actually <em>executed</em>. Not assisted, not reminded, not suggested. Everything required a human to be the glue.
                 </p>
                 <p className="font-bold text-[#0C0C0C] text-[18px]">
                   So we built the glue. Then we replaced it with infrastructure.
@@ -158,10 +158,11 @@ export default function HomeClient() {
                     { src: "/images/claude-logo.png", alt: "Claude", h: "h-6" },
                     { src: "/images/openai-logo.png", alt: "OpenAI", h: "h-6" },
                     { src: "/images/meta-logo-new.png", alt: "Meta", h: "h-5" },
-                    { src: "/images/google-partner.svg", alt: "Google", h: "h-10" },
+                    { src: "/images/google-partner.svg", alt: "Google Partner", h: "h-11" },
+                    { src: "/images/openclaw-logo.png", alt: "OpenClaw", h: "h-8" },
                   ].map((logo, i) => (
                     <div key={i} className="flex items-center">
-                      <Image src={logo.src} alt={logo.alt} width={120} height={40} className={`${logo.h} w-auto object-contain opacity-70`} />
+                      <Image src={logo.src} alt={logo.alt} width={120} height={40} className={`${logo.h} w-auto object-contain opacity-70 grayscale hover:grayscale-0 transition-all duration-300`} />
                     </div>
                   ))}
                 </div>
@@ -190,7 +191,7 @@ export default function HomeClient() {
         </div>
       </section>
 
-      {/* ─── HOW WE WORK — BLACK ─── */}
+      {/* ─── HOW WE WORK BLACK ─── */}
       <section className="bg-[#0C0C0C] text-white py-32 px-6 md:px-[80px]">
         <div className="max-w-[1240px] mx-auto">
           <div className="text-center mb-20">
@@ -228,7 +229,7 @@ export default function HomeClient() {
         </div>
       </section>
 
-      {/* ─── WEIGHT vs WISDOM — WHITE ─── */}
+      {/* ─── WEIGHT vs WISDOM WHITE ─── */}
       <section className="bg-[#FAFAF8] text-[#0C0C0C] py-32 px-6 md:px-[80px]">
         <div className="max-w-[1240px] mx-auto">
           <div className="text-center mb-16">
@@ -243,7 +244,7 @@ export default function HomeClient() {
 
           <div className="grid md:grid-cols-2 gap-0 border border-[#E4E3DE]">
             <div className="bg-[#0C0C0C] text-white p-12">
-              <h3 className="text-[11px] font-black text-[#D90019] uppercase tracking-[0.4em] mb-8">The Weight — Tech Handles</h3>
+              <h3 className="text-[11px] font-black text-[#D90019] uppercase tracking-[0.4em] mb-8">The Weight Tech Handles</h3>
               <div className="space-y-8">
                 {[
                   { title: "Inbox Triage", desc: "Every email filtered, prioritized, and drafted by agents who know your voice." },
@@ -260,7 +261,7 @@ export default function HomeClient() {
             </div>
 
             <div className="bg-[#F2F1ED] text-[#0C0C0C] p-12 border-l border-[#E4E3DE]">
-              <h3 className="text-[11px] font-black text-[#D90019] uppercase tracking-[0.4em] mb-8">Your Wisdom — Humans Handle</h3>
+              <h3 className="text-[11px] font-black text-[#D90019] uppercase tracking-[0.4em] mb-8">Your Wisdom Humans Handle</h3>
               <div className="space-y-8">
                 {[
                   { title: "Strategic Vision", desc: "Determining the next big thing and steering the company toward its North Star." },
@@ -287,7 +288,7 @@ export default function HomeClient() {
         </div>
       </section>
 
-      {/* ─── BEFORE / AFTER — BLACK ─── */}
+      {/* ─── BEFORE / AFTER BLACK ─── */}
       <section className="bg-[#0C0C0C] text-white py-32 px-6 md:px-[80px]">
         <div className="max-w-[1240px] mx-auto">
           <div className="text-center mb-16">
@@ -304,7 +305,7 @@ export default function HomeClient() {
                 {[
                   "Every task needs a person to start it, track it, and finish it",
                   "Leads get lost. Invoices go out late. Follow-ups die in inboxes",
-                  "12 tools that don't talk to each other — data moved by hand",
+                  "12 tools that don't talk to each other data moved by hand",
                   "The owner is the bottleneck. Nothing moves without them",
                   "Growth breaks things. More revenue means more chaos",
                   "Nights and weekends: the business goes dark"
@@ -322,11 +323,11 @@ export default function HomeClient() {
               <ul className="space-y-5">
                 {[
                   "Mornings that start with results, not a to-do list",
-                  "Your team doing actual work — not administrative survival",
+                  "Your team doing actual work not administrative survival",
                   "A business that keeps running when you step away",
                   "Every tool connected. Data moves on its own",
-                  "Your attention back — for decisions that need you",
-                  "24/7/365 — nights, weekends, holidays. It never stops"
+                  "Your attention back for decisions that need you",
+                  "24/7/365 nights, weekends, holidays. It never stops"
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-4 text-[15px] text-white font-medium">
                     <ArrowRight className="w-4 h-4 mt-1.5 flex-shrink-0 text-white" />
@@ -339,7 +340,7 @@ export default function HomeClient() {
         </div>
       </section>
 
-      {/* ─── INDUSTRY PLAYBOOKS — WHITE ─── */}
+      {/* ─── INDUSTRY PLAYBOOKS WHITE ─── */}
       <section className="bg-[#FAFAF8] text-[#0C0C0C] py-32 px-6 md:px-[80px]">
         <div className="max-w-[1400px] mx-auto">
           <div className="text-center mb-16">
@@ -380,13 +381,13 @@ export default function HomeClient() {
 
           <div className="mt-12 text-center">
             <Link href="/audit" className="inline-flex items-center gap-2 bg-[#0C0C0C] text-white px-10 py-4 text-[12px] font-black uppercase tracking-[0.3em] hover:bg-[#D90019] transition-all">
-              Start the OS Audit — We'll Match You <ArrowRight size={14} />
+              Start the OS Audit We'll Match You <ArrowRight size={14} />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* ─── FAQ — RED ─── */}
+      {/* ─── FAQ RED ─── */}
       <section className="bg-[#D90019] text-white py-32 px-6 md:px-[80px]">
         <div className="max-w-[800px] mx-auto">
           <div className="text-center mb-16">
@@ -417,7 +418,7 @@ export default function HomeClient() {
         </div>
       </section>
 
-      {/* ─── FINAL CTA — BLACK ─── */}
+      {/* ─── FINAL CTA BLACK ─── */}
       <section className="bg-[#0C0C0C] text-white py-40 px-6 md:px-[80px]">
         <div className="max-w-[900px] mx-auto text-center">
           <p className="text-[11px] tracking-[0.6em] uppercase text-[#D90019] font-black mb-10">The End of Manual</p>
