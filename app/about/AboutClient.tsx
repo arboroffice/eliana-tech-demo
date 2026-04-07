@@ -1,368 +1,140 @@
 "use client"
 
-import { useEffect, useRef } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { GlassmorphismNav } from "@/components/glassmorphism-nav"
+import { Footer } from "@/components/footer"
+import { ArrowRight } from "lucide-react"
 
 export default function AboutClient() {
-  const revealRefs = useRef<(HTMLDivElement | null)[]>([])
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("in")
-          }
-        })
-      },
-      { threshold: 0.08, rootMargin: "0px 0px -24px 0px" },
-    )
-
-    revealRefs.current.forEach((el) => {
-      if (el) observer.observe(el)
-    })
-
-    return () => observer.disconnect()
-  }, [])
-
-  const addToReveal = (el: HTMLDivElement | null) => {
-    if (el && !revealRefs.current.includes(el)) {
-      revealRefs.current.push(el)
-    }
-  }
-
   return (
-    <div className="elianatech-about font-mono antialiased">
+    <div className="font-sans antialiased">
       <GlassmorphismNav />
 
-      <main>
-        <section className="about-hero">
-          <div className="hero-bg-word">STORY</div>
-          <div className="hero-tag">Built By Operators</div>
-          <h1 className="hero-h1">DEFINES, DESIGNS, AND BUILDS AI‑NATIVE <br /> PRODUCTS & <span className="r">BUSINESSES.</span></h1>
-          <div className="hero-divider"></div>
-        </section>
+      {/* ─── HERO — BLACK ─── */}
+      <section className="bg-[#0C0C0C] text-white pt-40 pb-24 px-6 md:px-[80px]">
+        <div className="max-w-[1240px] mx-auto">
+          <p className="text-[11px] tracking-[0.5em] uppercase text-[#D90019] font-black mb-6">Built By Operators</p>
+          <h1 className="font-bebas text-6xl sm:text-8xl lg:text-[100px] leading-[0.88] tracking-tight uppercase mb-8">
+            We Define, Design,<br />
+            and Build <span className="text-[#D90019]">AI-Native</span><br />
+            Businesses.
+          </h1>
+          <p className="text-[19px] text-white/80 font-light leading-relaxed max-w-2xl">
+            Two operators who built it for themselves first — then opened the doors.
+          </p>
+        </div>
+      </section>
 
-        <section className="s">
-          <div className="about-layout r-anim" ref={addToReveal}>
-            <div className="about-content">
-              <div className="big-pull">The backend companies wish they had.</div>
+      {/* ─── FOUNDERS — WHITE ─── */}
+      <section className="bg-[#FAFAF8] text-[#0C0C0C] py-24 px-6 md:px-[80px]">
+        <div className="max-w-[1240px] mx-auto">
+          <p className="text-[11px] tracking-[0.5em] uppercase text-[#D90019] font-black mb-12">The Team</p>
 
-              <div className="story-rich">
-                <p>
-                  <strong>We are natural systems thinkers.</strong> While most companies look at their problems as isolated “issues,” we look at the entire engine.
-                  We don’t see a “marketing problem” or an “operations problem”—we see a design flaw in the business’s architecture.
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* MIA */}
+            <div className="bg-white border border-[#E4E3DE]">
+              <div className="relative aspect-[4/3] overflow-hidden">
+                <Image src="/images/founders/mia.jpg" alt="Mia — Co-Founder" fill className="object-cover object-top" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0C0C0C]/60 to-transparent" />
+                <div className="absolute bottom-0 left-0 p-6">
+                  <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#D90019]">Co-Founder · Operations</span>
+                </div>
+              </div>
+              <div className="p-8">
+                <h2 className="font-bebas text-5xl tracking-tight uppercase mb-4">Mia</h2>
+                <p className="text-[16px] text-[#333] leading-relaxed mb-4">
+                  Mia dropped out at 14 to scale her family's seven-figure business. She spent years deep in operations, learning how to build systems that allow a company to survive its own growth.
                 </p>
-
-                <p>
-                  Mia dropped out at 14 to scale her family’s seven‑figure business. She spent years deep in operations, learning how to build systems that allow a company to survive its own growth.
-                  She learned that <strong>flow beats force</strong> every single time.
+                <p className="text-[16px] text-[#333] leading-relaxed mb-4">
+                  She learned that <strong className="text-[#0C0C0C]">flow beats force</strong> every single time. She became obsessed with removing friction — not with tools that remind you, but with systems that actually execute.
                 </p>
-
-                <p>
-                  In 2023, she met Tyler. Tyler had scaled and sold multiple companies through brand and organic marketing. Like every successful founder, she knew that growth without systems is just a trap.
+                <p className="text-[16px] text-[#333] leading-relaxed">
+                  At Elianatech, Mia architects the automation infrastructure — the pipelines, the agents, the operating system that makes every client's business run without them.
                 </p>
+              </div>
+            </div>
 
-                <p>
-                  They realized they were two halves of the same whole: <strong>Systems meets Business Growth.</strong> Not another agency selling AI hype&mdash;two operators who had already done it for themselves and knew exactly what it took.
+            {/* TYLER */}
+            <div className="bg-white border border-[#E4E3DE]">
+              <div className="relative aspect-[4/3] overflow-hidden">
+                <Image src="/images/founders/tyler.jpg" alt="Tyler — Co-Founder" fill className="object-cover object-top" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0C0C0C]/60 to-transparent" />
+                <div className="absolute bottom-0 left-0 p-6">
+                  <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#D90019]">Co-Founder · Growth</span>
+                </div>
+              </div>
+              <div className="p-8">
+                <h2 className="font-bebas text-5xl tracking-tight uppercase mb-4">Tyler</h2>
+                <p className="text-[16px] text-[#333] leading-relaxed mb-4">
+                  Tyler scaled and sold multiple brands through organic media and brand strategy. He's lived the cycle of explosive growth followed by operational collapse — and figured out how to break it.
                 </p>
-
-                <p>
-                  Other founders saw the results and began asking, <em>”I wish I had someone like you for my business.”</em> They didn’t just need a consultant; they needed someone to <strong>build the AI infrastructure</strong> and actually run it.
+                <p className="text-[16px] text-[#333] leading-relaxed mb-4">
+                  Every company he's built hit the same wall: the <strong className="text-[#0C0C0C]">back-end couldn't keep up with the front-end</strong>. Growth without systems is just a trap he's escaped too many times to count.
                 </p>
-
-                <p>
-                  So we built Elianatech. We deploy <strong>autonomous agents on private servers</strong> that handle lead follow‑up, content creation, financial reporting, and decision support&mdash;without human intervention.
-                </p>
-
-                <p>
-                  In just one week, we install an AI system trained on your business, your data, and your operations. It runs continuously, learns over time, and compounds&mdash;so you can step away from the labor of a “job” and run the business you actually wanted.
+                <p className="text-[16px] text-[#333] leading-relaxed">
+                  At Elianatech, Tyler leads growth strategy and helps clients build the brand infrastructure to match their AI-native operations.
                 </p>
               </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section className="cta-wrap">
-          <div className="cta-bg">READY</div>
-          <div className="cta-inner">
-            <div className="r-anim" ref={addToReveal}>
-              <div className="cta-eyebrow">Direct</div>
-              <div className="cta-title">
-                INSTALL YOUR
-                <br />
-                AI SYSTEM
-                <br />
-                <span style={{ color: "var(--red)" }}>TODAY.</span>
-              </div>
+      {/* ─── STORY — RED ─── */}
+      <section className="bg-[#D90019] text-white py-24 px-6 md:px-[80px]">
+        <div className="max-w-[1000px] mx-auto">
+          <p className="text-[11px] tracking-[0.5em] uppercase text-white/70 font-black mb-6">Why This Exists</p>
+          <h2 className="font-bebas text-5xl md:text-7xl leading-none tracking-tight uppercase mb-10">
+            Two Halves of the Same Whole.
+          </h2>
+          <div className="space-y-6 text-[18px] text-white/90 font-light leading-relaxed">
+            <p>
+              When Mia and Tyler met in 2023, they realized they were looking at the same problem from two sides. Systems meets Business Growth. Not another agency selling AI hype — two operators who had already done it for themselves.
+            </p>
+            <p>
+              Other founders saw their results and began asking: <strong className="text-white">"I wish I had someone like you for my business."</strong> They didn't just need a consultant. They needed someone to build the AI infrastructure and actually run it.
+            </p>
+            <p>
+              So they built Elianatech. In one week, they install an AI system trained on your business, your data, and your operations — running continuously, learning over time, compounding forever.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── CTA — BLACK ─── */}
+      <section className="bg-[#0C0C0C] text-white py-32 px-6 md:px-[80px]">
+        <div className="max-w-[1000px] mx-auto">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <div>
+              <p className="text-[11px] tracking-[0.5em] uppercase text-[#D90019] font-black mb-6">Get Started</p>
+              <h2 className="font-bebas text-5xl md:text-7xl leading-none tracking-tight uppercase mb-6">
+                Install Your<br />
+                AI System<br />
+                <span className="text-[#D90019]">Today.</span>
+              </h2>
+              <p className="text-[17px] text-white/80 font-light leading-relaxed">
+                We review your business and show you exactly what your new infrastructure would look like. Free, no commitment.
+              </p>
             </div>
-            <div className="cta-right r-anim d2" ref={addToReveal}>
-              <div className="cta-card">
-                <span className="cta-card-label">Free · No Commitment</span>
-                <div className="cta-card-title">Free AI Audit</div>
-                <p className="cta-card-body">
-                  We review your business and show you exactly what your new infrastructure would look like.
-                </p>
-                <Link href="/audit" className="btn-red">
-                  Get Started
-                </Link>
-              </div>
+            <div className="bg-[#1a1a1a] border border-white/10 p-10">
+              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#D90019] block mb-4">Free · No Commitment</span>
+              <h3 className="font-bebas text-4xl uppercase mb-4">Free AI Audit</h3>
+              <p className="text-[15px] text-white/70 leading-relaxed mb-8">
+                We map out exactly where your time is being lost and what it would look like to get it back.
+              </p>
+              <Link href="/audit" className="inline-flex items-center gap-3 bg-[#D90019] text-white px-8 py-4 text-[12px] font-black uppercase tracking-[0.3em] hover:bg-white hover:text-black transition-all">
+                Get Started <ArrowRight size={14} />
+              </Link>
             </div>
           </div>
-        </section>
-      </main>
+        </div>
+      </section>
 
-      <footer>
-        <Link href="/" className="footer-logo">
-          ELIANA<em>TECH</em>
-        </Link>
-        <ul className="footer-links">
-          <li>
-            <Link href="/">Home</Link>
-          </li>
-          <li>
-            <Link href="/audit">AI Audit</Link>
-          </li>
-          <li>
-            <Link href="/about">About</Link>
-          </li>
-          <li>
-            <a href="mailto:support@elianatech.com">Contact</a>
-          </li>
-        </ul>
-        <span className="footer-copy">© 2026 ELIANATECH</span>
-      </footer>
+      <Footer />
 
-      <style jsx>{`
-        .elianatech-about {
-          --red: #D90019;
-          --black: #0C0C0C;
-          --white: #FAFAF8;
-          --off: #F2F1ED;
-          --dim: #888;
-          --mid: #555;
-          --border: #E4E3DE;
-          background: var(--white);
-          color: var(--black);
-          overflow-x: hidden;
-        }
-
-
-
-        .about-hero {
-          padding: 180px 52px 80px;
-          text-align: center;
-          position: relative;
-          border-bottom: 1px solid var(--border);
-          overflow: hidden;
-        }
-
-        .hero-bg-word {
-          font-family: var(--font-bebas-neue), sans-serif;
-          font-size: 25vw;
-          color: rgba(0, 0, 0, 0.02);
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          pointer-events: none;
-          z-index: 0;
-        }
-
-        .hero-tag {
-          font-size: 10px;
-          letter-spacing: 0.4em;
-          text-transform: uppercase;
-          color: var(--red);
-          margin-bottom: 24px;
-          position: relative;
-        }
-
-        .hero-h1 {
-          font-family: var(--font-bebas-neue), sans-serif;
-          font-size: clamp(48px, 6vw, 90px);
-          line-height: 0.9;
-          position: relative;
-        }
-
-        .hero-h1 .r { color: var(--red); }
-
-        .hero-divider {
-          width: 50px;
-          height: 1px;
-          background: var(--red);
-          margin: 40px auto 0;
-        }
-
-        .s { padding: 96px 52px; }
-
-        .about-layout {
-          max-width: 800px;
-          margin: 0 auto;
-        }
-
-        .big-pull {
-          font-family: var(--font-syne), sans-serif;
-          font-size: clamp(24px, 3vw, 36px);
-          font-weight: 700;
-          line-height: 1.2;
-          margin-bottom: 48px;
-          border-left: 2px solid var(--red);
-          padding-left: 32px;
-        }
-
-        .story-rich {
-          display: flex;
-          flex-direction: column;
-          gap: 24px;
-          font-size: 16px;
-          line-height: 1.8;
-          color: var(--mid);
-        }
-
-        .story-rich strong { color: var(--black); }
-
-        /* CTA */
-        .cta-wrap {
-          background: var(--black);
-          padding: 100px 52px;
-          position: relative;
-          color: var(--white);
-        }
-
-        .cta-bg {
-          font-family: var(--font-bebas-neue), sans-serif;
-          font-size: 20vw;
-          color: rgba(255, 255, 255, 0.02);
-          position: absolute;
-          bottom: -20px;
-          left: 20px;
-          pointer-events: none;
-        }
-
-        .cta-inner {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 80px;
-          position: relative;
-          z-index: 1;
-        }
-
-        .cta-eyebrow {
-          font-size: 10px;
-          letter-spacing: 0.4em;
-          text-transform: uppercase;
-          color: var(--red);
-          margin-bottom: 24px;
-        }
-
-        .cta-title {
-          font-family: var(--font-bebas-neue), sans-serif;
-          font-size: clamp(48px, 6vw, 88px);
-          line-height: 0.9;
-        }
-
-        .cta-card {
-          background: rgba(255, 255, 255, 0.03);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          padding: 40px;
-        }
-
-        .cta-card-label {
-          font-size: 9px;
-          letter-spacing: 0.3em;
-          text-transform: uppercase;
-          color: var(--red);
-          display: block;
-          margin-bottom: 12px;
-        }
-
-        .cta-card-title {
-          font-family: var(--font-syne), sans-serif;
-          font-size: 20px;
-          font-weight: 700;
-          margin-bottom: 8px;
-        }
-
-        .cta-card-body {
-          font-size: 13px;
-          color: rgba(255, 255, 255, 0.4);
-          line-height: 1.6;
-          margin-bottom: 24px;
-        }
-
-        .btn-red {
-          display: inline-block;
-          font-size: 11px;
-          letter-spacing: 0.2em;
-          text-transform: uppercase;
-          background: var(--red);
-          color: var(--white) !important;
-          padding: 16px 32px;
-          text-decoration: none;
-        }
-
-        footer {
-          padding: 44px 52px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          border-top: 1px solid var(--border);
-        }
-
-        .footer-logo {
-          font-family: var(--font-bebas-neue), sans-serif;
-          font-size: 22px;
-          letter-spacing: 0.2em;
-          text-decoration: none;
-          color: var(--black);
-        }
-
-        .footer-logo em { color: var(--red); }
-
-        .footer-links {
-          list-style: none;
-          display: flex;
-          gap: 24px;
-        }
-
-        .footer-links a {
-          font-size: 10px;
-          letter-spacing: 0.2em;
-          text-transform: uppercase;
-          color: var(--dim);
-          text-decoration: none;
-        }
-
-        .footer-copy {
-          font-size: 10px;
-          color: var(--dim);
-          letter-spacing: 0.1em;
-        }
-
-        :global(.r-anim) {
-          opacity: 0;
-          transform: translateY(20px);
-          transition: all 0.6s ease;
-        }
-
-        :global(.r-anim.in) {
-          opacity: 1;
-          transform: translateY(0);
-        }
-
-        @keyframes up {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-
-        @media (max-width: 880px) {
-          .cta-inner { grid-template-columns: 1fr; }
-          .about-hero { padding: 140px 24px 60px; }
-          .s { padding: 64px 24px; }
-          footer { flex-direction: column; gap: 24px; text-align: center; }
-        }
+      <style jsx global>{`
+        .font-bebas { font-family: var(--font-bebas-neue), sans-serif; }
       `}</style>
     </div>
   )
