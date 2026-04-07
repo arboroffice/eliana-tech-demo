@@ -289,34 +289,6 @@ export default function AuditClient() {
              <a href="https://cal.com/elianatech/30min" className="bg-[#D90019] text-white px-10 py-4 text-[13px] font-semibold tracking-wide hover:brightness-110 transition-all inline-block shadow-[0_12px_48px_rgba(217,0,25,0.2)]">Book My Discovery Call</a>
           </div>
 
-          {/* Ecosystem Section */}
-          <div className="mt-20 pt-20 border-t border-white/[0.04]">
-            <p className="text-[10px] tracking-[4px] uppercase text-[#D90019] font-semibold mb-8 flex items-center gap-3">
-              <span className="w-6 h-px bg-[#D90019]" />The Ecosystem
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="group p-8 bg-white/[0.02] border border-white/[0.07] cursor-default opacity-60">
-                <span className="text-[10px] tracking-[3px] uppercase text-white/30 font-semibold mb-3 block">Community</span>
-                <h3 className="font-playfair text-2xl text-white/40 mb-3 transition-colors">Founders Of The Future</h3>
-                <p className="text-[13px] text-white/20 leading-relaxed mb-6">A movement of founders building systems that run their businesses. Stop playing with AI, start building money-making infrastructure.</p>
-                <span className="text-[#D90019]/40 text-[11px] font-bold uppercase tracking-widest flex items-center gap-2">Coming Soon</span>
-              </div>
-
-              <a href="https://aiproof-kappa.vercel.app/" target="_blank" rel="noopener noreferrer" className="group p-8 bg-white/[0.02] border border-white/[0.07] hover:border-[#D90019]/40 transition-all">
-                <span className="text-[10px] tracking-[3px] uppercase text-white/30 font-semibold mb-3 block">Resource</span>
-                <h3 className="font-playfair text-2xl text-white mb-3 group-hover:text-[#D90019] transition-colors">AI Proof Book</h3>
-                <p className="text-[13px] text-white/40 leading-relaxed mb-6">The definitive guide to future-proofing your career and business. Learn how to leverage human-native skills in an AI-native world.</p>
-                <span className="text-[#D90019] text-[11px] font-bold uppercase tracking-widest flex items-center gap-2 group-hover:gap-3 transition-all">Get Your Copy →</span>
-              </a>
-
-              <a href="http://c12hsh4n5bfc02e5c9p4wyax.187.124.238.237.sslip.io" target="_blank" rel="noopener noreferrer" className="group p-8 bg-white/[0.02] border border-white/[0.07] hover:border-[#D90019]/40 transition-all">
-                <span className="text-[10px] tracking-[3px] uppercase text-white/30 font-semibold mb-3 block">Daily Intel</span>
-                <h3 className="font-playfair text-2xl text-white mb-3 group-hover:text-[#D90019] transition-colors">The Brief</h3>
-                <p className="text-[13px] text-white/40 leading-relaxed mb-6">Your Daily OS. Three autonomous agents scan the internet to deliver AI intelligence tailored to your role, delivered every morning at 7:00 AM.</p>
-                <span className="text-[#D90019] text-[11px] font-bold uppercase tracking-widest flex items-center gap-2 group-hover:gap-3 transition-all">Secure Your Briefing →</span>
-              </a>
-            </div>
-          </div>
         </div>
       </div>
     )
@@ -523,34 +495,6 @@ export default function AuditClient() {
             </ScrollReveal>
           )}
 
-          {/* Ecosystem Section */}
-          <div className="mt-20 pt-20 border-t border-white/[0.04]">
-            <p className="text-[10px] tracking-[4px] uppercase text-[#D90019] font-semibold mb-8 flex items-center gap-3">
-              <span className="w-6 h-px bg-[#D90019]" />The Ecosystem
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="group p-8 bg-white/[0.03] border border-white/[0.07] cursor-default opacity-60">
-                <span className="text-[10px] tracking-[3px] uppercase text-white/30 font-semibold mb-3 block">Community</span>
-                <h3 className="font-playfair text-2xl text-white/40 mb-3 transition-colors">Founders Of The Future</h3>
-                <p className="text-[13px] text-white/20 leading-relaxed mb-6">A movement of founders building systems that run their businesses. Stop playing with AI, start building money-making infrastructure.</p>
-                <span className="text-[#D90019]/40 text-[11px] font-bold uppercase tracking-widest flex items-center gap-2">Coming Soon</span>
-              </div>
-
-              <a href="https://aiproof-kappa.vercel.app/" target="_blank" rel="noopener noreferrer" className="group p-8 bg-white/[0.03] border border-white/[0.07] hover:border-[#D90019]/40 transition-all">
-                <span className="text-[10px] tracking-[3px] uppercase text-white/30 font-semibold mb-3 block">Resource</span>
-                <h3 className="font-playfair text-2xl text-white mb-3 group-hover:text-[#D90019] transition-colors">AI Proof Book</h3>
-                <p className="text-[13px] text-white/40 leading-relaxed mb-6">The definitive guide to future-proofing your career and business. Learn how to leverage human-native skills in an AI-native world.</p>
-                <span className="text-[#D90019] text-[11px] font-bold uppercase tracking-widest flex items-center gap-2 group-hover:gap-3 transition-all">Get Your Copy →</span>
-              </a>
-
-              <a href="http://c12hsh4n5bfc02e5c9p4wyax.187.124.238.237.sslip.io" target="_blank" rel="noopener noreferrer" className="group p-8 bg-white/[0.03] border border-white/[0.07] hover:border-[#D90019]/40 transition-all">
-                <span className="text-[10px] tracking-[3px] uppercase text-white/30 font-semibold mb-3 block">Daily Intel</span>
-                <h3 className="font-playfair text-2xl text-white mb-3 group-hover:text-[#D90019] transition-colors">The Brief</h3>
-                <p className="text-[13px] text-white/40 leading-relaxed mb-6">Your Daily OS. Three autonomous agents scan the internet to deliver AI intelligence tailored to your role, delivered every morning at 7:00 AM.</p>
-                <span className="text-[#D90019] text-[11px] font-bold uppercase tracking-widest flex items-center gap-2 group-hover:gap-3 transition-all">Secure Your Briefing →</span>
-              </a>
-            </div>
-          </div>
         </div>
       </div>
     </div>

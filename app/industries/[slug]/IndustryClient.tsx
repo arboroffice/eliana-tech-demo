@@ -4,7 +4,7 @@ import { useState } from "react"
 import { GlassmorphismNav } from "@/components/glassmorphism-nav"
 import { Footer } from "@/components/footer"
 import Link from "next/link"
-import { IndustryContent } from "@/lib/industry-data"
+import { IndustryContent, industries } from "@/lib/industry-data"
 import { SolutionsSection } from "./SolutionsSection"
 
 export function IndustryClient({ industry }: { industry: IndustryContent }) {
@@ -274,6 +274,22 @@ export function IndustryClient({ industry }: { industry: IndustryContent }) {
                         </div>
                     </section>
                 )}
+
+                <section className="mb-24">
+                    <div className="category-header mb-12">
+                        <span className="cat-num">Related Architecture</span>
+                        <h2 className="cat-title">Proven Infrastructure for Adjacent Sectors</h2>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        {industries.filter(i => i.slug !== industry.slug).slice(0, 4).map((rel, idx) => (
+                            <Link key={idx} href={`/industries/${rel.slug}`} className="p-6 bg-white border border-[#E4E3DE] hover:border-[#D90019] transition-all group">
+                                <span className="text-[10px] text-[#D90019]/50 font-bold uppercase tracking-widest block mb-4">Playbook 0{idx + 1}</span>
+                                <h4 className="text-sm font-bold text-[#0C0C0C] group-hover:text-[#D90019] transition-colors">{rel.name}</h4>
+                                <p className="text-[11px] text-[#888] mt-2 line-clamp-2">{rel.problem}</p>
+                            </Link>
+                        ))}
+                    </div>
+                </section>
 
                 <section className="mb-24 p-16 bg-[#0B0B0B] text-[#FAFAF8] text-center rounded-sm">
                     <h2 className="text-4xl font-syne font-bold mb-6">Ready to install your neural layer?</h2>

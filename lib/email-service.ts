@@ -42,42 +42,72 @@ export async function sendAuditNotificationToTeam(params: {
     const subject = `🔥 NEW AUDIT: ${formData.companyName} (${intentLevel.toUpperCase()})`
     
     const html = `
-        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #eee; padding: 20px;">
-            <h2 style="color: #D90019; border-bottom: 2px solid #D90019; padding-bottom: 10px;">New Audit Submission</h2>
-            <p><strong>Company:</strong> ${formData.companyName}</p>
-            <p><strong>Name:</strong> ${formData.fullName}</p>
-            <p><strong>Email:</strong> ${formData.email}</p>
-            <p><strong>Phone:</strong> ${formData.phoneNumber || 'N/A'}</p>
-            <hr />
-            <table width="100%">
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <style>
+                @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+            </style>
+        </head>
+        <body style="margin: 0; padding: 0; background-color: #FAFAF8; font-family: 'Inter', sans-serif; color: #0C0C0C;">
+            <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #FAFAF8; padding: 40px 0;">
                 <tr>
-                    <td><strong>Score:</strong></td>
-                    <td style="font-size: 24px; font-weight: bold; color: #D90019;">${auditScore}/100</td>
-                </tr>
-                <tr>
-                    <td><strong>Intent:</strong></td>
-                    <td style="text-transform: uppercase; font-weight: bold;">${intentLevel}</td>
+                    <td align="center">
+                        <table width="600" cellpadding="0" cellspacing="0" style="width: 100%; max-width: 600px; border: 1px solid #E4E3DE; background-color: #ffffff; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+                            <tr>
+                                <td style="padding: 40px; background-color: #0C0C0C;">
+                                    <h1 style="margin: 0; color: #ffffff; font-size: 20px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;">NEW AUDIT SUBMISSION</h1>
+                                    <p style="margin: 10px 0 0; color: #D90019; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.2em;">${intentLevel.toUpperCase()} INTENT LEAD</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 40px;">
+                                    <table width="100%" style="margin-bottom: 30px; border-bottom: 2px solid #D90019; padding-bottom: 20px;">
+                                        <tr>
+                                            <td style="font-size: 32px; font-weight: 800; tracking-tighter: -0.02em;">${formData.companyName}</td>
+                                            <td align="right" style="font-size: 48px; font-weight: 800; color: #D90019; font-style: italic;">${auditScore}/10</td>
+                                        </tr>
+                                    </table>
+
+                                    <h3 style="font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; color: #888; border-bottom: 1px solid #E4E3DE; padding-bottom: 8px; margin-bottom: 16px;">Contact Information</h3>
+                                    <p style="font-size: 15px; margin: 0 0 8px;"><strong>Founder/Lead:</strong> ${formData.fullName}</p>
+                                    <p style="font-size: 15px; margin: 0 0 8px;"><strong>Email:</strong> ${formData.email}</p>
+                                    <p style="font-size: 15px; margin: 0 0 24px;"><strong>Phone:</strong> ${formData.phoneNumber || 'N/A'}</p>
+
+                                    <h3 style="font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; color: #888; border-bottom: 1px solid #E4E3DE; padding-bottom: 8px; margin-bottom: 16px;">Business Context</h3>
+                                    <p style="font-size: 15px; margin: 0 0 8px;"><strong>Industry:</strong> ${formData.businessType || formData.specificIndustry || 'N/A'}</p>
+                                    <p style="font-size: 15px; margin: 0 0 8px;"><strong>Revenue:</strong> ${formData.revenue || formData.currentRevenue || 'N/A'}</p>
+                                    <p style="font-size: 15px; margin: 0 0 8px;"><strong>Team Size:</strong> ${formData.teamSize || 'N/A'}</p>
+                                    <p style="font-size: 15px; margin: 0 0 24px;"><strong>Admin Burden:</strong> ${formData.hoursOnAdmin || 'N/A'} hours/week</p>
+
+                                    <h3 style="font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; color: #888; border-bottom: 1px solid #E4E3DE; padding-bottom: 8px; margin-bottom: 16px;">Operational Mechanics</h3>
+                                    <p style="font-size: 15px; margin: 0 0 8px;"><strong>Tools (CRM/Stack):</strong> ${Array.isArray(formData.crmTools) ? formData.crmTools.join(', ') : formData.tools || 'N/A'}</p>
+                                    <p style="font-size: 15px; margin: 0 0 8px;"><strong>Top Bottleneck:</strong> ${formData.bottleneck || 'N/A'}</p>
+                                    <p style="font-size: 15px; margin: 0 0 8px;"><strong>Core Pain:</strong> ${formData.biggestFix || formData.keepsUpAtNight || 'N/A'}</p>
+                                    <p style="font-size: 15px; margin: 0 0 24px;"><strong>Urgency:</strong> ${formData.urgency || 'N/A'}</p>
+
+                                    <h3 style="font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; color: #888; border-bottom: 1px solid #D90019; padding-bottom: 8px; margin-bottom: 16px;">Identified Opportunities</h3>
+                                    <ul style="padding-left: 20px; font-size: 14px; color: #555;">
+                                        ${opportunities.map((o: any) => `<li style="margin-bottom: 12px;"><strong>${o.title}</strong>: ${o.description}</li>`).join('')}
+                                    </ul>
+
+                                    <div style="margin-top: 40px; padding: 30px; background-color: #F2F1ED; text-align: center;">
+                                        <a href="https://elianatech.com/admin/audits/${auditId}" style="display: inline-block; padding: 16px 32px; background-color: #0C0C0C; color: #ffffff; text-decoration: none; font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em;">View in Eliana Command Center</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
                 </tr>
             </table>
-            <hr />
-            <p><strong>Industry:</strong> ${formData.specificIndustry || 'N/A'}</p>
-            <p><strong>Growth Budget:</strong> ${formData.growthBudget || 'N/A'}</p>
-            <p><strong>Keeps Up At Night:</strong> ${formData.keepsUpAtNight || 'N/A'}</p>
-            <hr />
-            <h3>Opportunities:</h3>
-            <ul style="padding-left: 20px;">
-                ${opportunities.map((o: any) => `<li style="margin-bottom: 8px;"><strong>${o.title}</strong>: ${o.description}</li>`).join('')}
-            </ul>
-            <div style="margin-top: 30px; padding: 20px; background: #f9f9f9; text-align: center;">
-                <p><a href="https://elianatech.com/admin/audits/${auditId}" style="display: inline-block; padding: 12px 24px; background: #000; color: #fff; text-decoration: none; font-weight: bold;">View in Admin Dashboard</a></p>
-            </div>
-        </div>
+        </body>
+        </html>
     `
 
     // Send to both addresses as requested
     try {
         await sendEmail({ 
-            to: ['mia@elianatech.com', 'sales@elianatech.com'], 
+            to: ['mia@elianatech.com', 'sales@elianatech.com', 'elianatech@yahoo.com'], 
             subject, 
             html, 
             template: 'TEAM_NOTIFICATION' 

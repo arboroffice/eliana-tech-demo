@@ -19,6 +19,8 @@ export function BrandLogos() {
         "Intercom",
         "Calendly",
         "GoHighLevel",
+        "Google",
+        "OpenClaw",
     ]
 
     // Double for seamless infinite loop

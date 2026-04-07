@@ -1,641 +1,510 @@
 "use client"
 
-import Link from "next/link"
-import { ArrowRight } from "lucide-react"
 import { useEffect, useState } from "react"
-import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/scroll-reveal"
+import Link from "next/link"
+import { motion } from "framer-motion"
+import { ArrowRight, TrendingUp, Target, MessageSquare, Zap, LineChart, Layers, Database, Mail, ShieldCheck, Settings, Rocket, Globe, CheckCircle2, ChevronDown, Plus, Minus } from "lucide-react"
+import { GlassmorphismNav } from "@/components/glassmorphism-nav"
+import { Footer } from "@/components/footer"
+import { ScrollReveal } from "@/components/scroll-reveal"
 import Image from "next/image"
-import { TheBriefSection } from "@/components/the-brief-section"
 
 export default function HomeClient() {
-  const [scrolled, setScrolled] = useState(false)
+  const [mounted, setMounted] = useState(false)
+  const [openFaq, setOpenFaq] = useState<number | null>(null)
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 60)
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
+    setMounted(true)
   }, [])
 
-  const allIndustries = [
-    { name: "Medical & Dental", slug: "medical-dental", tag: "Patient Intake & Billing", desc: "Automate scheduling, insurance verification, follow-ups, and review collection" },
-    { name: "Home Services (High Ticket)", slug: "home-services-high-ticket", tag: "Lead-to-Close Pipeline", desc: "Instant lead response, estimate automation, job scheduling, and invoice triggers" },
-    { name: "Home Services (Recurring)", slug: "home-services-recurring", tag: "Retention & Rebooking", desc: "Automated rebooking, seasonal campaigns, review requests, and route optimization" },
-    { name: "Legal Services", slug: "legal", tag: "Client Intake & Case Mgmt", desc: "Automated intake forms, retainer billing, case status updates, and referral tracking" },
-    { name: "Beauty & Personal Care", slug: "beauty-personal-care", tag: "Booking & Retention", desc: "No-show reduction, rebooking sequences, loyalty programs, and review generation" },
-    { name: "Real Estate & Property", slug: "real-estate-property", tag: "Lead Nurture & Transactions", desc: "Automated lead follow-up, listing alerts, transaction coordination, and past-client outreach" },
-    { name: "Health & Wellness", slug: "health-wellness", tag: "Appointments & Care", desc: "Booking automation, care plan follow-ups, membership retention, and HIPAA-aware comms" },
-    { name: "Pet Services", slug: "pet-services", tag: "Scheduling & Re-engagement", desc: "Appointment reminders, vaccination tracking, rebooking triggers, and review requests" },
-    { name: "Automotive", slug: "automotive", tag: "Service & Sales Pipeline", desc: "Lead response, service reminders, estimate follow-ups, and reputation management" },
-    { name: "Professional & Financial", slug: "professional-financial", tag: "Client Lifecycle", desc: "Proposal automation, retainer management, compliance workflows, and referral systems" },
-    { name: "Events & Hospitality", slug: "events-hospitality", tag: "Bookings & Guest Experience", desc: "Reservation management, guest comms, post-event follow-ups, and review generation" },
-    { name: "Education & Childcare", slug: "education-childcare", tag: "Enrollment & Parent Comms", desc: "Enrollment funnels, parent updates, waitlist management, and re-enrollment campaigns" },
-    { name: "SaaS Founders", slug: "saas", tag: "Trial-to-Paid & Retention", desc: "Onboarding sequences, churn prevention, usage-based triggers, and expansion revenue" },
-    { name: "Course Creators", slug: "course-creators", tag: "Launch & Engagement", desc: "Launch sequences, student onboarding, completion nudges, and upsell automation" },
-    { name: "Coaches & Consultants", slug: "coaching", tag: "Pipeline & Delivery", desc: "Discovery call booking, proposal delivery, client onboarding, and renewal triggers" },
-    { name: "E-commerce & Retail", slug: "ecommerce", tag: "Cart Recovery & LTV", desc: "Abandoned cart flows, post-purchase sequences, reorder triggers, and review requests" },
-    { name: "Agencies", slug: "agencies", tag: "Sales & Client Ops", desc: "Lead pipeline, proposal automation, project status updates, and client reporting" },
-    { name: "Misc. Local Services", slug: "misc-local-services", tag: "Leads & Operations", desc: "Lead follow-up, scheduling, invoicing, review generation, and client retention" },
+  if (!mounted) return null
+
+  const stats = [
+    { value: "40+", label: "Hours returned weekly" },
+    { value: "12", label: "Industry playbooks deployed" },
+    { value: "3×", label: "Output per member in 90 days" }
+  ]
+
+  const phases = [
+    {
+      num: "01",
+      title: "Phase One",
+      subtitle: "See the Shift.",
+      summary: "Fastest way to feel the impact. An AI assistant you can tell to do things — connected to all your tools, like a digital EA.",
+      outcome: "What happens: You get 10-15 hours back instantly. Your voice is cloned. Your admin is handled. You see the shift without touching your core systems.",
+      items: [
+        "AI inbox management & replies",
+        "Dynamic calendar coordination",
+        "Deal triage & follow-up",
+        "Daily executive briefings",
+        "Voice-cloned task execution"
+      ],
+      cta: "Start here →",
+      href: "/audit"
+    },
+    {
+      num: "02",
+      title: "The Build",
+      subtitle: "Build the System.",
+      summary: "Infrastructure that runs without you. Full AI infrastructure, industry playbooks, pipelines, and trained agents.",
+      outcome: "What happens: Every repeating task is automated. Lead flow, client onboarding, and billing run on infrastructure, not effort.",
+      items: [
+        "Industry playbook installed",
+        "AI agents across sales & ops",
+        "Automated pipelines & triggers",
+        "Tool-to-tool neural connections",
+        "Team training for AI-native ops"
+      ],
+      cta: "See what we'd build for you →",
+      href: "/audit"
+    },
+    {
+      num: "03",
+      title: "Scale Up",
+      subtitle: "Go Deep.",
+      summary: "Autonomous agents executing together. Embed AI as your wing, automate every department, scale endlessly.",
+      outcome: "What happens: Your business becomes a machine. Infinite scale with zero increase in operational complexity or headcount.",
+      items: [
+        "Embedded AI department",
+        "Monthly infrastructure shipping",
+        "Department-wide automation",
+        "Strategy-to-execution loop",
+        "Revenue-share expansion models"
+      ],
+      cta: "Apply for the AI wing →",
+      href: "/apply"
+    }
+  ]
+
+  const faqItems = [
+    {
+      q: "How does AI infrastructure integrate with my current tools?",
+      a: "Our agents connect to your existing stack (Slack, HubSpot, Gmail, Notion, etc.) via secure APIs. We don't replace your tools; we install an intelligence layer that operates them for you."
+    },
+    {
+      q: "Is my business data secure?",
+      a: "Yes. We use enterprise-tier AI environments with zero data retention. Your information is never used to train public models, and we implement role-based access for your specific team."
+    },
+    {
+      q: "What is the typical ROI for an AI installation?",
+      a: "Most clients see a 70% reduction in administrative overhead and a 3x increase in lead-to-close speed within the first 60 days. Our audit identifies exactly where your highest return will be."
+    },
+    {
+      q: "Do I need to be a technical founder?",
+      a: "No. You manage your workforce using plain English. If you can explain a task to a human, you can manage your AI operatives. We handle 100% of the architecture and training."
+    },
+    {
+      q: "Is this better than just using ChatGPT?",
+      a: "ChatGPT is a generic tool. Elianatech builds a proprietary intelligence system trained on *your* company data, *your* SOPs, and *your* exact industry playbooks."
+    }
   ]
 
   return (
-    <div className="bg-[#060406] text-[#F2EEF5] font-inter overflow-x-hidden selection:bg-[#D90019] selection:text-white">
+    <div className="bg-[#050505] text-white font-sans selection:bg-[#D90019]/30 selection:text-white antialiased">
+      <GlassmorphismNav />
 
-      {/* ─── NAV ─── */}
-      <nav className={`fixed top-0 left-0 right-0 z-[300] flex items-center justify-between px-6 md:px-[72px] h-[72px] transition-all duration-400 ${scrolled ? "bg-[#060406]/[0.96] backdrop-blur-2xl border-b border-white/[0.04]" : "bg-transparent"}`}>
-        <Link href="/" className="font-playfair italic text-[21px] text-[#F2EEF5] tracking-wide">
-          Elianatech<span className="text-[#D90019] not-italic">.</span>
-        </Link>
-        <div className="hidden md:flex items-center gap-10">
-          {[
-            { label: "The Founders", href: "#story" },
-            { label: "The Shift", href: "#transform" },
-            { label: "The Framework", href: "#phases" },
-            { label: "Playbooks", href: "#playbooks" },
-            { label: "AI Proof Book", href: "https://aiproof-kappa.vercel.app/", target: "_blank", rel: "noopener noreferrer" },
-            { label: "OS Audit", href: "/audit" },
-          ].map(l => (
-            l.target ? (
-              <a key={l.href} href={l.href} target={l.target} rel={l.rel} className="text-[12px] text-white/40 tracking-wide hover:text-white transition-colors">{l.label}</a>
-            ) : (
-              <a key={l.href} href={l.href} className="text-[12px] text-white/40 tracking-wide hover:text-white transition-colors">{l.label}</a>
-            )
-          ))}
+      {/* --- HERO --- */}
+      <section className="relative min-h-[90dvh] flex flex-col justify-center items-center px-6 pt-32 pb-20 overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+           <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-[#D90019]/5 rounded-full blur-[140px]" />
+           <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-zinc-900/40 rounded-full blur-[140px]" />
         </div>
-        <Link href="/audit" className="bg-[#D90019] text-white px-4 md:px-6 py-2 md:py-2.5 text-[11px] md:text-[12px] font-semibold tracking-wide hover:brightness-110 transition-all">Take Your OS Audit</Link>
-      </nav>
 
-      <main>
+        <div className="max-w-[1100px] w-full mx-auto text-center relative z-10">
+          <ScrollReveal>
+             <h1 className="font-bebas text-5xl sm:text-7xl lg:text-[90px] leading-[0.9] tracking-tighter mb-8 text-white uppercase">
+                The Future of Business<br />
+                <span className="bg-gradient-to-r from-zinc-300 to-zinc-600 bg-clip-text text-transparent">Building AI-Native Companies.</span>
+             </h1>
+          </ScrollReveal>
 
-        {/* ─── HERO ─── */}
-        <section className="relative flex flex-col justify-end px-6 md:px-[72px] pt-28 md:pt-36 pb-16 md:pb-24 overflow-hidden">
-          <div className="absolute inset-0 pointer-events-none" style={{
-            backgroundImage: "linear-gradient(rgba(217,0,25,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(217,0,25,0.025) 1px,transparent 1px)",
-            backgroundSize: "88px 88px"
-          }} />
-          <div className="absolute w-[600px] md:w-[1100px] h-[600px] md:h-[1100px] bg-[radial-gradient(ellipse,rgba(217,0,25,0.09)_0%,transparent_70%)] -top-[150px] md:-top-[300px] -right-[150px] md:-right-[300px] pointer-events-none animate-pulse" style={{ animationDuration: "12s" }} />
+          <ScrollReveal delay={0.2}>
+             <p className="text-[18px] md:text-[20px] text-zinc-400 font-light leading-relaxed max-w-3xl mx-auto mb-12">
+                Go AI-native — for yourself, your team, and your company. Your business runs automatically while you focus on what humans do best: turning ideas into companies that scale themselves.
+             </p>
+          </ScrollReveal>
 
-          <p className="flex items-center gap-3 text-[10px] tracking-[4px] uppercase text-white/40 font-semibold mb-6 md:mb-9 relative z-10 animate-fade-in" style={{ animationDelay: "0.1s" }}>
-            <span className="w-8 h-px bg-[#D90019]" />
-            The Future of Business
-          </p>
+          <ScrollReveal delay={0.3} className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-20">
+             <Link href="/audit" className="bg-[#D90019] text-white px-10 py-5 text-[12px] font-black uppercase tracking-[0.3em] hover:bg-white hover:text-black transition-all">
+                Start Your OS Audit →
+             </Link>
+          </ScrollReveal>
 
-          <h1 className="font-playfair text-[clamp(34px,6vw,84px)] leading-[0.92] text-[#F2EEF5] max-w-[900px] tracking-tight relative z-10 animate-fade-in" style={{ animationDelay: "0.3s" }}>
-            Build <em className="text-[#D90019]">AI-Powered</em><br />Businesses & Founders<span className="text-[#D90019]">.</span>
-          </h1>
-
-          <div className="grid md:grid-cols-2 gap-10 md:gap-[120px] mt-10 md:mt-16 relative z-10 animate-fade-in" style={{ animationDelay: "0.7s" }}>
-            <div>
-              <div className="text-[15px] md:text-[18px] text-white/40 leading-relaxed max-w-[540px]">
-                <ul className="space-y-4 mb-8">
-                  {[
-                    "Turn your business into an AI-powered machine",
-                    "Become a founder using AI from your knowledge or interests",
-                    "Go AI-native — for yourself, your team, and your company"
-                  ].map((text, i) => (
-                    <li key={i} className="flex items-start gap-3">
-                      <span className="text-[#D90019] mt-1.5 shrink-0 w-1.5 h-1.5 rounded-full bg-[#D90019]" />
-                      <span className="text-white font-medium">{text}</span>
-                    </li>
-                  ))}
-                </ul>
-                <p className="border-t border-white/10 pt-6 italic font-playfair">
-                  Your business runs automatically. You focus on what humans do best. Your ideas turn into companies that scale themselves.
-                </p>
+          {/* Stats Bar */}
+          <ScrollReveal delay={0.4} className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-4xl mx-auto border-t border-zinc-900 pt-16">
+            {stats.map((stat, i) => (
+              <div key={i} className="flex flex-col items-center">
+                <span className="text-4xl md:text-5xl font-bebas text-white mb-2 tracking-tight">{stat.value}</span>
+                <span className="text-[10px] uppercase tracking-[0.2em] text-zinc-500 font-black">{stat.label}</span>
               </div>
-              <div className="flex flex-wrap gap-4 mt-10">
-                <a href="http://c12hsh4n5bfc02e5c9p4wyax.187.124.238.237.sslip.io" target="_blank" rel="noopener noreferrer" className="bg-[#D90019] text-white px-7 md:px-9 py-3.5 md:py-4 text-[13px] font-semibold tracking-wide hover:brightness-110 hover:-translate-y-0.5 transition-all inline-block shadow-[0_12px_48px_rgba(217,0,25,0.2)]">
-                  Get Your Daily Brief →
-                </a>
-                <div className="bg-transparent text-white/20 px-7 md:px-9 py-3.5 md:py-4 text-[13px] border border-white/[0.05] transition-all inline-block cursor-default">
-                  Founders of the Future — Coming Soon
+            ))}
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* --- BANNER --- */}
+      <section className="py-32 px-6 md:px-[80px] bg-[#0A070B] border-y border-zinc-900">
+        <div className="max-w-[1000px] mx-auto text-center">
+          <ScrollReveal>
+            <h2 className="font-bebas text-4xl md:text-6xl leading-none tracking-tighter mb-10 uppercase text-white">
+              Efficiency is the new currency.
+            </h2>
+            <p className="text-[17px] md:text-[20px] text-zinc-300 font-light leading-relaxed mb-8">
+              We go across your organization to systemize, automate, and iterate. Our process begins with a deep-dive audit of your time and your stack. We identify the &ldquo;draining tasks&rdquo; and replace them with autonomous AI systems, freeing the founder and the team to focus on high-leverage moves.
+            </p>
+            <p className="text-[17px] md:text-[20px] text-zinc-300 font-light leading-relaxed">
+              We operate as a performance-tied partner. We want to be tied to the revenue we drive. We grow through referrals because our results turn companies into machines. You get a dedicated AI department focused exclusively on your evolution.
+            </p>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* --- WHY THIS EXISTS (FOUNDER STORY) --- */}
+      <section id="founders" className="py-32 px-6 md:px-[80px] bg-[#050505]">
+         <div className="max-w-[1240px] mx-auto">
+            <div className="grid lg:grid-cols-2 gap-20 items-center">
+              <ScrollReveal direction="left">
+                <p className="text-[10px] tracking-[0.8em] uppercase text-[#D90019] font-black mb-8">Background</p>
+                <h2 className="font-bebas text-5xl md:text-7xl leading-none tracking-tighter mb-10 uppercase">
+                  Why This Exists<br />
+                  <span className="text-zinc-700 italic">We built it because we needed it.</span>
+                </h2>
+                <div className="space-y-6 text-[16px] text-zinc-400 font-light leading-relaxed">
+                  <p>
+                    Mia grew up running operations for her dad's company. Answering phones, chasing follow-ups, copying data between tools, holding everything in her head. No tool actually went and did the work. They just reminded her to.
+                  </p>
+                  <p>
+                    Tyler scaled and sold multiple brands through organic media — and watched every one of them hit the same wall: the back-end couldn't keep up with the front-end.
+                  </p>
+                  <p>
+                    We are business owners who know how to scale and grow because we've done it. We couldn't find a solution that actually executed — not assisted, not reminded, not suggested. Everything required a human to be the glue.
+                  </p>
+                  <p className="text-white font-medium">
+                    So we built the glue. Then we replaced it with infrastructure.
+                  </p>
                 </div>
-              </div>
+
+                <div className="mt-20">
+                  <p className="text-[9px] tracking-[0.3em] uppercase text-zinc-600 font-black mb-10">OFFICIAL INFRASTRUCTURE PARTNERS</p>
+                  <div className="flex flex-wrap gap-x-12 gap-y-8 items-center">
+                     {[
+                        { src: "/images/claude-logo.png", alt: "Claude", h: "h-6" },
+                        { src: "/images/openai-logo.png", alt: "OpenAI", h: "h-6" },
+                        { src: "/images/meta-logo-new.png", alt: "Meta", h: "h-5" },
+                        { src: "/images/google-partner.svg", alt: "Google Partner", h: "h-11" },
+                        { src: "/images/openclaw-logo.png", alt: "OpenClaw", h: "h-8" }
+                     ].map((logo, i) => (
+                        <div key={i} className="flex items-center justify-center">
+                           <Image src={logo.src} alt={logo.alt} width={120} height={40} className={`${logo.h} w-auto object-contain brightness-110`} />
+                        </div>
+                     ))}
+                  </div>
+                </div>
+              </ScrollReveal>
+
+              <ScrollReveal direction="right" className="grid grid-cols-2 gap-8">
+                <div className="space-y-8">
+                  <div className="relative aspect-[3/4] bg-zinc-900 overflow-hidden border border-zinc-800">
+                    <Image src="/images/founders/mia.jpg" alt="Mia" fill className="object-cover opacity-80" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+                    <div className="absolute bottom-4 left-4">
+                      <p className="text-white font-bebas text-2xl tracking-widest leading-none">MIA</p>
+                      <p className="text-[8px] text-[#D90019] font-black uppercase tracking-widest">Co-Founder | Ops</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="space-y-8 pt-12">
+                  <div className="relative aspect-[3/4] bg-zinc-900 overflow-hidden border border-zinc-800">
+                    <Image src="/images/founders/tyler.jpg" alt="Tyler" fill className="object-cover opacity-80" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+                    <div className="absolute bottom-4 left-4">
+                      <p className="text-white font-bebas text-2xl tracking-widest leading-none">TYLER</p>
+                      <p className="text-[8px] text-[#D90019] font-black uppercase tracking-widest">Co-Founder | Media</p>
+                    </div>
+                  </div>
+                </div>
+              </ScrollReveal>
             </div>
-            <div className="flex flex-row md:flex-col justify-between md:justify-end gap-4 md:gap-7 overflow-x-auto">
-              {[
-                { n: "40+", l: "Hours returned weekly" },
-                { n: "12", l: "Industry playbooks deployed" },
-                { n: "3\u00D7", l: "Output per member in 90 days" },
-              ].map((s, i) => (
-                <div key={i} className="border-l-2 border-[#D90019] pl-4 md:pl-6 shrink-0">
-                  <p className="font-playfair italic text-[36px] md:text-[52px] text-white leading-none mb-1">{s.n}</p>
-                  <p className="text-[11px] md:text-[13px] text-white/40 tracking-wide">{s.l}</p>
+         </div>
+      </section>
+
+      {/* --- HOW WE WORK TOGETHER (PHASES) --- */}
+      <section className="py-32 px-6 md:px-[80px] bg-[#0A070B] border-y border-zinc-900">
+         <div className="max-w-[1240px] mx-auto">
+            <ScrollReveal className="text-center mb-24">
+              <p className="text-[10px] tracking-[0.8em] uppercase text-[#D90019] font-black mb-8">Engagement</p>
+              <h2 className="font-bebas text-5xl md:text-7xl leading-none tracking-tighter mb-8 uppercase">
+                How We Work Together
+              </h2>
+              <p className="text-[18px] text-zinc-500 max-w-2xl mx-auto font-light">
+                An evolution — not a one-time transaction. We start small, prove it, then go as deep as you want.
+              </p>
+            </ScrollReveal>
+
+            <div className="grid lg:grid-cols-3 gap-px bg-zinc-900 border border-zinc-900">
+              {phases.map((phase, i) => (
+                <div key={i} className="bg-[#050505] p-10 md:p-14 flex flex-col h-full hover:bg-zinc-900/40 transition-colors group">
+                  <div className="text-[12px] font-black text-[#D90019] mb-8 tracking-widest">{phase.num} — {phase.title}</div>
+                  <h3 className="font-bebas text-4xl mb-4 tracking-tight uppercase group-hover:text-[#D90019] transition-colors">{phase.subtitle}</h3>
+                  <p className="text-zinc-300 text-[16px] leading-relaxed mb-6 font-medium">{phase.summary}</p>
+                  <p className="text-zinc-500 text-[14px] leading-relaxed mb-10 font-light italic">{phase.outcome}</p>
+                  
+                  <ul className="space-y-4 mb-12 flex-grow">
+                    {phase.items.map((item, idx) => (
+                      <li key={idx} className="flex items-start gap-3 text-[14px] text-zinc-400 font-light translate-y-0 group-hover:text-zinc-200 transition-colors">
+                        <span className="text-[#D90019]/40 mt-1.5">—</span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <Link href={phase.href} className="text-[11px] font-black uppercase tracking-[0.3em] text-[#D90019] hover:text-white transition-all">
+                    {phase.cta}
+                  </Link>
                 </div>
               ))}
             </div>
-          </div>
-        </section>
 
-        {/* ─── STATEMENT STRIP ─── */}
-        <ScrollReveal>
-          <section className="bg-[#D90019] px-6 md:px-[72px] py-10 overflow-hidden">
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-[60px]">
-              <p className="font-playfair text-[clamp(22px,2.5vw,36px)] text-white leading-[1.2] flex-1">
-                We install an AI system that <em>executes tasks, connects your tools, and runs your business in the background</em> — so your team can do the work only humans can do.
+            <ScrollReveal delay={0.2} className="mt-20 text-center">
+              <p className="text-zinc-500 text-[15px] max-w-3xl mx-auto font-light italic leading-relaxed">
+                ✦ You don't have to commit to the whole thing upfront. Start with the assistant. See the shift. Then decide how far you want to take it. Every client who's gone deep started exactly where you are.
               </p>
-              <div className="hidden md:block w-px h-[72px] bg-white/25 shrink-0" />
-              <p className="text-[14px] text-white/65 leading-relaxed max-w-xs shrink-0">
-                Agents trained on your industry data. Proven infrastructure. Built once, running forever.
-              </p>
-            </div>
-          </section>
-        </ScrollReveal>
-
-        {/* ─── FOUNDER ─── */}
-        <section className="bg-white border-t border-b border-black/[0.04]" id="story">
-          <div className="px-6 md:px-[72px] py-20 md:py-40 relative overflow-hidden">
-            <div className="absolute w-[500px] h-[500px] bg-[radial-gradient(ellipse,rgba(217,0,25,0.04)_0%,transparent_70%)] -bottom-[100px] -left-[100px] pointer-events-none" />
-            
-            <ScrollReveal>
-              <div className="space-y-16">
-                <div className="max-w-[800px]">
-                  <p className="flex items-center gap-3 text-[10px] tracking-[4px] uppercase text-[#D90019] font-semibold mb-5">
-                    <span className="w-6 h-px bg-[#D90019]" />Why This Exists
-                  </p>
-                  <h2 className="font-playfair text-[clamp(32px,4.5vw,62px)] leading-[1.02] text-[#060406] mb-8">
-                    We built this because<br />we needed it and<br /><em className="text-[#D90019]">it didn&apos;t exist.</em>
-                  </h2>
-                  <div className="grid md:grid-cols-2 gap-8 md:gap-12">
-                    <p className="text-[16px] text-[#060406]/60 leading-relaxed">
-                      Mia grew up running operations for her dad&apos;s company. <strong className="text-[#060406] font-medium">Answering phones, chasing follow-ups, copying data between tools, holding everything in her head.</strong> No tool actually went and did the work. They just reminded her to. Tyler scaled and sold multiple brands through organic media — and watched every one of them hit the same wall: <strong className="text-[#060406] font-medium">the back-end couldn&apos;t keep up with the front-end.</strong>
-                    </p>
-                    <p className="text-[16px] text-[#060406]/60 leading-relaxed md:border-l md:border-black/[0.07] md:pl-8">
-                      We are business owners who know how to scale and grow because we&apos;ve done it. We couldn&apos;t find a solution that actually <strong className="text-[#060406] font-medium">executed</strong> — not assisted, not reminded, not suggested. Everything required a human to be the glue.<br /><br />
-                      So we built the glue. Then we replaced it with infrastructure. Deepening our foundation, we have a world-class team of <strong className="text-[#060406] font-medium">AI professionals, developers, and consultants</strong> who implement the exact strategies and processes we architect. We don&apos;t just give you a plan; we deploy the team and technology to run it.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex flex-col md:flex-row items-center md:items-start gap-12 md:gap-16 pt-8 border-t border-black/[0.04] max-w-full overflow-hidden">
-                  {/* Mia */}
-                  <div className="group/founder shrink-0 w-full md:w-auto">
-                    <div className="relative w-40 h-40 md:w-52 md:h-52 mb-6 mx-auto md:mx-0">
-                      <div className="absolute inset-0 rounded-full border-2 border-[#D90019]/10 p-2 group-hover/founder:border-[#D90019]/30 transition-all duration-700 overflow-hidden">
-                        <Image
-                          src="/images/founders/mia.jpg"
-                          alt="Mia"
-                          fill
-                          priority
-                          className="rounded-full object-cover object-[50%_15%] grayscale group-hover/founder:grayscale-0 transition-all duration-1000 scale-[1.15] group-hover/founder:scale-100"
-                        />
-                      </div>
-                    </div>
-                    <div className="text-center md:text-left">
-                      <p className="font-playfair italic text-[28px] md:text-[36px] text-[#060406] mb-1 leading-none">Mia</p>
-                      <p className="text-[11px] tracking-[3px] uppercase text-[#D90019] font-bold leading-tight">Co-Founder<br />Infrastructure & Ops</p>
-                    </div>
-                  </div>
-
-                  {/* Partnerships Column */}
-                  <div className="flex flex-col items-center gap-10 py-12 md:py-8 border-y md:border-y-0 md:border-x border-black/[0.04] md:px-12 self-stretch justify-center shrink-0 w-full md:w-auto">
-                    <p className="text-[9px] tracking-[3px] uppercase text-[#060406]/30 font-bold whitespace-nowrap">Official Partners</p>
-                    <div className="flex flex-row md:flex-col items-center gap-10 md:gap-12 opacity-60 hover:opacity-100 transition-all duration-700">
-                      <img src="/images/claude-logo.png" alt="Claude Partner" className="h-8 md:h-12 w-auto object-contain transition-all" />
-                      <img src="/images/openai-logo.png" alt="OpenAI Partner" className="h-9 md:h-16 w-auto object-contain transition-all" />
-                      <img src="/images/meta-logo-new.png" alt="Meta Partner" className="h-8 md:h-12 w-auto object-contain transition-all" />
-                    </div>
-                  </div>
-
-                  {/* Tyler */}
-                  <div className="group/founder shrink-0 w-full md:w-auto">
-                    <div className="relative w-48 h-48 md:w-60 md:h-60 mb-6 mx-auto md:mx-0">
-                      <div className="absolute inset-0 rounded-full border-2 border-[#D90019]/10 p-2 group-hover/founder:border-[#D90019]/30 transition-all duration-700 overflow-hidden">
-                        <Image
-                          src="/images/founders/tyler.jpg"
-                          alt="Tyler"
-                          fill
-                          priority
-                          className="rounded-full object-cover object-[50%_5%] grayscale group-hover/founder:grayscale-0 transition-all duration-1000 scale-100 group-hover/founder:scale-[1.05]"
-                        />
-                      </div>
-                    </div>
-                    <div className="text-center md:text-left">
-                      <p className="font-playfair italic text-[28px] md:text-[36px] text-[#060406] mb-1 leading-none">Tyler</p>
-                      <p className="text-[12px] tracking-[3px] uppercase text-[#D90019] font-bold leading-tight">Co-Founder<br />Brand & Media</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </ScrollReveal>
-          </div>
-        </section>
+         </div>
+      </section>
 
-        {/* ─── EARLY AUDIT CTA ─── */}
-        <ScrollReveal>
-          <section className="bg-[#D90019] px-6 md:px-[72px] py-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
-            <div>
-              <p className="text-[10px] tracking-[3px] uppercase text-white/60 font-semibold mb-2.5">Ready to See What We&apos;d Build?</p>
-              <p className="font-playfair text-[clamp(22px,2.5vw,34px)] text-white leading-[1.15]">
-                Take the OS Audit. We&apos;ll map your gaps and tell you<br className="hidden md:block" />
-                <em>exactly</em> what the system looks like for your business.
-              </p>
-            </div>
-            <Link href="/audit" className="bg-white text-[#D90019] px-9 py-4 text-[13px] font-bold tracking-wide hover:bg-white/90 transition-all shrink-0 inline-block whitespace-nowrap">
-              Start Your OS Audit &#8594;
-            </Link>
-          </section>
-        </ScrollReveal>
-
-        {/* ─── TRANSFORMATION ─── */}
-        <section className="bg-white px-6 md:px-[72px] py-20 md:py-40 relative overflow-hidden" id="transform">
-          <div className="absolute w-[800px] h-[800px] bg-[radial-gradient(ellipse,rgba(217,0,25,0.04)_0%,transparent_70%)] -left-[200px] -bottom-[200px] pointer-events-none" />
-          <ScrollReveal>
-            <div className="mb-12 md:mb-24 max-w-[800px]">
-              <p className="flex items-center gap-3 text-[10px] tracking-[4px] uppercase text-[#D90019] font-semibold mb-5">
-                <span className="w-6 h-px bg-[#D90019]" />The Transformation
-              </p>
-              <h2 className="font-playfair text-[clamp(40px,5vw,72px)] leading-[1] text-[#060406]">
-                What your business looks like<br />before and <em className="text-[#D90019]">after.</em>
-              </h2>
-            </div>
-          </ScrollReveal>
-          <ScrollReveal delay={0.15}>
-            <div className="grid grid-cols-1 md:grid-cols-[1fr_80px_1fr] gap-4 md:gap-0">
-              {/* Before */}
-              <div className="bg-[#F8F7F9] border border-black/[0.04] p-6 md:p-14">
-                <span className="text-[10px] tracking-[3px] uppercase text-black/20 font-semibold block mb-5">Before Elianatech</span>
-                <p className="font-playfair italic text-[28px] text-[#060406] leading-[1.1] mb-7">A business that runs on<br />human effort and memory.</p>
-                <ul className="flex flex-col gap-3.5">
-                  {[
-                    "Every task needs a person to start it, track it, and finish it",
-                    "Leads get lost. Invoices go out late. Follow-ups die in inboxes",
-                    "12 tools that don't talk to each other. Data moved by hand",
-                    "The owner is the bottleneck. Nothing moves without them",
-                    "Growth breaks things. More revenue means more chaos",
-                    "Nights and weekends: the business goes dark",
-                    "No visibility. You find out things went wrong after the damage",
-                  ].map((item, i) => (
-                    <li key={i} className="text-[14px] text-[#060406]/60 leading-relaxed flex gap-3 items-start">
-                      <span className="text-[13px] mt-0.5 shrink-0 text-[#060406]/20">—</span>{item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              {/* Middle divider */}
-              <div className="hidden md:flex items-center justify-center flex-col gap-3">
-                <span className="font-playfair italic text-[20px] text-[#060406]/10 tracking-[4px]" style={{ writingMode: "vertical-rl" }}>AFTER</span>
-              </div>
-              {/* After */}
-              <div className="bg-gradient-to-br from-[#D90019]/[0.05] to-[#F8F7F9] border border-[#D90019]/15 p-6 md:p-14">
-                <span className="text-[10px] tracking-[3px] uppercase text-[#D90019] font-semibold block mb-5">After Elianatech</span>
-                <p className="font-playfair italic text-[28px] text-[#060406] leading-[1.1] mb-7">A machine that operates<br />on infrastructure, not effort.</p>
-                <ul className="flex flex-col gap-3.5">
-                  {[
-                    "Mornings that start with results, not a to-do list you're already behind on",
-                    "Your team doing actual work — not administrative survival every day",
-                    "A business that keeps running when you step away — not one that pauses",
-                    "Every tool connected. Data moves on its own. Nothing copied by hand",
-                    "Your attention back — for the decisions that actually need you",
-                    "The system scales with you. More volume, no more chaos",
-                    "24/7/365 — nights, weekends, holidays. It never stops",
-                  ].map((item, i) => (
-                    <li key={i} className="text-[14px] text-[#060406]/65 leading-relaxed flex gap-3 items-start">
-                      <span className="text-[#D90019] text-[13px] mt-0.5 shrink-0">&#8594;</span>{item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </ScrollReveal>
-        </section>
-
-        {/* ─── BRIEF CTA BANNER ─── */}
-        <ScrollReveal>
-          <section className="bg-[#D90019] px-6 md:px-[72px] py-4 md:py-6 flex flex-col md:flex-row items-center justify-center gap-4 text-center md:text-left">
-            <div className="flex items-center gap-3">
-              <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
-              <p className="text-[12px] md:text-[14px] font-bold text-white tracking-wide uppercase">
-                THE DAILY OS: GET <span className="underline decoration-white/40 underline-offset-4 decoration-2">THE BRIEF</span>. 
-              </p>
-            </div>
-            <p className="text-[11px] md:text-[13px] text-white/70 italic font-playfair tracking-wide border-x border-white/20 px-6 hidden lg:block">
-              Daily AI intelligence briefing. 7:00 AM. 
+      {/* --- ZONE OF GENIUS (PHILOSOPHY) --- */}
+      <section className="py-32 px-6 md:px-[80px] bg-[#050505]">
+        <div className="max-w-[1240px] mx-auto">
+          <ScrollReveal className="text-center mb-20">
+            <p className="text-[10px] tracking-[0.8em] uppercase text-[#D90019] font-black mb-8">Philosophy</p>
+            <h2 className="font-bebas text-5xl md:text-7xl leading-none tracking-tighter mb-8 uppercase">
+              Operate in Your<br />
+              <span className="text-zinc-700 italic">Zone of Genius.</span>
+            </h2>
+            <p className="text-[17px] text-zinc-500 max-w-2xl mx-auto font-light">
+              80% of business owners spend their days fighting operational friction. We take the "Weight" so you can reclaim your "Wisdom."
             </p>
-            <a href="http://c12hsh4n5bfc02e5c9p4wyax.187.124.238.237.sslip.io" target="_blank" rel="noopener noreferrer" className="bg-white text-[#D90019] px-6 py-2 text-[11px] font-bold uppercase tracking-widest hover:bg-white/90 transition-all shadow-[0_4px_24px_rgba(0,0,0,0.15)]">
-              Secure Your Briefing &#8594;
-            </a>
-          </section>
-        </ScrollReveal>
-
-        {/* ─── ENGAGEMENT MODEL ─── */}
-        <section className="bg-white border-t border-black/[0.04] px-6 md:px-[72px] py-20 md:py-40 overflow-hidden relative" id="phases">
-          <div className="absolute w-[800px] h-[800px] bg-[radial-gradient(ellipse,rgba(217,0,25,0.03)_0%,transparent_70%)] -right-[200px] -bottom-[200px] pointer-events-none" />
-          <ScrollReveal>
-            <div className="mb-10 md:mb-20 max-w-[760px]">
-              <p className="flex items-center gap-3 text-[10px] tracking-[4px] uppercase text-[#D90019] font-semibold mb-5">
-                <span className="w-6 h-px bg-[#D90019]" />How We Work Together
-              </p>
-              <h2 className="font-playfair text-[clamp(40px,5vw,72px)] leading-[1] text-[#060406] mb-5">
-                An evolution — not a<br />one-time <em className="text-[#D90019]">transaction.</em>
-              </h2>
-              <p className="text-[17px] text-[#060406]/60 leading-relaxed mt-5 max-w-[600px]">
-                Most businesses aren&apos;t ready to hand the keys to AI on day one. They need to see it work first. So we start small, prove it, then go as deep as you want.
-              </p>
-            </div>
           </ScrollReveal>
 
-          <div className="flex flex-col">
-            {[
-              {
-                num: "01", tier: "Phase One", name: <>See the <em className="text-[#D90019]">Shift.</em></>,
-                price: "Fastest way to feel the impact.",
-                desc: "Start with an AI assistant inside your business — inbox, deals, calendar, tasks. We clear the noise so you can see the potential.",
-                why: "What happens:",
-                whySub: "You get 10-15 hours back instantly. Your voice is cloned. Your admin is handled. You see the shift without touching your core systems.",
-                items: ["AI inbox management & replies", "Dynamic calendar coordination", "Deal triage & follow-up", "Daily executive briefings", "Voice-cloned task execution"],
-                featured: false,
-              },
-              {
-                num: "02", tier: "The Build", name: <>Build the <em className="text-[#D90019]">System.</em></>,
-                price: "Infrastructure that runs without you.",
-                desc: "Full AI infrastructure, industry playbooks, pipelines, and trained agents. We gut the manual plumbing and replace it with code.",
-                why: "What happens:",
-                whySub: "Every repeating task is automated. Lead flow, client onboarding, and billing run on infrastructure, not effort.",
-                items: ["Industry playbook installed", "AI agents across sales & ops", "Automated pipelines & triggers", "Tool-to-tool neural connections", "Team training for AI-native ops"],
-                featured: true,
-              },
-              {
-                num: "03", tier: "Scale Up", name: <>Go <em className="text-[#D90019]">Deep.</em></>,
-                price: "AI as your operating wing.",
-                desc: "Embed AI as your wing, automate every department, scale endlessly. We become your dedicated AI R&D and operations department.",
-                why: "What happens:",
-                whySub: "Your business becomes a machine. Infinite scale with zero increase in operational complexity or headcount.",
-                items: ["Embedded AI department", "Monthly infrastructure shipping", "Department-wide automation", "Strategy-to-execution loop", "Revenue-share expansion models"],
-                featured: false,
-              },
-              {
-                num: "04", tier: "FOTF", name: <>Become a <em className="text-[#D90019]">Founder.</em></>,
-                price: "The Founders of the Future path.",
-                desc: "Take your knowledge or interests and build an AI-native company with our community & guidance. Scale ideas into assets.",
-                why: "What happens:",
-                whySub: "You stop trading time for money. You build systems that create value while you focus on vision and decisions.",
-                items: ["AI-native company blueprint", "Founders of the Future community", "Step-by-step product/market fit", "Automated asset creation", "Infinite scalability guidance"],
-                featured: false,
-              },
-            ].map((ev, i) => (
-              <ScrollReveal key={i} delay={i * 0.1}>
-                <div className="grid grid-cols-[48px_1fr] md:grid-cols-[80px_1fr] group">
-                  <div className="flex flex-col items-center pt-1">
-                    <div className={`w-11 h-11 border flex items-center justify-center font-playfair italic text-[17px] bg-white shrink-0 relative z-10 transition-all ${ev.featured ? "border-[#D90019] text-[#D90019] bg-[#D90019]/[0.03]" : "border-black/[0.07] text-black/20 group-hover:border-[#D90019] group-hover:text-[#D90019]"}`}>
-                      {ev.num}
-                    </div>
-                    {i < 3 && <div className="flex-1 w-px bg-black/[0.04] mt-2" />}
-                  </div>
-                  <div className={`border p-8 md:p-12 ml-3 md:ml-6 mb-0 transition-colors ${ev.featured ? "bg-gradient-to-br from-[#D90019]/[0.05] to-orange-500/[0.02] border-[#D90019]/15" : "border-black/[0.05] bg-[#F8F7F9]/50 hover:border-[#D90019]/20"}`}>
-                    <span className={`text-[10px] tracking-[3px] uppercase font-semibold block mb-3.5 ${ev.featured ? "text-[#D90019]" : "text-black/30"}`}>{ev.tier}</span>
-                    <h3 className="font-playfair text-[clamp(28px,3vw,44px)] leading-[1.03] text-[#060406] mb-2">{ev.name}</h3>
-                    <p className="text-[14px] text-[#060406]/60 mb-5 leading-snug"><strong className="text-[#060406] font-semibold">{ev.price}</strong></p>
-                    <p className="text-[15px] text-[#060406]/60 leading-relaxed mb-4 max-w-[680px]">{ev.desc}</p>
-                    <p className="text-[13px] text-[#D90019]/75 font-semibold mb-5 leading-relaxed max-w-[680px]">
-                      {ev.why} <span className="text-[#060406]/50 font-light">{ev.whySub}</span>
-                    </p>
-                    <ul className="grid md:grid-cols-2 gap-x-8 gap-y-2 mb-6">
-                      {ev.items.map((item, j) => (
-                        <li key={j} className={`text-[13px] flex gap-2 items-start leading-snug ${ev.featured ? "text-[#060406]/60" : "text-[#060406]/35"}`}>
-                          <span className={`shrink-0 ${ev.featured ? "text-[#D90019]" : "text-[#D90019]/40"}`}>—</span>{item}
-                        </li>
-                      ))}
-                    </ul>
-                    {i === 3 ? (
-                       <span className="text-[12px] font-semibold text-[#D90019]/40 border-b border-[#D90019]/10 pb-0.5 cursor-default transition-all">
-                        Founders of the Future — Coming Soon
-                      </span>
-                    ) : (
-                      <a href="#audit" className="text-[12px] font-semibold text-[#D90019] border-b border-[#D90019]/30 pb-0.5 hover:border-[#D90019] transition-all">
-                        {i === 0 ? "Start here" : i === 1 ? "See what we'd build for you" : "Apply for the AI wing"} &#8594;
-                      </a>
-                    )}
-                  </div>
-                </div>
-                {i < 3 && (
-                  <div className="flex items-center gap-6 pl-[48px] md:pl-[80px] my-0">
-                    <div className="w-0.5 h-14 bg-gradient-to-b from-black/[0.04] to-[#D90019] ml-[21px] md:ml-5 shrink-0" />
-                    <span className="text-[12px] text-[#D90019] italic font-playfair tracking-wide opacity-80">
-                      {i === 0 ? "You see it work. Now we build." : i === 1 ? "Business is running. Now we scale it." : "System is thriving. Now we build new assets."}
-                    </span>
-                  </div>
-                )}
-              </ScrollReveal>
-            ))}
-            
-            <ScrollReveal delay={0.4}>
-              <div className="flex flex-wrap gap-4 mt-12 justify-center">
-                <a href="http://c12hsh4n5bfc02e5c9p4wyax.187.124.238.237.sslip.io" target="_blank" rel="noopener noreferrer" className="bg-[#D90019] text-white px-9 py-4 text-[13px] font-bold tracking-wide hover:brightness-110 transition-all shadow-[0_12px_48px_rgba(217,0,25,0.2)]">
-                  Get Your Daily Brief →
-                </a>
-                <div className="bg-white/5 text-[#D90019]/40 px-9 py-4 text-[13px] font-bold border border-[#D90019]/10 transition-all cursor-default">
-                  Founders of the Future — Coming Soon
-                </div>
-              </div>
-            </ScrollReveal>
-          </div>
-
-          <ScrollReveal delay={0.3}>
-            <div className="bg-[#D90019]/[0.03] border border-[#D90019]/10 p-8 flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-10 mt-14">
-              <span className="text-[28px] shrink-0 text-[#D90019]/40">&#10022;</span>
-              <p className="text-[15px] text-[#060406]/55 leading-relaxed">
-                You don&apos;t have to commit to the whole thing upfront. <strong className="text-[#060406] font-medium">Start with the assistant. See the shift. Then decide how far you want to take it.</strong> Every client who&apos;s gone deep started exactly where you are — not sure if AI could actually run their business. The data always changes that.
-              </p>
-            </div>
-          </ScrollReveal>
-        </section>
-
-        {/* ─── WHY IT WORKS ─── */}
-        <section className="bg-[#D90019] px-6 md:px-[72px] py-20 md:py-32 relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(255,255,255,0.1),transparent_60%)]" />
-          <ScrollReveal>
-            <div className="max-w-[900px] mx-auto text-center">
-              <p className="text-[10px] tracking-[4px] uppercase text-white/60 font-bold mb-8">Why It Works</p>
-              <h2 className="font-playfair text-[clamp(36px,5vw,72px)] leading-[1.05] text-white mb-16">
-                Infrastructure surgery to turn your<br />knowledge into a <em className="italic">scalable machine.</em>
-              </h2>
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 gap-12">
+            <ScrollReveal direction="left" className="bg-[#0A070B] p-12 border border-zinc-900 relative overflow-hidden">
+              <div className="absolute top-0 right-0 p-8 text-[60px] font-bebas text-zinc-900 select-none">WEIGHT</div>
+              <h3 className="text-[12px] font-black text-[#D90019] uppercase tracking-[0.4em] mb-10">The Weight (Tech Handles)</h3>
+              <div className="space-y-10 relative z-10">
                 {[
-                  { t: "Human Decision-Making", d: "AI runs the work, humans run the decisions. We build the systems that filter for your attention." },
-                  { t: "Proven Playbooks", d: "No guessing. Deep infrastructure built for dozens of specific industries and client journeys." },
-                  { t: "Quantified Wins", d: "Metrics-backed transformation: 3× output, 40+ hours saved weekly, zero complexity gain." },
-                  { t: "Founder Creation", d: "Step-by-step guidance to turn your knowledge into a scalable AI-powered business asset." }
+                  { title: "Inbox Triage", desc: "Every email filtered, prioritized, and drafted by agents who know your voice." },
+                  { title: "Lead Persistence", desc: "100% follow-up rate. Agents nurture leads for months until they are ready to buy." },
+                  { title: "Data Plumbing", desc: "CRMs, spreadsheets, and tools synced instantly. Zero manual entry ever again." },
+                  { title: "The 'Calendar Dance'", desc: "Meetings booked, rescheduled, and prepared for without a single 'when works for you?'" }
                 ].map((item, i) => (
-                  <div key={i} className="text-left bg-white/5 border border-white/10 p-8 hover:bg-white/10 transition-all">
-                    <div className="w-8 h-px bg-white/30 mb-6" />
-                    <h3 className="text-white font-medium text-[17px] mb-3 leading-tight">{item.t}</h3>
-                    <p className="text-white/60 text-[13px] leading-relaxed">{item.d}</p>
+                  <div key={i}>
+                    <h4 className="text-[18px] font-bold mb-2 uppercase tracking-tight">{item.title}</h4>
+                    <p className="text-zinc-500 text-[14px] font-light leading-relaxed">{item.desc}</p>
                   </div>
                 ))}
               </div>
-            </div>
-          </ScrollReveal>
-        </section>
+            </ScrollReveal>
 
-        {/* ─── INDUSTRY PLAYBOOKS ─── */}
-        <section className="bg-[#0A070B] border-t border-white/[0.04] px-6 md:px-[72px] py-20 md:py-40 overflow-hidden" id="playbooks">
-          <ScrollReveal>
-            <div className="mb-10 md:mb-20 max-w-[700px]">
-              <p className="flex items-center gap-3 text-[10px] tracking-[4px] uppercase text-[#D90019] font-semibold mb-5">
-                <span className="w-6 h-px bg-[#D90019]" />Industry Playbooks
-              </p>
-              <h2 className="font-playfair text-[clamp(40px,5vw,72px)] leading-[1] text-white mb-5">
-                Proven infrastructure<br />built for how your<br /><em className="text-[#D90019]">industry works.</em>
-              </h2>
-              <p className="text-[16px] text-white/40 leading-relaxed mt-5">
-                Every industry runs on different workflows, different client journeys, and different failure points. We don&apos;t install a generic system. We install the playbook built specifically for your category.
-              </p>
-            </div>
-          </ScrollReveal>
-          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/[0.04] border border-white/[0.04]">
-            {allIndustries.map((cat, i) => (
-              <StaggerItem key={i}>
-                <Link href={`/industry-categories/${cat.slug}`} className="group bg-[#0A070B] p-6 md:p-7 flex flex-col hover:bg-[#0F0B10] border-l-2 border-transparent hover:border-[#D90019] transition-all h-full relative overflow-hidden">
-                  <div className="flex items-start justify-between mb-3">
-                    <span className="text-[10px] tracking-[2px] uppercase font-semibold text-[#D90019]/50">{cat.tag}</span>
-                    <ArrowRight size={14} className="text-[#D90019] opacity-0 group-hover:opacity-100 transition-opacity shrink-0 mt-0.5" />
+            <ScrollReveal direction="right" className="bg-[#0A070B] p-12 border border-zinc-900 relative overflow-hidden">
+              <div className="absolute top-0 right-0 p-8 text-[60px] font-bebas text-zinc-900 select-none">WISDOM</div>
+              <h3 className="text-[12px] font-black text-indigo-500 uppercase tracking-[0.4em] mb-10">Your Wisdom (Humans Handle)</h3>
+              <div className="space-y-10 relative z-10">
+                {[
+                  { title: "Strategic Vision", desc: "Determining the 'Next Big Thing' and steering the company toward its North Star." },
+                  { title: "Innovation", desc: "Creating new products, services, and experiences that leave competitors in the dust." },
+                  { title: "High-Level Relationships", desc: "Building the key partnerships and closing the deals that require a human soul." },
+                  { title: "Company Growth", desc: "Working ON the business, not IN it. Scaling without adding operational drag." }
+                ].map((item, i) => (
+                  <div key={i}>
+                    <h4 className="text-[18px] font-bold mb-2 uppercase tracking-tight">{item.title}</h4>
+                    <p className="text-zinc-500 text-[14px] font-light leading-relaxed">{item.desc}</p>
                   </div>
-                  <h3 className="text-[16px] md:text-[17px] text-white font-medium tracking-wide leading-snug mb-2 group-hover:text-white transition-colors">{cat.name}</h3>
-                  <p className="text-[12px] text-white/30 leading-relaxed group-hover:text-white/45 transition-colors">{cat.desc}</p>
-                </Link>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
-          <p className="text-[13px] text-white/[0.16] mt-6 tracking-wide">
-            Every playbook comes with pre-trained agents, automated pipelines, and industry-specific infrastructure. <Link href="/audit" className="text-[#D90019] hover:underline">Start the OS Audit — we&apos;ll match you. &#8594;</Link>
-          </p>
-        </section>
-
-        {/* ─── AI PROOF BOOK ─── */}
-        <section className="bg-white px-6 md:px-[72px] py-24 md:py-48 relative overflow-hidden">
-          <div className="absolute w-[800px] h-[800px] bg-[radial-gradient(ellipse,rgba(217,0,25,0.03)_0%,transparent_70%)] -left-[200px] -top-[200px] pointer-events-none" />
-          <div className="max-w-[1200px] mx-auto">
-            <div className="grid md:grid-cols-2 gap-16 md:gap-32 items-center">
-              <ScrollReveal>
-                <div className="relative group">
-                  <div className="absolute -inset-4 bg-[#D90019]/[0.03] border border-[#D90019]/10 -rotate-2 group-hover:rotate-0 transition-transform duration-700" />
-                  <div className="relative bg-white border border-black/5 p-1">
-                    <img 
-                      src="https://aiproof-kappa.vercel.app/book-cover.jpg" 
-                      alt="AI Proof Book Cover" 
-                      className="w-full h-auto grayscale group-hover:grayscale-0 transition-all duration-1000 shadow-2xl"
-                      onError={(e) => {
-                        e.currentTarget.src = "/images/book-placeholder.jpg";
-                      }}
-                    />
-                  </div>
-                  <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-[#D90019]/5 rounded-full blur-3xl" />
-                </div>
-              </ScrollReveal>
-              <ScrollReveal delay={0.2}>
-                <div>
-                  <p className="flex items-center gap-3 text-[10px] tracking-[4px] uppercase text-[#D90019] font-bold mb-6">
-                    <span className="w-8 h-px bg-[#D90019]" />Essential Resource
-                  </p>
-                  <h2 className="font-playfair text-[clamp(42px,5vw,84px)] leading-[0.92] text-[#060406] mb-8 tracking-tighter">
-                    The <em className="text-[#D90019]">AI-Proof</em><br />Manual<span className="text-[#D90019]">.</span>
-                  </h2>
-                  <p className="text-[18px] text-[#060406]/60 leading-relaxed mb-10 max-w-[500px]">
-                    The definitive guide to future-proofing your career and business. Learn how to leverage human-native skills in an AI-native world.
-                  </p>
-                  <div className="space-y-6 mb-12">
-                    {[
-                      "The 3 layers of AI displacement risk",
-                      "The Human-Native skill hierarchy",
-                      "Systemic transformation blueprints",
-                      "The Future Founder methodology"
-                    ].map((text, i) => (
-                      <div key={i} className="flex items-center gap-4">
-                        <span className="w-5 h-px bg-[#D90019]/30" />
-                        <span className="text-[13px] font-mono uppercase tracking-widest text-[#060406]/40">{text}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <a href="https://aiproof-kappa.vercel.app/" target="_blank" rel="noopener noreferrer" className="bg-[#060406] text-white px-10 py-5 text-[14px] font-bold tracking-widest uppercase hover:bg-[#D90019] transition-all inline-block shadow-[0_20px_80px_rgba(0,0,0,0.15)]">
-                    Get Your Copy Now &#8594;
-                  </a>
-                </div>
-              </ScrollReveal>
-            </div>
+                ))}
+              </div>
+            </ScrollReveal>
           </div>
-        </section>
 
-
-        {/* ─── STANDALONE AUDIT CTA ─── */}
-        <section className="bg-white py-20 md:py-32 px-6 md:px-[72px] border-t border-black/[0.04] text-center">
-          <ScrollReveal>
-            <p className="text-[10px] tracking-[4px] uppercase text-[#D90019] font-bold mb-6">Operations Blueprint</p>
-            <h2 className="font-playfair text-[clamp(40px,5vw,72px)] leading-[1] text-[#060406] mb-8">
-              Map your gaps.<br />Match your <em className="text-[#D90019]">playbook.</em>
-            </h2>
-            <p className="text-[17px] text-[#060406]/60 max-w-2xl mx-auto mb-12 leading-relaxed">
-              Before we build anything, we need to know what we&apos;re working with. Spend 5 minutes mapping your operation. We&apos;ll tell you exactly what agents we&apos;d deploy and what impact they&apos;ll have — before we ever talk about cost.
-            </p>
-            <Link href="/audit" className="bg-[#D90019] text-white px-12 py-5 text-[15px] font-bold tracking-widest uppercase hover:brightness-110 hover:-translate-y-1 transition-all inline-block shadow-[0_20px_80px_rgba(217,0,25,0.25)]">
-              Start Your OS Audit &#8594;
-            </Link>
-          </ScrollReveal>
-        </section>
-        {/* ─── THE BRIEF ─── */}
-        <TheBriefSection />
-
-        {/* ─── FINAL CTA ─── */}
-        <section className="bg-[#D90019] px-6 md:px-[72px] py-20 md:py-40 text-center relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_60%_at_50%_50%,rgba(255,255,255,0.1)_0%,transparent_70%)] pointer-events-none" />
-          <div className="absolute font-playfair italic text-[22vw] text-white/[0.05] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none whitespace-nowrap leading-none tracking-tight">
-            rebuild
-          </div>
-          <ScrollReveal>
-            <p className="flex items-center justify-center gap-3 text-[10px] tracking-[4px] uppercase text-white/60 font-semibold mb-7 relative z-10">
-              <span className="w-10 h-px bg-white/20" />The Decision<span className="w-10 h-px bg-white/20" />
-            </p>
-            <h2 className="font-playfair text-[clamp(52px,7vw,108px)] leading-[0.93] text-white mb-7 relative z-10 tracking-tight">
-              Your business.<br />Rebuilt as a<br /><em>machine.</em>
-            </h2>
-            <p className="text-[17px] text-white/70 max-w-[480px] mx-auto mb-12 leading-relaxed relative z-10">
-              This is infrastructure surgery, not a software subscription. We go in, we rebuild, and we hand you back a business that runs without you holding it together.
-            </p>
-            <div className="flex flex-wrap gap-3 justify-center relative z-10">
-              <Link href="/audit" className="bg-white text-[#D90019] px-9 py-4 text-[13px] font-semibold tracking-wide hover:bg-white/90 hover:-translate-y-0.5 transition-all inline-block shadow-[0_12px_48px_rgba(0,0,0,0.2)]">
-                Start Your OS Audit
+          <ScrollReveal delay={0.4} className="mt-20 text-center">
+            <div className="inline-block p-12 border border-zinc-900 bg-zinc-950/50">
+              <h4 className="font-bebas text-3xl md:text-5xl mb-4 tracking-tighter uppercase">Impact Measured Weekly</h4>
+              <div className="text-5xl md:text-7xl font-bebas text-[#D90019] mb-4">25—40</div>
+              <p className="text-zinc-500 text-[14px] font-black uppercase tracking-[0.4em]">Hours saved on average</p>
+              <Link href="/audit" className="mt-10 inline-block text-[11px] font-black uppercase tracking-[0.3em] text-[#D90019] hover:text-white transition-all underline underline-offset-8 decoration-1">
+                Reclaim Your Genius →
               </Link>
-              <a href="https://cal.com/elianatech/30min" className="bg-transparent text-white px-9 py-4 text-[13px] border border-white/30 hover:bg-white/10 transition-all inline-block">
-                Book a Strategy Call
-              </a>
             </div>
           </ScrollReveal>
-        </section>
+        </div>
+      </section>
 
-        {/* ─── FOOTER ─── */}
-        <footer className="bg-[#060406] border-t border-white/[0.04] px-6 md:px-[72px] py-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
-          <div>
-            <p className="font-playfair italic text-[21px] text-white mb-2">Elianatech<span className="text-[#D90019] not-italic">.</span></p>
-            <p className="text-[12px] text-white/[0.16] max-w-[200px] leading-relaxed">We build AI-native businesses.</p>
-          </div>
-          <div className="text-left md:text-right text-[12px] text-white/[0.16] leading-relaxed">
-            <span className="font-playfair italic text-[#D90019] text-[14px] block mb-1">Flow Over Force.</span>
-            <p>&copy; 2026 Elianatech. All rights reserved.</p>
-            <p className="mt-1">
-              <Link href="/privacy" className="hover:text-white transition-colors">Privacy</Link>
-              {" \u00B7 "}
-              <Link href="/terms" className="hover:text-white transition-colors">Terms</Link>
-              {" \u00B7 "}
-              <Link href="mailto:support@elianatech.com" className="hover:text-white transition-colors">Support</Link>
-              {" \u00B7 "}
-              <Link href="mailto:sales@elianatech.com" className="hover:text-white transition-colors">Sales</Link>
-            </p>
-          </div>
-        </footer>
+      {/* --- THE TRANSFORMATION (BEFORE/AFTER) --- */}
+      <section className="py-32 px-6 md:px-[80px] bg-[#0A070B] border-y border-zinc-900">
+        <div className="max-w-[1240px] mx-auto">
+          <ScrollReveal className="text-center mb-24">
+            <p className="text-[10px] tracking-[0.8em] uppercase text-[#D90019] font-black mb-8">Transformation</p>
+            <h2 className="font-bebas text-5xl md:text-7xl leading-none tracking-tighter mb-8 uppercase">
+              What your business looks like<br />
+              <span className="text-zinc-700 italic">Before and After.</span>
+            </h2>
+          </ScrollReveal>
 
-        <style jsx global>{`
-          .font-playfair { font-family: var(--font-playfair), serif; }
-          .font-inter { font-family: var(--font-inter), sans-serif; }
-          .font-bebas { font-family: var(--font-bebas-neue), cursive; }
-          @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(22px); }
-            to { opacity: 1; transform: translateY(0); }
-          }
-          .animate-fade-in {
-            animation: fadeIn 0.9s ease-out forwards;
-            opacity: 0;
-          }
-        `}</style>
-      </main>
+          <div className="grid md:grid-cols-2 gap-px bg-zinc-900 border border-zinc-900">
+            {/* BEFORE */}
+            <div className="bg-[#050505] p-12 lg:p-16">
+              <div className="text-[10px] font-black text-zinc-700 uppercase tracking-[0.4em] mb-12">Before Elianatech</div>
+              <ul className="space-y-6">
+                {[
+                  "Every task needs a person to start it, track it, and finish it",
+                  "Leads get lost. Invoices go out late. Follow-ups die in inboxes",
+                  "12 tools that don't talk to each other. Data moved by hand",
+                  "The owner is the bottleneck. Nothing moves without them",
+                  "Growth breaks things. More revenue means more chaos",
+                  "Nights and weekends: the business goes dark"
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-4 text-[15px] text-zinc-600 font-light italic">
+                    <span className="text-zinc-800 mt-1.5">—</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* AFTER */}
+            <div className="bg-[#050505] p-12 lg:p-16">
+              <div className="text-[10px] font-black text-[#D90019] uppercase tracking-[0.4em] mb-12">After Elianatech</div>
+              <ul className="space-y-6">
+                {[
+                  "Mornings that start with results, not a to-do list",
+                  "Your team doing actual work — not administrative survival",
+                  "A business that keeps running when you step away",
+                  "Every tool connected. Data moves on its own",
+                  "Your attention back — for decisions that need you",
+                  "24/7/365 — nights, weekends, holidays. It never stops"
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-4 text-[15px] text-zinc-200 font-medium">
+                    <ArrowRight className="text-[#D90019] w-4 h-4 mt-1.5 flex-shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* --- INDUSTRY PLAYBOOKS (EXISTING BUT POLISHED) --- */}
+      <section id="playbooks" className="py-32 px-6 md:px-[80px] bg-[#050505]">
+          <div className="max-w-[1400px] mx-auto">
+             <ScrollReveal className="text-center mb-20">
+                <p className="text-[10px] tracking-[0.6em] uppercase text-[#D90019] font-black mb-6">Verticals</p>
+                <h3 className="font-bebas text-[48px] md:text-[72px] leading-none mb-8 tracking-tighter uppercase">Industry Playbooks.</h3>
+                <p className="text-zinc-500 font-light max-w-2xl mx-auto italic text-[15px] leading-relaxed">
+                  Every industry runs on different workflows, different client journeys, and different failure points. We install the playbook built specifically for your category.
+                </p>
+             </ScrollReveal>
+
+             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-px bg-zinc-900 border border-zinc-900">
+                {[
+                  { feature: "Patient Intake & Billing", sector: "Medical & Dental", desc: "Automate scheduling, insurance verification, follow-ups, and review collection" },
+                  { feature: "Lead-to-Close Pipeline", sector: "Home Services (High Ticket)", desc: "Instant lead response, estimate automation, job scheduling, and invoice triggers" },
+                  { feature: "Retention & Rebooking", sector: "Home Services (Recurring)", desc: "Automated rebooking, seasonal campaigns, review requests, and route optimization" },
+                  { feature: "Client Intake & Case Mgmt", sector: "Legal Services", desc: "Automated intake forms, retainer billing, case status updates, and referral tracking" },
+                  { feature: "Booking & Retention", sector: "Beauty & Personal Care", desc: "No-show reduction, rebooking sequences, loyalty programs, and review generation" },
+                  { feature: "Lead Nurture & Transactions", sector: "Real Estate & Property", desc: "Automated lead follow-up, listing alerts, transaction coordination, and past-client outreach" },
+                  { feature: "Appointments & Care", sector: "Health & Wellness", desc: "Booking automation, care plan follow-ups, membership retention, and HIPAA-aware comms" },
+                  { feature: "Scheduling & Re-engagement", sector: "Pet Services", desc: "Appointment reminders, vaccination tracking, rebooking triggers, and review requests" },
+                  { feature: "Service & Sales Pipeline", sector: "Automotive", desc: "Lead response, service reminders, estimate follow-ups, and reputation management" },
+                  { feature: "Client Lifecycle", sector: "Professional & Financial", desc: "Proposal automation, retainer management, compliance workflows, and referral systems" },
+                  { feature: "Bookings & Guest Experience", sector: "Events & Hospitality", desc: "Reservation management, guest comms, post-event follow-ups, and review generation" },
+                  { feature: "Enrollment & Parent Comms", sector: "Education & Childcare", desc: "Enrollment funnels, parent updates, waitlist management, and re-enrollment campaigns" },
+                  { feature: "Trial-to-Paid & Retention", sector: "SaaS Founders", desc: "Onboarding sequences, churn prevention, usage-based triggers, and expansion revenue" },
+                  { feature: "Launch & Engagement", sector: "Course Creators", desc: "Launch sequences, student onboarding, completion nudges, and upsell automation" },
+                  { feature: "Pipeline & Delivery", sector: "Coaches & Consultants", desc: "Discovery call booking, proposal delivery, client onboarding, and renewal triggers" },
+                  { feature: "Cart Recovery & LTV", sector: "E-commerce & Retail", desc: "Abandoned cart flows, post-purchase sequences, reorder triggers, and review requests" },
+                  { feature: "Sales & Client Ops", sector: "Agencies", desc: "Lead pipeline, proposal automation, project status updates, and client reporting" },
+                  { feature: "Leads & Operations", sector: "Misc. Local Services", desc: "Lead follow-up, scheduling, invoicing, review generation, and client retention" }
+                ].map((item, i) => (
+                  <div key={i} className="bg-[#050505] p-6 hover:bg-zinc-900 group transition-all cursor-default overflow-hidden relative border border-transparent hover:border-zinc-800 h-full flex flex-col">
+                     <div className="text-[#D90019] text-[9px] font-black uppercase tracking-widest mb-3 opacity-60 group-hover:opacity-100 transition-opacity">{item.feature}</div>
+                     <h5 className="text-[14px] font-bold mb-3 uppercase tracking-tighter leading-tight text-white group-hover:text-[#D90019] transition-colors">{item.sector}</h5>
+                     <p className="text-zinc-600 text-[11px] leading-relaxed group-hover:text-zinc-400 transition-colors font-light flex-grow">
+                        {item.desc}
+                     </p>
+                  </div>
+                ))}
+             </div>
+             
+             <div className="mt-16 text-center">
+                <Link href="/audit" className="text-[12px] font-black tracking-[0.3em] uppercase text-[#D90019] hover:text-white transition-all group">
+                   Start the OS Audit - we'll match you. <ArrowRight className="inline ml-2 group-hover:translate-x-1 transition-transform" size={14} />
+                </Link>
+             </div>
+          </div>
+      </section>
+
+      {/* --- FAQ SECTION --- */}
+      <section className="py-32 px-6 md:px-[80px] bg-[#0A070B] border-y border-zinc-900">
+        <div className="max-w-[800px] mx-auto">
+          <ScrollReveal className="text-center mb-20">
+            <p className="text-[10px] tracking-[0.8em] uppercase text-[#D90019] font-black mb-8">FAQ</p>
+            <h2 className="font-bebas text-5xl md:text-7xl leading-none tracking-tighter mb-8 uppercase">
+              Frequently Asked<br />
+              <span className="text-zinc-700 italic">Operations.</span>
+            </h2>
+          </ScrollReveal>
+
+          <div className="space-y-4">
+            {faqItems.map((item, i) => (
+              <div key={i} className="border border-zinc-900 bg-zinc-950/50 overflow-hidden">
+                <button 
+                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  className="w-full px-8 py-8 flex items-center justify-between text-left hover:bg-zinc-900 transition-colors"
+                >
+                  <span className="text-[16px] md:text-[18px] font-bold uppercase tracking-tight">{item.q}</span>
+                  {openFaq === i ? <Minus className="w-5 h-5 text-[#D90019]" /> : <Plus className="w-5 h-5 text-zinc-700" />}
+                </button>
+                {openFaq === i && (
+                  <div className="px-8 pb-8 text-zinc-500 font-light leading-relaxed text-[15px] animate-in slide-in-from-top-2 duration-300">
+                    {item.a}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* --- FINAL CTA --- */}
+      <section className="py-52 px-6 md:px-[80px] bg-[#050505]">
+          <div className="max-w-[1000px] mx-auto text-center relative z-10">
+             <ScrollReveal>
+                <p className="text-[11px] tracking-[0.8em] uppercase text-[#D90019] font-black mb-12 italic">The End of Manual</p>
+                <h2 className="font-bebas text-5xl md:text-[92px] leading-[0.85] tracking-tight mb-16 italic uppercase">
+                   Your Business.<br />
+                   Rebuilt as a machine.
+                </h2>
+                <p className="text-[18px] md:text-[22px] text-zinc-500 max-w-[850px] mx-auto font-light leading-snug italic mb-20 px-6">
+                   “This is infrastructure surgery, not a software subscription. We go in, we rebuild, and we hand you back a business that runs without you holding it together.”
+                </p>
+                
+                <div className="flex flex-col sm:flex-row justify-center gap-8">
+                   <Link href="/audit" className="bg-[#D90019] text-white px-14 py-6 text-[12px] font-black uppercase tracking-[0.3em] hover:bg-white hover:text-black transition-all">
+                      Start Your OS Audit →
+                   </Link>
+                   <a href="https://cal.com/elianatech/30min" className="bg-transparent text-white border border-[#D90019]/40 px-14 py-6 text-[12px] font-black uppercase tracking-[0.3em] hover:bg-[#D90019]/10 transition-all">
+                      Book Strategy Call
+                   </a>
+                </div>
+             </ScrollReveal>
+          </div>
+      </section>
+
+      <Footer />
+
+      <style jsx global>{`
+        .font-bebas { font-family: var(--font-bebas-neue), sans-serif; }
+      `}</style>
     </div>
   )
 }

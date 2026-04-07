@@ -3,7 +3,6 @@ import { GlassmorphismNav } from "@/components/glassmorphism-nav"
 import { Footer } from "@/components/footer"
 import { getAllBlogPosts } from "@/lib/blog"
 import BlogFilter from "./BlogFilter"
-import { TheBriefSection } from "@/components/the-brief-section"
 
 export const metadata: Metadata = {
   title: "Blog & Intelligence | Eliana Tech",
@@ -36,8 +35,6 @@ export default function BlogPage() {
         <section className="mb-24">
           <BlogFilter posts={posts} />
         </section>
-
-        <TheBriefSection />
       </main>
 
       <Footer />

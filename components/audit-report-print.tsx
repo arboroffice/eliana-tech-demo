@@ -1054,21 +1054,6 @@ export function AuditReportPrint({ formData, auditScore }: PrintReportProps) {
             </div>
           </div>
 
-          {/* The Brief Signup */}
-          <div className="nb-card bg-black text-white p-10 flex items-center justify-between gap-12 mb-12 border-none">
-            <div className="flex-1">
-              <p className="text-[#D90019] text-[10px] font-mono font-black uppercase tracking-[0.5em] mb-4">Transmission: The Daily OS Brief</p>
-              <h4 className="text-2xl font-black uppercase tracking-tighter mb-3 leading-none">Operational Intelligence Feed</h4>
-              <p className="text-gray-500 text-[11px] leading-relaxed mono uppercase tracking-tight">
-                JOIN 50,000+ FOUNDERS // DAILY CORE UPDATES ON AI-NATIVE ARCHITECTURE AND SYSTEMS ENGINEERING.
-              </p>
-            </div>
-            <a href="http://c12hsh4n5bfc02e5c9p4wyax.187.124.238.237.sslip.io" target="_blank" rel="noopener noreferrer" 
-               className="nb-button shrink-0 py-5 px-12 bg-transparent text-white border-white/20 text-center font-mono text-[10px] font-black uppercase tracking-[0.3em] hover:border-[#D90019]">
-              Secure Access
-            </a>
-          </div>
-
           <div className="text-center pt-12 border-t border-gray-100">
             <p className="text-gray-400 text-[9px] uppercase font-black tracking-[0.4em] mb-3">Technical Support & Inquiries</p>
             <p className="text-black font-mono text-sm font-black">SUPPORT@ELIANATECH.COM</p>

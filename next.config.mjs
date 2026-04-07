@@ -30,7 +30,27 @@ const nextConfig = {
       },
       {
         source: '/vsl',
-        destination: '/webinar',
+        destination: '/audit',
+        permanent: true,
+      },
+      {
+        source: '/webinar',
+        destination: '/audit',
+        permanent: true,
+      },
+      {
+        source: '/systems',
+        destination: '/audit',
+        permanent: true,
+      },
+      {
+        source: '/nano-banana',
+        destination: '/audit',
+        permanent: true,
+      },
+      {
+        source: '/founders',
+        destination: '/about',
         permanent: true,
       }
     ]

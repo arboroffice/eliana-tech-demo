@@ -21,22 +21,11 @@ export default function IndustriesIndex() {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
           {industries.map((it) => (
-            <div key={it.slug} className="space-y-6">
-              <Link href={`/industries/${it.slug}`} className="text-2xl font-bold tracking-tight text-amber-500 hover:underline">
+            <div key={it.slug} className="space-y-4 p-8 bg-zinc-900/40 border border-zinc-800 hover:border-amber-500/50 transition-all rounded-2xl group">
+              <Link href={`/industries/${it.slug}`} className="text-3xl font-black tracking-tight text-white group-hover:text-amber-500 transition-colors">
                 {it.name}
               </Link>
-              
-              <div className="grid grid-cols-2 gap-x-4 gap-y-2">
-                {it.geoKeywords?.map((geo) => (
-                  <Link 
-                    key={geo} 
-                    href={`/industries/${it.slug}/${geo.toLowerCase().replace(/ /g, "-")}`}
-                    className="text-xs text-zinc-500 hover:text-white transition-colors"
-                  >
-                    AI in {geo}
-                  </Link>
-                ))}
-              </div>
+              <p className="text-sm text-zinc-500 leading-relaxed">{it.hook}</p>
             </div>
           ))}
         </div>

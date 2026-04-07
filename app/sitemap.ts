@@ -15,9 +15,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
         '/os/command-center',
         '/industries-sitemap',
         '/faq',
-        '/founder',
         '/privacy',
-        '/terms'
+        '/terms',
+        '/industries'
     ].map((route) => ({
         url: `${baseUrl}${route}`,
         lastModified: new Date(),
@@ -32,20 +32,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
         changeFrequency: 'monthly' as const,
         priority: 0.7,
     }))
-
-    // 100% Geo-optimized landing pages
-    const geoRoutes: MetadataRoute.Sitemap = []
-    industries.forEach((industry) => {
-        industry.geoKeywords?.forEach((location) => {
-            const locationSlug = location.toLowerCase().replace(/ /g, "-")
-            geoRoutes.push({
-                url: `${baseUrl}/industries/${industry.slug}/${locationSlug}`,
-                lastModified: new Date(),
-                changeFrequency: 'monthly' as const,
-                priority: 0.5,
-            })
-        })
-    })
 
     // Blog posts (supporting .md and .mdx)
     const blogDirectory = path.join(process.cwd(), 'content/blog')
@@ -68,5 +54,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
         // blog might be empty, just skip
     }
 
-    return [...staticRoutes, ...industryRoutes, ...geoRoutes, ...blogRoutes]
+    return [...staticRoutes, ...industryRoutes, ...blogRoutes]
 }

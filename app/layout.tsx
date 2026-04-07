@@ -42,13 +42,12 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://elianatech.com"),
-  title: "Elianatech — Own Your Intelligence",
+  title: "Elianatech | Bringing AI to Businesses Worldwide",
   description:
-    "Transform your business with intelligent AI automation solutions. Empower your organization to operate at the speed of thought.",
+    "The official architecture for modern business. We install specialized AI infrastructure that handles the admin, ops, and data — so you can operate at the speed of thought.",
   icons: {
     icon: [
       { url: "/icon.png" },
-      { url: "/icon.svg", type: "image/svg+xml" },
     ],
     apple: [
       { url: "/apple-icon.png" },
@@ -56,8 +55,8 @@ export const metadata: Metadata = {
     shortcut: ["/icon.png"],
   },
   openGraph: {
-    title: "Elianatech — Own Your Intelligence",
-    description: "Transform your business with intelligent AI automation solutions. Empower your organization to operate at the speed of thought.",
+    title: "Elianatech | Bringing AI to Businesses Worldwide",
+    description: "The official architecture for modern business. We install specialized AI infrastructure that handles the admin, ops, and data.",
     url: "https://elianatech.com",
     siteName: "Elianatech",
     images: [
@@ -73,8 +72,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Elianatech — Own Your Intelligence",
-    description: "Transform your business with intelligent AI automation solutions.",
+    title: "Elianatech | Bringing AI to Businesses Worldwide",
+    description: "The official architecture for modern business.",
     images: ["/og-image.png"],
   },
   generator: "v0.app",
@@ -115,6 +114,22 @@ export default function RootLayout({
               "address": {
                 "@type": "PostalAddress",
                 "addressCountry": "USA"
+              },
+              "areaServed": [
+                { "@type": "City", "name": "New York" },
+                { "@type": "City", "name": "Silicon Valley" },
+                { "@type": "City", "name": "Austin" },
+                { "@type": "City", "name": "London" },
+                { "@type": "City", "name": "Dubai" }
+              ],
+              "hasOfferCatalog": {
+                "@type": "OfferCatalog",
+                "name": "AI Architecture & Operations",
+                "itemListElement": [
+                  { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Autonomous Infrastructure Installation" } },
+                  { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "The Managed Workforce (AI Operatives)" } },
+                  { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "AI Operations Audit" } }
+                ]
               }
             })
           }}

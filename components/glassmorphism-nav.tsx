@@ -2,10 +2,11 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X } from "lucide-react"
 
-export function GlassmorphismNav({ minimal = false }: { minimal?: boolean }) {
+export function GlassmorphismNav({ minimal = false, theme = "dark" }: { minimal?: boolean; theme?: "dark" | "light" }) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
@@ -17,25 +18,31 @@ export function GlassmorphismNav({ minimal = false }: { minimal?: boolean }) {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  const isDark = theme === "dark"
+
   return (
-    <nav className={`elianatech-nav ${isScrolled ? "scrolled" : ""}`}>
+    <nav className={`elianatech-nav ${isScrolled ? "scrolled" : ""} ${isDark ? "dark-nav" : "light-nav"}`}>
       <Link href="/" className="logo">
-        ELIANA<em>TECH</em>
+        <Image
+          src="/images/elianatech-logo.png"
+          alt="Elianatech"
+          width={160}
+          height={40}
+          className="logo-img"
+          priority
+        />
       </Link>
       <div className="nav-right">
         {!minimal && (
           <ul className="nav-links">
             <li>
+              <Link href="/industries">Playbooks</Link>
+            </li>
+            <li>
+              <Link href="/blog">Blog</Link>
+            </li>
+            <li>
               <Link href="/about">About</Link>
-            </li>
-            <li>
-              <a href="http://c12hsh4n5bfc02e5c9p4wyax.187.124.238.237.sslip.io" target="_blank" rel="noopener noreferrer">The Brief</a>
-            </li>
-            <li>
-              <a href="https://aiproof-kappa.vercel.app/" target="_blank" rel="noopener noreferrer">AI Proof Book</a>
-            </li>
-            <li>
-              <span className="text-[10px] tracking-[0.25em] uppercase text-black/20 cursor-default">FOTF (Soon)</span>
             </li>
           </ul>
         )}
@@ -46,7 +53,7 @@ export function GlassmorphismNav({ minimal = false }: { minimal?: boolean }) {
         )}
         {!minimal && (
           <button className="mobile-toggle" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         )}
       </div>
@@ -61,22 +68,19 @@ export function GlassmorphismNav({ minimal = false }: { minimal?: boolean }) {
           >
             <ul>
               <li>
-                <Link href="/about" onClick={() => setIsMobileMenuOpen(false)}>
-                  About
+                <Link href="/industries" onClick={() => setIsMobileMenuOpen(false)}>
+                  Playbooks
                 </Link>
               </li>
               <li>
-                <a href="http://c12hsh4n5bfc02e5c9p4wyax.187.124.238.237.sslip.io" target="_blank" rel="noopener noreferrer" onClick={() => setIsMobileMenuOpen(false)}>
-                  The Brief
-                </a>
+                <Link href="/blog" onClick={() => setIsMobileMenuOpen(false)}>
+                  Blog
+                </Link>
               </li>
               <li>
-                <a href="https://aiproof-kappa.vercel.app/" target="_blank" rel="noopener noreferrer" onClick={() => setIsMobileMenuOpen(false)}>
-                  AI Proof Book
-                </a>
-              </li>
-              <li>
-                <span className="text-[14px] uppercase tracking-[0.1em] text-black/20 cursor-default">FOTF (Coming Soon)</span>
+                <Link href="/about" onClick={() => setIsMobileMenuOpen(false)}>
+                  About
+                </Link>
               </li>
               <li className="pt-4">
                 <Link href="/audit" className="nav-btn w-full block text-center" onClick={() => setIsMobileMenuOpen(false)}>
@@ -94,86 +98,145 @@ export function GlassmorphismNav({ minimal = false }: { minimal?: boolean }) {
           top: 0;
           left: 0;
           right: 0;
-          z-index: 100;
-          padding: 20px 52px;
+          z-index: 1000;
+          padding: 20px 80px;
           display: flex;
           justify-content: space-between;
           align-items: center;
-          background: rgba(250, 250, 248, 0.94);
-          backdrop-filter: blur(14px);
-          border-bottom: 1px solid var(--border-color);
-          transition: all 0.3s ease;
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          border-bottom: 1px solid transparent;
+        }
+
+        .dark-nav {
+          background: rgba(5, 5, 5, 0.6);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          color: white;
+        }
+
+        .light-nav {
+          background: rgba(250, 250, 248, 0.85);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          color: black;
+          border-bottom: 1px solid rgba(0,0,0,0.06);
         }
 
         nav.scrolled {
-          padding: 15px 52px;
+          padding: 12px 80px;
+        }
+
+        .dark-nav.scrolled {
+          background: rgba(5, 5, 5, 0.95);
+          border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .light-nav.scrolled {
           background: rgba(250, 250, 248, 0.98);
-          border-bottom-color: var(--border-mid);
+          border-bottom: 1px solid rgba(0,0,0,0.08);
         }
 
         .logo {
-          font-family: var(--font-bebas-neue), sans-serif;
-          font-size: 22px;
-          letter-spacing: 0.2em;
+          display: flex;
+          align-items: center;
           text-decoration: none;
-          color: var(--black);
         }
 
-        .logo em {
-          color: var(--red);
-          font-style: normal;
+        .logo :global(.logo-img) {
+          height: 32px;
+          width: auto;
+          object-fit: contain;
+          transition: height 0.3s ease;
+        }
+
+        nav.scrolled .logo :global(.logo-img) {
+          height: 28px;
+        }
+
+        .light-nav .logo :global(.logo-img) {
+          filter: invert(1);
         }
 
         .nav-right {
           display: flex;
           align-items: center;
-          gap: 36px;
+          gap: 40px;
         }
 
         .nav-links {
           list-style: none;
           display: flex;
-          gap: 28px;
+          gap: 36px;
+          margin: 0;
+          padding: 0;
         }
 
-        .nav-links Link,
-        .nav-links a {
-          font-size: 10px;
-          letter-spacing: 0.25em;
+        .nav-links :global(a) {
+          font-size: 11px;
+          letter-spacing: 0.2em;
           text-transform: uppercase;
-          color: var(--dim);
+          color: rgba(255,255,255,0.5);
           text-decoration: none;
-          transition: color 0.2s;
+          transition: all 0.3s ease;
+          font-weight: 600;
+          position: relative;
         }
 
-        .nav-links a:hover {
-          color: var(--black);
+        .nav-links :global(a::after) {
+          content: '';
+          position: absolute;
+          bottom: -4px;
+          left: 0;
+          width: 0;
+          height: 1px;
+          background: #D90019;
+          transition: width 0.3s ease;
+        }
+
+        .nav-links :global(a:hover::after) {
+          width: 100%;
+        }
+
+        .light-nav .nav-links :global(a) {
+          color: rgba(0,0,0,0.45);
+        }
+
+        .nav-links :global(a:hover) {
+          color: white;
+        }
+
+        .light-nav .nav-links :global(a:hover) {
+          color: black;
         }
 
         .nav-btn {
-          font-family: var(--font-dm-mono), monospace;
           font-size: 10px;
           letter-spacing: 0.2em;
           text-transform: uppercase;
-          background: var(--black);
-          color: var(--white) !important;
-          padding: 11px 22px;
+          background: #D90019;
+          color: white !important;
+          padding: 12px 28px;
           text-decoration: none;
-          transition: background 0.2s;
+          transition: all 0.3s ease;
           border: none;
           cursor: pointer;
+          font-weight: 700;
         }
 
         .nav-btn:hover {
-          background: var(--red);
+          background: white;
+          color: black !important;
+          transform: translateY(-1px);
+          box-shadow: 0 4px 20px rgba(217, 0, 25, 0.3);
         }
 
         .mobile-toggle {
           display: none;
           background: none;
           border: none;
-          color: var(--black);
+          color: inherit;
           cursor: pointer;
+          padding: 4px;
         }
 
         .mobile-menu {
@@ -181,38 +244,47 @@ export function GlassmorphismNav({ minimal = false }: { minimal?: boolean }) {
           top: 100%;
           left: 0;
           right: 0;
-          background: var(--white);
-          padding: 20px;
-          border-bottom: 1px solid var(--border-mid);
+          padding: 32px;
+          border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .dark-nav .mobile-menu {
+          background: rgba(5, 5, 5, 0.98);
+          backdrop-filter: blur(20px);
+        }
+
+        .light-nav .mobile-menu {
+          background: rgba(255, 255, 255, 0.98);
+          backdrop-filter: blur(20px);
         }
 
         .mobile-menu ul {
           list-style: none;
           display: flex;
           flex-direction: column;
-          gap: 15px;
+          gap: 24px;
+          margin: 0;
+          padding: 0;
         }
 
-        .mobile-menu a {
-          font-size: 14px;
+        .mobile-menu :global(a) {
+          font-size: 13px;
           text-transform: uppercase;
-          letter-spacing: 0.1em;
-          color: var(--black);
+          letter-spacing: 0.15em;
+          color: inherit;
           text-decoration: none;
           font-weight: 600;
         }
 
+        @media (max-width: 1024px) {
+           nav, nav.scrolled {
+              padding-left: 40px;
+              padding-right: 40px;
+           }
+        }
+
         @media (max-width: 880px) {
-          nav {
-            padding: 16px 24px;
-          }
-          nav.scrolled {
-            padding: 12px 24px;
-          }
-          .nav-links {
-            display: none;
-          }
-          .nav-btn:not(.mobile-menu .nav-btn) {
+          .nav-links, .nav-btn:not(.mobile-menu .nav-btn) {
             display: none;
           }
           .mobile-toggle {
@@ -221,14 +293,11 @@ export function GlassmorphismNav({ minimal = false }: { minimal?: boolean }) {
         }
 
         @media (max-width: 640px) {
-          nav {
-            padding: 12px 16px;
+          nav, nav.scrolled {
+            padding: 14px 20px;
           }
-          .logo {
-            font-size: 18px;
-          }
-          .nav-right {
-            gap: 16px;
+          .logo :global(.logo-img) {
+            height: 26px;
           }
         }
       `}</style>

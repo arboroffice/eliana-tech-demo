@@ -10,37 +10,37 @@ const AGENT_TYPES = [
   {
     icon: "01",
     title: "Business Operations Agent",
-    description: "Claude manages your calendar, email triage, meeting prep, SOPs, hiring workflows, and daily task delegation across your entire team.",
+    description: "AI manages your calendar, email triage, meeting prep, SOPs, hiring workflows, and daily task delegation across your entire team.",
     result: "Reclaim 20+ hours per week of admin drag"
   },
   {
     icon: "02",
     title: "Sales & Revenue Agent",
-    description: "Claude qualifies leads, writes proposals, follows up with prospects, handles objections via email/SMS, and books calls on your calendar.",
+    description: "Our AI operatives qualify leads, write proposals, follow up with prospects, handle objections via email/SMS, and book calls on your calendar.",
     result: "3x pipeline velocity without hiring SDRs"
   },
   {
     icon: "03",
     title: "Content & Marketing Agent",
-    description: "Claude writes your blogs, social posts, email sequences, ad copy, and SEO content in your exact brand voice, publishing on autopilot.",
+    description: "AI writes your blogs, social posts, email sequences, ad copy, and SEO content in your exact brand voice, publishing on autopilot.",
     result: "60+ pieces of content per month, zero burnout"
   },
   {
     icon: "04",
     title: "Customer Success Agent",
-    description: "Claude handles support tickets, onboarding sequences, check-in emails, churn prevention outreach, and upsell identification.",
+    description: "AI handles support tickets, onboarding sequences, check-in emails, churn prevention outreach, and upsell identification.",
     result: "90% faster response times, 40% less churn"
   },
   {
     icon: "05",
     title: "Data & Intelligence Agent",
-    description: "Claude analyzes your spreadsheets, CRM data, financials, and KPIs, delivering daily executive briefs and flagging anomalies before they become problems.",
+    description: "AI analyzes your spreadsheets, CRM data, financials, and KPIs, delivering daily executive briefs and flagging anomalies before they become problems.",
     result: "Executive-level visibility without a data team"
   },
   {
     icon: "06",
     title: "Personal Life Agent",
-    description: "Claude manages your personal calendar, travel booking, family logistics, health tracking, meal planning, and household coordination.",
+    description: "AI manages your personal calendar, travel booking, family logistics, health tracking, meal planning, and household coordination.",
     result: "Run your life like a Fortune 500 runs its operations"
   },
 ]
@@ -53,28 +53,28 @@ const PROCESS_STEPS = [
   },
   {
     num: "02",
-    title: "Claude Architecture Design",
-    description: "We design your custom Claude setup: which agents you need, what tools they connect to, what permissions they have, and how they communicate with each other."
+    title: "Intelligence Architecture Design",
+    description: "We design your custom workforce setup: which agents you need, what tools they connect to, what permissions they have, and how they communicate with each other."
   },
   {
     num: "03",
     title: "Agent Build & Training",
-    description: "We build your agents in 7 days with custom system prompts, knowledge bases, tool integrations (CRM, email, calendar, Slack, databases), and decision logic tailored to your exact processes."
+    description: "We build your operatives in 7 days with custom system prompts, knowledge bases, tool integrations (CRM, email, calendar, Slack, databases), and decision logic tailored to your exact processes."
   },
   {
     num: "04",
     title: "Shadow Mode & Testing",
-    description: "Your Claude agents run in supervised mode for 30 days of training. Every action is reviewed, refined, and approved before graduating to autonomous execution. The system learns your company inside and out."
+    description: "Your operatives run in supervised mode for 30 days of training. Every action is reviewed, refined, and approved before graduating to autonomous execution. The system learns your company inside and out."
   },
   {
     num: "05",
     title: "Hands-On Training",
-    description: "We teach you and your team exactly how to prompt, manage, and extend your Claude setup. You leave with complete ownership and confidence."
+    description: "We teach you and your team exactly how to prompt, manage, and extend your AI infrastructure. You leave with complete ownership and confidence."
   },
   {
     num: "06",
     title: "Launch & Ongoing Optimization",
-    description: "Your agents go live. We monitor performance, add new capabilities monthly, and ensure your Claude infrastructure evolves as your business grows."
+    description: "Your operatives go live. We monitor performance, add new capabilities monthly, and ensure your workforce evolves as your business grows."
   },
 ]
 
@@ -154,14 +154,14 @@ export default function CaaSClient() {
   const [activeFaq, setActiveFaq] = useState<number | null>(null)
 
   const faqs = [
-    { q: "What exactly is Claude?", a: "Claude is Anthropic's frontier AI assistant. It's the most capable, safest, and most steerable AI model available. We configure, train, and deploy Claude specifically for your business workflows so it operates as a true AI employee, not a chatbot." },
-    { q: "How is this different from just using ChatGPT or Claude.ai?", a: "Using Claude.ai directly is like having a genius intern with no context about your business. We give Claude deep knowledge of your processes, connect it to your tools (CRM, email, calendar, databases), build custom agents for specific roles, and train it to make decisions the way you would." },
-    { q: "What tools and platforms does Claude integrate with?", a: "Everything. Gmail, Outlook, Google Calendar, Slack, HubSpot, Salesforce, Notion, Airtable, Google Sheets, Stripe, QuickBooks, Zapier, Make, custom APIs, databases, and more. If it has an API, Claude can work with it." },
-    { q: "Is my data safe?", a: "Absolutely. We use Anthropic's enterprise-tier API with zero data retention. Your information never trains any public model. We implement role-based access controls and can deploy in your own cloud environment for maximum security." },
-    { q: "How long does setup take?", a: "Most clients are live within 7 days. We handle discovery, architecture, building, and installation in one focused sprint. Then 30 days of training where the system learns your company data. Complex enterprise deployments may take 2-3 weeks for the install." },
-    { q: "Do I need to be technical?", a: "Not at all. We handle all the technical setup. Our training sessions teach you to work with Claude using plain English. If you can write an email, you can manage your Claude agents." },
-    { q: "What happens if Claude makes a mistake?", a: "During shadow mode, every action is human-reviewed. Post-launch, we build guardrails, approval workflows, and escalation rules. Claude flags uncertain decisions for your review rather than guessing. The system gets smarter over time." },
-    { q: "Can I cancel anytime?", a: "Yes. Month-to-month after the initial 3-month commitment. You own all your agents, prompts, and configurations. We believe in earning your business every month, not locking you in." },
+    { q: "What exactly is The Autonomous Workforce?", a: "It is a suite of specialized AI operatives configured specifically for your business workflows. These aren't just chatbots; they are functional agents that operate as true AI employees, integrated into your tools and decision patterns." },
+    { q: "How is this different from just using ChatGPT or Claude.ai?", a: "Using public AI tools directly is like having a genius intern with no context about your business. We give our workforce deep knowledge of your processes, connect it to your tools (CRM, email, calendar, databases), and train it to make decisions the way you would." },
+    { q: "What tools and platforms does the workforce integrate with?", a: "Everything. Gmail, Outlook, Google Calendar, Slack, HubSpot, Salesforce, Notion, Airtable, Google Sheets, Stripe, QuickBooks, Zapier, Make, custom APIs, databases, and more. If it has an API, our operatives can work with it." },
+    { q: "Is my data safe?", a: "Absolutely. We use enterprise-tier APIs with zero data retention. Your information never trains any public model. We implement role-based access controls and can deploy in your own cloud environment for maximum security." },
+    { q: "How long does setup take?", a: "Most clients are live within 7 days. We handle discovery, architecture, building, and installation in one focused sprint. Then 30 days of training where the system learns your company data." },
+    { q: "Do I need to be technical?", a: "Not at all. We handle all the technical setup. Our training sessions teach you to work with your AI workforce using plain English. If you can write an email, you can manage your operatives." },
+    { q: "What happens if an operative makes a mistake?", a: "During shadow mode, every action is human-reviewed. Post-launch, we build guardrails, approval workflows, and escalation rules. The system flags uncertain decisions for your review rather than guessing." },
+    { q: "Can I cancel anytime?", a: "Yes. Month-to-month after the initial commitment. You own all your agents, prompts, and configurations. We believe in earning your business every month, not locking you in." },
   ]
 
   return (
@@ -190,14 +190,14 @@ export default function CaaSClient() {
               <span className="text-[10px] uppercase tracking-widest text-amber-500 font-bold">Now Accepting Applications</span>
             </div>
 
-            <h1 className="text-6xl md:text-[8rem] font-black mb-8 leading-[0.85] tracking-tighter">
-              CLAUDE<br />
-              <span className="text-amber-500">AS A</span><br />
-              SERVICE
+            <h1 className="text-6xl md:text-[8rem] font-black mb-8 leading-[0.85] tracking-tighter uppercase text-white">
+              THE<br />
+              <span className="text-amber-500">WORK</span><br />
+              FORCE
             </h1>
 
             <p className="text-xl md:text-2xl text-zinc-400 leading-relaxed max-w-3xl mb-6">
-              We set up, train, and deploy <span className="text-white font-bold">Claude as your AI workforce</span>. Custom agents that run your business, manage your life, and multiply your output.
+              We set up, train, and deploy <span className="text-white font-bold">The Autonomous Workforce</span> for your business. Custom AI agents that run your business, manage your life, and multiply your output.
             </p>
             <p className="text-lg text-zinc-500 max-w-2xl mb-12">
               Not a chatbot. Not a template. A fully configured AI operations layer built around your exact workflows, tools, and decision-making patterns.
@@ -205,7 +205,7 @@ export default function CaaSClient() {
 
             <div className="flex flex-col sm:flex-row gap-6">
               <Link href="/caas/apply" className="bg-amber-500 text-black px-12 py-6 text-xs uppercase tracking-[0.3em] font-black hover:bg-white transition-colors text-center">
-                Apply for CaaS
+                Join The Workforce
               </Link>
               <a href="#how-it-works" className="border border-zinc-800 text-zinc-400 px-12 py-6 text-xs uppercase tracking-[0.3em] font-bold hover:text-white hover:border-zinc-400 transition-all text-center">
                 See How It Works
@@ -274,11 +274,11 @@ export default function CaaSClient() {
                     <span className="text-xs font-black text-amber-500 uppercase tracking-widest">{uc.role}</span>
                   </div>
                   <div>
-                    <span className="text-[10px] text-zinc-600 uppercase tracking-widest block mb-2">Before CaaS</span>
+                    <span className="text-[10px] text-zinc-600 uppercase tracking-widest block mb-2">Before Transition</span>
                     <p className="text-sm text-zinc-500 italic">{uc.before}</p>
                   </div>
                   <div>
-                    <span className="text-[10px] text-amber-500 uppercase tracking-widest block mb-2">After CaaS</span>
+                    <span className="text-[10px] text-amber-500 uppercase tracking-widest block mb-2">After AI Installation</span>
                     <p className="text-sm text-white font-medium">{uc.after}</p>
                   </div>
                 </div>

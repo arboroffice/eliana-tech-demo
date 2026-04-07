@@ -1,172 +1,69 @@
 "use client"
 import Link from "next/link"
+import Image from "next/image"
 
 export function Footer() {
   return (
-    <footer>
-      <div className="footer-grid">
-        <div className="footer-brand">
-          <Link href="/" className="footer-logo">
-            ELIANA<em>TECH</em>
+    <footer className="bg-[#050505] text-white py-24 px-6 md:px-[80px] border-t border-zinc-800/50 overflow-hidden relative">
+      <div className="absolute top-0 left-[10%] w-[80%] h-[1px] bg-gradient-to-r from-transparent via-[#D90019]/15 to-transparent" />
+
+      <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-16 md:gap-12 relative z-10">
+        <div className="lg:col-span-1">
+          <Link href="/" className="inline-block">
+            <Image src="/images/elianatech-logo.png" alt="Elianatech" width={140} height={36} className="h-8 w-auto object-contain" />
           </Link>
-          <span className="footer-copy block mt-4">© 2026 ELIANATECH</span>
-          <div className="mt-8 flex gap-4">
-             <Link href="/admin" className="text-[8px] opacity-20 hover:opacity-100 transition-opacity">Admin</Link>
+          <p className="text-[11px] text-zinc-600 mt-6 leading-relaxed max-w-[220px] tracking-wide">
+            Your AI Department.<br />
+            &copy; 2026 ElianaTech.
+          </p>
+          <div className="mt-8 flex gap-4 opacity-10 hover:opacity-100 transition-opacity">
+            <Link href="/admin" className="text-[9px] uppercase tracking-widest text-zinc-500 hover:text-white">Admin CC</Link>
           </div>
         </div>
 
-        <div className="footer-column">
-          <h4 className="footer-heading">Systems</h4>
-          <ul className="footer-links">
-            <li><Link href="/caas">Claude as a Service</Link></li>
-            <li><Link href="/os/command-center">OS Command Center</Link></li>
-            <li><Link href="/audit">AI Operations Audit</Link></li>
-            <li><Link href="/done-for-you">Done-For-You</Link></li>
+        <div>
+          <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-zinc-400 mb-8">Infrastructure</h4>
+          <ul className="flex flex-col gap-4 text-[13px] font-light text-zinc-500">
+            <li><Link href="/os/command-center" className="hover:text-white transition-colors">Command Center</Link></li>
+            <li><Link href="/audit" className="hover:text-white transition-colors">OS Audit</Link></li>
           </ul>
         </div>
 
-        <div className="footer-column">
-          <h4 className="footer-heading">Industries</h4>
-          <ul className="footer-links">
-            <li><Link href="/industries-sitemap">Full Industry Sitemap</Link></li>
-            <li><Link href="/industries/saas">SaaS Founders</Link></li>
-            <li><Link href="/industries/agencies">Agencies</Link></li>
-            <li><Link href="/industries/ecommerce">E-commerce</Link></li>
-            <li><Link href="/industries/home-services">Home Services</Link></li>
-            <li><Link href="/industries/coaching">Coaching</Link></li>
+        <div>
+          <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-zinc-400 mb-8">Solutions</h4>
+          <ul className="flex flex-col gap-4 text-[13px] font-light text-zinc-500">
+            <li><Link href="/done-for-you" className="hover:text-white transition-colors">Done-For-You</Link></li>
+            <li><Link href="/done-with-you" className="hover:text-white transition-colors">Co-Founder Model</Link></li>
+            <li><Link href="/industries" className="hover:text-white transition-colors">Playbook Library</Link></li>
           </ul>
         </div>
 
-        <div className="footer-column">
-          <h4 className="footer-heading">Resources</h4>
-          <ul className="footer-links">
-            <li><Link href="/blog">Insights & Blog</Link></li>
-            <li><Link href="/about">About Us</Link></li>
-            <li><a href="http://c12hsh4n5bfc02e5c9p4wyax.187.124.238.237.sslip.io" target="_blank" rel="noopener noreferrer">The Daily OS Brief</a></li>
-            <li><a href="https://aiproof-kappa.vercel.app/" target="_blank" rel="noopener noreferrer">AI Proof Book</a></li>
-            <li className="text-[11px] opacity-30 cursor-default">FOTF Community — Coming Soon</li>
+        <div>
+          <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-zinc-400 mb-8">Company</h4>
+          <ul className="flex flex-col gap-4 text-[13px] font-light text-zinc-500">
+            <li><Link href="/blog" className="hover:text-white transition-colors">Blog</Link></li>
+            <li><Link href="/about" className="hover:text-white transition-colors">About</Link></li>
+            <li><Link href="/faq" className="hover:text-white transition-colors">FAQ</Link></li>
+            <li><Link href="/apply" className="hover:text-white transition-colors">Apply</Link></li>
           </ul>
         </div>
 
-        <div className="footer-column">
-          <h4 className="footer-heading">Legal</h4>
-          <ul className="footer-links">
-            <li><Link href="/privacy">Privacy Policy</Link></li>
-            <li><Link href="/terms">Terms of Service</Link></li>
-            <li><a href="mailto:support@elianatech.com">Contact Support</a></li>
+        <div>
+          <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-zinc-400 mb-8">Legal</h4>
+          <ul className="flex flex-col gap-4 text-[13px] font-light text-zinc-500">
+            <li><Link href="/privacy" className="hover:text-white transition-colors">Privacy</Link></li>
+            <li><Link href="/terms" className="hover:text-white transition-colors">Terms</Link></li>
+            <li><a href="mailto:hello@elianatech.com" className="hover:text-white transition-colors">Contact</a></li>
           </ul>
         </div>
       </div>
 
-      <style jsx>{`
-        footer {
-          padding: 80px 52px;
-          border-top: 1px solid var(--border-color);
-          background: var(--white);
-        }
-
-        .footer-grid {
-          display: grid;
-          grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
-          gap: 40px;
-          max-width: 1400px;
-          margin: 0 auto;
-        }
-
-        .footer-logo {
-          font-family: var(--font-bebas-neue), sans-serif;
-          font-size: 28px;
-          letter-spacing: 0.2em;
-          text-decoration: none;
-          color: var(--black);
-        }
-
-        .footer-logo em {
-          color: var(--red);
-          font-style: normal;
-        }
-
-        .footer-heading {
-          font-family: var(--font-syne), sans-serif;
-          font-size: 10px;
-          text-transform: uppercase;
-          letter-spacing: 0.3em;
-          color: var(--black);
-          margin-bottom: 24px;
-          font-weight: 800;
-        }
-
-        .footer-links {
-          list-style: none;
-          padding: 0;
-          margin: 0;
-          display: flex;
-          flex-direction: column;
-          gap: 12px;
-        }
-
-        .footer-links :global(a) {
-          font-size: 11px;
-          letter-spacing: 0.05em;
-          color: var(--dim);
-          text-decoration: none;
-          transition: color 0.2s;
-        }
-
-        .footer-links :global(a:hover) {
-          color: var(--red);
-        }
-
-        .footer-copy {
-          font-size: 10px;
-          color: var(--border-mid);
-          letter-spacing: 0.1em;
-        }
-
-        .block { display: block; }
-        .mt-4 { margin-top: 1rem; }
-        .mt-8 { margin-top: 2rem; }
-        .flex { display: flex; }
-        .gap-4 { gap: 1rem; }
-
-        @media (max-width: 1024px) {
-          .footer-grid {
-            grid-template-columns: 1fr 1fr 1fr;
-          }
-          .footer-brand {
-            grid-column: span 3;
-            margin-bottom: 40px;
-          }
-        }
-
-        @media (max-width: 880px) {
-          .footer-grid {
-             grid-template-columns: 1fr 1fr;
-          }
-           .footer-brand {
-            grid-column: span 2;
-          }
-        }
-
-        @media (max-width: 640px) {
-          footer {
-            padding: 60px 24px;
-          }
-          .footer-grid {
-            grid-template-columns: 1fr;
-          }
-          .footer-brand {
-            grid-column: span 1;
-            text-align: center;
-          }
-          .footer-column {
-            text-align: center;
-          }
-          .flex {
-            justify-content: center;
-          }
-        }
-      `}</style>
+      <div className="mt-24 pt-12 border-t border-zinc-900/60 flex flex-wrap gap-x-10 gap-y-4 text-[10px] tracking-widest text-zinc-700 uppercase">
+        <span>Remote-First</span>
+        <span>New York</span>
+        <span>Austin</span>
+        <span>Silicon Valley</span>
+      </div>
     </footer>
   )
 }
