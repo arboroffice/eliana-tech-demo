@@ -1,5 +1,4 @@
 "use client"
-import Image from "next/image"
 
 interface OfficialPartnersProps {
     className?: string
@@ -10,11 +9,11 @@ export function OfficialPartners({ className = "", variant = "light" }: Official
     const labelColor = variant === "dark" ? "text-white/50" : "text-[#888]"
 
     const logos = [
-        { src: "/images/claude-logo.png",      alt: "Claude",           w: 110, darkBg: false },
-        { src: "/images/openai-logo.png",       alt: "OpenAI",           w: 110, darkBg: false },
-        { src: "/images/meta-logo-new.png",     alt: "Meta",             w: 130, darkBg: false },
-        { src: "/images/google-partner.svg",    alt: "Google Partner",   w: 130, darkBg: false },
-        { src: "/images/openclaw-logo.png",     alt: "OpenClaw",         w: 110, darkBg: true  },
+        { src: "/images/claude-logo.png",   alt: "Claude",         darkBg: false, w: 110 },
+        { src: "/images/openai-logo.png",   alt: "OpenAI",         darkBg: false, w: 110 },
+        { src: "/images/meta-logo-new.png", alt: "Meta",           darkBg: false, w: 130 },
+        { src: "/images/google-partner.svg",alt: "Google Partner", darkBg: false, w: 130 },
+        { src: "/images/openclaw-logo.png", alt: "OpenClaw",       darkBg: true,  w: 110 },
     ]
 
     return (
@@ -22,24 +21,34 @@ export function OfficialPartners({ className = "", variant = "light" }: Official
             <p className={`text-[9px] tracking-[0.4em] uppercase ${labelColor} font-black mb-6`}>
                 Official Infrastructure Partners
             </p>
-            <div className="flex flex-wrap gap-4 items-center">
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "12px", alignItems: "center" }}>
                 {logos.map((logo, i) => (
                     <div
                         key={i}
-                        className={`flex items-center justify-center px-5 py-3 border ${
-                            logo.darkBg
-                                ? "bg-[#0C0C0C] border-[#0C0C0C]"
-                                : "bg-white border-[#E4E3DE]"
-                        }`}
-                        style={{ minWidth: 80 }}
+                        style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            padding: "12px 20px",
+                            border: logo.darkBg ? "none" : "1px solid #E4E3DE",
+                            background: logo.darkBg ? "#0C0C0C" : "#ffffff",
+                            borderRadius: 0,
+                        }}
                     >
-                        <Image
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
                             src={logo.src}
                             alt={logo.alt}
                             width={logo.w}
-                            height={44}
-                            className="h-10 w-auto object-contain"
-                            style={{ filter: "none" }}
+                            height={40}
+                            style={{
+                                height: 36,
+                                width: "auto",
+                                objectFit: "contain",
+                                filter: "none",
+                                WebkitFilter: "none",
+                                opacity: 1,
+                            }}
                         />
                     </div>
                 ))}
