@@ -70,7 +70,7 @@ export function GlassmorphismNav({ minimal = false, theme = "dark" }: { minimal?
         }
 
         .logo :global(.logo-img) {
-          height: 26px;
+          height: 18px;
           width: auto;
           object-fit: contain;
           transition: height 0.3s ease;
