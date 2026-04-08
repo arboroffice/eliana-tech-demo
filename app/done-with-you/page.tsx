@@ -3,6 +3,7 @@
 import { GlassmorphismNav } from "@/components/glassmorphism-nav"
 import { Footer } from "@/components/footer"
 import Link from "next/link"
+import { OfficialPartners } from "@/components/official-partners"
 
 export default function DoneWithYouPage() {
     return (
@@ -40,6 +41,8 @@ export default function DoneWithYouPage() {
                     <Link href="/audit" className="btn-red-large !text-white">
                         Apply for OS Install
                     </Link>
+
+                    <OfficialPartners className="mt-20 pt-16 border-t border-[#E4E3DE]" variant="light" />
                 </section>
 
                 {/* THE INSTALLATION LIST */}

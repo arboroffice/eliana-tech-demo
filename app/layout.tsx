@@ -116,9 +116,6 @@ export default function RootLayout({
                 "addressCountry": "USA"
               },
               "areaServed": [
-                { "@type": "City", "name": "New York" },
-                { "@type": "City", "name": "Silicon Valley" },
-                { "@type": "City", "name": "Austin" },
                 { "@type": "City", "name": "London" },
                 { "@type": "City", "name": "Dubai" }
               ],

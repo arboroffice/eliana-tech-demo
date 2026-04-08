@@ -58,12 +58,6 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="mt-24 pt-12 border-t border-zinc-900/60 flex flex-wrap gap-x-10 gap-y-4 text-[10px] tracking-widest text-white/40 uppercase">
-        <span>Remote-First</span>
-        <span>New York</span>
-        <span>Austin</span>
-        <span>Silicon Valley</span>
-      </div>
     </footer>
   )
 }

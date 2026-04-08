@@ -5,6 +5,7 @@ import { getBusinessCategory, type BusinessCategory } from "@/lib/audit-industry
 import { generateIndustryPlaybook } from "@/lib/freebie-generator"
 import { industries } from "@/lib/industry-data"
 import Link from "next/link"
+import { OfficialPartners } from "./official-partners"
 
 interface PrintReportProps {
   formData: any
@@ -602,6 +603,8 @@ export function AuditReportPrint({ formData, auditScore }: PrintReportProps) {
               <p className="text-gray-400 text-[9px] font-mono uppercase tracking-[0.4em] mb-2">Prepared For</p>
               <h2 className="text-3xl font-black text-black uppercase tracking-tighter leading-none">{formData.companyName || formData.fullName || 'Your Business'}</h2>
               <p className="text-gray-500 text-[10px] mono mt-2 uppercase tracking-widest">{playbook.industryName} // {growthLevel.label} // {formData.websiteUrl || 'INTERNAL CORE'}</p>
+              
+              <OfficialPartners className="mt-10" variant="light" />
             </div>
             <div className="text-center px-10 py-6 nb-card">
               <p className="text-gray-400 text-[9px] font-mono uppercase tracking-[0.4em] mb-2">Efficiency Index</p>

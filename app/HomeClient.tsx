@@ -6,6 +6,7 @@ import { ArrowRight, Plus, Minus } from "lucide-react"
 import { GlassmorphismNav } from "@/components/glassmorphism-nav"
 import { Footer } from "@/components/footer"
 import Image from "next/image"
+import { OfficialPartners } from "@/components/official-partners"
 
 export default function HomeClient() {
   const [mounted, setMounted] = useState(false)
@@ -72,40 +73,40 @@ export default function HomeClient() {
       <GlassmorphismNav />
 
       {/* ─── HERO BLACK ─── */}
-      <section className="bg-[#0C0C0C] text-white min-h-[100dvh] flex flex-col justify-center items-center px-6 pt-32 pb-20 relative overflow-hidden">
+      <section className="bg-[#0C0C0C] text-white min-h-[100dvh] flex flex-col justify-center items-center px-5 pt-24 sm:pt-32 pb-12 sm:pb-20 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 left-0 w-[50%] h-[50%] bg-[#D90019]/8 rounded-full blur-[160px]" />
           <div className="absolute bottom-0 right-0 w-[40%] h-[40%] bg-[#D90019]/5 rounded-full blur-[120px]" />
         </div>
 
         <div className="max-w-[1100px] w-full mx-auto text-center relative z-10">
-          <p className="text-[11px] font-bold uppercase tracking-[0.5em] text-[#D90019] mb-8">AI Infrastructure for Founders</p>
-          <h1 className="font-bebas text-6xl sm:text-8xl lg:text-[100px] leading-[0.88] tracking-tight mb-8 uppercase">
+          <p className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.4em] sm:tracking-[0.5em] text-[#D90019] mb-5 sm:mb-8">AI Infrastructure for Founders</p>
+          <h1 className="font-bebas text-[46px] sm:text-7xl lg:text-[100px] leading-[0.88] tracking-tight mb-5 sm:mb-8 uppercase">
             Your Business.<br />
             <span className="text-[#D90019]">Rebuilt</span> as a Machine.
           </h1>
-          <p className="text-[19px] md:text-[22px] text-white/80 font-light leading-relaxed max-w-3xl mx-auto mb-12">
+          <p className="text-[15px] sm:text-[19px] md:text-[22px] text-white/80 font-light leading-relaxed max-w-3xl mx-auto mb-8 sm:mb-12">
             We install autonomous AI systems that handle your admin, ops, and sales so you can focus on what only you can do.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20">
-            <Link href="/audit" className="bg-[#D90019] text-white px-12 py-5 text-[12px] font-black uppercase tracking-[0.3em] hover:bg-white hover:text-black transition-all">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-10 sm:mb-16 w-full">
+            <Link href="/audit" className="w-full sm:w-auto bg-[#D90019] text-white px-8 sm:px-12 py-4 sm:py-5 text-[11px] sm:text-[12px] font-black uppercase tracking-[0.3em] hover:bg-white hover:text-black transition-all text-center">
               Start Your Free Audit →
             </Link>
-            <a href="https://cal.com/elianatech/30min" className="border border-white/30 text-white px-12 py-5 text-[12px] font-black uppercase tracking-[0.3em] hover:bg-white hover:text-black transition-all">
+            <a href="https://cal.com/elianatech/30min" className="w-full sm:w-auto border border-white/30 text-white px-8 sm:px-12 py-4 sm:py-5 text-[11px] sm:text-[12px] font-black uppercase tracking-[0.3em] hover:bg-white hover:text-black transition-all text-center">
               Book a Call
             </a>
           </div>
 
-          <div className="grid grid-cols-3 gap-8 max-w-2xl mx-auto pt-16 border-t border-white/10">
+          <div className="grid grid-cols-3 gap-4 sm:gap-8 max-w-2xl mx-auto pt-8 sm:pt-16 border-t border-white/10">
             {[
               { value: "40+", label: "Hours returned weekly" },
               { value: "12", label: "Industry playbooks" },
               { value: "3×", label: "Output in 90 days" }
             ].map((s, i) => (
               <div key={i} className="flex flex-col items-center">
-                <span className="font-bebas text-5xl md:text-6xl text-white mb-2">{s.value}</span>
-                <span className="text-[10px] uppercase tracking-[0.2em] text-white/60 font-bold">{s.label}</span>
+                <span className="font-bebas text-4xl sm:text-5xl md:text-6xl text-white mb-1 sm:mb-2">{s.value}</span>
+                <span className="text-[8px] sm:text-[10px] uppercase tracking-[0.15em] sm:tracking-[0.2em] text-white/60 font-bold leading-tight">{s.label}</span>
               </div>
             ))}
           </div>
@@ -151,22 +152,7 @@ export default function HomeClient() {
                   So we built the glue. Then we replaced it with infrastructure.
                 </p>
               </div>
-              <div className="mt-14">
-                <p className="text-[9px] tracking-[0.4em] uppercase text-[#888] font-black mb-8">Official Infrastructure Partners</p>
-                <div className="flex flex-wrap gap-x-10 gap-y-6 items-center">
-                  {[
-                    { src: "/images/claude-logo.png", alt: "Claude", h: "h-6" },
-                    { src: "/images/openai-logo.png", alt: "OpenAI", h: "h-6" },
-                    { src: "/images/meta-logo-new.png", alt: "Meta", h: "h-5" },
-                    { src: "/images/google-partner.svg", alt: "Google Partner", h: "h-11" },
-                    { src: "/images/openclaw-logo.png", alt: "OpenClaw", h: "h-8" },
-                  ].map((logo, i) => (
-                    <div key={i} className="flex items-center">
-                      <Image src={logo.src} alt={logo.alt} width={120} height={40} className={`${logo.h} w-auto object-contain opacity-70 grayscale hover:grayscale-0 transition-all duration-300`} />
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <OfficialPartners className="mt-14" />
             </div>
 
             <div className="grid grid-cols-2 gap-6">
