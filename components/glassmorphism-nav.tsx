@@ -1,27 +1,13 @@
 "use client"
 
-import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { motion, AnimatePresence } from "framer-motion"
-import { Menu, X } from "lucide-react"
 
 export function GlassmorphismNav({ minimal = false, theme = "dark" }: { minimal?: boolean; theme?: "dark" | "light" }) {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20)
-    }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
-
   const isDark = theme === "dark"
 
   return (
-    <nav className={`elianatech-nav ${isScrolled ? "scrolled" : ""} ${isDark ? "dark-nav" : "light-nav"}`}>
+    <nav className={`elianatech-nav ${isDark ? "dark-nav" : "light-nav"}`}>
       <Link href="/" className="logo">
         <Image
           src="/images/elianatech-logo.png"
@@ -32,65 +18,6 @@ export function GlassmorphismNav({ minimal = false, theme = "dark" }: { minimal?
           priority
         />
       </Link>
-      <div className="nav-right">
-        {!minimal && (
-          <ul className="nav-links">
-            <li>
-              <Link href="/industries">Playbooks</Link>
-            </li>
-            <li>
-              <Link href="/blog">Blog</Link>
-            </li>
-            <li>
-              <Link href="/about">About</Link>
-            </li>
-          </ul>
-        )}
-        {!minimal && (
-          <Link href="/audit" className="nav-btn">
-            Get Free Audit
-          </Link>
-        )}
-        {!minimal && (
-          <button className="mobile-toggle" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-            {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
-        )}
-      </div>
-
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="mobile-menu"
-          >
-            <ul>
-              <li>
-                <Link href="/industries" onClick={() => setIsMobileMenuOpen(false)}>
-                  Playbooks
-                </Link>
-              </li>
-              <li>
-                <Link href="/blog" onClick={() => setIsMobileMenuOpen(false)}>
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" onClick={() => setIsMobileMenuOpen(false)}>
-                  About
-                </Link>
-              </li>
-              <li className="pt-4">
-                <Link href="/audit" className="nav-btn w-full block text-center" onClick={() => setIsMobileMenuOpen(false)}>
-                  Get Free Audit
-                </Link>
-              </li>
-            </ul>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       <style jsx>{`
         nav {
