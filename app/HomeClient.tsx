@@ -73,7 +73,7 @@ export default function HomeClient() {
       <GlassmorphismNav />
 
       {/* ─── HERO BLACK ─── */}
-      <section className="bg-[#0C0C0C] text-white min-h-[100dvh] flex flex-col justify-center items-center px-5 pt-24 sm:pt-32 pb-12 sm:pb-20 relative overflow-hidden">
+      <section className="bg-[#0C0C0C] text-white min-h-[100dvh] flex flex-col justify-center items-center px-5 pt-16 sm:pt-20 pb-12 sm:pb-20 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 left-0 w-[50%] h-[50%] bg-[#D90019]/8 rounded-full blur-[160px]" />
           <div className="absolute bottom-0 right-0 w-[40%] h-[40%] bg-[#D90019]/5 rounded-full blur-[120px]" />

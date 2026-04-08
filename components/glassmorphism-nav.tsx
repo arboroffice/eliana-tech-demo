@@ -94,12 +94,12 @@ export function GlassmorphismNav({ minimal = false, theme = "dark" }: { minimal?
 
       <style jsx>{`
         nav {
-          position: fixed;
+          position: absolute;
           top: 0;
           left: 0;
           right: 0;
           z-index: 1000;
-          padding: 20px 80px;
+          padding: 14px 80px;
           display: flex;
           justify-content: space-between;
           align-items: center;
@@ -123,7 +123,7 @@ export function GlassmorphismNav({ minimal = false, theme = "dark" }: { minimal?
         }
 
         nav.scrolled {
-          padding: 12px 80px;
+          padding: 10px 80px;
         }
 
         .dark-nav.scrolled {
@@ -143,14 +143,14 @@ export function GlassmorphismNav({ minimal = false, theme = "dark" }: { minimal?
         }
 
         .logo :global(.logo-img) {
-          height: 32px;
+          height: 26px;
           width: auto;
           object-fit: contain;
           transition: height 0.3s ease;
         }
 
         nav.scrolled .logo :global(.logo-img) {
-          height: 28px;
+          height: 22px;
         }
 
         .light-nav .logo :global(.logo-img) {
