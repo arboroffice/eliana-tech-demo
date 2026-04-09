@@ -73,6 +73,18 @@ interface FormData {
     newsletterOptIn: boolean;
     monthlyAdSpend: string;
     triedBefore: string;
+    recurringRevenuePct: string;
+    revenueTracking: string;
+    leadManagement: string;
+    leadResponseTime: string;
+    followUpProcess: string;
+    hasCrm: string;
+    emailSequences: string;
+    customerCommunication: string;
+    dailyInvolvement: string;
+    successVision: string;
+    referralSystem: string;
+    salesProcess: string;
 }
 
 const DEFAULT_FORM_DATA: FormData = {
@@ -120,6 +132,18 @@ const DEFAULT_FORM_DATA: FormData = {
     newsletterOptIn: false,
     monthlyAdSpend: "",
     triedBefore: "",
+    recurringRevenuePct: "",
+    revenueTracking: "",
+    leadManagement: "",
+    leadResponseTime: "",
+    followUpProcess: "",
+    hasCrm: "",
+    emailSequences: "",
+    customerCommunication: "",
+    dailyInvolvement: "",
+    successVision: "",
+    referralSystem: "",
+    salesProcess: "",
 }
 
 export function AuditForm() {
@@ -752,6 +776,55 @@ export function AuditForm() {
                                                 </SelectContent>
                                             </Select>
                                         </div>
+                                        <div className="space-y-2">
+                                            <Label>What % of your revenue is recurring / subscription-based?</Label>
+                                            <Select value={formData.recurringRevenuePct} onValueChange={(val: string) => updateField("recurringRevenuePct", val)}>
+                                                <SelectTrigger className="bg-white border-[#E4E3DE]"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectItem value="none">None — all one-time</SelectItem>
+                                                    <SelectItem value="under-20">Under 20%</SelectItem>
+                                                    <SelectItem value="20-50">20 – 50%</SelectItem>
+                                                    <SelectItem value="50-80">50 – 80%</SelectItem>
+                                                    <SelectItem value="80+">80%+ (mostly recurring)</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label>How do you currently track revenue and pipeline?</Label>
+                                            <Select value={formData.revenueTracking} onValueChange={(val: string) => updateField("revenueTracking", val)}>
+                                                <SelectTrigger className="bg-white border-[#E4E3DE]"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectItem value="crm-full">CRM with full pipeline tracking</SelectItem>
+                                                    <SelectItem value="accounting-only">Accounting software only (QuickBooks, Xero)</SelectItem>
+                                                    <SelectItem value="spreadsheet">Spreadsheet / Google Sheets</SelectItem>
+                                                    <SelectItem value="nothing">Nothing formal — I just know</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label>What does your sales process look like?</Label>
+                                            <Select value={formData.salesProcess} onValueChange={(val: string) => updateField("salesProcess", val)}>
+                                                <SelectTrigger className="bg-white border-[#E4E3DE]"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectItem value="structured">Structured — defined stages, CRM, follow-up cadence</SelectItem>
+                                                    <SelectItem value="semi">Semi-structured — I have a process but it's inconsistent</SelectItem>
+                                                    <SelectItem value="adhoc">Ad-hoc — every deal is different</SelectItem>
+                                                    <SelectItem value="referral-only">Mostly referrals — no real sales process</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label>Do you have a referral or repeat-customer system?</Label>
+                                            <Select value={formData.referralSystem} onValueChange={(val: string) => updateField("referralSystem", val)}>
+                                                <SelectTrigger className="bg-white border-[#E4E3DE]"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectItem value="formal">Yes — formal referral program with incentives</SelectItem>
+                                                    <SelectItem value="informal">Informal — I ask sometimes, no system</SelectItem>
+                                                    <SelectItem value="passive">Passive — referrals happen but I don't drive them</SelectItem>
+                                                    <SelectItem value="none">No referral system at all</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
                                     </div>
                                 )}
 
@@ -827,6 +900,45 @@ export function AuditForm() {
                                                     </SelectContent>
                                                 </Select>
                                             </div>
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label>How do you currently manage new leads?</Label>
+                                            <Select value={formData.leadManagement} onValueChange={(val: string) => updateField("leadManagement", val)}>
+                                                <SelectTrigger className="bg-white border-[#E4E3DE]"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectItem value="crm-automated">CRM with automated follow-up sequences</SelectItem>
+                                                    <SelectItem value="crm-manual">CRM but follow-up is manual</SelectItem>
+                                                    <SelectItem value="spreadsheet">Spreadsheet or shared doc</SelectItem>
+                                                    <SelectItem value="email-inbox">Email inbox / phone — no real system</SelectItem>
+                                                    <SelectItem value="nothing">Nothing — leads come in and I respond when I can</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label>How fast do you typically respond to a new inquiry?</Label>
+                                            <Select value={formData.leadResponseTime} onValueChange={(val: string) => updateField("leadResponseTime", val)}>
+                                                <SelectTrigger className="bg-white border-[#E4E3DE]"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectItem value="instant">Instant / automated response</SelectItem>
+                                                    <SelectItem value="under-1hr">Within 1 hour</SelectItem>
+                                                    <SelectItem value="same-day">Same day</SelectItem>
+                                                    <SelectItem value="1-3-days">1 – 3 days</SelectItem>
+                                                    <SelectItem value="whenever">Whenever I get to it</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label>How do you communicate with existing customers?</Label>
+                                            <Select value={formData.customerCommunication} onValueChange={(val: string) => updateField("customerCommunication", val)}>
+                                                <SelectTrigger className="bg-white border-[#E4E3DE]"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectItem value="regular-automated">Regular — automated email sequences + newsletters</SelectItem>
+                                                    <SelectItem value="regular-manual">Regular — manually send updates/newsletters</SelectItem>
+                                                    <SelectItem value="occasional">Occasional — when I have something to share</SelectItem>
+                                                    <SelectItem value="reactive">Reactive only — I respond when they reach out</SelectItem>
+                                                    <SelectItem value="rarely">Rarely / never proactively reach out</SelectItem>
+                                                </SelectContent>
+                                            </Select>
                                         </div>
                                     </div>
                                 )}
@@ -908,6 +1020,11 @@ export function AuditForm() {
                                             <Textarea value={formData.keepsUpAtNight} onChange={(e) => updateField("keepsUpAtNight", e.target.value)}
                                                 className="bg-white border-[#E4E3DE] h-24" placeholder="Be specific..." />
                                         </div>
+                                        <div className="space-y-2">
+                                            <Label>What tasks require YOUR personal involvement every day? (that shouldn't)</Label>
+                                            <Textarea value={formData.dailyInvolvement} onChange={(e) => updateField("dailyInvolvement", e.target.value)}
+                                                className="bg-white border-[#E4E3DE] h-20" placeholder="e.g. Answering DMs, sending invoices, scheduling calls, handling complaints..." />
+                                        </div>
                                     </div>
                                 )}
 
@@ -941,6 +1058,43 @@ export function AuditForm() {
                                             <Label>Biggest Time-Waster in Your Business</Label>
                                             <Input value={formData.biggestTimeWaste} onChange={(e) => updateField("biggestTimeWaste", e.target.value)}
                                                 placeholder={config.step6.biggestTimeWaste.placeholder} className="bg-white border-[#E4E3DE]" />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label>Do you have a CRM?</Label>
+                                            <Select value={formData.hasCrm} onValueChange={(val: string) => updateField("hasCrm", val)}>
+                                                <SelectTrigger className="bg-white border-[#E4E3DE]"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectItem value="yes-active">Yes — actively using it (HubSpot, GHL, Salesforce, etc.)</SelectItem>
+                                                    <SelectItem value="yes-barely">Yes — set up but barely used</SelectItem>
+                                                    <SelectItem value="no-spreadsheet">No CRM — using spreadsheets</SelectItem>
+                                                    <SelectItem value="no-nothing">No CRM — nothing formal</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label>Do you have any automated email sequences running right now?</Label>
+                                            <Select value={formData.emailSequences} onValueChange={(val: string) => updateField("emailSequences", val)}>
+                                                <SelectTrigger className="bg-white border-[#E4E3DE]"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectItem value="yes-multiple">Yes — multiple sequences (welcome, nurture, re-engagement)</SelectItem>
+                                                    <SelectItem value="yes-one">Yes — one basic welcome sequence</SelectItem>
+                                                    <SelectItem value="no-planned">No — but it's on my list</SelectItem>
+                                                    <SelectItem value="no-nothing">No — email is all manual</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label>What happens when a new lead comes in — what's your follow-up process?</Label>
+                                            <Select value={formData.followUpProcess} onValueChange={(val: string) => updateField("followUpProcess", val)}>
+                                                <SelectTrigger className="bg-white border-[#E4E3DE]"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectItem value="automated-full">Fully automated — CRM triggers sequence immediately</SelectItem>
+                                                    <SelectItem value="automated-partial">Partial — auto initial response, then manual follow-up</SelectItem>
+                                                    <SelectItem value="manual-consistent">Manual but consistent — I have a process I follow</SelectItem>
+                                                    <SelectItem value="manual-inconsistent">Manual and inconsistent — depends on how busy I am</SelectItem>
+                                                    <SelectItem value="none">No follow-up process — they either convert or they don't</SelectItem>
+                                                </SelectContent>
+                                            </Select>
                                         </div>
                                         <div className="space-y-2">
                                             <Label>Have you tried to solve these problems before?</Label>
@@ -1025,6 +1179,11 @@ export function AuditForm() {
                                                     <SelectItem value="other">Researching for someone else</SelectItem>
                                                 </SelectContent>
                                             </Select>
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label>What does success look like for you in 6 months?</Label>
+                                            <Textarea value={formData.successVision} onChange={(e) => updateField("successVision", e.target.value)}
+                                                className="bg-white border-[#E4E3DE] h-20" placeholder="e.g. Revenue doubled, I'm working 30 hours a week, leads are handled automatically..." />
                                         </div>
                                         <div className="pt-4 border-t border-slate-800">
                                             <div className="flex items-start space-x-2">

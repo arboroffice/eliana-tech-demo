@@ -117,16 +117,28 @@ WEBSITE PROBLEMS FOUND: ${websiteFindings.join('; ')}
 
 OPERATIONAL DATA:
 - Revenue: ${formData.currentRevenue} | Trend: ${formData.revenueTrend} | Margin: ${formData.profitMargin}
+- Recurring Revenue %: ${formData.recurringRevenuePct || 'unknown'}
+- Revenue Tracking: ${formData.revenueTracking || 'unknown'}
+- Sales Process: ${formData.salesProcess || 'unknown'}
+- Referral System: ${formData.referralSystem || 'unknown'}
 - Team: ${formData.teamSize} people | Hours/Week Owner Works: ${hoursWasted}
 - % Time on High-Value Work: ${highValuePct} — the rest is waste
 - % Operations Automated: ${automatedPct} — everything else is manual labor
+- What Requires Owner's Daily Involvement: ${formData.dailyInvolvement || 'not answered'}
 - Hours/Week on Support: ${formData.supportHoursPerWeek}
 - Onboarding Automated: ${formData.onboardingAutomated}
 - Can Owner Step Away 2 Weeks: ${formData.twoWeeksOff}
 - Biggest Bottleneck: ${formData.bottleneck}
 - Biggest Time Waste Owner Named: ${formData.biggestTimeWaste || 'not answered'}
 - What Keeps Them Up at Night: ${formData.keepsUpAtNight || 'not answered'}
+- CRM Status: ${formData.hasCrm || 'unknown'}
+- Email Sequences: ${formData.emailSequences || 'unknown'}
+- Lead Management: ${formData.leadManagement || 'unknown'}
+- Lead Response Time: ${formData.leadResponseTime || 'unknown'}
+- Follow-Up Process: ${formData.followUpProcess || 'unknown'}
+- Customer Communication: ${formData.customerCommunication || 'unknown'}
 - Tools in Use: ${formData.tools?.join(', ') || 'none listed'}
+- Monthly Ad Spend: ${formData.monthlyAdSpend || 'unknown'}
 - Churn Rate: ${formData.churnRate} | Conversion Rate: ${formData.conversionRate}
 - Content Creation Hours/Week: ${formData.contentCreationHours}
 
@@ -254,8 +266,15 @@ OPERATIONAL PROFILE:
 - Churn: ${formData.churnRate} | Conversion: ${formData.conversionRate}
 - Hours/Week: ${formData.hoursPerWeek} | % Automated: ${formData.percentAutomated}
 - Can Step Away: ${formData.twoWeeksOff} | Tools: ${formData.tools?.join(', ') || 'none listed'}
+- CRM: ${formData.hasCrm || 'unknown'} | Email Sequences: ${formData.emailSequences || 'unknown'}
+- Lead Management: ${formData.leadManagement || 'unknown'} | Response Time: ${formData.leadResponseTime || 'unknown'}
+- Follow-Up Process: ${formData.followUpProcess || 'unknown'}
+- Sales Process: ${formData.salesProcess || 'unknown'} | Referral System: ${formData.referralSystem || 'unknown'}
+- Daily Owner Involvement: ${formData.dailyInvolvement || 'not answered'}
+- Success Vision: ${formData.successVision || 'not answered'}
 - Biggest Time Waste: ${formData.biggestTimeWaste || 'not answered'}
 - Revenue Trend: ${formData.revenueTrend} | Profit Margin: ${formData.profitMargin}
+- Recurring Revenue %: ${formData.recurringRevenuePct || 'unknown'}
 
 AUDIT FINDINGS:
 Website Problems: ${websiteFindings.join('; ')}
