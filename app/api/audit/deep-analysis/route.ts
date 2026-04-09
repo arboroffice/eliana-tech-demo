@@ -5,7 +5,9 @@ import {
   buildOperationsPrompt,
   buildOpportunitiesPrompt,
   buildReportPrompt,
+  buildSalesBriefPrompt,
   safeParseJSON,
+  type SalesBrief,
 } from '@/lib/audit-research'
 
 const anthropic = new Anthropic({
@@ -37,7 +39,7 @@ export async function POST(request: Request) {
           try {
             const msg1 = await anthropic.messages.create({
               model: 'claude-sonnet-4-6',
-              max_tokens: 300,
+              max_tokens: 600,
               messages: [{ role: 'user', content: buildScanningPrompt(websiteContent, formData) }],
             })
             const text1 = msg1.content
@@ -64,7 +66,7 @@ export async function POST(request: Request) {
           try {
             const msg2 = await anthropic.messages.create({
               model: 'claude-sonnet-4-6',
-              max_tokens: 400,
+              max_tokens: 700,
               messages: [{ role: 'user', content: buildOperationsPrompt(formData, websiteFindings) }],
             })
             const text2 = msg2.content
@@ -93,7 +95,7 @@ export async function POST(request: Request) {
           try {
             const msg3 = await anthropic.messages.create({
               model: 'claude-sonnet-4-6',
-              max_tokens: 500,
+              max_tokens: 800,
               messages: [{ role: 'user', content: buildOpportunitiesPrompt(formData, websiteFindings, operationalIssues) }],
             })
             const text3 = msg3.content
@@ -127,7 +129,7 @@ export async function POST(request: Request) {
           try {
             const msg4 = await anthropic.messages.create({
               model: 'claude-sonnet-4-6',
-              max_tokens: 400,
+              max_tokens: 600,
               messages: [{ role: 'user', content: buildReportPrompt(formData, websiteFindings, operationalIssues, opportunities) }],
             })
             const text4 = msg4.content
@@ -141,6 +143,27 @@ export async function POST(request: Request) {
 
           send('stage', { stage: 4, label: 'Building your report...', status: 'complete', findings: ['Report compiled successfully'] })
 
+          // ─── Stage 5: Sales Brief ────────────────────────
+          send('stage', { stage: 5, label: 'Preparing your strategy brief...', status: 'running' })
+
+          let salesBrief: SalesBrief | null = null
+          try {
+            const msg5 = await anthropic.messages.create({
+              model: 'claude-sonnet-4-6',
+              max_tokens: 700,
+              messages: [{ role: 'user', content: buildSalesBriefPrompt(formData, websiteFindings, operationalIssues, opportunities) }],
+            })
+            const text5 = msg5.content
+              .filter((b): b is Anthropic.TextBlock => b.type === 'text')
+              .map((b) => b.text)
+              .join('')
+            salesBrief = safeParseJSON<SalesBrief>(text5, null as any)
+          } catch {
+            salesBrief = null
+          }
+
+          send('stage', { stage: 5, label: 'Preparing your strategy brief...', status: 'complete', findings: ['Strategy brief ready'] })
+
           // ─── Send complete event ─────────────────────────
           send('complete', {
             websiteFindings,
@@ -148,6 +171,7 @@ export async function POST(request: Request) {
             opportunities,
             aiScores,
             websiteContent,
+            salesBrief,
           })
         } catch (error) {
           console.error('[DEEP ANALYSIS ERROR]', error)

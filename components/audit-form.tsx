@@ -71,6 +71,8 @@ interface FormData {
     growthBudget: string;
     decisionMaker: string;
     newsletterOptIn: boolean;
+    monthlyAdSpend: string;
+    triedBefore: string;
 }
 
 const DEFAULT_FORM_DATA: FormData = {
@@ -116,6 +118,8 @@ const DEFAULT_FORM_DATA: FormData = {
     growthBudget: "",
     decisionMaker: "",
     newsletterOptIn: false,
+    monthlyAdSpend: "",
+    triedBefore: "",
 }
 
 export function AuditForm() {
@@ -142,6 +146,7 @@ export function AuditForm() {
         { stage: 2, label: "Analyzing operations...", status: "pending", findings: [] },
         { stage: 3, label: "Identifying opportunities...", status: "pending", findings: [] },
         { stage: 4, label: "Building your report...", status: "pending", findings: [] },
+        { stage: 5, label: "Preparing your strategy brief...", status: "pending", findings: [] },
     ])
     const [researchFindings, setResearchFindings] = useState<any>(null)
 
@@ -337,7 +342,7 @@ export function AuditForm() {
 
     // Deep analysis UI — shown after submit while AI works
     if (isAnalyzing) {
-        const stageIcons = [Search, Settings, Lightbulb, FileText]
+        const stageIcons = [Search, Settings, Lightbulb, FileText, Brain]
         return (
             <div className="max-w-2xl mx-auto px-4 py-12">
                 <div className="text-center mb-12">
@@ -734,6 +739,19 @@ export function AuditForm() {
                                                 </SelectContent>
                                             </Select>
                                         </div>
+                                        <div className="space-y-2">
+                                            <Label>Monthly Ad / Marketing Spend</Label>
+                                            <Select value={formData.monthlyAdSpend} onValueChange={(val: string) => updateField("monthlyAdSpend", val)}>
+                                                <SelectTrigger className="bg-white border-[#E4E3DE]"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectItem value="none">None / $0</SelectItem>
+                                                    <SelectItem value="under-1k">Under $1K/month</SelectItem>
+                                                    <SelectItem value="1k-5k">$1K – $5K/month</SelectItem>
+                                                    <SelectItem value="5k-15k">$5K – $15K/month</SelectItem>
+                                                    <SelectItem value="15k+">$15K+/month</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
                                     </div>
                                 )}
 
@@ -923,6 +941,19 @@ export function AuditForm() {
                                             <Label>Biggest Time-Waster in Your Business</Label>
                                             <Input value={formData.biggestTimeWaste} onChange={(e) => updateField("biggestTimeWaste", e.target.value)}
                                                 placeholder={config.step6.biggestTimeWaste.placeholder} className="bg-white border-[#E4E3DE]" />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label>Have you tried to solve these problems before?</Label>
+                                            <Select value={formData.triedBefore} onValueChange={(val: string) => updateField("triedBefore", val)}>
+                                                <SelectTrigger className="bg-white border-[#E4E3DE]"><SelectValue placeholder="Select..." /></SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectItem value="no">No, haven't tried yet</SelectItem>
+                                                    <SelectItem value="diy">Yes — tried DIY (Zapier, YouTube, tools)</SelectItem>
+                                                    <SelectItem value="hired-freelancer">Yes — hired a freelancer, didn't stick</SelectItem>
+                                                    <SelectItem value="hired-agency">Yes — hired an agency, wasn't the right fit</SelectItem>
+                                                    <SelectItem value="internal">Yes — internal team tried, fell short</SelectItem>
+                                                </SelectContent>
+                                            </Select>
                                         </div>
                                         <div className="space-y-2">
                                             <Label>#1 Goal for Next 12 Months</Label>

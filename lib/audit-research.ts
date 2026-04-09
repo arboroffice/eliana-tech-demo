@@ -30,30 +30,44 @@ export interface DeepAnalysisResult {
   }
 }
 
+export interface SalesBrief {
+  buyerTemperature: 'hot' | 'warm' | 'cold'
+  temperatureReason: string
+  costOfInactionMonthly: number
+  recommendedFirstProject: string
+  firstProjectReason: string
+  objectionFlags: string[]
+  openingAngles: string[]
+  toolstackGaps: string
+}
+
 // ─── Background Research Prompt (Step 0) ─────────────────
 
 export function buildBackgroundResearchPrompt(websiteContent: string): string {
-  return `You are analyzing a business website for a Business Automation Audit. Based on the website content below, generate 3-5 specific insights about this business that would be relevant for an automation/AI systems consultant.
-
-Focus on:
-- What the business sells and to whom
-- What tech stack or platform they appear to use (Shopify, WordPress, etc.)
-- Obvious automation gaps (no chatbot, manual booking, no email capture, etc.)
-- Competitive positioning signals
-- Scale indicators (team size, multiple locations, product count)
+  return `You are a business systems auditor doing a quick pre-audit scan of a website. Your job is to spot PROBLEMS — gaps, leaks, and missing infrastructure — not to give compliments.
 
 WEBSITE CONTENT:
 ${websiteContent}
 
+Hunt for:
+- GAPS: systems/tools this business should have but visibly doesn't (no booking system, no live chat, no email opt-in, no reviews widget, no FAQ/knowledge base)
+- LEAKS: signs of leads or revenue bleeding out (no follow-up mechanism, no retargeting, dead contact forms, no urgency/offer on the page)
+- WASTE SIGNALS: signs of manual work (generic contact@email, no automation pixels, PDF downloads instead of dynamic tools)
+- TRUST GAPS: missing social proof, no testimonials, no case studies for a business that should have them
+- TECH FLAGS: outdated platform, slow-loading indicators, missing integrations that are standard for their industry
+
+Generate 4-6 SPECIFIC findings. Be blunt. Use "warning" for problems, "discovery" for notable observations, "opportunity" only when you've already named the gap it fixes.
+
 Respond with a JSON array of objects, each with:
 - "type": one of "discovery", "warning", or "opportunity"
-- "message": a short, specific insight (1 sentence, under 120 chars)
+- "message": a short, specific finding (1 sentence, under 130 chars) — name the PROBLEM, not the solution
 - "icon": a single relevant emoji
 
-Example format:
+Example:
 [
-  {"type": "discovery", "message": "Detected Shopify store with 50+ products but no post-purchase email sequence", "icon": "🛍️"},
-  {"type": "warning", "message": "No visible chatbot or live support — leads likely dropping after hours", "icon": "⚠️"}
+  {"type": "warning", "message": "No email opt-in or lead magnet visible — 100% of visitors leave with no way to follow up", "icon": "⚠️"},
+  {"type": "warning", "message": "Contact form only — no live chat or booking system, likely losing after-hours leads", "icon": "📵"},
+  {"type": "discovery", "message": "Shopify store detected but no abandoned cart or post-purchase email sequence visible", "icon": "🛒"}
 ]
 
 Return ONLY the JSON array, no markdown fences or other text.`
@@ -62,69 +76,116 @@ Return ONLY the JSON array, no markdown fences or other text.`
 // ─── Deep Analysis Prompts (Post-Submit) ─────────────────
 
 export function buildScanningPrompt(websiteContent: string, formData: any): string {
-  return `You are conducting a website scan for a business automation audit.
+  return `You are a business systems auditor scanning a website for gaps, leaks, and missing infrastructure.
 
 WEBSITE CONTENT:
 ${websiteContent}
 
 BUSINESS TYPE: ${formData.businessType || 'unknown'}
 COMPANY: ${formData.companyName || 'Unknown'}
+REVENUE: ${formData.currentRevenue}
 
-Analyze their website and identify 2-3 specific findings about their online presence, tech stack, and digital infrastructure. Be specific — reference actual things you see on their site.
+Your job is to find PROBLEMS — not compliments. Look for:
+- Missing systems that a business this size should have (lead capture, live chat, booking, automation)
+- Signs of manual work that should be automated (contact forms instead of booking tools, no chatbot, no reviews widget)
+- Tech debt or outdated infrastructure (slow site, broken integrations, generic email contact vs. CRM)
+- Revenue leaks visible from the outside (no upsells, no email capture, no retargeting pixels)
 
-Respond with a JSON array of 2-3 short strings (each under 100 chars). Example:
-["Built on WordPress with WooCommerce — no marketing automation detected", "Contact form only, no live chat or booking system"]
+Be blunt and specific — reference what you actually see (or DON'T see) on the site.
+
+Respond with a JSON array of 3 strings (each under 120 chars). Lead with the problem, not the solution.
+Example:
+["No lead capture or email opt-in — visitors leave with no way to follow up", "Contact form only — no live booking, likely losing after-hours leads", "No social proof, reviews, or trust signals visible above the fold"]
 
 Return ONLY the JSON array.`
 }
 
 export function buildOperationsPrompt(formData: any, websiteFindings: string[]): string {
-  return `You are analyzing business operations for an automation audit.
+  const hoursWasted = (() => {
+    if (formData.hoursPerWeek === '60+') return '60+'
+    if (formData.hoursPerWeek === '40-60') return '40-60'
+    if (formData.hoursPerWeek === '20-40') return '20-40'
+    return formData.hoursPerWeek || 'unknown'
+  })()
+  const highValuePct = formData.highValueWork || 'unknown'
+  const automatedPct = formData.percentAutomated || 'unknown'
+
+  return `You are diagnosing a business for operational waste, money leaks, and time drains.
 
 BUSINESS: ${formData.companyName || 'Unknown'} (${formData.businessType || 'unknown'})
-WEBSITE FINDINGS: ${websiteFindings.join('; ')}
+WEBSITE PROBLEMS FOUND: ${websiteFindings.join('; ')}
 
-KEY DATA:
-- Revenue: ${formData.currentRevenue}, Trend: ${formData.revenueTrend}
-- Team Size: ${formData.teamSize}
-- Hours/Week: ${formData.hoursPerWeek}, High-Value Work: ${formData.highValueWork}
-- Support Hours: ${formData.supportHoursPerWeek}/week
-- Automation Level: ${formData.percentAutomated}
+OPERATIONAL DATA:
+- Revenue: ${formData.currentRevenue} | Trend: ${formData.revenueTrend} | Margin: ${formData.profitMargin}
+- Team: ${formData.teamSize} people | Hours/Week Owner Works: ${hoursWasted}
+- % Time on High-Value Work: ${highValuePct} — the rest is waste
+- % Operations Automated: ${automatedPct} — everything else is manual labor
+- Hours/Week on Support: ${formData.supportHoursPerWeek}
 - Onboarding Automated: ${formData.onboardingAutomated}
-- Can Take 2 Weeks Off: ${formData.twoWeeksOff}
+- Can Owner Step Away 2 Weeks: ${formData.twoWeeksOff}
 - Biggest Bottleneck: ${formData.bottleneck}
-- Biggest Time Waste: ${formData.biggestTimeWaste || 'Not specified'}
-- Tools: ${formData.tools?.join(', ') || 'None listed'}
+- Biggest Time Waste Owner Named: ${formData.biggestTimeWaste || 'not answered'}
+- What Keeps Them Up at Night: ${formData.keepsUpAtNight || 'not answered'}
+- Tools in Use: ${formData.tools?.join(', ') || 'none listed'}
+- Churn Rate: ${formData.churnRate} | Conversion Rate: ${formData.conversionRate}
+- Content Creation Hours/Week: ${formData.contentCreationHours}
 
-Identify exactly 3 specific operational issues this business has, based on their data. Be specific and quantify where possible.
+BUYER CONTEXT (for framing severity):
+- Pain Level: ${Array.isArray(formData.painLevel) ? formData.painLevel[0] : formData.painLevel}/10
+- What Keeps Them Up: ${formData.keepsUpAtNight || 'not answered'}
+- What's Holding Them Back: ${formData.holdingBack || 'not answered'}
+- Monthly Ad Spend: ${formData.monthlyAdSpend || 'not answered'}
+- Have They Tried to Fix This Before: ${formData.triedBefore || 'not answered'}
+- Excitement to Fix It: ${formData.excitementLevel || 'not answered'}/10
+- 12-Month Personal Goal: ${formData.next12MonthsGoal || 'not answered'}
 
-Respond with a JSON array of 3 short strings (each under 120 chars). Example:
-["Spending 10+ hrs/week on manual support that AI could handle 80% of", "No automated onboarding — likely losing 30% of new customers in first 30 days"]
+DIAGNOSE exactly 3 specific operational problems. Frame each as a LEAK, WASTE, or GAP:
+- LEAK: revenue, leads, or customers being lost right now
+- WASTE: time or money being spent on things that should be automated or eliminated
+- GAP: a system or process that should exist but doesn't
+
+Be specific — use their numbers. Do NOT give solutions here, only diagnose the problem.
+
+Respond with a JSON array of 3 strings (each under 140 chars). Start each with the type in brackets.
+Example:
+["[LEAK] Churn at 10-20% with no automated re-engagement — losing est. $40K+/year in revenue that never comes back", "[WASTE] Owner spending 10+ hrs/week on support that AI could resolve instantly — 40+ hrs/month of high-cost manual triage", "[GAP] No automated client onboarding — new customers dropped into silence, causing early churn"]
 
 Return ONLY the JSON array.`
 }
 
 export function buildOpportunitiesPrompt(formData: any, websiteFindings: string[], operationalIssues: string[]): string {
-  return `You are identifying automation opportunities for a business.
+  return `You are building a specific ROI case for a business owner based on a real audit of their business.
 
 BUSINESS: ${formData.companyName || 'Unknown'} (${formData.businessType || 'unknown'})
-REVENUE: ${formData.currentRevenue}, GOAL: ${formData.revenueGoal}
-CHURN RATE: ${formData.churnRate}
-CONVERSION RATE: ${formData.conversionRate}
+REVENUE NOW: ${formData.currentRevenue} | GOAL: ${formData.revenueGoal}
+CHURN: ${formData.churnRate} | CONVERSION: ${formData.conversionRate}
+HOURS/WEEK: ${formData.hoursPerWeek} | HIGH-VALUE %: ${formData.highValueWork}
+AUTOMATED %: ${formData.percentAutomated}
 PAIN LEVEL: ${Array.isArray(formData.painLevel) ? formData.painLevel[0] : formData.painLevel}/10
-KEEPS THEM UP: ${formData.keepsUpAtNight || 'Not specified'}
-PROBLEMS: ${formData.problems?.join(', ') || 'None listed'}
+WHAT KEEPS THEM UP: ${formData.keepsUpAtNight || 'not specified'}
+SELF-REPORTED PROBLEMS: ${formData.problems?.join(', ') || 'none listed'}
+HOLDING THEM BACK: ${formData.holdingBack || 'not specified'}
+MONTHLY AD SPEND: ${formData.monthlyAdSpend || 'not specified'}
+TRIED TO FIX BEFORE: ${formData.triedBefore || 'not specified'}
+EXCITEMENT LEVEL: ${formData.excitementLevel || 'not specified'}/10
+START TIMELINE: ${formData.startDate || 'not specified'}
+BUDGET: ${formData.growthBudget || 'not specified'}
+DECISION MAKER: ${formData.decisionMaker || 'not specified'}
+12-MONTH PERSONAL GOAL: ${formData.next12MonthsGoal || 'not specified'}
 
-WEBSITE FINDINGS: ${websiteFindings.join('; ')}
-OPERATIONAL ISSUES: ${operationalIssues.join('; ')}
+GAPS/LEAKS/WASTE FOUND:
+${websiteFindings.map((f, i) => `Website ${i+1}: ${f}`).join('\n')}
+${operationalIssues.map((f, i) => `Ops ${i+1}: ${f}`).join('\n')}
 
-Identify exactly 3 specific automation/AI opportunities with estimated ROI. Match findings to solutions they would actually benefit from.
+Identify exactly 3 high-impact opportunities that directly fix the leaks/gaps/waste above. Each opportunity must:
+1. Be tied to a SPECIFIC problem found in the audit
+2. Include a REALISTIC dollar or time ROI estimate based on their actual numbers
+3. Be something a business at their revenue level can actually implement
+
+Do NOT be generic. "Workflow automation" is not an opportunity — "Automate manual client intake to eliminate 8 hrs/week of admin at $X/hr" IS.
 
 Respond with a JSON array of 3 objects:
-[{"opportunity": "string under 80 chars", "roi": "string under 60 chars"}]
-
-Example:
-[{"opportunity": "Automated post-purchase email sequence with AI personalization", "roi": "Est. +$24K/year from repeat purchases"}]
+[{"opportunity": "string under 100 chars", "roi": "string under 70 chars"}]
 
 Return ONLY the JSON array.`
 }
@@ -135,24 +196,85 @@ export function buildReportPrompt(
   operationalIssues: string[],
   opportunities: { opportunity: string; roi: string }[]
 ): string {
-  return `Compile a brief summary score assessment for this business audit.
+  return `You are scoring a business audit. Score each area HARSHLY and ACCURATELY — do not inflate scores to make people feel good. A business with manual processes, high churn, and an owner who can't step away should score LOW.
 
 BUSINESS: ${formData.companyName || 'Unknown'} (${formData.businessType || 'unknown'})
-REVENUE: ${formData.currentRevenue}, TREND: ${formData.revenueTrend}
-AUTOMATION: ${formData.percentAutomated}
-CHURN: ${formData.churnRate}
-CONVERSION: ${formData.conversionRate}
-HOURS/WEEK: ${formData.hoursPerWeek}
+REVENUE: ${formData.currentRevenue} | TREND: ${formData.revenueTrend} | MARGIN: ${formData.profitMargin}
+AUTOMATION: ${formData.percentAutomated} | TOOLS: ${formData.tools?.join(', ') || 'none'}
+CHURN: ${formData.churnRate} | CONVERSION: ${formData.conversionRate}
+HOURS/WEEK: ${formData.hoursPerWeek} | HIGH-VALUE %: ${formData.highValueWork}
 CAN STEP AWAY: ${formData.twoWeeksOff}
+ONBOARDING AUTOMATED: ${formData.onboardingAutomated}
+SUPPORT HOURS/WEEK: ${formData.supportHoursPerWeek}
 
-WEBSITE FINDINGS: ${websiteFindings.join('; ')}
-OPERATIONAL ISSUES: ${operationalIssues.join('; ')}
-OPPORTUNITIES: ${opportunities.map(o => `${o.opportunity} (${o.roi})`).join('; ')}
+GAPS FOUND ON WEBSITE: ${websiteFindings.join('; ')}
+OPERATIONAL PROBLEMS: ${operationalIssues.join('; ')}
+TOP OPPORTUNITIES: ${opportunities.map(o => `${o.opportunity} (${o.roi})`).join('; ')}
 
-Provide a JSON object with these scores (0-100) and a one-line summary for each:
+SCORING GUIDE:
+- Revenue: 70+ = growing with good margins; 40-69 = flat or thin margins; <40 = declining or pre-revenue
+- Automation: 70+ = 60%+ automated with integrated tools; 40-69 = partial; <40 = mostly manual
+- Acquisition: 70+ = strong conversion + diverse traffic; 40-69 = average; <40 = poor conversion or single channel
+- Retention: 70+ = <5% churn; 40-69 = 5-10% churn; <40 = 10%+ churn or unknown
+- Time: 70+ = owner can step away freely; 40-69 = owner-dependent; <40 = completely owner-dependent, 40+ hrs/week
+
+Provide scores and a one-line summary that names the SPECIFIC problem (not a generic statement).
 {"revenue": {"score": N, "summary": "..."}, "automation": {"score": N, "summary": "..."}, "acquisition": {"score": N, "summary": "..."}, "retention": {"score": N, "summary": "..."}, "time": {"score": N, "summary": "..."}}
 
-Base scores on the data provided. Be accurate — don't inflate. Return ONLY the JSON object.`
+Return ONLY the JSON object.`
+}
+
+// ─── Sales Brief Prompt (Stage 5 — Internal Intel) ───────
+
+export function buildSalesBriefPrompt(
+  formData: any,
+  websiteFindings: string[],
+  operationalIssues: string[],
+  opportunities: { opportunity: string; roi: string }[]
+): string {
+  return `You are a senior sales strategist preparing a pre-call brief for a consultative sales team. Based on this business audit data, generate actionable intel they need before the strategy session.
+
+LEAD INFO:
+- Name: ${formData.fullName || 'Unknown'} | Company: ${formData.companyName || 'Unknown'}
+- Business Type: ${formData.businessType || 'unknown'} | Revenue: ${formData.currentRevenue}
+- Website: ${formData.websiteUrl || 'not provided'}
+
+BUYING SIGNALS:
+- Pain Level: ${Array.isArray(formData.painLevel) ? formData.painLevel[0] : formData.painLevel}/10
+- Excitement to Fix: ${formData.excitementLevel || 'not answered'}/10
+- Start Timeline: ${formData.startDate || 'not answered'}
+- Budget Range: ${formData.growthBudget || 'not answered'}
+- Decision Maker: ${formData.decisionMaker || 'not answered'}
+- What Keeps Them Up: ${formData.keepsUpAtNight || 'not answered'}
+- What's Holding Them Back: ${formData.holdingBack || 'not answered'}
+- Tried to Fix Before: ${formData.triedBefore || 'not answered'}
+- Monthly Ad Spend: ${formData.monthlyAdSpend || 'not answered'}
+
+OPERATIONAL PROFILE:
+- Churn: ${formData.churnRate} | Conversion: ${formData.conversionRate}
+- Hours/Week: ${formData.hoursPerWeek} | % Automated: ${formData.percentAutomated}
+- Can Step Away: ${formData.twoWeeksOff} | Tools: ${formData.tools?.join(', ') || 'none listed'}
+- Biggest Time Waste: ${formData.biggestTimeWaste || 'not answered'}
+- Revenue Trend: ${formData.revenueTrend} | Profit Margin: ${formData.profitMargin}
+
+AUDIT FINDINGS:
+Website Problems: ${websiteFindings.join('; ')}
+Operational Issues: ${operationalIssues.join('; ')}
+Top Opportunities: ${opportunities.map(o => `${o.opportunity} (${o.roi})`).join('; ')}
+
+Generate a concise sales brief. Be blunt — this is for the team, not the prospect.
+
+Return ONLY this JSON object (no markdown):
+{
+  "buyerTemperature": "hot|warm|cold",
+  "temperatureReason": "1 sentence — cite specific signals (pain + budget + timeline + decision authority)",
+  "costOfInactionMonthly": <integer dollar amount — sum of churn loss + wasted labor cost per month>,
+  "recommendedFirstProject": "specific project name in under 60 chars",
+  "firstProjectReason": "why this is the highest-ROI first engagement for this specific person — 1-2 sentences",
+  "objectionFlags": ["specific objection based on their data — quote the field that signals it", "second objection if applicable"],
+  "openingAngles": ["lead-in #1 — specific stat or their own words to open with", "lead-in #2 — second angle"],
+  "toolstackGaps": "1-2 sentences on what they have vs. what's missing — name actual tools"
+}`
 }
 
 // ─── Parse helpers ───────────────────────────────────────

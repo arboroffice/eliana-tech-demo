@@ -26,6 +26,16 @@ interface AuditResultsProps {
     opportunities?: { opportunity: string; roi: string }[]
     aiScores?: any
     websiteContent?: string
+    salesBrief?: {
+      buyerTemperature: 'hot' | 'warm' | 'cold'
+      temperatureReason: string
+      costOfInactionMonthly: number
+      recommendedFirstProject: string
+      firstProjectReason: string
+      objectionFlags: string[]
+      openingAngles: string[]
+      toolstackGaps: string
+    } | null
   } | null
 }
 
@@ -1520,6 +1530,88 @@ export function AuditResults({ formData, auditScore, researchFindings }: AuditRe
           </div>
         </Card>
       </FadeUp>
+
+      {/* ── 10b. Sales Brief (Internal — Strategy Session Prep) ─────── */}
+      {researchFindings?.salesBrief && (
+        <FadeUp delay={0.31}>
+          <div className="border border-[#E4E3DE] bg-[#FAFAF8] overflow-hidden">
+            <div className="px-8 py-5 border-b border-[#E4E3DE] flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <Brain className="w-4 h-4 text-[#D90019]" />
+                <div>
+                  <h2 className="text-black font-bold text-sm uppercase tracking-widest">Strategy Session Brief</h2>
+                  <p className="text-[#888] text-[10px] font-mono uppercase tracking-widest">Prepared for your consultation</p>
+                </div>
+              </div>
+              <div className={`px-3 py-1 text-[10px] font-mono font-bold uppercase tracking-widest ${
+                researchFindings.salesBrief.buyerTemperature === 'hot' ? 'bg-[#D90019] text-white' :
+                researchFindings.salesBrief.buyerTemperature === 'warm' ? 'bg-orange-500 text-white' :
+                'bg-[#888] text-white'
+              }`}>
+                {researchFindings.salesBrief.buyerTemperature === 'hot' ? 'High Priority' :
+                 researchFindings.salesBrief.buyerTemperature === 'warm' ? 'Active Interest' : 'Exploring'}
+              </div>
+            </div>
+            <div className="p-8 grid md:grid-cols-2 gap-8">
+              {/* Left column */}
+              <div className="space-y-6">
+                <div>
+                  <p className="text-[#888] text-[10px] font-mono uppercase tracking-widest mb-2 font-bold">Engagement Signal</p>
+                  <p className="text-[#555] text-sm leading-relaxed">{researchFindings.salesBrief.temperatureReason}</p>
+                </div>
+                {researchFindings.salesBrief.costOfInactionMonthly > 0 && (
+                  <div>
+                    <p className="text-[#888] text-[10px] font-mono uppercase tracking-widest mb-2 font-bold">Cost of Inaction / Month</p>
+                    <p className="text-[#D90019] text-3xl font-black tracking-tighter">
+                      {fmt$(researchFindings.salesBrief.costOfInactionMonthly)}<span className="text-[#888] text-sm font-mono">/mo</span>
+                    </p>
+                  </div>
+                )}
+                <div>
+                  <p className="text-[#888] text-[10px] font-mono uppercase tracking-widest mb-2 font-bold">Recommended First Project</p>
+                  <p className="text-black font-bold text-sm uppercase tracking-tight mb-1">{researchFindings.salesBrief.recommendedFirstProject}</p>
+                  <p className="text-[#555] text-xs leading-relaxed">{researchFindings.salesBrief.firstProjectReason}</p>
+                </div>
+                {researchFindings.salesBrief.toolstackGaps && (
+                  <div>
+                    <p className="text-[#888] text-[10px] font-mono uppercase tracking-widest mb-2 font-bold">Toolstack Assessment</p>
+                    <p className="text-[#555] text-xs leading-relaxed">{researchFindings.salesBrief.toolstackGaps}</p>
+                  </div>
+                )}
+              </div>
+              {/* Right column */}
+              <div className="space-y-6">
+                {researchFindings.salesBrief.openingAngles?.length > 0 && (
+                  <div>
+                    <p className="text-[#888] text-[10px] font-mono uppercase tracking-widest mb-3 font-bold">Open the Call With</p>
+                    <div className="space-y-2">
+                      {researchFindings.salesBrief.openingAngles.map((angle: string, i: number) => (
+                        <div key={i} className="flex items-start gap-3 p-3 bg-white border border-[#E4E3DE]">
+                          <span className="text-[#D90019] font-bold text-xs shrink-0 mt-0.5">{i + 1}.</span>
+                          <p className="text-[#555] text-xs leading-relaxed">{angle}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {researchFindings.salesBrief.objectionFlags?.length > 0 && (
+                  <div>
+                    <p className="text-[#888] text-[10px] font-mono uppercase tracking-widest mb-3 font-bold">Likely Objections</p>
+                    <div className="space-y-2">
+                      {researchFindings.salesBrief.objectionFlags.map((flag: string, i: number) => (
+                        <div key={i} className="flex items-start gap-3 p-3 bg-orange-50 border border-orange-200">
+                          <AlertCircle className="w-3 h-3 text-orange-500 shrink-0 mt-0.5" />
+                          <p className="text-orange-800 text-xs leading-relaxed">{flag}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </FadeUp>
+      )}
 
       {/* ── 11. Next Step — Budget-based routing ───────────────────── */}
       <FadeUp delay={0.32}>

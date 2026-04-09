@@ -38,7 +38,7 @@ export async function POST(request: Request) {
     // Send to Claude for quick analysis
     const message = await anthropic.messages.create({
       model: 'claude-sonnet-4-6',
-      max_tokens: 500,
+      max_tokens: 800,
       messages: [
         {
           role: 'user',
